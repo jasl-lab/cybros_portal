@@ -13,7 +13,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
              host: 'oauth2id.test',
              identifier: Rails.application.credentials.openid_connect_identifier!,
              secret: Rails.application.credentials.openid_connect_secret!,
-             redirect_uri: 'https://portal.test/users/openid_connect',
+             redirect_uri: 'https://portal.test/auth/openid_connect/callback',
              authorization_endpoint: '/oauth/authorize',
              token_endpoint: '/oauth/token',
              userinfo_endpoint: '/oauth/userinfo',

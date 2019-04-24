@@ -19,11 +19,6 @@ module Users
       super
     end
 
-    def openid_connect
-      @omniaut_auth = request.env['omniauth.auth']
-      Rails.logger.debug JSON.pretty_generate(@omniaut_auth)
-    end
-
     # DELETE /resource/sign_out
     # def destroy
     #   super
