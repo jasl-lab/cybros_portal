@@ -7,7 +7,7 @@ zh-CN:
         profile: "编辑个人资料"
         sign_out: "登出"
     footer:
-      copyright: "© 2019 Jasl, MIT license"
+      copyright: "天华建筑设计有限公司 由Cybros © 2019 Jasl, MIT license 驱动"
     sidebar:
       application:
         header: "Home"

@@ -35,6 +35,14 @@ Rails.application.routes.draw do
   }
 
   devise_scope :user do
+    resource :callback, only: [],
+             path: "users",
+             controller: "users/sessions" do
+      collection do
+        get :openid_connect
+      end
+    end
+
     resource :registrations,
              only: %i[new create],
              path: "users",

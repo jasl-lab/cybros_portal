@@ -7,7 +7,7 @@ en:
         profile: "Edit Profile"
         sign_out: "Sign Out"
     footer:
-      copyright: "© 2019 Jasl, MIT license"
+      copyright: "Tianhua Architectural Design Co., Ltd. powered by Cybros © 2019 Jasl, MIT license"
     sidebar:
       application:
         home: "Home"
