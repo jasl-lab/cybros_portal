@@ -42,3 +42,5 @@ set :rbenv_type, :user
 set :rbenv_ruby, '2.6.3'
 
 set :puma_init_active_record, true
+# https://stackoverflow.com/a/48627238/262826
+Rake::Task["deploy:assets:backup_manifest"].clear_actions
