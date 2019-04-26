@@ -94,5 +94,7 @@ module CybrosCore
 
     # config.time_zone = "Asia/Shanghai"
     # config.i18n.default_locale = "zh-CN"
+    config.time_zone = "Asia/Shanghai"
+    config.i18n.default_locale = "zh-CN"
   end
 end
