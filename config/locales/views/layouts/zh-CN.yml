@@ -1,7 +1,7 @@
 zh-CN:
   layouts:
     header:
-      brand: "Cybros Core"
+      brand: "Cybros"
       account_menu:
         admin: "后台管理"
         profile: "编辑个人资料"

@@ -1,7 +1,7 @@
 en:
   layouts:
     header:
-      brand: "Cybros Core"
+      brand: "Cybros"
       account_menu:
         admin: "Administration"
         profile: "Edit Profile"
