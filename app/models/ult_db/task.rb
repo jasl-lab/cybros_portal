@@ -9,10 +9,9 @@ module UltDb
 
     def self.all_tasks
       Task.connection.select_rows("
-select TASKID, PROCESSNAME, INCIDENT, STEPLABEL, ASSIGNEDTOUSER, STARTTIME
+select TOP 100 TASKID, PROCESSNAME, INCIDENT, STEPLABEL, ASSIGNEDTOUSER, STARTTIME
 from TASKS
-where ASSIGNEDTOUSER = 'Thape/009740'
-  and STATUS=1 -- 1 = 处理中
+where STATUS=1 -- 1 = 处理中
   ")
     end
   end
