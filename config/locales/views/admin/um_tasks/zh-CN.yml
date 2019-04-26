@@ -1,0 +1,13 @@
+---
+zh-CN:
+  admin:
+    um_tasks:
+      index:
+        title: "UM 处理中任务管理"
+        table:
+          task_id: "任务 ID"
+          process_name: "流程名"
+          incident: "事件号"
+          step_label: "最后登录"
+          assigned_to_user: "当前任务用户"
+          start_time: "开始时间"

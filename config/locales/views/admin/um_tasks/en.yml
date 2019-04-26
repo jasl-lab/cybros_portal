@@ -1,0 +1,13 @@
+---
+en:
+  admin:
+    um_tasks:
+      index:
+        title: "UM Inprocess Tasks Management"
+        table:
+          task_id: "Task ID"
+          process_name: "Process Name"
+          incident: "Incident"
+          step_label: "Step Label"
+          assigned_to_user: "Assigned to user"
+          start_time: "Start Time"

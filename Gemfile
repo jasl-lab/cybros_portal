@@ -13,6 +13,10 @@ gem "rails-i18n"
 # Use sqlite as the database for Active Record
 gem "mysql2"
 
+gem 'tiny_tds'
+# bundle config local.activerecord-sqlserver-adapter /Users/guochunzhong/git/oss/activerecord-sqlserver-adapter/
+gem 'activerecord-sqlserver-adapter', git: 'git@github.com:rails-sqlserver/activerecord-sqlserver-adapter.git', branch: '6-0-dev'
+
 # Use Puma as the app server
 gem "puma", "~> 4.3.0"
 # Use development version of Webpacker

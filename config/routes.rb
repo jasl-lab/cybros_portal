@@ -26,6 +26,8 @@ Rails.application.routes.draw do
         patch :resend_invitation_mail
       end
     end
+
+    resources :um_tasks, only: %i[index]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {
