@@ -98,3 +98,6 @@ module CybrosCore
     config.i18n.default_locale = "zh-CN"
   end
 end
+
+require Rails.root.join("lib", "aes_encrypt_decrypt.rb")
+
