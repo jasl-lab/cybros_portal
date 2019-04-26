@@ -4,10 +4,11 @@ zh-CN:
     um_tasks:
       index:
         title: "UM 处理中任务管理"
+        search: "搜索"
         table:
           task_id: "任务 ID"
           process_name: "流程名"
           incident: "流程实例号"
-          step_label: "最后登录"
+          step_label: "步骤名"
           assigned_to_user: "当前任务用户"
           start_time: "开始时间"

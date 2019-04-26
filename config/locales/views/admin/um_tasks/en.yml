@@ -4,6 +4,7 @@ en:
     um_tasks:
       index:
         title: "UM Inprocess Tasks Management"
+        search: "Search"
         table:
           task_id: "Task ID"
           process_name: "Process Name"

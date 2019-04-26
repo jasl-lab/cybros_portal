@@ -3,7 +3,10 @@ class Admin::UmTasksController < Admin::ApplicationController
 
   def index
     prepare_meta_tags title: t(".title")
-    @tasks = UltDb::Task.all_tasks
+    @process_name = params[:process_name]&.strip
+    @assigned_to_user = params[:assigned_to_user]&.strip
+    @tasks = UltDb::Task.get_tasks(@process_name, @assigned_to_user)
+    @all_process_name = UltDb::Task.all_process_name
   end
 
   private

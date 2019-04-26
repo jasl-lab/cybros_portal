@@ -4,7 +4,17 @@
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
-
+      <%= form_tag admin_um_tasks_path, method: :get, class: 'form-inline' do -%>
+        <div class="form-group">
+          <label class="mr-1" for="select-process-name"><%= t(".table.process_name") -%></label>
+          <%= select_tag 'process_name', options_for_select(@all_process_name, @process_name), include_blank: true, class: 'form-control', id: 'select-process-name' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1" for="text-assigned-to-user"><%= t(".table.assigned_to_user") -%></label>
+          <%= text_field_tag 'assigned_to_user', @assigned_to_user, class: 'form-control', id: 'text-assigned-to-user' %>
+        </div>
+        <div><%= submit_tag t(".search") %></div>
+      <% end -%>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
