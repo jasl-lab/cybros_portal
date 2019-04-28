@@ -10,6 +10,10 @@ class User < ApplicationRecord
 
   scope :active, -> { where(locked_at: nil) }
 
+  has_many :department_users, dependent: :destroy
+  has_many :departments, through: :department_users
+
+
   def admin?
     email.in? Settings.admin.emails
   end
