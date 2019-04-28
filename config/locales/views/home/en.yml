@@ -1,4 +1,5 @@
 ---
 en:
-  show:
-    title: "Home"
+  home:
+    show:
+      title: "Home"

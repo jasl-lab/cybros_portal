@@ -1,4 +1,5 @@
 ---
 zh-CN:
-  show:
-    title: "首页"
+  home:
+    show:
+      title: "首页"
