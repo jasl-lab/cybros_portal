@@ -7,6 +7,11 @@
                                   "public/assets","coverage","node_modules","public/packs", "storage"],
       "file_exclude_patterns": ["*.sublime-workspace",".byebug_history",".DS_Store","config/master.key",
                                 "config/credentials.yml.enc", "db/*.sqlite3",]
+    },
+    {
+      "path": "./node_modules/@coreui/coreui",
+      "folder_exclude_patterns": ["dist","node_modules"],
+      "file_exclude_patterns": ["docs/js/plugins/fullcalendar.min.js"]
     }
   ],
   "settings":
