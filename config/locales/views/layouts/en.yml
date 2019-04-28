@@ -10,7 +10,9 @@ en:
       copyright: "Tianhua Architectural Design Co., Ltd. powered by Cybros © 2019 Jasl, MIT license"
     sidebar:
       application:
-        home: "Home"
+        header: "Home"
+        company: "Company"
+        person: "Person"
       accounts:
         profile: "Profile"
         password: "Password"

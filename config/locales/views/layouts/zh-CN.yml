@@ -10,8 +10,9 @@ zh-CN:
       copyright: "天华建筑设计有限公司 由Cybros © 2019 Jasl, MIT license 驱动"
     sidebar:
       application:
-        header: "Home"
-        home: "首页"
+        header: "首页"
+        company: "公司"
+        person: "个人事务"
       accounts:
         header: "用户设置"
         profile: "个人信息"

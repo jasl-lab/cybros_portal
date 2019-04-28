@@ -9,8 +9,14 @@
     <ul class="nav">
       <%= nav_item path: 'home#index', html_options: {class: "nav-item"} do %>
         <%= link_to root_path, class: "nav-link" do %>
-          <i class="fas fa-tachometer-alt"></i>
-          <%= t("layouts.sidebar.application.home") %>
+          <i class="nav-icon fas fa-building"></i>
+          <%= t("layouts.sidebar.application.company") %>
+        <% end %>
+      <% end %>
+      <%= nav_item path: 'home#index', html_options: {class: "nav-item"} do %>
+        <%= link_to root_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.application.person") %>
         <% end %>
       <% end %>
     </ul>
