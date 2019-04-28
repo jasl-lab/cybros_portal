@@ -9,12 +9,14 @@ class OpenidConnectController < ApplicationController
       user.password_confirmation = random_password
     end
     main_position_title = @omniaut_auth.dig(:extra, :raw_info, :main_position, :name)
+    clerk_code = @omniaut_auth.dig(:extra, :raw_info, :clerk_code)
+    chinese_name = @omniaut_auth.dig(:extra, :raw_info, :chinese_name)
     departments = @omniaut_auth.dig(:extra, :raw_info, :departments)
     departments.each do |d|
       d = Department.find_or_create_by(id: d[:id], name: d[:name])
       DepartmentUser.find_or_create_by!(user_id: user.id, department_id: d.id)
     end
-    user.update(position_title: main_position_title)
+    user.update(position_title: main_position_title, clerk_code: clerk_code, chinese_name: chinese_name)
 
     sign_in user
     redirect_to root_path
