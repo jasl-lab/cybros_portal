@@ -1,0 +1,19 @@
+---
+en:
+  person:
+    name_cards:
+      index:
+        title: "Name card apply history list"
+        table:
+          task_id: "Task ID"
+          name: "Name in Chinese"
+          english_name: "English name"
+          department_name: "Department in Chinese"
+          en_department_name: "Department in English"
+          title: "Title in Chinese"
+          en_title: "Title in English"
+          phone_ext: "Phone ext"
+          office_level: "Office level"
+          fax_no: "Fax no"
+          mobile: "Mobile"
+          print_out_box_number: "Print out box number"

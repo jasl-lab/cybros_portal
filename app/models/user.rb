@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
-
+  has_many :name_card_applies, dependent: :restrict_with_error
 
   def admin?
     email.in? Settings.admin.emails

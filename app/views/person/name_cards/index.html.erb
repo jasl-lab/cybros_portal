@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="container">
+      <h3 class="page-title">
+        <%= t(".title") %>
+      </h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.name") %><br /><%= t(".table.english_name") %><br /><%= t(".table.task_id") %></th>
+            <th><%= t(".table.department_name") %><br /><%= t(".table.en_department_name") %></th>
+            <th><%= t(".table.title") %><br /><%= t(".table.en_title") %></th>
+            <th><%= t(".table.phone_ext") %><br /><%= t(".table.office_level") %></th>
+            <th><%= t(".table.mobile") %><br /><%= t(".table.fax_no") %></th>
+            <th><%= t(".table.print_out_box_number") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @name_card_applies.each do |name_card_apply| %>
+            <tr>
+              <td>
+                <%= name_card_apply.user.chinese_name -%>
+                <br />
+                <%= name_card_apply.english_name -%>
+                <br />
+                <%= name_card_apply.begin_task_id -%>
+              </td>
+              <td>
+                <%= name_card_apply.department_name -%>
+                <br />
+                <%= name_card_apply.en_department_name -%>
+              </td>
+              <td>
+                <%= name_card_apply.title -%>
+                <br />
+                <%= name_card_apply.en_title -%>
+              </td>
+              <td>
+                <%= name_card_apply.phone_ext -%>
+                <br />
+                <%= name_card_apply.office_level -%>
+              </td>
+              <td>
+                <%= name_card_apply.mobile -%>
+                <br />
+                <%= name_card_apply.fax_no -%>
+              </td>
+              <td>
+                <%= name_card_apply.print_out_box_number -%>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

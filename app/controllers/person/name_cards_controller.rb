@@ -4,7 +4,8 @@ class Person::NameCardsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def index
-    prepare_meta_tags title: t("person.home.index.title")
+    prepare_meta_tags title: t(".title")
+    @name_card_applies = policy_scope(NameCardApply)
   end
 
   protected

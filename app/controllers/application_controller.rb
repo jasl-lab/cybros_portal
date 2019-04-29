@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit
   before_action :prepare_meta_tags, if: -> { request.format.html? }
 
   include StoreLocation

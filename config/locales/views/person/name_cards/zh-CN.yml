@@ -1,0 +1,19 @@
+---
+zh-CN:
+  person:
+    name_cards:
+      index:
+        title: "名片申请历史清单"
+        table:
+          task_id: "任务 ID"
+          name: "姓名"
+          english_name: "英文名"
+          department_name: "部门名"
+          en_department_name: "部门英文名"
+          title: "职务"
+          en_title: "职务英文名"
+          phone_ext: "分机"
+          office_level: "楼层"
+          fax_no: "传真"
+          mobile: "手机"
+          print_out_box_number: "印刷盒数"

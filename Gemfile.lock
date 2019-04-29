@@ -1,10 +1,10 @@
 GIT
   remote: git@github.com:rails-sqlserver/activerecord-sqlserver-adapter.git
-  revision: 1057a814264bd7aff094fb574a6c09adc4a0bc65
+  revision: dd698f133594b1954f67aec7ddf0192e89c1d232
   branch: 6-0-dev
   specs:
-    activerecord-sqlserver-adapter (6.0.0.beta1)
-      activerecord (~> 6.0.0.beta3)
+    activerecord-sqlserver-adapter (6.0.0)
+      activerecord (~> 6.0.0)
       tiny_tds
 
 GEM
@@ -244,6 +244,8 @@ GEM
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.2.2)
     rack-oauth2 (1.14.0)
       activesupport
@@ -404,6 +406,7 @@ DEPENDENCIES
   mysql2
   omniauth_openid_connect
   puma (~> 4.3.0)
+  pundit
   rails (~> 6.0.3)
   rails-i18n
   rubocop
