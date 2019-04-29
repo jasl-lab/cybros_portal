@@ -13,8 +13,8 @@
           <%= t("layouts.sidebar.application.company") %>
         <% end %>
       <% end %>
-      <%= nav_item path: 'home#index', html_options: {class: "nav-item"} do %>
-        <%= link_to root_path, class: "nav-link" do %>
+      <%= nav_item controller: 'person/home', html_options: {class: "nav-item"} do %>
+        <%= link_to person_root_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-user-alt"></i>
           <%= t("layouts.sidebar.application.person") %>
         <% end %>

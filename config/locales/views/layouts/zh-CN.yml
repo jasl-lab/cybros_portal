@@ -23,3 +23,6 @@ zh-CN:
         home: "总览"
         users: "用户"
         um_tasks: "UM任务"
+      person:
+        header: "个人首页"
+        name_card: "名片"

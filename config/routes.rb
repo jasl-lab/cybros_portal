@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     resources :um_tasks, only: %i[index]
   end
 
+  namespace :person do
+    root to: "home#index"
+  end
+
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: "users/confirmations",
     passwords: "users/passwords",
