@@ -2,8 +2,29 @@
 en:
   person:
     name_cards:
+      new:
+        form_title: "New name card apply"
+        form_header: "Tianhua name card apply table"
+        name: "Name in Chinese"
+        english_name: "English name"
+        department_name: "Department in Chinese"
+        department_fill_hint: "Business cards do not support multiple departments. If you want to use part-time department cards, please re-fill a new business card information form."
+        en_department_name: "Department in English"
+        en_department_fill_hint: "The English name of the department is brought out according to the Chinese and English comparison table. It cannot be changed. "
+        title: "Title in Chinese"
+        en_title: "Title in English"
+        phone_ext: "Phone ext"
+        office_level: "Office level"
+        fax_no: "Fax no"
+        mobile: "Mobile"
+        print_out_box_number: "Print out box number"
+      create:
+        success: "Your new name card apply created!"
+
       index:
         title: "Name card apply history list"
+        actions:
+          new: "New name card apply"
         table:
           task_id: "Task ID"
           name: "Name in Chinese"

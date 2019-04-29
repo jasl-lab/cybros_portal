@@ -2,8 +2,29 @@
 zh-CN:
   person:
     name_cards:
+      new:
+        form_title: "新建名片申请"
+        form_header: "天华名片信息表"
+        name: "姓名"
+        english_name: "英文名"
+        department_name: "部门名"
+        department_fill_hint: "印制名片的名片不支持多部门，如果要使用兼职部门名片，请重新填写一张新的名片信息表。"
+        en_department_name: "部门英文名"
+        en_department_fill_hint: "部门英文名根据中英文对照表带出，不可更改，若对带出的部门英文名有异议，请联系品牌和公关部修改。"
+        title: "职务"
+        en_title: "职务英文名"
+        phone_ext: "分机"
+        office_level: "楼层"
+        fax_no: "传真"
+        mobile: "手机"
+        print_out_box_number: "印刷盒数"
+      create:
+        success: "您的名片申请成功创建！"
+
       index:
         title: "名片申请历史清单"
+        actions:
+          new: "新名片申请"
         table:
           task_id: "任务 ID"
           name: "姓名"

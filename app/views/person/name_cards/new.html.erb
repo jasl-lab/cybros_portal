@@ -1,0 +1,112 @@
+<div class="row">
+<div class="col-md-12">
+<div class="card">
+<div class="card-header">
+  <strong><%= t('.form_header') %></strong>
+</div>
+<%= form_with model: @name_card_apply, url: person_name_cards_path, class: 'form-horizontal' do |f| %>
+<div class="card-body">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-name"><%= t('.name') %></label>
+        <div class="col-md-9">
+          <input class="form-control" id="text-input-name" type="text" name="name_card_apply[name]" disabled value="<%= current_user.chinese_name -%>">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-department-name"><%= t('.department_name') %></label>
+        <div class="col-md-9">
+          <%= f.select :department_name, current_user.departments.collect { |d| [d.name] }, {}, id: 'text-input-department-name', class: 'form-control' %>
+          <span class="help-block"><%= t('.department_fill_hint') %></span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-title"><%= t('.title') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :title, class: 'form-control', id: 'text-input-title' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-english-name"><%= t('.english_name') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :english_name, class: 'form-control', id: 'text-input-english-name' %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-en-department-name"><%= t('.en_department_name') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :en_department_name, class: 'form-control', id: 'text-input-en-department-name' %>
+          <span class="help-block"><%= t('.en_department_fill_hint') %></span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-en-title"><%= t('.en_title') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :en_title, class: 'form-control', id: 'text-input-en-title' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-mobile"><%= t('.mobile') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :mobile, class: 'form-control', id: 'text-input-mobile' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-phone_ext"><%= t('.phone_ext') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :phone_ext, class: 'form-control', id: 'text-input-phone_ext' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-fax_no"><%= t('.fax_no') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :fax_no, class: 'form-control', id: 'text-input-fax_no' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-email"><%= t('.email') %></label>
+        <div class="col-md-9">
+          <input class="form-control" id="text-input-email" type="text" name="name_card_apply[email]" disabled value="<%= current_user.email -%>">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="text-input-office_level"><%= t('.office_level') %></label>
+        <div class="col-md-8">
+          <%= f.text_field :office_level, class: 'form-control', id: 'text-input-office_level' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="text-input-print_out_box_number"><%= t('.print_out_box_number') %></label>
+        <div class="col-md-8">
+          <%= f.text_field :print_out_box_number, class: 'form-control', id: 'text-input-print_out_box_number' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-footer">
+  <%= f.submit 'Submit', class: 'btn btn-sm btn-primary' %>
+</div>
+<% end %>
+</div>
+</div>
+</div>

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   namespace :person do
     root to: "home#index"
 
-    resources :name_cards, only: %i[index]
+    resources :name_cards, only: %i[index new create]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {
