@@ -20,11 +20,17 @@ en:
         print_out_box_number: "Print out box number"
       create:
         success: "Your new name card apply created!"
+      destroy:
+        success: "Your name card apply deleted!"
+      start_approve:
+        success: "Your name card apply now in approve process!"
 
       index:
         title: "Name card apply history list"
         actions:
           new: "New name card apply"
+          delete: "Delete"
+          start_approve: "Request approve"
         table:
           task_id: "Task ID"
           name: "Name in Chinese"

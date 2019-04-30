@@ -20,11 +20,17 @@ zh-CN:
         print_out_box_number: "印刷盒数"
       create:
         success: "您的名片申请成功创建！"
+      destroy:
+        success: "您的名片申请成功删除！"
+      start_approve:
+        success: "您的名片申请成功发起流程！"
 
       index:
         title: "名片申请历史清单"
         actions:
           new: "新名片申请"
+          delete: "删除"
+          start_approve: "发起流程"
         table:
           task_id: "任务 ID"
           name: "姓名"

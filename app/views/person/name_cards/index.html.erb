@@ -22,6 +22,7 @@
             <th><%= t(".table.phone_ext") %><br /><%= t(".table.office_level") %></th>
             <th><%= t(".table.mobile") %><br /><%= t(".table.fax_no") %></th>
             <th><%= t(".table.print_out_box_number") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -56,6 +57,10 @@
               </td>
               <td>
                 <%= name_card_apply.print_out_box_number -%>
+              </td>
+              <td>
+                <%= link_to t(".actions.delete"), person_name_card_path(name_card_apply), method: :delete, data: { confirm: '你确定要删除吗？' } %>
+                <%= link_to t(".actions.start_approve"), start_approve_person_name_card_path(name_card_apply), method: :patch %>
               </td>
             </tr>
           <% end %>

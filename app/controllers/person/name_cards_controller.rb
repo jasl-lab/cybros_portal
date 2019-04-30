@@ -3,6 +3,7 @@ class Person::NameCardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index new], if: -> { request.format.html? }
+  before_action :set_name_card_apply, only: %i[destroy start_approve]
 
   def index
     prepare_meta_tags title: t(".title")
@@ -27,6 +28,21 @@ class Person::NameCardsController < ApplicationController
     end
   end
 
+  def destroy
+    @name_card_apply.destroy
+    respond_to do |format|
+      format.html { redirect_to person_name_cards_path, notice: t('.success') }
+      format.json { head :no_content }
+    end
+  end
+
+  def start_approve
+    respond_to do |format|
+      format.html { redirect_to person_name_cards_path, notice: t('.success') }
+      format.json { head :no_content }
+    end
+  end
+
   protected
 
   def name_card_apply_params
@@ -45,5 +61,11 @@ class Person::NameCardsController < ApplicationController
       link: person_root_path },
     { text: t("layouts.sidebar.person.name_card"),
       link: person_name_cards_path }]
+  end
+
+  private
+
+  def set_name_card_apply
+    @name_card_apply = policy_scope(NameCardApply).find(params[:id])
   end
 end
