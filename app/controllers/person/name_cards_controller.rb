@@ -37,6 +37,13 @@ class Person::NameCardsController < ApplicationController
   end
 
   def start_approve
+    bizData = {
+      sender: 'Cybros'
+    }.merge(@name_card_apply.attributes)
+    response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
+      :json => { processName: 'NameCardApplication', taskId: "", action: "", comments: "", step: "Begin",
+      userCode: current_user.clerk_code, bizData: bizData.to_json })
+    Rails.logger.debug "name cards apply response: #{response}"
     respond_to do |format|
       format.html { redirect_to person_name_cards_path, notice: t('.success') }
       format.json { head :no_content }
