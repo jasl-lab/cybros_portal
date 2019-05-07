@@ -23,6 +23,7 @@ en:
         home: "Home"
         users: "Users"
         um_tasks: "UM Tasks"
+        tianzhen_logins: "Tian Zhen Logins"
       person:
         header: "Personal Home"
         name_card: "Name card"

@@ -1,0 +1,8 @@
+---
+en:
+  admin:
+    tianzhen_logins:
+      index:
+        title: "Tian Zhen Login Users"
+        table:
+          process_name: "Process Name"

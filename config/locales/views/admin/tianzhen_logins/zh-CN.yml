@@ -1,0 +1,8 @@
+---
+zh-CN:
+  admin:
+    tianzhen_logins:
+      index:
+        title: "天正软件登录用户一览"
+        table:
+          process_name: "流程名"
