@@ -5,4 +5,8 @@ zh-CN:
       index:
         title: "天正软件登录用户一览"
         table:
-          process_name: "流程名"
+          time: "时间"
+          action: "动作"
+          ip: "IP地址"
+          pc: "用户"
+          line: "其余信息"

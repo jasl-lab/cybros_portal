@@ -4,6 +4,30 @@
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.time") %></th>
+            <th><%= t(".table.action") %></th>
+            <th><%= t(".table.ip") %></th>
+            <th><%= t(".table.pc") %></th>
+            <th><%= t(".table.line") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @array.each do |a| %>
+            <tr>
+              <td><%= a[0] %></td>
+              <td><%= a[1] %></td>
+              <td><%= a[2] %></td>
+              <td><%= a[3] %></td>
+              <td><%= a[4] %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

@@ -5,4 +5,8 @@ en:
       index:
         title: "Tian Zhen Login Users"
         table:
-          process_name: "Process Name"
+          time: "Time"
+          action: "Action"
+          ip: "IP"
+          pc: "User"
+          line: "Rest information"
