@@ -4,6 +4,9 @@ en:
     name_card_black_titles:
       index:
         title: "Name card blacklist title"
+        create_button: "Create"
         table:
           original_title: "Original title"
           required_title: "Required title"
+      create:
+        created: "Blacklist title created"

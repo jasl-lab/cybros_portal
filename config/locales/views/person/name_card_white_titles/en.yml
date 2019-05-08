@@ -4,6 +4,9 @@ en:
     name_card_white_titles:
       index:
         title: "Name card whitelist title"
+        create_button: "Create"
         table:
           original_title: "Original title"
           required_title: "Required title"
+      create:
+        created: "Whitelist title created"

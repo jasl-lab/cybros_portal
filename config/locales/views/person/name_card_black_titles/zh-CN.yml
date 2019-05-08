@@ -4,6 +4,9 @@ zh-CN:
     name_card_black_titles:
       index:
         title: "名片职称黑名单"
+        create_button: "新建"
         table:
           original_title: "原职位"
           required_title: "名片需求职位"
+      create:
+        created: "黑名单新建成功"
