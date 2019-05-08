@@ -8,21 +8,21 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th><%= t(".table.time") %></th>
-            <th><%= t(".table.action") %></th>
             <th><%= t(".table.ip") %></th>
             <th><%= t(".table.pc") %></th>
+            <th><%= t(".table.action") %></th>
+            <th><%= t(".table.time") %></th>
             <th><%= t(".table.line") %></th>
           </tr>
           </thead>
           <tbody>
-          <% @array.each do |a| %>
+          <% @hash.each do |key, value| %>
             <tr>
-              <td><%= a[0] %></td>
-              <td><%= a[1] %></td>
-              <td><%= a[2] %></td>
-              <td><%= a[3] %></td>
-              <td><%= a[4] %></td>
+              <td><%= key.split(' ')[0] %></td>
+              <td><%= key.split(' ')[1] %></td>
+              <td><%= raw value.reverse.collect { |a| a[0] }.join "<br />" %></td>
+              <td><%= raw value.reverse.collect { |a| time_ago_in_words(a[1]) }.join "<br />" %></td>
+              <td><%= raw value.reverse.collect { |a| a[2] }.join "<br />" %></td>
             </tr>
           <% end %>
           </tbody>
