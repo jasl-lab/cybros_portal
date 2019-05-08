@@ -21,7 +21,7 @@ set :repo_url, 'git@github.com:thape-cn/cybros_portal.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, *%w[puma.rb config/database.yml config/secrets.yml config/mailer.yml config/master.key config/credentials.yml.enc db/cybros_prod.sqlite3]
+append :linked_files, *%w[puma.rb config/database.yml config/secrets.yml config/mailer.yml config/master.key config/credentials.yml.enc]
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/packs', 'node_modules'
