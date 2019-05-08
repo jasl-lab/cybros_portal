@@ -39,6 +39,8 @@ Rails.application.routes.draw do
         patch :start_approve
       end
     end
+    resources :name_card_black_titles, only: %i[index]
+    resources :name_card_white_titles, only: %i[index]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

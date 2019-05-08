@@ -27,3 +27,5 @@ zh-CN:
       person:
         header: "个人首页"
         name_card: "名片"
+        name_card_white_title: "名片白名单"
+        name_card_black_title: "名片黑名单"

@@ -1,0 +1,9 @@
+---
+zh-CN:
+  person:
+    name_card_white_titles:
+      index:
+        title: "名片职称白名单"
+        table:
+          original_title: "原职位"
+          required_title: "名片需求职位"

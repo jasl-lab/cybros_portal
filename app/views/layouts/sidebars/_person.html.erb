@@ -13,6 +13,18 @@
           <%= t("layouts.sidebar.person.name_card") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'person/name_card_white_titles', html_options: {class: "nav-item"} do %>
+        <%= link_to person_name_card_white_titles_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.person.name_card_white_title") %>
+        <% end %>
+      <% end %>
+      <%= nav_item controller: 'person/name_card_black_titles', html_options: {class: "nav-item"} do %>
+        <%= link_to person_name_card_black_titles_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.person.name_card_black_title") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

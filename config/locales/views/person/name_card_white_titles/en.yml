@@ -1,0 +1,9 @@
+---
+en:
+  person:
+    name_card_white_titles:
+      index:
+        title: "Name card whitelist title"
+        table:
+          original_title: "Original title"
+          required_title: "Required title"

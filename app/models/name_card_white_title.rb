@@ -1,0 +1,2 @@
+class NameCardWhiteTitle < ApplicationRecord
+end

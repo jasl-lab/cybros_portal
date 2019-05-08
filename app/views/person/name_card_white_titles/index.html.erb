@@ -1,0 +1,32 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="container">
+      <h3 class="page-title">
+        <%= t(".title") %>
+      </h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.original_title") %></th>
+            <th><%= t(".table.required_title") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @name_card_white_titles.each do |name_card_white_title| %>
+            <tr>
+              <td>
+                <%= name_card_white_title.original_title -%>
+              </td>
+              <td>
+                <%= name_card_white_title.required_title -%>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
