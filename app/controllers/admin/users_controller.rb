@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < Admin::ApplicationController
-  before_action :set_user, only: %i[show edit update lock unlock resend_confirmation_mail resend_invitation_mail]
+  before_action :set_user, only: %i[show edit update lock unlock resend_confirmation_mail resend_invitation_mail login_as]
   # before_action :set_breadcrumbs, only: %i[new edit create update], if: -> { request.format.html? }
 
   def index
@@ -75,6 +75,11 @@ class Admin::UsersController < Admin::ApplicationController
     end
 
     redirect_to admin_user_url(@user), notice: t(".shared.notice.sent_confirmation_mail")
+  end
+
+  def login_as
+    sign_in @user
+    redirect_to root_path
   end
 
   private

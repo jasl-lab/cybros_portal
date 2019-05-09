@@ -34,6 +34,7 @@ zh-CN:
           status: "状态"
           actions:
             show: "查看"
+            login_as: "登录为"
       show:
         actions:
           lock: "禁用"

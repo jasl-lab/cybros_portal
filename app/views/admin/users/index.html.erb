@@ -73,6 +73,7 @@
               </td>
               <td>
                 <%= link_to t(".table.actions.show"), admin_user_path(user) %>
+                <%= link_to t(".table.actions.login_as"), login_as_admin_user_path(user), method: :patch, remote: true %>
               </td>
             </tr>
           <% end %>
