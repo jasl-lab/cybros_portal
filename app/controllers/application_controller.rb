@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
   before_action :prepare_meta_tags, if: -> { request.format.html? }
+  before_action :set_current_user
 
   include StoreLocation
 
@@ -57,4 +58,10 @@ class ApplicationController < ActionController::Base
       end
       RUBY_EVAL
     end
+
+  private
+
+  def set_current_user
+    Current.user = current_user
+  end
 end

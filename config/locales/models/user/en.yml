@@ -9,3 +9,9 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         remember_me: "Remember me"
+    errors:
+      models:
+        name_card_apply:
+          attributes:
+            title:
+              title_is_blocked: "The name card title is in the blacklist"

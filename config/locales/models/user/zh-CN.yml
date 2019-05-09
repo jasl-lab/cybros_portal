@@ -9,3 +9,9 @@ zh-CN:
         password: "密码"
         password_confirmation: "密码确认"
         remember_me: "记住登录信息"
+    errors:
+      models:
+        name_card_apply:
+          attributes:
+            title:
+              title_is_blocked: "申请的职务在黑名单中"
