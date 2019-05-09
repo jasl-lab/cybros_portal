@@ -4,7 +4,7 @@ class NameCardApplyPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       else
-        scope.where(user_id: user_id)
+        scope.where(user_id: user.id)
       end
     end
   end
