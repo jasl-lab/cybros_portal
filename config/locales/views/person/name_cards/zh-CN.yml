@@ -18,8 +18,10 @@ zh-CN:
         fax_no: "传真"
         mobile: "手机"
         print_out_box_number: "印刷盒数"
+        name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
       create:
         success: "您的名片申请成功创建！"
+        name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
       destroy:
         success: "您的名片申请成功删除！"
       start_approve:

@@ -18,8 +18,10 @@ en:
         fax_no: "Fax no"
         mobile: "Mobile"
         print_out_box_number: "Print out box number"
+        name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
       create:
         success: "Your new name card apply created!"
+        name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
       destroy:
         success: "Your name card apply deleted!"
       start_approve:

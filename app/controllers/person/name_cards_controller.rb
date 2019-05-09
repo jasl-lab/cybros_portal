@@ -14,7 +14,8 @@ class Person::NameCardsController < ApplicationController
     prepare_meta_tags title: t(".form_title")
     add_to_breadcrumbs(t("person.name_cards.index.actions.new"), new_person_name_card_path)
     @name_card_apply = current_user.name_card_applies.build
-    @name_card_apply.title= current_user.position_title
+    @name_card_apply.title = current_user.position_title
+    @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
   end
 
   def create
@@ -23,6 +24,7 @@ class Person::NameCardsController < ApplicationController
       if @name_card_apply.save
         format.html { redirect_to person_name_cards_path, notice: t('.success') }
       else
+        @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
         format.html { render :new }
       end
     end
@@ -74,5 +76,12 @@ class Person::NameCardsController < ApplicationController
 
   def set_name_card_apply
     @name_card_apply = policy_scope(NameCardApply).find(params[:id])
+  end
+
+  def name_card_title_hint(name_card_title)
+    name_card_white_titles = NameCardWhiteTitle.where(original_title: @name_card_apply.title).pluck(:required_title)
+    name_card_black_titles = NameCardBlackTitle.where(original_title: @name_card_apply.title).pluck(:required_title)
+    return if name_card_white_titles.blank? && name_card_black_titles.blank?
+    t(".name_card_title_fill_hint", white_titles: name_card_white_titles.to_sentence, black_titles: name_card_black_titles.to_sentence)
   end
 end
