@@ -29,6 +29,7 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      @user.update(confirmed_at: Time.now)
       redirect_to admin_user_url(@user), notice: t(".shared.notice.created")
     else
       prepare_meta_tags title: t("admin.users.new.title")
