@@ -6,6 +6,9 @@ zh-CN:
       user:
         current_password: "当前密码"
         email: "Email"
+        position_title: "职位"
+        clerk_code: "员工号"
+        chinese_name: "姓名"
         password: "密码"
         password_confirmation: "密码确认"
         remember_me: "记住登录信息"

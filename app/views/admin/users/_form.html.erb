@@ -6,6 +6,24 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :position_title %>
+    <%= f.text_field :position_title, id: "user_position_title", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :position_title, class: "invalid-feedback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :clerk_code %>
+    <%= f.text_field :clerk_code, id: "user_clerk_code", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :clerk_code, class: "invalid-feedback" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :chinese_name %>
+    <%= f.text_field :chinese_name, id: "user_clerk_code", class: "form-control", class_for_error: "is-invalid" %>
+    <%= f.error_message :chinese_name, class: "invalid-feedback" %>
+  </div>
+
+  <div class="form-group">
     <%= f.label :password %>
     <%= f.password_field :password, id: "user_password", autocomplete: "off", required: !user.persisted?, class: "form-control", class_for_error: "is-invalid" %>
     <%= f.error_message :password, class: "invalid-feedback" %>
