@@ -8,6 +8,8 @@ ruby "~> 2.7.1"
 gem "rails", "~> 6.0.3"
 gem "rails-i18n"
 
+gem "auto_strip_attributes"
+
 # Use postgresql as the database for Active Record
 # gem "pg", ">= 0.18", "< 2.0"
 # Use sqlite as the database for Active Record
