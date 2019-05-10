@@ -44,6 +44,10 @@ Rails.application.routes.draw do
     resources :name_card_white_titles, only: %i[index create]
   end
 
+  namespace :api do
+    resource :name_card, only: %i[create]
+  end
+
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: "users/confirmations",
     passwords: "users/passwords",

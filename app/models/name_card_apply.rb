@@ -5,7 +5,7 @@ class NameCardApply < ApplicationRecord
 
   validates :department_name, :title, :english_name, :en_department_name,
     :en_title, :mobile, :print_out_box_number, presence: true
-  validate :title_exclude_from_black_title
+  validate :title_exclude_from_black_title, if: Proc.new { Current.user.present? }
 
   private
 
