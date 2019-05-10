@@ -2,8 +2,8 @@ class Person::NameCardsController < ApplicationController
   include BreadcrumbsHelper
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[index new], if: -> { request.format.html? }
-  before_action :set_name_card_apply, only: %i[destroy start_approve]
+  before_action :set_breadcrumbs, only: %i[index new show], if: -> { request.format.html? }
+  before_action :set_name_card_apply, only: %i[destroy start_approve show]
 
   def index
     prepare_meta_tags title: t(".title")
@@ -38,6 +38,13 @@ class Person::NameCardsController < ApplicationController
     end
   end
 
+  def show
+    response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_history],
+      :json => { processName: '', incident: '', taskId: @name_card_apply.begin_task_id })
+    Rails.logger.debug "name cards apply history response: #{response}"
+    @result = JSON.parse(response.body.to_s)
+  end
+
   def start_approve
     bizData = {
       sender: 'Cybros',
@@ -62,7 +69,7 @@ class Person::NameCardsController < ApplicationController
     response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
       :json => { processName: 'NameCardApplication', taskId: "", action: "", comments: "", step: "Begin",
       userCode: current_user.clerk_code, bizData: bizData.to_json })
-    Rails.logger.debug "name cards apply response: #{response}"
+    Rails.logger.debug "name cards apply handler response: #{response}"
     result = JSON.parse(response.body.to_s)
     if result['isSuccess'] == '1'
       @name_card_apply.update(begin_task_id: result['BeginTaskId'])

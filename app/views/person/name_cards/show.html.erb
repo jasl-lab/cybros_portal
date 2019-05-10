@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="container">
+      <h3 class="page-title">
+        <%= t(".title") %>
+      </h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.stepname") %></th>
+            <th><%= t(".table.taskuser") %></th>
+            <th><%= t(".table.approver") %></th>
+            <th><%= t(".table.action") %></th>
+            <th><%= t(".table.comments") %></th>
+            <th><%= t(".table.starttime") %><br /><%= t(".table.endtime") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @result['rows'].each do |r| %>
+            <tr>
+              <td>
+                <%= r["STEPNAME"] -%>
+              </td>
+              <td>
+                <%= r["TASKUSER"] -%>
+              </td>
+              <td>
+                <%= r["APPROVER"] -%>
+              </td>
+              <td>
+                <%= r["ACTION"] -%>
+              </td>
+              <td>
+                <%= r["COMMENTS"] -%>
+              </td>
+              <td>
+                <%= r["STARTTIME"] -%>
+                <br />
+                <%= r["ENDTIME"] -%>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

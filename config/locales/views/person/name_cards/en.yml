@@ -27,7 +27,16 @@ en:
       start_approve:
         success: "Your name card apply now in approve process!"
         failed: "Name card apply initiation process failed, BPM returned：%{message}"
-
+      show:
+        title: "Name card apply history details"
+        table:
+          stepname: "Step name"
+          taskuser: "Task user"
+          approver: "Approver"
+          action: "Action"
+          comments: "Comments"
+          starttime: "Start time"
+          endtime: "End time"
       index:
         title: "Name card apply history list"
         actions:

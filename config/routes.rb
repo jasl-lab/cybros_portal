@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   namespace :person do
     root to: "home#index"
 
-    resources :name_cards, only: %i[index new create destroy] do
+    resources :name_cards, only: %i[index new create show destroy] do
       member do
         patch :start_approve
       end
