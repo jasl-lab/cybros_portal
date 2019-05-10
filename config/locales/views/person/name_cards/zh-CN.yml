@@ -26,6 +26,7 @@ zh-CN:
         success: "您的名片申请成功删除！"
       start_approve:
         success: "您的名片申请成功发起流程！"
+        failed: "名片申请发起流程失败，BPM返回：%{message}"
 
       index:
         title: "名片申请历史清单"

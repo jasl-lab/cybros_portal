@@ -26,6 +26,7 @@ en:
         success: "Your name card apply deleted!"
       start_approve:
         success: "Your name card apply now in approve process!"
+        failed: "Name card apply initiation process failed, BPM returned：%{message}"
 
       index:
         title: "Name card apply history list"

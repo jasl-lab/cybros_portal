@@ -63,9 +63,13 @@ class Person::NameCardsController < ApplicationController
       :json => { processName: 'NameCardApplication', taskId: "", action: "", comments: "", step: "Begin",
       userCode: current_user.clerk_code, bizData: bizData.to_json })
     Rails.logger.debug "name cards apply response: #{response}"
-    respond_to do |format|
-      format.html { redirect_to person_name_cards_path, notice: t('.success') }
-      format.json { head :no_content }
+    result = JSON.parse(response.body.to_s)
+    if result['isSuccess'] == '1'
+      @name_card_apply.update(begin_task_id: result['BeginTaskId'])
+      redirect_to person_name_cards_path, notice: t('.success')
+    else
+      @name_card_apply.update(bpm_message: result['message'])
+      redirect_to person_name_cards_path, notice: t('.failed', message: result['message'])
     end
   end
 

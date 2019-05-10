@@ -60,7 +60,9 @@
               </td>
               <td>
                 <%= link_to t(".actions.delete"), person_name_card_path(name_card_apply), method: :delete, data: { confirm: '你确定要删除吗？' } %>
-                <%= link_to t(".actions.start_approve"), start_approve_person_name_card_path(name_card_apply), method: :patch %>
+                <% if name_card_apply.begin_task_id.blank? %>
+                  <%= link_to t(".actions.start_approve"), start_approve_person_name_card_path(name_card_apply), method: :patch %>
+                <% end %>
               </td>
             </tr>
           <% end %>
