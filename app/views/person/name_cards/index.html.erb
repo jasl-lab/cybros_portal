@@ -20,7 +20,7 @@
             <th><%= t(".table.department_name") %><br /><%= t(".table.en_department_name") %></th>
             <th><%= t(".table.title") %><br /><%= t(".table.en_title") %></th>
             <th><%= t(".table.mobile") %><br /><%= t(".table.phone_ext") %><br /><%= t(".table.fax_no") %></th>
-            <th><%= t(".table.print_out_box_number") %></th>
+            <th><%= t(".table.print_out_box_number") %><br /><%= t(".table.status") %></th>
             <th></th>
           </tr>
           </thead>
@@ -53,6 +53,8 @@
               </td>
               <td>
                 <%= name_card_apply.print_out_box_number -%>
+                <br />
+                <%= name_card_apply.status -%>
               </td>
               <td>
                 <%= link_to t(".actions.delete"), person_name_card_path(name_card_apply), method: :delete, data: { confirm: '你确定要删除吗？' } %>
