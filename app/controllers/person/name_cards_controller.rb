@@ -58,6 +58,7 @@ class Person::NameCardsController < ApplicationController
       en_title: @name_card_apply.en_title,
       isWhitelisted: @name_card_apply.title.in?(NameCardWhiteTitle.where(original_title: current_user.position_title).pluck(:required_title)),
       phone_ext: @name_card_apply.phone_ext,
+      office_level: '', # TODO: To be removed after BPM fix
       fax_no: @name_card_apply.fax_no,
       mobile: @name_card_apply.mobile,
       print_out_box_number: @name_card_apply.print_out_box_number,
@@ -65,6 +66,7 @@ class Person::NameCardsController < ApplicationController
       created_at: @name_card_apply.created_at,
       updated_at: @name_card_apply.updated_at
     }
+
     response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
       :json => { processName: 'NameCardApplication', taskId: "", action: "", comments: "", step: "Begin",
       userCode: current_user.clerk_code, bizData: bizData.to_json })
