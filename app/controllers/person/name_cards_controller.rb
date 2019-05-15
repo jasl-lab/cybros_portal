@@ -83,8 +83,8 @@ class Person::NameCardsController < ApplicationController
   protected
 
   def name_card_apply_params
-    params.require(:name_card_apply).permit(:department_name, :title, :english_name,
-      :en_department_name, :en_title, :mobile, :phone_ext, :fax_no, :print_out_box_number)
+    params.require(:name_card_apply).permit(:company_name, :department_name, :title, :english_name,
+      :en_company_name, :en_department_name, :en_title, :mobile, :phone_ext, :fax_no, :print_out_box_number)
   end
 
   def set_page_layout_data

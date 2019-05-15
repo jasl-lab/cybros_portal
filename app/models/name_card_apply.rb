@@ -3,7 +3,7 @@ class NameCardApply < ApplicationRecord
 
   auto_strip_attributes :title, :english_name
 
-  validates :english_name, :department_name, :en_department_name, :title,
+  validates :english_name, :company_name, :department_name, :en_company_name, :en_department_name, :title,
     :en_title, :mobile, :print_out_box_number, presence: true
   validate :title_exclude_from_black_title, if: Proc.new { Current.user.present? }
   validates :mobile, length: { is: 11 }
