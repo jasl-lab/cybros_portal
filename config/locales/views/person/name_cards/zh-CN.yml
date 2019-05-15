@@ -18,6 +18,8 @@ zh-CN:
         phone_ext: "分机"
         fax_no: "传真"
         mobile: "手机"
+        comment: "备注"
+        comment_fill_hint: "您可以在备注中留下其他合理请求"
         print_out_box_number: "印刷盒数"
         print_out_box_number_fill_hint: "两盒起印，每盒100张"
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"

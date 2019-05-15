@@ -37,6 +37,20 @@
           <%= f.error_message :title, tag: :span, class: "help-block" %>
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-mobile"><%= t('.mobile') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :mobile, class: 'form-control', id: 'text-input-mobile' %>
+          <%= f.error_message :mobile, tag: :span, class: "help-block" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-fax_no"><%= t('.fax_no') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :fax_no, class: 'form-control', id: 'text-input-fax_no' %>
+          <%= f.error_message :fax_no, tag: :span, class: "help-block" %>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="form-group row">
@@ -68,17 +82,12 @@
           <%= f.error_message :en_title, tag: :span, class: "help-block" %>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-mobile"><%= t('.mobile') %></label>
+        <label class="col-md-3 col-form-label" for="text-input-email"><%= t('.email') %></label>
         <div class="col-md-9">
-          <%= f.text_field :mobile, class: 'form-control', id: 'text-input-mobile' %>
-          <%= f.error_message :mobile, tag: :span, class: "help-block" %>
+          <input class="form-control" id="text-input-email" type="text" name="name_card_apply[email]" disabled value="<%= current_user.email -%>">
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-phone_ext"><%= t('.phone_ext') %></label>
         <div class="col-md-9">
@@ -86,31 +95,22 @@
           <%= f.error_message :phone_ext, tag: :span, class: "help-block" %>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-fax_no"><%= t('.fax_no') %></label>
-        <div class="col-md-9">
-          <%= f.text_field :fax_no, class: 'form-control', id: 'text-input-fax_no' %>
-          <%= f.error_message :fax_no, tag: :span, class: "help-block" %>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-email"><%= t('.email') %></label>
-        <div class="col-md-9">
-          <input class="form-control" id="text-input-email" type="text" name="name_card_apply[email]" disabled value="<%= current_user.email -%>">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-print_out_box_number"><%= t('.print_out_box_number') %></label>
         <div class="col-md-9">
           <%= f.text_field :print_out_box_number, class: 'form-control', id: 'text-input-print_out_box_number' %>
           <span class="help-block"><%= t('.print_out_box_number_fill_hint') %></span>
           <%= f.error_message :print_out_box_number, tag: :span, class: "help-block" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input-comment"><%= t('.comment') %></label>
+        <div class="col-md-10">
+          <%= f.text_area :comment, class: 'form-control', id: 'text-input-comment' %>
+          <span class="help-block"><%= t('.comment_fill_hint') %></span>
+          <%= f.error_message :comment, tag: :span, class: "help-block" %>
         </div>
       </div>
     </div>
