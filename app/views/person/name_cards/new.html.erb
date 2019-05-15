@@ -109,6 +109,7 @@
         <label class="col-md-3 col-form-label" for="text-input-print_out_box_number"><%= t('.print_out_box_number') %></label>
         <div class="col-md-9">
           <%= f.text_field :print_out_box_number, class: 'form-control', id: 'text-input-print_out_box_number' %>
+          <span class="help-block"><%= t('.print_out_box_number_fill_hint') %></span>
           <%= f.error_message :print_out_box_number, tag: :span, class: "help-block" %>
         </div>
       </div>

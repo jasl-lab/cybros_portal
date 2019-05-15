@@ -15,6 +15,7 @@ class Person::NameCardsController < ApplicationController
     add_to_breadcrumbs(t("person.name_cards.index.actions.new"), new_person_name_card_path)
     @name_card_apply = current_user.name_card_applies.build
     @name_card_apply.title = current_user.position_title
+    @name_card_apply.print_out_box_number = 2
     @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
   end
 

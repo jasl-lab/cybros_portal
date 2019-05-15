@@ -19,6 +19,7 @@ en:
         fax_no: "Fax no"
         mobile: "Mobile"
         print_out_box_number: "Print out box number"
+        print_out_box_number_fill_hint: "Minimum number of boxes is 2, 100 sheets per 1 box"
         name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
       create:
         success: "Your new name card apply created!"
