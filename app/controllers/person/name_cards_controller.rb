@@ -59,6 +59,7 @@ class Person::NameCardsController < ApplicationController
       en_title: @name_card_apply.en_title,
       isWhitelisted: @name_card_apply.title.in?(NameCardWhiteTitle.where(original_title: current_user.position_title).pluck(:required_title)),
       phone_ext: @name_card_apply.phone_ext,
+      office_level: @name_card_apply.office_level,
       fax_no: @name_card_apply.fax_no,
       mobile: @name_card_apply.mobile,
       print_out_box_number: @name_card_apply.print_out_box_number,
@@ -84,8 +85,8 @@ class Person::NameCardsController < ApplicationController
   protected
 
   def name_card_apply_params
-    params.require(:name_card_apply).permit(:company_name, :department_name, :title, :english_name,
-      :en_company_name, :en_department_name, :en_title, :mobile, :phone_ext, :fax_no, :print_out_box_number, :comment)
+    params.require(:name_card_apply).permit(:company_name, :department_name, :title, :professional_title, :english_name,
+      :en_company_name, :en_department_name, :en_title, :en_professional_title, :mobile, :phone_ext, :fax_no, :office_address, :office_level, :print_out_box_number, :comment)
   end
 
   def set_page_layout_data
