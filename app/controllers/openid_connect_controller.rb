@@ -14,6 +14,7 @@ class OpenidConnectController < ApplicationController
     departments = @omniaut_auth.dig(:extra, :raw_info, :departments)
     departments.each do |d|
       d = Department.find_or_create_by(id: d[:id], name: d[:name])
+      d.update(company_name: d[:company_name])
       DepartmentUser.find_or_create_by!(user_id: user.id, department_id: d.id)
     end
     user.update(position_title: main_position_title, clerk_code: clerk_code, chinese_name: chinese_name)
