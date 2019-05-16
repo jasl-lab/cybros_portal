@@ -58,6 +58,7 @@ zh-CN:
           task_id: "任务 ID"
           name: "姓名"
           english_name: "英文名"
+          email: "电子邮件"
           department_name: "部门名"
           en_department_name: "部门英文名"
           title: "职务"

@@ -14,6 +14,8 @@ class Person::NameCardsController < ApplicationController
     prepare_meta_tags title: t(".form_title")
     add_to_breadcrumbs(t("person.name_cards.index.actions.new"), new_person_name_card_path)
     @name_card_apply = current_user.name_card_applies.build
+    @name_card_apply.chinese_name = current_user.chinese_name
+    @name_card_apply.email = current_user.email
     @name_card_apply.title = current_user.position_title
     @name_card_apply.print_out_box_number = 2
     @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
@@ -50,8 +52,9 @@ class Person::NameCardsController < ApplicationController
     bizData = {
       sender: 'Cybros',
       name_card_id: @name_card_apply.id,
-      applicant_name: current_user.chinese_name,
-      applicant_code: current_user.clerk_code,
+      applicant_name: @name_card_apply.chinese_name,
+      applicant_code: (@name_card_apply.chinese_name == current_user.chinese_name ? current_user.clerk_code : nil),
+      email: @name_card_apply.email,
       english_name: @name_card_apply.english_name,
       company_name: @name_card_apply.company_name,
       en_company_name: @name_card_apply.en_company_name,
@@ -91,7 +94,7 @@ class Person::NameCardsController < ApplicationController
   protected
 
   def name_card_apply_params
-    params.require(:name_card_apply).permit(:company_name, :department_name, :title, :professional_title, :english_name,
+    params.require(:name_card_apply).permit(:chinese_name, :email, :company_name, :department_name, :title, :professional_title, :english_name,
       :en_company_name, :en_department_name, :en_title, :en_professional_title, :mobile, :phone_ext, :fax_no, :office_address, :office_level, :print_out_box_number, :comment)
   end
 

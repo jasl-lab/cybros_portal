@@ -58,6 +58,7 @@ en:
           task_id: "Task ID"
           name: "Name in Chinese"
           english_name: "English name"
+          email: "Email"
           department_name: "Department in Chinese"
           en_department_name: "Department in English"
           title: "Title in Chinese"

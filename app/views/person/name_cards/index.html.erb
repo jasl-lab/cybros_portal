@@ -16,7 +16,7 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th><%= t(".table.name") %><br /><%= t(".table.english_name") %><br /><%= t(".table.task_id") %></th>
+            <th><%= t(".table.name") %><br /><%= t(".table.english_name") %><br /><%= t(".table.email") %><br /><%= t(".table.task_id") %></th>
             <th><%= t(".table.department_name") %><br /><%= t(".table.en_department_name") %></th>
             <th><%= t(".table.title") %><br /><%= t(".table.en_title") %></th>
             <th><%= t(".table.mobile") %><br /><%= t(".table.phone_ext") %><br /><%= t(".table.fax_no") %></th>
@@ -28,9 +28,11 @@
           <% @name_card_applies.each do |name_card_apply| %>
             <tr>
               <td>
-                <%= name_card_apply.user.chinese_name -%>
+                <%= name_card_apply.chinese_name -%>
                 <br />
                 <%= name_card_apply.english_name -%>
+                <br />
+                <%= name_card_apply.email -%>
                 <br />
                 <%= link_to_unless name_card_apply.begin_task_id.blank?, name_card_apply.begin_task_id, person_name_card_path(name_card_apply) %>
               </td>
