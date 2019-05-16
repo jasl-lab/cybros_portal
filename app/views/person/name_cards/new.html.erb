@@ -42,6 +42,7 @@
         <label class="col-md-3 col-form-label" for="text-input-professional-title"><%= t('.professional_title') %></label>
         <div class="col-md-9">
           <%= f.text_field :professional_title, class: 'form-control', id: 'text-input-professional-title' %>
+          <span class="help-block"><%= t('.professional_title_fill_hint') %></span>
           <%= f.error_message :professional_title, tag: :span, class: "help-block" %>
         </div>
       </div>

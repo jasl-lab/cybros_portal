@@ -16,6 +16,7 @@ zh-CN:
         title: "职务"
         title_fill_hint: "更改职务，需流程审批，将延长制作周期。"
         professional_title: "职称"
+        professional_title_fill_hint: "例：国家一级注册建筑师、国家一级注册结构师、高级工程师等。"
         en_title: "职务英文名"
         en_professional_title: "职称英文名"
         phone_ext: "分机"

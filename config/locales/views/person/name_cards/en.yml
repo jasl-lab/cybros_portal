@@ -16,6 +16,7 @@ en:
         title: "Title in Chinese"
         title_fill_hint: "If you change title, will lead a time consuming approving process to your manager."
         professional_title: "Professional title in Chinese"
+        professional_title_fill_hint: "For example: national first-class registered architects, national first-level registered architects, senior engineers, etc."
         en_title: "Title in English"
         en_professional_title: "Professional title in English"
         phone_ext: "Phone ext"
