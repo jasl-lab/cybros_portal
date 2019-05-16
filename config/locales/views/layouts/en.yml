@@ -27,5 +27,6 @@ en:
       person:
         header: "Personal Home"
         name_card: "Name card"
+        new_name_card: "Apply for a name card"
         name_card_white_title: "Name card white title"
         name_card_black_title: "Name card black title"
