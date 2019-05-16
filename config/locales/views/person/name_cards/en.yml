@@ -12,8 +12,9 @@ en:
         department_fill_hint: "Business cards do not support multiple departments. If you want to use part-time department cards, please re-fill a new business card information form."
         en_company_name: "Company name in English"
         en_department_name: "Department in English"
-        en_department_fill_hint: "The English name of the department is brought out according to the Chinese and English comparison table. It cannot be changed. "
+        en_department_fill_hint: "If you have any questions, please contact the Human Resources Department."
         title: "Title in Chinese"
+        title_fill_hint: "If you change title, will lead a time consuming approving process to your manager."
         professional_title: "Professional title in Chinese"
         en_title: "Title in English"
         en_professional_title: "Professional title in English"
@@ -28,6 +29,7 @@ en:
         print_out_box_number: "Print out box number"
         print_out_box_number_fill_hint: "Minimum number of boxes is 2, 100 sheets per 1 box"
         name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
+        submit: "Save the name card apply"
       create:
         success: "Your new name card apply created!"
         name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
@@ -51,7 +53,7 @@ en:
         actions:
           new: "New name card apply"
           delete: "Delete"
-          start_approve: "Request approve"
+          start_approve: "Request approve and submit"
         table:
           task_id: "Task ID"
           name: "Name in Chinese"

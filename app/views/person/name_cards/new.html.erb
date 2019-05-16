@@ -3,6 +3,7 @@
 <div class="card">
 <div class="card-header">
   <strong><%= t('.form_header') %></strong>
+
 </div>
 <%= form_with model: @name_card_apply, url: person_name_cards_path, class: 'form-horizontal', local: true do |f| %>
 <div class="card-body">
@@ -93,6 +94,7 @@
         <label class="col-md-3 col-form-label" for="text-input-en-title"><%= t('.en_title') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_title, class: 'form-control', id: 'text-input-en-title' %>
+          <span class="help-block"><%= t('.title_fill_hint') %></span>
           <%= f.error_message :en_title, tag: :span, class: "help-block" %>
         </div>
       </div>
@@ -146,7 +148,11 @@
   </div>
 </div>
 <div class="card-footer">
-  <%= f.submit 'Submit', class: 'btn btn-sm btn-primary' %>
+  <%= f.submit t('.submit'), class: 'btn btn-sm btn-primary' %>
+  <div class="col-md-12 mt-3">
+    <p>为响应品牌形象升级，名片应用也相应在设计和工艺上升级，请按需线上申请名片。</p>
+    <p>制作时间：每周二、周五，从审批流完成到收货平均共计3日。（举例：小A周一申请名片，周二制作印刷，周五拿到名片实物； 如系统中信息有误或职称需要调整，需审批确认后，再按制作时间制作。）·请仔细填写以上信息，如提交信息有误，需重做名片，费用所在部门自行承担。·目前处于试运营状态，如有问题，可联系品牌与公关部咨询</p>
+  </div>
 </div>
 <% end %>
 </div>

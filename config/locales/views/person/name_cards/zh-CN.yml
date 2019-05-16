@@ -12,8 +12,9 @@ zh-CN:
         department_fill_hint: "印制名片的名片不支持多部门，如果要使用兼职部门名片，请重新填写一张新的名片信息表。"
         en_company_name: "公司英文名"
         en_department_name: "部门英文名"
-        en_department_fill_hint: "部门英文名根据中英文对照表带出，不可更改，若对带出的部门英文名有异议，请联系品牌和公关部修改。"
+        en_department_fill_hint: "如有疑问，请联系人力资源部。"
         title: "职务"
+        title_fill_hint: "更改职务，需流程审批，将延长制作周期。"
         professional_title: "职称"
         en_title: "职务英文名"
         en_professional_title: "职称英文名"
@@ -28,6 +29,7 @@ zh-CN:
         print_out_box_number: "印刷盒数"
         print_out_box_number_fill_hint: "两盒起印，每盒100张"
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
+        submit: "保存申请单"
       create:
         success: "您的名片申请成功创建！"
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
@@ -51,7 +53,7 @@ zh-CN:
         actions:
           new: "新名片申请"
           delete: "删除"
-          start_approve: "发起流程"
+          start_approve: "提交并发起流程"
         table:
           task_id: "任务 ID"
           name: "姓名"
