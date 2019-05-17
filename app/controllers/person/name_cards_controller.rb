@@ -15,10 +15,11 @@ class Person::NameCardsController < ApplicationController
     add_to_breadcrumbs(t("person.name_cards.index.actions.new"), new_person_name_card_path)
     @name_card_apply = current_user.name_card_applies.build
     @name_card_apply.chinese_name = current_user.chinese_name
+    @name_card_apply.company_name = current_user.departments.first&.company_name
+    @name_card_apply.department_name = current_user.departments.first&.name
     @name_card_apply.email = current_user.email
     @name_card_apply.title = current_user.position_title
     @name_card_apply.print_out_box_number = 2
-    @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
   end
 
   def create
@@ -27,7 +28,6 @@ class Person::NameCardsController < ApplicationController
       if @name_card_apply.save
         format.html { redirect_to person_name_cards_path, notice: t('.success') }
       else
-        @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
         format.html { render :new }
       end
     end

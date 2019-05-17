@@ -18,14 +18,14 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-company-name"><%= t('.company_name') %></label>
         <div class="col-md-9">
-          <%= f.select :company_name, current_user.departments.collect { |d| [d.company_name] }, {}, id: 'text-input-company-name', class: 'form-control' %>
+          <%= f.text_field :company_name, class: 'form-control', id: 'text-input-company-name' %>
           <%= f.error_message :company_name, tag: :span, class: "help-block" %>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-department-name"><%= t('.department_name') %></label>
         <div class="col-md-9">
-          <%= f.select :department_name, current_user.departments.collect { |d| [d.name] }, {}, id: 'text-input-department-name', class: 'form-control' %>
+          <%= f.text_field :department_name, id: 'text-input-department-name', class: 'form-control' %>
           <span class="help-block"><%= t('.department_fill_hint') %></span>
           <%= f.error_message :department_name, tag: :span, class: "help-block" %>
         </div>
@@ -34,7 +34,7 @@
         <label class="col-md-3 col-form-label" for="text-input-title"><%= t('.title') %></label>
         <div class="col-md-9">
           <%= f.text_field :title, class: 'form-control', id: 'text-input-title' %>
-          <span class="help-block"><%= @name_card_title_fill_hint %></span>
+          <span class="help-block"><%= t('.title_fill_hint') %></span>
           <%= f.error_message :title, tag: :span, class: "help-block" %>
         </div>
       </div>
@@ -87,7 +87,6 @@
         <label class="col-md-3 col-form-label" for="text-input-en-department-name"><%= t('.en_department_name') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_department_name, class: 'form-control', id: 'text-input-en-department-name' %>
-          <span class="help-block"><%= t('.en_department_fill_hint') %></span>
           <%= f.error_message :en_department_name, tag: :span, class: "help-block" %>
         </div>
       </div>
@@ -95,7 +94,6 @@
         <label class="col-md-3 col-form-label" for="text-input-en-title"><%= t('.en_title') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_title, class: 'form-control', id: 'text-input-en-title' %>
-          <span class="help-block"><%= t('.title_fill_hint') %></span>
           <%= f.error_message :en_title, tag: :span, class: "help-block" %>
         </div>
       </div>
@@ -115,7 +113,7 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-phone_ext"><%= t('.phone_ext') %></label>
         <div class="col-md-9">
-          <%= f.text_field :phone_ext, class: 'form-control', id: 'text-input-phone_ext' %>
+          <%= f.text_field :phone_ext, class: 'form-control', id: 'text-input-phone_ext', placeholder: '12345678-1234' %>
           <span class="help-block"><%= t('.phone_ext_fill_hint') %></span>
           <%= f.error_message :phone_ext, tag: :span, class: "help-block" %>
         </div>
@@ -152,7 +150,9 @@
   <%= f.submit t('.submit'), class: 'btn btn-sm btn-primary' %>
   <div class="col-md-12 mt-3">
     <p>为响应品牌形象升级，名片应用也相应在设计和工艺上升级，请按需线上申请名片。</p>
-    <p>制作时间：每周二、周五，从审批流完成到收货平均共计3日。（举例：小A周一申请名片，周二制作印刷，周五拿到名片实物； 如系统中信息有误或职称需要调整，需审批确认后，再按制作时间制作。）·请仔细填写以上信息，如提交信息有误，需重做名片，费用所在部门自行承担。·目前处于试运营状态，如有问题，可联系品牌与公关部咨询</p>
+    <p>制作时间：每周二、周五，从审批流完成到收货平均共计3日。（举例：小A周一申请名片，周二制作印刷，周五拿到名片实物； 如系统中信息有误或职称需要调整，需审批确认后，再按制作时间制作。）</p>
+    <p>请仔细填写以上信息，如提交信息有误，需重做名片，费用所在部门自行承担。</p>
+    <p>目前处于试运营状态，如有问题，可联系品牌与公关部咨询</p>
   </div>
 </div>
 <% end %>

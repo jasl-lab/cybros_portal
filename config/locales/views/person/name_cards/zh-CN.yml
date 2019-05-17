@@ -12,7 +12,6 @@ zh-CN:
         department_fill_hint: "印制名片的名片不支持多部门，如果要使用兼职部门名片，请重新填写一张新的名片信息表。"
         en_company_name: "公司英文名"
         en_department_name: "部门英文名"
-        en_department_fill_hint: "如有疑问，请联系人力资源部。"
         title: "职务"
         title_fill_hint: "更改职务，需流程审批，将延长制作周期。"
         professional_title: "职称"

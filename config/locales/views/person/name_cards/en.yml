@@ -12,7 +12,6 @@ en:
         department_fill_hint: "Business cards do not support multiple departments. If you want to use part-time department cards, please re-fill a new business card information form."
         en_company_name: "Company name in English"
         en_department_name: "Department in English"
-        en_department_fill_hint: "If you have any questions, please contact the Human Resources Department."
         title: "Title in Chinese"
         title_fill_hint: "If you change title, will lead a time consuming approving process to your manager."
         professional_title: "Professional title in Chinese"
