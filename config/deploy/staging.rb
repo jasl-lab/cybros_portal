@@ -1,4 +1,4 @@
-set :nginx_use_ssl, false
+set :nginx_use_ssl, true
 set :branch, :thape_staging
 set :deploy_to, "/var/www/staging"
 
