@@ -54,7 +54,7 @@ en:
           new: "New name card apply"
           delete: "Delete"
           start_approve: "Request approve and submit"
-          look_workflow: "Look workflow"
+          look_workflow: "Look workflow process"
         table:
           task_id: "Task ID"
           name: "Name in Chinese"
