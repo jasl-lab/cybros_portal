@@ -34,7 +34,7 @@
                 <br />
                 <%= name_card_apply.email -%>
                 <br />
-                <%= link_to_unless name_card_apply.begin_task_id.blank?, name_card_apply.begin_task_id, person_name_card_path(name_card_apply) %>
+                <%= link_to_unless name_card_apply.begin_task_id.blank?, t('.actions.look_workflow'), person_name_card_path(id: name_card_apply, begin_task_id: name_card_apply.begin_task_id) %>
               </td>
               <td>
                 <%= name_card_apply.department_name -%>
