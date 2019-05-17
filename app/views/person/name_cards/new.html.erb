@@ -180,12 +180,10 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-2 col-form-label" for="text-input-comment"><%= t('.comment') %></label>
-        <div class="col-md-10">
+        <label class="col-md-3 col-form-label" for="text-input-comment"><%= t('.comment') %></label>
+        <div class="col-md-9">
           <%= f.text_area :comment, class: 'form-control', id: 'text-input-comment' %>
           <span class="help-block"><%= t('.comment_fill_hint') %></span>
           <%= f.error_message :comment, tag: :span, class: "help-block" %>
