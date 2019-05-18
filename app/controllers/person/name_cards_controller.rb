@@ -28,6 +28,7 @@ class Person::NameCardsController < ApplicationController
       if @name_card_apply.save
         format.html { redirect_to person_name_cards_path, notice: t('.success') }
       else
+        @name_card_title_fill_hint = name_card_title_hint(@name_card_apply.title)
         format.html { render :new }
       end
     end

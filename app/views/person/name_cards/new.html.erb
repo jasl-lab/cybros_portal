@@ -73,7 +73,11 @@
         <label class="col-md-3 col-form-label" for="text-input-title"><%= t('.title') %></label>
         <div class="col-md-9">
           <%= f.text_field :title, class: 'form-control', id: 'text-input-title' %>
-          <span class="help-block"><%= t('.title_fill_hint') %></span>
+          <% if @name_card_title_fill_hint.present? %>
+            <span class="help-block"><%= @name_card_title_fill_hint %></span>
+          <% else %>
+            <span class="help-block"><%= t('.title_fill_hint') %></span>
+          <% end %>
           <%= f.error_message :title, tag: :span, class: "help-block" %>
         </div>
       </div>
