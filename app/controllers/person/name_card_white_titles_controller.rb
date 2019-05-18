@@ -2,8 +2,10 @@ class Person::NameCardWhiteTitlesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  after_action :verify_authorized
 
   def index
+    authorize NameCardWhiteTitle
     prepare_meta_tags title: t(".title")
     @name_card_white_titles = NameCardWhiteTitle.all
     @new_card_white_title = NameCardWhiteTitle.new
@@ -11,6 +13,7 @@ class Person::NameCardWhiteTitlesController < ApplicationController
 
   def create
     @new_card_white_title = NameCardWhiteTitle.new(name_card_white_title_params)
+    authorize @new_card_white_title
 
     if @new_card_white_title.save
       redirect_to person_name_card_white_titles_path, notice: t(".created")
