@@ -33,8 +33,10 @@
                 <%= name_card_apply.english_name -%>
                 <br />
                 <%= name_card_apply.email -%>
-                <br />
-                <%= link_to_unless name_card_apply.begin_task_id.blank?, t('.actions.look_workflow'), person_name_card_path(id: name_card_apply, begin_task_id: name_card_apply.begin_task_id) %>
+                <% if name_card_apply.begin_task_id.present? %>
+                  <br />
+                  <%= link_to t('.actions.look_workflow'), person_name_card_path(id: name_card_apply, begin_task_id: name_card_apply.begin_task_id) %>
+                <% end %>
               </td>
               <td>
                 <%= name_card_apply.department_name -%>
