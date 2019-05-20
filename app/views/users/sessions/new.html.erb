@@ -12,6 +12,10 @@
         <% end %>
       </ul>
       <div class="card-body p-4">
+        <%= link_to t('.sso'), '/auth/openid_connect', class: "btn btn-block btn-primary" %>
+
+        <br />
+
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), id: "user-sign-in") do |f| %>
           <div class="form-group">
             <%= f.label :email %>
@@ -34,8 +38,7 @@
             </div>
           <% end %>
 
-          <%= f.submit t(".submit"), class: "btn btn-block btn-primary" %>
-          <%= link_to 'SSO', '/auth/openid_connect', class: "btn btn-block btn-secondary" %>
+          <%= f.submit t(".submit"), class: "btn btn-block btn-secondary" %>
 
           <%- if devise_mapping.recoverable? %>
             <div class="form-text text-center">

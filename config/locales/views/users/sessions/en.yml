@@ -4,6 +4,7 @@ en:
       new:
         title: "Sign in"
         submit: "Sign in"
+        sso: "Login via SSO"
         forgot_your_password: "Forgot your password?"
         new_user_instructions: "New user?"
         sign_up: "Sign up"
