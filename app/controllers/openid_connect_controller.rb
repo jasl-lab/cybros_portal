@@ -8,6 +8,7 @@ class OpenidConnectController < ApplicationController
       user.password = random_password
       user.password_confirmation = random_password
     end
+    user.update(confirmed_at: Time.current) if user.confirmed_at.blank?
     main_position_title = @omniaut_auth.dig(:extra, :raw_info, :main_position, :name)
     clerk_code = @omniaut_auth.dig(:extra, :raw_info, :clerk_code)
     chinese_name = @omniaut_auth.dig(:extra, :raw_info, :chinese_name)
