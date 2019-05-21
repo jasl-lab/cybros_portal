@@ -35,6 +35,8 @@ class Person::NameCardsController < ApplicationController
   end
 
   def destroy
+    return redirect_to person_name_cards_path, alert: t('.existing_task_id') if @name_card_apply.begin_task_id.present?
+
     @name_card_apply.destroy
     respond_to do |format|
       format.html { redirect_to person_name_cards_path, notice: t('.success') }

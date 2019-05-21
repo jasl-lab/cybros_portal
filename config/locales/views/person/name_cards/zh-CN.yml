@@ -35,6 +35,7 @@ zh-CN:
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
       destroy:
         success: "您的名片申请成功删除！"
+        existing_task_id: "已经发起流程的名片申请不可删除。"
       start_approve:
         success: "您的名片申请成功发起流程！"
         failed: "名片申请发起流程失败，BPM返回：%{message}"

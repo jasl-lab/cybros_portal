@@ -35,6 +35,7 @@ en:
         name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
       destroy:
         success: "Your name card apply deleted!"
+        existing_task_id: "Can not delete the name card apply if it's already under workflow."
       start_approve:
         success: "Your name card apply now in approve process!"
         failed: "Name card apply initiation process failed, BPM returned：%{message}"
