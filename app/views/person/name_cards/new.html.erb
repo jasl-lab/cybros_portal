@@ -21,7 +21,7 @@
         <label class="col-md-3 col-form-label" for="text-input-english-name"><%= t('.english_name') %></label>
         <div class="col-md-9">
           <%= f.text_field :english_name, class: 'form-control', id: 'text-input-english-name' %>
-          <%= f.error_message :english_name, tag: :span, class: "help-block" %>
+          <%= f.error_message :english_name, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
         <label class="col-md-3 col-form-label" for="text-input-company-name"><%= t('.company_name') %></label>
         <div class="col-md-9">
           <%= f.text_field :company_name, class: 'form-control', id: 'text-input-company-name' %>
-          <%= f.error_message :company_name, tag: :span, class: "help-block" %>
+          <%= f.error_message :company_name, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@
         <label class="col-md-3 col-form-label" for="text-input-en-company-name"><%= t('.en_company_name') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_company_name, class: 'form-control', id: 'text-input-en-company-name' %>
-          <%= f.error_message :en_company_name, tag: :span, class: "help-block" %>
+          <%= f.error_message :en_company_name, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
         <div class="col-md-9">
           <%= f.text_field :department_name, id: 'text-input-department-name', class: 'form-control' %>
           <span class="help-block"><%= t('.department_fill_hint') %></span>
-          <%= f.error_message :department_name, tag: :span, class: "help-block" %>
+          <%= f.error_message :department_name, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
         <label class="col-md-3 col-form-label" for="text-input-en-department-name"><%= t('.en_department_name') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_department_name, class: 'form-control', id: 'text-input-en-department-name' %>
-          <%= f.error_message :en_department_name, tag: :span, class: "help-block" %>
+          <%= f.error_message :en_department_name, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@
           <% else %>
             <span class="help-block"><%= t('.title_fill_hint') %></span>
           <% end %>
-          <%= f.error_message :title, tag: :span, class: "help-block" %>
+          <%= f.error_message :title, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -87,7 +87,7 @@
         <label class="col-md-3 col-form-label" for="text-input-en-title"><%= t('.en_title') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_title, class: 'form-control', id: 'text-input-en-title' %>
-          <%= f.error_message :en_title, tag: :span, class: "help-block" %>
+          <%= f.error_message :en_title, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
         <div class="col-md-9">
           <%= f.text_field :professional_title, class: 'form-control', id: 'text-input-professional-title' %>
           <span class="help-block"><%= t('.professional_title_fill_hint') %></span>
-          <%= f.error_message :professional_title, tag: :span, class: "help-block" %>
+          <%= f.error_message :professional_title, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@
         <label class="col-md-3 col-form-label" for="text-input-en-professional-title"><%= t('.en_professional_title') %></label>
         <div class="col-md-9">
           <%= f.text_field :en_professional_title, class: 'form-control', id: 'text-input-en-professional-title' %>
-          <%= f.error_message :en_professional_title, tag: :span, class: "help-block" %>
+          <%= f.error_message :en_professional_title, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@
         <label class="col-md-3 col-form-label" for="text-input-office-address"><%= t('.office_address') %></label>
         <div class="col-md-9">
           <%= f.select :office_address, Department.office_addresses, {}, id: 'text-input-office-address', class: 'form-control' %>
-          <%= f.error_message :office_address, tag: :span, class: "help-block" %>
+          <%= f.error_message :office_address, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -138,7 +138,7 @@
         <label class="col-md-3 col-form-label" for="text-input-office-level"><%= t('.office_level') %></label>
         <div class="col-md-9">
           <%= f.text_field :office_level, class: 'form-control', id: 'text-input-office-level' %>
-          <%= f.error_message :office_level, tag: :span, class: "help-block" %>
+          <%= f.error_message :office_level, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@
         <div class="col-md-9">
           <%= f.text_field :phone_ext, class: 'form-control', id: 'text-input-phone_ext', placeholder: '12345678-1234' %>
           <span class="help-block"><%= t('.phone_ext_fill_hint') %></span>
-          <%= f.error_message :phone_ext, tag: :span, class: "help-block" %>
+          <%= f.error_message :phone_ext, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
         <label class="col-md-3 col-form-label" for="text-input-mobile"><%= t('.mobile') %></label>
         <div class="col-md-9">
           <%= f.text_field :mobile, class: 'form-control', id: 'text-input-mobile' %>
-          <%= f.error_message :mobile, tag: :span, class: "help-block" %>
+          <%= f.error_message :mobile, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -168,7 +168,7 @@
         <label class="col-md-3 col-form-label" for="text-input-fax_no"><%= t('.fax_no') %></label>
         <div class="col-md-9">
           <%= f.text_field :fax_no, class: 'form-control', id: 'text-input-fax_no' %>
-          <%= f.error_message :fax_no, tag: :span, class: "help-block" %>
+          <%= f.error_message :fax_no, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -180,7 +180,7 @@
         <div class="col-md-9">
           <%= f.text_field :print_out_box_number, class: 'form-control', id: 'text-input-print_out_box_number' %>
           <span class="help-block"><%= t('.print_out_box_number_fill_hint') %></span>
-          <%= f.error_message :print_out_box_number, tag: :span, class: "help-block" %>
+          <%= f.error_message :print_out_box_number, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
@@ -190,7 +190,7 @@
         <div class="col-md-9">
           <%= f.text_area :comment, class: 'form-control', id: 'text-input-comment' %>
           <span class="help-block"><%= t('.comment_fill_hint') %></span>
-          <%= f.error_message :comment, tag: :span, class: "help-block" %>
+          <%= f.error_message :comment, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>
