@@ -52,6 +52,8 @@ class Person::NameCardsController < ApplicationController
   end
 
   def start_approve
+    return redirect_to person_name_cards_path, notice: t('.repeated_approve_request') if @name_card_apply.begin_task_id.present?
+
     bizData = {
       sender: 'Cybros',
       name_card_id: @name_card_apply.id,

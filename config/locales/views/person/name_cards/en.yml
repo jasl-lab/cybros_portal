@@ -39,6 +39,7 @@ en:
       start_approve:
         success: "Your name card apply now in approve process!"
         failed: "Name card apply initiation process failed, BPM returned：%{message}"
+        repeated_approve_request: "Name card apply process is already initialized."
       show:
         title: "Name card apply history details"
         table:
