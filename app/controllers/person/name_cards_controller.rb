@@ -52,7 +52,10 @@ class Person::NameCardsController < ApplicationController
   end
 
   def start_approve
-    return redirect_to person_name_cards_path, notice: t('.repeated_approve_request') if @name_card_apply.begin_task_id.present?
+    if @name_card_apply.begin_task_id.present? || @name_card_apply.backend_in_processing
+      redirect_to person_name_cards_path, notice: t('.repeated_approve_request')
+      return
+    end
 
     bizData = {
       sender: 'Cybros',
@@ -82,11 +85,14 @@ class Person::NameCardsController < ApplicationController
       updated_at: @name_card_apply.updated_at
     }
 
+    @name_card_apply.update_columns(backend_in_processing: true)
     response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
       :json => { processName: 'NameCardApplication', taskId: "", action: "", comments: "", step: "Begin",
       userCode: current_user.clerk_code, bizData: bizData.to_json })
     Rails.logger.debug "name cards apply handler response: #{response}"
     result = JSON.parse(response.body.to_s)
+    @name_card_apply.update_columns(backend_in_processing: false)
+
     if result['isSuccess'] == '1'
       @name_card_apply.update(begin_task_id: result['BeginTaskId'])
       redirect_to person_name_cards_path, notice: t('.success')
