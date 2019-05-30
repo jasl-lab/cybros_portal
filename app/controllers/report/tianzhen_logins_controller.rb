@@ -1,4 +1,5 @@
-class Admin::TianzhenLoginsController < Admin::ApplicationController
+class Report::TianzhenLoginsController < ApplicationController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def index
@@ -23,9 +24,17 @@ class Admin::TianzhenLoginsController < Admin::ApplicationController
   private
 
   def set_breadcrumbs
-    @_breadcrumbs = [{
-                       text: t("layouts.sidebar.admin.tianzhen_logins"),
-                       link: admin_tianzhen_logins_path
-                     }]
+    @_breadcrumbs = [
+    { text: t("layouts.sidebar.application.header"),
+      link: root_path },
+    { text: t("layouts.sidebar.report.header"),
+      link: report_root_path },
+    { text: t("layouts.sidebar.report.tianzhen_logins"),
+      link: report_tianzhen_logins_path }]
+  end
+
+
+  def set_page_layout_data
+    @_sidebar_name = "report"
   end
 end

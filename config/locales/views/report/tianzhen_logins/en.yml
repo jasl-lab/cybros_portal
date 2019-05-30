@@ -1,6 +1,6 @@
 ---
 en:
-  admin:
+  report:
     tianzhen_logins:
       index:
         title: "Tian Zhen Login Users"

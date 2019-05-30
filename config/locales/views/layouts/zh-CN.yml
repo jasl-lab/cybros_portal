@@ -13,6 +13,7 @@ zh-CN:
         header: "首页"
         company: "公司"
         person: "个人事务"
+        report: "报表报告"
       accounts:
         header: "用户设置"
         profile: "个人信息"
@@ -23,7 +24,6 @@ zh-CN:
         home: "总览"
         users: "用户"
         um_tasks: "UM任务"
-        tianzhen_logins: "天正软件登录情况"
       company:
         header: "公司首页"
         it_knowledge_maintains: "IT知识库维护"
@@ -33,3 +33,6 @@ zh-CN:
         new_name_card: "新名片申请"
         name_card_white_title: "名片白名单"
         name_card_black_title: "名片黑名单"
+      report:
+        header: "报告首页"
+        tianzhen_logins: "天正软件登录情况"

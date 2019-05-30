@@ -29,13 +29,18 @@ Rails.application.routes.draw do
     end
 
     resources :um_tasks, only: %i[index]
-    resources :tianzhen_logins, only: %i[index]
   end
 
   namespace :company do
     root to: "home#index"
 
     resources :it_knowledge_maintains, except: [:show]
+  end
+
+  namespace :report do
+    root to: "home#index"
+
+    resources :tianzhen_logins, only: %i[index]
   end
 
   namespace :person do

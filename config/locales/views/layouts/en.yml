@@ -13,6 +13,7 @@ en:
         header: "Home"
         company: "Company"
         person: "Person"
+        report: "Report"
       accounts:
         header: "User settings"
         profile: "Profile"
@@ -23,7 +24,6 @@ en:
         home: "Home"
         users: "Users"
         um_tasks: "UM Tasks"
-        tianzhen_logins: "Tian Zhen Logins"
       company:
         header: "Company Home"
         it_knowledge_maintains: "IT knowledge maintains"
@@ -33,3 +33,6 @@ en:
         new_name_card: "Apply for a name card"
         name_card_white_title: "Name card white title"
         name_card_black_title: "Name card black title"
+      report:
+        header: "Report Home"
+        tianzhen_logins: "Tian Zhen Logins"

@@ -1,0 +1,19 @@
+<div class="sidebar">
+  <div class="sidebar-header">
+    <%= link_to report_root_path, class: "nav-link" do %>
+      <i class="fas fa-home"></i>
+      <%= t("layouts.sidebar.report.header") %>
+    <% end %>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="nav">
+      <%= nav_item controller: 'report/tianzhen_logins', html_options: { class: "nav-item" } do %>
+        <%= link_to report_tianzhen_logins_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.report.tianzhen_logins") %>
+        <% end %>
+      <% end %>
+    </ul>
+  </nav>
+  <button class="sidebar-minimizer" type="button"></button>
+</div>
