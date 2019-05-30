@@ -1,4 +1,5 @@
 class Report::TianzhenLoginsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
