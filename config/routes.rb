@@ -32,6 +32,10 @@ Rails.application.routes.draw do
     resources :tianzhen_logins, only: %i[index]
   end
 
+  namespace :company do
+    root to: "home#index"
+  end
+
   namespace :person do
     root to: "home#index"
 
