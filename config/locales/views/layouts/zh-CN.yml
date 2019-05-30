@@ -26,6 +26,7 @@ zh-CN:
         tianzhen_logins: "天正软件登录情况"
       company:
         header: "公司首页"
+        it_knowledge_maintains: "IT知识库维护"
       person:
         header: "个人首页"
         name_card: "名片"

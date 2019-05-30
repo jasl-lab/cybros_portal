@@ -7,6 +7,14 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
+      <% if policy(Company::ItKnowledge).update? %>
+        <%= nav_item controller: 'company/it_knowledge_maintains', html_options: {class: "nav-item"} do %>
+          <%= link_to company_it_knowledge_maintains_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.company.it_knowledge_maintains") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

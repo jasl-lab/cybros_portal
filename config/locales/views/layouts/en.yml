@@ -26,6 +26,7 @@ en:
         tianzhen_logins: "Tian Zhen Logins"
       company:
         header: "Company Home"
+        it_knowledge_maintains: "IT knowledge maintains"
       person:
         header: "Personal Home"
         name_card: "Name card"

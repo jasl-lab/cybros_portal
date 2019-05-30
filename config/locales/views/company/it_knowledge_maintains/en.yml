@@ -1,0 +1,15 @@
+---
+en:
+  company:
+    it_knowledge_maintains:
+      index:
+        title: "IT Knowledge DB Maintain"
+        actions:
+          new: "New IT knowledge"
+        table:
+          application: "Application"
+          category: "Category"
+          question: "Question"
+          answer: "Answer"
+      new:
+        form_header: "New IT knowledge"

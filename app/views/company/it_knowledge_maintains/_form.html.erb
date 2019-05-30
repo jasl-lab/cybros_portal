@@ -1,0 +1,27 @@
+<%= form_with(model: it_knowledge, url: company_it_knowledge_maintains_path, local: true) do |form| %>
+<div class="card-body">
+  <div class="field">
+    <%= form.label :application %>
+    <%= form.text_field :application %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category %>
+    <%= form.text_field :category %>
+  </div>
+
+  <div class="field">
+    <%= form.label :question %>
+    <%= form.text_field :question %>
+  </div>
+
+  <div class="field">
+    <%= form.label :answer %>
+    <%= form.text_area :answer %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+</div>
+<% end %>

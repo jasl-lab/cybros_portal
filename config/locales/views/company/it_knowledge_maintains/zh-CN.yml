@@ -1,0 +1,15 @@
+---
+zh-CN:
+  company:
+    it_knowledge_maintains:
+      index:
+        title: "IT 职能知识库维护"
+        actions:
+          new: "新建 IT 知识条目"
+        table:
+          application: "应用程序"
+          category: "类别"
+          question: "问题"
+          answer: "答案"
+      new:
+        form_header: "新的 IT 知识条目"
