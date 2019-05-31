@@ -1,4 +1,5 @@
-<%= form_with(model: it_knowledge, url: company_it_knowledge_maintains_path, local: true) do |form| %>
+<%= form_with(model: it_knowledge,
+  url: it_knowledge.new_record? ? company_it_knowledge_maintains_path : edit_company_it_knowledge_maintain_path(it_knowledge), local: true) do |form| %>
 <div class="card-body">
   <div class="field">
     <%= form.label :application %>

@@ -30,8 +30,12 @@
                 <td><%= it_knowledge.category %></td>
                 <td><%= it_knowledge.question %></td>
                 <td>
-                  <%= link_to 'Edit', edit_company_it_knowledge_maintain_path(it_knowledge) %>
-                  <%= link_to 'Destroy', company_it_knowledge_maintain_path(it_knowledge), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <%= link_to edit_company_it_knowledge_maintain_path(it_knowledge) do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to company_it_knowledge_maintain_path(it_knowledge), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
                 </td>
               </tr>
             <% end %>

@@ -13,3 +13,5 @@ zh-CN:
           answer: "答案"
       new:
         form_header: "新的 IT 知识条目"
+      edit:
+        form_header: "编辑 IT 知识条目"

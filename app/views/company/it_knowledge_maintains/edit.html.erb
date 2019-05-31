@@ -1,6 +1,12 @@
-<h1>Editing It Knowledge Maintain</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <strong><%= t('.form_header') %></strong>
+      </div>
 
-<%= render 'form', it_knowledge_maintain: @it_knowledge_maintain %>
+      <%= render 'form', it_knowledge: @it_knowledge %>
 
-<%= link_to 'Show', @it_knowledge_maintain %> |
-<%= link_to 'Back', it_knowledge_maintains_path %>
+    </div>
+  </div>
+</div>

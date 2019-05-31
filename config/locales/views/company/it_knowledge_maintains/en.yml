@@ -13,3 +13,5 @@ en:
           answer: "Answer"
       new:
         form_header: "New IT knowledge"
+      edit:
+        form_header: "Edit IT knowledge"
