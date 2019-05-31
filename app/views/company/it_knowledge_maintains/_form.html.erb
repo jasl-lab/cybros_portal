@@ -1,28 +1,36 @@
 <%= form_with(model: it_knowledge,
-  url: it_knowledge.new_record? ? company_it_knowledge_maintains_path : edit_company_it_knowledge_maintain_path(it_knowledge), local: true) do |form| %>
+  url: it_knowledge.new_record? ? company_it_knowledge_maintains_path : company_it_knowledge_maintain_path(it_knowledge), local: true, class: 'form-horizontal') do |f| %>
 <div class="card-body">
-  <div class="field">
-    <%= form.label :application %>
-    <%= form.text_field :application %>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label"><%= f.label :application -%></label>
+    <div class="col-md-9">
+      <%= f.text_field :application, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :category %>
-    <%= form.text_field :category %>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label"><%= f.label :category -%></label>
+    <div class="col-md-9">
+      <%= f.text_field :category, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :question %>
-    <%= form.text_field :question %>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label"><%= f.label :question -%></label>
+    <div class="col-md-9">
+      <%= f.text_field :question, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :answer %>
-    <%= form.text_area :answer %>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label"><%= f.label :answer -%></label>
+    <div class="col-md-9">
+      <%= f.text_field :answer, class: 'form-control' %>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+</div>
+<div class="card-footer">
+  <button class="btn btn-sm btn-primary" type="submit">
+  <i class="fa fa-dot-circle-o"></i> Submit</button>
 </div>
 <% end %>

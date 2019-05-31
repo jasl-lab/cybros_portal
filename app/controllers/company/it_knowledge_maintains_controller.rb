@@ -34,19 +34,15 @@ class Company::ItKnowledgeMaintainsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @it_knowledge_maintain.update(it_knowledge_params)
-        format.html { redirect_to @it_knowledge, notice: 'It knowledge maintain was successfully updated.' }
-        format.json { render :show, status: :ok, location: @it_knowledge_maintain }
-      else
-        format.html { render :edit }
-        format.json { render json: @it_knowledge.errors, status: :unprocessable_entity }
-      end
+    if @it_knowledge.update(it_knowledge_params)
+      redirect_to company_it_knowledge_maintains_path, notice: 'It knowledge maintain was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
-    @it_knowledge_maintain.destroy
+    @it_knowledge.destroy
     respond_to do |format|
       format.html { redirect_to it_knowledge_maintains_url, notice: 'It knowledge maintain was successfully destroyed.' }
       format.json { head :no_content }
@@ -77,6 +73,6 @@ class Company::ItKnowledgeMaintainsController < ApplicationController
   end
 
   def it_knowledge_params
-    params.require(:it_knowledge).permit(:application, :category, :question, :answer)
+    params.require(:company_it_knowledge).permit(:application, :category, :question, :answer)
   end
 end
