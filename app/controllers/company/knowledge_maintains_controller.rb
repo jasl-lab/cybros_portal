@@ -39,7 +39,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
 
   def destroy
     @knowledge.destroy
-    redirect_to knowledge_maintains_url, notice: t('.success')
+    redirect_to company_knowledge_maintains_path, notice: t('.success')
   end
 
   protected
