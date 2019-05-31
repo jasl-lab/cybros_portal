@@ -9,7 +9,7 @@ module Company
     end
 
     def create?
-      user.admin?
+      user.admin? || user.email == 'chenzifan@thape.com.cn'
     end
 
     def edit?
@@ -17,11 +17,11 @@ module Company
     end
 
     def update?
-      user.admin?
+      user.admin? || user.email == 'chenzifan@thape.com.cn'
     end
 
     def destroy?
-      user.admin?
+      user.admin? || user.email == 'chenzifan@thape.com.cn'
     end
   end
 end
