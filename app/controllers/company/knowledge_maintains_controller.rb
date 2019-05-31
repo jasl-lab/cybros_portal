@@ -23,7 +23,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
     authorize @knowledge
 
     if @knowledge.save
-      redirect_to @knowledge, notice: t('.success')
+      redirect_to company_knowledge_maintains_path, notice: t('.success')
     else
       render :new
     end
