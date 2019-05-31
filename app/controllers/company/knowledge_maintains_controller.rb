@@ -66,6 +66,6 @@ class Company::KnowledgeMaintainsController < ApplicationController
   end
 
   def knowledge_params
-    params.require(:company_knowledge).permit(:application, :category, :question, :answer)
+    params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer)
   end
 end

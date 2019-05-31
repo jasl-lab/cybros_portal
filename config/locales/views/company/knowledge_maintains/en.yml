@@ -7,8 +7,9 @@ en:
         actions:
           new: "New knowledge"
         table:
-          application: "Application"
-          category: "Category"
+          category_1: "Category 1"
+          category_2: "Category 2"
+          category_3: "Category 3"
           question: "Question"
           answer: "Answer"
       new:

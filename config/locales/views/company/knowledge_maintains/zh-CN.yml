@@ -7,8 +7,9 @@ zh-CN:
         actions:
           new: "新建知识条目"
         table:
-          application: "应用程序"
-          category: "类别"
+          category_1: "类别 1"
+          category_2: "类别 2"
+          category_3: "类别 3"
           question: "问题"
           answer: "答案"
       new:

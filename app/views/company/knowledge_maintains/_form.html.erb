@@ -2,16 +2,23 @@
   url: knowledge.new_record? ? company_knowledge_maintains_path : company_knowledge_maintain_path(knowledge), local: true, class: 'form-horizontal') do |f| %>
 <div class="card-body">
   <div class="form-group row">
-    <label class="col-md-3 col-form-label"><%= f.label :application -%></label>
+    <label class="col-md-3 col-form-label"><%= f.label :category_1 -%></label>
     <div class="col-md-9">
-      <%= f.text_field :application, class: 'form-control' %>
+      <%= f.text_field :category_1, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group row">
-    <label class="col-md-3 col-form-label"><%= f.label :category -%></label>
+    <label class="col-md-3 col-form-label"><%= f.label :category_2 -%></label>
     <div class="col-md-9">
-      <%= f.text_field :category, class: 'form-control' %>
+      <%= f.text_field :category_2, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label"><%= f.label :category_3 -%></label>
+    <div class="col-md-9">
+      <%= f.text_field :category_3, class: 'form-control' %>
     </div>
   </div>
 

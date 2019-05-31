@@ -16,8 +16,9 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th><%= t('.table.application') -%></th>
-              <th><%= t('.table.category') -%></th>
+              <th><%= t('.table.category_1') -%></th>
+              <th><%= t('.table.category_2') -%></th>
+              <th><%= t('.table.category_3') -%></th>
               <th><%= t('.table.question') -%></th>
               <th></th>
             </tr>
@@ -26,8 +27,9 @@
           <tbody>
             <% @knowledges.each do |knowledge| %>
               <tr>
-                <td><%= knowledge.application %></td>
-                <td><%= knowledge.category %></td>
+                <td><%= knowledge.category_1 %></td>
+                <td><%= knowledge.category_2 %></td>
+                <td><%= knowledge.category_3 %></td>
                 <td><%= knowledge.question %></td>
                 <td>
                   <%= link_to edit_company_knowledge_maintain_path(knowledge) do %>
