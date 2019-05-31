@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   namespace :company do
     root to: "home#index"
 
-    resources :it_knowledge_maintains, except: [:show]
+    resources :knowledge_maintains, except: [:show]
   end
 
   namespace :report do

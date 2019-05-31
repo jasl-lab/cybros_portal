@@ -1,17 +1,17 @@
 ---
 en:
   company:
-    it_knowledge_maintains:
+    knowledge_maintains:
       index:
-        title: "IT Knowledge DB Maintain"
+        title: "Knowledge DB Maintain"
         actions:
-          new: "New IT knowledge"
+          new: "New knowledge"
         table:
           application: "Application"
           category: "Category"
           question: "Question"
           answer: "Answer"
       new:
-        form_header: "New IT knowledge"
+        form_header: "New knowledge"
       edit:
-        form_header: "Edit IT knowledge"
+        form_header: "Edit knowledge"

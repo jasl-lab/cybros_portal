@@ -26,7 +26,7 @@ zh-CN:
         um_tasks: "UM任务"
       company:
         header: "公司首页"
-        it_knowledge_maintains: "IT知识库维护"
+        knowledge_maintains: "知识库维护"
       person:
         header: "个人首页"
         name_card: "名片"

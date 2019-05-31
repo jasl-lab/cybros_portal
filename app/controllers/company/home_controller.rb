@@ -5,7 +5,7 @@ class Company::HomeController < ApplicationController
 
   def index
     prepare_meta_tags title: t(".title")
-    @it_knowledges = Company::ItKnowledge.all
+    @knowledges = Company::Knowledge.all
   end
 
   protected

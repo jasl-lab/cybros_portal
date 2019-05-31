@@ -1,17 +1,17 @@
 ---
 zh-CN:
   company:
-    it_knowledge_maintains:
+    knowledge_maintains:
       index:
-        title: "IT 职能知识库维护"
+        title: "职能知识库维护"
         actions:
-          new: "新建 IT 知识条目"
+          new: "新建知识条目"
         table:
           application: "应用程序"
           category: "类别"
           question: "问题"
           answer: "答案"
       new:
-        form_header: "新的 IT 知识条目"
+        form_header: "新的知识条目"
       edit:
-        form_header: "编辑 IT 知识条目"
+        form_header: "编辑知识条目"

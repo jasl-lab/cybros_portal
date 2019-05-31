@@ -1,5 +1,5 @@
 module Company
-  class ItKnowledgePolicy < ApplicationPolicy
+  class KnowledgePolicy < ApplicationPolicy
     def index?
       true
     end

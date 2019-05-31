@@ -1,5 +1,5 @@
-<%= form_with(model: it_knowledge,
-  url: it_knowledge.new_record? ? company_it_knowledge_maintains_path : company_it_knowledge_maintain_path(it_knowledge), local: true, class: 'form-horizontal') do |f| %>
+<%= form_with(model: knowledge,
+  url: knowledge.new_record? ? company_knowledge_maintains_path : company_knowledge_maintain_path(knowledge), local: true, class: 'form-horizontal') do |f| %>
 <div class="card-body">
   <div class="form-group row">
     <label class="col-md-3 col-form-label"><%= f.label :application -%></label>

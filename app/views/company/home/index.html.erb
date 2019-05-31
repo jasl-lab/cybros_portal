@@ -2,11 +2,11 @@
   <div class="col-sm-12 col-xl-6">
     <div class="card">
       <div class="card-header">
-        <i class="fa fa-align-justify"></i><%= t('.it_knowledge') -%>
+        <i class="fa fa-align-justify"></i><%= t('.knowledge') -%>
       </div>
       <div class="card-body">
         <ul class="list-group">
-          <% @it_knowledges.each do |knowledge| %>
+          <% @knowledges.each do |knowledge| %>
             <li class="list-group-item"><%= knowledge.question -%></li>
           <% end -%>
         </ul>
