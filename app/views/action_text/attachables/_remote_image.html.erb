@@ -1,8 +1,3 @@
 <figure class="attachment attachment--preview">
   <%= link_to image_tag(remote_image.url, width: (remote_image.width ? (remote_image.width.to_i / 2) : "auto")), remote_image.url, target: "_blank" %>
-  <% if caption = remote_image.try(:caption) %>
-    <figcaption class="attachment__caption">
-      <%= caption %>
-    </figcaption>
-  <% end %>
 </figure>
