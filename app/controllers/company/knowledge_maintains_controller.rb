@@ -23,7 +23,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
     authorize @knowledge
 
     if @knowledge.save
-      redirect_to @knowledge, notice: 'It knowledge maintain was successfully created.'
+      redirect_to @knowledge, notice: t('.success')
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
 
   def update
     if @knowledge.update(knowledge_params)
-      redirect_to company_knowledge_maintains_path, notice: 'It knowledge maintain was successfully updated.'
+      redirect_to company_knowledge_maintains_path, notice: t('.success')
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
 
   def destroy
     @knowledge.destroy
-    redirect_to knowledge_maintains_url, notice: 'It knowledge maintain was successfully destroyed.'
+    redirect_to knowledge_maintains_url, notice: t('.success')
   end
 
   protected

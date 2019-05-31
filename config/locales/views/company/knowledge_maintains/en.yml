@@ -15,3 +15,9 @@ en:
         form_header: "New knowledge"
       edit:
         form_header: "Edit knowledge"
+      create:
+        success: "Knowledge was successfully created."
+      update:
+        success: "Knowledge was successfully updated."
+      destroy:
+        success: "Knowledge was successfully removed."
