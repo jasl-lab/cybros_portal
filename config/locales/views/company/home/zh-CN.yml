@@ -3,4 +3,5 @@ zh-CN:
   company:
     home:
       index:
+        title: "公司首页"
         knowledge: "知识库"

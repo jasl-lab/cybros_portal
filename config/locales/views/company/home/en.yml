@@ -3,4 +3,5 @@ en:
   company:
     home:
       index:
+        title: "Company Home"
         knowledge: "Knowledge base"

@@ -4,6 +4,10 @@ module Company
       true
     end
 
+    def modal?
+      true
+    end
+
     def new?
       create?
     end
