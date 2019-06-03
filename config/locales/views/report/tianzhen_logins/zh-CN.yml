@@ -5,8 +5,9 @@ zh-CN:
       index:
         title: "天正软件登录用户一览"
         table:
-          time: "时间"
-          action: "动作"
+          index: "序号"
+          pc: "用户名"
           ip: "IP地址"
-          pc: "用户"
-          line: "其余信息"
+          login_time: "登陆时间"
+          last_access_time: "最后访问"
+          stay_time: "逗留时长"

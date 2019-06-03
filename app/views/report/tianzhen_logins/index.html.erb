@@ -8,21 +8,23 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th><%= t(".table.ip") %></th>
+            <th><%= t(".table.index") %></th>
             <th><%= t(".table.pc") %></th>
-            <th><%= t(".table.action") %></th>
-            <th><%= t(".table.time") %></th>
-            <th><%= t(".table.line") %></th>
+            <th><%= t(".table.ip") %></th>
+            <th><%= t(".table.login_time") %></th>
+            <th><%= t(".table.last_access_time") %></th>
+            <th><%= t(".table.stay_time") %></th>
           </tr>
           </thead>
           <tbody>
-          <% @hash.each do |key, value| %>
+          <% @rows.each do |r| %>
             <tr>
-              <td><%= key.split(' ')[0] %></td>
-              <td><%= key.split(' ')[1] %></td>
-              <td><%= raw value.reverse.collect { |a| a[0] }.join "<br />" %></td>
-              <td><%= raw value.reverse.collect { |a| time_ago_in_words(a[1]) }.join "<br />" %></td>
-              <td><%= raw value.reverse.collect { |a| a[2] }.join "<br />" %></td>
+              <td><%= r[0] %></td>
+              <td><%= r[1] %></td>
+              <td><%= r[2] %></td>
+              <td><%= r[3] %></td>
+              <td><%= r[4] %></td>
+              <td><%= distance_of_time_in_words r[3], r[4] %></td>
             </tr>
           <% end %>
           </tbody>

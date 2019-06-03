@@ -5,8 +5,9 @@ en:
       index:
         title: "Tian Zhen Login Users"
         table:
-          time: "Time"
-          action: "Action"
-          ip: "IP"
+          index: "Index"
           pc: "User"
-          line: "Rest information"
+          ip: "IP"
+          login_time: "Login time"
+          last_access_time: "Last access time"
+          stay_time: "Stay time"
