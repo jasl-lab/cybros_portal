@@ -8,19 +8,23 @@
     <%= t("layouts.header.brand") %>
   <% end %>
   <ul class="nav navbar-nav ml-auto">
-    <li class="nav-item dropdown">
-      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        <%= current_user.chinese_name %>
-        <i class="fas fa-caret-down"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right">
-        <% if current_user.admin? %>
-          <%= link_to t("layouts.header.account_menu.admin"), admin_root_path, class: "dropdown-item" %>
-        <% end %>
-        <%= link_to t("layouts.header.account_menu.profile"), account_profile_path, class: "dropdown-item" %>
-        <%= link_to t("layouts.header.account_menu.sign_out"), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-      </div>
-    </li>
+    <% if current_user.present? %>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <%= current_user.chinese_name %>
+          <i class="fas fa-caret-down"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <% if current_user.admin? %>
+            <%= link_to t("layouts.header.account_menu.admin"), admin_root_path, class: "dropdown-item" %>
+          <% end %>
+          <%= link_to t("layouts.header.account_menu.profile"), account_profile_path, class: "dropdown-item" %>
+          <%= link_to t("layouts.header.account_menu.sign_out"), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+        </div>
+      </li>
+    <% else %>
+      <%= link_to '登入', new_user_session_path, class: 'btn btn-sm btn-outline-secondary' %>
+    <% end %>
   </ul>
   <% if has_aside? %>
     <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
