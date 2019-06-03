@@ -19,6 +19,6 @@ class Company::HomeController < ApplicationController
     { text: t("layouts.sidebar.application.header"),
       link: root_path },
     { text: t("layouts.sidebar.company.header"),
-      link: person_root_path }]
+      link: company_root_path }]
   end
 end
