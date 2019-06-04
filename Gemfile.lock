@@ -7,6 +7,17 @@ GIT
       activerecord (~> 6.0.0)
       tiny_tds
 
+GIT
+  remote: https://github.com/Eric-Guo/wechat
+  revision: 57bb331d6a181f587de0cd2ef8711464d2d83fcc
+  branch: master
+  specs:
+    wechat (0.11.8)
+      activesupport (>= 3.2, < 7)
+      http (>= 1.0.4, < 5)
+      nokogiri (>= 1.6.0)
+      thor
+
 GEM
   remote: https://gems.ruby-china.com/
   specs:
@@ -449,6 +460,7 @@ DEPENDENCIES
   web-console
   webdrivers
   webpacker (~> 5.1)
+  wechat!
 
 RUBY VERSION
    ruby 2.7.1p83
