@@ -3,6 +3,11 @@ class WechatsController < ApplicationController
   wechat_responder
 
   on :text do |request, content|
-    request.reply.text "echo: #{content}" # Just echo
+    k = Company::Knowledge.answer(content)
+    if k.present?
+      request.reply.text "#{k.question} #{company_home_knowledge_url(k)}"
+    else
+      request.reply.text "无法回答您的问题：#{content}"
+    end
   end
 end

@@ -6,14 +6,18 @@ module Company
       question_word = Current.jieba_keyword.extract(question, 2)
       qw1 = question_word.collect(&:first).first
       qw2 = question_word.collect(&:first).second
-      arel = Knowledge.where('question LIKE ?', "%#{qw1}%")
+      arel = Company::Knowledge.where('question LIKE ?', "%#{qw1}%")
       ans = if qw2.present?
-        arel.limit(2)
+        arel.or(Company::Knowledge.where('question LIKE ?', "%#{qw2}%")).limit(2)
       else
-        arel.or(Knowledge.where('question LIKE ?', "%#{qw2}%")).limit(2)
+        arel.limit(2)
       end
-      if ans.count > 1 && ans.first.question.similar(question) < ans.second.question.similar(question)
-        ans.second
+      if ans.count > 1
+        if ans.first.question.similar(question) < ans.second.question.similar(question)
+          ans.second
+        else
+          ans.first
+        end
       elsif ans.count == 1
         ans.first
       else
