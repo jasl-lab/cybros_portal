@@ -7,7 +7,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
 
   def index
     authorize Company::Knowledge
-    @knowledges = Company::Knowledge.all
+    @knowledges = Company::Knowledge.all.page(params[:page]).per(params[:per_page])
   end
 
   def new
