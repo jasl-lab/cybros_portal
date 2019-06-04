@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/Eric-Guo/wechat
-  revision: 57bb331d6a181f587de0cd2ef8711464d2d83fcc
+  revision: eaecdfb5e0fb5d4fe36f4c3048cb8d78dd264500
   branch: master
   specs:
-    wechat (0.11.8)
+    wechat (0.11.9)
       activesupport (>= 3.2, < 7)
       http (>= 1.0.4, < 5)
       nokogiri (>= 1.6.0)
@@ -207,6 +207,7 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    jieba-rb (5.0.0)
     json-jwt (1.13.0)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -353,6 +354,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
+    similar_text (0.0.4)
     sprockets (4.0.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -439,6 +441,7 @@ DEPENDENCIES
   http (~> 4.1)
   image_processing (~> 1.2)
   jbuilder (~> 2.5)
+  jieba-rb
   kaminari
   listen
   meta-tags
@@ -453,6 +456,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   selenium-webdriver
+  similar_text
   tiny_tds
   turbolinks (~> 5)
   tzinfo-data
