@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   namespace :company do
     root to: "home#index"
     resource :home, only: %i[] do
-      resources :knowledges, only: %i[] do
+      resources :knowledges, only: %i[show] do
         member do
           get :modal
         end

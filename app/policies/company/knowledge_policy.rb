@@ -4,6 +4,10 @@ module Company
       true
     end
 
+    def show?
+      true
+    end
+
     def modal?
       true
     end
