@@ -27,6 +27,10 @@ require("trix")
 require("@rails/actiontext")
 
 import "turbolinks/coreui";
+
+import echarts from 'echarts'
+window.echarts = echarts;
+
 import "controllers";
 
 require("devise-jwt")
