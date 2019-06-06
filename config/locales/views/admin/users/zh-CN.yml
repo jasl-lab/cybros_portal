@@ -26,7 +26,7 @@ zh-CN:
         table:
           id: "Id"
           email: "邮箱"
-          position_title: "职位"
+          position_and_company: "公司与职位"
           clerk_code: "员工号"
           chinese_name: "姓名"
           created_at: "创建于"

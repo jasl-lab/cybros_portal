@@ -25,7 +25,7 @@
           <tr>
             <th><%= t(".table.id") %></th>
             <th><%= t(".table.email") %></th>
-            <th><%= t(".table.position_title") %></th>
+            <th><%= t(".table.position_and_company") %></th>
             <th><%= t(".table.clerk_code") %></th>
             <th><%= t(".table.chinese_name") %></th>
             <th><%= t(".table.created_at") %></th>
@@ -39,7 +39,7 @@
             <tr>
               <td><%= user.id %></td>
               <td><%= user.email %></td>
-              <td><%= user.position_title %></td>
+              <td><%= user.position_title %><br /><%= raw user.departments.collect(&:company_name).join('<br />') %></td>
               <td><%= user.clerk_code %></td>
               <td><%= user.chinese_name %></td>
               <td><%= time_tag user.created_at %></td>
