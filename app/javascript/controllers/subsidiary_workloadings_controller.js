@@ -20,10 +20,10 @@ var option = {
         align: 'left'
     },
     grid: {
-      left: 55,
-      right: 55,
+      left: 50,
+      right: 110,
       top: 60,
-      bottom: 120
+      bottom: 125
     },
     toolbox: {
       feature: {
@@ -114,7 +114,7 @@ var option = {
     subsidiaryWorkloadingsChart.setOption(option, false);
     setTimeout(() => {
       subsidiaryWorkloadingsChart.resize();
-    }, 30)
+    }, 200);
   }
 
   layout() {
