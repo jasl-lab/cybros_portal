@@ -112,12 +112,16 @@ var option = {
 };
 
     subsidiaryWorkloadingsChart.setOption(option, false);
-    setInterval(() => {
-      subsidiaryWorkloadingsChart.resize()
+    setTimeout(() => {
+      subsidiaryWorkloadingsChart.resize();
     }, 30)
   }
 
   layout() {
-    subsidiaryWorkloadingsChart.resize()
+    subsidiaryWorkloadingsChart.resize();
+  }
+
+  disconnect() {
+    subsidiaryWorkloadingsChart.dispose();
   }
 }
