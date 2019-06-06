@@ -1,0 +1,8 @@
+---
+en:
+  report:
+    subsidiary_workloadings:
+      show:
+        title: "Work rate and saturation analysis"
+        month_name: "End of month"
+        confirm: "Confirm"

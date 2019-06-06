@@ -6,24 +6,52 @@ export default class extends Controller {
   connect() {
     demoChart = echarts.init(document.getElementById('demo-chart'));
 
-    let option = {
-        title: {
-          text: 'ECharts 入门示例'
-        },
-        tooltip: {},
-        legend: {
-          data:['销量']
-        },
-        xAxis: {
-          data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-        },
-        yAxis: {},
-        series: [{
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
-    };
+var xAxisData = JSON.parse(this.data.get("x_axis"));
+var dayRateData = JSON.parse(this.data.get("day_rate"));
+var planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
+var buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
+
+var option = {
+    legend: {
+        data: ['工作填报率', '方案饱和度', '施工图饱和度'],
+        align: 'left'
+    },
+    toolbox: {
+        // y: 'bottom',
+        feature: {
+            magicType: {
+                type: ['stack', 'tiled']
+            },
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
+        }
+    },
+    tooltip: {},
+    xAxis: {
+        data: xAxisData,
+        silent: false,
+        splitLine: {
+            show: false
+        }
+    },
+    yAxis: {
+    },
+    series: [{
+        name: '工作填报率',
+        type: 'bar',
+        data: dayRateData
+    }, {
+        name: '方案饱和度',
+        type: 'bar',
+        data: planningDayRateData
+    }, {
+        name: '施工图饱和度',
+        type: 'bar',
+        data: buildingDayRateData
+    }]
+};
 
     demoChart.setOption(option);
     setInterval(() => {

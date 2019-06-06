@@ -1,0 +1,8 @@
+---
+zh-CN:
+  report:
+    subsidiary_workloadings:
+      show:
+        title: "工作填报率及饱和度分析"
+        month_name: "截止月份"
+        confirm: "确认"

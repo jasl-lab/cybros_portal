@@ -3,6 +3,14 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    @all_month_names = Bi::SubsidiaryWorkloading.all_month_names
+    @month_name = params[:month]&.strip || @all_month_names.last
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
+    end_of_month = Date.parse(@month_name).end_of_month
+    @data = Bi::SubsidiaryWorkloading.where(date: beginning_of_month..end_of_month)
+    @day_rate = @data.collect { |d| d.acturally_days / d.need_days.to_f }
+    @planning_day_rate = @data.collect { |d| d.planning_acturally_days / d.planning_need_days.to_f }
+    @building_day_rate = @data.collect { |d| d.building_acturally_days / d.building_need_days.to_f }
   end
 
   private
