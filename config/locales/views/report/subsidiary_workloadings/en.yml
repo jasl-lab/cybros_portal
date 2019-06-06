@@ -4,5 +4,6 @@ en:
     subsidiary_workloadings:
       show:
         title: "Work rate and saturation analysis"
-        month_name: "End of month"
+        begin_month_name: "Beginning of the month"
+        end_month_name: "End of the month"
         confirm: "Confirm"

@@ -6,15 +6,19 @@
       </h3>
       <%= form_tag report_subsidiary_workloading_path, method: :get, class: 'form-inline' do -%>
         <div class="form-group">
-          <label class="mr-1" for="select-month-name"><%= t(".month_name") -%></label>
-          <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control', id: 'select-month-name' %>
+          <label class="mr-1" for="select-month-name"><%= t(".begin_month_name") -%></label>
+          <%= select_tag 'begin_month_name', options_for_select(@all_month_names, @begin_month_name), class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1" for="select-month-name"><%= t(".end_month_name") -%></label>
+          <%= select_tag 'end_month_name', options_for_select(@all_month_names, @end_month_name), class: 'form-control' %>
         </div>
         <div><%= submit_tag t(".confirm") %></div>
       <% end -%>
       <div id="demo-chart"
         data-controller="demo-chart"
         data-action="resize@window->demo-chart#layout"
-        data-demo-chart-x_axis="<%= @data.pluck(:company).to_json -%>"
+        data-demo-chart-x_axis="<%= @company_names.to_json -%>"
         data-demo-chart-day_rate="<%= @day_rate.to_json -%>"
         data-demo-chart-planning_day_rate="<%= @planning_day_rate.to_json -%>"
         data-demo-chart-building_day_rate="<%= @building_day_rate.to_json -%>"
