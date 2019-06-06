@@ -1,10 +1,10 @@
 import { Controller } from "stimulus"
 
-let demoChart
+let subsidiaryWorkloadingsChart
 
 export default class extends Controller {
   connect() {
-    demoChart = echarts.init(document.getElementById('demo-chart'), null, {renderer: 'svg'});
+    subsidiaryWorkloadingsChart = echarts.init(document.getElementById('subsidiary-workloadings-chart'), null, {renderer: 'svg'});
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var dayRateData = JSON.parse(this.data.get("day_rate"));
@@ -108,13 +108,13 @@ var option = {
     }]
 };
 
-    demoChart.setOption(option, false);
+    subsidiaryWorkloadingsChart.setOption(option, false);
     setInterval(() => {
-      demoChart.resize()
+      subsidiaryWorkloadingsChart.resize()
     }, 30)
   }
 
   layout() {
-    demoChart.resize()
+    subsidiaryWorkloadingsChart.resize()
   }
 }
