@@ -4,7 +4,7 @@ let subsidiaryWorkloadingsChart
 
 export default class extends Controller {
   connect() {
-    subsidiaryWorkloadingsChart = echarts.init(document.getElementById('subsidiary-workloadings-chart'), null, {renderer: 'svg'});
+    subsidiaryWorkloadingsChart = echarts.init(document.getElementById('subsidiary-workloadings-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var dayRateData = JSON.parse(this.data.get("day_rate"));
@@ -27,7 +27,10 @@ var option = {
     },
     toolbox: {
       feature: {
-        dataView: {}
+        dataView: {},
+        saveAsImage: {
+            pixelRatio: 2
+        }
       }
     },
     tooltip: {},
