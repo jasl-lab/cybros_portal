@@ -1,8 +1,11 @@
 class Report::SubsidiaryWorkloadingsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    current_user_companies = current_user.departments.collect(&:company_name)
+
     @all_month_names = Bi::SubsidiaryWorkloading.all_month_names
     @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.last
     @end_month_name = params[:end_month_name]&.strip || @all_month_names.last
@@ -11,6 +14,7 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
     @data = Bi::SubsidiaryWorkloading.where(date: beginning_of_month..end_of_month)
       .select('company, SUM(acturally_days) acturally_days, SUM(need_days) need_days, SUM(planning_acturally_days) planning_acturally_days, SUM(planning_need_days) planning_need_days, SUM(building_acturally_days), SUM(building_acturally_days) building_acturally_days, SUM(building_need_days) building_need_days')
       .group(:company)
+    @data = @data.where(company: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
     @company_names = @data.collect(&:company)
     @day_rate = @data.collect { |d| ((d.acturally_days / d.need_days.to_f) * 100).round(2) }
     @day_rate_ref = params[:day_rate_ref] || 90
