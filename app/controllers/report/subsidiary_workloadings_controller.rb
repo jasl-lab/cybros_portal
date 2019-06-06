@@ -13,8 +13,11 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
       .group(:company)
     @company_names = @data.collect(&:company)
     @day_rate = @data.collect { |d| ((d.acturally_days / d.need_days.to_f) * 100).round(2) }
+    @day_rate_ref = params[:day_rate_ref] || 90
     @planning_day_rate = @data.collect { |d| ((d.planning_acturally_days / d.planning_need_days.to_f) * 100).round(2) }
+    @planning_day_rate_ref = params[:planning_day_rate_ref] || 95
     @building_day_rate = @data.collect { |d| ((d.building_acturally_days / d.building_need_days.to_f) * 100).round(2) }
+    @building_day_rate_ref = params[:building_day_rate_ref] || 80
   end
 
   private

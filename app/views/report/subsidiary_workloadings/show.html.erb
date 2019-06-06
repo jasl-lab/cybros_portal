@@ -6,22 +6,37 @@
       </h3>
       <%= form_tag report_subsidiary_workloading_path, method: :get, class: 'form-inline' do -%>
         <div class="form-group">
-          <label class="mr-1" for="select-month-name"><%= t(".begin_month_name") -%></label>
+          <label class="mr-1"><%= t(".day_rate_ref") -%>：</label>
+          <%= text_field_tag 'day_rate_ref', @day_rate_ref, class: 'form-control form-control2' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1"><%= t(".planning_day_rate_ref") -%>：</label>
+          <%= text_field_tag 'planning_day_rate_ref', @planning_day_rate_ref, class: 'form-control form-control2' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1"><%= t(".building_day_rate_ref") -%>：</label>
+          <%= text_field_tag 'building_day_rate_ref', @building_day_rate_ref, class: 'form-control form-control2' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1"><%= t(".begin_month_name") -%>：</label>
           <%= select_tag 'begin_month_name', options_for_select(@all_month_names, @begin_month_name), class: 'form-control' %>
         </div>
         <div class="form-group">
-          <label class="mr-1" for="select-month-name"><%= t(".end_month_name") -%></label>
+          <label class="mr-1"><%= t(".end_month_name") -%>：</label>
           <%= select_tag 'end_month_name', options_for_select(@all_month_names, @end_month_name), class: 'form-control' %>
         </div>
-        <div><%= submit_tag t(".confirm") %></div>
+        <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
       <% end -%>
       <div id="demo-chart"
         data-controller="demo-chart"
         data-action="resize@window->demo-chart#layout"
         data-demo-chart-x_axis="<%= @company_names.to_json -%>"
         data-demo-chart-day_rate="<%= @day_rate.to_json -%>"
+        data-demo-chart-day_rate_ref="<%= @day_rate_ref -%>"
         data-demo-chart-planning_day_rate="<%= @planning_day_rate.to_json -%>"
+        data-demo-chart-planning_day_rate_ref="<%= @planning_day_rate_ref -%>"
         data-demo-chart-building_day_rate="<%= @building_day_rate.to_json -%>"
+        data-demo-chart-building_day_rate_ref="<%= @building_day_rate_ref -%>"
         style="width: 100%;height: 600px;">
       </div>
     </div>
