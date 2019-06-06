@@ -4,7 +4,7 @@ let demoChart
 
 export default class extends Controller {
   connect() {
-    demoChart = echarts.init(document.getElementById('demo-chart'));
+    demoChart = echarts.init(document.getElementById('demo-chart'), null, {renderer: 'svg'});
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var dayRateData = JSON.parse(this.data.get("day_rate"));
@@ -15,6 +15,9 @@ var option = {
     legend: {
         data: ['工作填报率', '方案饱和度', '施工图饱和度'],
         align: 'left'
+    },
+    grid: {
+      bottom: 120
     },
     toolbox: {
         // y: 'bottom',
@@ -30,13 +33,24 @@ var option = {
     },
     tooltip: {},
     xAxis: {
-        data: xAxisData,
-        silent: false,
-        splitLine: {
-            show: false
-        }
+      data: xAxisData,
+      silent: true,
+      axisLabel: {
+        interval: 0,
+        rotate: -40
+      },
+      splitLine: {
+          show: false
+      }
     },
     yAxis: {
+      min: 0,
+      max: 100,
+      axisLabel: {
+        show: true,
+        interval: 'auto',
+        formatter: '{value} %'
+      }
     },
     series: [{
         name: '工作填报率',
@@ -53,7 +67,7 @@ var option = {
     }]
 };
 
-    demoChart.setOption(option);
+    demoChart.setOption(option, false);
     setInterval(() => {
       demoChart.resize()
     }, 30)
