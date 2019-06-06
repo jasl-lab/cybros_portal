@@ -17,14 +17,14 @@ var option = {
         align: 'left'
     },
     grid: {
+      left: 50,
+      right: 30,
+      top: 60,
       bottom: 120
     },
     toolbox: {
         // y: 'bottom',
         feature: {
-            magicType: {
-                type: ['stack', 'tiled']
-            },
             dataView: {},
             saveAsImage: {
                 pixelRatio: 2
