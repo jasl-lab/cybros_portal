@@ -12,9 +12,9 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
       .select('company, SUM(acturally_days) acturally_days, SUM(need_days) need_days, SUM(planning_acturally_days) planning_acturally_days, SUM(planning_need_days) planning_need_days, SUM(building_acturally_days), SUM(building_acturally_days) building_acturally_days, SUM(building_need_days) building_need_days')
       .group(:company)
     @company_names = @data.collect(&:company)
-    @day_rate = @data.collect { |d| d.acturally_days / d.need_days.to_f }
-    @planning_day_rate = @data.collect { |d| d.planning_acturally_days / d.planning_need_days.to_f }
-    @building_day_rate = @data.collect { |d| d.building_acturally_days / d.building_need_days.to_f }
+    @day_rate = @data.collect { |d| (d.acturally_days / d.need_days.to_f).round(2) }
+    @planning_day_rate = @data.collect { |d| (d.planning_acturally_days / d.planning_need_days.to_f).round(2) }
+    @building_day_rate = @data.collect { |d| (d.building_acturally_days / d.building_need_days.to_f).round(2) }
   end
 
   private
