@@ -19,6 +19,12 @@
           <%= t("layouts.sidebar.report.subsidiary_workloading") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/yearly_subsidiary_workloading', html_options: { class: "nav-item" } do %>
+        <%= link_to report_yearly_subsidiary_workloading_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.report.yearly_subsidiary_workloading") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

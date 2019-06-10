@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
     resources :tianzhen_logins, only: %i[index]
     resource :subsidiary_workloading, only: %i[show]
+    resource :yearly_subsidiary_workloading, only: %i[show]
   end
 
   namespace :person do

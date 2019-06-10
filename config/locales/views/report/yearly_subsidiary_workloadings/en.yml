@@ -1,0 +1,10 @@
+---
+en:
+  report:
+    yearly_subsidiary_workloadings:
+      show:
+        title: "%{company} work rate and saturation analysis"
+        day_rate_ref: "Date rate ref"
+        planning_day_rate_ref: "Planning date rate ref"
+        building_day_rate_ref: "Building date rate ref"
+        confirm: "Confirm"
