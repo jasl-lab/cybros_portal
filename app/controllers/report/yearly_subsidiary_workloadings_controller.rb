@@ -4,12 +4,20 @@ class Report::YearlySubsidiaryWorkloadingsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @current_company = current_user.departments.first.company_name
+    current_user_companies = current_user.departments.collect(&:company_name)
+    current_company = current_user_companies.first
+    if current_user_companies.include?('上海天华建筑设计有限公司')
+      @all_company_names = Bi::SubsidiaryWorkloading.distinct.pluck(:company)
+      @selected_company_name = params[:company_name]&.strip || current_company
+    else
+      @all_company_names = current_user_companies
+      @selected_company_name = current_company
+    end
 
     all_month_names = Bi::SubsidiaryWorkloading.all_month_names
     beginning_of_month = Date.parse(all_month_names.first).beginning_of_month
     end_of_month = Date.parse(all_month_names.last).end_of_month
-    data = Bi::SubsidiaryWorkloading.where(date: beginning_of_month..end_of_month, company: @current_company)
+    data = Bi::SubsidiaryWorkloading.where(date: beginning_of_month..end_of_month, company: @selected_company_name)
     @dates = data.collect(&:date)
     @day_rate = data.collect { |d| ((d.acturally_days / d.need_days.to_f) * 100).round(2) }
     @day_rate_ref = params[:day_rate_ref] || 90

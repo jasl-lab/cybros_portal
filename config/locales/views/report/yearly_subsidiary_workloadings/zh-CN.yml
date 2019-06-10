@@ -7,4 +7,5 @@ zh-CN:
         day_rate_ref: "填报预警"
         planning_day_rate_ref: "方案预警"
         building_day_rate_ref: "施工预警"
+        company_name: "公司名"
         confirm: "确认"
