@@ -1,9 +1,13 @@
+require 'csv'
+
 class Report::SubsidiaryWorkloadingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  after_action :verify_authorized
 
   def show
+    authorize Bi::SubsidiaryWorkloading
     current_user_companies = current_user.departments.collect(&:company_name)
 
     @all_month_names = Bi::SubsidiaryWorkloading.all_month_names
@@ -22,6 +26,33 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
     @planning_day_rate_ref = params[:planning_day_rate_ref] || 95
     @building_day_rate = @data.collect { |d| ((d.building_acturally_days / d.building_need_days.to_f) * 100).round(2) }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
+  end
+
+  def export
+    authorize Bi::SubsidiaryWorkloading
+
+    respond_to do |format|
+      format.csv do
+        render_csv_header 'Subsidiary Workloadings'
+        csv_res = CSV.generate do |csv|
+          csv << ['ID', '日期', '公司', '天数需填', '天数实填', '方案需填', '方案实填', '施工图需填', '施工图实填']
+          policy_scope(Bi::SubsidiaryWorkloading).order(id: :asc).find_each do |s|
+            values = []
+            values << s.id
+            values << s.date
+            values << s.company
+            values << s.need_days
+            values << s.acturally_days
+            values << s.planning_need_days
+            values << s.planning_acturally_days
+            values << s.building_need_days
+            values << s.building_acturally_days
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF" << csv_res
+      end
+    end
   end
 
   private

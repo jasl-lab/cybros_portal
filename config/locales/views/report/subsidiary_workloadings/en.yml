@@ -10,3 +10,4 @@ en:
         begin_month_name: "Beginning of the month"
         end_month_name: "End of the month"
         confirm: "Confirm"
+        export: "Export data"

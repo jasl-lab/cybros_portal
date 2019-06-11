@@ -35,6 +35,7 @@
           <%= select_tag 'end_month_name', options_for_select(@all_month_names, @end_month_name), class: 'form-control' %>
         </div>
         <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+        <%= link_to t('.export'), export_report_subsidiary_workloading_path(format: :csv), class: 'btn' %>
       <% end -%>
       <div id="subsidiary-workloadings-chart1" style="width: 100%;height: 600px;">
       </div>

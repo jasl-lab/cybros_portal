@@ -48,7 +48,11 @@ Rails.application.routes.draw do
     root to: "home#index"
 
     resources :tianzhen_logins, only: %i[index]
-    resource :subsidiary_workloading, only: %i[show]
+    resource :subsidiary_workloading, only: %i[show] do
+      collection do
+        get :export
+      end
+    end
     resource :yearly_subsidiary_workloading, only: %i[show]
   end
 
