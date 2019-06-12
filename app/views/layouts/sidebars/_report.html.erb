@@ -25,6 +25,12 @@
           <%= t("layouts.sidebar.report.yearly_subsidiary_workloading") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/contract_signing', html_options: { class: "nav-item" } do %>
+        <%= link_to report_contract_signing_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.report.contract_signing") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

@@ -1,0 +1,44 @@
+class Report::ContractSigningsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_page_layout_data, if: -> { request.format.html? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+
+  def show
+    @all_month_names = Bi::ContractSign.all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.last
+    end_of_month = Date.parse(@month_name).end_of_month
+    @period_mean_ref = params[:period_mean_ref] || 100
+
+    current_user_companies = current_user.departments.collect(&:company_name)
+    current_company = current_user_companies.first
+    @data = if current_user_companies.include?('上海天华建筑设计有限公司')
+      Bi::ContractSign.all
+    else
+      Bi::ContractSign.where(businessltdname: current_user_companies)
+    end.where('date <= ?', end_of_month)
+      .where.not(businessltdname: '上海天华建筑设计有限公司')
+      .select('businessltdname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')
+      .group(:businessltdname)
+    @all_company_names = @data.collect(&:businessltdname)
+    @sum_contract_amounts = @data.collect(&:sum_contract_amount)
+    @avg_period_mean = @data.collect { |d| (d.sum_contract_period / d.sum_contract_count.to_f).round(2) }
+    @avg_period_mean_max = (@avg_period_mean.max + 10).round(0)
+  end
+
+  private
+
+  def set_breadcrumbs
+    @_breadcrumbs = [
+    { text: t("layouts.sidebar.application.header"),
+      link: root_path },
+    { text: t("layouts.sidebar.report.header"),
+      link: report_root_path },
+    { text: t("layouts.sidebar.report.contract_signing"),
+      link: report_contract_signing_path }]
+  end
+
+
+  def set_page_layout_data
+    @_sidebar_name = "report"
+  end
+end
