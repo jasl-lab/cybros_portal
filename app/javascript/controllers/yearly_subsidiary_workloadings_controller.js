@@ -4,7 +4,6 @@ let yearlySubsidiaryWorkloadingsChart;
 
 export default class extends Controller {
   connect() {
-    debugger;
     yearlySubsidiaryWorkloadingsChart = echarts.init(document.getElementById('yearly-subsidiary-workloadings-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
