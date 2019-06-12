@@ -77,6 +77,7 @@ var option = {
     },{
       name: '签约周期',
       type: 'line',
+      yAxisIndex: 1,
       symbol: 'circle',
       symbolSize: 8,
       data: avgPeriodMean,
