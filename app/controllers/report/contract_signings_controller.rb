@@ -2,8 +2,10 @@ class Report::ContractSigningsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  after_action :verify_authorized
 
   def show
+    authorize Bi::ContractSign
     @all_month_names = Bi::ContractSign.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
