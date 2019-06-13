@@ -15,11 +15,16 @@
         </div>
         <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
       <% end -%>
+      <div class="row">
+        <div class="col-lg-12 m-3 p-3">
+          <h5>至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,当月归档业绩合同额<span style="color:red"><%= @sum_contract_amounts -%> 亿元</span>; 至2019年5月,本年平均签约周期 <span style="color:red"><%= @sum_avg_period_mean -%> 天</span>。</h5>
+        </div>
+      </div>
       <div id="contract-signings-chart"
         data-controller="contract-signings"
         data-action="resize@window->contract-signings#layout"
         data-contract-signings-x_axis="<%= @all_company_names.to_json -%>"
-        data-contract-signings-sum_contract_amounts="<%= @sum_contract_amounts.to_json -%>"
+        data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
         data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
         data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
         data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
