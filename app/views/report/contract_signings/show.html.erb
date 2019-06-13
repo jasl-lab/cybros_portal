@@ -20,15 +20,47 @@
           <h5>至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,当月归档业绩合同额<span style="color:red"><%= @sum_contract_amounts -%> 亿元</span>; 至2019年5月,本年平均签约周期 <span style="color:red"><%= @sum_avg_period_mean -%> 天</span>。</h5>
         </div>
       </div>
-      <div id="contract-signings-chart"
-        data-controller="contract-signings"
-        data-action="resize@window->contract-signings#layout"
-        data-contract-signings-x_axis="<%= @all_company_names.to_json -%>"
-        data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
-        data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
-        data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
-        data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
-        style="width: 100%;height: 600px;">
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="contract-signings-chart"
+            data-controller="contract-signings"
+            data-action="resize@window->contract-signings#layout"
+            data-contract-signings-x_axis="<%= @all_company_names.to_json -%>"
+            data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
+            data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
+            data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
+            data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
+            style="width: 100%;height: 600px;">
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-12">
+          <table class="table table-striped table-responsive table-dark">
+            <thead>
+              <tr>
+                <th scope="col">部门</th>
+                <% @all_company_names.each do |company_name| %>
+                  <th scope="col"><%= company_name -%></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">本年签约周期</th>
+                <% @avg_period_mean.each do |period_mean| %>
+                  <td><%= period_mean -%></td>
+                <% end %>
+              </tr>
+              <tr>
+                <th scope="row">本年累计合同额(万元)</th>
+                <% @contract_amounts.each do |contract_amount| %>
+                  <td><%= contract_amount -%></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
