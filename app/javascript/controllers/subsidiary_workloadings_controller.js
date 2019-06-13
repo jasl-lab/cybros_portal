@@ -207,9 +207,42 @@ var option3 = {
     }]
 };
 
+    function drill_down_model_show(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          const company_name = xAxisData[params.dataIndex];
+          const begin_month_name = $('#begin_month_name').val();
+          const end_month_name = $('#end_month_name').val();
+          const sent_data = {
+            company_name: company_name,
+            begin_month_name: begin_month_name,
+            end_month_name: end_month_name };
+          let drill_down_url
+          switch (params.seriesName) {
+            case '工作填报率':
+              drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
+              break;
+            case '方案饱和度':
+              drill_down_url = '/report/subsidiary_workloading/planning_day_rate_drill_down';
+              break;
+            case '施工图饱和度':
+              drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
+              break;
+          }
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
+
     subsidiaryWorkloadingsChart1.setOption(option1, false);
+    subsidiaryWorkloadingsChart1.on('click', drill_down_model_show);
     subsidiaryWorkloadingsChart2.setOption(option2, false);
+    subsidiaryWorkloadingsChart2.on('click', drill_down_model_show);
     subsidiaryWorkloadingsChart3.setOption(option3, false);
+    subsidiaryWorkloadingsChart3.on('click', drill_down_model_show);
     setTimeout(() => {
       subsidiaryWorkloadingsChart1.resize();
       subsidiaryWorkloadingsChart2.resize();

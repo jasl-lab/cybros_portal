@@ -55,6 +55,21 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
     end
   end
 
+  def day_rate_drill_down
+    authorize Bi::SubsidiaryWorkloading
+    render
+  end
+
+  def planning_day_rate_drill_down
+    authorize Bi::SubsidiaryWorkloading
+    render
+  end
+
+  def building_day_rate_drill_down
+    authorize Bi::SubsidiaryWorkloading
+    render
+  end
+
   private
 
   def set_breadcrumbs
