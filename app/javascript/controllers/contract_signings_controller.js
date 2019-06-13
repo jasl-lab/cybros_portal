@@ -14,7 +14,7 @@ var periodMeanRef = this.data.get("period_mean_ref");
 
 var option = {
     legend: {
-        data: ['累计合同额', '签约周期'],
+        data: ['本年累计合同额', '签约周期'],
         align: 'left'
     },
     tooltip: {
@@ -71,7 +71,7 @@ var option = {
       }
     }],
     series: [{
-      name: '累计合同额',
+      name: '本年累计合同额',
       type: 'bar',
       data: sumContractAmounts
     },{

@@ -29,6 +29,7 @@ class Report::ContractSigningsController < ApplicationController
     @avg_period_mean_max = (@avg_period_mean.max + 10).round(0)
     @sum_contract_amounts = (@contract_amounts.sum / 10000).round(2)
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
+    @staff_per_company = Bi::StaffCount.staff_per_company
   end
 
   private
