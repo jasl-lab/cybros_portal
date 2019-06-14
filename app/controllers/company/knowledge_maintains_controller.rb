@@ -42,6 +42,29 @@ class Company::KnowledgeMaintainsController < ApplicationController
     redirect_to company_knowledge_maintains_path, notice: t('.success')
   end
 
+  def export
+    authorize Company::Knowledge
+
+    respond_to do |format|
+      format.csv do
+        render_csv_header 'Knowledge Report'
+        csv_res = CSV.generate do |csv|
+          csv << ['ID', '类别1', '类别2', '类别3', '问题']
+          policy_scope(Company::Knowledge).order(id: :asc).find_each do |s|
+            values = []
+            values << s.id
+            values << s.category_1
+            values << s.category_2
+            values << s.category_3
+            values << s.question
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF" << csv_res
+      end
+    end
+  end
+
   protected
 
   def set_page_layout_data

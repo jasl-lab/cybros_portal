@@ -41,7 +41,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :knowledge_maintains, except: [:show]
+    resources :knowledge_maintains, except: [:show] do
+      collection do
+        get :export
+      end
+    end
   end
 
   namespace :report do

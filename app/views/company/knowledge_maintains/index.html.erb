@@ -3,6 +3,9 @@
     <li class="action_bar-item">
       <%= link_to t('.actions.new'), new_company_knowledge_maintain_path, class: 'btn text-primary' %>
     </li>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.report'), export_company_knowledge_maintains_path(format: :csv), class: 'btn text-primary' %>
+    </li>
   </ol>
 <% end %>
 

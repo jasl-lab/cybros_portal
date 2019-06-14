@@ -6,6 +6,7 @@ zh-CN:
         title: "职能知识库维护"
         actions:
           new: "新建知识条目"
+          report: "导出所有条目"
         table:
           category_1: "类别 1"
           category_2: "类别 2"

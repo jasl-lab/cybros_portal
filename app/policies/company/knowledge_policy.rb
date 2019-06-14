@@ -24,6 +24,10 @@ module Company
       update?
     end
 
+    def export?
+      update?
+    end
+
     def update?
       user.admin? || user.email == 'chenzifan@thape.com.cn'
     end
