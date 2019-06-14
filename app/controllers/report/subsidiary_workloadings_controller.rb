@@ -4,6 +4,8 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  before_action :set_drill_down_params_and_title, only: %i[day_rate_drill_down planning_day_rate_drill_down building_day_rate_drill_down],
+    if: -> { request.format.js? }
   after_action :verify_authorized
 
   def show
@@ -56,21 +58,30 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
   end
 
   def day_rate_drill_down
-    authorize Bi::SubsidiaryWorkloading
+    @data.select(:departmentname, :date, :date_need, :date_real, :fill_rate)
     render
   end
 
   def planning_day_rate_drill_down
-    authorize Bi::SubsidiaryWorkloading
+    @data.select(:departmentname, :date, :blue_print_need, :blue_print_real, :blue_print_rate)
     render
   end
 
   def building_day_rate_drill_down
-    authorize Bi::SubsidiaryWorkloading
+    @data.select(:departmentname, :date, :construction_need, :construction_real, :construction_rate)
     render
   end
 
   private
+
+  def set_drill_down_params_and_title
+    authorize Bi::SubsidiaryWorkloading
+    @company_name = params[:company_name]
+    begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
+    end_month = Date.parse(params[:end_month_name]).end_of_month
+    @drill_down_subtitle = "#{begin_month} - #{end_month}"
+    @data = Bi::WorkHoursCount.where(date: begin_month..end_month).where(businessltdname: @company_name).order(date: :asc)
+  end
 
   def set_breadcrumbs
     @_breadcrumbs = [
