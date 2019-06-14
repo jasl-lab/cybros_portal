@@ -15,6 +15,25 @@
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
+      <%= form_tag company_knowledge_maintains_path, method: :get, class: 'form-inline' do -%>
+        <div class="form-group">
+          <label class="mr-1" for="select-category-1"><%= t(".table.category_1") -%>：</label>
+          <%= select_tag 'category_1', options_for_select(@category_1_list, params[:category_1]), include_blank: true, class: 'form-control', id: 'select-category-1' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1" for="select-category-2"><%= t(".table.category_2") -%>：</label>
+          <%= select_tag 'category_2', options_for_select(@category_2_list, params[:category_2]), include_blank: true, class: 'form-control', id: 'select-category-2' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1" for="select-category-3"><%= t(".table.category_3") -%>：</label>
+          <%= select_tag 'category_3', options_for_select(@category_3_list, params[:category_3]), include_blank: true, class: 'form-control', id: 'select-category-3' %>
+        </div>
+        <div class="form-group">
+          <label class="mr-1" for="text-knowledge-question"><%= t(".table.question") -%>：</label>
+          <%= text_field_tag 'question', params[:question], class: 'form-control', id: 'text-knowledge-question' %>
+        </div>
+        <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
+      <% end -%>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
