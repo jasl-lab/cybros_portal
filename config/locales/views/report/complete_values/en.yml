@@ -1,0 +1,8 @@
+---
+en:
+  report:
+    complete_values:
+      show:
+        title: "Complete value"
+        month_name: "Query year and month"
+        confirm: "Confirm"

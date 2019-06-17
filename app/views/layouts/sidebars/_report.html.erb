@@ -31,6 +31,12 @@
           <%= t("layouts.sidebar.report.contract_signing") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/complete_value', html_options: { class: "nav-item" } do %>
+        <%= link_to report_complete_value_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.report.complete_value") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>
