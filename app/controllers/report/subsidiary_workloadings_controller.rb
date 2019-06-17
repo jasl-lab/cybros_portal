@@ -73,13 +73,13 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
   private
 
   def set_drill_down_params_and_title
-    authorize Bi::WorkHoursCountOrg
+    authorize Bi::WorkHoursCountDetailDept
     short_company_name = params[:company_name]
     @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
     begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
     end_month = Date.parse(params[:end_month_name]).end_of_month
     @drill_down_subtitle = "#{begin_month} - #{end_month}"
-    @data = Bi::WorkHoursCountOrg.where(date: begin_month..end_month).where(businessltdname: @company_name).order(date: :asc)
+    @data = Bi::WorkHoursCountDetailDept.where(date: begin_month..end_month).where(businessltdname: @company_name).order(date: :asc)
   end
 
   def set_breadcrumbs
