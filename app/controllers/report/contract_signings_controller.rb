@@ -22,12 +22,13 @@ class Report::ContractSigningsController < ApplicationController
       .select('businessltdname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')
       .group(:businessltdname)
     @all_company_names = @data.collect(&:businessltdname)
+    @all_company_short_names = @all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @contract_amounts = @data.collect(&:sum_contract_amount)
     contract_period = @data.collect(&:sum_contract_period)
     contract_count = @data.collect(&:sum_contract_count)
-    @avg_period_mean = @data.collect { |d| (d.sum_contract_period / d.sum_contract_count.to_f).round(2) }
+    @avg_period_mean = @data.collect { |d| (d.sum_contract_period / d.sum_contract_count.to_f).round(0) }
     @avg_period_mean_max = (@avg_period_mean.max + 10).round(0)
-    @sum_contract_amounts = (@contract_amounts.sum / 10000).round(2)
+    @sum_contract_amounts = (@contract_amounts.sum / 10000).round(0)
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
     @staff_per_company = Bi::StaffCount.staff_per_company
   end
@@ -40,7 +41,7 @@ class Report::ContractSigningsController < ApplicationController
       link: root_path },
     { text: t("layouts.sidebar.report.header"),
       link: report_root_path },
-    { text: t("layouts.sidebar.report.contract_signing"),
+    { text: t("report.contract_signings.show.title"),
       link: report_contract_signing_path }]
   end
 

@@ -26,8 +26,8 @@ var option = {
     grid: {
       left: 70,
       right: 110,
-      top: 60,
-      bottom: 125
+      top: 50,
+      bottom: 60
     },
     toolbox: {
       feature: {
@@ -73,7 +73,13 @@ var option = {
     series: [{
       name: '本年累计合同额',
       type: 'bar',
-      data: sumContractAmounts
+      data: sumContractAmounts,
+      label: {
+        normal: {
+          show: true,
+          position: 'top'
+        }
+      }
     },{
       name: '签约周期',
       type: 'line',
