@@ -60,9 +60,18 @@ var option1 = {
     series: [{
       name: '工作填报率',
       type: 'line',
+      symbol: 'triangle',
+      symbolSize: 10,
       data: dayRateData,
       itemStyle: {
         color: '#C23631'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          formatter: '{c}%'
+        }
       },
       markLine: {
         label: {
@@ -70,7 +79,7 @@ var option1 = {
         },
         lineStyle: {
           type: 'solid',
-          width: 1
+          width: 2
         },
         data: [
           {
@@ -123,9 +132,18 @@ var option2 = {
     series: [{
       name: '方案饱和度',
       type: 'line',
+      symbol: 'square',
+      symbolSize: 10,
       data: planningDayRateData,
       itemStyle: {
         color: '#334B5C'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          formatter: '{c}%'
+        }
       },
       markLine: {
         label: {
@@ -133,7 +151,7 @@ var option2 = {
         },
         lineStyle: {
           type: 'solid',
-          width: 1
+          width: 2
         },
         data: [
           {
@@ -186,9 +204,18 @@ var option3 = {
     series: [{
       name: '施工图饱和度',
       type: 'line',
+      symbol: 'square',
+      symbolSize: 10,
       data: buildingDayRateData,
       itemStyle: {
         color: '#6AB0B8'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          formatter: '{c}%'
+        }
       },
       markLine: {
         label: {
@@ -196,7 +223,7 @@ var option3 = {
         },
         lineStyle: {
           type: 'solid',
-          width: 1
+          width: 2
         },
         data: [
           {
