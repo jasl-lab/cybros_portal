@@ -16,5 +16,12 @@ module Bi
         h
       end
     end
+
+    def self.company_long_names
+      @company_long_names ||= StaffCount.all.reduce({}) do |h, s|
+        h[s.company] = s.businessltdname
+        h
+      end
+    end
   end
 end

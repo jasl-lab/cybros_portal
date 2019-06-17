@@ -74,7 +74,8 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
 
   def set_drill_down_params_and_title
     authorize Bi::SubsidiaryWorkloading
-    @company_name = params[:company_name]
+    short_company_name = params[:company_name]
+    @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
     begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
     end_month = Date.parse(params[:end_month_name]).end_of_month
     @drill_down_subtitle = "#{begin_month} - #{end_month}"
