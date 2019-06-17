@@ -63,9 +63,9 @@ var option1 = {
       symbol: 'triangle',
       symbolSize: function(val, params) {
         if (val < dayRateDataRef) {
-          return 6;
+          return 8;
         } else {
-          return 12;
+          return 16;
         }
       },
       data: dayRateData,
@@ -141,9 +141,9 @@ var option2 = {
       symbol: 'circle',
       symbolSize: function(val, params) {
         if (val < planningDayRateDataRef) {
-          return 6;
+          return 8;
         } else {
-          return 12;
+          return 16;
         }
       },
       data: planningDayRateData,
@@ -219,9 +219,9 @@ var option3 = {
       symbol: 'square',
       symbolSize:  function(val, params) {
         if (val < buildingDayRateDataRef) {
-          return 6;
+          return 8;
         } else {
-          return 12;
+          return 16;
         }
       },
       data: buildingDayRateData,
@@ -254,7 +254,7 @@ var option3 = {
 
     function drill_down_model_show(params) {
       if (params.componentType === 'series') {
-        if (params.seriesType === 'bar') {
+        if (params.seriesType === 'line') {
           const company_name = xAxisData[params.dataIndex];
           const begin_month_name = $('#begin_month_name').val();
           const end_month_name = $('#end_month_name').val();
