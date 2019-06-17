@@ -26,7 +26,7 @@ var option1 = {
       left: 50,
       right: 110,
       top: 60,
-      bottom: 125
+      bottom: 60
     },
     toolbox: {
       feature: {
@@ -59,7 +59,7 @@ var option1 = {
     },
     series: [{
       name: '工作填报率',
-      type: 'bar',
+      type: 'line',
       data: dayRateData,
       itemStyle: {
         color: '#C23631'
@@ -122,7 +122,7 @@ var option2 = {
     },
     series: [{
       name: '方案饱和度',
-      type: 'bar',
+      type: 'line',
       data: planningDayRateData,
       itemStyle: {
         color: '#334B5C'
@@ -185,7 +185,7 @@ var option3 = {
     },
     series: [{
       name: '施工图饱和度',
-      type: 'bar',
+      type: 'line',
       data: buildingDayRateData,
       itemStyle: {
         color: '#6AB0B8'

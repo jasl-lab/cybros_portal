@@ -19,7 +19,7 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
       .select('company, SUM(acturally_days) acturally_days, SUM(need_days) need_days, SUM(planning_acturally_days) planning_acturally_days, SUM(planning_need_days) planning_need_days, SUM(building_acturally_days), SUM(building_acturally_days) building_acturally_days, SUM(building_need_days) building_need_days')
       .group(:company)
     @data = @data.where(company: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
-    @company_names = @data.collect(&:company)
+    @company_names = @data.collect(&:company).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @day_rate = @data.collect { |d| ((d.acturally_days / d.need_days.to_f) * 100).round(2) }
     @day_rate_ref = params[:day_rate_ref] || 90
     @planning_day_rate = @data.collect { |d| ((d.planning_acturally_days / d.planning_need_days.to_f) * 100).round(2) }
