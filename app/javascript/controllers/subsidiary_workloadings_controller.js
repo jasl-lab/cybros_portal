@@ -32,7 +32,7 @@ var option1 = {
       feature: {
         dataView: {},
         saveAsImage: {
-            pixelRatio: 2
+          pixelRatio: 2
         }
       }
     },
@@ -45,7 +45,7 @@ var option1 = {
         rotate: -40
       },
       splitLine: {
-          show: false
+        show: false
       }
     },
     yAxis: {
@@ -61,10 +61,16 @@ var option1 = {
       name: '工作填报率',
       type: 'line',
       symbol: 'triangle',
-      symbolSize: 10,
+      symbolSize: function(val, params) {
+        if (val < dayRateDataRef) {
+          return 6;
+        } else {
+          return 12;
+        }
+      },
       data: dayRateData,
       itemStyle: {
-        color: '#C23631'
+        color: '#738496'
       },
       label: {
         normal: {
@@ -79,7 +85,7 @@ var option1 = {
         },
         lineStyle: {
           type: 'solid',
-          width: 2
+          width: 1
         },
         data: [
           {
@@ -132,8 +138,14 @@ var option2 = {
     series: [{
       name: '方案饱和度',
       type: 'line',
-      symbol: 'square',
-      symbolSize: 10,
+      symbol: 'circle',
+      symbolSize: function(val, params) {
+        if (val < planningDayRateDataRef) {
+          return 6;
+        } else {
+          return 12;
+        }
+      },
       data: planningDayRateData,
       itemStyle: {
         color: '#334B5C'
@@ -151,7 +163,7 @@ var option2 = {
         },
         lineStyle: {
           type: 'solid',
-          width: 2
+          width: 1
         },
         data: [
           {
@@ -205,7 +217,13 @@ var option3 = {
       name: '施工图饱和度',
       type: 'line',
       symbol: 'square',
-      symbolSize: 10,
+      symbolSize:  function(val, params) {
+        if (val < buildingDayRateDataRef) {
+          return 6;
+        } else {
+          return 12;
+        }
+      },
       data: buildingDayRateData,
       itemStyle: {
         color: '#6AB0B8'
@@ -223,7 +241,7 @@ var option3 = {
         },
         lineStyle: {
           type: 'solid',
-          width: 2
+          width: 1
         },
         data: [
           {
