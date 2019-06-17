@@ -23,12 +23,12 @@ class Report::ContractSigningsController < ApplicationController
       .group(:businessltdname)
     @all_company_names = @data.collect(&:businessltdname)
     @all_company_short_names = @all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @contract_amounts = @data.collect(&:sum_contract_amount)
+    @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0)}
     contract_period = @data.collect(&:sum_contract_period)
     contract_count = @data.collect(&:sum_contract_count)
     @avg_period_mean = @data.collect { |d| (d.sum_contract_period / d.sum_contract_count.to_f).round(0) }
     @avg_period_mean_max = (@avg_period_mean.max + 10).round(0)
-    @sum_contract_amounts = (@contract_amounts.sum / 10000).round(0)
+    @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(0)
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
     @staff_per_company = Bi::StaffCount.staff_per_company
   end

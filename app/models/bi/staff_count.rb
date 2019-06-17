@@ -5,7 +5,7 @@ module Bi
 
     def self.staff_per_company
       @staff_per_company ||= StaffCount.all.reduce({}) do |h, s|
-        h[s.businessltdname] = s.count
+        h[s.company] = s.count
         h
       end
     end
