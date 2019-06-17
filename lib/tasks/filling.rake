@@ -3,7 +3,7 @@ namespace :filling do
   task :subsidiary_workloadings, [:csv_file] => [:environment] do |task, args|
     csv_file_path = args[:csv_file]
     CSV.foreach(csv_file_path, headers: true) do |row|
-      Bi::SubsidiaryWorkloading.create(
+      Bi::WorkHoursCountOrg.create(
         company: row['公司'],
         date: row['日期'],
         need_days: row['天数需填'],

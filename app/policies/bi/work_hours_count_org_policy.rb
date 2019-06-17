@@ -1,5 +1,5 @@
 module Bi
-  class SubsidiaryWorkloadingPolicy < BasePolicy
+  class WorkHoursCountOrgPolicy < BasePolicy
     def day_rate_drill_down?
       show?
     end

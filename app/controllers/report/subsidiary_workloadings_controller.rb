@@ -7,36 +7,36 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
   after_action :verify_authorized
 
   def show
-    authorize Bi::SubsidiaryWorkloading
+    authorize Bi::WorkHoursCountOrg
     current_user_companies = current_user.departments.collect(&:company_name)
 
-    @all_month_names = Bi::SubsidiaryWorkloading.all_month_names
+    @all_month_names = Bi::WorkHoursCountOrg.all_month_names
     @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.last
     @end_month_name = params[:end_month_name]&.strip || @all_month_names.last
     beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
     end_of_month = Date.parse(@end_month_name).end_of_month
-    @data = Bi::SubsidiaryWorkloading.where(date: beginning_of_month..end_of_month)
-      .select('company, SUM(acturally_days) acturally_days, SUM(need_days) need_days, SUM(planning_acturally_days) planning_acturally_days, SUM(planning_need_days) planning_need_days, SUM(building_acturally_days), SUM(building_acturally_days) building_acturally_days, SUM(building_need_days) building_need_days')
-      .group(:company)
-    @data = @data.where(company: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
-    @company_names = @data.collect(&:company).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @day_rate = @data.collect { |d| ((d.acturally_days / d.need_days.to_f) * 100).round(0) }
+    @data = Bi::WorkHoursCountOrg.where(date: beginning_of_month..end_of_month)
+      .select('businessltdname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
+      .group(:businessltdname)
+    @data = @data.where(businessltdname: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
+    @company_names = @data.collect(&:businessltdname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @day_rate = @data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 90
-    @planning_day_rate = @data.collect { |d| ((d.planning_acturally_days / d.planning_need_days.to_f) * 100).round(0) }
+    @planning_day_rate = @data.collect { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 }
     @planning_day_rate_ref = params[:planning_day_rate_ref] || 95
-    @building_day_rate = @data.collect { |d| ((d.building_acturally_days / d.building_need_days.to_f) * 100).round(0) }
+    @building_day_rate = @data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
   end
 
   def export
-    authorize Bi::SubsidiaryWorkloading
+    authorize Bi::WorkHoursCountOrg
 
     respond_to do |format|
       format.csv do
         render_csv_header 'Subsidiary Workloadings'
         csv_res = CSV.generate do |csv|
           csv << ['ID', '日期', '公司', '天数需填', '天数实填', '方案需填', '方案实填', '施工图需填', '施工图实填']
-          policy_scope(Bi::SubsidiaryWorkloading).order(id: :asc).find_each do |s|
+          policy_scope(Bi::WorkHoursCountOrg).order(id: :asc).find_each do |s|
             values = []
             values << s.id
             values << s.date
@@ -73,13 +73,13 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
   private
 
   def set_drill_down_params_and_title
-    authorize Bi::SubsidiaryWorkloading
+    authorize Bi::WorkHoursCountOrg
     short_company_name = params[:company_name]
     @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
     begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
     end_month = Date.parse(params[:end_month_name]).end_of_month
     @drill_down_subtitle = "#{begin_month} - #{end_month}"
-    @data = Bi::WorkHoursCount.where(date: begin_month..end_month).where(businessltdname: @company_name).order(date: :asc)
+    @data = Bi::WorkHoursCountOrg.where(date: begin_month..end_month).where(businessltdname: @company_name).order(date: :asc)
   end
 
   def set_breadcrumbs
