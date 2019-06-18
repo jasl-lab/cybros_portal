@@ -22,7 +22,8 @@ class OpenidConnectController < ApplicationController
     end
     user.update(position_title: main_position_title, clerk_code: clerk_code, chinese_name: chinese_name)
 
+    original_url = request.env['omniauth.origin']
     sign_in user
-    redirect_to root_path
+    redirect_to original_url
   end
 end
