@@ -24,6 +24,10 @@ class OpenidConnectController < ApplicationController
 
     original_url = request.env['omniauth.origin']
     sign_in user
-    redirect_to original_url
+    if original_url != 'https://sso.thape.com.cn/'
+      redirect_to original_url
+    else
+      redirect_to root_path
+    end
   end
 end
