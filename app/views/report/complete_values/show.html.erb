@@ -8,6 +8,9 @@
       data-complete-values-complete_value_year_totals="<%= @complete_value_year_totals.to_json -%>"
       data-complete-values-complete_value_totals_per_staff="<%= @complete_value_totals_per_staff.to_json -%>"
       data-complete-values-complete_value_year_totals_per_staff="<%= @complete_value_year_totals_per_staff.to_json -%>">
+      <h3 class="page-title">
+        <%= t(".title") %>
+      </h3>
       <%= form_tag report_complete_value_path, method: :get, class: 'form-inline' do -%>
         <div class="form-group">
           <label class="mr-1"><%= t(".month_name") -%>：</label>
