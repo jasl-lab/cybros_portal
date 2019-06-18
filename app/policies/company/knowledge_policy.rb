@@ -17,7 +17,7 @@ module Company
     end
 
     def create?
-      user.admin? || user.email == 'chenzifan@thape.com.cn' || %(忻琳 聂玲玲 冯可 季建杰 柳怡帆).include?(user.chinese_name)
+      user.admin? || user.knowledge_maintainer?
     end
 
     def edit?
@@ -29,7 +29,7 @@ module Company
     end
 
     def update?
-      user.admin? || user.email == 'chenzifan@thape.com.cn' || %(忻琳 聂玲玲 冯可 季建杰 柳怡帆).include?(user.chinese_name)
+      user.admin? || user.knowledge_maintainer?
     end
 
     def destroy?

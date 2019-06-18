@@ -15,6 +15,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(Company::PendingQuestion).index? %>
+        <%= nav_item controller: 'company/pending_questions', html_options: {class: "nav-item"} do %>
+          <%= link_to company_pending_questions_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.company.pending_questions") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

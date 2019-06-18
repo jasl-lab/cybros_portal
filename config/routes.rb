@@ -46,6 +46,7 @@ Rails.application.routes.draw do
         get :export
       end
     end
+    resources :pending_questions, only: %i[index create destroy]
   end
 
   namespace :report do

@@ -84,7 +84,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
     { text: t("layouts.sidebar.application.header"),
       link: root_path },
     { text: t("layouts.sidebar.company.header"),
-      link: person_root_path },
+      link: company_root_path },
     { text: t("layouts.sidebar.company.knowledge_maintains"),
       link: company_knowledge_maintains_path }]
   end
