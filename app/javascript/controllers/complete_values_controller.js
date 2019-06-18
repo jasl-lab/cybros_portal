@@ -10,11 +10,13 @@ export default class extends Controller {
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
+var completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
 var completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
+var completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
 
 var option_total = {
     legend: {
-        data: ['累积完成产值（万元）'],
+        data: ['累积完成产值（万元）','预计全年完成产值（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -59,6 +61,7 @@ var option_total = {
     series: [{
       name: '累积完成产值',
       type: 'bar',
+      stack: '总量',
       data: completeValueTotals,
       itemStyle: {
         color: '#738496'
@@ -66,7 +69,22 @@ var option_total = {
       label: {
         normal: {
           show: true,
-          position: 'top'
+          position: 'insideTop'
+        }
+      }
+    },{
+      name: '预计全年完成产值',
+      type: 'bar',
+      stack: '总量',
+      data: completeValueYearTotals,
+      itemStyle: {
+        color: '#DDDDDD'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          color: '#353535'
         }
       }
     }]
@@ -74,7 +92,7 @@ var option_total = {
 
 var option_staff = {
     legend: {
-        data: ['人均完成产值（万元）'],
+        data: ['人均完成产值（万元）','预计全年人均完成产值（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -119,6 +137,7 @@ var option_staff = {
     series: [{
       name: '人均完成产值',
       type: 'bar',
+      stack: '人均',
       data: completeValueTotalsPerStaff,
       itemStyle: {
         color: '#60A0A8'
@@ -126,7 +145,22 @@ var option_staff = {
       label: {
         normal: {
           show: true,
-          position: 'top'
+          position: 'insideTop'
+        }
+      }
+    },{
+      name: '预计全年人均完成产值',
+      type: 'bar',
+      stack: '人均',
+      data: completeValueYearTotalsPerStaff,
+      itemStyle: {
+        color: '#DDDDDD'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          color: '#353535'
         }
       }
     }]

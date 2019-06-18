@@ -21,13 +21,15 @@ class Report::CompleteValuesController < ApplicationController
       .group(:businessltdname)
     @all_company_names = @data.collect(&:businessltdname)
     @all_company_short_names = @all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @complete_value_totals = @data.collect { |d| (d.sum_total/10000).round(0)}
+    @complete_value_totals = @data.collect { |d| (d.sum_total/10000).round(0) }
+    @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month/12.0)).round(0) }
     @staff_per_company = Bi::StaffCount.staff_per_company
     @complete_value_totals_per_staff = @data.collect do |d|
       short_name = Bi::StaffCount.company_short_names.fetch(d.businessltdname, d.businessltdname)
       staff_number = @staff_per_company.fetch(short_name, 1000)
       (d.sum_total / (staff_number*10000).to_f).round(0)
     end
+    @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month/12.0)).round(0) }
   end
 
   private
