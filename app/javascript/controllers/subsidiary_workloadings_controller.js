@@ -49,8 +49,6 @@ var option1 = {
       }
     },
     yAxis: {
-      min: 0,
-      max: 100,
       axisLabel: {
         show: true,
         interval: 'auto',
@@ -127,8 +125,6 @@ var option2 = {
       }
     },
     yAxis: {
-      min: 0,
-      max: 100,
       axisLabel: {
         show: true,
         interval: 'auto',
@@ -205,8 +201,6 @@ var option3 = {
       }
     },
     yAxis: {
-      min: 0,
-      max: 100,
       axisLabel: {
         show: true,
         interval: 'auto',
