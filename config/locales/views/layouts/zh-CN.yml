@@ -39,5 +39,6 @@ zh-CN:
         tianzhen_logins: "天正软件登录情况"
         subsidiary_workloading: "子公司工时报表"
         yearly_subsidiary_workloading: "年度子公司工时报表"
-        contract_signing: "签订合同"
-        complete_value: "工作完成情况"
+        contract_signing: "子公司签订合同"
+        complete_value: "子公司工作完成情况"
+        subsidiary_receive: "子公司收款情况"

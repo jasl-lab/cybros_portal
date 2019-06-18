@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     resource :yearly_subsidiary_workloading, only: %i[show]
     resource :contract_signing, only: %i[show]
     resource :complete_value, only: %i[show]
+    resource :subsidiary_receive, only: %i[show]
   end
 
   namespace :person do
