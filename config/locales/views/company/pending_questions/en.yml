@@ -4,3 +4,7 @@ en:
     pending_questions:
       index:
         title: "Pending knowledge questions Maintain"
+      create:
+        success: "Please continue filling other info, notice pending question is already removed."
+      destroy:
+        success: "Successfully removed Pending knowledge questions: %{question}"

@@ -4,3 +4,7 @@ zh-CN:
     pending_questions:
       index:
         title: "无法回答的问题维护"
+      create:
+        success: "请继续填写其他信息，原先无法回答的问题已经删除。"
+      destroy:
+        success: "已成功删除无法回答的问题：%{question}"

@@ -1,7 +1,7 @@
 module Company
   class PendingQuestionPolicy < ApplicationPolicy
     def index?
-      true
+      create?
     end
 
     def create?
@@ -9,7 +9,7 @@ module Company
     end
 
     def destroy?
-      user.admin? || user.email == 'chenzifan@thape.com.cn'
+      user.admin? || user.knowledge_maintainer?
     end
   end
 end

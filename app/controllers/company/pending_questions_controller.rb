@@ -6,25 +6,23 @@ class Company::PendingQuestionsController < ApplicationController
 
   def index
     authorize Company::PendingQuestion
-    @knowledges = Company::PendingQuestion.all
+    @pending_questions = Company::PendingQuestion.all
   end
 
   def create
-    @pending_question = Company::PendingQuestion.new(knowledge_params)
-    authorize @pending_question
+    pending_question = Company::PendingQuestion.find(params[:id])
+    authorize pending_question
+    pending_question.destroy
 
-    if @pending_question.save
-      redirect_to company_knowledge_maintains_path, notice: t('.success')
-    else
-      render :new
-    end
+    redirect_to new_company_knowledge_maintain_path(q: pending_question.question), notice: t('.success', question: pending_question.question)
   end
 
   def destroy
-    @pending_question = Company::PendingQuestion.find(params[:id])
-    authorize @pending_question
-    @pending_question.destroy
-    redirect_to company_pending_questions_path, notice: t('.success')
+    pending_question = Company::PendingQuestion.find(params[:id])
+    authorize pending_question
+    pending_question.destroy
+
+    redirect_to company_pending_questions_path, notice: t('.success', question: pending_question.question)
   end
 
   protected

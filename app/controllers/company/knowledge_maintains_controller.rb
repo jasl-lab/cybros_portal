@@ -20,6 +20,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
 
   def new
     @knowledge = Company::Knowledge.new
+    @knowledge.question = params[:q]
     authorize @knowledge
   end
 
