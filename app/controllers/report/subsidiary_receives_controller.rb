@@ -36,6 +36,17 @@ class Report::SubsidiaryReceivesController < ApplicationController
     @need_short_account_receives = @need_data.collect { |d| (d.short_account_receive/10000.0).round(0) }
     @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f+d.sign_receive.to_f)/10000.0).round(0) }
 
+    @staff_per_company = Bi::StaffCount.staff_per_company
+    @real_receives_per_staff = @real_data.collect do |d|
+      short_name = Bi::StaffCount.company_short_names.fetch(d.businessltdname, d.businessltdname)
+      staff_number = @staff_per_company.fetch(short_name, 1000)
+      (d.real_receive / (staff_number*10000).to_f).round(0)
+    end
+    @need_should_receives_per_staff = @need_data.collect do |d|
+      short_name = Bi::StaffCount.company_short_names.fetch(d.businessltdname, d.businessltdname)
+      staff_number = @staff_per_company.fetch(short_name, 1000)
+      ((d.unsign_receive.to_f+d.sign_receive.to_f)/(staff_number*10000.0).to_f).round(0)
+    end
   end
 
   private
