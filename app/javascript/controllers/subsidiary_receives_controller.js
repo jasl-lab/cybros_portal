@@ -29,6 +29,9 @@ var realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
 var needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
 
 var real_option = {
+    title: {
+      text: '本年累积实收款'
+    },
     legend: {
         data: ['本年累积实收款（万元）'],
         align: 'left'
@@ -81,6 +84,9 @@ var real_option = {
 };
 
 var need_option = {
+    title: {
+      text: '应收款（财务+业务）'
+    },
     legend: {
         data: ['超长帐龄','扣除超长帐龄以外的财务应收','业务应收款'],
         align: 'left'
@@ -170,6 +176,9 @@ var need_option = {
 };
 
 var real_staff_option = {
+    title: {
+      text: '人均实收款'
+    },
     legend: {
         data: ['人均实收款'],
         align: 'left'
@@ -222,6 +231,9 @@ var real_staff_option = {
 };
 
 var need_staff_option = {
+    title: {
+      text: '人均应收款（财务+业务）及本年回款率'
+    },
     legend: {
         data: ['人均应收款（财务+业务）及本年回款率'],
         align: 'left'
