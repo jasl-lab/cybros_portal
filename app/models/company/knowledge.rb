@@ -10,8 +10,10 @@ module Company
       qw2 = user_synonym.fetch(qw2, qw2)
       ans = if qw2.present?
         Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
-      else
+      elsif qw1.present?
         Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
+      else
+        Pundit.policy_scope(Current.user, Company::Knowledge).none
       end.limit(2)
       if ans.count > 1
         if ans.first.question.similar(question) < ans.second.question.similar(question)

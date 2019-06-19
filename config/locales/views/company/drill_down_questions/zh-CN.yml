@@ -4,3 +4,12 @@ zh-CN:
     drill_down_questions:
       show:
         title: "深入研究知识问题"
+        question: "问题"
+        search: "搜索"
+        key: "指标"
+        value: "值"
+        question_word: "结巴返回IDF值"
+        question_word_1: "同义词替换后的关键词 1"
+        question_word_2: "同义词替换后的关键词 2"
+        ans_1: "回答 1"
+        ans_2: "回答 2"

@@ -6,6 +6,21 @@ class Company::DrillDownQuestionsController < ApplicationController
 
   def show
     authorize Company::Knowledge, :drill_down?
+    @question_word = Current.jieba_keyword.extract(params[:question].to_s, 2)
+
+    qw1 = @question_word.collect(&:first).first
+    @qw1 = Company::Knowledge.user_synonym.fetch(qw1, qw1)
+    qw2 = @question_word.collect(&:first).second
+    @qw2 = Company::Knowledge.user_synonym.fetch(qw2, qw2)
+    ans = if @qw2.present?
+      Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{@qw1}%#{@qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{@qw2}%#{@qw1}%"))
+    elsif @qw1.present?
+      Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{@qw1}%")
+    else
+      Pundit.policy_scope(Current.user, Company::Knowledge).none
+    end.limit(2)
+    @ans_1 = ans.first || Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{@qw1}%").first
+    @ans_2 = ans.second
   end
 
   protected

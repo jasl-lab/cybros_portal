@@ -4,6 +4,46 @@
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
+      <%= form_tag company_drill_down_question_path, method: :get, class: 'form-inline' do -%>
+        <div class="form-group">
+          <label class="mr-1" for="text-knowledge-question"><%= t(".question") -%>：</label>
+          <%= text_field_tag 'question', params[:question], class: 'form-control', id: 'text-knowledge-question' %>
+        </div>
+        <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
+      <% end -%>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t('.key') -%></th>
+              <th><%= t('.value') -%></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><%= t('.question_word') -%></td>
+              <td><%= @question_word %></td>
+            </tr>
+            <tr>
+              <td><%= t('.question_word_1') -%></td>
+              <td><%= @qw1 %></td>
+            </tr>
+            <tr>
+              <td><%= t('.question_word_2') -%></td>
+              <td><%= @qw2 %></td>
+            </tr>
+            <tr>
+              <td><%= t('.ans_1') -%></td>
+              <td><%= @ans_1&.question %></td>
+            </tr>
+            <tr>
+              <td><%= t('.ans_2') -%></td>
+              <td><%= @ans_2&.question %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

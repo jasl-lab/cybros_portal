@@ -4,3 +4,12 @@ en:
     drill_down_questions:
       show:
         title: "Drilling down the knowledge question"
+        question: "Question"
+        search: "Search"
+        key: "Key"
+        value: "Value"
+        question_word: "Question IDF word "
+        question_word_1: "After synonym keyword 1"
+        question_word_2: "After synonym keyword 2"
+        ans_1: "Answer 1"
+        ans_2: "Answer 2"
