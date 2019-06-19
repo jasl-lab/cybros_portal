@@ -22,6 +22,10 @@ module Company
       true
     end
 
+    def drill_down?
+      true
+    end
+
     def new?
       create?
     end

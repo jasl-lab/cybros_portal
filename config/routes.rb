@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       end
     end
     resources :pending_questions, only: %i[index create destroy]
+    resource :drill_down_question, only: %i[show]
   end
 
   namespace :report do

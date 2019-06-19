@@ -28,6 +28,7 @@ zh-CN:
         header: "公司首页"
         knowledge_maintains: "知识库维护"
         pending_questions: "无法回答的问题"
+        drill_down_question: "分析知识库的回答"
       person:
         header: "个人首页"
         name_card: "名片"
