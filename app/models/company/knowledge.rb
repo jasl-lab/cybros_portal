@@ -9,9 +9,9 @@ module Company
       qw2 = question_word.collect(&:first).second
       qw2 = user_synonym.fetch(qw2, qw2)
       ans = if qw2.present?
-        Company::Knowledge.where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Company::Knowledge.where('question LIKE ?', "%#{qw2}%#{qw1}%"))
+        policy_scope(Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(policy_scope(Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
       else
-        Company::Knowledge.where('question LIKE ?', "%#{qw1}%")
+        policy_scope(Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
       end.limit(2)
       if ans.count > 1
         if ans.first.question.similar(question) < ans.second.question.similar(question)
@@ -22,7 +22,7 @@ module Company
       elsif ans.count == 1
         ans.first
       else
-        Company::Knowledge.where('question LIKE ?', "%#{qw1}%").first
+        policy_scope(Company::Knowledge).where('question LIKE ?', "%#{qw1}%").first
       end
     end
 

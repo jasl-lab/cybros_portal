@@ -41,4 +41,8 @@ class User < ApplicationRecord
   def user_company_names
     @belongs_to_company_names ||= departments.collect(&:company_name)
   end
+
+  def in_tianhua_hq?
+    user_company_names.include?('上海天华建筑设计有限公司')
+  end
 end
