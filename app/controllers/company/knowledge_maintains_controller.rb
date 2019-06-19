@@ -11,6 +11,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
     @category_2_list = Company::Knowledge.distinct.pluck(:category_2)
     @category_3_list = Company::Knowledge.distinct.pluck(:category_3)
     knowledges = Company::Knowledge.all
+    knowledges = knowledges.where(shanghai_only: params[:shanghai_only]) if params[:shanghai_only].present?
     knowledges = knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
     knowledges = knowledges.where(category_2: params[:category_2]) if params[:category_2].present?
     knowledges = knowledges.where(category_3: params[:category_3]) if params[:category_3].present?
@@ -98,6 +99,6 @@ class Company::KnowledgeMaintainsController < ApplicationController
   end
 
   def knowledge_params
-    params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer)
+    params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer, :shanghai_only)
   end
 end

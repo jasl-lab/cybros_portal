@@ -13,6 +13,7 @@ en:
           category_3: "Category 3"
           question: "Question"
           answer: "Answer"
+          shanghai_only: "Apply to shanghai only"
         search: "Search"
       new:
         form_header: "New knowledge"

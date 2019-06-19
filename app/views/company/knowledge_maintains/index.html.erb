@@ -17,6 +17,10 @@
       </h3>
       <%= form_tag company_knowledge_maintains_path, method: :get, class: 'form-inline' do -%>
         <div class="form-group">
+          <%= check_box_tag 'shanghai_only', true, params[:shanghai_only], class: 'form-control' %>
+          <label class="mr-1"> <%= t(".table.shanghai_only") -%> <i class="fa fa-city"></i> </label>
+        </div>
+        <div class="form-group">
           <label class="mr-1" for="select-category-1"><%= t(".table.category_1") -%>：</label>
           <%= select_tag 'category_1', options_for_select(@category_1_list, params[:category_1]), include_blank: true, class: 'form-control', id: 'select-category-1' %>
         </div>
@@ -49,7 +53,12 @@
           <tbody>
             <% @knowledges.each do |knowledge| %>
               <tr>
-                <td><%= knowledge.category_1 %></td>
+                <td>
+                  <% if knowledge.shanghai_only? -%>
+                    <i class="fa fa-city"></i>
+                  <% end -%>
+                  <%= knowledge.category_1 -%>
+                </td>
                 <td><%= knowledge.category_2 %></td>
                 <td><%= knowledge.category_3 %></td>
                 <td><%= knowledge.question %></td>

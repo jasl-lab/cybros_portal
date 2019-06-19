@@ -13,6 +13,7 @@ zh-CN:
           category_3: "类别 3"
           question: "问题"
           answer: "答案"
+          shanghai_only: "仅上海适用"
         search: "搜索"
       new:
         form_header: "新的知识条目"
