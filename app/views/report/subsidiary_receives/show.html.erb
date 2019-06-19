@@ -3,13 +3,19 @@
     <div class="container"
       data-controller="subsidiary-receives"
       data-action="resize@window->subsidiary-receives#layout"
-      data-subsidiary-receives-x_axis="<%= @all_company_short_names.to_json -%>"
+      data-subsidiary-receives-real_x_axis="<%= @real_company_short_names.to_json -%>"
       data-subsidiary-receives-real_receives="<%= @real_receives.to_json -%>"
-      data-subsidiary-receives-day_rate_ref="<%= @staff_real_receive_ref -%>">
+      data-subsidiary-receives-day_rate_ref="<%= @staff_real_receive_ref -%>"
+      data-subsidiary-receives-need_x_axis="<%= @need_company_short_names.to_json -%>"
+      data-subsidiary-receives-need_long_account_receives="<%= @need_long_account_receives.to_json -%>"
+      data-subsidiary-receives-need_short_account_receives="<%= @need_short_account_receives.to_json -%>"
+      data-subsidiary-receives-need_should_receives="<%= @need_should_receives.to_json -%>">
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
       <div id="subsidiary-real-receives-chart" style="width: 100%;height: 350px;">
+      </div>
+      <div id="subsidiary-need-receives-chart" style="width: 100%;height: 350px;">
       </div>
     </div>
   </div>
