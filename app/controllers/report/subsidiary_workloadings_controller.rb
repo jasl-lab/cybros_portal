@@ -8,7 +8,7 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
 
   def show
     authorize Bi::WorkHoursCountOrg
-    current_user_companies = current_user.departments.collect(&:company_name)
+    current_user_companies = current_user.user_company_names
 
     @all_month_names = Bi::WorkHoursCountOrg.all_month_names
     @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.last

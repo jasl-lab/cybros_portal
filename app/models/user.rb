@@ -37,4 +37,8 @@ class User < ApplicationRecord
   def knowledge_maintainer?
     email == 'chenzifan@thape.com.cn' || %(忻琳 聂玲玲 冯可 季建杰 柳怡帆).include?(chinese_name)
   end
+
+  def user_company_names
+    @belongs_to_company_names ||= departments.collect(&:company_name)
+  end
 end

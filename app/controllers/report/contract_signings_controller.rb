@@ -11,7 +11,7 @@ class Report::ContractSigningsController < ApplicationController
     @end_of_month = Date.parse(@month_name).end_of_month
     @period_mean_ref = params[:period_mean_ref] || 100
 
-    current_user_companies = current_user.departments.collect(&:company_name)
+    current_user_companies = current_user.user_company_names
     @data = if current_user_companies.include?('上海天华建筑设计有限公司')
       Bi::ContractSign.all
     else

@@ -10,7 +10,7 @@ class Report::SubsidiaryReceivesController < ApplicationController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
 
-    current_user_companies = current_user.departments.collect(&:company_name)
+    current_user_companies = current_user.user_company_names
     @real_data = if current_user_companies.include?('上海天华建筑设计有限公司')
       Bi::SubCompanyRealReceive.all
     else

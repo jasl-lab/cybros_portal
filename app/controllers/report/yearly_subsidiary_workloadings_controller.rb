@@ -4,7 +4,7 @@ class Report::YearlySubsidiaryWorkloadingsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    current_user_companies = current_user.departments.collect(&:company_name)
+    current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
     if current_user_companies.include?('上海天华建筑设计有限公司')
       @all_company_names = Bi::WorkHoursCountOrg.distinct.pluck(:businessltdname)
