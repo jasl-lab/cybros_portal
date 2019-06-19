@@ -2,7 +2,7 @@ module Company
   class KnowledgePolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        if user.in_tianhua_hq?
+        if user&.in_tianhua_hq?
           scope.all
         else
           scope.where(shanghai_only: false)
