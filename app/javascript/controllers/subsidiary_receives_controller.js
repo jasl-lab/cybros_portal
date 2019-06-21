@@ -27,6 +27,7 @@ var realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
     subsidiaryNeedReceivesStaffChart = echarts.init(document.getElementById('subsidiary-need-receives-staff-chart'));
 
 var needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
+var paybackRates = JSON.parse(this.data.get("payback_rates"));
 
 var real_option = {
     title: {
@@ -235,7 +236,7 @@ var need_staff_option = {
       text: '人均应收款（财务+业务）及本年回款率'
     },
     legend: {
-        data: ['人均应收款（财务+业务）及本年回款率'],
+        data: ['人均应收款（财务+业务）', '本年回款率'],
         align: 'left'
     },
     grid: {
@@ -264,12 +265,26 @@ var need_staff_option = {
           show: false
       }
     },
-    yAxis: {
+    yAxis: [{
+      type: 'value',
+      name: '人均应收款（万元）',
       axisLabel: {
         show: true,
         interval: 'auto'
       }
-    },
+    },{
+      type: 'value',
+      name: '回款率',
+      position: 'right',
+      axisLine: {
+        lineStyle: {
+          color: '#675BBA'
+        }
+      },
+      axisLabel: {
+        formatter: '{value}%'
+      }
+    }],
     series: [{
       name: '人均应收款（万元）',
       type: 'bar',
@@ -282,6 +297,13 @@ var need_staff_option = {
           color: '#3E3E3E'
         }
       }
+    },{
+      name: '回款率',
+      type: 'line',
+      yAxisIndex: 1,
+      symbol: 'circle',
+      symbolSize: 8,
+      data: paybackRates
     }]
 };
 
