@@ -35,7 +35,14 @@
             </tr>
             <tr>
               <td><%= t('.ans_1') -%></td>
-              <td><%= @ans_1&.question %></td>
+              <td>
+                <%= @ans_1&.question %>
+                <% if @direct_question.present? %>
+                  <span class="badge badge-warning">
+                    <%= t(".direct_question") %>
+                  </span>
+                <% end %>
+              </td>
             </tr>
             <tr>
               <td><%= t('.ans_2') -%></td>

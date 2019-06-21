@@ -3,6 +3,11 @@ module Company
     has_rich_text :answer
 
     def self.answer(question)
+      direct_question = Company::DirectQuestion.find_by(question: question)
+      if direct_question.present?
+        return Company::Knowledge.find_by(question: direct_question.real_question)
+      end
+
       question_word = Current.jieba_keyword.extract(question, 2)
       qw1 = question_word.collect(&:first).first
       qw1 = user_synonym.fetch(qw1, qw1)

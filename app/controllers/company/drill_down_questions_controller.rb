@@ -12,6 +12,13 @@ class Company::DrillDownQuestionsController < ApplicationController
     @qw1 = Company::Knowledge.user_synonym.fetch(qw1, qw1)
     qw2 = @question_word.collect(&:first).second
     @qw2 = Company::Knowledge.user_synonym.fetch(qw2, qw2)
+
+    @direct_question = Company::DirectQuestion.find_by(question: params[:question])
+    if @direct_question.present?
+      @ans_1 = Company::Knowledge.find_by(question: @direct_question.real_question)
+      return render
+    end
+
     ans = if @qw2.present?
       Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{@qw1}%#{@qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{@qw2}%#{@qw1}%"))
     elsif @qw1.present?
