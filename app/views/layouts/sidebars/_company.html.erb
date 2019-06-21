@@ -23,6 +23,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(Company::DirectQuestion).index? %>
+        <%= nav_item controller: 'company/direct_questions', html_options: {class: "nav-item"} do %>
+          <%= link_to company_direct_questions_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.company.direct_questions") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(Company::Knowledge).drill_down? %>
         <%= nav_item controller: 'company/drill_down_question', html_options: {class: "nav-item"} do %>
           <%= link_to company_drill_down_question_path, class: "nav-link" do %>

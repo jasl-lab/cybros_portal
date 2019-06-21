@@ -28,6 +28,7 @@ en:
         header: "Company Home"
         knowledge_maintains: "Knowledge maintains"
         pending_questions: "Pending knowledge questions"
+        direct_questions: "Direct questions maintains"
         drill_down_question: "Drill down question"
       person:
         header: "Personal Home"

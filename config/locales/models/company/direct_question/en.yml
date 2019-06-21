@@ -1,0 +1,8 @@
+en:
+  activerecord:
+    errors:
+      models:
+        company/direct_question:
+            attributes:
+              real_question:
+                must_exist: "Must existing in knowledge"

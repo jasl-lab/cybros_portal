@@ -1,0 +1,14 @@
+---
+zh-CN:
+  company:
+    direct_questions:
+      index:
+        title: "维护可以直接回答的问题"
+        table:
+          question: "问题"
+          real_question: "实际想问的问题"
+        create_button: "新建"
+      create:
+        success: "成功创建可以直接回答的问题：%{question}"
+      destroy:
+        success: "成功删除可以直接回答的问题：%{question}"

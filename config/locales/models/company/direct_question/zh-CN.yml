@@ -1,0 +1,8 @@
+zh-CN:
+  activerecord:
+    errors:
+      models:
+        company/direct_question:
+            attributes:
+              real_question:
+                must_exist: "必须在知识库中存在"

@@ -1,0 +1,14 @@
+---
+en:
+  company:
+    direct_questions:
+      index:
+        title: "Direct questions maintain"
+        table:
+          question: "Question"
+          real_question: "Real question"
+        create_button: "Create"
+      create:
+        success: "Successfully create the direct question: %{question}"
+      destroy:
+        success: "Successfully removed direct question: %{question}"
