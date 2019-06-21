@@ -7,7 +7,7 @@ class WechatsController < ApplicationController
   NO_ANSWER_FOUND_3 = %w(等我学会了再问我吧，你也可以点击查询更多看看有没有你想要的答案哦).freeze
 
   on :text do |request, content|
-    user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
+    Current.user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
 
     k = Company::Knowledge.answer(content)
     if k.present?
@@ -20,8 +20,8 @@ class WechatsController < ApplicationController
           url: company_home_knowledge_url(k)
       end
     else
-      if user.present?
-        user.pending_questions.create(question: content)
+      if Current.user.present?
+        Current.user.pending_questions.create(question: content)
       end
       no_answer = "#{NO_ANSWER_FOUND_1.sample}\r\n#{NO_ANSWER_FOUND_2.sample}\r\n#{NO_ANSWER_FOUND_3.sample}"
       request.reply.text no_answer
