@@ -46,5 +46,9 @@ module Company
       end
       @@h
     end
+
+    def answer_contain_text_only?
+      answer.embeds_attachment_ids.blank?
+    end
   end
 end
