@@ -48,7 +48,7 @@ module Company
     end
 
     def answer_contain_text_only?
-      answer.embeds_attachment_ids.blank?
+      answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?("[Image]")
     end
   end
 end
