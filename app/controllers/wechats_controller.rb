@@ -17,7 +17,7 @@ class WechatsController < ApplicationController
       else
         news = [{ title: k.question, content: "类别：#{k.category_1} #{k.category_2} #{k.category_3}" }]
         request.reply.news(news) do |article, n, index|
-          pic_url = ActionController::Base.helpers.asset_url("logo.jpg", type: :image)
+          pic_url = ActionController::Base.helpers.asset_url(Company::KnowledgeImages.random_one, type: :image)
           article.item title: n[:title], description: n[:content],
             pic_url: pic_url,
             url: company_home_knowledge_url(k)
