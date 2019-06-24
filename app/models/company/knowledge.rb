@@ -10,11 +10,14 @@ module Company
 
       question_word = Current.jieba_keyword.extract(question, 2)
       qw1 = question_word.collect(&:first).first
-      qw1 = user_synonym.fetch(qw1, qw1)
       qw2 = question_word.collect(&:first).second
-      qw2 = user_synonym.fetch(qw2, qw2)
+      no_synonym_answer = search_question(qw1, qw2)
 
-      search_question(qw1, qw2)
+      return no_synonym_answer if no_synonym_answer.present?
+
+      uqw1 = user_synonym.fetch(qw1, qw1)
+      uqw2 = user_synonym.fetch(qw2, qw2)
+      search_question(uqw1, uqw2)
     end
 
     def self.user_synonym
