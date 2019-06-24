@@ -1,7 +1,8 @@
 class WechatsController < ApplicationController
   # For details on the DSL available within this file, see https://github.com/Eric-Guo/wechat#wechat_responder---rails-responder-controller-dsl
   wechat_responder
-  GREATING = %w(Hi~~~我是人见人爱的小华 来啦来啦，我是小华 我是小华，找我啥事).freeze
+  GREATING_1 = %w(Hi~~~我是人见人爱的小华 来啦来啦，我是小华 我是小华，找我啥事).freeze
+  GREATING_2 = %w(我可以回答很多问题哦，比如： 我猜你想问这些？).freeze
   NO_ANSWER_FOUND_1 = %w(我还小~还不知道呢 你。。。你问到我了 嗯，这个问题有意思).freeze
   NO_ANSWER_FOUND_2 = %w(我要去学习一下 我得去问问专家 哈哈哈哈哈哈（手动尴尬）).freeze
   NO_ANSWER_FOUND_3 = %w(等我学会了再问我吧，你也可以点击查询更多看看有没有你想要的答案哦).freeze
@@ -35,6 +36,11 @@ class WechatsController < ApplicationController
   end
 
   on :event, with: 'enter_agent' do |request|
-    request.reply.text GREATING.sample
+    g1 = GREATING_1.sample
+    g2 = GREATING_2.sample
+    human_resources_question = Company::Knowledge.where(category_1: '人力资源').sample
+    finance_question = Company::Knowledge.where(category_1: '财务').sample
+    process_information_question = Company::Knowledge.where(category_1: '流程与信息化').sample
+    request.reply.text "#{g1}\r\n#{g2}\r\n#{human_resources_question.question}\r\n#{finance_question.question}\r\n#{process_information_question.question}"
   end
 end
