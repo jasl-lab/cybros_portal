@@ -11,10 +11,10 @@ class WechatsController < ApplicationController
 
     k = Company::Knowledge.answer(content)
     if k.present?
+      Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
       news = [{ title: k.question, content: "类别：#{k.category_1} #{k.category_2} #{k.category_3}" }]
       request.reply.news(news) do |article, n, index|
         pic_url = ActionController::Base.helpers.asset_url("logo.jpg", type: :image)
-        Rails.logger.debug pic_url
         article.item title: n[:title], description: n[:content],
           pic_url: pic_url,
           url: company_home_knowledge_url(k)
@@ -22,6 +22,8 @@ class WechatsController < ApplicationController
     else
       if Current.user.present?
         Current.user.pending_questions.create(question: content)
+      else
+        Rails.logger.debug "User question not answer: #{content}"
       end
       no_answer = "#{NO_ANSWER_FOUND_1.sample}\r\n#{NO_ANSWER_FOUND_2.sample}\r\n#{NO_ANSWER_FOUND_3.sample}"
       request.reply.text no_answer
