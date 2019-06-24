@@ -11,6 +11,8 @@ zh-CN:
         question_word: "结巴返回IDF值"
         question_word_1: "同义词替换后的关键词 1"
         question_word_2: "同义词替换后的关键词 2"
+        no_synonym_ans_1: "不考虑同义词的回答 1"
+        no_synonym_ans_2: "不考虑同义词的回答 2"
         ans_1: "回答 1"
         ans_2: "回答 2"
         direct_question: "直接回答问题"

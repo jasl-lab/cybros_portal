@@ -34,6 +34,16 @@
               <td><%= @qw2 %></td>
             </tr>
             <tr>
+              <td><%= t('.no_synonym_ans_1') -%></td>
+              <td>
+                <%= @no_synonym_ans_1&.question %>
+              </td>
+            </tr>
+            <tr>
+              <td><%= t('.no_synonym_ans_2') -%></td>
+              <td><%= @no_synonym_ans_2&.question %></td>
+            </tr>
+            <tr>
               <td><%= t('.ans_1') -%></td>
               <td>
                 <%= @ans_1&.question %>
