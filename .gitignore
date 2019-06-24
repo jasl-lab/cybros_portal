@@ -30,6 +30,7 @@
 
 /public/packs
 /public/packs-test
+/public/images/weixin
 /node_modules
 /yarn-error.log
 yarn-debug.log*
