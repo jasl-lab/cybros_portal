@@ -13,24 +13,8 @@ module Company
       qw1 = user_synonym.fetch(qw1, qw1)
       qw2 = question_word.collect(&:first).second
       qw2 = user_synonym.fetch(qw2, qw2)
-      ans = if qw2.present?
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
-      elsif qw1.present?
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
-      else
-        Pundit.policy_scope(Current.user, Company::Knowledge).none
-      end.limit(2)
-      if ans.count > 1
-        if ans.first.question.similar(question) < ans.second.question.similar(question)
-          ans.second
-        else
-          ans.first
-        end
-      elsif ans.count == 1
-        ans.first
-      else
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%").first
-      end
+
+      search_question(qw1, qw2)
     end
 
     def self.user_synonym
@@ -49,6 +33,29 @@ module Company
 
     def answer_contain_text_only?
       answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?("[Image]")
+    end
+
+    private
+
+    def self.search_question(qw1, qw2)
+      ans = if qw2.present?
+        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
+      elsif qw1.present?
+        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
+      else
+        Pundit.policy_scope(Current.user, Company::Knowledge).none
+      end.limit(2)
+      if ans.count > 1
+        if ans.first.question.similar(question) < ans.second.question.similar(question)
+          ans.second
+        else
+          ans.first
+        end
+      elsif ans.count == 1
+        ans.first
+      else
+        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%").first
+      end
     end
   end
 end
