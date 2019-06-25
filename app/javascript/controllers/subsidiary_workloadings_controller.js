@@ -276,7 +276,13 @@ var option3 = {
               dataType: 'script'
             });
           } else {
-            window.location.search += '&company_name=' + company_name;
+            let url = window.location.href;
+            if (url.indexOf('?') > -1) {
+              url += '&company_name=' + encodeURIComponent(company_name);
+            } else {
+              url += '?company_name=' + encodeURIComponent(company_name);
+            }
+            window.location.href = url;
           }
         }
       }
