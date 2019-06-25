@@ -14,17 +14,17 @@ class WechatsController < ApplicationController
     if ks.present?
       k = ks.first
       Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
-      if k.answer_contain_text_only?
+      if k.answer_contain_text_only? && ks.count == 1
         request.reply.text k.answer.to_plain_text
       else
-        news = ks.each_with_object([]) do |k, memo|
-          memo << { title: k.question, content: "类别：#{k.category_1} #{k.category_2} #{k.category_3}" }
+        news = ks.each_with_object([]) do |q, memo|
+          memo << { title: q.question, content: "类别：#{q.category_1} #{q.category_2} #{q.category_3}", k: q }
         end
         request.reply.news(news) do |article, n, index|
           pic_url = ActionController::Base.helpers.asset_url(Company::KnowledgeImages.random_one, type: :image)
           article.item title: n[:title], description: n[:content],
             pic_url: pic_url,
-            url: company_home_knowledge_url(k)
+            url: company_home_knowledge_url(n[:k])
         end
       end
     else
