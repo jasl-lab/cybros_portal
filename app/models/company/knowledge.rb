@@ -48,16 +48,14 @@ module Company
       else
         Pundit.policy_scope(Current.user, Company::Knowledge).none
       end.limit(2)
-      if ans.count > 1
+      if ans.count > 1 && qw2.present?
         if ans.first.question.similar(user_question) < ans.second.question.similar(user_question)
           [ans.second]
         else
           [ans.first]
         end
-      elsif ans.count == 1
-        ans
       else
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
+        ans.present? ? ans : Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
       end
     end
   end
