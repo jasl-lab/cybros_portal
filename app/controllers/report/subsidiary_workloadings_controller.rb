@@ -92,7 +92,7 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
     begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
     end_month = Date.parse(params[:end_month_name]).end_of_month
     @drill_down_subtitle = "#{begin_month} - #{end_month}"
-    @data = Bi::WorkHoursCountDetailStaff.where(date: begin_month..end_month)
+    @data = policy_scope(Bi::WorkHoursCountDetailStaff).where(date: begin_month..end_month)
       .where(businessltdname: @company_name, departmentname: @department_name)
       .order(date: :asc)
   end
