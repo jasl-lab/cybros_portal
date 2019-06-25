@@ -40,6 +40,7 @@ en:
         header: "Report Home"
         tianzhen_logins: "Tian Zhen Logins"
         subsidiary_workloading: "Subsidiary workloading"
+        company_subsidiary_workloading: "%{company} subsidiary workloading"
         yearly_subsidiary_workloading: "Yearly subsidiary workloading"
         contract_signing: "Subsidiary contract signing"
         complete_value: "Subsidiary complete value"

@@ -46,6 +46,14 @@ class User < ApplicationRecord
     @belongs_to_company_names ||= departments.collect(&:company_name)
   end
 
+  def user_company_short_names
+    @user_company_short_names ||= user_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+  end
+
+  def user_company_short_name
+    user_company_short_names.first
+  end
+
   def in_tianhua_hq?
     user_company_names.include?('上海天华建筑设计有限公司')
   end
