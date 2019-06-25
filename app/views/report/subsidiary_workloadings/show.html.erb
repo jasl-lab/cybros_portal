@@ -3,7 +3,8 @@
     <div class="container"
       data-controller="subsidiary-workloadings"
       data-action="resize@window->subsidiary-workloadings#layout"
-      data-subsidiary-workloadings-x_axis="<%= @company_names.to_json -%>"
+      data-subsidiary-workloadings-x_axis="<%= @company_or_department_names.to_json -%>"
+      data-subsidiary-workloadings-second_level_drill="<%= @second_level_drill -%>"
       data-subsidiary-workloadings-day_rate="<%= @day_rate.to_json -%>"
       data-subsidiary-workloadings-day_rate_ref="<%= @day_rate_ref -%>"
       data-subsidiary-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"
@@ -11,7 +12,7 @@
       data-subsidiary-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>"
       data-subsidiary-workloadings-building_day_rate_ref="<%= @building_day_rate_ref -%>">
       <h3 class="page-title">
-        <%= t(".title") %>
+        <%= t(".title", company: @company_name) %>
       </h3>
       <%= form_tag report_subsidiary_workloading_path, method: :get, class: 'form-inline' do -%>
         <div class="form-group">

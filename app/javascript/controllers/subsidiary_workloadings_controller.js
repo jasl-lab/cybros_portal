@@ -11,6 +11,7 @@ export default class extends Controller {
     subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
+var secondLevelDrill = this.data.get("second_level_drill");
 var dayRateData = JSON.parse(this.data.get("day_rate"));
 var dayRateDataRef = this.data.get("day_rate_ref");
 var planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
@@ -250,28 +251,33 @@ var option3 = {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
           const company_name = xAxisData[params.dataIndex];
-          const begin_month_name = $('#begin_month_name').val();
-          const end_month_name = $('#end_month_name').val();
-          const sent_data = {
-            company_name: company_name,
-            begin_month_name: begin_month_name,
-            end_month_name: end_month_name };
-          let drill_down_url
-          switch (params.seriesName) {
-            case '工作填报率':
-              drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
-              break;
-            case '方案饱和度':
-              drill_down_url = '/report/subsidiary_workloading/planning_day_rate_drill_down';
-              break;
-            case '施工图饱和度':
-              drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
-              break;
+          debugger;
+          if (secondLevelDrill === 'true') {
+            const begin_month_name = $('#begin_month_name').val();
+            const end_month_name = $('#end_month_name').val();
+            const sent_data = {
+              company_name: company_name,
+              begin_month_name: begin_month_name,
+              end_month_name: end_month_name };
+            let drill_down_url
+            switch (params.seriesName) {
+              case '工作填报率':
+                drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
+                break;
+              case '方案饱和度':
+                drill_down_url = '/report/subsidiary_workloading/planning_day_rate_drill_down';
+                break;
+              case '施工图饱和度':
+                drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
+                break;
+            }
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
+          } else {
+            window.location.search += '&company_name=' + company_name;
           }
-          $.ajax(drill_down_url, {
-            data: sent_data,
-            dataType: 'script'
-          });
         }
       }
     }

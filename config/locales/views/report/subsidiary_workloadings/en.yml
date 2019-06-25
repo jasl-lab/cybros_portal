@@ -3,7 +3,7 @@ en:
   report:
     subsidiary_workloadings:
       show:
-        title: "Work rate and saturation analysis"
+        title: "%{company} Work rate and saturation analysis"
         day_rate_ref: "Date rate ref"
         planning_day_rate_ref: "Planning date rate ref"
         building_day_rate_ref: "Building date rate ref"

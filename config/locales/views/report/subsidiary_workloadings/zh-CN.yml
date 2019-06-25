@@ -3,7 +3,7 @@ zh-CN:
   report:
     subsidiary_workloadings:
       show:
-        title: "工作填报率及饱和度分析"
+        title: "%{company} 工作填报率及饱和度分析"
         day_rate_ref: "填报预警"
         planning_day_rate_ref: "方案预警"
         building_day_rate_ref: "施工预警"
