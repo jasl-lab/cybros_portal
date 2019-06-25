@@ -13,6 +13,7 @@ en:
         export: "Export data"
         table:
           departmentname: "Department"
+          user_name: "User name"
           date: "Date"
           date_need: "Date need"
           date_real: "Acturally fill"

@@ -12,6 +12,7 @@ export default class extends Controller {
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var secondLevelDrill = this.data.get("second_level_drill");
+var companyName = this.data.get("company_name");
 var dayRateData = JSON.parse(this.data.get("day_rate"));
 var dayRateDataRef = this.data.get("day_rate_ref");
 var planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
@@ -250,13 +251,14 @@ var option3 = {
     function drill_down_model_show(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
-          const company_name = xAxisData[params.dataIndex];
+          const department_name = xAxisData[params.dataIndex];
           debugger;
           if (secondLevelDrill === 'true') {
             const begin_month_name = $('#begin_month_name').val();
             const end_month_name = $('#end_month_name').val();
             const sent_data = {
-              company_name: company_name,
+              company_name: companyName,
+              department_name: department_name,
               begin_month_name: begin_month_name,
               end_month_name: end_month_name };
             let drill_down_url
@@ -278,9 +280,9 @@ var option3 = {
           } else {
             let url = window.location.href;
             if (url.indexOf('?') > -1) {
-              url += '&company_name=' + encodeURIComponent(company_name);
+              url += '&company_name=' + encodeURIComponent(xAxisData[params.dataIndex]);
             } else {
-              url += '?company_name=' + encodeURIComponent(company_name);
+              url += '?company_name=' + encodeURIComponent(xAxisData[params.dataIndex]);
             }
             window.location.href = url;
           }
