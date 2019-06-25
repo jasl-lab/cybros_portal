@@ -19,19 +19,19 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
     short_company_name = params[:company_name]
     if short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
-      @data = Bi::WorkHoursCountDetailDept.where(date: beginning_of_month..end_of_month).where(businessltdname: @company_name)
+      @data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(businessltdname: @company_name)
         .select('departmentname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
         .group(:departmentname)
       @data = @data.where(businessltdname: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
       @company_or_department_names = @data.collect(&:departmentname)
       @second_level_drill = true
     else
-      @data = Bi::WorkHoursCountOrg.where(date: beginning_of_month..end_of_month)
+      @data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
         .select('businessltdname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
         .group(:businessltdname)
-      @data = @data.where(businessltdname: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
       @company_or_department_names = @data.collect(&:businessltdname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     end
+    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @day_rate = @data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 90
     @planning_day_rate = @data.collect { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 }

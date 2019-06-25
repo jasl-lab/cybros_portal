@@ -4,6 +4,7 @@
       data-controller="subsidiary-workloadings"
       data-action="resize@window->subsidiary-workloadings#layout"
       data-subsidiary-workloadings-x_axis="<%= @company_or_department_names.to_json -%>"
+      data-subsidiary-workloadings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
       data-subsidiary-workloadings-second_level_drill="<%= @second_level_drill -%>"
       data-subsidiary-workloadings-company_name="<%= @company_name -%>"
       data-subsidiary-workloadings-day_rate="<%= @day_rate.to_json -%>"

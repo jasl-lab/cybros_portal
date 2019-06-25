@@ -11,6 +11,7 @@ export default class extends Controller {
     subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
+var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
 var secondLevelDrill = this.data.get("second_level_drill");
 var companyName = this.data.get("company_name");
 var dayRateData = JSON.parse(this.data.get("day_rate"));
@@ -252,7 +253,6 @@ var option3 = {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
           const department_name = xAxisData[params.dataIndex];
-          debugger;
           if (secondLevelDrill === 'true') {
             const begin_month_name = $('#begin_month_name').val();
             const end_month_name = $('#end_month_name').val();
@@ -279,12 +279,15 @@ var option3 = {
             });
           } else {
             let url = window.location.href;
+            let series_company = xAxisData[params.dataIndex]
             if (url.indexOf('?') > -1) {
-              url += '&company_name=' + encodeURIComponent(xAxisData[params.dataIndex]);
+              url += '&company_name=' + encodeURIComponent(series_company);
             } else {
-              url += '?company_name=' + encodeURIComponent(xAxisData[params.dataIndex]);
+              url += '?company_name=' + encodeURIComponent(series_company);
             }
-            window.location.href = url;
+            if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+              window.location.href = url;
+            }
           }
         }
       }
