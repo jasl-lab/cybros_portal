@@ -5,19 +5,19 @@ module Company
     def self.answer(question)
       direct_question = Company::DirectQuestion.find_by(question: question)
       if direct_question.present?
-        return Company::Knowledge.find_by(question: direct_question.real_question)
+        return [Company::Knowledge.find_by(question: direct_question.real_question)]
       end
 
       question_word = Current.jieba_keyword.extract(question, 2)
       qw1 = question_word.collect(&:first).first
       qw2 = question_word.collect(&:first).second
-      no_synonym_answer = search_question(qw1, qw2)
+      no_synonym_answers = search_question(qw1, qw2, question)
 
-      return no_synonym_answer if no_synonym_answer.present?
+      return no_synonym_answers if no_synonym_answers.present?
 
       uqw1 = user_synonym.fetch(qw1, qw1)
       uqw2 = user_synonym.fetch(qw2, qw2)
-      search_question(uqw1, uqw2)
+      search_question(uqw1, uqw2, question)
     end
 
     def self.user_synonym
@@ -40,7 +40,7 @@ module Company
 
     private
 
-    def self.search_question(qw1, qw2)
+    def self.search_question(qw1, qw2, user_question)
       ans = if qw2.present?
         Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
       elsif qw1.present?
@@ -49,15 +49,15 @@ module Company
         Pundit.policy_scope(Current.user, Company::Knowledge).none
       end.limit(2)
       if ans.count > 1
-        if ans.first.question.similar(question) < ans.second.question.similar(question)
-          ans.second
+        if ans.first.question.similar(user_question) < ans.second.question.similar(user_question)
+          [ans.second]
         else
-          ans.first
+          [ans.first]
         end
       elsif ans.count == 1
-        ans.first
+        ans
       else
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%").first
+        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
       end
     end
   end

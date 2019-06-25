@@ -10,13 +10,16 @@ class WechatsController < ApplicationController
   on :text do |request, content|
     Current.user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
 
-    k = Company::Knowledge.answer(content)
-    if k.present?
+    ks = Company::Knowledge.answer(content)
+    if ks.present?
+      k = ks.first
       Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
       if k.answer_contain_text_only?
         request.reply.text k.answer.to_plain_text
       else
-        news = [{ title: k.question, content: "类别：#{k.category_1} #{k.category_2} #{k.category_3}" }]
+        news = ks.each_with_object([]) do |k, memo|
+          memo << { title: k.question, content: "类别：#{k.category_1} #{k.category_2} #{k.category_3}" }
+        end
         request.reply.news(news) do |article, n, index|
           pic_url = ActionController::Base.helpers.asset_url(Company::KnowledgeImages.random_one, type: :image)
           article.item title: n[:title], description: n[:content],
