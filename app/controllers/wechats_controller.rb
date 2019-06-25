@@ -41,6 +41,6 @@ class WechatsController < ApplicationController
     human_resources_question = Company::Knowledge.where(category_1: '人力资源').sample
     finance_question = Company::Knowledge.where(category_1: '财务').sample
     process_information_question = Company::Knowledge.where(category_1: '流程与信息化').sample
-    request.reply.text "#{g1}\r\n#{g2}\r\n#{human_resources_question.question}\r\n#{finance_question.question}\r\n#{process_information_question.question}"
+    request.reply.text "#{g1}\r\n#{g2}\r\n<a href='#{company_home_knowledge_url(human_resources_question)}'>#{human_resources_question.question}</a>\r\n<a href='#{company_home_knowledge_url(finance_question)}'>#{finance_question.question}</a>\r\n<a href='#{company_home_knowledge_url(process_information_question)}'>#{process_information_question.question}</a>"
   end
 end
