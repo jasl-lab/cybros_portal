@@ -16,7 +16,7 @@ var periodMeanRef = this.data.get("period_mean_ref");
 
 var option = {
     legend: {
-        data: ['本年累计合同额', '签约周期'],
+        data: ['签约周期','本年累计合同额'],
         align: 'left'
     },
     tooltip: {
@@ -73,22 +73,13 @@ var option = {
       }
     }],
     series: [{
-      name: '本年累计合同额',
-      type: 'bar',
-      data: sumContractAmounts,
-      label: {
-        normal: {
-          show: true,
-          position: 'top'
-        }
-      }
-    },{
       name: '签约周期',
       type: 'line',
       yAxisIndex: 1,
       symbol: 'circle',
       symbolSize: 8,
       data: avgPeriodMean,
+      color: '#334B5C',
       markLine: {
         label: {
           formatter: '签约周期{c}天线'
@@ -102,6 +93,18 @@ var option = {
             yAxis: periodMeanRef
           }
         ]
+      }
+    },{
+      name: '本年累计合同额',
+      type: 'bar',
+      data: sumContractAmounts,
+      color: '#D53A35',
+      barMaxWidth: 80,
+      label: {
+        normal: {
+          show: true,
+          position: 'top'
+        }
       }
     }]
 };
