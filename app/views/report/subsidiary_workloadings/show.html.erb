@@ -1,51 +1,49 @@
 <div class="row">
-  <div class="col-lg-12">
-    <div class="container"
-      data-controller="subsidiary-workloadings"
-      data-action="resize@window->subsidiary-workloadings#layout"
-      data-subsidiary-workloadings-x_axis="<%= @company_or_department_names.to_json -%>"
-      data-subsidiary-workloadings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
-      data-subsidiary-workloadings-second_level_drill="<%= @second_level_drill -%>"
-      data-subsidiary-workloadings-company_name="<%= @company_name -%>"
-      data-subsidiary-workloadings-day_rate="<%= @day_rate.to_json -%>"
-      data-subsidiary-workloadings-day_rate_ref="<%= @day_rate_ref -%>"
-      data-subsidiary-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"
-      data-subsidiary-workloadings-planning_day_rate_ref="<%= @planning_day_rate_ref -%>"
-      data-subsidiary-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>"
-      data-subsidiary-workloadings-building_day_rate_ref="<%= @building_day_rate_ref -%>">
-      <h3 class="page-title">
-        <%= t(".title", company: @company_name) %>
-      </h3>
-      <%= form_tag report_subsidiary_workloading_path, method: :get, class: 'form-inline' do -%>
-        <div class="form-group">
-          <label class="mr-1"><%= t(".day_rate_ref") -%>：</label>
-          <%= text_field_tag 'day_rate_ref', @day_rate_ref, class: 'form-control form-control2' %>
-        </div>
-        <div class="form-group">
-          <label class="mr-1"><%= t(".planning_day_rate_ref") -%>：</label>
-          <%= text_field_tag 'planning_day_rate_ref', @planning_day_rate_ref, class: 'form-control form-control2' %>
-        </div>
-        <div class="form-group">
-          <label class="mr-1"><%= t(".building_day_rate_ref") -%>：</label>
-          <%= text_field_tag 'building_day_rate_ref', @building_day_rate_ref, class: 'form-control form-control2' %>
-        </div>
-        <div class="form-group">
-          <label class="mr-1"><%= t(".begin_month_name") -%>：</label>
-          <%= select_tag 'begin_month_name', options_for_select(@all_month_names, @begin_month_name), class: 'form-control' %>
-        </div>
-        <div class="form-group">
-          <label class="mr-1"><%= t(".end_month_name") -%>：</label>
-          <%= select_tag 'end_month_name', options_for_select(@all_month_names, @end_month_name), class: 'form-control' %>
-        </div>
-        <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
-        <%= link_to t('.export'), export_report_subsidiary_workloading_path(format: :csv), class: 'btn' %>
-      <% end -%>
-      <div id="subsidiary-workloadings-chart1" style="width: 100%;height: 350px;">
+  <div class="col-lg-12"
+    data-controller="subsidiary-workloadings"
+    data-action="resize@window->subsidiary-workloadings#layout"
+    data-subsidiary-workloadings-x_axis="<%= @company_or_department_names.to_json -%>"
+    data-subsidiary-workloadings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
+    data-subsidiary-workloadings-second_level_drill="<%= @second_level_drill -%>"
+    data-subsidiary-workloadings-company_name="<%= @company_name -%>"
+    data-subsidiary-workloadings-day_rate="<%= @day_rate.to_json -%>"
+    data-subsidiary-workloadings-day_rate_ref="<%= @day_rate_ref -%>"
+    data-subsidiary-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"
+    data-subsidiary-workloadings-planning_day_rate_ref="<%= @planning_day_rate_ref -%>"
+    data-subsidiary-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>"
+    data-subsidiary-workloadings-building_day_rate_ref="<%= @building_day_rate_ref -%>">
+    <h3 class="page-title">
+      <%= t(".title", company: @company_name) %>
+    </h3>
+    <%= form_tag report_subsidiary_workloading_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".day_rate_ref") -%>：</label>
+        <%= text_field_tag 'day_rate_ref', @day_rate_ref, class: 'form-control form-control2' %>
       </div>
-      <div id="subsidiary-workloadings-chart2" style="width: 100%;height: 350px;">
+      <div class="form-group">
+        <label class="mr-1"><%= t(".planning_day_rate_ref") -%>：</label>
+        <%= text_field_tag 'planning_day_rate_ref', @planning_day_rate_ref, class: 'form-control form-control2' %>
       </div>
-      <div id="subsidiary-workloadings-chart3" style="width: 100%;height: 350px;">
+      <div class="form-group">
+        <label class="mr-1"><%= t(".building_day_rate_ref") -%>：</label>
+        <%= text_field_tag 'building_day_rate_ref', @building_day_rate_ref, class: 'form-control form-control2' %>
       </div>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".begin_month_name") -%>：</label>
+        <%= select_tag 'begin_month_name', options_for_select(@all_month_names, @begin_month_name), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".end_month_name") -%>：</label>
+        <%= select_tag 'end_month_name', options_for_select(@all_month_names, @end_month_name), class: 'form-control' %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+      <%= link_to t('.export'), export_report_subsidiary_workloading_path(format: :csv), class: 'btn' %>
+    <% end -%>
+    <div id="subsidiary-workloadings-chart1" style="width: 100%;height: 350px;">
+    </div>
+    <div id="subsidiary-workloadings-chart2" style="width: 100%;height: 350px;">
+    </div>
+    <div id="subsidiary-workloadings-chart3" style="width: 100%;height: 350px;">
     </div>
   </div>
 </div>
