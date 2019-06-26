@@ -7,7 +7,11 @@ class Company::KnowledgesController < ApplicationController
   def show
     wechat_oauth2 do |user_name|
       Current.user = User.find_by email: "#{user_name}@thape.com.cn"
-      sign_in Current.user
+      if Current.user.present?
+        sign_in Current.user
+      else
+        return redirect_to new_user_session_path
+      end
     end
   end
 
