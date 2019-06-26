@@ -12,7 +12,7 @@ class Company::KnowledgesController < ApplicationController
       else
         return redirect_to new_user_session_path
       end
-    end
+    end unless current_user.present?
   end
 
   def modal
