@@ -7,6 +7,8 @@ export default class extends Controller {
     contractSigningsChart = echarts.init(document.getElementById('contract-signings-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
+var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
+var needSecondLevelDrill = this.data.get("need_second_level_drill");
 var sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
 var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
 var avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
@@ -104,7 +106,27 @@ var option = {
     }]
 };
 
+    function drill_down_on_click(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          if (needSecondLevelDrill === 'true') {
+            let url = window.location.href;
+            let series_company = xAxisData[params.dataIndex]
+            if (url.indexOf('?') > -1) {
+              url += '&company_name=' + encodeURIComponent(series_company);
+            } else {
+              url += '?company_name=' + encodeURIComponent(series_company);
+            }
+            if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+              window.location.href = url;
+            }
+          }
+        }
+      }
+    }
+
     contractSigningsChart.setOption(option, false);
+    contractSigningsChart.on('click', drill_down_on_click);
     setTimeout(() => {
       contractSigningsChart.resize();
     }, 200);

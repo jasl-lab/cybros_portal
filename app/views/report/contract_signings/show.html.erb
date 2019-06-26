@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <div class="container">
       <h3 class="page-title">
-        <%= t(".title") %>
+        <%= t(".title", company: @company_name) %>
       </h3>
       <%= form_tag report_contract_signing_path, method: :get, class: 'form-inline' do -%>
         <div class="form-group">
@@ -26,6 +26,8 @@
             data-controller="contract-signings"
             data-action="resize@window->contract-signings#layout"
             data-contract-signings-x_axis="<%= @department_or_company_short_names.to_json -%>"
+            data-contract-signings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
+            data-contract-signings-need_second_level_drill="<%= @need_second_level_drill -%>"
             data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
             data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
             data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"

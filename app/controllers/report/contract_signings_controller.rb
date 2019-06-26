@@ -13,6 +13,7 @@ class Report::ContractSigningsController < ApplicationController
 
     current_user_companies = current_user.user_company_names
     short_company_name = params[:company_name]
+    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     if short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
       @data = policy_scope(Bi::ContractSignDetail).where('filingtime <= ?', @end_of_month)
@@ -21,7 +22,8 @@ class Report::ContractSigningsController < ApplicationController
         .group(:performancedepartmentname)
       @department_or_company_short_names = @data.collect(&:performancedepartmentname)
       @contract_amounts = @data.collect { |d| d.moneytax.round(0)}
-      @second_level_drill = true
+      @avg_period_mean = Array.new(@contract_amounts.length, 0)
+      @avg_period_mean_max = 0
     else
       @data = policy_scope(Bi::ContractSign).where('date <= ?', @end_of_month)
         .where.not(businessltdname: '上海天华建筑设计有限公司')
@@ -36,8 +38,9 @@ class Report::ContractSigningsController < ApplicationController
       @avg_period_mean_max = (@avg_period_mean.max + 10).round(0)
       @staff_per_company = Bi::StaffCount.staff_per_company
       @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0)}
+      @need_second_level_drill = true
     end
-    @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(0)
+    @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(2)
   end
 
   private
@@ -48,7 +51,7 @@ class Report::ContractSigningsController < ApplicationController
       link: root_path },
     { text: t("layouts.sidebar.report.header"),
       link: report_root_path },
-    { text: t("report.contract_signings.show.title"),
+    { text: t("report.contract_signings.show.title", company: params[:company_name]),
       link: report_contract_signing_path }]
   end
 
