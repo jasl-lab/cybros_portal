@@ -6,16 +6,13 @@ class Report::SubsidiaryReceivesController < ApplicationController
 
   def show
     authorize Bi::SubCompanyRealReceive
+    authorize Bi::SubCompanyNeedReceive
     @all_month_names = Bi::SubCompanyRealReceive.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
 
     current_user_companies = current_user.user_company_names
-    @real_data = if current_user_companies.include?('上海天华建筑设计有限公司')
-      Bi::SubCompanyRealReceive.all
-    else
-      Bi::SubCompanyRealReceive.where(businessltdname: current_user_companies)
-    end.where('date <= ?', @end_of_month)
+    @real_data = policy_scope(Bi::SubCompanyRealReceive).where('date <= ?', @end_of_month)
       .where.not(businessltdname: '上海天华建筑设计有限公司')
       .select('businessltdname, SUM(real_receive) real_receive')
       .group(:businessltdname)
@@ -23,11 +20,8 @@ class Report::SubsidiaryReceivesController < ApplicationController
     @real_company_short_names = @real_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @real_receives = @real_data.collect { |d| (d.real_receive/10000.0).round(0) }
 
-    @need_data = if current_user_companies.include?('上海天华建筑设计有限公司')
-      Bi::SubCompanyNeedReceive.all
-    else
-      Bi::SubCompanyNeedReceive.where(businessltdname: current_user_companies)
-    end.where.not(businessltdname: '上海天华建筑设计有限公司') # .where('date <= ?', @end_of_month)
+    @need_data = policy_scope(Bi::SubCompanyNeedReceive).where.not(businessltdname: '上海天华建筑设计有限公司') \
+      # should add .where('date <= ?', @end_of_month), but date is refresh date
       .select('businessltdname, SUM(unsign_receive) unsign_receive, SUM(sign_receive) sign_receive, SUM(long_account_receive) long_account_receive, SUM(short_account_receive) short_account_receive')
       .group(:businessltdname)
     @need_company_names = @need_data.collect(&:businessltdname)
