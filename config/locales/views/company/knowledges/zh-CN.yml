@@ -4,3 +4,6 @@ zh-CN:
     knowledges:
       modal:
         close: "关闭"
+      index:
+        title: "智能问答知识库"
+        search: "搜索"

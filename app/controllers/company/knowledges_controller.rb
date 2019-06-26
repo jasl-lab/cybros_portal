@@ -1,10 +1,27 @@
 class Company::KnowledgesController < ApplicationController
   wechat_api
-  before_action :authenticate_user!, except: :show
-  before_action :set_knowledge, only: [:modal, :show]
+  before_action :authenticate_user!, only: :modal
+  before_action :make_sure_wechat_user_login, only: %i[show index]
+  before_action :set_knowledge, only: %i[modal show]
+  before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
   after_action :verify_authorized
 
   def show
+  end
+
+  def index
+    knowledges = policy_scope(Company::Knowledge.all)
+    authorize knowledges
+    knowledges = knowledges.where('question LIKE ?', "%#{params[:question]}%") if params[:question].present?
+    @knowledges = knowledges.page(params[:page]).per(params[:per_page])
+  end
+
+  def modal
+  end
+
+  private
+
+  def make_sure_wechat_user_login
     wechat_oauth2 do |user_name|
       Current.user = User.find_by email: "#{user_name}@thape.com.cn"
       if Current.user.present?
@@ -15,13 +32,18 @@ class Company::KnowledgesController < ApplicationController
     end unless current_user.present?
   end
 
-  def modal
-  end
-
-  private
-
   def set_knowledge
     @knowledge = Company::Knowledge.find(params[:id])
     authorize @knowledge
+  end
+
+  def set_breadcrumbs
+    @_breadcrumbs = [
+    { text: t("layouts.sidebar.application.header"),
+      link: root_path },
+    { text: t("layouts.sidebar.company.header"),
+      link: company_root_path },
+    { text: t("layouts.sidebar.company.knowledges"),
+      link: company_home_knowledges_path }]
   end
 end

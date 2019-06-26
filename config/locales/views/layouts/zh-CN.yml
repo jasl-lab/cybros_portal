@@ -26,6 +26,7 @@ zh-CN:
         um_tasks: "UM任务"
       company:
         header: "公司首页"
+        knowledges: "智能问答知识库"
         knowledge_maintains: "知识库维护"
         pending_questions: "无法回答的问题"
         direct_questions: "可以直接回答的问题"

@@ -4,3 +4,6 @@ en:
     knowledges:
       modal:
         close: "Close"
+      index:
+        title: "Knowledge"
+        search: "Search"

@@ -26,6 +26,7 @@ en:
         um_tasks: "UM Tasks"
       company:
         header: "Company Home"
+        knowledges: "Knowledges"
         knowledge_maintains: "Knowledge maintains"
         pending_questions: "Pending knowledge questions"
         direct_questions: "Direct questions maintains"
