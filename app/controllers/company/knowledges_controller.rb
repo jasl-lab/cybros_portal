@@ -1,9 +1,14 @@
 class Company::KnowledgesController < ApplicationController
-  before_action :authenticate_user!
+  wechat_api
+  before_action :authenticate_user!, except: :show
   before_action :set_knowledge, only: [:modal, :show]
   after_action :verify_authorized
 
   def show
+    wechat_oauth2 do |user_name|
+      Current.user = User.find_by email: "#{user_name}@thape.com.cn"
+      sign_in Current.user
+    end
   end
 
   def modal
