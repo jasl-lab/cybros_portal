@@ -8,69 +8,67 @@
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
-    <div class="container">
-      <h3 class="page-title">
-        <%= t(".title") %>
-      </h3>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th><%= t(".table.name") %><br /><%= t(".table.english_name") %><br /><%= t(".table.email") %><br /><%= t(".table.task_id") %></th>
+          <th><%= t(".table.department_name") %><br /><%= t(".table.en_department_name") %></th>
+          <th><%= t(".table.title") %><br /><%= t(".table.en_title") %></th>
+          <th><%= t(".table.mobile") %><br /><%= t(".table.phone_ext") %><br /><%= t(".table.fax_no") %></th>
+          <th><%= t(".table.print_out_box_number") %><br /><%= t(".table.status") %></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @name_card_applies.each do |name_card_apply| %>
           <tr>
-            <th><%= t(".table.name") %><br /><%= t(".table.english_name") %><br /><%= t(".table.email") %><br /><%= t(".table.task_id") %></th>
-            <th><%= t(".table.department_name") %><br /><%= t(".table.en_department_name") %></th>
-            <th><%= t(".table.title") %><br /><%= t(".table.en_title") %></th>
-            <th><%= t(".table.mobile") %><br /><%= t(".table.phone_ext") %><br /><%= t(".table.fax_no") %></th>
-            <th><%= t(".table.print_out_box_number") %><br /><%= t(".table.status") %></th>
-            <th></th>
+            <td>
+              <%= name_card_apply.chinese_name -%>
+              <br />
+              <%= name_card_apply.english_name -%>
+              <br />
+              <%= name_card_apply.email -%>
+              <% if name_card_apply.begin_task_id.present? %>
+                <br />
+                <%= link_to t('.actions.look_workflow'), person_name_card_path(id: name_card_apply, begin_task_id: name_card_apply.begin_task_id) %>
+              <% end %>
+            </td>
+            <td>
+              <%= name_card_apply.department_name -%>
+              <br />
+              <%= name_card_apply.en_department_name -%>
+            </td>
+            <td>
+              <%= name_card_apply.title -%>
+              <br />
+              <%= name_card_apply.en_title -%>
+            </td>
+            <td>
+              <%= name_card_apply.mobile -%>
+              <br />
+              <%= name_card_apply.phone_ext -%>
+              <br />
+              <%= name_card_apply.fax_no -%>
+            </td>
+            <td>
+              <%= name_card_apply.print_out_box_number -%>
+              <br />
+              <%= name_card_apply.status -%>
+            </td>
+            <td>
+              <% if name_card_apply.begin_task_id.blank? %>
+                <%= link_to t(".actions.delete"), person_name_card_path(name_card_apply), method: :delete, data: { confirm: '你确定要删除吗？' } %>
+                <%= link_to t(".actions.start_approve"), start_approve_person_name_card_path(name_card_apply), class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' } %>
+              <% end %>
+            </td>
           </tr>
-          </thead>
-          <tbody>
-          <% @name_card_applies.each do |name_card_apply| %>
-            <tr>
-              <td>
-                <%= name_card_apply.chinese_name -%>
-                <br />
-                <%= name_card_apply.english_name -%>
-                <br />
-                <%= name_card_apply.email -%>
-                <% if name_card_apply.begin_task_id.present? %>
-                  <br />
-                  <%= link_to t('.actions.look_workflow'), person_name_card_path(id: name_card_apply, begin_task_id: name_card_apply.begin_task_id) %>
-                <% end %>
-              </td>
-              <td>
-                <%= name_card_apply.department_name -%>
-                <br />
-                <%= name_card_apply.en_department_name -%>
-              </td>
-              <td>
-                <%= name_card_apply.title -%>
-                <br />
-                <%= name_card_apply.en_title -%>
-              </td>
-              <td>
-                <%= name_card_apply.mobile -%>
-                <br />
-                <%= name_card_apply.phone_ext -%>
-                <br />
-                <%= name_card_apply.fax_no -%>
-              </td>
-              <td>
-                <%= name_card_apply.print_out_box_number -%>
-                <br />
-                <%= name_card_apply.status -%>
-              </td>
-              <td>
-                <% if name_card_apply.begin_task_id.blank? %>
-                  <%= link_to t(".actions.delete"), person_name_card_path(name_card_apply), method: :delete, data: { confirm: '你确定要删除吗？' } %>
-                  <%= link_to t(".actions.start_approve"), start_approve_person_name_card_path(name_card_apply), class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' } %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
