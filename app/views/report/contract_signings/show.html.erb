@@ -25,7 +25,7 @@
           <div id="contract-signings-chart"
             data-controller="contract-signings"
             data-action="resize@window->contract-signings#layout"
-            data-contract-signings-x_axis="<%= @all_company_short_names.to_json -%>"
+            data-contract-signings-x_axis="<%= @department_or_company_short_names.to_json -%>"
             data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
             data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
             data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
@@ -40,40 +40,44 @@
             <thead>
               <tr>
                 <th scope="col">部门</th>
-                <% @all_company_short_names.each do |company_name| %>
+                <% @department_or_company_short_names.each do |company_name| %>
                   <th scope="col"><%= company_name -%></th>
                 <% end %>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">本年签约周期</th>
-                <% @avg_period_mean.each do |period_mean| %>
-                  <td><%= period_mean -%></td>
-                <% end %>
-              </tr>
+              <% if @company_name.blank? %>
+                <tr>
+                  <th scope="row">本年签约周期</th>
+                  <% @avg_period_mean.each do |period_mean| %>
+                    <td><%= period_mean -%></td>
+                  <% end %>
+                </tr>
+              <% end %>
               <tr>
                 <th scope="row">本年累计合同额(万元)</th>
                 <% @contract_amounts.each do |contract_amount| %>
                   <td><%= contract_amount -%></td>
                 <% end %>
               </tr>
-              <tr>
-                <th scope="row">人均合同额</th>
-                <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                  <% company_name = @all_company_short_names[index] %>
-                  <% staff_count = @staff_per_company[company_name] || 0 %>
-                  <td><%= (contract_amount/staff_count.to_f).round(0) unless staff_count.zero? -%></td>
-                <% end %>
-              </tr>
-              <tr>
-                <th scope="row">平均人数</th>
-                <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                  <% company_name = @all_company_short_names[index] %>
-                  <% staff_count = @staff_per_company[company_name] %>
-                  <td><%= staff_count -%></td>
-                <% end %>
-              </tr>
+              <% if @company_name.blank? %>
+                <tr>
+                  <th scope="row">人均合同额</th>
+                  <% @contract_amounts.each_with_index do |contract_amount, index| %>
+                    <% company_name = @department_or_company_short_names[index] %>
+                    <% staff_count = @staff_per_company[company_name] || 0 %>
+                    <td><%= (contract_amount/staff_count.to_f).round(0) unless staff_count.zero? -%></td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <th scope="row">平均人数</th>
+                  <% @contract_amounts.each_with_index do |contract_amount, index| %>
+                    <% company_name = @department_or_company_short_names[index] %>
+                    <% staff_count = @staff_per_company[company_name] %>
+                    <td><%= staff_count -%></td>
+                  <% end %>
+                </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
