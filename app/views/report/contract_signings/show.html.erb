@@ -10,6 +10,10 @@
           <%= text_field_tag 'period_mean_ref', @period_mean_ref, class: 'form-control form-control2' %>
         </div>
         <div class="form-group">
+          <label class="mr-1"><%= t(".contract_amounts_per_staff_ref") -%>：</label>
+          <%= text_field_tag 'contract_amounts_per_staff_ref', @contract_amounts_per_staff_ref, class: 'form-control form-control2' %>
+        </div>
+        <div class="form-group">
           <label class="mr-1"><%= t(".month_name") -%>：</label>
           <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
         </div>
@@ -68,7 +72,12 @@
                   <% @contract_amounts.each_with_index do |contract_amount, index| %>
                     <% company_name = @department_or_company_short_names[index] %>
                     <% staff_count = @staff_per_company[company_name] || 0 %>
-                    <td><%= (contract_amount/staff_count.to_f).round(0) unless staff_count.zero? -%></td>
+                    <% contract_amounts_per_staff_ref = contract_amount/staff_count.to_f %>
+                    <% if @contract_amounts_per_staff_ref.to_i < contract_amounts_per_staff_ref %>
+                      <td><%= contract_amounts_per_staff_ref.round(0) -%></td>
+                    <% else %>
+                      <td class="text-danger"><%= contract_amounts_per_staff_ref.round(0) -%></td>
+                    <% end %>
                   <% end %>
                 </tr>
                 <tr>

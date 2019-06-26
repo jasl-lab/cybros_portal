@@ -10,6 +10,7 @@ class Report::ContractSigningsController < ApplicationController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     @period_mean_ref = params[:period_mean_ref] || 100
+    @contract_amounts_per_staff_ref = params[:contract_amounts_per_staff_ref] || 29
 
     current_user_companies = current_user.user_company_names
     short_company_name = params[:company_name]

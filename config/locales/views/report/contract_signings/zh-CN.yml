@@ -6,4 +6,5 @@ zh-CN:
         title: "%{company} 签约情况分析"
         month_name: "查询年月"
         period_mean_ref: "签约周期预警"
+        contract_amounts_per_staff_ref: "人均合同额预警"
         confirm: "确认"
