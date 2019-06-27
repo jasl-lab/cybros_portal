@@ -6,4 +6,6 @@ en:
         close: "Close"
       index:
         title: "Knowledge"
+        category_1: "Category"
+        question: "Question"
         search: "Search"

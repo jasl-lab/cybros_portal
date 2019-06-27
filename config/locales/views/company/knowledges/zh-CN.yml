@@ -6,4 +6,6 @@ zh-CN:
         close: "关闭"
       index:
         title: "智能问答知识库"
+        category_1: "分类"
+        question: "问题"
         search: "搜索"

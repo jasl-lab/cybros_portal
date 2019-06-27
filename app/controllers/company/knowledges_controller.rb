@@ -12,6 +12,16 @@ class Company::KnowledgesController < ApplicationController
   def index
     knowledges = policy_scope(Company::Knowledge.all)
     authorize knowledges
+    @category_1_list = Company::Knowledge.distinct.pluck(:category_1)
+    params[:category_1] = case params[:category_1]
+    when 'finance' then '财务'
+    when 'human_resources' then '人力资源'
+    when 'integrated_management' then '综合管理'
+    when 'process_and_information' then '流程与信息化'
+    when 'market_operation' then '市场运营'
+    else params[:category_1]
+    end
+    knowledges = knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
     knowledges = knowledges.where('question LIKE ?', "%#{params[:question]}%") if params[:question].present?
     @knowledges = knowledges.page(params[:page]).per(params[:per_page])
   end
