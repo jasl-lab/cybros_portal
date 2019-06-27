@@ -1,36 +1,33 @@
 <div class="row justify-content-center">
   <div class="col-lg-12">
-    <div class="container">
-      <h3 class="page-title">
-        <%= t(".title") %>
-      </h3>
-      <%= form_tag company_home_knowledges_path, method: :get, class: 'form-inline' do -%>
-        <div class="form-group">
-          <label class="mr-1" for="text-knowledge-question"><%= t(".table.question") -%>：</label>
-          <%= text_field_tag 'question', params[:question], class: 'form-control', id: 'text-knowledge-question' %>
-        </div>
-        <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
-      <% end -%>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th><%= t('.table.question') -%></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @knowledges.each do |knowledge| %>
-              <tr>
-                <td><%= link_to knowledge.question, company_home_knowledge_path(knowledge) -%></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag company_home_knowledges_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1" for="text-knowledge-question"><%= t(".table.question") -%>：</label>
+        <%= text_field_tag 'question', params[:question], class: 'form-control', id: 'text-knowledge-question' %>
       </div>
+      <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
+    <% end -%>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= t('.table.question') -%></th>
+          </tr>
+        </thead>
 
-      <%= paginate @knowledges %>
-
+        <tbody>
+          <% @knowledges.each do |knowledge| %>
+            <tr>
+              <td><%= link_to knowledge.question, company_home_knowledge_path(knowledge) -%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
+
+    <%= paginate @knowledges %>
   </div>
 </div>
