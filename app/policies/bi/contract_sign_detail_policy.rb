@@ -9,5 +9,9 @@ module Bi
         end
       end
     end
+
+    def drill_down?
+      show?
+    end
   end
 end

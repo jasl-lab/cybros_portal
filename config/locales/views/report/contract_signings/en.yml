@@ -8,3 +8,10 @@ en:
         period_mean_ref: "Period mean ref"
         contract_amounts_per_staff_ref: "Contract amounts per staff ref"
         confirm: "Confirm"
+      modal:
+        table:
+          projectcode: "Project code"
+          projectname: "Project name"
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          moneytax: "Money tax"

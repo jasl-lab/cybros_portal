@@ -8,3 +8,10 @@ zh-CN:
         period_mean_ref: "签约周期预警"
         contract_amounts_per_staff_ref: "人均合同额预警"
         confirm: "确认"
+      modal:
+        table:
+          projectcode: "项目编号"
+          projectname: "项目名称"
+          salescontractcode: "销售合同编号"
+          salescontractname: "合同名称"
+          moneytax: "含税金额"

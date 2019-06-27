@@ -8,7 +8,8 @@ export default class extends Controller {
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
-var needSecondLevelDrill = this.data.get("need_second_level_drill");
+var companyName = this.data.get("company_name");
+var secondLevelDrill = this.data.get("second_level_drill");
 var sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
 var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
 var avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
@@ -112,7 +113,19 @@ var option = {
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          if (needSecondLevelDrill === 'true') {
+          if (secondLevelDrill === 'true') {
+            let series_department = xAxisData[params.dataIndex]
+            const month_name = $('#month_name').val();
+            const sent_data = {
+              company_name: companyName,
+              department_name: series_department,
+              month_name: month_name };
+            let drill_down_url = '/report/contract_signing/drill_down'
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
+          } else {
             let url = window.location.href;
             let series_company = xAxisData[params.dataIndex]
             if (url.indexOf('?') > -1) {
