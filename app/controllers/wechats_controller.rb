@@ -39,11 +39,15 @@ class WechatsController < ApplicationController
   end
 
   on :event, with: 'enter_agent' do |request|
+    return request.reply.success if request.session.greating_time&.to_date == Time.current.to_date
+
     g1 = GREATING_1.sample
     g2 = GREATING_2.sample
     human_resources_question = Company::Knowledge.where(category_1: '人力资源').sample
     finance_question = Company::Knowledge.where(category_1: '财务').sample
     process_information_question = Company::Knowledge.where(category_1: '流程与信息化').sample
+
+    request.session.greating_time = Time.current
     request.reply.text "#{g1}\r\n#{g2}\r\n<a href='#{company_home_knowledge_url(human_resources_question)}'>#{human_resources_question.question}</a>\r\n<a href='#{company_home_knowledge_url(finance_question)}'>#{finance_question.question}</a>\r\n<a href='#{company_home_knowledge_url(process_information_question)}'>#{process_information_question.question}</a>"
   end
 end
