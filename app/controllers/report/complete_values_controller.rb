@@ -40,7 +40,7 @@ class Report::CompleteValuesController < ApplicationController
       link: root_path },
     { text: t("layouts.sidebar.report.header"),
       link: report_root_path },
-    { text: t("report.complete_values.show.title"),
+    { text: t("layouts.sidebar.report.complete_value"),
       link: report_complete_value_path }]
   end
 
