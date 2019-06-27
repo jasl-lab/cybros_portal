@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    subsidiary_complete_values:
+      show:
+        title: "%{company} subsidiary complete value"
+        company_name: "Company name"
+        month_name: "Query year and month"
+        confirm: "Confirm"

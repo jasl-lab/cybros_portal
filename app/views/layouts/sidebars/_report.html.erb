@@ -45,6 +45,12 @@
           <%= t("layouts.sidebar.report.complete_value") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
+        <%= link_to report_subsidiary_complete_value_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.report.subsidiary_complete_value") %>
+        <% end %>
+      <% end %>
       <%= nav_item controller: 'report/subsidiary_receives', action: 'show', html_options: { class: "nav-item" } do %>
         <%= link_to report_subsidiary_receive_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-user-circle"></i>

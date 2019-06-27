@@ -1,0 +1,9 @@
+---
+zh-CN:
+  report:
+    subsidiary_complete_values:
+      show:
+        title: "%{company} 部门工作完成情况"
+        company_name: "公司名"
+        month_name: "查询年月"
+        confirm: "确认"
