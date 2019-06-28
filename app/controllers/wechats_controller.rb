@@ -38,6 +38,14 @@ class WechatsController < ApplicationController
     end
   end
 
+  on :voice do |request|
+    voice_id = request[:MediaId]
+    Rails.logger.debug "voice_id: #{voice_id}"
+    res = Wechat.api.addvoicetorecofortext(voice_id)
+    Rails.logger.debug "res: #{res}"
+    request.reply.text res.to_s
+  end
+
   on :event, with: 'enter_agent' do |request|
     return request.reply.success if request.session.greating_time&.to_date == Time.current.to_date
 
