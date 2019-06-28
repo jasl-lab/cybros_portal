@@ -19,7 +19,7 @@
           <%= t("layouts.sidebar.report.subsidiary_workloading") %>
         <% end %>
       <% end %>
-      <% if current_user.user_company_short_name != '上海天华' %>
+      <% if current_user && current_user.user_company_short_name != '上海天华' %>
         <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_workloading_path(company_name: current_user.user_company_short_name), class: "nav-link" do %>
             <i class="nav-icon fas fa-stopwatch"></i>
