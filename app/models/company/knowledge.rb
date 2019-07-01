@@ -1,5 +1,6 @@
 module Company
   class Knowledge < ApplicationRecord
+    attr_accessor :q_user_id
     has_rich_text :answer
 
     def self.answer(question)

@@ -14,7 +14,7 @@ class Company::PendingQuestionsController < ApplicationController
     authorize pending_question
     pending_question.destroy
 
-    redirect_to new_company_knowledge_maintain_path(q: pending_question.question), notice: t('.success', question: pending_question.question)
+    redirect_to new_company_knowledge_maintain_path(q: pending_question.question, q_user_id: pending_question.user_id), notice: t('.success', question: pending_question.question)
   end
 
   def destroy

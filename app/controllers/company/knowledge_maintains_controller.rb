@@ -22,6 +22,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
   def new
     @knowledge = Company::Knowledge.new
     @knowledge.question = params[:q]
+    @knowledge.q_user_id = params[:q_user_id]
     authorize @knowledge
   end
 
@@ -33,6 +34,13 @@ class Company::KnowledgeMaintainsController < ApplicationController
     authorize @knowledge
 
     if @knowledge.save
+      if @knowledge.q_user_id.present?
+        notify_user = User.find @knowledge.q_user_id
+        if notify_user.present?
+          openid = notify_user.email.split('@')[0]
+          Wechat.api.custom_message_send Wechat::Message.to(openid).text("您的问题：#{@knowledge.question} 已经有了答案：\r\n#{@knowledge.answer.to_plain_text}")
+        end
+      end
       redirect_to company_knowledge_maintains_path, notice: t('.success')
     else
       render :new
@@ -99,6 +107,6 @@ class Company::KnowledgeMaintainsController < ApplicationController
   end
 
   def knowledge_params
-    params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer, :shanghai_only)
+    params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer, :shanghai_only, :q_user_id)
   end
 end
