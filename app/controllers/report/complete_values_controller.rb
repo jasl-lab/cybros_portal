@@ -11,11 +11,7 @@ class Report::CompleteValuesController < ApplicationController
     @end_of_month = Date.parse(@month_name).end_of_month
 
     current_user_companies = current_user.user_company_names
-    @data = if current_user_companies.include?('上海天华建筑设计有限公司')
-      Bi::CompleteValue.all
-    else
-      Bi::CompleteValue.where(businessltdname: current_user_companies)
-    end.where('date <= ?', @end_of_month)
+    @data = Bi::CompleteValue.where('date <= ?', @end_of_month)
       .where.not(businessltdname: '上海天华建筑设计有限公司')
       .select('businessltdname, SUM(total) sum_total')
       .group(:businessltdname)
