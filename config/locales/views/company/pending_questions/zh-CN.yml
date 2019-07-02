@@ -4,7 +4,14 @@ zh-CN:
     pending_questions:
       index:
         title: "无法回答的问题维护"
+        table:
+          user: "提问的用户"
+          question: "问题"
+          owner: "分配的回答责任人"
+        assign: "分配并通知"
       create:
         success: "请继续填写其他信息，原先无法回答的问题已经删除。"
+      update:
+        success: "已经将问题：“%{question}” 分配给用户：%{user_name}。"
       destroy:
         success: "已成功删除无法回答的问题：%{question}"

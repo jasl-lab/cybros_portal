@@ -9,6 +9,9 @@
           <tr>
             <th><%= t('.table.user') -%></th>
             <th><%= t('.table.question') -%></th>
+            <% if policy(Company::PendingQuestion).update? %>
+              <th><%= t('.table.owner') -%></th>
+            <% end %>
             <th></th>
           </tr>
         </thead>
@@ -18,6 +21,14 @@
             <tr>
               <td><%= pending_question.user.chinese_name -%></td>
               <td><%= pending_question.question -%></td>
+              <% if policy(pending_question).update? %>
+                <td>
+                  <%= form_with model: pending_question, class: 'form-inline' do |f| -%>
+                    <%= f.select :owner_id, options_for_select(Company::Knowledge.knowledge_maintainers, pending_question.owner_id), { include_blank: true }, class: 'form-control' -%>
+                    <%= f.submit t('.assign'), class: 'btn btn-primary', data: { disable_with: '处理中' } %>
+                  <% end %>
+                </td>
+              <% end %>
               <td>
                 <%= link_to company_pending_questions_path(id: pending_question.id), method: :post, remote: true do %>
                   <i class="fa fa-plus-square"></i>

@@ -4,7 +4,14 @@ en:
     pending_questions:
       index:
         title: "Pending knowledge questions Maintain"
+        table:
+          user: "User"
+          question: "Question"
+          owner: "Owner"
+        assign: "Assign to user"
       create:
         success: "Please continue filling other info, notice pending question is already removed."
+      update:
+        success: "Already assign the question: %{question} to user: %{user_name}"
       destroy:
         success: "Successfully removed Pending knowledge questions: %{question}"
