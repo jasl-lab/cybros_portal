@@ -1,5 +1,6 @@
 module Company
   class Knowledge < ApplicationRecord
+    KNOWLEDGE_MAINTAINER = %w(忻琳 聂玲玲 冯可 季建杰 柳怡帆 吴婷 郑贤来 邢侃 袁士捷 张雨 冯巧容).freeze
     attr_accessor :q_user_id
     has_rich_text :answer
 

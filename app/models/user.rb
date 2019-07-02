@@ -35,11 +35,11 @@ class User < ApplicationRecord
   end
 
   def knowledge_maintainer?
-    email == 'chenzifan@thape.com.cn' || %(忻琳 聂玲玲 冯可 季建杰 柳怡帆 许潇红 吴婷 郑贤来 邢侃 袁士捷 张雨 冯巧容).include?(chinese_name)
+    email == 'chenzifan@thape.com.cn' || Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name)
   end
 
   def report_maintainer?
-    %(冯巧容 王玥 崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 陈子凡 许潇红).include?(chinese_name)
+    %(冯巧容 王玥 崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 陈子凡).include?(chinese_name)
   end
 
   def user_company_names
