@@ -104,6 +104,11 @@ class Person::NameCardsController < ApplicationController
     end
   end
 
+  def change_image
+    select_back_color = params[:name_card_apply][:back_color]
+    @color_index = NameCardApply.back_color_list.index(select_back_color)
+  end
+
   protected
 
   def name_card_apply_params

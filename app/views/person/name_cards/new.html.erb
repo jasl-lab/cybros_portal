@@ -176,26 +176,6 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-thickness"><%= t('.thickness') %></label>
-        <div class="col-md-9">
-          <%= f.select :thickness, NameCardApply.thickness_list, {}, id: 'text-input-thickness', class: 'form-control' %>
-          <%= f.error_message :thickness, tag: :span, class: "help-block error-message" %>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-back_color"><%= t('.back_color') %></label>
-        <div class="col-md-9">
-          <%= f.select :back_color, NameCardApply.back_color_list, {}, id: 'text-input-back_color', class: 'form-control' %>
-          <%= f.error_message :back_color, tag: :span, class: "help-block error-message" %>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-print_out_box_number"><%= t('.print_out_box_number') %></label>
         <div class="col-md-9">
           <%= f.text_field :print_out_box_number, class: 'form-control', id: 'text-input-print_out_box_number' %>
@@ -211,6 +191,35 @@
           <%= f.text_area :comment, class: 'form-control', id: 'text-input-comment' %>
           <span class="help-block"><%= t('.comment_fill_hint') %></span>
           <%= f.error_message :comment, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h6>请选出您喜欢的名片样式（此次为调研，实物依然为四色、400g厚度，望悉知）</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-back_color"><%= t('.back_color') %></label>
+        <div class="col-md-9">
+          <%= f.select :back_color, NameCardApply.back_color_list, {}, id: 'text-input-back_color', class: 'form-control',
+            data: { remote: true, type: :script, url: url_for(controller: 'name_cards', action: 'change_image', format: 'js')} %>
+          <%= f.error_message :back_color, tag: :span, class: "help-block error-message" %>
+          <div id="name-card-back-image">
+            <%= image_tag("name_card_back/0.jpg", width: '358px') -%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-thickness"><%= t('.thickness') %></label>
+        <div class="col-md-9">
+          <%= f.select :thickness, NameCardApply.thickness_list, {}, id: 'text-input-thickness', class: 'form-control' %>
+          <%= f.error_message :thickness, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>

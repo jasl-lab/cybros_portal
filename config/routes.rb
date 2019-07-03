@@ -81,6 +81,9 @@ Rails.application.routes.draw do
       member do
         patch :start_approve
       end
+      collection do
+        get :change_image
+      end
     end
     resources :name_card_black_titles, only: %i[index create]
     resources :name_card_white_titles, only: %i[index create]
