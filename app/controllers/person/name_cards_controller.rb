@@ -81,6 +81,8 @@ class Person::NameCardsController < ApplicationController
       print_out_box_number: @name_card_apply.print_out_box_number,
       receive_address: '秘书转交',
       comment: @name_card_apply.comment,
+      thickness: @name_card_apply.thickness,
+      back_color: @name_card_apply.back_color,
       created_at: @name_card_apply.created_at,
       updated_at: @name_card_apply.updated_at
     }
@@ -106,7 +108,8 @@ class Person::NameCardsController < ApplicationController
 
   def name_card_apply_params
     params.require(:name_card_apply).permit(:chinese_name, :email, :company_name, :department_name, :title, :professional_title, :english_name,
-      :en_company_name, :en_department_name, :en_title, :en_professional_title, :mobile, :phone_ext, :fax_no, :office_address, :office_level, :print_out_box_number, :comment)
+      :en_company_name, :en_department_name, :en_title, :en_professional_title, :mobile, :phone_ext, :fax_no, :office_address, :office_level,
+      :print_out_box_number, :comment, :thickness, :back_color)
   end
 
   def set_page_layout_data

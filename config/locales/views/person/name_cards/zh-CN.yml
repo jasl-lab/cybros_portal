@@ -28,6 +28,8 @@ zh-CN:
         comment_fill_hint: "您可以在备注中留下其他合理请求。"
         print_out_box_number: "印刷盒数"
         print_out_box_number_fill_hint: "两盒起印，每盒100张"
+        thickness: "纸张厚度"
+        back_color: "背面颜色"
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
         submit: "保存申请单"
       create:
