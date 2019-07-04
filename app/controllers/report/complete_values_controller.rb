@@ -15,6 +15,7 @@ class Report::CompleteValuesController < ApplicationController
       .where.not(businessltdname: '上海天华建筑设计有限公司')
       .select('businessltdname, SUM(total) sum_total')
       .group(:businessltdname)
+      .having('SUM(total) > 0')
     @all_company_names = @data.collect(&:businessltdname)
     @all_company_short_names = @all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @complete_value_totals = @data.collect { |d| (d.sum_total/10000).round(0) }

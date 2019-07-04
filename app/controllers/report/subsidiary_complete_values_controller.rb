@@ -21,6 +21,7 @@ class Report::SubsidiaryCompleteValuesController < ApplicationController
     @data = Bi::CompleteValue.where(businessltdname: @selected_company_name).where('date <= ?', end_of_month)
       .select('departmentname, SUM(total) sum_total')
       .group(:departmentname)
+      .having('SUM(total) > 0')
     @all_department_names = @data.collect(&:departmentname)
     @complete_value_totals = @data.collect { |d| (d.sum_total/10000).round(0) }
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (end_of_month.month/12.0)).round(0) }
