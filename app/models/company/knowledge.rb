@@ -10,6 +10,18 @@ module Company
         return [Company::Knowledge.find_by(question: direct_question.real_question)]
       end
 
+      nouns = Company::Knowledge.extract_the_noun_in_question(question)
+      if nouns.count == 1
+        only_noun = nouns.first
+        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', only_noun).limit(1)
+        if only_noun_question.blank?
+          only_noun_in_synonym = user_synonym.fetch(only_noun, only_noun)
+          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', only_noun_in_synonym).limit(1)
+        end
+
+        return [] if only_noun_question.blank?
+      end
+
       question_word = Current.jieba_keyword.extract(question, 2)
       qw1 = question_word.collect(&:first).first
       qw2 = question_word.collect(&:first).second
@@ -34,6 +46,12 @@ module Company
         end
       end
       @@h
+    end
+
+    def self.extract_the_noun_in_question(question)
+      tags = Current.jieba_tagging.tag question
+      noun_tags = tags.reject { |h| !h.has_value?('n') }
+      noun_tags.collect { |h| h.keys.first }
     end
 
     def self.knowledge_maintainers
