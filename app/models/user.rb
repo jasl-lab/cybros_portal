@@ -36,7 +36,7 @@ class User < ApplicationRecord
   end
 
   def knowledge_maintainer?
-    email == 'chenzifan@thape.com.cn' || Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name)
+    Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name)
   end
 
   def report_maintainer?
