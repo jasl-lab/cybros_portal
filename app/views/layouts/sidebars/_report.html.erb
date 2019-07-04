@@ -19,10 +19,12 @@
           <%= t("layouts.sidebar.report.subsidiary_workloading") %>
         <% end %>
       <% end %>
-      <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
-        <%= link_to report_subsidiary_workloading_path(company_name: current_user.user_company_short_name), class: "nav-link" do %>
-          <i class="nav-icon fas fa-stopwatch"></i>
-          <%= t("layouts.sidebar.report.company_subsidiary_workloading", company: current_user.user_company_short_name) %>
+      <% if current_user.present? %>
+        <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= link_to report_subsidiary_workloading_path(company_name: current_user.user_company_short_name), class: "nav-link" do %>
+            <i class="nav-icon fas fa-stopwatch"></i>
+            <%= t("layouts.sidebar.report.company_subsidiary_workloading", company: current_user.user_company_short_name) %>
+          <% end %>
         <% end %>
       <% end %>
       <%= nav_item controller: 'report/yearly_subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
