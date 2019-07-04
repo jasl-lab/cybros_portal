@@ -22,6 +22,7 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
       @data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(businessltdname: @company_name)
         .select('departmentname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
         .group(:departmentname)
+        .having('SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0')
       @data = @data.where(businessltdname: current_user_companies) unless current_user_companies.include?('上海天华建筑设计有限公司')
       @company_or_department_names = @data.collect(&:departmentname)
       @second_level_drill = true
@@ -29,6 +30,7 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
       @data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
         .select('businessltdname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
         .group(:businessltdname)
+        .having('SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0')
       @company_or_department_names = @data.collect(&:businessltdname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     end
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
