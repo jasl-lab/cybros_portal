@@ -10,6 +10,7 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
+    "@rails/actiontext": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "^5.1.1",
     "@stimulus/polyfills": "^1.1.1",
@@ -20,6 +21,7 @@
     "popper.js": "^1.16.1",
     "regenerator-runtime": "^0.13.3",
     "stimulus": "^1.1.1",
+    "trix": "^1.1.1",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
