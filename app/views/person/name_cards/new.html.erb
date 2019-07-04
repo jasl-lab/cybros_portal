@@ -209,7 +209,7 @@
             data: { remote: true, type: :script, url: url_for(controller: 'name_cards', action: 'change_image', format: 'js')} %>
           <%= f.error_message :back_color, tag: :span, class: "help-block error-message" %>
           <div id="name-card-back-image">
-            <%= image_tag("name_card_back/0.jpg", width: '358px') -%>
+            <%= image_tag("name_card_back/0.jpg") -%>
           </div>
         </div>
       </div>
