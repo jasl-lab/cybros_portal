@@ -21,6 +21,7 @@ class Report::ContractSigningsController < ApplicationController
         .where(businessltdname: @company_name)
         .select('departmentname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')
         .group(:departmentname)
+        .having('SUM(contract_amount) > 0')
       @department_or_company_short_names = @data.collect(&:departmentname)
       @second_level_drill = true
     else
@@ -28,6 +29,7 @@ class Report::ContractSigningsController < ApplicationController
         .where.not(businessltdname: '上海天华建筑设计有限公司')
         .select('businessltdname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')
         .group(:businessltdname)
+        .having('SUM(contract_amount) > 0')
       all_company_names = @data.collect(&:businessltdname)
       @department_or_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
       @staff_per_company = Bi::StaffCount.staff_per_company
