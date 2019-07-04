@@ -16,9 +16,9 @@ class Report::SubsidiaryWorkloadingsController < ApplicationController
     beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
     end_of_month = Date.parse(@end_month_name).end_of_month
 
-    short_company_name = params[:company_name]
-    if short_company_name.present?
-      @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
+    @short_company_name = params[:company_name]
+    if @short_company_name.present?
+      @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
       @data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(businessltdname: @company_name)
         .select('departmentname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
         .group(:departmentname)
