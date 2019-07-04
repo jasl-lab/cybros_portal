@@ -13,10 +13,10 @@ module Company
       nouns = Company::Knowledge.extract_the_noun_in_question(question)
       if nouns.count == 1
         only_noun = nouns.first
-        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', only_noun).limit(1)
+        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun}%").limit(1)
         if only_noun_question.blank?
           only_noun_in_synonym = user_synonym.fetch(only_noun, only_noun)
-          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', only_noun_in_synonym).limit(1)
+          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun_in_synonym}%").limit(1)
         end
 
         return [] if only_noun_question.blank?
