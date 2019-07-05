@@ -4,5 +4,5 @@ zh-CN:
     subsidiary_receives:
       show:
         title: "子公司收款情况分析"
-        month_name: "查询年月"
+        month_name: "实收款的查询年月"
         confirm: "确认"

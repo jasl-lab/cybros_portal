@@ -4,5 +4,5 @@ en:
     subsidiary_receives:
       show:
         title: "Subsidiary receive"
-        month_name: "Query year and month"
+        month_name: "Real receive year and month"
         confirm: "Confirm"
