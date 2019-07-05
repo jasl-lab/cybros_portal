@@ -13,10 +13,10 @@ class Report::ContractSigningsController < ApplicationController
     @contract_amounts_per_staff_ref = params[:contract_amounts_per_staff_ref] || 29
 
     current_user_companies = current_user.user_company_names
-    short_company_name = params[:company_name]
+    @short_company_name = params[:company_name]
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    if short_company_name.present?
-      @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
+    if @short_company_name.present?
+      @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
       @data = policy_scope(Bi::ContractSignDept).where('date <= ?', @end_of_month)
         .where(businessltdname: @company_name)
         .select('departmentname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')

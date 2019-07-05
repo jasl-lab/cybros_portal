@@ -4,6 +4,7 @@
       <%= t(".title", company: @company_name) %>
     </h3>
     <%= form_tag report_contract_signing_path, method: :get, class: 'form-inline' do -%>
+      <%= hidden_field_tag :company_name, @short_company_name -%>
       <div class="form-group">
         <label class="mr-1"><%= t(".period_mean_ref") -%>：</label>
         <%= text_field_tag 'period_mean_ref', @period_mean_ref, class: 'form-control form-control2' %>

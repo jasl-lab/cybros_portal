@@ -104,7 +104,7 @@ var option = {
       name: '本年累计合同额',
       type: 'bar',
       data: sumContractAmounts,
-      color: '#D53A35',
+      color: '#738496',
       barMaxWidth: 80,
       label: {
         normal: {
