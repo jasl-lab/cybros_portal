@@ -39,6 +39,14 @@
           <%= t("layouts.sidebar.report.contract_signing") %>
         <% end %>
       <% end %>
+      <% if current_user.present? %>
+        <%= nav_item controller: 'report/contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= link_to report_contract_signing_path(company_name: current_user.user_company_short_name), class: "nav-link" do %>
+            <i class="nav-icon fas fa-file-contract"></i>
+            <%= t("layouts.sidebar.report.company_contract_signing", company: current_user.user_company_short_name) %>
+          <% end %>
+        <% end %>
+      <% end %>
       <%= nav_item controller: 'report/complete_values', action: 'show', html_options: { class: "nav-item" } do %>
         <%= link_to report_complete_value_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-draw-polygon"></i>
