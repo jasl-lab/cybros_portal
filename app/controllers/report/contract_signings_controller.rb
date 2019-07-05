@@ -35,11 +35,12 @@ class Report::ContractSigningsController < ApplicationController
       @staff_per_company = Bi::StaffCount.staff_per_company
     end
     @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0)}
+    @contract_amount_max = @contract_amounts.max.round(-1)
     @avg_period_mean = @data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_count.to_f
       mean.nan? ? 0 : mean.round(0)
     end
-    @avg_period_mean_max = (@avg_period_mean.max + 10).round(0)
+    @avg_period_mean_max = @avg_period_mean.max.round(-1)
     @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(2)
     contract_period = @data.collect(&:sum_contract_period)
     contract_count = @data.collect(&:sum_contract_count)

@@ -11,6 +11,7 @@ var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_comp
 var companyName = this.data.get("company_name");
 var secondLevelDrill = this.data.get("second_level_drill");
 var sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
+var sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
 var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
 var avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
 var periodMeanRef = this.data.get("period_mean_ref");
@@ -55,6 +56,9 @@ var option = {
       type: 'value',
       name: '本年累计合同额（万元）',
       position: 'left',
+      min: 0,
+      max: sumContractAmountMax,
+      interval: Math.ceil(sumContractAmountMax / 5),
       axisLabel: {
         formatter: '{value}万'
       }
@@ -64,6 +68,7 @@ var option = {
       position: 'right',
       min: 0,
       max: avgPeriodMeanMax,
+      interval: Math.ceil(avgPeriodMeanMax / 5),
       axisLine: {
         lineStyle: {
           color: '#675BBA'
