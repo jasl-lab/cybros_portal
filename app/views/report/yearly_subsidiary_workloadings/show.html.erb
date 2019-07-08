@@ -3,6 +3,7 @@
     data-controller="yearly-subsidiary-workloadings"
     data-action="resize@window->yearly-subsidiary-workloadings#layout"
     data-yearly-subsidiary-workloadings-x_axis="<%= @dates.to_json -%>"
+    data-yearly-subsidiary-workloadings-selected_company_name="<%= @selected_company_name -%>"
     data-yearly-subsidiary-workloadings-day_rate="<%= @day_rate.to_json -%>"
     data-yearly-subsidiary-workloadings-day_rate_ref="<%= @day_rate_ref -%>"
     data-yearly-subsidiary-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"

@@ -11,6 +11,7 @@ export default class extends Controller {
     yearlySubsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('yearly-subsidiary-workloadings-chart3'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
+var selectedCompanyName = this.data.get("selected_company_name");
 var dayRateData = JSON.parse(this.data.get("day_rate"));
 var dayRateDataRef = this.data.get("day_rate_ref");
 var planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
@@ -216,9 +217,24 @@ var option3 = {
     }]
 };
 
+    function drill_down_on_click(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'line') {
+          let url = '/report/subsidiary_workloading';
+          let month_name = xAxisData[params.dataIndex]
+          url += '?company_name=' + encodeURIComponent(selectedCompanyName);
+          url += '&begin_month_name=' + encodeURIComponent(month_name) + '&end_month_name=' + encodeURIComponent(month_name);
+          window.location.href = url;
+        }
+      }
+    }
+
     yearlySubsidiaryWorkloadingsChart1.setOption(option1, false);
+    yearlySubsidiaryWorkloadingsChart1.on('click', drill_down_on_click);
     yearlySubsidiaryWorkloadingsChart2.setOption(option2, false);
+    yearlySubsidiaryWorkloadingsChart2.on('click', drill_down_on_click);
     yearlySubsidiaryWorkloadingsChart3.setOption(option3, false);
+    yearlySubsidiaryWorkloadingsChart3.on('click', drill_down_on_click);
     setTimeout(() => {
       yearlySubsidiaryWorkloadingsChart1.resize();
       yearlySubsidiaryWorkloadingsChart2.resize();
