@@ -67,7 +67,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
       format.csv do
         render_csv_header 'Knowledge Report'
         csv_res = CSV.generate do |csv|
-          csv << ['ID', '类别1', '类别2', '类别3', '问题']
+          csv << ['ID', '类别1', '类别2', '类别3', '问题', '答案']
           policy_scope(Company::Knowledge).order(id: :asc).find_each do |s|
             values = []
             values << s.id
@@ -75,6 +75,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
             values << s.category_2
             values << s.category_3
             values << s.question
+            values << s.answer.to_plain_text
             csv << values
           end
         end
