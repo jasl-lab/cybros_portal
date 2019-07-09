@@ -33,23 +33,21 @@ test:
 
 # Multiple Accounts
 #
-# wx2_development:
-#  <<: *default
-#  appid: "my_appid"
-#  secret: "my_secret"
-#  access_token: "tmp/wechat_access_token2"
-#  jsapi_ticket: "tmp/wechat_jsapi_ticket2"
-#
-# wx2_test:
-#  <<: *default
-#  appid: "my_appid"
-#  secret: "my_secret"
-#
-# wx2_production:
-#  <<: *default
-#  appid: "my_appid"
-#  secret: "my_secret"
-#
+service_account: &service_account
+  appid: <%= Rails.application.credentials.wechat_svca_appid! %>
+  secret: <%= Rails.application.credentials.wechat_svca_secret! %>
+  access_token: "tmp/wechat_svca_access_token"
+  jsapi_ticket: "tmp/wechat_svca_jsapi_ticket"
+
+svca_development:
+  <<: *service_account
+
+svca_test:
+  <<: *service_account
+
+svca_production:
+  <<: *service_account
+
 # wx3_development:
 #  <<: *default
 #  appid: "my_appid"
