@@ -42,7 +42,7 @@ class WechatsController < ApplicationController
     Current.user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
     voice_id = request[:MediaId]
     Rails.logger.debug "voice_id: #{voice_id}"
-    VoiceAnswerJob.perform_later voice_id, Current.user&.id
+    VoiceAnswerWorker.perform_async(voice_id, Current.user&.id)
     request.reply.text "🤔"
   end
 
