@@ -1,0 +1,20 @@
+---
+:verbose: false
+:concurrency: 10
+:max_retries: 2
+
+# Set timeout to 8 on Heroku, longer if you manage your own systems.
+:timeout: 30
+
+# Sidekiq will run this file through ERB when reading it so you can
+# even put in dynamic logic, like a host-specific queue.
+# http://www.mikeperham.com/2013/11/13/advanced-sidekiq-host-specific-queues/
+:queues:
+  - critical
+  - mailers
+  - default
+  - action_mailbox_routing
+  - action_mailbox_incineration
+  - active_storage_analysis
+  - active_storage_purge
+  - low
