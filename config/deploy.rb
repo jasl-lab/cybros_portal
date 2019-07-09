@@ -17,8 +17,8 @@ set :repo_url, 'git@git.coding.net:ericguo/cybros_portal.git'
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
-# Default value for :pty is false
-# set :pty, true
+# https://github.com/seuros/capistrano-sidekiq#known-issues-with-capistrano-3
+set :pty, false
 
 # Default value for :linked_files is []
 append :linked_files, *%w[puma.rb config/database.yml config/secrets.yml config/mailer.yml config/master.key config/credentials.yml.enc]
@@ -42,5 +42,11 @@ set :rbenv_type, :user
 set :rbenv_ruby, '2.6.3'
 
 set :puma_init_active_record, true
+
+SSHKit.config.command_map[:sidekiq] = "bundle exec sidekiq"
+SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
+
 # https://stackoverflow.com/a/48627238/262826
 Rake::Task["deploy:assets:backup_manifest"].clear_actions
+
+
