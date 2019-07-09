@@ -10,6 +10,7 @@ class VoiceAnswerJob < ApplicationJob
     upload_res = Wechat.api(:svca).addvoicetorecofortext(voice_id, File.open(out_temp.path))
     Rails.logger.debug "VoiceAnswerJob addvoicetorecofortext: #{upload_res}"
     if upload_res['errcode'] == 0
+      sleep(1.5) # Can not running too fast.
       res = Wechat.api(:svca).queryrecoresultfortext(voice_id)
       Rails.logger.debug "VoiceAnswerJob queryrecoresultfortext: #{res}"
       question = res['result']
