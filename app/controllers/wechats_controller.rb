@@ -39,11 +39,11 @@ class WechatsController < ApplicationController
   end
 
   on :voice do |request|
+    Current.user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
     voice_id = request[:MediaId]
     Rails.logger.debug "voice_id: #{voice_id}"
-    res = Wechat.api.addvoicetorecofortext(voice_id)
-    Rails.logger.debug "res: #{res}"
-    request.reply.text res.to_s
+    VoiceAnswerJob.perform_later voice_id, Current.user&.id
+    request.reply.text "🤔"
   end
 
   on :event, with: 'enter_agent' do |request|
