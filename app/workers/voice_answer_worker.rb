@@ -23,13 +23,41 @@ class VoiceAnswerWorker
         openid = Current.user.email.split('@')[0]
         if question.present?
           Wechat.api.custom_message_send Wechat::Message.to(openid).text("您问：#{question}")
-
+          answer_via_wechat_api(question, openid)
         else
           Wechat.api.custom_message_send Wechat::Message.to(openid).text("微信智聆没听出来。。(#{voice_id})")
         end
       else
         # User never login in cybros
       end
+    end
+  end
+
+  private
+
+  def answer_via_wechat_api(content, openid)
+    ks = Company::Knowledge.answer(content)
+    if ks.present?
+      k = ks.first
+      Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
+      if k.answer_contain_text_only? && ks.count == 1
+        Wechat.api.custom_message_send Wechat::Message.to(openid).text k.answer.to_plain_text
+      else
+        host = CybrosCore::Application.config.action_mailer.default_url_options[:host]
+        answer_articles = ks.each_with_object([]) do |q, memo|
+          memo << { title: q.question, description: "类别：#{q.category_1} #{q.category_2} #{q.category_3}",
+          pic_url: ActionController::Base.helpers.asset_url(Company::KnowledgeImages.random_one, type: :image),
+          url: Rails.application.routes.url_helpers.company_home_knowledge_url(q, host: host) }
+        end
+        Wechat.api.custom_message_send Wechat::Message.to(openid).news answer_articles
+      end
+    else
+      if Current.user.present?
+        Current.user.pending_questions.create(question: content)
+      else
+        Rails.logger.debug "User question not answer: #{content}"
+      end
+      Wechat.api.custom_message_send Wechat::Message.to(openid).text Company::Knowledge.no_answer_content
     end
   end
 end
