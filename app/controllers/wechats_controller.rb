@@ -44,6 +44,12 @@ class WechatsController < ApplicationController
 
   on :click, with: 'LIKE_US' do |request, key|
     Current.user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
+
+    kl = Company::KnowledgeLike.find_or_create_by(user_id: Current.user.id) do |knowledge_like|
+      knowledge_like.like_count = 0
+    end
+    kl.update(like_count: kl.like_count + 1)
+
     request.reply.text "谢谢你夸奖我。🥰"
   end
 

@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :name_card_applies, dependent: :restrict_with_error
   has_many :pending_questions, class_name: "Company::PendingQuestion", dependent: :restrict_with_error
   has_many :owing_pending_questions, class_name: "Company::PendingQuestion", foreign_key: :owner_id
+  has_one :knowledge_like, class_name: "Company::KnowledgeLike"
 
   def admin?
     email.in? Settings.admin.emails
