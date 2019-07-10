@@ -42,6 +42,11 @@ class WechatsController < ApplicationController
     request.reply.text "🤔"
   end
 
+  on :click, with: 'LIKE_US' do |request, key|
+    Current.user = User.find_by email: "#{request[:FromUserName]}@thape.com.cn"
+    request.reply.text "谢谢你夸奖我。🥰"
+  end
+
   on :event, with: 'enter_agent' do |request|
     return request.reply.success if request.session.greating_time&.to_date == Time.current.to_date
 
