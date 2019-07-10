@@ -15,7 +15,7 @@ class VoiceAnswerWorker
         res = Wechat.api(:svca).queryrecoresultfortext(voice_id)
         Rails.logger.debug "VoiceAnswerWorker queryrecoresultfortext: #{res}"
         sleep(0.5)
-        break if res['is_end'] == true || res['result'].present?
+        break if res['is_end'] == true
       end
       question = res['result']
       ask_user = User.find user_id
@@ -24,7 +24,7 @@ class VoiceAnswerWorker
         if question.present?
           Wechat.api.custom_message_send Wechat::Message.to(openid).text(question)
         else
-          Wechat.api.custom_message_send Wechat::Message.to(openid).text("微信聆听没听出来。。(#{voice_id})")
+          Wechat.api.custom_message_send Wechat::Message.to(openid).text("微信智聆没听出来。。(#{voice_id})")
         end
       end
     end
