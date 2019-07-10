@@ -3,6 +3,7 @@ class VoiceAnswerWorker
 
   def perform(voice_id, user_id)
     Rails.logger.debug "VoiceAnswerWorker got: #{voice_id} and #{user_id}"
+    Current.user = User.find user_id
     in_voice_file = Wechat.api.media(voice_id)
     out_temp = Tempfile.new(['UserVoice', '.mp3'])
     out_temp.close
@@ -18,14 +19,16 @@ class VoiceAnswerWorker
         break if res['is_end'] == true
       end
       question = res['result']
-      ask_user = User.find user_id
-      if ask_user.present?
-        openid = ask_user.email.split('@')[0]
+      if Current.user.present?
+        openid = Current.user.email.split('@')[0]
         if question.present?
-          Wechat.api.custom_message_send Wechat::Message.to(openid).text(question)
+          Wechat.api.custom_message_send Wechat::Message.to(openid).text("您问：#{question}")
+
         else
           Wechat.api.custom_message_send Wechat::Message.to(openid).text("微信智聆没听出来。。(#{voice_id})")
         end
+      else
+        # User never login in cybros
       end
     end
   end
