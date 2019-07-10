@@ -9,3 +9,10 @@ en:
         category_1: "Category"
         question: "Question"
         search: "Search"
+      make_complaints:
+        title: "Make complaints"
+        form_title: "Smart question and answer form"
+        my_advice: "My advice"
+        submit: "Submit"
+      complain:
+        success: "We have received your comments, thank you for your feedback."

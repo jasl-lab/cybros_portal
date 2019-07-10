@@ -1,9 +1,11 @@
 class Company::KnowledgesController < ApplicationController
   wechat_api
-  before_action :authenticate_user!, only: :modal
-  before_action :make_sure_wechat_user_login, only: %i[show index]
+  include BreadcrumbsHelper
+  before_action :make_sure_wechat_user_login, only: %i[show index make_complaints]
+  before_action :authenticate_user!, only: %i[modal make_complaints complain]
   before_action :set_knowledge, only: %i[modal show]
-  before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :set_page_layout_data, only: %i[index make_complaints], if: -> { request.format.html? }
+  before_action :set_breadcrumbs, only: %i[index make_complaints], if: -> { request.format.html? }
   after_action :verify_authorized
 
   def show
@@ -29,6 +31,16 @@ class Company::KnowledgesController < ApplicationController
   def modal
   end
 
+  def make_complaints
+    authorize Company::Knowledge
+    add_to_breadcrumbs(t('.title'), make_complaints_company_home_knowledges_path)
+  end
+
+  def complain
+    authorize Company::Knowledge
+    redirect_to make_complaints_company_home_knowledges_path, notice: t('.success')
+  end
+
   private
 
   def make_sure_wechat_user_login
@@ -47,10 +59,12 @@ class Company::KnowledgesController < ApplicationController
     authorize @knowledge
   end
 
+  def set_page_layout_data
+    @_sidebar_name = "company"
+  end
+
   def set_breadcrumbs
     @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
     { text: t("layouts.sidebar.company.header"),
       link: company_root_path },
     { text: t("layouts.sidebar.company.knowledges"),
