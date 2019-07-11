@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    predict_contracts:
+      show:
+        title: "Prodict contract for Shanghai"

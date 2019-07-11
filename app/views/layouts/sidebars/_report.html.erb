@@ -65,6 +65,12 @@
           <%= t("layouts.sidebar.report.subsidiary_receive") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/predict_contracts', action: 'show', html_options: { class: "nav-item" } do %>
+        <%= link_to report_predict_contract_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <%= t("layouts.sidebar.report.predict_contract") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>
