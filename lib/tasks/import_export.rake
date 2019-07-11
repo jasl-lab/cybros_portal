@@ -1,4 +1,4 @@
-namespace :filling do
+namespace :import_export do
   desc 'Filling CSV file to subsidiary_workloadings'
   task :subsidiary_workloadings, [:csv_file] => [:environment] do |task, args|
     csv_file_path = args[:csv_file]
