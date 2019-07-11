@@ -9,10 +9,3 @@ zh-CN:
         category_1: "分类"
         question: "问题"
         search: "搜索"
-      make_complaints:
-        title: "我要吐槽"
-        form_title: "智能问答意见表单"
-        my_advice: "意见"
-        submit: "提交"
-      complain:
-        success: "您的意见我们已经收到，谢谢您的反馈。"

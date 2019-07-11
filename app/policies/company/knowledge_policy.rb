@@ -22,14 +22,6 @@ module Company
       true
     end
 
-    def make_complaints?
-      user.present?
-    end
-
-    def complain?
-      make_complaints?
-    end
-
     def drill_down?
       true
     end

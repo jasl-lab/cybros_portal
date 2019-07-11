@@ -38,10 +38,6 @@ Rails.application.routes.draw do
         member do
           get :modal
         end
-        collection do
-          get :make_complaints
-          post :complain
-        end
       end
     end
 
