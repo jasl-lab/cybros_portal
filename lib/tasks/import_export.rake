@@ -15,4 +15,38 @@ namespace :import_export do
       )
     end
   end
+
+  desc 'Create not existing user from CSV exported from oauth2id'
+  task :create_new_user, [:csv_file] => [:environment] do |task, args|
+    csv_file_path = args[:csv_file]
+    CSV.foreach(csv_file_path, headers: true) do |row|
+      email = row['email']
+      position_title = row['position_title']
+      clerk_code = row['clerk_code']
+      chinese_name = row['chinese_name']
+      combine_departments = row['combine_departments'].split(';')
+
+      user = User.find_or_create_by(email: email)
+      user.position_title = position_title
+      user.clerk_code = clerk_code
+      user.chinese_name = chinese_name
+      user.confirmed_at = Time.current
+      random_password = SecureRandom.hex(4) # like "301bccce"
+      user.password = random_password
+      user.password_confirmation = random_password
+      user.save
+
+      combine_departments.each do |cd|
+        id = cd.split('@')[0]
+        department_name = cd.split('@')[1]
+        company_name = cd.split('@')[2]
+
+        dep = Department.find_or_create_by(id: id) do |department|
+          department.name = department_name
+        end
+        dep.update(company_name: company_name, name: department_name)
+        DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
+      end
+    end
+  end
 end
