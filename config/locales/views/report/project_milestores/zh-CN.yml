@@ -1,0 +1,6 @@
+---
+zh-CN:
+  report:
+    project_milestores:
+      show:
+        title: "项目里程碑更新率"

@@ -71,6 +71,12 @@
           <%= t("layouts.sidebar.report.predict_contract") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/project_milestores', action: 'show', html_options: { class: "nav-item" } do %>
+        <%= link_to report_project_milestore_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-project-diagram"></i>
+          <%= t("layouts.sidebar.report.project_milestore") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>
