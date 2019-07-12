@@ -3,7 +3,7 @@ module Bi
     establish_connection :cybros_bi
     self.table_name = 'SH_PREDICT_CONTRACT'
 
-    def self.last_avaiable_date
+    def self.last_available_date
       order(date: :desc).first.date
     end
   end

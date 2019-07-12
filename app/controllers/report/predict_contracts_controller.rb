@@ -4,7 +4,7 @@ class Report::PredictContractsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    last_available_date = Bi::PredictContract.last_avaiable_date
+    last_available_date = Bi::PredictContract.last_available_date
 
     data = policy_scope(Bi::PredictContract).where(date: last_available_date)
       .select('businessltdcode, SUM(contractconvert) contractconvert, SUM(count) count')
