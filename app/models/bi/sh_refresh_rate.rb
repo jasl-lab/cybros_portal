@@ -1,7 +1,7 @@
 module Bi
-  class RefreshRate < ApplicationRecord
+  class ShRefreshRate < ApplicationRecord
     establish_connection :cybros_bi
-    self.table_name = 'REFRESH_RATE'
+    self.table_name = 'SH_REFRESH_RATE'
 
     def self.last_available_date
       order(date: :desc).first.date
@@ -26,8 +26,7 @@ module Bi
       h = {}
       person_count_by_department.each do |a|
         deptcode = a.first
-        h[deptcode] ||= []
-        h[deptcode] << lad.find_all { |rr| rr.deptcode == deptcode }
+        h[deptcode] = lad.find_all { |rr| rr.deptcode == deptcode }
       end
       @_person_by_department = h
     end

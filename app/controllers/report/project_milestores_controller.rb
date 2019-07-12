@@ -4,6 +4,9 @@ class Report::ProjectMilestoresController < ApplicationController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    @person_count_by_department = Bi::ShRefreshRate.person_count_by_department
+    @person_by_department = Bi::ShRefreshRate.person_by_department
+    @departments = @person_by_department.keys
   end
 
   private
