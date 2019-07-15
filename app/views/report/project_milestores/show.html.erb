@@ -12,6 +12,15 @@
     <% end -%>
     <div class="row">
       <div class="col-lg-12">
+        <div id="project-milestore-chart"
+          data-controller="project-milestores"
+          data-action="resize@window->project-milestores#layout"
+          data-project-milestores-x_axis="<%= @all_deptnames_in_order.to_json -%>"
+          data-project-milestores-milestore_update_rate="<%= @milestore_update_rate.to_json -%>"
+          style="width: 100%;height: 350px;">
+        </div>
+      </div>
+      <div class="col-lg-12">
 <% @departments.in_groups_of(@number_in_row) do |group| %>
   <table class="table table-bordered">
     <% max_people_in_group = group.collect { |dep_id| @person_count_by_department[dep_id].to_i }.max %>

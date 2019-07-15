@@ -10,8 +10,12 @@ module Bi
       end
     end
 
-    def self.all_deptcodes
-      all.pluck(:deptcode)
+    def self.all_deptcodes_in_order
+      all.order(:dept_asc).pluck(:deptcode)
+    end
+
+    def self.all_deptnames_in_order
+      all.order(:dept_asc).pluck(:deptname)
     end
   end
 end
