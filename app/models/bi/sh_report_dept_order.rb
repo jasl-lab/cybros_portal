@@ -4,10 +4,14 @@ module Bi
     self.table_name = 'SH_REPORT_DEPT_ORDER'
 
     def self.dept_names
-      @dept_names ||= ShReportDeptOrder.all.reduce({}) do |h, d|
+      @dept_names ||= all.reduce({}) do |h, d|
         h[d.deptcode] = d.deptname
         h
       end
+    end
+
+    def self.all_deptcodes
+      all.pluck(:deptcode)
     end
   end
 end
