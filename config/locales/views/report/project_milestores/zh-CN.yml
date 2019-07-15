@@ -5,4 +5,5 @@ zh-CN:
       show:
         title: "项目里程碑更新率"
         number_in_row: "每行显示"
+        show_all_dept: "显示所有所"
         confirm: "确认"

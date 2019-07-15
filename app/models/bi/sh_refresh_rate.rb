@@ -19,18 +19,17 @@ module Bi
       end
     end
 
-    def self.person_by_department_in_sh
-      return @_person_by_department_in_sh if @_person_by_department_in_sh.present?
-
+    def self.person_by_department_in_sh(show_all_dept = false)
       lad = where(date: last_available_date)
-        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER ON SH_REPORT_DEPT_ORDER.deptcode = SH_REFRESH_RATE.deptcode")
+      lad = lad.where(deptcode: Bi::ShReportDeptOrder.all_deptcodes_in_order) unless show_all_dept
+      lad = lad.joins("LEFT JOIN SH_REPORT_DEPT_ORDER ON SH_REPORT_DEPT_ORDER.deptcode = SH_REFRESH_RATE.deptcode")
         .order('SH_REPORT_DEPT_ORDER.dept_asc')
       h = {}
       department_code_in_order = lad.collect(&:deptcode).uniq
       department_code_in_order.each do |deptcode|
         h[deptcode] = lad.find_all { |rr| rr.deptcode == deptcode }
       end
-      @_person_by_department_in_sh = h
+      h
     end
   end
 end

@@ -5,4 +5,5 @@ en:
       show:
         title: "Project milestore"
         number_in_row: "Number in row"
+        show_all_dept: "Display all department"
         confirm: "Confirm"
