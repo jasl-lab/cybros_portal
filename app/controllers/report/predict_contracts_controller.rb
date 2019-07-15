@@ -11,15 +11,21 @@ class Report::PredictContractsController < ApplicationController
       .group(:businessltdcode)
 
     all_business_ltd_codes = data.collect(&:businessltdcode)
-    @company_short_names = all_business_ltd_codes.collect do |c|
+    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
+
+    @company_short_names = only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.company_long_names.fetch(c, c)
       Bi::StaffCount.company_short_names.fetch(long_name, long_name)
     end
 
-    @contract_convert = data.collect do |d|
+    @contract_convert = only_have_data_dept.collect do |dept_code|
+      d = data.find { |d| d.businessltdcode == dept_code }
       (d.contractconvert / 10000.to_f).round(2)
     end
-    @contract_count = data.collect(&:count)
+    @contract_count = only_have_data_dept.collect do |dept_code|
+      d = data.find { |d| d.businessltdcode == dept_code }
+      d.count
+    end
   end
 
   private
