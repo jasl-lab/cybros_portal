@@ -4,7 +4,7 @@ module Bi
     self.table_name = 'SH_REFRESH_RATE'
 
     def self.last_available_date
-      order(date: :desc).first.date
+      @_last_available_date ||= order(date: :desc).first.date
     end
 
     def self.person_count_by_department
