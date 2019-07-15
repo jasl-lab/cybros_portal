@@ -19,7 +19,7 @@
         <div id="project-milestore-chart"
           data-controller="project-milestores"
           data-action="resize@window->project-milestores#layout"
-          data-project-milestores-x_axis="<%= @all_deptnames_in_order.to_json -%>"
+          data-project-milestores-x_axis="<%= @deptnames_in_order.to_json -%>"
           data-project-milestores-milestore_update_rate="<%= @milestore_update_rate.to_json -%>"
           style="width: 100%;height: 350px;">
         </div>

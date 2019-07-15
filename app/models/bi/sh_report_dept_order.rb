@@ -14,8 +14,11 @@ module Bi
       all.order(:dept_asc).pluck(:deptcode)
     end
 
-    def self.all_deptnames_in_order
-      all.order(:dept_asc).pluck(:deptname)
+    def self.all_deptnames
+      @_all_deptnames ||= all.reduce({}) do |h, d|
+        h[d.deptcode] = d.deptname
+        h
+      end
     end
   end
 end

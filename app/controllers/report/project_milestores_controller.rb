@@ -7,13 +7,14 @@ class Report::ProjectMilestoresController < ApplicationController
     @number_in_row = (params[:number_in_row] || 7).to_i
     @show_all_dept = params[:show_all_dept] == 'true'
 
-    @all_deptnames_in_order = Bi::ShReportDeptOrder.all_deptnames_in_order
-
     @person_count_by_department = Bi::ShRefreshRate.person_count_by_department
     @person_by_department_in_sh = Bi::ShRefreshRate.person_by_department_in_sh(@show_all_dept)
     @departments = @person_by_department_in_sh.keys
 
-    @milestore_update_rate = Bi::ShReportDeptOrder.all_deptcodes_in_order.collect do |deptcode|
+    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @departments)
+    @deptnames_in_order = only_have_data_dept.collect { |deptcode| Bi::ShReportDeptOrder.all_deptnames[deptcode] }
+
+    @milestore_update_rate = only_have_data_dept.collect do |deptcode|
       rr = @person_by_department_in_sh[deptcode]
       if rr.present?
         rr_refresh = rr.collect { |d| d.refresh_count.to_i }.sum
