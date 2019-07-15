@@ -5,8 +5,8 @@ class Report::ProjectMilestoresController < ApplicationController
 
   def show
     @person_count_by_department = Bi::ShRefreshRate.person_count_by_department
-    @person_by_department = Bi::ShRefreshRate.person_by_department
-    @departments = @person_by_department.keys
+    @person_by_department_in_sh = Bi::ShRefreshRate.person_by_department_in_sh
+    @departments = @person_by_department_in_sh.keys
   end
 
   private

@@ -12,7 +12,7 @@
     <thead>
       <tr>
       <% group.each do |dep| %>
-        <th><%= dep || '00000000' %></th>
+        <th><%= Bi::ShReportDeptOrder.dept_names[dep] || '00000000' %></th>
       <% end %>
       </tr>
     </thead>
@@ -20,8 +20,8 @@
       <% (0...max_people_in_group).each do |i| %>
         <tr>
           <% group.each do |dep| %>
-            <% if dep.present? && @person_by_department[dep][i].present? %>
-              <% person = @person_by_department[dep][i] %>
+            <% if dep.present? && @person_by_department_in_sh[dep][i].present? %>
+              <% person = @person_by_department_in_sh[dep][i] %>
               <td><%= person.work_name -%>（<%= person.refresh_count.to_i -%> / <%= person.total_count.to_i -%>）</td>
             <% else %>
               <td></td>

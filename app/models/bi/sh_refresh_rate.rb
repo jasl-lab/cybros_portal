@@ -19,8 +19,8 @@ module Bi
       end
     end
 
-    def self.person_by_department
-      return @_person_by_department if @_person_by_department.present?
+    def self.person_by_department_in_sh
+      return @person_by_department_in_sh if @person_by_department_in_sh.present?
 
       lad = where(date: last_available_date)
       h = {}
@@ -28,7 +28,7 @@ module Bi
         deptcode = a.first
         h[deptcode] = lad.find_all { |rr| rr.deptcode == deptcode }
       end
-      @_person_by_department = h
+      @person_by_department_in_sh = h
     end
   end
 end
