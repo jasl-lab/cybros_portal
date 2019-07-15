@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resource :subsidiary_receive, only: %i[show]
     resource :predict_contract, only: %i[show]
     resource :project_milestore, only: %i[show]
+    resource :contract_hold, only: %i[show]
   end
 
   namespace :person do

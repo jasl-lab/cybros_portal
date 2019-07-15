@@ -77,6 +77,12 @@
           <%= t("layouts.sidebar.report.project_milestore") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/contract_holds', action: 'show', html_options: { class: "nav-item" } do %>
+        <%= link_to report_contract_hold_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-business-time"></i>
+          <%= t("layouts.sidebar.report.contract_hold") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>
