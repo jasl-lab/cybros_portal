@@ -3,10 +3,16 @@
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
-
+    <%= form_tag report_project_milestore_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".number_in_row") -%>：</label>
+        <%= text_field_tag 'number_in_row', @number_in_row, class: 'form-control form-control2' %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+    <% end -%>
     <div class="row">
       <div class="col-lg-12">
-<% @departments.in_groups_of(7) do |group| %>
+<% @departments.in_groups_of(@number_in_row) do |group| %>
   <table class="table table-bordered">
     <% max_people_in_group = group.collect { |dep_id| @person_count_by_department[dep_id].to_i }.max %>
     <thead class="thead-light">

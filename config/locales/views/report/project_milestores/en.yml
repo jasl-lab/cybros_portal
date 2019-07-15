@@ -4,3 +4,5 @@ en:
     project_milestores:
       show:
         title: "Project milestore"
+        number_in_row: "Number in row"
+        confirm: "Confirm"
