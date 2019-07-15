@@ -31,7 +31,7 @@
     <thead class="thead-light">
       <tr>
       <% group.each do |dep| %>
-        <th><%= Bi::ShReportDeptOrder.dept_names[dep] || dep || '00000000' %></th>
+        <th><%= Bi::ShReportDeptOrder.dept_names[dep] || dep || '　'*6 %></th>
       <% end %>
       </tr>
     </thead>
