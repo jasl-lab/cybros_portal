@@ -4,6 +4,28 @@ class Report::ContractHoldsController < ApplicationController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    last_available_date = Bi::ContractHold.last_available_date
+
+    data = policy_scope(Bi::ContractHold).where(date: last_available_date)
+      .select('projectitemdeptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')
+      .group(:projectitemdeptcode)
+
+    all_business_ltd_codes = data.collect(&:projectitemdeptcode)
+    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
+
+    @deptnames_in_order = only_have_data_dept.collect do |c|
+      long_name = Bi::PkCodeName.company_long_names.fetch(c, c)
+      Bi::StaffCount.company_short_names.fetch(long_name, long_name)
+    end
+
+    @biz_retent_contract = only_have_data_dept.collect do |dept_code|
+      d = data.find { |d| d.projectitemdeptcode == dept_code }
+      (d.busiretentcontract / 10000.to_f).round(0)
+    end
+    @biz_retent_no_contract = only_have_data_dept.collect do |dept_code|
+      d = data.find { |d| d.projectitemdeptcode == dept_code }
+      (d.busiretentnocontract / 10000.to_f).round(0)
+    end
   end
 
   private

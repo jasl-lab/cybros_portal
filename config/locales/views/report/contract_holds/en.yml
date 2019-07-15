@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    contract_holds:
+      show:
+        title: "Business retent contract and no contract"

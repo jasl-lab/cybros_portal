@@ -1,0 +1,6 @@
+---
+zh-CN:
+  report:
+    contract_holds:
+      show:
+        title: "已签约/未签约 合同保有量"
