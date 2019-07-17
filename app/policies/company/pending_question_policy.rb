@@ -2,7 +2,7 @@ module Company
   class PendingQuestionPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        if user.admin?
+        if user.admin? || user.knowledge_maintainer?
           scope.all
         else
           scope.where(owner_id: user.id)
