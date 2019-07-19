@@ -18,7 +18,7 @@
     </main>
     <%= render_aside %>
   </div>
-  <%= render "layouts/application/footer" %>
+  <%= render "layouts/application/footer" unless params[:in_iframe].present? %>
 <% end %>
 
 <%= render template: "layouts/base" %>
