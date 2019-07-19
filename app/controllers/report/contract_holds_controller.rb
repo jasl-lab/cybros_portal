@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Report::ContractHoldsController < Report::BaseController
-  before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  after_action :cors_set_access_control_headers
 
   def show
     last_available_date = Bi::ContractHold.last_available_date

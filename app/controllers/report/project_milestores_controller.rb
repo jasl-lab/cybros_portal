@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class Report::ProjectMilestoresController < Report::BaseController
-  before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  after_action :cors_set_access_control_headers
 
   def show
     @number_in_row = (params[:number_in_row] || 7).to_i
     @show_all_dept = params[:show_all_dept] == 'true'
 
-    @person_count_by_department = Bi::ShRefreshRate.person_count_by_department
-    @person_by_department_in_sh = Bi::ShRefreshRate.person_by_department_in_sh(@show_all_dept)
+    @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department
+    @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(@show_all_dept)
     @departments = @person_by_department_in_sh.keys
 
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @departments)

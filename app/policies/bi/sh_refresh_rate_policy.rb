@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class PredictContractPolicy < BasePolicy
+  class ShRefreshRatePolicy < BasePolicy
     class Scope < Scope
       def resolve
         scope.all

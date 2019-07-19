@@ -1,12 +1,10 @@
+# frozen_string_literal: true
+
 module Bi
   class ContractHoldPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user&.report_maintainer?
-          scope.all
-        else
-          scope.none
-        end
+        scope.all
       end
     end
   end
