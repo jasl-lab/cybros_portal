@@ -56,7 +56,13 @@ var option = {
       name: '项目里程碑更新率',
       type: 'bar',
       data: milestoreUpdateRate,
-      color: '#738496'
+      color: '#738496',
+      label: {
+        normal: {
+          show: true,
+          position: 'top'
+        }
+      }
     }]
 };
 

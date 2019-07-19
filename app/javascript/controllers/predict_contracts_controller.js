@@ -52,6 +52,9 @@ var option = {
       position: 'left',
       axisLabel: {
         formatter: '{value}万'
+      },
+      splitLine: {
+        show: false
       }
     },{
       type: 'value',
@@ -61,6 +64,9 @@ var option = {
         lineStyle: {
           color: '#675BBA'
         }
+      },
+      splitLine: {
+        show: false
       }
     }],
     series: [{
@@ -70,7 +76,14 @@ var option = {
       symbol: 'circle',
       symbolSize: 8,
       data: contractConvert,
-      color: '#334B5C'
+      color: '#334B5C',
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          color: '#353535'
+        }
+      }
     },{
       name: '跟踪合同数目',
       type: 'line',
