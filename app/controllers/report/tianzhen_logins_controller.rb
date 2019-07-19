@@ -1,4 +1,6 @@
-class Report::TianzhenLoginsController < ApplicationController
+# frozen_string_literal: true
+
+class Report::TianzhenLoginsController < Report::BaseController
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 

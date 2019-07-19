@@ -1,4 +1,6 @@
-class Report::SubsidiaryCompleteValuesController < ApplicationController
+# frozen_string_literal: true
+
+class Report::SubsidiaryCompleteValuesController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }

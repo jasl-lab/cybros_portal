@@ -1,4 +1,6 @@
-class Report::HomeController < ApplicationController
+# frozen_string_literal: true
+
+class Report::HomeController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
