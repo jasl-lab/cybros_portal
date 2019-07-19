@@ -4,7 +4,7 @@ zh-CN:
       new:
         title: "登录"
         submit: "登录"
-        sso: "通过 SSO 单点登录系统登录（推荐）"
+        sso: "通过 SSO 单点登录系统登录"
         forgot_your_password: "忘记密码？"
         new_user_instructions: "新人？"
         sign_up: "注册一个账号"

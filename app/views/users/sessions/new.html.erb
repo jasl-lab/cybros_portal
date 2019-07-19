@@ -16,6 +16,7 @@
 
         <br />
 
+<% unless Rails.env.production? %>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), id: "user-sign-in") do |f| %>
           <div class="form-group">
             <%= f.label :email %>
@@ -48,6 +49,7 @@
             </div>
           <% end %>
         <% end %>
+<% end %>
       </div>
     </div>
   </div>
