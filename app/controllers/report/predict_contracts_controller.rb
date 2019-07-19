@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Report::PredictContractsController < Report::BaseController
-  before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
-  after_action :cors_set_access_control_headers
+  before_action :authenticate_user!, unless: -> { params[:in_iframe].present? }
+  before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
+  after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
     last_available_date = Bi::PredictContract.last_available_date
