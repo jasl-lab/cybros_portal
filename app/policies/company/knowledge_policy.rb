@@ -42,6 +42,10 @@ module Company
       update?
     end
 
+    def list?
+      update?
+    end
+
     def update?
       user.admin? || user.knowledge_maintainer?
     end

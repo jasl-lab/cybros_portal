@@ -1,0 +1,26 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag list_company_knowledge_maintains_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1" for="select-category-1"><%= t(".category_1") -%>：</label>
+        <%= select_tag 'category_1', options_for_select(@category_1_list, params[:category_1] || "N/A"), class: 'form-control', id: 'select-category-1' %>
+      </div>
+      <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
+    <% end -%>
+
+    <div class="container">
+    <% @knowledges.each_with_index do |knowledge, index| -%>
+      <h5 class="page-title mt-4"><%= index %>. <%= knowledge.question -%>
+        <span class="badge badge-primary float-right"><%= knowledge.category_1 -%></span>
+        <span class="badge badge-secondary float-right mr-2"><%= knowledge.category_2 -%></span>
+        <span class="badge badge-success float-right mr-2"><%= knowledge.category_3 -%></span>
+      </h5>
+      <div class="mx-3"><%= knowledge.answer %></div>
+
+    <% end %>
+    </div>
+  </div>
+</div>

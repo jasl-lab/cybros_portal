@@ -7,6 +7,7 @@ zh-CN:
         actions:
           new: "新建知识条目"
           report: "导出所有条目"
+          list: "列出所有问题"
         table:
           category_1: "类别 1"
           category_2: "类别 2"
@@ -25,3 +26,7 @@ zh-CN:
         success: "知识条目更新成功"
       destroy:
         success: "知识条目成功删除"
+      list:
+        title: "所有问题"
+        category_1: "类别 1"
+        search: "搜索"

@@ -2,7 +2,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_knowledge, only: [:edit, :update, :destroy]
-  before_action :set_breadcrumbs, only: %i[index new edit], if: -> { request.format.html? }
+  before_action :set_breadcrumbs, only: %i[index new edit list], if: -> { request.format.html? }
   after_action :verify_authorized
 
   def index
@@ -84,6 +84,13 @@ class Company::KnowledgeMaintainsController < ApplicationController
         send_data "\xEF\xBB\xBF" << csv_res
       end
     end
+  end
+
+  def list
+    authorize Company::Knowledge
+    @category_1_list = Company::Knowledge.distinct.pluck(:category_1)
+    @knowledges = Company::Knowledge.all
+    @knowledges = @knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
   end
 
   protected

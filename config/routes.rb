@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     resources :knowledge_maintains, except: [:show] do
       collection do
         get :export
+        get :list
       end
     end
     resources :pending_questions, only: %i[index create destroy update]

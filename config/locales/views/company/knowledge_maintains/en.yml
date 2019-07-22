@@ -7,6 +7,7 @@ en:
         actions:
           new: "New knowledge"
           report: "Export all knowledge"
+          list: "List all questions"
         table:
           category_1: "Category 1"
           category_2: "Category 2"
@@ -25,3 +26,7 @@ en:
         success: "Knowledge was successfully updated."
       destroy:
         success: "Knowledge was successfully removed."
+      list:
+        title: "All questions"
+        category_1: "Category 1"
+        search: "Search"
