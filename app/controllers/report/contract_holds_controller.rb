@@ -27,7 +27,7 @@ class Report::ContractHoldsController < Report::BaseController
     end
     @biz_retent_no_contract = only_have_data_dept.collect do |dept_code|
       d = data.find { |d| d.projectitemdeptcode == dept_code }
-      (d.busiretentnocontract / 10000.to_f).round(0)
+      (d.busiretentnocontract.to_f / 10000.to_f).round(0)
     end
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0]+d[1] }
