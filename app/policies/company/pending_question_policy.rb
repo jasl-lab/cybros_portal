@@ -19,7 +19,7 @@ module Company
     end
 
     def update?
-      user.admin?
+      user.admin? || user.knowledge_maintainer?
     end
 
     def destroy?
