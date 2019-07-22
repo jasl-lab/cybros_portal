@@ -5,7 +5,7 @@
   <div class="form-group row">
     <label class="col-md-3 col-form-label"><%= f.label :category_1 -%></label>
     <div class="col-md-9">
-      <%= f.text_field :category_1, class: 'form-control' %>
+      <%= f.select :category_1, options_for_select(@category_1_list), {}, class: 'form-control' %>
     </div>
   </div>
 

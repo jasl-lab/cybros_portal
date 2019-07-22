@@ -23,10 +23,12 @@ class Company::KnowledgeMaintainsController < ApplicationController
     @knowledge = Company::Knowledge.new
     @knowledge.question = params[:q]
     @knowledge.q_user_id = params[:q_user_id]
+    @category_1_list = Company::Knowledge.distinct.pluck(:category_1)
     authorize @knowledge
   end
 
   def edit
+    @category_1_list = Company::Knowledge.distinct.pluck(:category_1)
   end
 
   def create
