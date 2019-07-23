@@ -24,7 +24,7 @@
       </div>
       <div class="form-group">
         <label class="mr-1" for="select-category-1"><%= t(".table.category_1") -%>：</label>
-        <%= select_tag 'category_1', options_for_select(@category_1_list, params[:category_1]), class: 'form-control', id: 'select-category-1' %>
+        <%= select_tag 'category_1', options_for_select(@category_1_list, params[:category_1]), include_blank: true, class: 'form-control', id: 'select-category-1' %>
       </div>
       <div class="form-group">
         <label class="mr-1" for="select-category-2"><%= t(".table.category_2") -%>：</label>
