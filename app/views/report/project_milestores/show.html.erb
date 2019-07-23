@@ -5,6 +5,10 @@
     </h3>
     <%= form_tag report_project_milestore_path, method: :get, class: 'form-inline' do -%>
       <div class="form-group">
+        <label class="mr-1"><%= t(".month_name") -%>：</label>
+        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+      </div>
+      <div class="form-group">
         <label class="mr-1"><%= t(".number_in_row") -%>：</label>
         <%= text_field_tag 'number_in_row', @number_in_row, class: 'form-control form-control2' %>
       </div>

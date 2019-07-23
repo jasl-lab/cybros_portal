@@ -7,11 +7,17 @@ class Report::ProjectMilestoresController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    @number_in_row = (params[:number_in_row] || 7).to_i
-    @show_all_dept = params[:show_all_dept] == 'true'
+    @all_month_names = Bi::ShRefreshRate.all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.last
+    end_of_month = Date.parse(@month_name).end_of_month
+    target_date = Bi::ShRefreshRate.where("date < ?", end_of_month).order(date: :desc).first.date
 
-    @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department
-    @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(@show_all_dept)
+    @number_in_row = (params[:number_in_row] || 7).to_i
+    @show_all_dept = params[:show_all_dept] == "true"
+
+    Rails.logger.debug "Bi::ShRefreshRate target_date: #{target_date}"
+    @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department(target_date)
+    @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(target_date, @show_all_dept)
     @departments = @person_by_department_in_sh.keys
 
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @departments)
