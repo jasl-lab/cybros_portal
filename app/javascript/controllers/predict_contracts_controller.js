@@ -70,7 +70,7 @@ var option = {
       }
     }],
     series: [{
-      name: '跟踪合同额',
+      name: '跟踪合同额（万元）',
       type: 'bar',
       yAxisIndex: 1,
       symbol: 'circle',

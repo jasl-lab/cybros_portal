@@ -181,7 +181,7 @@ var real_staff_option = {
       text: '人均实收款'
     },
     legend: {
-        data: ['人均实收款'],
+        data: ['人均实收款（万元）'],
         align: 'left'
     },
     grid: {
@@ -236,7 +236,7 @@ var need_staff_option = {
       text: '人均应收款（财务+业务）及本年回款率'
     },
     legend: {
-        data: ['人均应收款（财务+业务）', '本年回款率'],
+        data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
         align: 'left'
     },
     grid: {
@@ -286,7 +286,7 @@ var need_staff_option = {
       }
     }],
     series: [{
-      name: '人均应收款（万元）',
+      name: '人均应收款（财务+业务）（万元）',
       type: 'bar',
       data: needShouldReceivesPerStaff,
       color: '#738496',
@@ -298,7 +298,7 @@ var need_staff_option = {
         }
       }
     },{
-      name: '回款率',
+      name: '本年回款率',
       type: 'line',
       yAxisIndex: 1,
       symbol: 'circle',

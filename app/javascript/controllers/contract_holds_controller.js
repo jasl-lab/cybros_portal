@@ -13,7 +13,7 @@ var bizRetentTotals = JSON.parse(this.data.get("biz_retent_totals"));
 
 var option = {
     legend: {
-        data: ['已签约的业务保有量（万元）','未签约的业务保有量（万元）'],
+        data: ['业务保有量合计（万元）','已签约的业务保有量（万元）','未签约的业务保有量（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -74,7 +74,7 @@ var option = {
         }
       }
       }, {
-      name: '已签约的业务保有量',
+      name: '已签约的业务保有量（万元）',
       type: 'bar',
       stack: '总量',
       data: bizRetentContract,
@@ -88,7 +88,7 @@ var option = {
         }
       }
     },{
-      name: '未签约的业务保有量',
+      name: '未签约的业务保有量（万元）',
       type: 'bar',
       stack: '总量',
       data: bizRetentNoContract,
