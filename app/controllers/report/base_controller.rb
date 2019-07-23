@@ -6,6 +6,7 @@ class Report::BaseController < ApplicationController
     headers["Access-Control-Allow-Methods"] = "GET"
     headers["Access-Control-Request-Method"] = "*"
     headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    headers["X-FRAME-OPTIONS"] = "ALLOW-FROM *"
+    headers["X-Frame-Options"] = "ALLOW-FROM http://172.16.1.159"
+    headers["X-XSS-Protection"] = "0"
   end
 end
