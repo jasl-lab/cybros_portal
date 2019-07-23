@@ -54,13 +54,14 @@ var option = {
     }],
     series: [{
       name: '项目里程碑更新率',
-      type: 'bar',
+      type: 'line',
       data: milestoreUpdateRate,
       color: '#738496',
       label: {
         normal: {
           show: true,
-          position: 'top'
+          position: 'top',
+          formatter: '{c}%'
         }
       }
     }]
