@@ -4,3 +4,4 @@ zh-CN:
     contract_holds:
       show:
         title: "已签约/未签约 业务保有量"
+        confirm: "确认"

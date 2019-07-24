@@ -4,3 +4,4 @@ en:
     contract_holds:
       show:
         title: "Business retent contract and no contract"
+        confirm: "submit"

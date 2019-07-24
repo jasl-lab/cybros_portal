@@ -3,8 +3,8 @@ module Bi
     establish_connection :cybros_bi
     self.table_name = 'SH_CONTRACT_HOLD'
 
-    def self.last_available_date
-      @_last_available_date ||= order(date: :desc).first.date
+    def self.all_month_names
+      @_all_month_names ||= order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
     end
   end
 end
