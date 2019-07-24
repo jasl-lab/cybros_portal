@@ -1,6 +1,7 @@
 <% if @save_success %>
   $("#knowledge-edit-modal").modal('hide');
   $("#toast-message").html('<%= j t(".success") -%>');
+  $("#knowledge-row-<%= @knowledge.id -%>").html('<%= j render partial: "knowledge_row", locals: { knowledge: @knowledge } -%>');
 <% else %>
   $("#toast-message").html('<%= j @knowledge.errors.full_messages.join(';') -%>');
 <% end %>
