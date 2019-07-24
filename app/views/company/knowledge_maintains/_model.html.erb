@@ -11,7 +11,7 @@
   <div class="form-group row">
     <label class="col-md-2 col-form-label"><%= f.label :category_1 -%></label>
     <div class="col-md-10">
-      <%= f.select :category_1, options_for_select(@category_1_list), {}, class: 'form-control' %>
+      <%= f.select :category_1, options_for_select(@category_1_list, selected = knowledge.category_1), {}, class: 'form-control' %>
     </div>
   </div>
 
