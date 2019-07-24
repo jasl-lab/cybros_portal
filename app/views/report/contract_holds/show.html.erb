@@ -5,6 +5,7 @@
     </h3>
     <div class="row">
       <div class="col-lg-12">
+        <h5 class="text-center">至<%= @last_available_date.year -%>年至<%= @last_available_date.month -%>月,上海天华 业务保有量为<%= (@biz_retent_totals_sum/10000.0).round(2) -%>亿元,人均业务保有量为<%= @biz_retent_totals_sum_per_staff.round(0) -%>万元。</h5>
         <div id="contract-hold-chart"
           data-controller="contract-holds"
           data-action="resize@window->contract-holds#layout"
