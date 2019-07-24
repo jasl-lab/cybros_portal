@@ -1,0 +1,8 @@
+<% if @save_success %>
+  $("#knowledge-edit-modal").modal('hide');
+  $("#toast-message").html('<%= j t(".success") -%>');
+<% else %>
+  $("#toast-message").html('<%= j @knowledge.errors.full_messages.join(';') -%>');
+<% end %>
+$('.toast').toast({delay: 3000});
+$('.toast').toast('show');

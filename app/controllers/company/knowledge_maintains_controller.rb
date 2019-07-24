@@ -43,17 +43,22 @@ class Company::KnowledgeMaintainsController < ApplicationController
           Wechat.api.custom_message_send Wechat::Message.to(openid).text("您的问题：#{@knowledge.question} 已经有了答案：\r\n#{@knowledge.answer.to_plain_text}")
         end
       end
-      redirect_to company_knowledge_maintains_path, notice: t('.success')
+      redirect_to company_knowledge_maintains_path, notice: t(".success")
     else
       render :new
     end
   end
 
   def update
-    if @knowledge.update(knowledge_params)
-      redirect_to company_knowledge_maintains_path, notice: t('.success')
-    else
-      render :edit
+    respond_to do |format|
+      @save_success = @knowledge.update(knowledge_params)
+      if @save_success
+        format.html { redirect_to company_knowledge_maintains_path, notice: t(".success") }
+        format.js { render }
+      else
+        format.html { render :edit }
+        format.js { render }
+      end
     end
   end
 

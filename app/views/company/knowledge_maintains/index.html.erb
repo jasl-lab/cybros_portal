@@ -10,8 +10,13 @@
       <%= link_to t('.actions.list'), list_company_knowledge_maintains_path, class: 'btn text-primary' %>
     </li>
   </ol>
+  <div class="toast" style="position: fixed; right: 10px; top: 60px; z-index: 1">
+    <div class="toast-header bg-primary">
+      <strong class="mr-auto">Cybros</strong>
+    </div>
+    <div class="toast-body bg-secondary" id="toast-message"></div>
+  </div>
 <% end %>
-
 <div class="row justify-content-center">
   <div class="col-lg-12">
     <h3 class="page-title">
@@ -65,7 +70,7 @@
               <td><%= knowledge.category_3 %></td>
               <td><%= knowledge.question %></td>
               <td>
-                <%= link_to edit_company_knowledge_maintain_path(knowledge) do %>
+                <%= link_to edit_company_knowledge_maintain_path(knowledge), remote: true do %>
                   <i class="fa fa-edit"></i>
                 <% end %>
                 <%= link_to company_knowledge_maintain_path(knowledge), method: :delete, data: { confirm: 'Are you sure?' } do %>
@@ -82,3 +87,7 @@
 
   </div>
 </div>
+
+<div id="knowledge-edit-modal" class="modal" tabindex="-1" role="dialog"></div>
+
+
