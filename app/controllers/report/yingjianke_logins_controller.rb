@@ -23,6 +23,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
         process = tr.elements[6].content.strip
         @rows << [idx, device, ip, login_time, last_access_time, version, process]
       end
+      @rows = @rows.sort { |a, b| (b[4] - b[3]) <=> (a[4] - a[3]) }[0...50]
     end
   end
 
