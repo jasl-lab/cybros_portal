@@ -1,2 +1,2 @@
-$("#knowledge-edit-modal").html('<%= j render "modal", knowledge: @knowledge -%>');
+$("#knowledge-edit-modal").html('<%= j render(partial: "modal", locals: { knowledge: @knowledge }) -%>');
 $("#knowledge-edit-modal").modal('show');

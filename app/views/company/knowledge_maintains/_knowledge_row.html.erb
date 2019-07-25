@@ -8,7 +8,7 @@
 <td><%= knowledge.category_3 %></td>
 <td><%= knowledge.question %></td>
 <td>
-  <%= link_to edit_company_knowledge_maintain_path(knowledge), remote: true do %>
+  <%= link_to edit_company_knowledge_maintain_path(id: knowledge.id), remote: true do %>
     <i class="fa fa-edit"></i>
   <% end %>
   <%= link_to company_knowledge_maintain_path(knowledge), method: :delete, data: { confirm: 'Are you sure?' } do %>

@@ -10,17 +10,20 @@
       </div>
       <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
     <% end -%>
-
+    <div class="toast" style="position: fixed; right: 10px; top: 60px; z-index: 1">
+      <div class="toast-header bg-primary">
+        <strong class="mr-auto">Cybros</strong>
+      </div>
+      <div class="toast-body bg-secondary" id="toast-message"></div>
+    </div>
     <div class="container">
     <% @knowledges.each_with_index do |knowledge, index| -%>
-      <h5 class="page-title mt-4"><%= index %>. <%= knowledge.question -%>
-        <span class="badge badge-primary float-right"><%= knowledge.category_1 -%></span>
-        <span class="badge badge-secondary float-right mr-2"><%= knowledge.category_2 -%></span>
-        <span class="badge badge-success float-right mr-2"><%= knowledge.category_3 -%></span>
-      </h5>
-      <div class="mx-3"><%= knowledge.answer %></div>
-
+      <div id="knowledge-list-row-<%= knowledge.id -%>">
+        <%= render partial: 'list_row', locals: { knowledge: knowledge, index: index } -%>
+      <div>
     <% end %>
     </div>
   </div>
 </div>
+
+<div id="knowledge-edit-modal" class="modal" tabindex="-1" role="dialog"></div>

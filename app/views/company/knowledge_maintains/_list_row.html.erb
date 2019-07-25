@@ -1,0 +1,10 @@
+<h5 class="page-title mt-4">
+  <%= index + 1 %>. <%= knowledge.question -%>
+  <%= link_to edit_company_knowledge_maintain_path(knowledge), remote: true do %>
+    <i class="fa fa-edit"></i>
+  <% end %>
+  <span class="badge badge-primary float-right"><%= knowledge.category_1 -%></span>
+  <span class="badge badge-secondary float-right mr-2"><%= knowledge.category_2 -%></span>
+  <span class="badge badge-success float-right mr-2"><%= knowledge.category_3 -%></span>
+</h5>
+<div class="mx-3"><%= knowledge.answer %></div>
