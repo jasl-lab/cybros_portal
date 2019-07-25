@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th><%= t(".table.index") %></th>
+          <th><%= t(".table.device") %></th>
+          <th><%= t(".table.ip") %></th>
+          <th><%= t(".table.login_time") %></th>
+          <th><%= t(".table.last_access_time") %></th>
+          <th><%= t(".table.stay_time") %></th>
+          <th><%= t(".table.version") %></th>
+          <th><%= t(".table.process") %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @rows.each do |r| %>
+          <tr>
+            <td><%= r[0] %></td>
+            <td><%= r[1] %></td>
+            <td><%= r[2] %></td>
+            <td><%= r[3] %></td>
+            <td><%= r[4] %></td>
+            <td><%= distance_of_time_in_words r[3], r[4] %></td>
+            <td><%= r[5] %></td>
+            <td><%= r[6] %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

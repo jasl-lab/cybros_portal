@@ -13,6 +13,12 @@
           <%= t("layouts.sidebar.report.tianzhen_logins") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/yingjianke_logins', html_options: { class: "nav-item" } do %>
+        <%= link_to report_yingjianke_logins_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-chair"></i>
+          <%= t("layouts.sidebar.report.yingjianke_logins") %>
+        <% end %>
+      <% end %>
       <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
         <%= link_to report_subsidiary_workloading_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-stopwatch"></i>

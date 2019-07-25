@@ -40,6 +40,7 @@ en:
       report:
         header: "Report Home"
         tianzhen_logins: "Tian Zhen Logins"
+        yingjianke_logins: "Ying Jian Ke Logins"
         subsidiary_workloading: "Subsidiary workloading"
         company_subsidiary_workloading: "%{company} subsidiary workloading"
         yearly_subsidiary_workloading: "Yearly subsidiary workloading"

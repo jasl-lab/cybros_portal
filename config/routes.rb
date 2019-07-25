@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   namespace :report do
     root to: "home#index"
 
+
+    resources :yingjianke_logins, only: %i[index]
     resources :tianzhen_logins, only: %i[index]
     resource :subsidiary_workloading, only: %i[show] do
       collection do

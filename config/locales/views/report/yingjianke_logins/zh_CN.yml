@@ -1,0 +1,15 @@
+---
+zh-CN:
+  report:
+    yingjianke_logins:
+      index:
+        title: "盈建科软件登录用户一览"
+        table:
+          index: "序号"
+          device: "机器"
+          ip: "IP地址"
+          login_time: "登陆时间"
+          last_access_time: "最后访问"
+          stay_time: "逗留时长"
+          version: "版本"
+          process: "进程数"
