@@ -8,11 +8,12 @@ export default class extends Controller {
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var contractConvert = JSON.parse(this.data.get("contract_convert"));
-var contractCount = JSON.parse(this.data.get("contract_count"));
+var convertRealAmount = JSON.parse(this.data.get("convert_real_amount"));
+var contractConvertTotals = JSON.parse(this.data.get("contract_convert_totals"));
 
 var option = {
     legend: {
-        data: ['跟踪合同额（万元）','跟踪合同数目'],
+        data: ['跟踪合同额（万元）','成功率<80%的合同额（万元）','成功率>=80%的合同额（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -40,7 +41,8 @@ var option = {
       silent: true,
       axisLabel: {
         interval: 0,
-        rotate: -40
+        rotate: -40,
+        margin: 24
       },
       splitLine: {
           show: false
@@ -52,48 +54,50 @@ var option = {
       position: 'left',
       axisLabel: {
         formatter: '{value}万'
-      },
-      splitLine: {
-        show: false
-      }
-    },{
-      type: 'value',
-      name: '跟踪合同数目',
-      position: 'right',
-      axisLine: {
-        lineStyle: {
-          color: '#675BBA'
-        }
-      },
-      splitLine: {
-        show: false
       }
     }],
     series: [{
       name: '跟踪合同额（万元）',
       type: 'bar',
-      yAxisIndex: 1,
-      symbol: 'circle',
-      symbolSize: 8,
-      data: contractConvert,
-      color: '#334B5C',
+      barWidth: '30%',
+      barGap: '-100%',
+      data: contractConvertTotals,
+      itemStyle: {
+        color: '#DDDDDD'
+      },
       label: {
         normal: {
           show: true,
-          position: 'top',
-          color: '#353535'
+          color: '#353535',
+          position: 'top'
+        }
+      }
+    }, {
+      name: '成功率<80%的合同额（万元）',
+      type: 'bar',
+      stack: '总量',
+      data: contractConvert,
+      itemStyle: {
+        color: '#738496'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'insideTop'
         }
       }
     },{
-      name: '跟踪合同数目',
-      type: 'line',
-      data: contractCount,
-      color: '#738496',
-      barMaxWidth: 80,
+      name: '成功率>=80%的合同额（万元）',
+      type: 'bar',
+      stack: '总量',
+      data: convertRealAmount,
+      barMaxWidth: 90,
+      itemStyle: {
+        color: '#DDDDDD'
+      },
       label: {
         normal: {
-          show: true,
-          position: 'top'
+          show: false
         }
       }
     }]

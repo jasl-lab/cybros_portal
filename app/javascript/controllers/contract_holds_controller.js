@@ -73,7 +73,7 @@ var option = {
           position: 'top'
         }
       }
-      }, {
+    }, {
       name: '已签约的业务保有量（万元）',
       type: 'bar',
       stack: '总量',

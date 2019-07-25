@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module Bi
-  class PredictContractPolicy < BasePolicy
+  class TrackContractPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        scope.all
+        scope.where(BUSINESSLTDCODE: "000101")
       end
     end
   end

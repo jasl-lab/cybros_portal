@@ -7,13 +7,13 @@ class Report::PredictContractsController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    last_available_date = Bi::PredictContract.last_available_date
+    last_available_date = Bi::TrackContract.last_available_date
 
-    data = policy_scope(Bi::PredictContract).where(date: last_available_date)
-      .select('businessltdcode, SUM(contractconvert) contractconvert, SUM(count) count')
-      .group(:businessltdcode)
+    data = policy_scope(Bi::TrackContract).where(date: last_available_date)
+      .select("businessdeptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
+      .group(:businessdeptcode)
 
-    all_business_ltd_codes = data.collect(&:businessltdcode)
+    all_business_ltd_codes = data.collect(&:businessdeptcode)
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
     @company_short_names = only_have_data_dept.collect do |c|
@@ -22,13 +22,14 @@ class Report::PredictContractsController < Report::BaseController
     end
 
     @contract_convert = only_have_data_dept.collect do |dept_code|
-      d = data.find { |d| d.businessltdcode == dept_code }
+      d = data.find { |t| t.businessdeptcode == dept_code }
       (d.contractconvert / 10000.to_f).round(2)
     end
-    @contract_count = only_have_data_dept.collect do |dept_code|
-      d = data.find { |d| d.businessltdcode == dept_code }
-      d.count
+    @convert_real_amount = only_have_data_dept.collect do |dept_code|
+      d = data.find { |t| t.businessdeptcode == dept_code }
+      (d.convertrealamount / 10000.to_f).round(2)
     end
+    @contract_convert_totals = @contract_convert.zip(@convert_real_amount).map { |d| d[0] + d[1] }
   end
 
   private
