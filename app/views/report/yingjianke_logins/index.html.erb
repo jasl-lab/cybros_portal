@@ -18,9 +18,9 @@
         </tr>
         </thead>
         <tbody>
-        <% @rows.each do |r| %>
+        <% @rows.each_with_index do |r, index| %>
           <tr>
-            <td><%= r[0] %></td>
+            <td><%= index + 1 %></td>
             <td><%= r[1] %></td>
             <td><%= r[2] %></td>
             <td><%= r[3] %></td>
