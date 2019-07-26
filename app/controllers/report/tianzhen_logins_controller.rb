@@ -19,6 +19,7 @@ class Report::TianzhenLoginsController < Report::BaseController
         last_access_time =  DateTime.parse(tr.elements[4].content.strip)
         @rows << [idx, user, ip, login_time, last_access_time]
       end
+      @rows = @rows.sort { |a, b| (b[4] - b[3]) <=> (a[4] - a[3]) }
     end
   end
 

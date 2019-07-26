@@ -19,9 +19,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
         ip = tr.elements[2].content.strip
         login_time = DateTime.parse(tr.elements[3].content.strip)
         last_access_time =  DateTime.parse(tr.elements[4].content.strip)
-        version = tr.elements[5].content.strip
-        process = tr.elements[6].content.strip
-        @rows << [idx, device, ip, login_time, last_access_time, version, process]
+        @rows << [idx, device, ip, login_time, last_access_time]
       end
       @rows = @rows.sort { |a, b| (b[4] - b[3]) <=> (a[4] - a[3]) }[0...50]
     end
