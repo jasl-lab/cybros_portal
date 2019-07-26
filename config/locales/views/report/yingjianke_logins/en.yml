@@ -10,6 +10,7 @@ en:
           ip: "IP"
           login_time: "Login Time"
           last_access_time: "Last access time"
+          user_info: "Department & User"
           stay_time: "Stay time"
           version: "Version"
           process: "Process number"

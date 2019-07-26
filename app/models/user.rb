@@ -17,6 +17,15 @@ class User < ApplicationRecord
   has_many :owing_pending_questions, class_name: "Company::PendingQuestion", foreign_key: :owner_id
   has_one :knowledge_like, class_name: "Company::KnowledgeLike"
 
+  def self.details_mapping
+    @_username_mapping ||= all.joins(department_users: :department)
+      .select(:email, :chinese_name, 'departments.name').reduce({}) do |h, u|
+      user_name = u.email.split("@")[0]
+      h[user_name] ||= "#{u.name}-#{u.chinese_name}"
+      h
+    end
+  end
+
   def admin?
     email.in? Settings.admin.emails
   end
