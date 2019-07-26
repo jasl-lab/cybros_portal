@@ -7,6 +7,7 @@ en:
         table:
           index: "Index"
           pc: "User"
+          user_info: "Department & User"
           ip: "IP"
           login_time: "Login time"
           last_access_time: "Last access time"
