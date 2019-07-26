@@ -4,6 +4,7 @@ zh-CN:
     yingjianke_logins:
       index:
         title: "盈建科软件登录用户一览"
+        export: "导出6小时以上条目"
         table:
           index: "序号"
           device: "机器"

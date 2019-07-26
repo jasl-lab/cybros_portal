@@ -4,6 +4,7 @@ en:
     yingjianke_logins:
       index:
         title: "Ying Jian Ke Login Users"
+        export: "Export rows whose stay time is more than 6 hours"
         table:
           index: "Index"
           device: "Device"
