@@ -3,8 +3,8 @@ module Bi
     establish_connection :cybros_bi
     self.table_name = 'PK_CODE_NAME'
 
-    def self.company_long_names
-      @company_long_names ||= PkCodeName.all.reduce({}) do |h, s|
+    def self.mapping2deptcode
+      @mapping2deptcode ||= PkCodeName.all.reduce({}) do |h, s|
         h[s.deptcode] = s.deptname
         h
       end

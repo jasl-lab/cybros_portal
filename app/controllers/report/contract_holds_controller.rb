@@ -20,7 +20,7 @@ class Report::ContractHoldsController < Report::BaseController
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
     @deptnames_in_order = only_have_data_dept.collect do |c|
-      long_name = Bi::PkCodeName.company_long_names.fetch(c, c)
+      long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::StaffCount.company_short_names.fetch(long_name, long_name)
     end
 

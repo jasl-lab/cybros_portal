@@ -17,7 +17,7 @@ class Report::PredictContractsController < Report::BaseController
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
     @company_short_names = only_have_data_dept.collect do |c|
-      long_name = Bi::PkCodeName.company_long_names.fetch(c, c)
+      long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::StaffCount.company_short_names.fetch(long_name, long_name)
     end
 
@@ -30,6 +30,15 @@ class Report::PredictContractsController < Report::BaseController
       (d.convertrealamount / 10000.to_f).round(2)
     end
     @contract_convert_totals = @contract_convert.zip(@convert_real_amount).map { |d| d[0] + d[1] }
+  end
+
+  def opportunity_detail_drill_down
+    department_name = params[:department_name].strip
+    render
+  end
+
+  def signing_detail_drill_down
+    render
   end
 
   private

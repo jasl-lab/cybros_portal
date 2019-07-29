@@ -79,7 +79,12 @@ Rails.application.routes.draw do
     resource :complete_value, only: %i[show]
     resource :subsidiary_complete_value, only: %i[show]
     resource :subsidiary_receive, only: %i[show]
-    resource :predict_contract, only: %i[show]
+    resource :predict_contract, only: %i[show] do
+      collection do
+        get :opportunity_detail_drill_down
+        get :signing_detail_drill_down
+      end
+    end
     resource :project_milestore, only: %i[show]
     resource :contract_hold, only: %i[show]
   end

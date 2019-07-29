@@ -103,7 +103,32 @@ var option = {
     }]
 };
 
+    function drill_down_contract_detail(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          const department_name = xAxisData[params.dataIndex];
+          const sent_data = { department_name: department_name };
+          let drill_down_url
+          console.log(params.seriesName);
+          switch (params.seriesName) {
+            case '成功率<80%的合同额（万元）':
+              drill_down_url = '/report/predict_contract/opportunity_detail_drill_down';
+              break;
+            case '成功率>=80%的合同额（万元）':
+              drill_down_url = '/report/predict_contract/signing_detail_drill_down';
+              break;
+          }
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
+
     predictContractChart.setOption(option, false);
+    predictContractChart.on('click', drill_down_contract_detail);
+
     setTimeout(() => {
       predictContractChart.resize();
     }, 200);
