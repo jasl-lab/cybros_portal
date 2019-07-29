@@ -9,6 +9,9 @@
           <div class="form-group mr-3">
             <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
           </div>
+          <% if params[:in_iframe].present? %>
+            <%= hidden_field_tag :in_iframe, true -%>
+          <% end %>
           <div>
             <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
           </div>
