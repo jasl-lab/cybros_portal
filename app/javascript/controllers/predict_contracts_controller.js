@@ -13,7 +13,7 @@ var contractConvertTotals = JSON.parse(this.data.get("contract_convert_totals"))
 
 var option = {
     legend: {
-        data: ['跟踪合同额（万元）','成功率<80%的合同额（万元）','成功率>=80%的合同额（万元）'],
+        data: ['跟踪合同额','成功率<80%的合同额（万元）','成功率>=80%的合同额（万元）'],
         align: 'left'
     },
     tooltip: {
