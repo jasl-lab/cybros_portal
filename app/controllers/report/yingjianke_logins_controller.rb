@@ -30,7 +30,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
         csv_res = CSV.generate do |csv|
           csv << ['序号', '部门姓名', '登陆时间', '最后访问', '逗留时长', '机器', 'IP地址']
           idx = 0
-          rows
+          YingjiankeOverrunUser.rows
           .sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }
           .each do |r|
             if (r[2] - r[1]) * 24 >= 6
