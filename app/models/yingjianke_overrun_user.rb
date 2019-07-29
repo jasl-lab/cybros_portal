@@ -14,7 +14,7 @@ class YingjiankeOverrunUser < ApplicationRecord
         html_doc = Nokogiri::HTML(response.body.to_s)
         trs = html_doc.xpath('//*[@id="content_middle"]/table/tbody/tr')
         rows = []
-        trs.each do |tr, index|
+        trs.each do |tr|
           device = tr.elements[1].elements[0].content.strip
           user_name = device.split("@")[0]
           info = User.details_mapping.fetch(user_name, user_name)

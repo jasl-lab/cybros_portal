@@ -4,7 +4,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
 
   def index
     prepare_meta_tags title: t(".title")
-    @rows = YingjiankeOverrunUser.rows.sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }[0...50]
+    @rows = YingjiankeOverrunUser.rows.sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }
     if DateTime.now.new_offset('+8:00').hour >= 8
       @user_num = Array.new((DateTime.now.new_offset('+8:00').hour - 8) / 2 + 1, [0, 0, 0])
     else
@@ -29,16 +29,12 @@ class Report::YingjiankeLoginsController < Report::BaseController
         render_csv_header 'Yingjianke_Logins'
         csv_res = CSV.generate do |csv|
           csv << ['序号', '部门姓名', '登陆时间', '最后访问', '逗留时长', '机器', 'IP地址']
-          idx = 0
           YingjiankeOverrunUser.rows
           .sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }
-          .each do |r|
-            if (r[2] - r[1]) * 24 >= 6
-              idx += 1
-              r[1] = r[1].to_s(:db)
-              r[2] = r[2].to_s(:db)
-              csv << [idx] + r
-            end
+          .each_with_index do |r, idx|
+            r[1] = r[1].to_s(:db)
+            r[2] = r[2].to_s(:db)
+            csv << [idx + 1] + r
           end
         end
         send_data "\xEF\xBB\xBF" << csv_res
