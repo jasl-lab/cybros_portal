@@ -1,5 +1,3 @@
-require 'action_view'
-
 class YingjiankeOverrunUser < ApplicationRecord
   class << self
     include ActionView::Helpers::DateHelper
