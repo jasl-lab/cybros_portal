@@ -5,6 +5,22 @@ class Report::YingjiankeLoginsController < Report::BaseController
   def index
     prepare_meta_tags title: t(".title")
     @rows = YingjiankeOverrunUser.rows.sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }[0...50]
+    if DateTime.now.new_offset('+8:00').hour >= 8
+      @user_num = Array.new((DateTime.now.new_offset('+8:00').hour - 8) / 2 + 1, [0, 0, 0])
+    else
+      @user_num = []
+    end
+    YingjiankeOverrunUser.all.each do |u|
+      if u.time.in_time_zone.to_date === DateTime.now.new_offset('+8:00').to_date
+        if u.stay_timespan >= 18
+          @user_num[(u.time.in_time_zone.hour - 8)/2][2] += 1
+        elsif u.stay_timespan >= 12
+          @user_num[(u.time.in_time_zone.hour - 8)/2][1] += 1
+        elsif u.stay_timespan >= 6
+          @user_num[(u.time.in_time_zone.hour - 8)/2][1] += 1
+        end
+      end
+    end
   end
 
   def export

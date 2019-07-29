@@ -3,6 +3,44 @@
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col"><%= t(".table.time") %></th>
+          <th scope="col">8:00</th>
+          <th scope="col">10:00</th>
+          <th scope="col">12:00</th>
+          <th scope="col">14:00</th>
+          <th scope="col">17:00</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><%= t(".table.over_6") %></th>
+          <td><%= @user_num[0] == nil ? "/" : @user_num[0][0] %></td>
+          <td><%= @user_num[1] == nil ? "/" : @user_num[1][0] %></td>
+          <td><%= @user_num[2] == nil ? "/" : @user_num[2][0] %></td>
+          <td><%= @user_num[3] == nil ? "/" : @user_num[3][0] %></td>
+          <td><%= @user_num[4] == nil ? "/" : @user_num[4][0] %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%= t(".table.over_12") %></th>
+          <td><%= @user_num[0] == nil ? "/" : @user_num[0][1] %></td>
+          <td><%= @user_num[1] == nil ? "/" : @user_num[1][1] %></td>
+          <td><%= @user_num[2] == nil ? "/" : @user_num[2][1] %></td>
+          <td><%= @user_num[3] == nil ? "/" : @user_num[3][1] %></td>
+          <td><%= @user_num[4] == nil ? "/" : @user_num[4][1] %></td>
+        </tr>
+        <tr>
+          <th scope="row"><%= t(".table.over_18") %></th>
+          <td><%= @user_num[0] == nil ? "/" : @user_num[0][2] %></td>
+          <td><%= @user_num[1] == nil ? "/" : @user_num[1][2] %></td>
+          <td><%= @user_num[2] == nil ? "/" : @user_num[2][2] %></td>
+          <td><%= @user_num[3] == nil ? "/" : @user_num[3][2] %></td>
+          <td><%= @user_num[4] == nil ? "/" : @user_num[4][2] %></td>
+        </tr>
+      </tbody>
+    </table>
     <%= link_to t('.export'), export_report_yingjianke_logins_path(format: :csv), class: 'btn text-primary' %>
     <div class="table-responsive">
       <table class="table table-striped">

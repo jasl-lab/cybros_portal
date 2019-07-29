@@ -6,6 +6,10 @@ en:
         title: "Ying Jian Ke Login Users"
         export: "Export rows whose stay time is more than 6 hours"
         table:
+          time: "Time"
+          over_6: "User number whose online time is more than six hours"
+          over_12: "User number whose online time is more than twelve hours"
+          over_18: "User number whose online time is more than eighteen hours"
           index: "Index"
           device: "Device"
           ip: "IP"

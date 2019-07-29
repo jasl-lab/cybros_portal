@@ -6,6 +6,10 @@ zh-CN:
         title: "盈建科软件登录用户一览"
         export: "导出6小时以上条目"
         table:
+          time: "当日时间节点"
+          over_6: "超过6小时在线数"
+          over_12: "超过12小时在线数"
+          over_18: "超过18小时在线数"
           index: "序号"
           device: "机器"
           ip: "IP地址"
