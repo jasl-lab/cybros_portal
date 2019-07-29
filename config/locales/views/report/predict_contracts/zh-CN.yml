@@ -7,11 +7,14 @@ zh-CN:
         table:
           opportunitycode: "机会编号"
           opportunityname: "机会名称"
+          contractamount: "机会合同金额"
+          successrate: "估计成功率"
           contractconvert: "合同转换金额"
           businessdirectorname: "部门负责"
           salescontractcode: "销售合同号"
           projectcode: "项目号"
-          convertrealamount: "实际金额"
+          realamounttotal: "实际总金额"
+          convertrealamount: "转换后金额"
       signing_detail_drill_down:
         subtitle: "签约合同明细"
       opportunity_detail_drill_down:

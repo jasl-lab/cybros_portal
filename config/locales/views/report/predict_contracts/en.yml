@@ -7,10 +7,13 @@ en:
         table:
           opportunitycode: "Opportunity code"
           opportunityname: "Opportunity name"
+          contractamount: "Contract amount"
+          successrate: "Success rate"
           contractconvert: "Contract convert amount"
           businessdirectorname: "Business director"
           salescontractcode: "Sales contract code"
           projectcode: "Project code"
+          realamounttotal: "Real amount total"
           convertrealamount: "Convert real amount"
       signing_detail_drill_down:
         subtitle: "Signing detail"
