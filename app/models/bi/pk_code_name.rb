@@ -4,7 +4,7 @@ module Bi
     self.table_name = 'PK_CODE_NAME'
 
     def self.mapping2deptcode
-      @mapping2deptcode ||= PkCodeName.all.reduce({}) do |h, s|
+      @_mapping2deptcode ||= PkCodeName.all.reduce({}) do |h, s|
         h[s.deptcode] = s.deptname
         h
       end

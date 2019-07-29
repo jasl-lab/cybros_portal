@@ -4,3 +4,15 @@ en:
     predict_contracts:
       show:
         title: "Prodict contract for Shanghai"
+        table:
+          opportunitycode: "Opportunity code"
+          opportunityname: "Opportunity name"
+          contractconvert: "Contract convert amount"
+          businessdirectorname: "Business director"
+          salescontractcode: "Sales contract code"
+          projectcode: "Project code"
+          convertrealamount: "Convert real amount"
+      signing_detail_drill_down:
+        subtitle: "Signing detail"
+      opportunity_detail_drill_down:
+        subtitle: "Opportunity detail"

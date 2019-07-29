@@ -1,2 +1,2 @@
-$("#predict-contract-modal").html('<%= j render partial: "modal" -%>');
+$("#predict-contract-modal").html('<%= j render partial: "modal", locals: { rows: @tcod } -%>');
 $("#predict-contract-modal").modal();

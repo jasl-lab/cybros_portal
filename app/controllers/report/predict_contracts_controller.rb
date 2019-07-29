@@ -33,11 +33,18 @@ class Report::PredictContractsController < Report::BaseController
   end
 
   def opportunity_detail_drill_down
-    department_name = params[:department_name].strip
+    @dept_name = params[:department_name].strip
+    @drill_down_subtitle = t('.subtitle')
+    dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
+    @tcod = Bi::TrackContractOpportunityDetail.where(date: Bi::TrackContract.last_available_date).where(businessdeptcode: dept_code)
     render
   end
 
   def signing_detail_drill_down
+    @dept_name = params[:department_name].strip
+    @drill_down_subtitle = t('.subtitle')
+    dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
+    @tcsd = Bi::TrackContractSigningDetail.where(date: Bi::TrackContract.last_available_date).where(businessdeptcode: dept_code)
     render
   end
 

@@ -1,10 +1,11 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">Title</h5>
-      <p></p>
+      <h5 class="modal-title"><%= @dept_name -%></h5>
+      <p><%= @drill_down_subtitle %></p>
     </div>
     <div class="modal-body">
+      <%= render partial: "#{params[:action]}_table", locals: { rows: rows } %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>

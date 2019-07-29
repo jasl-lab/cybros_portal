@@ -4,3 +4,15 @@ zh-CN:
     predict_contracts:
       show:
         title: "上海天华跟踪合同额"
+        table:
+          opportunitycode: "机会编号"
+          opportunityname: "机会名称"
+          contractconvert: "合同转换金额"
+          businessdirectorname: "部门负责"
+          salescontractcode: "销售合同号"
+          projectcode: "项目号"
+          convertrealamount: "实际金额"
+      signing_detail_drill_down:
+        subtitle: "签约合同明细"
+      opportunity_detail_drill_down:
+        subtitle: "机会合同明细"
