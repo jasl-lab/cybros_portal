@@ -4,7 +4,7 @@ en:
     yingjianke_logins:
       index:
         title: "Ying Jian Ke Login Users"
-        export: "Export rows whose stay time is more than 6 hours"
+        export: "Export data rows"
         table:
           time: "Time"
           over_6: "User number whose online time is more than six hours"

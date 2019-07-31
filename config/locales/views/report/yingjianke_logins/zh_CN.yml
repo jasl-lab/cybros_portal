@@ -4,7 +4,7 @@ zh-CN:
     yingjianke_logins:
       index:
         title: "盈建科软件登录用户一览"
-        export: "导出6小时以上条目"
+        export: "导出所有条目"
         table:
           time: "当日时间节点"
           over_6: "超过6小时在线数"
