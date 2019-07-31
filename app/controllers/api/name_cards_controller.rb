@@ -1,4 +1,4 @@
-module Api
+module API
   class NameCardsController < ActionController::API
     def create
       name_card_apply = NameCardApply.find_by id: params[:name_card_id]
