@@ -4,8 +4,16 @@ module Bi
   class ContractHoldPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        scope.all
+        if user&.report_maintainer?
+          scope.all
+        else
+          scope.none
+        end
       end
+    end
+
+    def show?
+      user&.report_maintainer?
     end
   end
 end

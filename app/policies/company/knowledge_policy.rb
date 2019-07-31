@@ -31,7 +31,7 @@ module Company
     end
 
     def create?
-      user.admin? || user.knowledge_maintainer?
+      user.knowledge_maintainer?
     end
 
     def edit?
@@ -47,7 +47,7 @@ module Company
     end
 
     def update?
-      user.admin? || user.knowledge_maintainer?
+      user.knowledge_maintainer?
     end
 
     def destroy?

@@ -2,12 +2,16 @@ module Bi
   class SubCompanyRealReceivePolicy < BasePolicy
     class Scope < Scope
       def resolve
-        scope.all
+        if user&.report_maintainer?
+          scope.all
+        else
+          scope.none
+        end
       end
     end
 
     def show?
-      true
+      user&.report_maintainer?
     end
   end
 end

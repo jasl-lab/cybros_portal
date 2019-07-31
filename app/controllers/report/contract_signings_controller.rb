@@ -4,18 +4,18 @@ class Report::ContractSigningsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:show]
 
   def show
-    authorize Bi::ContractSign
-    @all_month_names = Bi::ContractSign.all_month_names
+    @short_company_name = params[:company_name]
+    authorize Bi::ContractSign if @short_company_name.blank?
+    @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     @period_mean_ref = params[:period_mean_ref] || 100
     @contract_amounts_per_staff_ref = params[:contract_amounts_per_staff_ref] || 29
 
     current_user_companies = current_user.user_company_names
-    @short_company_name = params[:company_name]
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     if @short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)

@@ -46,11 +46,11 @@ class User < ApplicationRecord
   end
 
   def knowledge_maintainer?
-    Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name)
+    Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name) || admin?
   end
 
   def report_maintainer?
-    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 陈子凡 王玥 冯巧容 许至清).include?(chinese_name)
+    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 陈子凡 王玥 冯巧容 许至清).include?(chinese_name) || admin?
   end
 
   def user_company_names

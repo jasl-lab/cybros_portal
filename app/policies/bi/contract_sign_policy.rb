@@ -7,7 +7,7 @@ module Bi
     end
 
     def show?
-      true
+      user&.report_maintainer?
     end
   end
 end

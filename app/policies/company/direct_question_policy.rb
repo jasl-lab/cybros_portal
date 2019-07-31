@@ -5,11 +5,11 @@ module Company
     end
 
     def create?
-      user.admin? || user.knowledge_maintainer?
+      user.knowledge_maintainer?
     end
 
     def destroy?
-      user.admin? || user.knowledge_maintainer?
+      user.knowledge_maintainer?
     end
   end
 end
