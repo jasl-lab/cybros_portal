@@ -47,7 +47,10 @@ class Report::PredictContractsController < Report::BaseController
     @dept_name = params[:department_name].strip
     @drill_down_subtitle = t('.subtitle')
     dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
-    @tcsd = Bi::TrackContractSigningDetail.where(date: Bi::TrackContract.last_available_date).where(businessdeptcode: dept_code)
+    @tcsd = Bi::TrackContractSigningDetail
+      .where(date: Bi::TrackContract.last_available_date)
+      .where(businessdeptcode: dept_code)
+      .where("convertrealamount > 0")
     render
   end
 
