@@ -8,6 +8,8 @@ zh-CN:
           user: "提问的用户"
           question: "问题"
           owner: "分配的回答责任人"
+        show_not_assigned_only: "仅显示未分配的问题"
+        confirm: "确认"
         assign: "分配并通知"
       create:
         success: "请继续填写其他信息，原先无法回答的问题已经删除。"

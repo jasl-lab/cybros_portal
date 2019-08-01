@@ -6,7 +6,9 @@ class Company::PendingQuestionsController < ApplicationController
 
   def index
     authorize Company::PendingQuestion
+    @show_not_assigned_only = params[:show_not_assigned_only].present?
     @pending_questions = Pundit.policy_scope(Current.user, Company::PendingQuestion)
+    @pending_questions = @pending_questions.where(owner_id: nil) if @show_not_assigned_only
   end
 
   def create
@@ -27,7 +29,7 @@ class Company::PendingQuestionsController < ApplicationController
     end
     pending_question.update(owner: owner_user)
 
-    redirect_to company_pending_questions_path,
+    redirect_to company_pending_questions_path(show_not_assigned_only: params[:show_not_assigned_only]),
       notice: t('.success', question: pending_question.question, user_name: pending_question.owner.chinese_name)
   end
 

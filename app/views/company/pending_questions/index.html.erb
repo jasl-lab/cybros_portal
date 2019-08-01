@@ -3,6 +3,13 @@
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
+    <%= form_tag company_pending_questions_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group mx-2">
+        <%= check_box_tag 'show_not_assigned_only', true, @show_not_assigned_only, class: 'form-control' %>
+        <label class="mr-1"> <%= t(".show_not_assigned_only") -%></label>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+    <% end -%>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -23,7 +30,9 @@
               <td><%= pending_question.question -%></td>
               <% if policy(pending_question).update? %>
                 <td>
-                  <%= form_with model: pending_question, class: 'form-inline' do |f| -%>
+                  <%= form_with model: pending_question,
+                      url: company_pending_question_path(id: pending_question.id, show_not_assigned_only: @show_not_assigned_only),
+                      class: 'form-inline' do |f| -%>
                     <%= f.select :owner_id, options_for_select(Company::Knowledge.knowledge_maintainers, pending_question.owner_id), { include_blank: true }, class: 'form-control' -%>
                     <%= f.submit t('.assign'), class: 'btn btn-primary', data: { disable_with: '处理中' } %>
                   <% end %>

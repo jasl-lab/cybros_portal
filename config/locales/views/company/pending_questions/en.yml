@@ -8,6 +8,8 @@ en:
           user: "User"
           question: "Question"
           owner: "Owner"
+        show_not_assigned_only: "Show not assigned only"
+        confirm: "Confirm"
         assign: "Assign to user"
       create:
         success: "Please continue filling other info, notice pending question is already removed."
