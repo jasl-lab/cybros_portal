@@ -4,4 +4,5 @@ en:
     contract_holds:
       show:
         title: "Business retent contract and no contract"
+        month_name: "Query year and month"
         confirm: "submit"

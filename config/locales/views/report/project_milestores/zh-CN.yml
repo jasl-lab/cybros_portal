@@ -4,6 +4,7 @@ zh-CN:
     project_milestores:
       show:
         title: "项目里程碑更新率"
+        month_name: "查询年月"
         number_in_row: "每行显示"
         show_all_dept: "显示所有所明细"
         confirm: "确认"
