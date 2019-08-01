@@ -6,7 +6,7 @@ namespace :convert_img do
       divs = doc.css(".trix-content>div")
       divs.each_with_index do |div, index|
         div.css("action-text-attachment").each_with_index do |node, idx|
-          dir = save_img(node, k.id.to_s + "_" + index.to_s + "_" + idx.to_s)
+          dir = save_img(node, k.id, index.to_s + "_" + idx.to_s)
           if dir
             node.add_next_sibling "<figure><img src=\"/knowledge_images/" + dir + "\"></figure>"
             node.remove
@@ -17,17 +17,18 @@ namespace :convert_img do
       k.save
     end
   end
-  def save_img(node, filename)
+  def save_img(node, id, filename)
     if node
       url = node.attr("url")
       if url.match?(/^data:image\//)
         ext = "." + url.to_s[/\/\w*;/][1...-1]
         index = url.to_s.index(",") + 1
-        tgt_dir = Rails.root.join("public", "knowledge_images", filename + ext)
+        FileUtils.mkdir_p(Rails.root.join("public", "knowledge_images", id.to_s))
+        tgt_dir = Rails.root.join("public", "knowledge_images", id.to_s, filename + ext)
         File.open(tgt_dir, "wb") do |f|
           f.write(Base64.decode64(node.attr("url").to_s[index..]))
         end
-        return filename + ext
+        return id.to_s + "/" + filename + ext
       end
     end
   end
