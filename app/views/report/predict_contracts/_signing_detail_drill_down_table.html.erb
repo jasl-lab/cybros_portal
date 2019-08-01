@@ -1,18 +1,20 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th width="30%"><%= t("report.predict_contracts.show.table.salescontractcode") -%></th>
-      <th width="20%"><%= t("report.predict_contracts.show.table.projectcode") -%></th>
+      <th width="20%"><%= t("report.predict_contracts.show.table.salescontractcode") -%></th>
+      <th width="30%"><%= t("report.predict_contracts.show.table.salescontractname") -%></th>
+      <th width="10%"><%= t("report.predict_contracts.show.table.status") -%></th>
       <th width="15%"><%= t("report.predict_contracts.show.table.realamounttotal") -%></th>
       <th width="15%"><%= t("report.predict_contracts.show.table.convertrealamount") -%></th>
-      <th width="20%"><%= t("report.predict_contracts.show.table.businessdirectorname") -%></th>
+      <th width="10%"><%= t("report.predict_contracts.show.table.businessdirectorname") -%></th>
     </tr>
   </thead>
   <tbody>
     <% rows.each do |r| %>
       <tr>
         <td><%= r.salescontractcode -%></td>
-        <td><%= r.projectcode -%></td>
+        <td><%= r.salescontractname -%></td>
+        <td><%= r.status -%></td>
         <td><%= r.realamounttotal -%></td>
         <td><%= r.convertrealamount -%></td>
         <td><%= r.businessdirectorname -%></td>

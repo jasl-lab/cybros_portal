@@ -12,6 +12,8 @@ en:
           contractconvert: "Contract convert amount"
           businessdirectorname: "Business director"
           salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          status: "Contract status"
           projectcode: "Project code"
           realamounttotal: "Real amount total"
           convertrealamount: "Convert real amount"
