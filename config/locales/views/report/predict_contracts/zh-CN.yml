@@ -5,9 +5,9 @@ zh-CN:
       show:
         title: "上海天华跟踪合同额"
         table:
-          opportunitycode: "机会编号"
-          opportunityname: "机会名称"
-          contractamount: "机会合同金额"
+          opportunitycode: "商机编号"
+          opportunityname: "商机名称"
+          contractamount: "商机合同金额"
           successrate: "估计成功率"
           contractconvert: "合同转换金额"
           businessdirectorname: "商务负责人"
@@ -20,4 +20,4 @@ zh-CN:
       signing_detail_drill_down:
         subtitle: "签约合同明细"
       opportunity_detail_drill_down:
-        subtitle: "机会合同明细"
+        subtitle: "商机合同明细"
