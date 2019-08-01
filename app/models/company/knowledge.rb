@@ -15,7 +15,7 @@ module Company
         return [Company::Knowledge.find_by(question: direct_question.real_question)]
       end
 
-      nouns = Company::Knowledge.extract_the_noun_in_question(question)
+      nouns = Company::Knowledge.extract_the_noun_and_verb_in_question(question)
       if nouns.count == 1
         only_noun = nouns.first
         only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun}%").limit(1)
@@ -53,9 +53,9 @@ module Company
       @@h
     end
 
-    def self.extract_the_noun_in_question(question)
+    def self.extract_the_noun_and_verb_in_question(question)
       tags = Current.jieba_tagging.tag question
-      noun_tags = tags.reject { |h| !h.has_value?('n') }
+      noun_tags = tags.reject { |h| !(h.has_value?('n') || h.has_value?('v'))  }
       noun_tags.collect { |h| h.keys.first }
     end
 
