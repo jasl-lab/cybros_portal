@@ -72,7 +72,9 @@ module Company
     end
 
     def answer_contain_text_only?
-      answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?("[Image]")
+      knowledge_images_path = Rails.root.join("public", "knowledge_images", id.to_s)
+      answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?("[Image]") \
+        && (!Dir.exist?(knowledge_images_path) || Dir.empty?(knowledge_images_path))
     end
 
     private
