@@ -34,6 +34,8 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
+    @biz_retent_totals_per_dept = @biz_retent_totals.zip(Bi::ShStaffCount.staff_count_per_dept).map { |d| (d[0] / (d[1] == 0 ? 1 : d[1])).to_f  }
+
     @biz_retent_totals_sum = @biz_retent_contract.sum()
     @biz_retent_totals_sum_per_staff = @biz_retent_totals_sum /
       (@deptnames_in_order.inject(0) do |sum, deptname|

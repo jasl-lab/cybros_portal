@@ -32,5 +32,11 @@ module Bi
         h
       end
     end
+
+    def self.staff_count_per_dept
+      @_staff_count_per_dept ||= all.map do |d|
+        d.nowdesignnum + d.nowothernum
+      end
+    end
   end
 end
