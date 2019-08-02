@@ -10,7 +10,7 @@ class Report::ContractHoldsController < Report::BaseController
     @all_month_names = policy_scope(Bi::ContractHold).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
-    @last_available_date = policy_scope(Bi::ContractHold).where("date < ?", end_of_month).order(date: :desc).first.date
+    @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
 
     data = policy_scope(Bi::ContractHold).where(date: @last_available_date)
       .select('deptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')

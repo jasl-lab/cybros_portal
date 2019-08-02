@@ -10,7 +10,7 @@ class Report::ProjectMilestoresController < Report::BaseController
     @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
-    target_date = policy_scope(Bi::ShRefreshRate).where("date < ?", end_of_month).order(date: :desc).first.date
+    target_date = policy_scope(Bi::ShRefreshRate).where("date <= ?", end_of_month).order(date: :desc).first.date
 
     @number_in_row = (params[:number_in_row] || 7).to_i
     @show_all_dept = params[:show_all_dept] == "true"
