@@ -5,10 +5,6 @@ module Bi
     establish_connection :cybros_bi
     self.table_name = "SH_REFRESH_RATE"
 
-    def self.available_date(month_name)
-      @_last_available_date ||= order(date: :desc).first.date
-    end
-
     def self.all_month_names
       @_all_month_names ||= Bi::ShRefreshRate.order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
     end
