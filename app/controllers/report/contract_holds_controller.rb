@@ -28,13 +28,22 @@ class Report::ContractHoldsController < Report::BaseController
       d = data.find { |c| c.deptcode == dept_code }
       (d.busiretentcontract / 10000.to_f).round(0)
     end
+
     @biz_retent_no_contract = only_have_data_dept.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
       (d.busiretentnocontract.to_f / 10000.to_f).round(0)
     end
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
-    @biz_retent_totals_per_dept = @biz_retent_totals.zip(Bi::ShStaffCount.staff_count_per_dept).map { |d| (d[0] / (d[1] == 0 ? 1 : d[1])).to_f  }
+
+    dept_data = Bi::ShStaffCount.all
+    dept_staff_count = only_have_data_dept.collect do |dept_code|
+      d = dept_data.find { |c| c.deptcode == dept_code }
+      d.nowdesignnum + d.nowothernum
+    end
+    @biz_retent_totals_per_dept = @biz_retent_totals.zip(dept_staff_count).map do |d|
+      (d[0] / d[1]).to_f rescue 0
+    end
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
     @biz_retent_totals_sum_per_staff = @biz_retent_totals_sum /
