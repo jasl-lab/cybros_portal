@@ -25,14 +25,9 @@
           data-contract-holds-biz_retent_contract="<%= @biz_retent_contract.to_json -%>"
           data-contract-holds-biz_retent_no_contract="<%= @biz_retent_no_contract.to_json -%>"
           data-contract-holds-biz_retent_totals="<%= @biz_retent_totals.to_json -%>"
-          data-contract-holds-biz_retent_totals_per_dept="<%= @biz_retent_totals_per_dept.to_json -%>"
-          style="width: 100%;height: 550px;">
-          <div id="contract-hold-chart">
-
-          </div>
-          <div id="contract-hold-per-dept-chart">
-
-          </div>
+          data-contract-holds-biz_retent_totals_per_dept="<%= @biz_retent_totals_per_dept.to_json -%>">
+          <div id="contract-hold-chart" style="width: 100%; height: 450px;"></div>
+          <div id="contract-hold-per-dept-chart" style="width: 100%; height: 450px;"></div>
         </div>
 
         <p>业务保有量=业务保有量（已签约）+业务保有量（未签约）；</p>

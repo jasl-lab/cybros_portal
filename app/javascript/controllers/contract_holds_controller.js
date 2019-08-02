@@ -6,13 +6,13 @@ let contractHoldPerDeptChart;
 export default class extends Controller {
   connect() {
     contractHoldChart = echarts.init(document.getElementById('contract-hold-chart'));
+    contractHoldPerDeptChart = echarts.init(document.getElementById('contract-hold-per-dept-chart'));
 
     var xAxisData = JSON.parse(this.data.get("x_axis"));
     var bizRetentContract = JSON.parse(this.data.get("biz_retent_contract"));
     var bizRetentNoContract = JSON.parse(this.data.get("biz_retent_no_contract"));
     var bizRetentTotals = JSON.parse(this.data.get("biz_retent_totals"));
 
-    contractHoldPerDeptChart = echarts.init(document.getElementById('contract-hold-per-dept-chart'));
     var bizRetentTotalsPerDept = JSON.parse(this.data.get("biz_retent_totals_per_dept"));
 
     var option = {
@@ -157,8 +157,6 @@ export default class extends Controller {
       series: [{
         name: '人均业务保有量（万元）',
         type: 'bar',
-        barWidth: '30%',
-        barGap: '-100%',
         data: bizRetentTotalsPerDept,
         itemStyle: {
           color: '#738496'
