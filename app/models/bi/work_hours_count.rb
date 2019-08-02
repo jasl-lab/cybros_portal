@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bi
   class WorkHoursCount < ApplicationRecord
     establish_connection :cybros_bi

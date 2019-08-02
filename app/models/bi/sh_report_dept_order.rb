@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Bi
   class ShReportDeptOrder < ApplicationRecord
     establish_connection :cybros_bi
-    self.table_name = 'SH_REPORT_DEPT_ORDER'
+    self.table_name = "SH_REPORT_DEPT_ORDER"
 
     def self.dept_names
       @_dept_names ||= all.reduce({}) do |h, d|

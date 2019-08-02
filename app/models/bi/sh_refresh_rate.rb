@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Bi
   class ShRefreshRate < ApplicationRecord
     establish_connection :cybros_bi
-    self.table_name = 'SH_REFRESH_RATE'
+    self.table_name = "SH_REFRESH_RATE"
 
     def self.available_date(month_name)
       @_last_available_date ||= order(date: :desc).first.date
