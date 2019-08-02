@@ -17,6 +17,8 @@ zh-CN:
           projectcode: "项目号"
           realamounttotal: "合同金额"
           convertrealamount: "转换后金额"
+        month_name: "查询年月"
+        confirm: "确认"
       signing_detail_drill_down:
         subtitle: "签约合同明细"
       opportunity_detail_drill_down:

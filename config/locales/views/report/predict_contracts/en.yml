@@ -17,6 +17,8 @@ en:
           projectcode: "Project code"
           realamounttotal: "Real amount total"
           convertrealamount: "Convert real amount"
+        month_name: "Query year and month"
+        confirm: "submit"
       signing_detail_drill_down:
         subtitle: "Signing detail"
       opportunity_detail_drill_down:

@@ -7,9 +7,12 @@ class Report::PredictContractsController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    last_available_date = Bi::TrackContract.last_available_date
+    @all_month_names = policy_scope(Bi::TrackContract).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.last
+    end_of_month = Date.parse(@month_name).end_of_month
+    @last_available_date = policy_scope(Bi::TrackContract).where("date < ?", end_of_month).order(date: :desc).first.date
 
-    data = policy_scope(Bi::TrackContract).where(date: last_available_date)
+    data = policy_scope(Bi::TrackContract).where(date: @last_available_date)
       .select("businessdeptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
       .group(:businessdeptcode)
 

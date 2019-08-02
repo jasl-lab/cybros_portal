@@ -5,6 +5,18 @@
     </h3>
     <div class="row">
       <div class="col-lg-12">
+        <%= form_tag report_predict_contract_path, method: :get, class: 'form-inline' do -%>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".month_name") -%>：</label>
+            <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+          </div>
+          <% if params[:in_iframe].present? %>
+            <%= hidden_field_tag :in_iframe, true -%>
+          <% end %>
+          <div>
+            <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
+          </div>
+        <% end -%>
         <div id="predict-contract-chart"
           data-controller="predict-contracts"
           data-action="resize@window->predict-contracts#layout"
