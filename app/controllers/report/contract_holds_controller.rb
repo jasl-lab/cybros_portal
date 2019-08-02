@@ -48,8 +48,11 @@ class Report::ContractHoldsController < Report::BaseController
     @biz_retent_totals_sum = @biz_retent_contract.sum()
     @biz_retent_totals_sum_per_staff = @biz_retent_totals_sum /
       (@deptnames_in_order.inject(0) do |sum, deptname|
-        staff_per_company = Bi::StaffCount.staff_per_company
-        sum + staff_per_company.fetch(deptname, 1000)
+        design_staff_per_company = Bi::ShStaffCount.design_staff_per_deptname
+        sum += design_staff_per_company.fetch(deptname, 0)
+        order_staff_per_company = Bi::ShStaffCount.other_staff_per_deptname
+        sum += order_staff_per_company.fetch(deptname, 0)
+        sum
       end).to_f
   end
 
