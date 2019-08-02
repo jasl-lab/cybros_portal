@@ -13,10 +13,10 @@ class Report::ContractHoldsController < Report::BaseController
     @last_available_date = policy_scope(Bi::ContractHold).where("date < ?", end_of_month).order(date: :desc).first.date
 
     data = policy_scope(Bi::ContractHold).where(date: @last_available_date)
-      .select('projectitemdeptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')
-      .group(:projectitemdeptcode)
+      .select('deptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')
+      .group(:deptcode)
 
-    all_business_ltd_codes = data.collect(&:projectitemdeptcode)
+    all_business_ltd_codes = data.collect(&:deptcode)
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
     @deptnames_in_order = only_have_data_dept.collect do |c|
@@ -25,11 +25,11 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @biz_retent_contract = only_have_data_dept.collect do |dept_code|
-      d = data.find { |c| c.projectitemdeptcode == dept_code }
+      d = data.find { |c| c.deptcode == dept_code }
       (d.busiretentcontract / 10000.to_f).round(0)
     end
     @biz_retent_no_contract = only_have_data_dept.collect do |dept_code|
-      d = data.find { |c| c.projectitemdeptcode == dept_code }
+      d = data.find { |c| c.deptcode == dept_code }
       (d.busiretentnocontract.to_f / 10000.to_f).round(0)
     end
 
