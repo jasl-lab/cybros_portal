@@ -32,4 +32,15 @@ window.echarts = echarts;
 
 import "controllers";
 
-require("devise-jwt")
+require("devise-jwt");
+
+document.addEventListener("turbolinks:load", function() {
+  JQuery("figure>img").on( "click", function() {
+    $("#knowledge-edit-modal").html(`
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <img src="${$(this).attr('src')}">
+  </div>
+</div>`).modal('show');
+  });
+});
