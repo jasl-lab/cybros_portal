@@ -5,7 +5,7 @@ module Bi
     class Scope < Scope
       def resolve
         if user&.report_maintainer?
-          scope.all
+          scope.where(orgcode: "000101")
         else
           scope.none
         end
