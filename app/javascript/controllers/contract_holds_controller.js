@@ -82,6 +82,9 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           data: bizRetentContract,
+          itemStyle: {
+            color: '#334B5C'
+          },
           label: {
             normal: {
               show: true,
@@ -93,6 +96,9 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           data: bizRetentNoContract,
+          itemStyle: {
+            color: '#738496'
+          },
           barMaxWidth: 90,
           label: {
             normal: {
