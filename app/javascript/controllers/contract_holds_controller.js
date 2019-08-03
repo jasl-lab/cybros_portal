@@ -171,7 +171,30 @@ export default class extends Controller {
       }]
     };
 
+    function drill_down_contract_hold_detail(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          const department_name = xAxisData[params.dataIndex];
+          const month_name = $('#month_name').val();
+          const sent_data = { department_name, month_name };
+          let drill_down_url
+          switch (params.seriesName) {
+            case '已签约的业务保有量（万元）':
+              drill_down_url = '/report/contract_hold/sign_detail_drill_down';
+              break;
+            case '未签约的业务保有量（万元）':
+              drill_down_url = '/report/contract_hold/unsign_detail_drill_down';
+              break;
+          }
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
     contractHoldChart.setOption(option, false);
+    contractHoldChart.on('click', drill_down_contract_hold_detail);
     contractHoldPerDeptChart.setOption(dept_option, false);
 
     setTimeout(() => {

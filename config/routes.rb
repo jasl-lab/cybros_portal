@@ -86,7 +86,12 @@ Rails.application.routes.draw do
       end
     end
     resource :project_milestore, only: %i[show]
-    resource :contract_hold, only: %i[show]
+    resource :contract_hold, only: %i[show] do
+      collection do
+        get :sign_detail_drill_down
+        get :unsign_detail_drill_down
+      end
+    end
   end
 
   namespace :person do

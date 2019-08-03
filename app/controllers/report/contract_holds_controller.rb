@@ -66,6 +66,18 @@ class Report::ContractHoldsController < Report::BaseController
       end).to_f
   end
 
+  def unsign_detail_drill_down
+    @department_name = params[:department_name]
+    @drill_down_subtitle = t('.subtitle')
+    render
+  end
+
+  def sign_detail_drill_down
+    @department_name = params[:department_name]
+    @drill_down_subtitle = t('.subtitle')
+    render
+  end
+
   private
 
   def set_breadcrumbs

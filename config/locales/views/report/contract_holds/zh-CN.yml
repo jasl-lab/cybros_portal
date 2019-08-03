@@ -6,3 +6,7 @@ zh-CN:
         title: "已签约/未签约 业务保有量"
         month_name: "查询年月"
         confirm: "确认"
+      sign_detail_drill_down:
+        subtitle: "已签约明细"
+      unsign_detail_drill_down:
+        subtitle: "未签约明细"
