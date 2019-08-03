@@ -36,9 +36,13 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
 
-    dept_data = Bi::ShStaffCount.all
+    this_month_staff_data = Bi::ShStaffCount.where(f_month: end_of_month.to_s(:short_month))
+    if this_month_staff_data.blank?
+      this_month_staff_data = Bi::ShStaffCount.where(f_month: Bi::ShStaffCount.last_available_f_month)
+    end
+
     dept_staff_count = only_have_data_dept.collect do |dept_code|
-      d = dept_data.find { |c| c.deptcode == dept_code }
+      d = this_month_staff_data.find { |c| c.deptcode == dept_code }
       d.nowdesignnum + d.nowothernum
     end
     @biz_retent_totals_per_dept = @biz_retent_totals.zip(dept_staff_count).map do |d|
