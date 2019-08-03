@@ -78,7 +78,7 @@ var option = {
       stack: '总量',
       data: contractConvert,
       itemStyle: {
-        color: '#DDDDDD'
+        color: '#738496'
       },
       label: {
         normal: {
@@ -93,7 +93,7 @@ var option = {
       data: convertRealAmount,
       barMaxWidth: 90,
       itemStyle: {
-        color: '#738496'
+        color: '#334B5C'
       },
       label: {
         normal: {
