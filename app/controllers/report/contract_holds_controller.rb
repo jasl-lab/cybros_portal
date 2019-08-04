@@ -86,6 +86,7 @@ class Report::ContractHoldsController < Report::BaseController
     if d.blank?
       d = Bi::ShStaffCount.where(f_month: Bi::ShStaffCount.last_available_f_month)
     end
+    d
   end
 
   def set_breadcrumbs
