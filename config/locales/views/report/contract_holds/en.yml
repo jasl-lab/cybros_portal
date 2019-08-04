@@ -6,6 +6,16 @@ en:
         title: "Business retent contract and no contract"
         month_name: "Query year and month"
         confirm: "submit"
+        table:
+          projectitemcode: "Project item code"
+          contractcode: "Contract code"
+          profession: "Profession"
+          planning_output: "Planning output"
+          workhour_cost: "Work hour cost"
+          unsign_hold_value: "Unsign hold value"
+          output: "Output"
+          milestone: "Milestone"
+          sign_hold_value: "Sign Hold Value"
       sign_detail_drill_down:
         subtitle: "Signed detail"
       unsign_detail_drill_down:

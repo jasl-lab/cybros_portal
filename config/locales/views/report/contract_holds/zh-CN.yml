@@ -6,6 +6,16 @@ zh-CN:
         title: "已签约/未签约 业务保有量"
         month_name: "查询年月"
         confirm: "确认"
+        table:
+          projectitemcode: "项目编号"
+          contractcode: "合同编号"
+          profession: "专业"
+          planning_output: "规划费用"
+          workhour_cost: "工时费用"
+          unsign_hold_value: "未签约金额"
+          output: "产出"
+          milestone: "里程碑"
+          sign_hold_value: "已签约保有金额"
       sign_detail_drill_down:
         subtitle: "已签约明细"
       unsign_detail_drill_down:
