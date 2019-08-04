@@ -7,8 +7,8 @@ en:
         month_name: "Query year and month"
         confirm: "submit"
         table:
-          projectitemcode: "Project item code"
-          contractcode: "Contract code"
+          projectitemcode: "Project item code & name"
+          contractcode: "Contract code & name"
           profession: "Profession"
           planning_output: "Planning output"
           workhour_cost: "Work hour cost"

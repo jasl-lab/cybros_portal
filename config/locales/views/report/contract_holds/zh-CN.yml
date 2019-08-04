@@ -7,8 +7,8 @@ zh-CN:
         month_name: "查询年月"
         confirm: "确认"
         table:
-          projectitemcode: "项目编号"
-          contractcode: "合同编号"
+          projectitemcode: "项目编号及名称"
+          contractcode: "合同编号及名称"
           profession: "专业"
           planning_output: "规划费用"
           workhour_cost: "工时费用"
