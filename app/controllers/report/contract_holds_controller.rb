@@ -38,27 +38,22 @@ class Report::ContractHoldsController < Report::BaseController
 
     this_month_staff_data = month_staff_data(end_of_month)
 
-    dept_staff_count = only_have_data_dept.collect do |dept_code|
+    dept_avg_staff = only_have_data_dept.collect do |dept_code|
       d = this_month_staff_data.find { |c| c.deptcode == dept_code }
-      d.nowdesignnum + d.nowothernum
+      d.avgamount
     end
-    @biz_retent_totals_per_dept = @biz_retent_totals.zip(dept_staff_count).map do |d|
-      (d[0] / d[1]).to_f rescue 0
+    @biz_retent_totals_per_dept = @biz_retent_totals.zip(dept_avg_staff).map do |d|
+      (d[0] / d[1]).to_f.round(0) rescue 0
     end
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
-    design_staff_per_company = this_month_staff_data.reduce({}) do |h, d|
-      h[d.deptname] = d.nowdesignnum
-      h
-    end
-    order_staff_per_company = this_month_staff_data.reduce({}) do |h, d|
-      h[d.deptname] = d.nowothernum
+    avg_staff_per_company = this_month_staff_data.reduce({}) do |h, d|
+      h[d.deptname] = d.avgamount
       h
     end
     @biz_retent_totals_sum_per_staff = @biz_retent_totals_sum /
       (@deptnames_in_order.inject(0) do |sum, deptname|
-        sum += design_staff_per_company.fetch(deptname, 0)
-        sum += order_staff_per_company.fetch(deptname, 0)
+        sum += avg_staff_per_company.fetch(deptname, 0)
         sum
       end).to_f
   end
