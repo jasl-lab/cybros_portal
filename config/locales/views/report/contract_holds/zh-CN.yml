@@ -13,9 +13,9 @@ zh-CN:
           planning_output: "规划费用"
           workhour_cost: "工时费用"
           unsign_hold_value: "未签约金额"
-          output: "产出"
-          milestone: "里程碑"
-          sign_hold_value: "已签约保有金额"
+          output: "策划产值"
+          milestone: "项目进度"
+          sign_hold_value: "已签约业务保有量"
       sign_detail_drill_down:
         subtitle: "已签约明细"
       unsign_detail_drill_down:
