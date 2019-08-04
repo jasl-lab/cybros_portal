@@ -10,8 +10,6 @@ module Bi
     end
 
     def self.person_count_by_department(target_date)
-      return @_person_count_by_department if @_person_count_by_department.present?
-
       deps = where(date: target_date)
         .select('deptcode, count(work_no) work_no')
         .group(:deptcode).order(deptcode: :asc)
