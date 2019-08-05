@@ -4,11 +4,7 @@ module Bi
   class ShRefreshRatePolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user&.report_maintainer?
-          scope.all
-        else
-          scope.none
-        end
+        scope.all
       end
     end
 

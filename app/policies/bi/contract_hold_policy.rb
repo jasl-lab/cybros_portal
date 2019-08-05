@@ -4,11 +4,7 @@ module Bi
   class ContractHoldPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user&.report_maintainer?
-          scope.where(orgcode: "000101")
-        else
-          scope.none
-        end
+        scope.where(orgcode: "000101")
       end
     end
 
