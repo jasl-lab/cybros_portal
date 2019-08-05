@@ -107,7 +107,8 @@ var option = {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
           const department_name = xAxisData[params.dataIndex];
-          const sent_data = { department_name: department_name };
+          const month_name = $('#month_name').val();
+          const sent_data = { department_name, month_name };
           let drill_down_url
           console.log(params.seriesName);
           switch (params.seriesName) {
