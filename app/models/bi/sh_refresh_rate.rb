@@ -6,7 +6,7 @@ module Bi
     self.table_name = "SH_REFRESH_RATE"
 
     def self.all_month_names
-      @_all_month_names ||= Bi::ShRefreshRate.order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
+      Bi::ShRefreshRate.order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
     def self.person_count_by_department(target_date)
