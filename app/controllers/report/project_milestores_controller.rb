@@ -39,7 +39,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   def detail_drill_down
     @rows = Bi::ShRefreshRateDetail
               .where(date: @last_available_date)
-              .where(belongorgcode: @dept_code)
+              .where(deptcode: @dept_code)
     render
   end
 
