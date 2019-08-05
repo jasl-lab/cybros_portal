@@ -85,7 +85,9 @@ Rails.application.routes.draw do
         get :signing_detail_drill_down
       end
     end
-    resource :project_milestore, only: %i[show]
+    resource :project_milestore, only: %i[show] do
+      get :detail_drill_down
+    end
     resource :contract_hold, only: %i[show] do
       collection do
         get :sign_detail_drill_down

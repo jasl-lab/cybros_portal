@@ -8,3 +8,12 @@ zh-CN:
         number_in_row: "每行显示"
         show_all_dept: "显示所有所明细"
         confirm: "确认"
+        close: "关闭"
+        table:
+          projectitemcode: "项目编号"
+          projectitemname: "项目名称"
+          projectpaname: "项目负责人名字"
+          projectprocess: "项目进度"
+          begindate: "起始日期"
+      detail_drill_down:
+        subtitle: "项目明细"

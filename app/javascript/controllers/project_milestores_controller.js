@@ -66,6 +66,23 @@ var option = {
       }
     }]
 };
+    function drill_down_contract_detail(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'line') {
+          const department_name = xAxisData[params.dataIndex];
+          const month_name = $('#month_name').val();
+          const sent_data = { department_name, month_name };
+          let drill_down_url = '/report/project_milestore/detail_drill_down';
+
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
+
+    projectMilestoreChart.on('click', drill_down_contract_detail);
 
     projectMilestoreChart.setOption(option, false);
     setTimeout(() => {

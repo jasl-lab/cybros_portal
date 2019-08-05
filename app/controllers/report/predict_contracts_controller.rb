@@ -61,7 +61,7 @@ class Report::PredictContractsController < Report::BaseController
     @drill_down_subtitle = t('.subtitle')
     @dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
 
-    month_name = params[:month_name]&.strip || @all_month_names.last
+    month_name = params[:month_name]&.strip
     end_of_month = Date.parse(month_name).end_of_month
     beginning_of_month = Date.parse(month_name).beginning_of_month
 

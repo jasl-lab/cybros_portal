@@ -8,3 +8,12 @@ en:
         number_in_row: "Number in row"
         show_all_dept: "Display all department"
         confirm: "Confirm"
+        close: "Close"
+        table:
+          projectitemcode: "Project item code"
+          projectitemname: "Project item name"
+          projectpaname: "Project PA name"
+          projectprocess: "Project process"
+          begindate: "Begin date"
+      detail_drill_down:
+        subtitle: "签约合同明细"

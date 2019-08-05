@@ -4,6 +4,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   before_action :authenticate_user!, unless: -> { params[:in_iframe].present? }
   before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
+  before_action :set_drill_down_variables, only: %i[detail_drill_down], if: -> { request.format.js? }
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
@@ -33,6 +34,25 @@ class Report::ProjectMilestoresController < Report::BaseController
         0
       end
     end
+  end
+
+  def detail_drill_down
+    @rows = Bi::ShRefreshRateDetail
+              .where(date: @last_available_date)
+              .where(belongorgcode: @dept_code)
+    render
+  end
+
+  def set_drill_down_variables
+    @dept_name = params[:department_name].strip
+    @drill_down_subtitle = t('.subtitle')
+    @dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
+
+    month_name = params[:month_name]&.strip
+    end_of_month = Date.parse(month_name).end_of_month
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+
+    @last_available_date = Bi::ShRefreshRateDetail.where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
   end
 
   private
