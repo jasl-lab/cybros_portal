@@ -15,7 +15,7 @@
       <td><%= r.projectitemname -%></td>
       <td><%= r.projectpaname -%></td>
       <td><%= r.projectprocess -%></td>
-      <td><%= r.begindate.to_s(:db)[0...10] -%></td>
+      <td><%= r.begindate.to_s(:short_date) -%></td>
     </tr>
   <% end %>
   </tbody>
