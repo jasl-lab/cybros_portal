@@ -63,7 +63,7 @@ gem "kaminari"
 # bundle config local.wechat /Users/guochunzhong/git/oss/wechat/
 gem 'wechat', git: 'https://github.com/Eric-Guo/wechat', branch: :master
 
-gem 'jieba-rb'
+gem 'jieba-rb', require: false
 gem 'similar_text'
 
 gem 'whenever', require: false
