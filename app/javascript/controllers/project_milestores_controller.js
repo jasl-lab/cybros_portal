@@ -57,6 +57,7 @@ var option = {
       type: 'line',
       data: milestoreUpdateRate,
       color: '#738496',
+      symbolSize: 10,
       label: {
         normal: {
           show: true,
