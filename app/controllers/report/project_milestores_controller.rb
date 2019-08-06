@@ -36,6 +36,13 @@ class Report::ProjectMilestoresController < Report::BaseController
     end
   end
 
+  def detail_table_drill_down
+    @drill_down_subtitle = t('.subtitle')
+    @name = params[:name].strip
+    @rows = Bi::ShRefreshRateDetail.where(projectpaname: @name)
+    render
+  end
+
   def detail_drill_down
     @rows = Bi::ShRefreshRateDetail
               .where(date: @last_available_date)

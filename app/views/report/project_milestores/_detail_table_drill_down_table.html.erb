@@ -1,0 +1,22 @@
+<table class="table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th><%= t("report.project_milestores.show.table.projectitemcode") -%></th>
+    <th><%= t("report.project_milestores.show.table.projectitemname") -%></th>
+    <th><%= t("report.project_milestores.show.table.projectpaname") -%></th>
+    <th><%= t("report.project_milestores.show.table.projectprocess") -%></th>
+    <th><%= t("report.project_milestores.show.table.begindate") -%></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% rows.each do |r| %>
+    <tr>
+      <td><%= r.projectitemcode -%></td>
+      <td><%= r.projectitemname -%></td>
+      <td><%= r.projectpaname -%></td>
+      <td><%= r.projectprocess -%></td>
+      <td><%= r.begindate -%></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

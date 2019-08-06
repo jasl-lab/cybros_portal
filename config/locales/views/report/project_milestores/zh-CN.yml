@@ -17,3 +17,5 @@ zh-CN:
           begindate: "更新日期"
       detail_drill_down:
         subtitle: "项目明细"
+      detail_table_drill_down:
+        subtitle: "项目明细"

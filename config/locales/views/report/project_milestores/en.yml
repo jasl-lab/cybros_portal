@@ -16,4 +16,6 @@ en:
           projectprocess: "Project process"
           begindate: "Begin date"
       detail_drill_down:
-        subtitle: "签约合同明细"
+        subtitle: "Signed contract detail"
+      detail_table_drill_down:
+        subtitle: "Signed contract detail"

@@ -33,7 +33,7 @@
       </div>
       <div class="col-lg-12">
 <% @departments.in_groups_of(@number_in_row) do |group| %>
-  <table class="table table-bordered">
+  <table data-controller="project-milestone-table" class="table table-bordered">
     <% max_people_in_group = group.collect { |dep_id| @person_count_by_department[dep_id].to_i }.max %>
     <thead class="thead-light">
       <tr>
@@ -48,7 +48,7 @@
           <% group.each do |dep| %>
             <% if dep.present? && @person_by_department_in_sh[dep][i].present? %>
               <% person = @person_by_department_in_sh[dep][i] %>
-              <td class="<%= person.refresh_count.to_i.zero? ? 'table-warning' : '' -%>"><%= person.work_name -%>（<%= person.refresh_count.to_i -%> / <%= person.total_count.to_i -%>）</td>
+              <td data-action="click->project-milestone-table#drill_down" class="<%= person.refresh_count.to_i.zero? ? 'table-warning' : '' -%>"><%= person.work_name -%>（<%= person.refresh_count.to_i -%> / <%= person.total_count.to_i -%>）</td>
             <% else %>
               <td></td>
             <% end %>
@@ -97,3 +97,4 @@
 </div>
 
 <div id="project-milestore-modal" class="modal" tabindex="-1" role="dialog"></div>
+<div id="project-milestore-table-modal" class="modal" tabindex="-1" role="dialog"></div>
