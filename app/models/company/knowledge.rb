@@ -55,7 +55,7 @@ module Company
 
     def self.extract_the_noun_and_verb_in_question(question)
       tags = Current.jieba_tagging.tag question
-      noun_tags = tags.reject { |h| !(h.has_value?('n') || h.has_value?('v'))  }
+      noun_tags = tags.reject { |h| !(h.has_value?('n') || h.has_value?('v') || h.has_value?('t'))  }
       noun_tags.collect { |h| h.keys.first }
     end
 
