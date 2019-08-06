@@ -14,6 +14,6 @@ zh-CN:
           projectitemname: "项目名称"
           projectpaname: "项目负责人名字"
           projectprocess: "项目进度"
-          begindate: "起始日期"
+          begindate: "更新日期"
       detail_drill_down:
         subtitle: "项目明细"
