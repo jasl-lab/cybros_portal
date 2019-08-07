@@ -9,7 +9,7 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
     if current_user_companies.include?('上海天华建筑设计有限公司')
-      @all_company_names = Bi::WorkHoursCountOrg.distinct.pluck(:businessltdname)
+      @all_company_names = Bi::WorkHoursCountOrg.distinct.pluck(:orgname)
       @selected_company_name = params[:company_name]&.strip || current_company
     else
       @all_company_names = current_user_companies
@@ -19,7 +19,7 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
     all_month_names = Bi::WorkHoursCountOrg.all_month_names
     beginning_of_month = Date.parse(all_month_names.first).beginning_of_month
     end_of_month = Date.parse(all_month_names.last).end_of_month
-    data = Bi::WorkHoursCountOrg.where(date: beginning_of_month..end_of_month, businessltdname: @selected_company_name)
+    data = Bi::WorkHoursCountOrg.where(date: beginning_of_month..end_of_month, orgname: @selected_company_name)
     @dates = data.collect { |d| d.date.to_s(:month_and_year) }
     @day_rate = data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(2) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 90
