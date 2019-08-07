@@ -15,8 +15,8 @@
         <td><%= r.salescontractcode -%></td>
         <td><%= r.salescontractname -%></td>
         <td><%= r.status -%></td>
-        <td><%= r.realamounttotal -%></td>
-        <td><%= r.convertrealamount -%></td>
+        <td><%= r.realamounttotal.round(0) -%></td>
+        <td><%= r.convertrealamount.round(0) -%></td>
         <td><%= r.businessdirectorname -%></td>
       </tr>
     <% end %>

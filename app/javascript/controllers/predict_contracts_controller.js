@@ -13,7 +13,7 @@ var contractConvertTotals = JSON.parse(this.data.get("contract_convert_totals"))
 
 var option = {
     legend: {
-        data: ['跟踪合同额','成功率<80%的合同额（万元）','成功率=80%的合同额（万元）'],
+        data: ['跟踪合同额','跟踪合同额（成功率小于80%）','流转中合同额（成功率等于80%）'],
         align: 'left'
     },
     tooltip: {
@@ -54,7 +54,8 @@ var option = {
       position: 'left',
       axisLabel: {
         formatter: '{value}万'
-      }
+      },
+      min: 0
     }],
     series: [{
       name: '跟踪合同额（万元）',
@@ -73,7 +74,7 @@ var option = {
         }
       }
     }, {
-      name: '成功率<80%的合同额（万元）',
+      name: '跟踪合同额（成功率小于80%）',
       type: 'bar',
       stack: '总量',
       data: contractConvert,
@@ -87,7 +88,7 @@ var option = {
         }
       }
     },{
-      name: '成功率=80%的合同额（万元）',
+      name: '流转中合同额（成功率等于80%）',
       type: 'bar',
       stack: '总量',
       data: convertRealAmount,
@@ -109,13 +110,13 @@ var option = {
           const department_name = xAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
           const sent_data = { department_name, month_name };
-          let drill_down_url
+          let drill_down_url;
           console.log(params.seriesName);
           switch (params.seriesName) {
-            case '成功率<80%的合同额（万元）':
+            case '跟踪合同额（成功率小于80%）':
               drill_down_url = '/report/predict_contract/opportunity_detail_drill_down';
               break;
-            case '成功率=80%的合同额（万元）':
+            case '流转中合同额（成功率等于80%）':
               drill_down_url = '/report/predict_contract/signing_detail_drill_down';
               break;
           }

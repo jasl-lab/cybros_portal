@@ -15,9 +15,9 @@
         <td><%= r.projectitemcode -%><br /><%= r.projectitemname -%></td>
         <td><%= r.contractcode -%><br /><%= r.contractname -%></td>
         <td><%= r.profession -%></td>
-        <td><%= r.planning_output -%></td>
-        <td><%= r.workhour_cost -%></td>
-        <td><%= r.unsign_hold_value -%></td>
+        <td><%= r.planning_output.round(0) -%></td>
+        <td><%= r.workhour_cost.round(0) -%></td>
+        <td><%= r.unsign_hold_value.round(0) -%></td>
       </tr>
     <% end %>
   </tbody>

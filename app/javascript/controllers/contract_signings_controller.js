@@ -85,7 +85,13 @@ var option = {
       symbol: 'circle',
       symbolSize: 8,
       data: avgPeriodMean,
-      color: '#334B5C',
+      color: '#675BBA',
+      label: {
+        normal: {
+          show: true,
+          position: 'top'
+        }
+      },
       markLine: {
         label: {
           formatter: '签约周期{c}天线'

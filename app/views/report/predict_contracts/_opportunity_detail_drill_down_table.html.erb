@@ -4,6 +4,7 @@
       <th width="20%"><%= t("report.predict_contracts.show.table.opportunitycode") -%></th>
       <th width="30%"><%= t("report.predict_contracts.show.table.opportunityname") -%></th>
       <th width="10%"><%= t("report.predict_contracts.show.table.contractamount") -%></th>
+      <th width="10%"><%= t("report.predict_contracts.show.table.cnname") -%></th>
       <th width="10%"><%= t("report.predict_contracts.show.table.successrate") -%></th>
       <th width="10%"><%= t("report.predict_contracts.show.table.contractconvert") -%></th>
       <th width="20%"><%= t("report.predict_contracts.show.table.businessdirectorname") -%></th>
@@ -14,9 +15,10 @@
       <tr>
         <td><%= r.opportunitycode -%></td>
         <td><%= r.opportunityname -%></td>
-        <td><%= r.contractamount -%></td>
-        <td><%= r.successrate -%></td>
-        <td><%= r.contractconvert -%></td>
+        <td><%= r.contractamount.round(0) -%></td>
+        <td><%= r.cnname -%></td>
+        <td><%= r.successrate * 100 -%>%</td>
+        <td><%= r.contractconvert.round(0) -%></td>
         <td><%= r.businessdirectorname -%></td>
       </tr>
     <% end %>
