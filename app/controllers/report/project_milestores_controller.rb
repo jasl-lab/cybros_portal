@@ -37,9 +37,14 @@ class Report::ProjectMilestoresController < Report::BaseController
   end
 
   def detail_table_drill_down
+    @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names
+    @month_name = params[:month_name]&.strip
+    end_of_month = Date.parse(@month_name).end_of_month
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
+
     @drill_down_subtitle = t('.subtitle')
     @name = params[:name].strip
-    @rows = Bi::ShRefreshRateDetail.where(projectpaname: @name)
+    @rows = Bi::ShRefreshRateDetail.where(projectpaname: @name).where(date: beginning_of_month..end_of_month).select(:projectitemcode, :projectitemname, :projectpaname, :projectprocess, :begindate).distinct
     render
   end
 
