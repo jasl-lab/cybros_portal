@@ -17,19 +17,19 @@ class Report::ContractHoldsController < Report::BaseController
       .group(:deptcode)
 
     all_business_ltd_codes = data.collect(&:deptcode)
-    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
+    @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
-    @deptnames_in_order = only_have_data_dept.collect do |c|
+    @deptnames_in_order = @only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::StaffCount.company_short_names.fetch(long_name, long_name)
     end
 
-    @biz_retent_contract = only_have_data_dept.collect do |dept_code|
+    @biz_retent_contract = @only_have_data_dept.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
       (d.busiretentcontract / 10000.to_f).round(0)
     end
 
-    @biz_retent_no_contract = only_have_data_dept.collect do |dept_code|
+    @biz_retent_no_contract = @only_have_data_dept.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
       (d.busiretentnocontract.to_f / 10000.to_f).round(0)
     end
@@ -38,7 +38,7 @@ class Report::ContractHoldsController < Report::BaseController
 
     this_month_staff_data = month_staff_data(end_of_month)
 
-    dept_avg_staff = only_have_data_dept.collect do |dept_code|
+    dept_avg_staff = @only_have_data_dept.collect do |dept_code|
       d = this_month_staff_data.find { |c| c.deptcode == dept_code }
       d.avgamount
     end
@@ -60,10 +60,10 @@ class Report::ContractHoldsController < Report::BaseController
 
   def unsign_detail_drill_down
     @department_name = params[:department_name]
+    dept_code = params[:department_code]
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
-    dept_code = month_staff_data(end_of_month).find_by(deptname: @department_name).deptcode
     @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail).where(date: last_available_date, deptcode: dept_code)
 
     render
@@ -71,10 +71,10 @@ class Report::ContractHoldsController < Report::BaseController
 
   def sign_detail_drill_down
     @department_name = params[:department_name]
+    dept_code = params[:department_code]
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
-    dept_code = month_staff_data(end_of_month).find_by(deptname: @department_name).deptcode
     @signed_data = policy_scope(Bi::ContractHoldSignDetail).where(date: last_available_date, deptcode: dept_code)
     render
   end

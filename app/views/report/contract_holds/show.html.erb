@@ -22,6 +22,7 @@
           data-controller="contract-holds"
           data-action="resize@window->contract-holds#layout"
           data-contract-holds-x_axis="<%= @deptnames_in_order.to_json -%>"
+          data-contract-holds-dept_code="<%= @only_have_data_dept.to_json -%>"
           data-contract-holds-biz_retent_contract="<%= @biz_retent_contract.to_json -%>"
           data-contract-holds-biz_retent_no_contract="<%= @biz_retent_no_contract.to_json -%>"
           data-contract-holds-biz_retent_totals="<%= @biz_retent_totals.to_json -%>"

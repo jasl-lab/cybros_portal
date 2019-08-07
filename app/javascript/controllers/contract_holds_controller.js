@@ -9,6 +9,7 @@ export default class extends Controller {
     contractHoldPerDeptChart = echarts.init(document.getElementById('contract-hold-per-dept-chart'));
 
     var xAxisData = JSON.parse(this.data.get("x_axis"));
+    var deptCode = JSON.parse(this.data.get("dept_code"));
     var bizRetentContract = JSON.parse(this.data.get("biz_retent_contract"));
     var bizRetentNoContract = JSON.parse(this.data.get("biz_retent_no_contract"));
     var bizRetentTotals = JSON.parse(this.data.get("biz_retent_totals"));
@@ -176,8 +177,9 @@ export default class extends Controller {
         if (params.seriesType === 'bar') {
           const department_name = xAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
-          const sent_data = { department_name, month_name };
-          let drill_down_url
+          const department_code = deptCode[params.dataIndex];
+          const sent_data = { department_name, month_name, department_code};
+          let drill_down_url;
           switch (params.seriesName) {
             case '已签约的业务保有量（万元）':
               drill_down_url = '/report/contract_hold/sign_detail_drill_down';
