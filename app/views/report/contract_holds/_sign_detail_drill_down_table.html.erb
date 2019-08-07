@@ -15,9 +15,9 @@
         <td><%= r.projectitemcode -%><br /><%= r.projectitemname -%></td>
         <td><%= r.contractcode -%><br /><%= r.contractname -%></td>
         <td><%= r.profession -%></td>
-        <td><%= r.output -%></td>
-        <td><%= r.milestone -%></td>
-        <td><%= r.sign_hold_value -%></td>
+        <td><%= r.output.round(0) -%></td>
+        <td><%= r.milestone * 100 -%>%</td>
+        <td><%= r.sign_hold_value.round(0) -%></td>
       </tr>
     <% end %>
   </tbody>
