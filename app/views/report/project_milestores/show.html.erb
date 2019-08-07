@@ -62,6 +62,7 @@
       <div class="col-lg-12">
         <p>说明：</p>
         <p>
+<% if browser.firefox? || browser.safari? %>
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <mi mathvariant="bold-italic" mathcolor="#000000">项目里程碑更新率</mi>
   <mo mathcolor="#000000">=</mo>
@@ -89,6 +90,9 @@
   </mfrac>
   <mtext mathcolor="#000000"> （不计算里程碑100%进度的项目）</mtext>
 </math>
+<% else %>
+  <%= image_tag 'project_milestore_formula.png', width: '90%' %>
+<% end %>
         </p>
         <p>表格（）内为更新里程碑项目数/总项目数，标记黄色的为本月末更新过项目里程碑的主创/设总。</p>
       </div>
