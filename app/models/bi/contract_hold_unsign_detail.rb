@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class ContractHoldUnsignDetail < ApplicationRecord
-    establish_connection :cybros_bi
+  class ContractHoldUnsignDetail < BiLocalTimeRecord
     self.table_name = "CONTRACT_HOLD_UNSIGN_DETAIL"
   end
 end

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class TrackContractOpportunityDetail < ApplicationRecord
-    establish_connection :cybros_bi
+  class TrackContractOpportunityDetail < BiLocalTimeRecord
     self.table_name = "TRACK_CONTRACT_OPPORTUNITY_DETAIL"
   end
 end

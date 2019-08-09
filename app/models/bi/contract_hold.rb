@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class ContractHold < ApplicationRecord
-    establish_connection :cybros_bi
+  class ContractHold < BiLocalTimeRecord
     self.table_name = "CONTRACT_HOLD"
 
     def self.all_month_names

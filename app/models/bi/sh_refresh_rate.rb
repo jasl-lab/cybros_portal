@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class ShRefreshRate < ApplicationRecord
-    establish_connection :cybros_bi
+  class ShRefreshRate < BiLocalTimeRecord
     self.table_name = "SH_REFRESH_RATE"
 
     def self.all_month_names

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class StaffCount < ApplicationRecord
-    establish_connection :cybros_bi
+  class StaffCount < BiLocalTimeRecord
     self.table_name = "STAFF_COUNT"
 
     def self.staff_per_company

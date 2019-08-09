@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class PkCodeName < ApplicationRecord
-    establish_connection :cybros_bi
+  class PkCodeName < BiLocalTimeRecord
     self.table_name = "PK_CODE_NAME"
 
     def self.mapping2deptcode

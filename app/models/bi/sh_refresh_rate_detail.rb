@@ -1,7 +1,5 @@
 module Bi
-  class ShRefreshRateDetail < ApplicationRecord
-    establish_connection :cybros_bi
+  class ShRefreshRateDetail < BiLocalTimeRecord
     self.table_name = "SH_REFRESH_RATE_DETAIL"
-
   end
 end

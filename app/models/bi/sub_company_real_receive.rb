@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class SubCompanyRealReceive < ApplicationRecord
-    establish_connection :cybros_bi
+  class SubCompanyRealReceive < BiLocalTimeRecord
     self.table_name = "SUB_COMPANY_REAL_RECEIVE"
 
     def self.all_month_names

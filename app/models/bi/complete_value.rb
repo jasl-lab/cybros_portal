@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class CompleteValue < ApplicationRecord
-    establish_connection :cybros_bi
+  class CompleteValue < BiLocalTimeRecord
     self.table_name = "COMPLETE_VALUE"
 
     def self.all_month_names
