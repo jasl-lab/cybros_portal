@@ -14,6 +14,7 @@ en:
           projectitemname: "Project item name"
           projectpaname: "Project PA name"
           projectprocess: "Project process"
+          hours: "Hours"
           begindate: "Begin date"
       detail_drill_down:
         subtitle: "Signed contract detail"

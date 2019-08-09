@@ -5,6 +5,7 @@
     <th><%= t("report.project_milestores.show.table.projectitemname") -%></th>
     <th><%= t("report.project_milestores.show.table.projectpaname") -%></th>
     <th><%= t("report.project_milestores.show.table.projectprocess") -%></th>
+    <th><%= t("report.project_milestores.show.table.hours") -%></th>
     <th><%= t("report.project_milestores.show.table.begindate") -%></th>
   </tr>
   </thead>
@@ -15,6 +16,7 @@
       <td><%= r.projectitemname -%></td>
       <td><%= r.projectpaname -%></td>
       <td><%= r.projectprocess -%></td>
+      <td><%= r.hours -%></td>
       <td><%= r.begindate.to_s(:short_date) -%></td>
     </tr>
   <% end %>
