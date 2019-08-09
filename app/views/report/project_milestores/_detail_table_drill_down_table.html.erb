@@ -15,8 +15,8 @@
       <td><%= r.projectitemcode -%></td>
       <td><%= r.projectitemname -%></td>
       <td><%= r.projectpaname -%></td>
-      <td><%= r.projectprocess -%></td>
-      <td><%= r.hours -%></td>
+      <td><%= (r.projectprocess * 100).round(0) -%>%</td>
+      <td><%= r.hours.round(0) -%></td>
       <td><%= r.begindate.to_s(:short_date) -%></td>
     </tr>
   <% end %>

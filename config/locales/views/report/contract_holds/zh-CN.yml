@@ -15,7 +15,7 @@ zh-CN:
           unsign_hold_value: "业务保有量"
           output: "策划产值"
           milestone: "项目进度"
-          sign_hold_value: "签约业务保有量"
+          sign_hold_value: "业务保有量"
       sign_detail_drill_down:
         subtitle: "已签约明细"
       unsign_detail_drill_down:

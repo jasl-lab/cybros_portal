@@ -5,8 +5,8 @@
       <th width="30%"><%= t("report.contract_holds.show.table.contractcode") -%></th>
       <th width="10%"><%= t("report.contract_holds.show.table.profession") -%></th>
       <th width="10%"><%= t("report.contract_holds.show.table.output") -%></th>
-      <th width="10%"><%= t("report.contract_holds.show.table.milestone") -%></th>
-      <th width="20%"><%= t("report.contract_holds.show.table.sign_hold_value") -%></th>
+      <th width="12%"><%= t("report.contract_holds.show.table.milestone") -%></th>
+      <th width="18%"><%= t("report.contract_holds.show.table.sign_hold_value") -%></th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +16,7 @@
         <td><%= r.contractcode -%><br /><%= r.contractname -%></td>
         <td><%= r.profession -%></td>
         <td><%= r.output.round(0) -%></td>
-        <td><%= r.milestone * 100 -%>%</td>
+        <td><%= (r.milestone * 100).round(0) -%>%</td>
         <td><%= r.sign_hold_value.round(0) -%></td>
       </tr>
     <% end %>
