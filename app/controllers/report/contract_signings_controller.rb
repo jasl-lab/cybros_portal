@@ -19,33 +19,35 @@ class Report::ContractSigningsController < Report::BaseController
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     if @short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
-      @data = policy_scope(Bi::ContractSignDept).where('date <= ?', @end_of_month)
-        .where(businessltdname: @company_name)
-        .select('departmentname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')
+      @data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
+        .where(orgcode: @company_name)
+        .select("departmentname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
         .group(:departmentname)
-        .having('SUM(contract_amount) > 0')
+        .having("SUM(contract_amount) > 0")
       @department_or_company_short_names = @data.collect(&:departmentname)
       @second_level_drill = true
     else
-      @data = policy_scope(Bi::ContractSign).where('date <= ?', @end_of_month)
-        .where.not(businessltdname: '上海天华建筑设计有限公司')
-        .select('businessltdname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(contract_count) sum_contract_count')
-        .group(:businessltdname)
-        .having('SUM(contract_amount) > 0')
-      all_company_names = @data.collect(&:businessltdname)
+      @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+        .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
+        .select("orgcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .group(:orgcode)
+        .having("SUM(contract_amount) > 0")
+      all_company_names = @data.collect(&:orgcode).collect do |c|
+        Bi::PkCodeName.mapping2orgcode.fetch(c, c)
+      end
       @department_or_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
       @staff_per_company = Bi::StaffCount.staff_per_company
     end
-    @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0)}
+    @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amount_max = @contract_amounts.max.round(-1)
     @avg_period_mean = @data.collect do |d|
-      mean = d.sum_contract_period.to_f / d.sum_contract_count.to_f
+      mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
     end
     @avg_period_mean_max = @avg_period_mean.max.round(-1)
     @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(2)
-    contract_period = @data.collect(&:sum_contract_period)
-    contract_count = @data.collect(&:sum_contract_count)
+    contract_period = @data.collect { |d| d.sum_contract_period.to_f }
+    contract_count = @data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
   end
 
