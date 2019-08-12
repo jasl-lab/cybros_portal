@@ -19,12 +19,16 @@ class Report::ContractSigningsController < Report::BaseController
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     if @short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
+      org_code = Bi::PkCodeName.mapping2org_name.fetch(@company_name, @company_name)
       @data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
-        .where(orgcode: @company_name)
-        .select("departmentname, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
-        .group(:departmentname)
+        .where(orgcode: org_code)
+        .select("deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .group(:deptcode)
         .having("SUM(contract_amount) > 0")
-      @department_or_company_short_names = @data.collect(&:departmentname)
+      @department_or_company_short_names = @data.collect do |d|
+        Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
+      end
+
       @second_level_drill = true
     else
       @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
