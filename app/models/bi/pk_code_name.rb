@@ -17,5 +17,12 @@ module Bi
         h
       end
     end
+
+    def self.mapping2org_name
+      @_mapping2org_name ||= PkCodeName.all.reduce({}) do |h, s|
+        h[s.orgname] = s.orgcode
+        h
+      end
+    end
   end
 end
