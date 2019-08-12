@@ -1,4 +1,6 @@
 class YingjiankeOverrunUser < ApplicationRecord
+  self.default_timezone = :local
+
   class << self
     include ActionView::Helpers::DateHelper
 
