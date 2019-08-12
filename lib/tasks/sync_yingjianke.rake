@@ -13,5 +13,6 @@ namespace :sync_yingjianke do
         user.save
       end
     end
+    YingjiankeOverrunUser.where("created_at < ?", 3.days.ago).delete_all
   end
 end
