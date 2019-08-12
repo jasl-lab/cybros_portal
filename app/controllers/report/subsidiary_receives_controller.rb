@@ -44,16 +44,17 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       ((d.unsign_receive.to_f+d.sign_receive.to_f)/(staff_number*10000.0).to_f).round(0)
     end
 
-    complete_value_data = if current_user_companies.include?('上海天华建筑设计有限公司')
+    complete_value_data = if current_user_companies.include?("上海天华建筑设计有限公司")
       Bi::CompleteValue.all
     else
-      Bi::CompleteValue.where(businessltdname: current_user_companies)
-    end.where('date <= ?', @end_of_month)
-      .where.not(businessltdname: '上海天华建筑设计有限公司')
-      .select('businessltdname, SUM(total) sum_total')
-      .group(:businessltdname)
+      Bi::CompleteValue.where(orgcode: current_user_companies)
+    end.where("date <= ?", @end_of_month)
+      .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
+      .select("orgcode, SUM(total) sum_total")
+      .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      short_name = Bi::StaffCount.company_short_names.fetch(d.businessltdname, d.businessltdname)
+      company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
+      short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
       h[short_name] = d.sum_total
       h
     end
