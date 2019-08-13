@@ -3,7 +3,7 @@ zh-CN:
   report:
     contract_signings:
       show:
-        title: "%{company} 签约情况分析"
+        title: "%{company} 本年累计合同额及签约周期"
         month_name: "查询年月"
         period_mean_ref: "签约周期预警"
         contract_amounts_per_staff_ref: "人均合同额预警"
