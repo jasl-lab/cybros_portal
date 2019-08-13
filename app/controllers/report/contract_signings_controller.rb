@@ -56,12 +56,12 @@ class Report::ContractSigningsController < Report::BaseController
   end
 
   def drill_down
-    authorize Bi::ContractSignDetail
+    authorize Bi::ContractSignDetailAmount
     @company_name = params[:company_name]
     @department_name = params[:department_name]
     end_month = Date.parse(params[:month_name]).end_of_month
-    @data = policy_scope(Bi::ContractSignDetail).where('filingtime <= ?', end_month)
-      .where(performancecompanyname: @company_name, performancedepartmentname: @department_name)
+    @data = policy_scope(Bi::ContractSignDetailAmount).where('filingtime <= ?', end_month)
+      .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
   end
 
