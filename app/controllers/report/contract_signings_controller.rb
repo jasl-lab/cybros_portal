@@ -13,7 +13,7 @@ class Report::ContractSigningsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     @period_mean_ref = params[:period_mean_ref] || 100
-    @contract_amounts_per_staff_ref = params[:contract_amounts_per_staff_ref] || 29
+    @contract_amounts_per_staff_ref = params[:contract_amounts_per_staff_ref] || ((100 / 12.0) * @end_of_month.month).round(0)
 
     current_user_companies = current_user.user_company_names
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
