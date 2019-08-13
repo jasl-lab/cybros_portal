@@ -71,10 +71,11 @@ module Company
       "#{NO_ANSWER_FOUND_1.sample}\r\n#{NO_ANSWER_FOUND_2.sample}\r\n#{NO_ANSWER_FOUND_3.sample}"
     end
 
-    def answer_contain_text_only?
+    def can_show_text_directly?
       knowledge_images_path = Rails.root.join("public", "knowledge_images", id.to_s)
       answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?("[Image]") \
-        && (!Dir.exist?(knowledge_images_path) || Dir.empty?(knowledge_images_path))
+        && (!Dir.exist?(knowledge_images_path) || Dir.empty?(knowledge_images_path)) \
+        && (answer.to_plain_text.length < 200)
     end
 
     private

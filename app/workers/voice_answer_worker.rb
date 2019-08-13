@@ -40,7 +40,7 @@ class VoiceAnswerWorker
     if ks.present?
       k = ks.first
       Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
-      if k.answer_contain_text_only? && ks.count == 1
+      if k.can_show_text_directly? && ks.count == 1
         Wechat.api.custom_message_send Wechat::Message.to(openid).text k.answer.to_plain_text
       else
         host = CybrosCore::Application.config.action_mailer.default_url_options[:host]

@@ -11,7 +11,7 @@ class WechatsController < ApplicationController
     if ks.present?
       k = ks.first
       Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
-      if k.answer_contain_text_only? && ks.count == 1
+      if k.can_show_text_directly? && ks.count == 1
         request.reply.text k.answer.to_plain_text
       else
         news = ks.each_with_object([]) do |q, memo|
