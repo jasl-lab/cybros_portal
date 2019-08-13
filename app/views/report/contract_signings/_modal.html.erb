@@ -10,21 +10,21 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th width="10%"><%= t(".table.projectcode") -%></th>
-      <th width="30%"><%= t(".table.projectname") -%></th>
       <th width="10%"><%= t(".table.salescontractcode") -%></th>
       <th width="30%"><%= t(".table.salescontractname") -%></th>
-      <th width="20%"><%= t(".table.moneytax") -%></th>
+      <th width="15%"><%= t(".table.moneytax") -%></th>
+      <th width="25%"><%= t(".table.clientsname") -%></th>
+      <th width="20%"><%= t(".table.businessdirectorname") -%></th>
     </tr>
   </thead>
   <tbody>
     <% @data.each do |d| %>
       <tr>
-        <td><%= d.projectcode -%></td>
-        <td><%= d.projectname -%></td>
         <td><%= d.salescontractcode -%></td>
         <td><%= d.salescontractname -%></td>
         <td><%= d.moneytax -%></td>
+        <td><%= d.clientsname -%></td>
+        <td><%= Bi::ContractSignDetailDate.find_by(salescontractcode: d.salescontractcode)&.businessdirectorname -%></td>
       </tr>
     <% end %>
   </tbody>

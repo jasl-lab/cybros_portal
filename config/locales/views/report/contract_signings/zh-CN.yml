@@ -10,8 +10,8 @@ zh-CN:
         confirm: "确认"
       modal:
         table:
-          projectcode: "项目编号"
-          projectname: "项目名称"
-          salescontractcode: "销售合同编号"
+          salescontractcode: "合同编号"
           salescontractname: "合同名称"
-          moneytax: "含税金额"
+          moneytax: "业绩合同额"
+          clientsname: "甲方"
+          businessdirectorname: "商务负责人"
