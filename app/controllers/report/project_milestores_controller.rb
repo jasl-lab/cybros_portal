@@ -29,7 +29,7 @@ class Report::ProjectMilestoresController < Report::BaseController
       if rr.present?
         rr_refresh = rr.collect { |d| d.refresh_count.to_i }.sum
         rr_total = rr.collect { |d| d.total_count.to_i }.sum
-        ((rr_refresh / rr_total.to_f)*100).round(0)
+        ((rr_refresh / rr_total.to_f) * 100).round(0)
       else
         0
       end
@@ -42,10 +42,11 @@ class Report::ProjectMilestoresController < Report::BaseController
     end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
 
-    @drill_down_subtitle = t('.subtitle')
-    @name = params[:name].strip
-    scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpaname: @name).where(date: beginning_of_month..end_of_month)
+    @drill_down_subtitle = t(".subtitle")
+    work_no = params[:work_no].strip
+    scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no).where(date: beginning_of_month..end_of_month)
     project_item_codes = scope_of_drill_down.pluck(:projectitemcode).uniq
+    @name = Bi::ShRefreshRateDetail.find_by(projectpacode: work_no).projectpaname
     @rows = project_item_codes.collect do |project_item_code|
       scope_of_drill_down.order(date: :desc).find_by(projectitemcode: project_item_code)
     end
@@ -61,7 +62,7 @@ class Report::ProjectMilestoresController < Report::BaseController
 
   def set_drill_down_variables
     @dept_name = params[:department_name].strip
-    @drill_down_subtitle = t('.subtitle')
+    @drill_down_subtitle = t(".subtitle")
     @dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
 
     month_name = params[:month_name]&.strip
@@ -73,18 +74,18 @@ class Report::ProjectMilestoresController < Report::BaseController
 
   private
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.report.header"),
-      link: report_root_path },
-    { text: t("layouts.sidebar.report.project_milestore"),
-      link: report_project_milestore_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t("layouts.sidebar.application.header"),
+        link: root_path },
+      { text: t("layouts.sidebar.report.header"),
+        link: report_root_path },
+      { text: t("layouts.sidebar.report.project_milestore"),
+        link: report_project_milestore_path }]
+    end
 
 
-  def set_page_layout_data
-    @_sidebar_name = "report"
-  end
+    def set_page_layout_data
+      @_sidebar_name = "report"
+    end
 end
