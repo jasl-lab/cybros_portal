@@ -1,10 +1,12 @@
 import { Controller } from "stimulus"
 
 let contractSigningsChart;
+let contractSigningsAvgChart;
 
 export default class extends Controller {
   connect() {
     contractSigningsChart = echarts.init(document.getElementById('contract-signings-chart'));
+    contractSigningsAvgChart = echarts.init(document.getElementById('contract-signings-avg-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
@@ -14,6 +16,7 @@ var sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
 var sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
 var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
 var avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
+var contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
 var periodMeanRef = this.data.get("period_mean_ref");
 
 var option = {
@@ -121,6 +124,64 @@ var option = {
     }]
 };
 
+var option_avg = {
+    legend: {
+        data: ['本年累计人均合同额'],
+        align: 'left'
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross'
+      }
+    },
+    grid: {
+      left: 70,
+      right: 110,
+      top: 50,
+      bottom: 60
+    },
+    toolbox: {
+      feature: {
+        dataView: {},
+        saveAsImage: {
+            pixelRatio: 2
+        }
+      }
+    },
+    xAxis: {
+      data: xAxisData,
+      silent: true,
+      axisLabel: {
+        interval: 0,
+        rotate: -40
+      },
+      splitLine: {
+          show: false
+      }
+    },
+    yAxis: [{
+      type: 'value',
+      name: '本年累计人均合同额（万元）',
+      position: 'left',
+      axisLabel: {
+        formatter: '{value}万'
+      }
+    }],
+    series: [{
+      name: '本年累计人均合同额',
+      type: 'bar',
+      data: contractAmountsPerStaff,
+      color: '#738496',
+      barMaxWidth: 80,
+      label: {
+        normal: {
+          show: true,
+          position: 'top'
+        }
+      }
+    }]
+};
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
         if (secondLevelDrill === 'true') {
@@ -160,16 +221,21 @@ var option = {
 
     contractSigningsChart.setOption(option, false);
     contractSigningsChart.on('click', drill_down_on_click);
+
+    contractSigningsAvgChart.setOption(option_avg, false);
     setTimeout(() => {
       contractSigningsChart.resize();
+      contractSigningsAvgChart.resize();
     }, 200);
   }
 
   layout() {
     contractSigningsChart.resize();
+    contractSigningsAvgChart.resize();
   }
 
   disconnect() {
     contractSigningsChart.dispose();
+    contractSigningsAvgChart.dispose();
   }
 }
