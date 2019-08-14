@@ -73,7 +73,8 @@ Rails.application.routes.draw do
     resource :yearly_subsidiary_workloading, only: %i[show]
     resource :contract_signing, only: %i[show] do
       collection do
-        get :drill_down
+        get :drill_down_amount
+        get :drill_down_date
       end
     end
     resource :complete_value, only: %i[show]

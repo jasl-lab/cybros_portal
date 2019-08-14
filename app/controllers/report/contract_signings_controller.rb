@@ -55,14 +55,24 @@ class Report::ContractSigningsController < Report::BaseController
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
   end
 
-  def drill_down
+  def drill_down_amount
     authorize Bi::ContractSignDetailAmount
     @company_name = params[:company_name]
     @department_name = params[:department_name]
     end_month = Date.parse(params[:month_name]).end_of_month
-    @data = policy_scope(Bi::ContractSignDetailAmount).where('filingtime <= ?', end_month)
+    @data = policy_scope(Bi::ContractSignDetailAmount).where("filingtime <= ?", end_month)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
+  end
+
+  def drill_down_date
+    authorize Bi::ContractSignDetailDate
+    @company_name = params[:company_name]
+    @department_name = params[:department_name]
+    end_month = Date.parse(params[:month_name]).end_of_month
+    @data = policy_scope(Bi::ContractSignDetailDate).where("contracttime <= ?", end_month)
+      .where(orgname: @company_name, deptname: @department_name)
+      .order(contracttime: :asc)
   end
 
   private

@@ -123,22 +123,28 @@ var option = {
 
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
-        if (params.seriesType === 'bar') {
-          if (secondLevelDrill === 'true') {
-            let series_department = xAxisData[params.dataIndex]
-            const month_name = $('#month_name').val();
-            const sent_data = {
-              company_name: companyName,
-              department_name: series_department,
-              month_name: month_name };
-            let drill_down_url = '/report/contract_signing/drill_down'
-            $.ajax(drill_down_url, {
-              data: sent_data,
-              dataType: 'script'
-            });
-          } else {
-            let url = window.location.href;
-            let series_company = xAxisData[params.dataIndex]
+        if (secondLevelDrill === 'true') {
+          const series_department = xAxisData[params.dataIndex]
+          const month_name = $('#month_name').val();
+          const sent_data = {
+            company_name: companyName,
+            department_name: series_department,
+            month_name: month_name };
+          let drill_down_url;
+          if (params.seriesType === 'bar') {
+            drill_down_url = '/report/contract_signing/drill_down_amount'
+          } else if (params.seriesType === 'line') {
+            drill_down_url = '/report/contract_signing/drill_down_date'
+          }
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+        else {
+          if (params.seriesType === 'bar') {
+            const url = window.location.href;
+            const series_company = xAxisData[params.dataIndex]
             if (url.indexOf('?') > -1) {
               url += '&company_name=' + encodeURIComponent(series_company);
             } else {

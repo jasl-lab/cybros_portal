@@ -10,7 +10,7 @@ module Bi
       end
     end
 
-    def drill_down?
+    def drill_down_date?
       show?
     end
   end
