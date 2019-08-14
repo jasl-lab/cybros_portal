@@ -4,7 +4,7 @@ module Bi
   class StaffCount < BiLocalTimeRecord
     self.table_name = "STAFF_COUNT"
 
-    def self.staff_per_company
+    def self.staff_per_short_company_name
       @staff_per_company ||= all.reduce({}) do |h, s|
         h[s.company] = s.count
         h

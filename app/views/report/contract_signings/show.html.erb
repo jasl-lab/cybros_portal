@@ -1,5 +1,16 @@
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-lg-12"
+    data-controller="contract-signings"
+    data-action="resize@window->contract-signings#layout"
+    data-contract-signings-x_axis="<%= @department_or_company_short_names.to_json -%>"
+    data-contract-signings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
+    data-contract-signings-second_level_drill="<%= @second_level_drill -%>"
+    data-contract-signings-company_name="<%= @company_name -%>"
+    data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
+    data-contract-signings-sum_contract_amount_max="<%= @contract_amount_max -%>"
+    data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
+    data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
+    data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>">
     <h3 class="page-title">
       <%= t(".title", company: @company_name) %>
     </h3>
@@ -26,23 +37,20 @@
     </div>
     <div class="row">
       <div class="col-lg-12">
-        <div id="contract-signings-chart"
-          data-controller="contract-signings"
-          data-action="resize@window->contract-signings#layout"
-          data-contract-signings-x_axis="<%= @department_or_company_short_names.to_json -%>"
-          data-contract-signings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
-          data-contract-signings-second_level_drill="<%= @second_level_drill -%>"
-          data-contract-signings-company_name="<%= @company_name -%>"
-          data-contract-signings-sum_contract_amounts="<%= @contract_amounts.to_json -%>"
-          data-contract-signings-sum_contract_amount_max="<%= @contract_amount_max -%>"
-          data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
-          data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
-          data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
-          style="width: 100%;height: 400px;">
+        <div id="contract-signings-chart" style="width: 100%;height: 400px;">
         </div>
         <p class="text-lg-right">点击图标合同额可以钻取。（如果允许）</p>
       </div>
     </div>
+    <% if @company_name.present? %>
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="contract-signings-avg-chart" style="width: 100%;height: 400px;">
+          </div>
+          <p class="text-lg-right">点击图标合同额可以钻取。（如果允许）</p>
+        </div>
+      </div>
+    <% end %>
     <div class="row mt-3">
       <div class="col-lg-12">
         <table class="table table-striped table-dark">
@@ -68,31 +76,25 @@
                   <td><%= contract_amount -%></td>
                 <% end %>
               </tr>
-              <% if false # TODO need convert this to chart %>
-                <tr>
-                  <th scope="row">人均合同额</th>
-                  <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                    <% company_name = @department_or_company_short_names[index] %>
-                    <% staff_count = @staff_per_company[company_name] || 0 %>
-                    <% contract_amounts_per_staff_ref = contract_amount/staff_count.to_f %>
-                    <% if @contract_amounts_per_staff_ref.to_i < contract_amounts_per_staff_ref %>
-                      <td><%= contract_amounts_per_staff_ref.round(0) -%></td>
-                    <% else %>
-                      <td class="text-danger"><%= contract_amounts_per_staff_ref.round(0) -%></td>
-                    <% end %>
-                  <% end %>
-                </tr>
-              <% end %>
-            <% else %>
               <tr>
-                <th scope="row">平均人数</th>
-                <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                  <% company_name = @department_or_company_short_names[index] %>
-                  <% staff_count = @staff_per_company[company_name] %>
-                  <td><%= staff_count -%></td>
+                <th scope="row">人均合同额</th>
+                <% @contract_amounts_per_staff.each do |contract_amounts_per_staff| %>
+                  <% if @contract_amounts_per_staff_ref.to_i < contract_amounts_per_staff %>
+                    <td><%= contract_amounts_per_staff.round(0) -%></td>
+                  <% else %>
+                    <td class="text-danger"><%= contract_amounts_per_staff.round(0) -%></td>
+                  <% end %>
                 <% end %>
               </tr>
             <% end %>
+            <tr>
+              <th scope="row">平均人数</th>
+              <% @contract_amounts.each_with_index do |contract_amount, index| %>
+                <% company_name = @department_or_company_short_names[index] %>
+                <% staff_count = @staff_per_company[company_name] %>
+                <td><%= staff_count -%></td>
+              <% end %>
+            </tr>
           </tbody>
         </table>
       </div>

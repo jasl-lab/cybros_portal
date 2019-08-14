@@ -28,7 +28,6 @@ class Report::ContractSigningsController < Report::BaseController
       @department_or_company_short_names = @data.collect do |d|
         Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
       end
-
       @second_level_drill = true
     else
       @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
@@ -40,7 +39,7 @@ class Report::ContractSigningsController < Report::BaseController
         Bi::PkCodeName.mapping2orgcode.fetch(c, c)
       end
       @department_or_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-      @staff_per_company = Bi::StaffCount.staff_per_company
+      @staff_per_company = Bi::StaffCount.staff_per_short_company_name
     end
     @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amount_max = @contract_amounts.max.round(-1)
@@ -53,6 +52,17 @@ class Report::ContractSigningsController < Report::BaseController
     contract_period = @data.collect { |d| d.sum_contract_period.to_f }
     contract_count = @data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
+
+    if @short_company_name.present?
+      @staff_per_company = Bi::ShStaffCount.staff_per_dept_name
+      @contract_amounts_per_staff = []
+      @contract_amounts.each_with_index do |contract_amount, index|
+        company_name = @department_or_company_short_names[index]
+        staff_count = @staff_per_company[company_name] || 1
+        staff_count = 1 if staff_count.zero?
+        @contract_amounts_per_staff << contract_amount / staff_count.to_f
+      end
+    end
   end
 
   def drill_down_amount
