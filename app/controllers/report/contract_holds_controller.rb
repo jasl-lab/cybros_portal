@@ -38,11 +38,11 @@ class Report::ContractHoldsController < Report::BaseController
 
     this_month_staff_data = month_staff_data(end_of_month)
 
-    dept_avg_staff = @only_have_data_dept.collect do |dept_code|
+    @dept_avg_staff = @only_have_data_dept.collect do |dept_code|
       d = this_month_staff_data.find { |c| c.deptcode == dept_code }
       d.avgamount
     end
-    @biz_retent_totals_per_dept = @biz_retent_totals.zip(dept_avg_staff).map do |d|
+    @biz_retent_totals_per_dept = @biz_retent_totals.zip(@dept_avg_staff).map do |d|
       (d[0] / d[1]).to_f.round(0) rescue 0
     end
 
