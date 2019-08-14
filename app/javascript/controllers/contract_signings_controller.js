@@ -204,7 +204,7 @@ var option_avg = {
         }
         else {
           if (params.seriesType === 'bar') {
-            const url = window.location.href;
+            let url = window.location.href;
             const series_company = xAxisData[params.dataIndex]
             if (url.indexOf('?') > -1) {
               url += '&company_name=' + encodeURIComponent(series_company);
