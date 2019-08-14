@@ -29,7 +29,7 @@ class Report::ContractSigningsController < Report::BaseController
         Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
       end
       @second_level_drill = true
-      @staff_per_company = Bi::ShStaffCount.staff_per_dept_name
+      @staff_per_company = Bi::ShStaffCount.staff_per_dept_name_by_date(@end_of_month)
     else
       @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
         .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
