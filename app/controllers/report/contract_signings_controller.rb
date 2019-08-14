@@ -29,6 +29,7 @@ class Report::ContractSigningsController < Report::BaseController
         Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
       end
       @second_level_drill = true
+      @staff_per_company = Bi::ShStaffCount.staff_per_dept_name
     else
       @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
         .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
@@ -53,15 +54,12 @@ class Report::ContractSigningsController < Report::BaseController
     contract_count = @data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
 
-    if @short_company_name.present?
-      @staff_per_company = Bi::ShStaffCount.staff_per_dept_name
-      @contract_amounts_per_staff = []
-      @contract_amounts.each_with_index do |contract_amount, index|
-        company_name = @department_or_company_short_names[index]
-        staff_count = @staff_per_company[company_name] || 1
-        staff_count = 1 if staff_count.zero?
-        @contract_amounts_per_staff << contract_amount / staff_count.to_f
-      end
+    @contract_amounts_per_staff = []
+    @contract_amounts.each_with_index do |contract_amount, index|
+      company_name = @department_or_company_short_names[index]
+      staff_count = @staff_per_company[company_name] || 1
+      staff_count = 1 if staff_count.zero?
+      @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(2)
     end
   end
 
