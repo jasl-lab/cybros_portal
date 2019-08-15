@@ -36,6 +36,7 @@ gem "config"
 gem "devise"
 gem "devise_invitable"
 gem "devise-i18n"
+gem "devise-jwt"
 
 gem "meta-tags"
 
