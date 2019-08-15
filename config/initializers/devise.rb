@@ -10,7 +10,7 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   config.secret_key =
     if Rails.env.production?
-      Rails.application.credentials.devise_key_base!
+      Rails.application.credentials.devise_key_base
     else
       Rails.application.credentials.devise_key_base || Rails.application.secrets.secret_key_base
     end
