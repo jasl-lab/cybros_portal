@@ -9,11 +9,16 @@ class Report::ContractSigningsController < Report::BaseController
   def show
     @short_company_name = params[:company_name]
     authorize Bi::ContractSign if @short_company_name.blank?
+    @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     @period_mean_ref = params[:period_mean_ref] || 100
-    @contract_amounts_per_staff_ref = params[:contract_amounts_per_staff_ref] || ((100 / 12.0) * @end_of_month.month).round(0)
+    @contract_amounts_per_staff_ref = if @manual_set_staff_ref
+      params[:contract_amounts_per_staff_ref]
+    else
+      ((100 / 12.0) * @end_of_month.month).round(0)
+    end
 
     current_user_companies = current_user.user_company_names
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
