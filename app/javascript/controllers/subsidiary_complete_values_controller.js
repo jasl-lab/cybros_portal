@@ -13,7 +13,7 @@ var completeValueYearRemains = JSON.parse(this.data.get("complete_value_year_rem
 
 var option = {
     legend: {
-        data: ['预计全年完成产值（万元）','累积完成产值（万元）','预计将完成产值（万元）'],
+        data: ['预计全年完成产值（万元）','累计完成产值（万元）','预计将完成产值（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -50,7 +50,7 @@ var option = {
     },
     yAxis: [{
       type: 'value',
-      name: '累积完成产值（万元）',
+      name: '累计完成产值（万元）',
       position: 'left',
       min: 0,
       axisLabel: {
@@ -74,7 +74,7 @@ var option = {
         }
       }
       }, {
-      name: '累积完成产值（万元）',
+      name: '累计完成产值（万元）',
       type: 'bar',
       stack: '总量',
       data: completeValueTotals,

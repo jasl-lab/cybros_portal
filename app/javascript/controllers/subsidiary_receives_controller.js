@@ -31,10 +31,10 @@ var paybackRates = JSON.parse(this.data.get("payback_rates"));
 
 var real_option = {
     title: {
-      text: '本年累积实收款'
+      text: '本年累计实收款'
     },
     legend: {
-        data: ['本年累积实收款（万元）'],
+        data: ['本年累计实收款（万元）'],
         align: 'left'
     },
     grid: {
@@ -70,7 +70,7 @@ var real_option = {
       }
     },
     series: [{
-      name: '本年累积实收款（万元）',
+      name: '本年累计实收款（万元）',
       type: 'bar',
       data: realReceives,
       color: '#738496',

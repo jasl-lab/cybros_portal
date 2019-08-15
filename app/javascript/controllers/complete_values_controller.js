@@ -16,7 +16,7 @@ var completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_y
 
 var option_total = {
     legend: {
-        data: ['累积完成产值（万元）','预计全年人均完成产值（万元）'],
+        data: ['累计完成产值（万元）','预计全年人均完成产值（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -52,14 +52,14 @@ var option_total = {
     },
     yAxis: [{
       type: 'value',
-      name: '累积完成产值（万元）',
+      name: '累计完成产值（万元）',
       position: 'left',
       axisLabel: {
         formatter: '{value}万'
       }
     }],
     series: [{
-      name: '累积完成产值（万元）',
+      name: '累计完成产值（万元）',
       type: 'bar',
       stack: '总量',
       data: completeValueTotals,
