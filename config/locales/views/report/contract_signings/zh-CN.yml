@@ -8,12 +8,17 @@ zh-CN:
         period_mean_ref: "签约周期预警"
         contract_amounts_per_staff_ref: "人均合同额预警"
         confirm: "确认"
-      modal:
+      amount_modal:
         table:
           salescontractcode: "合同编号"
           salescontractname: "合同名称"
           moneytax: "业绩合同额"
           clientsname: "甲方"
           businessdirectorname: "商务负责人"
+      date_modal:
+        table:
+          salescontractcode: "合同编号"
+          salescontractname: "合同名称"
           date1: "签约天数"
           firstpartyname: "第一甲方"
+          businessdirectorname: "商务负责人"
