@@ -13,7 +13,7 @@ class Report::ContractHoldsController < Report::BaseController
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
 
     data = policy_scope(Bi::ContractHold).where(date: @last_available_date)
-      .select('deptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')
+      .select("deptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
       .group(:deptcode)
 
     all_business_ltd_codes = data.collect(&:deptcode)
@@ -81,25 +81,25 @@ class Report::ContractHoldsController < Report::BaseController
 
   private
 
-  def month_staff_data(end_of_month)
-    d = Bi::ShStaffCount.where(f_month: end_of_month.to_s(:short_month))
-    if d.blank?
-      d = Bi::ShStaffCount.where(f_month: Bi::ShStaffCount.last_available_f_month)
+    def month_staff_data(end_of_month)
+      d = Bi::ShStaffCount.where(f_month: end_of_month.to_s(:short_month))
+      if d.blank?
+        d = Bi::ShStaffCount.where(f_month: Bi::ShStaffCount.last_available_f_month)
+      end
+      d
     end
-    d
-  end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.report.header"),
-      link: report_root_path },
-    { text: t("layouts.sidebar.report.contract_hold"),
-      link: report_contract_hold_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t("layouts.sidebar.application.header"),
+        link: root_path },
+      { text: t("layouts.sidebar.report.header"),
+        link: report_root_path },
+      { text: t("layouts.sidebar.report.contract_hold"),
+        link: report_contract_hold_path }]
+    end
 
-  def set_page_layout_data
-    @_sidebar_name = "report"
-  end
+    def set_page_layout_data
+      @_sidebar_name = "report"
+    end
 end
