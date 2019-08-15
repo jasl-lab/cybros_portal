@@ -89,7 +89,7 @@ class Report::ContractHoldsController < Report::BaseController
             t("report.contract_holds.show.table.workhour_cost"),
             t("report.contract_holds.show.table.unsign_hold_value")
           ]
-          policy_scope(Bi::ContractHoldUnsignDetail).where(date: last_available_date).find_each do |r|
+          policy_scope(Bi::ContractHoldUnsignDetail).where(orgcode: "000101").where(date: last_available_date).find_each do |r|
             values = []
             values << Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
             values << r.projectitemcode
@@ -138,7 +138,7 @@ class Report::ContractHoldsController < Report::BaseController
             t("report.contract_holds.show.table.milestone"),
             t("report.contract_holds.show.table.sign_hold_value")
           ]
-          policy_scope(Bi::ContractHoldSignDetail).where(date: last_available_date).find_each do |r|
+          policy_scope(Bi::ContractHoldSignDetail).where(orgcode: "000101").where(date: last_available_date).find_each do |r|
             values = []
             values << Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
             values << r.projectitemcode
