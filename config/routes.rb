@@ -92,8 +92,10 @@ Rails.application.routes.draw do
     end
     resource :contract_hold, only: %i[show] do
       collection do
-        get :sign_detail_drill_down
         get :unsign_detail_drill_down
+        get :export_unsign_detail
+        get :sign_detail_drill_down
+        get :export_sign_detail
       end
     end
   end

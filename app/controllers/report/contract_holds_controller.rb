@@ -63,10 +63,49 @@ class Report::ContractHoldsController < Report::BaseController
     dept_code = params[:department_code]
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+    last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
     @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail).where(date: last_available_date, deptcode: dept_code)
 
     render
+  end
+
+  def export_unsign_detail
+    authorize Bi::ContractHoldUnsignDetail
+    end_of_month = Date.parse(params[:month_name]).end_of_month
+    last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+
+    respond_to do |format|
+      format.csv do
+        render_csv_header "Unsign #{last_available_date.to_date} details"
+        csv_res = CSV.generate do |csv|
+          csv << [
+            t("report.contract_holds.show.table.deptname"),
+            t("report.contract_holds.show.table.projectitemcode"),
+            t("report.contract_holds.show.table.projectitemname"),
+            t("report.contract_holds.show.table.contractcode"),
+            t("report.contract_holds.show.table.contractname"),
+            t("report.contract_holds.show.table.profession"),
+            t("report.contract_holds.show.table.planning_output"),
+            t("report.contract_holds.show.table.workhour_cost"),
+            t("report.contract_holds.show.table.unsign_hold_value")
+          ]
+          policy_scope(Bi::ContractHoldUnsignDetail).where(date: last_available_date).find_each do |r|
+            values = []
+            values << Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
+            values << r.projectitemcode
+            values << r.projectitemname
+            values << r.contractcode
+            values << r.contractname
+            values << r.profession
+            values << r.planning_output.round(0)
+            values << r.workhour_cost.round(0)
+            values << r.unsign_hold_value.round(0)
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
+      end
+    end
   end
 
   def sign_detail_drill_down
@@ -78,6 +117,46 @@ class Report::ContractHoldsController < Report::BaseController
     @signed_data = policy_scope(Bi::ContractHoldSignDetail).where(date: last_available_date, deptcode: dept_code)
     render
   end
+
+  def export_sign_detail
+    authorize Bi::ContractHoldSignDetail
+    end_of_month = Date.parse(params[:month_name]).end_of_month
+    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+
+    respond_to do |format|
+      format.csv do
+        render_csv_header "Sign #{last_available_date.to_date} details"
+        csv_res = CSV.generate do |csv|
+          csv << [
+            t("report.contract_holds.show.table.deptname"),
+            t("report.contract_holds.show.table.projectitemcode"),
+            t("report.contract_holds.show.table.projectitemname"),
+            t("report.contract_holds.show.table.contractcode"),
+            t("report.contract_holds.show.table.contractname"),
+            t("report.contract_holds.show.table.profession"),
+            t("report.contract_holds.show.table.output"),
+            t("report.contract_holds.show.table.milestone"),
+            t("report.contract_holds.show.table.sign_hold_value")
+          ]
+          policy_scope(Bi::ContractHoldSignDetail).where(date: last_available_date).find_each do |r|
+            values = []
+            values << Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
+            values << r.projectitemcode
+            values << r.projectitemname
+            values << r.contractcode
+            values << r.contractname
+            values << r.profession
+            values << r.output.round(0)
+            values << (r.milestone * 100).round(0)
+            values << r.sign_hold_value.round(0)
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
+      end
+    end
+  end
+
 
   private
 

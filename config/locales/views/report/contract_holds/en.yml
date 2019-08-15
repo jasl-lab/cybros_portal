@@ -3,12 +3,19 @@ en:
   report:
     contract_holds:
       show:
+        actions:
+          export_unsign_detail: "Export unsign detail"
+          export_sign_detail: "Export sign detail"
         title: "Business retent contract and no contract"
         month_name: "Query year and month"
         confirm: "submit"
         table:
-          projectitemcode: "Project item code & name"
-          contractcode: "Contract code & name"
+          projectitemcode_name: "Project item code & name"
+          projectitemcode: "Project item code"
+          projectitemname: "Project item name"
+          contractcode_name: "Contract code & name"
+          contractcode: "Contract code"
+          contractname: "Contract name"
           profession: "Profession"
           planning_output: "Planning output"
           workhour_cost: "Work hour cost"
@@ -16,6 +23,7 @@ en:
           output: "Output"
           milestone: "Milestone"
           sign_hold_value: "Sign Hold Value"
+          deptname: "Dept name"
       sign_detail_drill_down:
         subtitle: "Signed detail"
       unsign_detail_drill_down:

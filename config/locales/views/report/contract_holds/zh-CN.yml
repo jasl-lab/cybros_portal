@@ -3,12 +3,19 @@ zh-CN:
   report:
     contract_holds:
       show:
+        actions:
+          export_unsign_detail: "导出未签约明细"
+          export_sign_detail: "导出已签约明细"
         title: "业务保有量"
         month_name: "查询年月"
         confirm: "确认"
         table:
-          projectitemcode: "项目编号及名称"
-          contractcode: "合同编号及名称"
+          projectitemcode_name: "项目编号及名称"
+          projectitemcode: "项目编号"
+          projectitemname: "项目名称"
+          contractcode_name: "合同编号及名称"
+          contractcode: "合同编号"
+          contractname: "合同名称"
           profession: "专业"
           planning_output: "策划产值"
           workhour_cost: "工时人力成本"
@@ -16,6 +23,7 @@ zh-CN:
           output: "策划产值"
           milestone: "项目进度"
           sign_hold_value: "业务保有量"
+          deptname: "部门名称"
       sign_detail_drill_down:
         subtitle: "已签约明细"
       unsign_detail_drill_down:
