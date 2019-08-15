@@ -36,6 +36,8 @@ gem "config"
 gem "devise"
 gem "devise_invitable"
 gem "devise-i18n"
+gem "devise-jwt"
+gem "warden-jwt_auth", "~> 0.4.2"
 
 gem "meta-tags"
 
