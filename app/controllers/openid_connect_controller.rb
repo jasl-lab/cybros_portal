@@ -1,17 +1,18 @@
 class OpenidConnectController < ApplicationController
   def callback
-    @omniaut_auth = request.env['omniauth.auth']
+    @omniaut_auth = request.env["omniauth.auth"]
     # Rails.logger.debug "omniaut_auth: " + JSON.pretty_generate(@omniaut_auth)
-    user = User.find_or_create_by!(email: @omniaut_auth.dig(:info, :email)) do |user|
-      user.confirmed_at = Time.current
+    user = User.find_or_create_by!(email: @omniaut_auth.dig(:info, :email)) do |u|
+      u.confirmed_at = Time.current
       random_password = SecureRandom.hex(4) # like "301bccce"
-      user.password = random_password
-      user.password_confirmation = random_password
+      u.password = random_password
+      u.password_confirmation = random_password
     end
     user.update(confirmed_at: Time.current) if user.confirmed_at.blank?
     main_position_title = @omniaut_auth.dig(:extra, :raw_info, :main_position, :name)
     clerk_code = @omniaut_auth.dig(:extra, :raw_info, :clerk_code)
     chinese_name = @omniaut_auth.dig(:extra, :raw_info, :chinese_name)
+    desk_phone = @omniaut_auth.dig(:extra, :raw_info, :desk_phone)
     departments = @omniaut_auth.dig(:extra, :raw_info, :departments)
     departments.each do |d|
       dep = Department.find_or_create_by(id: d[:id]) do |department|
@@ -21,11 +22,12 @@ class OpenidConnectController < ApplicationController
       dep.update(company_name: d[:company_name], name: d[:name])
       DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
     end
-    user.update(position_title: main_position_title, clerk_code: clerk_code, chinese_name: chinese_name)
+    user.update(position_title: main_position_title, clerk_code: clerk_code,
+      chinese_name: chinese_name, desk_phone: desk_phone)
 
-    original_url = request.env['omniauth.origin']
+    original_url = request.env["omniauth.origin"]
     sign_in user
-    if original_url != 'https://sso.thape.com.cn/'
+    if original_url != "https://sso.thape.com.cn/"
       redirect_to original_url
     else
       redirect_to root_path

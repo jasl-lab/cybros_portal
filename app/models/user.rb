@@ -19,9 +19,9 @@ class User < ApplicationRecord
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)
-      .select(:email, :chinese_name, 'departments.name').reduce({}) do |h, u|
+      .select(:email, :chinese_name, :desk_phone, "departments.name").reduce({}) do |h, u|
       user_name = u.email.split("@")[0]
-      h[user_name] ||= "#{u.name}-#{u.chinese_name}"
+      h[user_name] ||= "#{u.name}-#{u.chinese_name}-#{u.desk_phone}"
       h
     end
   end
