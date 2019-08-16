@@ -66,30 +66,6 @@
             </tr>
           </thead>
           <tbody>
-            <% if @company_name.present? %>
-              <tr>
-                <th scope="row">本年签约周期</th>
-                <% @avg_period_mean.each do |period_mean| %>
-                  <td><%= period_mean -%></td>
-                <% end %>
-              </tr>
-              <tr>
-                <th scope="row">本年累计合同额(万元)</th>
-                <% @contract_amounts.each do |contract_amount| %>
-                  <td><%= contract_amount -%></td>
-                <% end %>
-              </tr>
-              <tr>
-                <th scope="row">人均合同额</th>
-                <% @contract_amounts_per_staff.each do |contract_amounts_per_staff| %>
-                  <% if @contract_amounts_per_staff_ref.to_i < contract_amounts_per_staff %>
-                    <td><%= contract_amounts_per_staff.round(0) -%></td>
-                  <% else %>
-                    <td class="text-danger"><%= contract_amounts_per_staff.round(0) -%></td>
-                  <% end %>
-                <% end %>
-              </tr>
-            <% end %>
             <tr>
               <th scope="row">平均人数</th>
               <% @contract_amounts.each_with_index do |contract_amount, index| %>

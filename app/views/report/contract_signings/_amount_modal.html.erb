@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title"><%= @company_name -%> <%= @department_name -%></h5>
+      <h5 class="modal-title"><%= @company_name -%> <%= @department_name -%> 本年业绩合同额明细</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -22,7 +22,7 @@
       <tr>
         <td><%= d.salescontractcode -%></td>
         <td><%= d.salescontractname -%></td>
-        <td><%= d.moneytax -%></td>
+        <td><%= d.moneytax.round(0) -%></td>
         <td><%= d.clientsname -%></td>
         <td><%= Bi::ContractSignDetailDate.find_by(salescontractcode: d.salescontractcode)&.businessdirectorname -%></td>
       </tr>

@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title"><%= @company_name -%> <%= @department_name -%></h5>
+      <h5 class="modal-title"><%= @company_name -%> <%= @department_name -%> 签约周期明细</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -22,7 +22,7 @@
       <tr>
         <td><%= d.salescontractcode -%></td>
         <td><%= d.salescontractname -%></td>
-        <td><%= d.date1 -%></td>
+        <td><%= d.date1.round(0) -%></td>
         <td><%= d.firstpartyname -%></td>
         <td><%= d.businessdirectorname -%></td>
       </tr>
