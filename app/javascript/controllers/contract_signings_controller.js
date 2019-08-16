@@ -18,6 +18,7 @@ var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
 var avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
 var contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
 var periodMeanRef = this.data.get("period_mean_ref");
+var contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
 
 var option = {
     legend: {
@@ -136,7 +137,7 @@ var option_avg = {
       }
     },
     grid: {
-      left: 70,
+      left: 80,
       right: 110,
       top: 50,
       bottom: 60
@@ -179,6 +180,20 @@ var option_avg = {
           show: true,
           position: 'top'
         }
+      },
+      markLine: {
+        label: {
+          formatter: '人均合同额预警'
+        },
+        lineStyle: {
+          type: 'solid',
+          width: 1
+        },
+        data: [
+          {
+            yAxis: contractAmountsPerStaffRef
+          }
+        ]
       }
     }]
 };
