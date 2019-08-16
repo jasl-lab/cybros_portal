@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_one :knowledge_like, class_name: "Company::KnowledgeLike"
 
   def self.details_mapping
-    @_username_mapping ||= all.joins(department_users: :department)
+    @_username_details_mapping ||= all.joins(department_users: :department)
       .select(:email, :chinese_name, 'departments.name').reduce({}) do |h, u|
       user_name = u.email.split("@")[0]
       h[user_name] ||= "#{u.name}-#{u.chinese_name}"
@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def report_maintainer?
-    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 陈子凡 王玥 冯巧容 许至清).include?(chinese_name) || admin?
+    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 王玥 冯巧容).include?(chinese_name) || admin?
   end
 
   def user_company_names
@@ -66,6 +66,6 @@ class User < ApplicationRecord
   end
 
   def in_tianhua_hq?
-    user_company_names.include?('上海天华建筑设计有限公司')
+    user_company_names.include?("上海天华建筑设计有限公司")
   end
 end
