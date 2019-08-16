@@ -64,7 +64,7 @@ class Report::ContractSigningsController < Report::BaseController
       company_name = @department_or_company_short_names[index]
       staff_count = @staff_per_company[company_name] || 1
       staff_count = 1 if staff_count.zero?
-      @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(2)
+      @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
   end
 

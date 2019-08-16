@@ -20,6 +20,20 @@ var contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_sta
 var periodMeanRef = this.data.get("period_mean_ref");
 var contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
 
+function differentColor(amount) {
+  let color;
+
+  if(contractAmountsPerStaffRef > amount) {
+    color = '#D53A35';
+  } else {
+    color = '#7E91A5';
+  }
+
+  return { value: amount, itemStyle: { color: color }}
+}
+
+var contractAmountsPerStaffWithColor = contractAmountsPerStaff.map(differentColor);
+
 var option = {
     legend: {
         data: ['签约周期','本年累计合同额'],
@@ -172,8 +186,7 @@ var option_avg = {
     series: [{
       name: '本年累计人均合同额',
       type: 'bar',
-      data: contractAmountsPerStaff,
-      color: '#738496',
+      data: contractAmountsPerStaffWithColor,
       barMaxWidth: 80,
       label: {
         normal: {
