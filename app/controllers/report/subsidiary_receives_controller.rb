@@ -16,8 +16,10 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     current_user_companies = current_user.user_company_names
     @real_data = policy_scope(Bi::SubCompanyRealReceive).where("realdate <= ?", @end_of_month)
       .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
-      .select("orgcode, SUM(real_receive) real_receive")
-      .group(:orgcode)
+      .select("orgcode, org_order, SUM(real_receive) real_receive")
+      .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
+      .group(:orgcode, :org_order)
+      .order("ORG_ORDER.org_order DESC")
     @real_company_names = @real_data.collect do |rd|
       Bi::PkCodeName.mapping2orgcode.fetch(rd.orgcode, rd.orgcode)
     end
@@ -27,8 +29,10 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     @need_data = policy_scope(Bi::SubCompanyNeedReceive).where.not(orgcode: "000101") \
       # should add .where('date <= ?', @end_of_month), but date is refresh date
-      .select("orgcode, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
-      .group(:orgcode)
+      .select("orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
+      .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
+      .group(:orgcode, :org_order)
+      .order("ORG_ORDER.org_order DESC")
     @need_company_names = @need_data.collect do |nd|
       Bi::PkCodeName.mapping2orgcode.fetch(nd.orgcode, nd.orgcode)
     end
