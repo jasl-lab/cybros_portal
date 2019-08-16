@@ -85,9 +85,6 @@ var real_option = {
 };
 
 var need_option = {
-    title: {
-      text: '应收款（财务+业务）'
-    },
     legend: {
         data: ['超长帐龄','扣除超长帐龄以外的财务应收','业务应收款'],
         align: 'left'
@@ -232,15 +229,12 @@ var real_staff_option = {
 };
 
 var need_staff_option = {
-    title: {
-      text: '人均应收款（财务+业务）及本年回款率'
-    },
     legend: {
         data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
         align: 'left'
     },
     grid: {
-      left: 50,
+      left: 60,
       right: 110,
       top: 60,
       bottom: 125
@@ -303,7 +297,14 @@ var need_staff_option = {
       yAxisIndex: 1,
       symbol: 'circle',
       symbolSize: 8,
-      data: paybackRates
+      data: paybackRates,
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          formatter: '{c}%'
+        }
+      }
     }]
 };
 
