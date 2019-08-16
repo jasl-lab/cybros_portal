@@ -24,7 +24,7 @@ function differentColor(amount) {
   let color;
 
   if(contractAmountsPerStaffRef > amount) {
-    color = '#D53A35';
+    color = '#BB332E';
   } else {
     color = '#7E91A5';
   }
