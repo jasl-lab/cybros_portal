@@ -38,9 +38,11 @@ class Report::ContractSigningsController < Report::BaseController
     else
       @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
         .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
-        .select("orgcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
-        .group(:orgcode)
+        .select("orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN.orgcode")
+        .group(:orgcode, :org_order)
         .having("SUM(contract_amount) > 0")
+        .order("ORG_ORDER.org_order DESC")
       all_company_names = @data.collect(&:orgcode).collect do |c|
         Bi::PkCodeName.mapping2orgcode.fetch(c, c)
       end
