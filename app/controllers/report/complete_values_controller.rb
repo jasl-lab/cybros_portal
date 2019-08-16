@@ -14,9 +14,11 @@ class Report::CompleteValuesController < Report::BaseController
 
     @data = Bi::CompleteValue.where("date <= ?", @end_of_month)
       .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
-      .select("orgcode, SUM(total) sum_total")
-      .group(:orgcode)
+      .select("orgcode, org_order, SUM(total) sum_total")
+      .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
+      .group(:orgcode, :org_order)
       .having("SUM(total) > 0")
+      .order("ORG_ORDER.org_order DESC")
     @all_company_names = @data.collect(&:orgcode).collect do |c|
       Bi::PkCodeName.mapping2orgcode.fetch(c, c)
     end
