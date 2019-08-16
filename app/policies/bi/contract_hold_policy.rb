@@ -4,7 +4,7 @@ module Bi
   class ContractHoldPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        scope.where(orgcode: "000101")
+        scope.all
       end
     end
 

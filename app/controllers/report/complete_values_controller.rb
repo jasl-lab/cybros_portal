@@ -13,7 +13,6 @@ class Report::CompleteValuesController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
 
     @data = Bi::CompleteValue.where("date <= ?", @end_of_month)
-      .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
       .select("orgcode, org_order, SUM(total) sum_total")
       .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
       .group(:orgcode, :org_order)

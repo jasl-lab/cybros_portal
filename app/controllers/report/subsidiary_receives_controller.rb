@@ -15,7 +15,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     current_user_companies = current_user.user_company_names
     @real_data = policy_scope(Bi::SubCompanyRealReceive).where("realdate <= ?", @end_of_month)
-      .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
       .select("orgcode, org_order, SUM(real_receive) real_receive")
       .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
       .group(:orgcode, :org_order)
@@ -27,7 +26,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @real_company_short_names = @real_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @real_receives = @real_data.collect { |d| (d.real_receive / 10000.0).round(0) }
 
-    @need_data = policy_scope(Bi::SubCompanyNeedReceive).where.not(orgcode: "000101") \
+    @need_data = policy_scope(Bi::SubCompanyNeedReceive) \
       # should add .where('date <= ?', @end_of_month), but date is refresh date
       .select("orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
       .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
@@ -60,7 +59,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     else
       Bi::CompleteValue.where(orgcode: current_user_companies)
     end.where("date <= ?", @end_of_month)
-      .where.not(orgcode: "000101") # 上海天华建筑设计有限公司
       .select("orgcode, SUM(total) sum_total")
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
