@@ -24,12 +24,14 @@ namespace :import_export do
       position_title = row['position_title']
       clerk_code = row['clerk_code']
       chinese_name = row['chinese_name']
+      desk_phone = row['desk_phone']
       combine_departments = row['combine_departments'].split(';')
 
       user = User.find_or_create_by(email: email)
       user.position_title = position_title
       user.clerk_code = clerk_code
       user.chinese_name = chinese_name
+      user.desk_phone = desk_phone
       user.confirmed_at = Time.current
       random_password = SecureRandom.hex(4) # like "301bccce"
       user.password = random_password
