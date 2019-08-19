@@ -26,3 +26,4 @@ require("channels")
 
 import "turbolinks/coreui";
 import "controllers";
+require("devise-jwt")
