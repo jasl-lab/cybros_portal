@@ -21,3 +21,4 @@ require("turbolinks").start()
 require("channels")
 
 import "controllers";
+require("devise-jwt")
