@@ -49,7 +49,7 @@
             <tr>
               <th scope="row">人数</th>
               <% @all_company_short_names.each do |short_company_name| %>
-                <% total_staff_num += @staff_per_company[short_company_name] %>
+                <% total_staff_num += @staff_per_company[short_company_name] || 0 %>
                 <td><%= @staff_per_company[short_company_name] -%></td>
               <% end %>
             </tr>

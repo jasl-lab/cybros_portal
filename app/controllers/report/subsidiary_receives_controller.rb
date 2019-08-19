@@ -40,7 +40,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_short_account_receives = @need_data.collect { |d| (d.short_account_receive || 0 / 10000.0).round(0) }
     @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0).round(0) }
 
-    @staff_per_company = Bi::StaffCount.staff_per_short_company_name
+    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @real_receives_per_staff = @real_data.collect do |d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)

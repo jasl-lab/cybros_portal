@@ -46,7 +46,7 @@ class Report::ContractSigningsController < Report::BaseController
         Bi::PkCodeName.mapping2orgcode.fetch(c, c)
       end
       @department_or_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-      @staff_per_company = Bi::StaffCount.staff_per_short_company_name
+      @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     end
     @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amount_max = @contract_amounts.max.round(-1)
