@@ -100,9 +100,9 @@ class Report::ContractHoldsController < Report::BaseController
             values << r.contractcode
             values << r.contractname
             values << r.profession
-            values << r.planning_output.round(0)
-            values << r.workhour_cost.round(0)
-            values << r.unsign_hold_value.round(0)
+            values << r.planning_output&.round(0)
+            values << r.workhour_cost&.round(0)
+            values << r.unsign_hold_value&.round(0)
             csv << values
           end
         end
@@ -149,9 +149,9 @@ class Report::ContractHoldsController < Report::BaseController
             values << r.contractcode
             values << r.contractname
             values << r.profession
-            values << r.output.round(0)
-            values << (r.milestone * 100).round(0)
-            values << r.sign_hold_value.round(0)
+            values << r.output&.round(0)
+            values << (r.milestone * 100)&.round(0)
+            values << r.sign_hold_value&.round(0)
             csv << values
           end
         end
