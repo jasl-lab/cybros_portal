@@ -67,8 +67,8 @@ class Report::ContractHoldsController < Report::BaseController
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
-    @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail).where(date: last_available_date, deptcode: dept_code)
-
+    @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail)
+      .where(date: last_available_date, deptcode: dept_code)
     render
   end
 
@@ -117,7 +117,9 @@ class Report::ContractHoldsController < Report::BaseController
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
-    @signed_data = policy_scope(Bi::ContractHoldSignDetail).where(date: last_available_date, deptcode: dept_code)
+    @signed_data = policy_scope(Bi::ContractHoldSignDetail)
+      .where(date: last_available_date, deptcode: dept_code)
+      .where("sign_hold_value > 0")
     render
   end
 
