@@ -5,4 +5,5 @@ zh-CN:
       show:
         title: "子公司收款情况分析"
         month_name: "实收款的查询年月"
+        show_shanghai_hq: "显示上海天华"
         confirm: "确认"
