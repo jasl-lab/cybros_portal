@@ -28,9 +28,11 @@ class Report::ContractSigningsController < Report::BaseController
       org_code = Bi::PkCodeName.mapping2org_name.fetch(@company_name, @company_name)
       @data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
         .where(orgcode: org_code)
-        .select("deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
-        .group(:deptcode)
+        .select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = CONTRACT_SIGN_DEPT.deptcode")
+        .group("CONTRACT_SIGN_DEPT.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
         .having("SUM(contract_amount) > 0")
+        .order("SH_REPORT_DEPT_ORDER.dept_asc, CONTRACT_SIGN_DEPT.deptcode")
       @department_or_company_short_names = @data.collect do |d|
         Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
       end
