@@ -33,7 +33,8 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
       .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode")
 
-    @all_department_names = @data.collect(&:deptcode).collect do |dept_code|
+    @all_department_codes = @data.collect(&:deptcode)
+    @all_department_names = @all_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
     @complete_value_totals = @data.collect { |d| (d.sum_total / 10000).round(0) }
@@ -41,22 +42,29 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 10000.0).round(1)
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
+
+    @staff_per_dept_code = Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
+    @complete_value_totals_per_staff = @data.collect do |d|
+      staff_number = @staff_per_dept_code.fetch(d.deptcode, 1000)
+      (d.sum_total / (staff_number * 10000).to_f).round(0)
+    end
+    @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
   end
 
   private
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.report.header"),
-      link: report_root_path },
-    { text: t("layouts.sidebar.report.subsidiary_complete_value"),
-      link: report_subsidiary_complete_value_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t("layouts.sidebar.application.header"),
+        link: root_path },
+      { text: t("layouts.sidebar.report.header"),
+        link: report_root_path },
+      { text: t("layouts.sidebar.report.subsidiary_complete_value"),
+        link: report_subsidiary_complete_value_path }]
+    end
 
 
-  def set_page_layout_data
-    @_sidebar_name = "report"
-  end
+    def set_page_layout_data
+      @_sidebar_name = "report"
+    end
 end
