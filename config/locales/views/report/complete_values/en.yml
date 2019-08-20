@@ -5,4 +5,5 @@ en:
       show:
         title: "Complete value"
         month_name: "Query year and month"
+        show_shanghai_hq: "Show Shanghai HQ"
         confirm: "Confirm"

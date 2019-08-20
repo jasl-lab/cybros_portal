@@ -8,6 +8,7 @@ zh-CN:
         period_mean_ref: "签约周期预警"
         contract_amounts_per_staff_ref: "人均合同额预警"
         manual_set_staff_ref: "手工设置预警"
+        show_shanghai_hq: "显示上海天华"
         confirm: "确认"
       amount_modal:
         table:

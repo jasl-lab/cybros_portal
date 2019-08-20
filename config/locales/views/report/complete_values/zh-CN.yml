@@ -5,4 +5,5 @@ zh-CN:
       show:
         title: "工作完成情况分析"
         month_name: "查询年月"
+        show_shanghai_hq: "显示上海天华"
         confirm: "确认"

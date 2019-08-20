@@ -10,6 +10,7 @@ class Report::ContractSigningsController < Report::BaseController
     @short_company_name = params[:company_name]
     authorize Bi::ContractSign if @short_company_name.blank?
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
+    @show_shanghai_hq = params[:show_shanghai_hq]&.presence
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
@@ -42,6 +43,7 @@ class Report::ContractSigningsController < Report::BaseController
         .group(:orgcode, :org_order)
         .having("SUM(contract_amount) > 0")
         .order("ORG_ORDER.org_order DESC")
+      @data = @data.where.not(orgcode: "000101") unless @show_shanghai_hq
       all_company_names = @data.collect(&:orgcode).collect do |c|
         Bi::PkCodeName.mapping2orgcode.fetch(c, c)
       end
