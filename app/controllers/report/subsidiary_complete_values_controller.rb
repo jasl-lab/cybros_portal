@@ -27,8 +27,11 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
 
     @data = Bi::CompleteValueDept.where(orgcode: orgcode).where("date <= ?", @end_of_month)
-      .select("deptcode, SUM(total) sum_total")
-      .group(:deptcode)
+      .select("COMPLETE_VALUE_DEPT.deptcode, dept_asc, SUM(total) sum_total")
+      .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
+      .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
+      .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode")
+
     @all_department_names = @data.collect(&:deptcode).collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
