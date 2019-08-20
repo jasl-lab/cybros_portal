@@ -22,9 +22,11 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     if @short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
       @data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(orgname: @company_name)
-        .select("deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-        .group(:deptname)
+        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+        .group("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, SH_REPORT_DEPT_ORDER.dept_asc, deptname")
         .having("SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0")
+        .order("SH_REPORT_DEPT_ORDER.dept_asc, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
       @data = @data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
       @company_or_department_names = @data.collect(&:deptname)
       @second_level_drill = true
