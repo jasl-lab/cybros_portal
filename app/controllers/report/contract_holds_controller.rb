@@ -12,9 +12,12 @@ class Report::ContractHoldsController < Report::BaseController
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
 
-    data = policy_scope(Bi::ContractHold).where(date: @last_available_date)
-      .select("deptcode, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
-      .group(:deptcode)
+    data = policy_scope(Bi::ContractHold)
+      .where(date: @last_available_date)
+      .joins("INNER JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = CONTRACT_HOLD.deptcode")
+      .select("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
+      .group("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
+      .order("SH_REPORT_DEPT_ORDER.dept_asc")
 
     all_business_ltd_codes = data.collect(&:deptcode)
     @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
