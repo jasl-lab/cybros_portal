@@ -166,7 +166,23 @@ var option_staff = {
     }]
 };
 
+    function drill_down_complete_value_total(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          const department_name = xAxisData[params.dataIndex];
+          let url = "/report/subsidiary_complete_value";
+          let series_company = xAxisData[params.dataIndex]
+          if (url.indexOf('?') > -1) {
+            url += '&company_name=' + encodeURIComponent(series_company);
+          } else {
+            url += '?company_name=' + encodeURIComponent(series_company);
+          }
+          window.location.href = url;
+        }
+      }
+    }
     completeValuesTotalChart.setOption(option_total, false);
+    completeValuesTotalChart.on('click', drill_down_complete_value_total);
     completeValuesStaffChart.setOption(option_staff, false);
     setTimeout(() => {
       completeValuesTotalChart.resize();
