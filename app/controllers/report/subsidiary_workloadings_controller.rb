@@ -32,9 +32,9 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       @second_level_drill = true
     else
       @data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
-        .select("orgname, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-        .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_name = WORK_HOURS_COUNT_ORG.orgname")
-        .group(:orgname, :org_order)
+        .select("orgname, orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .joins("INNER JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode")
+        .group(:orgcode, :orgname, :org_order)
         .having("SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0")
         .order("ORG_ORDER.org_order DESC")
       @company_or_department_names = @data.collect(&:orgname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
