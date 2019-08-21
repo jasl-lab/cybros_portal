@@ -39,8 +39,8 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       Bi::PkCodeName.mapping2orgcode.fetch(nd.orgcode, nd.orgcode)
     end
     @need_company_short_names = @need_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @need_long_account_receives = @need_data.collect { |d| (d.long_account_receive || 0 / 10000.0).round(0) }
-    @need_short_account_receives = @need_data.collect { |d| (d.short_account_receive || 0 / 10000.0).round(0) }
+    @need_long_account_receives = @need_data.collect { |d| ((d.long_account_receive || 0) / 10000.0).round(0) }
+    @need_short_account_receives = @need_data.collect { |d| ((d.short_account_receive || 0) / 10000.0).round(0) }
     @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0).round(0) }
 
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
