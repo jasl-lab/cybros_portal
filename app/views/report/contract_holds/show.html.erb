@@ -64,15 +64,18 @@
               <% end %>
             </tr>
           </thead>
+          <% total_staff_num = 0 %>
           <tbody>
             <tr>
               <th scope="row">平均人数</th>
               <% @dept_avg_staff.each do |staff_count| %>
-                <td><%= staff_count -%></td>
+                <% total_staff_num += (staff_count || 0) %>
+                <td><%= staff_count.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
         </table>
+        <h6>表格上的总人数：<%= total_staff_num.round(0) -%></h6>
       </div>
     </div>
   </div>

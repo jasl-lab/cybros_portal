@@ -48,12 +48,12 @@
               <th scope="row">人数</th>
               <% @all_department_codes.each do |dept_code| %>
                 <% total_staff_num += (@staff_per_dept_code[dept_code] || 0) %>
-                <td><%= @staff_per_dept_code[dept_code] -%></td>
+                <td><%= @staff_per_dept_code[dept_code].round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
         </table>
-        <h6>表格上的总人数：<%= total_staff_num -%></h6>
+        <h6>表格上的总人数：<%= total_staff_num.round(0) -%></h6>
       </div>
     </div>
   </div>
