@@ -60,17 +60,17 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
             values = []
             values << s.id
             values << s.date
-            values << s.company
-            values << s.need_days
-            values << s.acturally_days
-            values << s.planning_need_days
-            values << s.planning_acturally_days
-            values << s.building_need_days
-            values << s.building_acturally_days
+            values << s.orgname
+            values << s.date_need
+            values << s.date_real
+            values << s.blue_print_need
+            values << s.blue_print_real
+            values << s.construction_need
+            values << s.construction_real
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF" << csv_res
+        send_data "\xEF\xBB\xBF#{csv_res}"
       end
     end
   end
