@@ -78,14 +78,14 @@ class Report::ProjectMilestoresController < Report::BaseController
       @_breadcrumbs = [
       { text: t("layouts.sidebar.application.header"),
         link: root_path },
-      { text: t("layouts.sidebar.report.header"),
-        link: report_root_path },
-      { text: t("layouts.sidebar.report.project_milestore"),
+      { text: t("layouts.sidebar.operation.header"),
+        link: report_operation_path },
+      { text: t("layouts.sidebar.operation.project_milestore"),
         link: report_project_milestore_path }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "report"
+      @_sidebar_name = "operation"
     end
 end

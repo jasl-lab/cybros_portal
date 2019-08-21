@@ -92,31 +92,31 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
   private
 
-  def set_drill_down_params_and_title
-    authorize Bi::WorkHoursCountDetailStaff
-    short_company_name = params[:company_name]
-    @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
-    @department_name = params[:department_name]
-    begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
-    end_month = Date.parse(params[:end_month_name]).end_of_month
-    @drill_down_subtitle = "#{begin_month} - #{end_month}"
-    @data = policy_scope(Bi::WorkHoursCountDetailStaff).where(date: begin_month..end_month)
-      .where(orgname: @company_name, deptname: @department_name)
-      .order(date: :asc)
-  end
+    def set_drill_down_params_and_title
+      authorize Bi::WorkHoursCountDetailStaff
+      short_company_name = params[:company_name]
+      @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
+      @department_name = params[:department_name]
+      begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
+      end_month = Date.parse(params[:end_month_name]).end_of_month
+      @drill_down_subtitle = "#{begin_month} - #{end_month}"
+      @data = policy_scope(Bi::WorkHoursCountDetailStaff).where(date: begin_month..end_month)
+        .where(orgname: @company_name, deptname: @department_name)
+        .order(date: :asc)
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.report.header"),
-      link: report_root_path },
-    { text: t("layouts.sidebar.report.subsidiary_workloading"),
-      link: report_subsidiary_workloading_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t("layouts.sidebar.application.header"),
+        link: root_path },
+      { text: t("layouts.sidebar.operation.header"),
+        link: report_operation_path },
+      { text: t("layouts.sidebar.operation.subsidiary_workloading"),
+        link: report_subsidiary_workloading_path }]
+    end
 
 
-  def set_page_layout_data
-    @_sidebar_name = "report"
-  end
+    def set_page_layout_data
+      @_sidebar_name = "operation"
+    end
 end

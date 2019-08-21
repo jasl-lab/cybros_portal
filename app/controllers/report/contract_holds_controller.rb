@@ -177,13 +177,13 @@ class Report::ContractHoldsController < Report::BaseController
       @_breadcrumbs = [
       { text: t("layouts.sidebar.application.header"),
         link: root_path },
-      { text: t("layouts.sidebar.report.header"),
-        link: report_root_path },
-      { text: t("layouts.sidebar.report.contract_hold"),
+      { text: t("layouts.sidebar.operation.header"),
+        link: report_operation_path },
+      { text: t("layouts.sidebar.operation.contract_hold"),
         link: report_contract_hold_path }]
     end
 
     def set_page_layout_data
-      @_sidebar_name = "report"
+      @_sidebar_name = "operation"
     end
 end

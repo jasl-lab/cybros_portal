@@ -57,14 +57,14 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       @_breadcrumbs = [
       { text: t("layouts.sidebar.application.header"),
         link: root_path },
-      { text: t("layouts.sidebar.report.header"),
-        link: report_root_path },
-      { text: t("layouts.sidebar.report.subsidiary_complete_value"),
+      { text: t("layouts.sidebar.operation.header"),
+        link: report_operation_path },
+      { text: t("layouts.sidebar.operation.subsidiary_complete_value"),
         link: report_subsidiary_complete_value_path }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "report"
+      @_sidebar_name = "operation"
     end
 end

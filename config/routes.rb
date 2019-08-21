@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   namespace :report do
     root to: "home#index"
 
-
+    resource :operation, only: %i[show]
     resources :yingjianke_logins, only: %i[index] do
       collection do
         get :export

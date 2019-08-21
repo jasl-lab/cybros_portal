@@ -95,18 +95,18 @@ class Report::ContractSigningsController < Report::BaseController
 
   private
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.report.header"),
-      link: report_root_path },
-    { text: t("report.contract_signings.show.title", company: params[:company_name]),
-      link: report_contract_signing_path(company_name: params[:company_name]) }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t("layouts.sidebar.application.header"),
+        link: root_path },
+      { text: t("layouts.sidebar.operation.header"),
+        link: report_operation_path },
+      { text: t("layouts.sidebar.operation.contract_signing"),
+        link: report_contract_signing_path }]
+    end
 
 
-  def set_page_layout_data
-    @_sidebar_name = "report"
-  end
+    def set_page_layout_data
+      @_sidebar_name = "operation"
+    end
 end
