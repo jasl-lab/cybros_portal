@@ -32,6 +32,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
       .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
       .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode")
+      .where("SH_REPORT_DEPT_ORDER.dept_asc IS NOT NULL")
 
     @all_department_codes = @data.collect(&:deptcode)
     @all_department_names = @all_department_codes.collect do |dept_code|

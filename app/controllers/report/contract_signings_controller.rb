@@ -33,6 +33,7 @@ class Report::ContractSigningsController < Report::BaseController
         .group("CONTRACT_SIGN_DEPT.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
         .having("SUM(contract_amount) > 0")
         .order("SH_REPORT_DEPT_ORDER.dept_asc, CONTRACT_SIGN_DEPT.deptcode")
+        .where("SH_REPORT_DEPT_ORDER.dept_asc IS NOT NULL")
       @department_or_company_short_names = @data.collect do |d|
         Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
       end
