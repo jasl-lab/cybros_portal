@@ -38,7 +38,8 @@ class Report::ContractSigningsController < Report::BaseController
         Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
       end
       @second_level_drill = true
-      @staff_per_company = Bi::ShStaffCount.staff_per_dept_name_by_date(@end_of_month)
+      @all_department_codes = @data.collect(&:deptcode)
+      @staff_per_dept_code = Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
       @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
         .select("orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
@@ -67,9 +68,14 @@ class Report::ContractSigningsController < Report::BaseController
 
     @contract_amounts_per_staff = []
     @contract_amounts.each_with_index do |contract_amount, index|
-      company_name = @department_or_company_short_names[index]
-      staff_count = @staff_per_company[company_name] || 1
-      staff_count = 1 if staff_count.zero?
+      if @short_company_name.present?
+        dept_code = @all_department_codes[index]
+        staff_count = @staff_per_dept_code[dept_code]
+      else
+        company_name = @department_or_company_short_names[index]
+        staff_count = @staff_per_company[company_name] || 1
+      end
+      staff_count = 1 if staff_count.nil? || staff_count.zero?
       @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
   end

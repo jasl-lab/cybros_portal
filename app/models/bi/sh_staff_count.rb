@@ -8,17 +8,6 @@ module Bi
       order(f_month: :desc).first.f_month
     end
 
-    def self.staff_per_dept_name_by_date(end_of_month)
-      d = where(f_month: end_of_month.to_s(:short_month))
-      if d.blank?
-        d = where(f_month: Bi::ShStaffCount.last_available_f_month)
-      end
-      d.reduce({}) do |h, s|
-        h[s.deptname] = s.avgamount
-        h
-      end
-    end
-
     def self.staff_per_dept_code_by_date(end_of_month)
       d = where(f_month: end_of_month.to_s(:short_month))
       if d.blank?

@@ -75,8 +75,13 @@
             <tr>
               <th scope="row">平均人数</th>
               <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                <% company_name = @department_or_company_short_names[index] %>
-                <% staff_count = @staff_per_company[company_name] %>
+                <% if @short_company_name.present? %>
+                  <% dept_code = @all_department_codes[index] %>
+                  <% staff_count = @staff_per_dept_code[dept_code] %>
+                <% else %>
+                  <% company_name = @department_or_company_short_names[index] %>
+                  <% staff_count = @staff_per_company[company_name] %>
+                <% end %>
                 <td><%= staff_count -%></td>
               <% end %>
             </tr>
