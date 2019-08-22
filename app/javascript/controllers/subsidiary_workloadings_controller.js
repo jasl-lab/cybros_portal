@@ -10,7 +10,9 @@ export default class extends Controller {
     subsidiaryWorkloadingsChart2 = echarts.init(document.getElementById('subsidiary-workloadings-chart2'));
     subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
 
-var xAxisData = JSON.parse(this.data.get("x_axis"));
+var xAxisJob = JSON.parse(this.data.get("x_axis_job"));
+var xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
+var xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
 var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
 var secondLevelDrill = this.data.get("second_level_drill");
 var companyName = this.data.get("company_name");
@@ -41,7 +43,7 @@ var option1 = {
     },
     tooltip: {},
     xAxis: {
-      data: xAxisData,
+      data: xAxisJob,
       silent: true,
       axisLabel: {
         interval: 0,
@@ -117,7 +119,7 @@ var option2 = {
     },
     tooltip: {},
     xAxis: {
-      data: xAxisData,
+      data: xAxisBluePrint,
       silent: true,
       axisLabel: {
         interval: 0,
@@ -193,7 +195,7 @@ var option3 = {
     },
     tooltip: {},
     xAxis: {
-      data: xAxisData,
+      data: xAxisConstruction,
       silent: true,
       axisLabel: {
         interval: 0,
@@ -252,7 +254,18 @@ var option3 = {
     function drill_down_model_show(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
-          const department_name = xAxisData[params.dataIndex];
+          let department_name;
+          switch (params.seriesName) {
+            case '工作填报率':
+              department_name = xAxisJob[params.dataIndex]
+              break;
+            case '方案饱和度':
+              department_name = xAxisBluePrint[params.dataIndex]
+              break;
+            case '施工图饱和度':
+              department_name = xAxisConstruction[params.dataIndex]
+              break;
+          }
           if (secondLevelDrill === 'true') {
             const begin_month_name = $('#begin_month_name').val();
             const end_month_name = $('#end_month_name').val();
@@ -261,7 +274,7 @@ var option3 = {
               department_name: department_name,
               begin_month_name: begin_month_name,
               end_month_name: end_month_name };
-            let drill_down_url
+            let drill_down_url;
             switch (params.seriesName) {
               case '工作填报率':
                 drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
@@ -279,13 +292,12 @@ var option3 = {
             });
           } else {
             let url = window.location.href;
-            let series_company = xAxisData[params.dataIndex]
             if (url.indexOf('?') > -1) {
-              url += '&company_name=' + encodeURIComponent(series_company);
+              url += '&company_name=' + encodeURIComponent(department_name);
             } else {
-              url += '?company_name=' + encodeURIComponent(series_company);
+              url += '?company_name=' + encodeURIComponent(department_name);
             }
-            if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+            if (currentUserCompaniesShortNames.indexOf(department_name) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
               window.location.href = url;
             }
           }
