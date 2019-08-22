@@ -48,7 +48,7 @@
               <th scope="row">人数</th>
               <% @all_department_codes.each do |dept_code| %>
                 <% total_staff_num += (@staff_per_dept_code[dept_code] || 0) %>
-                <td><%= @staff_per_dept_code[dept_code].round(0) -%></td>
+                <td><%= @staff_per_dept_code[dept_code]&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
