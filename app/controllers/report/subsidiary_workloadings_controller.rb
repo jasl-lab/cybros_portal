@@ -21,30 +21,30 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     @short_company_name = params[:company_name]
     if @short_company_name.present?
       @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
-      @data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(orgname: @company_name)
+      data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(orgname: @company_name)
         .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
         .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
         .group("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, SH_REPORT_DEPT_ORDER.dept_asc, deptname")
-        .having("SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0")
         .order("SH_REPORT_DEPT_ORDER.dept_asc, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-      @data = @data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
-      @company_or_department_names = @data.collect(&:deptname)
+      job_data = data.having("SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0")
+      job_data = job_data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
+      @company_or_department_names = job_data.collect(&:deptname)
       @second_level_drill = true
     else
-      @data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
+      data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
         .select("orgname, orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode")
         .group(:orgcode, :orgname, :org_order)
-        .having("SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0")
         .order("ORG_ORDER.org_order DESC")
-      @company_or_department_names = @data.collect(&:orgname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+      job_data = data.having("SUM(date_real) > 0 OR SUM(blue_print_real) > 0 OR SUM(construction_real) > 0")
+      @company_or_department_names = job_data.collect(&:orgname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     end
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @day_rate = @data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
+    @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 90
-    @planning_day_rate = @data.collect { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 }
+    @planning_day_rate = job_data.collect { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 }
     @planning_day_rate_ref = params[:planning_day_rate_ref] || 95
-    @building_day_rate = @data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
+    @building_day_rate = job_data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
   end
 
