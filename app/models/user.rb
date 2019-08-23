@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def report_maintainer?
-    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 王玥 冯巧容 陆文娟).include?(chinese_name) || admin?
+    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 王玥 冯巧容 陆文娟 董欢欢).include?(chinese_name) || admin?
   end
 
   def user_company_names
