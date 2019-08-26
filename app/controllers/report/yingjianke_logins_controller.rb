@@ -14,6 +14,22 @@ class Report::YingjiankeLoginsController < Report::BaseController
     @user_17pm = count_yjk_user(Time.current.beginning_of_day + 17 * 60 * 60)
   end
 
+  def destroy
+    mid = params[:mid]
+    response = HTTP.cookies("bsAutoLogin" => "BIT_TRUE",
+      "bsPassword" => Rails.application.credentials.yingjianke_admin_password!,
+      "bsSessionID" => Rails.application.credentials.yingjianke_admin_session_id!,
+      "bsUser" => Rails.application.credentials.yingjianke_admin_username!)
+      .headers(accept: "application/json", referer: Rails.application.credentials.yingjianke_admin_web_url!)
+      .get(Rails.application.credentials.yingjianke_kill_session_url!,
+        params: { mid: ERB::Util.url_encode(mid), feature: "all", productname: "31313034352D38313234", random: rand() })
+    if response.code == 200 && JSON.parse(response.body)["status"] == 0
+      redirect_to report_yingjianke_logins_path, notice: t(".destroy_success", ip: params[:ip])
+    else
+      redirect_to report_yingjianke_logins_path, alert: t(".destroy_failed", status: response.body)
+    end
+  end
+
   def export
     respond_to do |format|
       format.csv do

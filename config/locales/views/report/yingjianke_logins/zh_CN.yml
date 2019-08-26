@@ -19,3 +19,7 @@ zh-CN:
           stay_time: "逗留时长"
           version: "版本"
           process: "进程数"
+        kill: "踢出"
+      destroy:
+        destroy_success: "踢出成功, IP地址：%{ip}"
+        destroy_failure: "踢出失败, 返回：%{status}"

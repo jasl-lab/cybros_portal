@@ -19,3 +19,7 @@ en:
           stay_time: "Stay time"
           version: "Version"
           process: "Process number"
+        kill: "Kill"
+      destroy:
+        destroy_success: "Successfully destroyed, IP: %{ip}"
+        destroy_failure: "Failed to destroy, return: %{status}"

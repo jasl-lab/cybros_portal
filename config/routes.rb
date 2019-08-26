@@ -56,11 +56,13 @@ Rails.application.routes.draw do
     root to: "home#index"
 
     resource :operation, only: %i[show]
-    resources :yingjianke_logins, only: %i[index] do
+
+    resources :yingjianke_logins, only: %i[index destroy] do
       collection do
         get :export
       end
     end
+
     resources :tianzhen_logins, only: %i[index]
     resource :subsidiary_workloading, only: %i[show] do
       collection do
