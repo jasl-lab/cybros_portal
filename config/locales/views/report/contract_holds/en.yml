@@ -8,6 +8,7 @@ en:
           export_sign_detail: "Export sign detail"
         title: "Business retent contract and no contract"
         month_name: "Query year and month"
+        dept_names: "Department names"
         confirm: "submit"
         table:
           projectitemcode_name: "Project item code & name"

@@ -8,6 +8,7 @@ zh-CN:
           export_sign_detail: "导出已签约明细"
         title: "业务保有量"
         month_name: "查询年月"
+        dept_names: "显示部门"
         confirm: "确认"
         table:
           projectitemcode_name: "项目编号及名称"

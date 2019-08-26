@@ -27,6 +27,10 @@
             <label class="mr-1"><%= t(".month_name") -%>：</label>
             <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
           </div>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".dept_names") -%>：</label>
+              <%= select_tag 'depts', options_for_select(@department_options, params[:depts]), {include_blank: true, multiple: true, class: 'form-control' } %>
+          </div>
           <% if params[:in_iframe].present? %>
             <%= hidden_field_tag :in_iframe, true -%>
           <% end %>

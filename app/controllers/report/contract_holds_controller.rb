@@ -19,6 +19,7 @@ class Report::ContractHoldsController < Report::BaseController
       .group("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
       .order("SH_REPORT_DEPT_ORDER.dept_asc")
 
+    data = data.where("CONTRACT_HOLD.deptcode": params[:depts]) if params[:depts].present?
     all_business_ltd_codes = data.collect(&:deptcode)
     @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
@@ -26,6 +27,7 @@ class Report::ContractHoldsController < Report::BaseController
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::StaffCount.company_short_names.fetch(long_name, long_name)
     end
+    @department_options = @deptnames_in_order.zip(@only_have_data_dept)
 
     @biz_retent_contract = @only_have_data_dept.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
