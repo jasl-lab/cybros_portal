@@ -19,6 +19,7 @@ class Report::PredictContractsController < Report::BaseController
       .select("businessdeptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
       .group(:businessdeptcode)
 
+    data = data.where(businessdeptcode: params[:depts]) if params[:depts].present?
     all_business_ltd_codes = data.collect(&:businessdeptcode)
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
 
@@ -26,6 +27,7 @@ class Report::PredictContractsController < Report::BaseController
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::StaffCount.company_short_names.fetch(long_name, long_name)
     end
+    @department_options = @company_short_names.zip(only_have_data_dept)
 
     @contract_convert = only_have_data_dept.collect do |dept_code|
       d = data.find { |t| t.businessdeptcode == dept_code }

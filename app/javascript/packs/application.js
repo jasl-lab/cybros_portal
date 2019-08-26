@@ -14,9 +14,10 @@ import JQuery from 'jquery';
 window.$ = window.JQuery = JQuery;
 
 import "bootstrap";
-import "@coreui/coreui"
+import "@coreui/coreui";
+import "selectize/dist/js/selectize";
 
-import "stylesheets/application"
+import "stylesheets/application";
 
 require("@rails/ujs").start()
 require("turbolinks").start()
@@ -43,4 +44,6 @@ document.addEventListener("turbolinks:load", function() {
   </div>
 </div>`).modal('show');
   });
+
+  $("select[class='form-control'][class!='selectized']").selectize();
 });

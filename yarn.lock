@@ -1188,6 +1188,11 @@ ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
+ansicolors@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npm.taobao.org/ansicolors/download/ansicolors-0.2.1.tgz#be089599097b74a5c9c4a84a0cdbcdb62bd87aef"
+  integrity sha1-vgiVmQl7dKXJxKhKDNvNtivYeu8=
+
 anymatch@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/anymatch/download/anymatch-2.0.0.tgz#bcb24b4f37934d9aa7ac17b4adaf89e7c76ef2eb"
@@ -1320,7 +1325,7 @@ async-limiter@~1.0.0:
   resolved "https://registry.npm.taobao.org/async-limiter/download/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha1-3TeelPDbgxCwgpH51kwyCXZmF/0=
 
-async@^2.6.2:
+async@^2.6.0, async@^2.6.2:
   version "2.6.3"
   resolved "https://registry.npm.taobao.org/async/download/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
   integrity sha1-1yYl4jRKNlbjo61Pp0n6gymdgv8=
@@ -1499,7 +1504,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.npm.taobao.org/boolbase/download/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@^4.3.1, bootstrap@^4.4.1:
+bootstrap@^4.1.3, bootstrap@^4.3.1, bootstrap@^4.4.1:
   version "4.5.0"
   resolved "https://registry.npm.taobao.org/bootstrap/download/bootstrap-4.5.0.tgz#97d9dbcb5a8972f8722c9962483543b907d9b9ec"
   integrity sha1-l9nby1qJcvhyLJliSDVDuQfZuew=
@@ -1766,6 +1771,14 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001043, can
   version "1.0.30001061"
   resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001061.tgz?cache=0&sync_timestamp=1589603634283&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001061.tgz#80ca87ef14eb543a7458e7fd2b5e2face3458c9f"
   integrity sha1-gMqH7xTrVDp0WOf9K14vrONFjJ8=
+
+cardinal@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/cardinal/download/cardinal-1.0.0.tgz#50e21c1b0aa37729f9377def196b5a9cec932ee9"
+  integrity sha1-UOIcGwqjdyn5N33vGWtanOyTLuk=
+  dependencies:
+    ansicolors "~0.2.1"
+    redeyed "~1.0.0"
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.3.0"
@@ -2365,6 +2378,11 @@ csso@^4.0.2:
   dependencies:
     css-tree "1.0.0-alpha.39"
 
+csv-parse@^4.6.5:
+  version "4.9.1"
+  resolved "https://registry.npm.taobao.org/csv-parse/download/csv-parse-4.9.1.tgz#96e645520a1c95cbec1ffecb7513ebba61766269"
+  integrity sha1-luZFUgoclcvsH/7LdRPrumF2Ymk=
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.npm.taobao.org/currently-unhandled/download/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -2740,6 +2758,11 @@ esprima@^4.0.0:
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/esprima/download/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
   integrity sha1-E7BM2z5sXRnfkatph6hpVhmwqnE=
+
+esprima@~3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npm.taobao.org/esprima/download/esprima-3.0.0.tgz#53cf247acda77313e551c3aa2e73342d3fb4f7d9"
+  integrity sha1-U88kes2ncxPlUcOqLnM0LT+099k=
 
 esrecurse@^4.1.0:
   version "4.2.1"
@@ -3528,6 +3551,11 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/https-browserify/download/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
+
+humanize@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.npm.taobao.org/humanize/download/humanize-0.0.9.tgz#1994ffaecdfe9c441ed2bdac7452b7bb4c9e41a4"
+  integrity sha1-GZT/rs3+nEQe0r2sdFK3u0yeQaQ=
 
 iconv-lite@0.4.24:
   version "0.4.24"
@@ -4422,6 +4450,11 @@ micromatch@^3.0.4, micromatch@^3.1.10, micromatch@^3.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
+microplugin@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npm.taobao.org/microplugin/download/microplugin-0.0.3.tgz#1fc2e1bb7c9e19e82bd84bba9137bbe71250d8cd"
+  integrity sha1-H8Lhu3yeGegr2Eu6kTe75xJQ2M0=
+
 miller-rabin@^4.0.0:
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/miller-rabin/download/miller-rabin-4.0.1.tgz#f080351c865b0dc562a8462966daa53543c78a4d"
@@ -4488,6 +4521,11 @@ minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.npm.taobao.org/minimist/download/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
+
+minimist@~0.0.1:
+  version "0.0.10"
+  resolved "https://registry.npm.taobao.org/minimist/download/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
+  integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
 
 minipass-collect@^1.0.2:
   version "1.0.2"
@@ -4902,6 +4940,14 @@ opn@^5.5.0:
   integrity sha1-/HFk+rVtI1kExRw7J9pnWMo7m/w=
   dependencies:
     is-wsl "^1.1.0"
+
+optimist@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.npm.taobao.org/optimist/download/optimist-0.6.1.tgz?cache=0&sync_timestamp=1583321775305&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Foptimist%2Fdownload%2Foptimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
+  integrity sha1-2j6nRob6IaGaERwybpDrFaAZZoY=
+  dependencies:
+    minimist "~0.0.1"
+    wordwrap "~0.0.2"
 
 optimize-css-assets-webpack-plugin@^5.0.3:
   version "5.0.3"
@@ -6150,6 +6196,13 @@ redent@^1.0.0:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
 
+redeyed@~1.0.0:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/redeyed/download/redeyed-1.0.1.tgz#e96c193b40c0816b00aec842698e61185e55498a"
+  integrity sha1-6WwZO0DAgWsArshCaY5hGF5VSYo=
+  dependencies:
+    esprima "~3.0.0"
+
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
   resolved "https://registry.npm.taobao.org/regenerate-unicode-properties/download/regenerate-unicode-properties-8.2.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fregenerate-unicode-properties%2Fdownload%2Fregenerate-unicode-properties-8.2.0.tgz#e5de7111d655e7ba60c057dbe9ff37c87e65cdec"
@@ -6435,6 +6488,21 @@ select-hose@^2.0.0:
   resolved "https://registry.npm.taobao.org/select-hose/download/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
   integrity sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=
 
+selectize-bootstrap4-theme@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npm.taobao.org/selectize-bootstrap4-theme/download/selectize-bootstrap4-theme-2.0.2.tgz#d129464a4c3a713e1bd24b6649fa4ec7b2c75066"
+  integrity sha1-0SlGSkw6cT4b0ktmSfpOx7LHUGY=
+  dependencies:
+    bootstrap "^4.1.3"
+
+selectize@^0.12.6:
+  version "0.12.6"
+  resolved "https://registry.npm.taobao.org/selectize/download/selectize-0.12.6.tgz#c2cf08cbaa4cb06c5e99bb452919d71b080690d6"
+  integrity sha1-ws8Iy6pMsGxembtFKRnXGwgGkNY=
+  dependencies:
+    microplugin "0.0.3"
+    sifter "^0.5.1"
+
 selfsigned@^1.10.7:
   version "1.10.7"
   resolved "https://registry.npm.taobao.org/selfsigned/download/selfsigned-1.10.7.tgz#da5819fd049d5574f28e88a9bcc6dbc6e6f3906b"
@@ -6570,6 +6638,17 @@ shebang-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/shebang-regex/download/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
+
+sifter@^0.5.1:
+  version "0.5.4"
+  resolved "https://registry.npm.taobao.org/sifter/download/sifter-0.5.4.tgz#3cb9e514889edfc887d8d87a355841b01ebdd1ab"
+  integrity sha1-PLnlFIie38iH2Nh6NVhBsB690as=
+  dependencies:
+    async "^2.6.0"
+    cardinal "^1.0.0"
+    csv-parse "^4.6.5"
+    humanize "^0.0.9"
+    optimist "^0.6.1"
 
 signal-exit@^3.0.0:
   version "3.0.3"
@@ -7607,6 +7686,11 @@ wide-align@^1.1.0:
   integrity sha1-rgdOa9wMFKQx6ATmJFScYzsABFc=
   dependencies:
     string-width "^1.0.2 || 2"
+
+wordwrap@~0.0.2:
+  version "0.0.3"
+  resolved "https://registry.npm.taobao.org/wordwrap/download/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
+  integrity sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
 
 worker-farm@^1.7.0:
   version "1.7.0"

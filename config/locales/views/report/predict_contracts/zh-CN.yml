@@ -19,6 +19,7 @@ zh-CN:
           realamounttotal: "实际合同金额"
           convertrealamount: "折算合同额"
         month_name: "查询年月"
+        dept_names: "显示部门"
         confirm: "确认"
       signing_detail_drill_down:
         subtitle: "流转中合同明细"

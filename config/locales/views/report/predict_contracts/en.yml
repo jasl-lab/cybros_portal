@@ -19,6 +19,7 @@ en:
           realamounttotal: "Real amount total"
           convertrealamount: "Convert real amount"
         month_name: "Query year and month"
+        dept_names: "Department names"
         confirm: "submit"
       signing_detail_drill_down:
         subtitle: "Signing detail"
