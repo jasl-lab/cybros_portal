@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
           <label class="mr-1" for="text-clerk-code"><%= t(".table.clerk_code") -%>：</label>
-          <%= text_field_tag 'clerk_code', params[:user_name], class: 'form-control form-control2', id: 'text-clerk-code' %>
+          <%= text_field_tag 'clerk_code', params[:clerk_code], class: 'form-control form-control2', id: 'text-clerk-code' %>
         </div>
         <div><%= submit_tag t(".actions.search"), class: 'btn btn-primary' %></div>
       <% end -%>
