@@ -12,6 +12,7 @@ class Report::PredictContractsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
+    @dept_options = params[:depts]
 
     @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
 
@@ -19,9 +20,10 @@ class Report::PredictContractsController < Report::BaseController
       .select("businessdeptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
       .group(:businessdeptcode)
 
-    data = data.where(businessdeptcode: params[:depts]) if params[:depts].present?
-    all_business_ltd_codes = data.collect(&:businessdeptcode)
-    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
+
+    @dept_options = data.collect(&:businessdeptcode) if @dept_options.blank?
+    data = data.where(businessdeptcode: @dept_options)
+    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
 
     @company_short_names = only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)

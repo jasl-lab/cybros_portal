@@ -11,6 +11,7 @@ class Report::ContractHoldsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
+    @dept_options = params[:depts]
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date)
@@ -19,9 +20,9 @@ class Report::ContractHoldsController < Report::BaseController
       .group("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
       .order("SH_REPORT_DEPT_ORDER.dept_asc")
 
-    data = data.where("CONTRACT_HOLD.deptcode": params[:depts]) if params[:depts].present?
-    all_business_ltd_codes = data.collect(&:deptcode)
-    @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & all_business_ltd_codes)
+    @dept_options = data.pluck("CONTRACT_HOLD.deptcode") if @dept_options.blank?
+    data = data.where("CONTRACT_HOLD.deptcode": @dept_options)
+    @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
 
     @deptnames_in_order = @only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
