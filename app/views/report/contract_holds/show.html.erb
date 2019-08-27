@@ -55,22 +55,22 @@
     </div>
     <div class="row mt-3">
       <div class="col-lg-12">
-        <table class="table table-striped table-dark">
+        <table class="table table-striped table-responsive table-dark">
           <thead>
-            <tr>
-              <th scope="col">部门</th>
+            <tr class="d-flex">
+              <th scope="col" class="col-1">部门</th>
               <% @deptnames_in_order.each do |dept_name| %>
-                <th scope="col"><%= dept_name -%></th>
+                <th scope="col" class="col-1"><%= dept_name -%></th>
               <% end %>
             </tr>
           </thead>
           <% total_staff_num = 0 %>
           <tbody>
-            <tr>
-              <th scope="row">平均人数</th>
+            <tr class="d-flex">
+              <th scope="row" class="col-1">平均人数</th>
               <% @dept_avg_staff.each do |staff_count| %>
                 <% total_staff_num += (staff_count || 0) %>
-                <td><%= staff_count.round(0) -%></td>
+                <td class="col-1"><%= staff_count.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>

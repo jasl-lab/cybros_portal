@@ -39,22 +39,22 @@
   <div class="col-lg-12">
     <div class="row mt-3">
       <div class="col-lg-12">
-        <table class="table table-striped table-dark table-no-padding">
+        <table class="table table-striped table-responsive table-dark">
           <thead>
-            <tr>
-              <th scope="col">部门</th>
+            <tr class="d-flex">
+              <th scope="col" class="col-1">部门</th>
               <% @all_company_short_names.each do |short_company_name| %>
-                <th scope="col"><%= short_company_name -%></th>
+                <th scope="col" class="col-1"><%= short_company_name -%></th>
               <% end %>
             </tr>
           </thead>
           <% total_staff_num = 0 %>
           <tbody>
-            <tr>
-              <th scope="row">人数</th>
+            <tr class="d-flex">
+              <th scope="row" class="col-1">人数</th>
               <% @all_company_short_names.each do |short_company_name| %>
                 <% total_staff_num += (@staff_per_company[short_company_name] || 0) %>
-                <td><%= @staff_per_company[short_company_name] -%></td>
+                <td class="col-1"><%= @staff_per_company[short_company_name] -%></td>
               <% end %>
             </tr>
           </tbody>
