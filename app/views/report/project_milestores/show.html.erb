@@ -12,10 +12,12 @@
         <label class="mr-1"><%= t(".number_in_row") -%>：</label>
         <%= text_field_tag 'number_in_row', @number_in_row, class: 'form-control form-control2' %>
       </div>
-      <div class="form-group mx-2">
-        <%= check_box_tag 'show_all_dept', true, @show_all_dept, class: 'form-control' %>
-        <label class="mr-1"> <%= t(".show_all_dept") -%></label>
-      </div>
+      <% if false # hide %>
+        <div class="form-group mx-2">
+          <%= check_box_tag 'show_all_dept', true, @show_all_dept, class: 'form-control' %>
+          <label class="mr-1"> <%= t(".show_all_dept") -%></label>
+        </div>
+      <% end %>
       <% if params[:in_iframe].present? %>
         <%= hidden_field_tag :in_iframe, true -%>
       <% end %>
