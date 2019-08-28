@@ -29,6 +29,21 @@ export default class extends Controller {
     var needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
     var paybackRates = JSON.parse(this.data.get("payback_rates"));
 
+    function differentColor(amount) {
+      let color;
+
+      if(70 >= amount) {
+        color = '#BB332E';
+      } else {
+        color = '#7E91A5';
+      }
+
+      return { value: amount, itemStyle: { color: color }}
+    }
+
+    var paybackRatesWithColor = paybackRates.map(differentColor);
+
+
     var real_option = {
         title: {
           text: '本年累计实收款'
@@ -270,6 +285,8 @@ export default class extends Controller {
           type: 'value',
           name: '回款率',
           position: 'right',
+          min: 0,
+          max: 200,
           axisLine: {
             lineStyle: {
               color: '#675BBA'
@@ -297,7 +314,7 @@ export default class extends Controller {
           yAxisIndex: 1,
           symbol: 'circle',
           symbolSize: 8,
-          data: paybackRates,
+          data: paybackRatesWithColor,
           label: {
             normal: {
               show: true,
