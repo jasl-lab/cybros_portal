@@ -24,6 +24,7 @@ en:
           output: "Output"
           milestone: "Milestone"
           sign_hold_value: "Sign Hold Value"
+          orgname: "Company name"
           deptname: "Dept name"
       sign_detail_drill_down:
         subtitle: "Signed detail"

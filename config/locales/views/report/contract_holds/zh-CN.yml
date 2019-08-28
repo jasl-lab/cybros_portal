@@ -24,6 +24,7 @@ zh-CN:
           output: "策划产值"
           milestone: "项目进度"
           sign_hold_value: "业务保有量"
+          orgname: "公司名称"
           deptname: "部门名称"
       sign_detail_drill_down:
         subtitle: "已签约明细"
