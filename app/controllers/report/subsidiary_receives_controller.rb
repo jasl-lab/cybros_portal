@@ -25,11 +25,12 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       Bi::PkCodeName.mapping2orgcode.fetch(orgcode, orgcode)
     end
 
-    @real_company_short_names = @real_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    real_company_short_names = @real_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @orgs_options = real_data.where.not(orgcode: "000101").pluck(:orgcode) if @orgs_options.blank?
-    @organization_options = @real_company_short_names.zip(@only_have_real_data_orgs)
+    @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
 
     @real_data = real_data.where(orgcode: @orgs_options)
+    @real_company_short_names = @real_data.collect { |r| Bi::StaffCount.company_short_names_by_orgcode(@end_of_month).fetch(r.orgcode, r.orgcode) }
     @real_receives = @real_data.collect { |d| (d.real_receive / 10000.0).round(0) }
 
     @need_data = policy_scope(Bi::SubCompanyNeedReceive) \

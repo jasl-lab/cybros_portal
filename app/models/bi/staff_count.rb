@@ -18,6 +18,22 @@ module Bi
       end
     end
 
+    def self.company_short_names_by_orgcode(end_of_month)
+      available_date = last_available_date(end_of_month)
+      where("date = ?", available_date).reduce({}) do |h, s|
+        h[s.orgcode] = s.company
+        h
+      end
+    end
+
+    def self.company_long_names_by_orgcode(end_of_month)
+      available_date = last_available_date(end_of_month)
+      where("date = ?", available_date).reduce({}) do |h, s|
+        h[s.orgcode] = s.businessltdname
+        h
+      end
+    end
+
     def self.company_short_names
       @company_short_names ||= all.reduce({}) do |h, s|
         h[s.businessltdname] = s.company
