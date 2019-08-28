@@ -20,10 +20,6 @@
         <label class="mr-1"><%= t(".month_name") -%>：</label>
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
       </div>
-      <div class="form-group mx-2">
-        <%= check_box_tag 'show_shanghai_hq', @show_shanghai_hq, @show_shanghai_hq, class: 'form-control' %>
-        <label class="mr-1"> <%= t(".show_shanghai_hq") -%></label>
-      </div>
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
     <div id="subsidiary-real-receives-chart" style="width: 100%;height: 350px;">

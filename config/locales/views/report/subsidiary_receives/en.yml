@@ -5,5 +5,4 @@ en:
       show:
         title: "Subsidiary receive"
         month_name: "Real receive year and month"
-        show_shanghai_hq: "Show Shanghai HQ"
         confirm: "Confirm"

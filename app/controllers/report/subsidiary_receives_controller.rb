@@ -11,7 +11,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     authorize Bi::SubCompanyNeedReceive
     @all_month_names = Bi::SubCompanyRealReceive.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
-    @show_shanghai_hq = params[:show_shanghai_hq]&.presence
     @end_of_month = Date.parse(@month_name).end_of_month
 
     current_user_companies = current_user.user_company_names
@@ -20,7 +19,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
       .group(:orgcode, :org_order)
       .order("ORG_ORDER.org_order DESC")
-    @real_data = @real_data.where.not(orgcode: "000101") unless @show_shanghai_hq
     @real_company_names = @real_data.collect do |rd|
       Bi::PkCodeName.mapping2orgcode.fetch(rd.orgcode, rd.orgcode)
     end
@@ -34,7 +32,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
       .group(:orgcode, :org_order)
       .order("ORG_ORDER.org_order DESC")
-    @need_data = @need_data.where.not(orgcode: "000101") unless @show_shanghai_hq
     @need_company_names = @need_data.collect do |nd|
       Bi::PkCodeName.mapping2orgcode.fetch(nd.orgcode, nd.orgcode)
     end
