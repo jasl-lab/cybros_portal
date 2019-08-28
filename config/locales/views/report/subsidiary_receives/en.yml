@@ -5,4 +5,5 @@ en:
       show:
         title: "Subsidiary receive"
         month_name: "Real receive year and month"
+        org_names: "Organization names"
         confirm: "Confirm"

@@ -5,4 +5,5 @@ zh-CN:
       show:
         title: "子公司收款情况分析"
         month_name: "实收款的查询年月"
+        org_names: "显示子公司"
         confirm: "确认"
