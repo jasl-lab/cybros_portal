@@ -16,6 +16,7 @@ en:
         actions:
           create: "Create"
           delete: "Delete"
+          clean_expired_jwts: "Clean expired jwts"
       create:
         created: "New JWT Token created, please record down the token and it will only appears this time! Bearer %{jwt}"
       destroy:
