@@ -16,9 +16,10 @@ zh-CN:
         actions:
           create: "创建"
           delete: "删除"
+          clean_expired_jwts: "清理已经过期的JWT"
       create:
         created: "新的JWT令牌创建，请记下这个令牌，次令牌只会出现一次！Bearer %{jwt}"
       destroy:
         deleted: "已删除"
       clean_expired_jwts:
-        done: "所以已经过期的JWT已经清理。"
+        done: "所有已经过期的JWT已经清理。"
