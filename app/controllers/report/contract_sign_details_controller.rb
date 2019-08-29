@@ -6,6 +6,10 @@ class Report::ContractSignDetailsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: ContractSignDetailDatatable.new(params) }
+    end
   end
 
   private

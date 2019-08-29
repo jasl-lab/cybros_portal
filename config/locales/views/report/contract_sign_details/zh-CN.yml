@@ -1,0 +1,11 @@
+---
+zh-CN:
+  report:
+    contract_sign_details:
+      show:
+        title: "归档合同签约周期"
+        table:
+          project_code: "项目编号"
+          project_name: "项目名称"
+          sales_contract_code: "合同编号"
+          sales_contract_name: "合同名称"

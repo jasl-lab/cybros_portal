@@ -1,0 +1,11 @@
+---
+en:
+  report:
+    contract_sign_details:
+      show:
+        title: "Contract sign date detail"
+        table:
+          project_code: "Project code"
+          project_name: "Project name"
+          sales_contract_code: "Sales contract code"
+          sales_contract_name: "Sales contract name"
