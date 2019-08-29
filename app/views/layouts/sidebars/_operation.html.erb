@@ -89,6 +89,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if current_user.present? && policy(Bi::ContractSignDetailDate).show? %>
+        <%= nav_item controller: 'report/contract_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= link_to report_contract_sign_detail_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-list"></i>
+            <%= t("layouts.sidebar.operation.contract_sign_detail") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

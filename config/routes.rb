@@ -103,6 +103,7 @@ Rails.application.routes.draw do
         get :export_sign_detail
       end
     end
+    resource :contract_sign_detail, only: %i[show]
   end
 
   namespace :person do
