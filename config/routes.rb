@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     match "me" => "application#user_info", via: :options
+
+    resource :cad_session, only: %i[create]
   end
 
   namespace :admin do
