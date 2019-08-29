@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     match "me" => "application#user_info", via: :options
 
     resource :cad_session, only: %i[create]
+    resource :cad_operation, only: %i[create]
   end
 
   namespace :admin do

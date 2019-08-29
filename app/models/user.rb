@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :owing_pending_questions, class_name: "Company::PendingQuestion", foreign_key: :owner_id
   has_one :knowledge_like, class_name: "Company::KnowledgeLike"
   has_many :cad_sessions, class_name: "Cad::CadSession", dependent: :destroy
+  has_many :cad_operations, class_name: "Cad::CadOperation", dependent: :destroy
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)
