@@ -8,6 +8,14 @@ GIT
       tiny_tds
 
 GIT
+  remote: https://git.dev.tencent.com/ericguo/ajax-datatables-rails.git
+  revision: 71e2c12f0aaa8aaa848c54e03aca05d7c5f9ef97
+  branch: master
+  specs:
+    ajax-datatables-rails (1.1.0)
+      railties (>= 4.2)
+
+GIT
   remote: https://github.com/Eric-Guo/wechat
   revision: eaecdfb5e0fb5d4fe36f4c3048cb8d78dd264500
   branch: master
@@ -438,6 +446,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-sqlserver-adapter!
+  ajax-datatables-rails!
   auto_strip_attributes
   bootsnap (>= 1.4.4)
   brakeman

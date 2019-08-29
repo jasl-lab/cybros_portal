@@ -33,6 +33,16 @@ window.echarts = echarts;
 
 import "controllers";
 
+// Load Datatables
+require('datatables.net-bs')(window, $);
+require('datatables.net-buttons-bs')(window, $);
+require('datatables.net-buttons/js/buttons.colVis.js')(window, $);
+require('datatables.net-buttons/js/buttons.html5.js')(window, $);
+require('datatables.net-buttons/js/buttons.print.js')(window, $);
+require('datatables.net-responsive-bs')(window, $);
+require('datatables.net-select')(window, $);
+// require('yadcf')(window, $); // Uncomment if you use yadcf (need a recent version of yadcf)
+
 require("devise-jwt");
 
 document.addEventListener("turbolinks:load", function() {
