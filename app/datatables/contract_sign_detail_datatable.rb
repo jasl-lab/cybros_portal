@@ -18,8 +18,12 @@ class ContractSignDetailDatatable < ApplicationDatatable
       amount_total: { source: "Bi::ContractSignDetailDate.amounttotal", orderable: true },
       date_1: { source: "Bi::ContractSignDetailDate.date1", orderable: true },
       date_2: { source: "Bi::ContractSignDetailDate.date2", orderable: true },
+      contract_time: { source: "Bi::ContractSignDetailDate.contracttime", orderable: true },
+      min_timecard_fill: { source: "Bi::ContractSignDetailDate.mintimecardfill", orderable: true },
+      min_date_hrcost_amount: { source: "Bi::ContractSignDetailDate.mindatehrcostamount", orderable: true },
       project_code: { source: "Bi::ContractSignDetailDate.projectcode", cond: :eq, searchable: true, orderable: true },
       project_name: { source: "Bi::ContractSignDetailDate.projectname", cond: :like, searchable: true, orderable: true },
+      project_type: { source: "Bi::ContractSignDetailDate.projecttype", cond: :eq, searchable: true, orderable: true }
     }
   end
 
@@ -37,12 +41,13 @@ class ContractSignDetailDatatable < ApplicationDatatable
         date_1: r.date1,
         date_2: r.date2,
         contract_time: r.contracttime,
-        min_time_card_fill: r.mintimecardfill,
-        min_date_hr_cost_amount: r.mindatehrcostamount,
+        min_timecard_fill: r.mintimecardfill,
+        min_date_hrcost_amount: r.mindatehrcostamount,
         org_code: r.orgcode,
         org_name: r.orgname,
         dept_code: r.deptcode,
         dept_name: r.deptname,
+        project_type: r.projecttype,
      }
     end
   end

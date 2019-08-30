@@ -17,8 +17,12 @@ export default class extends Controller {
         {"data": "amount_total"},
         {"data": "date_1"},
         {"data": "date_2"},
+        {"data": "contract_time"},
+        {"data": "min_timecard_fill"},
+        {"data": "min_date_hrcost_amount"},
         {"data": "project_code"},
-        {"data": "project_name"}
+        {"data": "project_name"},
+        {"data": "project_type"}
       ],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
