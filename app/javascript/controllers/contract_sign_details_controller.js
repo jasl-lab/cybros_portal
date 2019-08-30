@@ -8,10 +8,17 @@ export default class extends Controller {
       "ajax": $('#contract-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": [
-        {"data": "project_code"},
-        {"data": "project_name"},
+        {"data": "org_name"},
+        {"data": "dept_name"},
+        {"data": "business_director_name"},
         {"data": "sales_contract_code"},
-        {"data": "sales_contract_name"}
+        {"data": "sales_contract_name"},
+        {"data": "first_party_name"},
+        {"data": "amount_total"},
+        {"data": "date_1"},
+        {"data": "date_2"},
+        {"data": "project_code"},
+        {"data": "project_name"}
       ],
       stateSave: true,
       stateSaveCallback: function(settings, data) {

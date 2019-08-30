@@ -5,7 +5,14 @@ zh-CN:
       show:
         title: "归档合同签约周期"
         table:
-          project_code: "项目编号"
-          project_name: "项目名称"
+          org_name: "子公司"
+          dept_name: "商务责任部门"
+          business_director_name: "商务负责人"
           sales_contract_code: "合同编号"
           sales_contract_name: "合同名称"
+          first_party_name: "客户名称"
+          amount_total: "合同金额"
+          date_1: "签约周期 1"
+          date_2: "签约周期 2"
+          project_code: "项目编号"
+          project_name: "项目名称"

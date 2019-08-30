@@ -9,10 +9,17 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
+      org_name: { source: "Bi::ContractSignDetailDate.orgname", cond: :eq, searchable: true, orderable: true },
+      dept_name: { source: "Bi::ContractSignDetailDate.deptname", cond: :eq, searchable: true, orderable: true },
+      business_director_name: { source: "Bi::ContractSignDetailDate.businessdirectorname", cond: :eq, searchable: true, orderable: true },
+      sales_contract_code: { source: "Bi::ContractSignDetailDate.salescontractcode", cond: :eq, searchable: true, orderable: true },
+      sales_contract_name: { source: "Bi::ContractSignDetailDate.salescontractname", cond: :like, searchable: true, orderable: true },
+      first_party_name: { source: "Bi::ContractSignDetailDate.firstpartyname", cond: :like, searchable: true, orderable: true },
+      amount_total: { source: "Bi::ContractSignDetailDate.amounttotal", orderable: true },
+      date_1: { source: "Bi::ContractSignDetailDate.date1", orderable: true },
+      date_2: { source: "Bi::ContractSignDetailDate.date2", orderable: true },
       project_code: { source: "Bi::ContractSignDetailDate.projectcode", cond: :eq, searchable: true, orderable: true },
       project_name: { source: "Bi::ContractSignDetailDate.projectname", cond: :like, searchable: true, orderable: true },
-      sales_contract_code: { source: "Bi::ContractSignDetailDate.salescontractcode", cond: :like, searchable: true, orderable: true },
-      sales_contract_name: { source: "Bi::ContractSignDetailDate.salescontractname", cond: :like, searchable: true, orderable: true }
     }
   end
 
