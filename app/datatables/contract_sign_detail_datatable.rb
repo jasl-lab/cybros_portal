@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class ContractSignDetailDatatable < ApplicationDatatable
+  def initialize(params, opts = {})
+    @contract_sign_detail_dates = opts[:contract_sign_detail_dates]
+    @view = opts[:view_context]
+    super
+  end
+
   def view_columns
     @view_columns ||= {
       project_code: { source: "Bi::ContractSignDetailDate.projectcode", cond: :eq, searchable: true, orderable: true },
@@ -35,6 +41,6 @@ class ContractSignDetailDatatable < ApplicationDatatable
   end
 
   def get_raw_records
-    Bi::ContractSignDetailDate.all
+    @contract_sign_detail_dates
   end
 end

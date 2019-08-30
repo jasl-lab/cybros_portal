@@ -8,7 +8,10 @@ class Report::ContractSignDetailsController < Report::BaseController
   def show
     respond_to do |format|
       format.html
-      format.json { render json: ContractSignDetailDatatable.new(params) }
+      format.json do
+        contract_sign_detail_dates = policy_scope(Bi::ContractSignDetailDate)
+        render json: ContractSignDetailDatatable.new(params, contract_sign_detail_dates: contract_sign_detail_dates, view_context: view_context)
+      end
     end
   end
 
