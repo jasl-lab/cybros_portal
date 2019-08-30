@@ -17,6 +17,4 @@ zh-CN:
           contract_time: "合同归档日期"
           min_timecard_fill: "项目起始工时填报日期"
           min_date_hrcost_amount: "对应项目人力成本累计达到一定值日期"
-          project_code: "项目编号"
-          project_name: "项目名称"
           project_type: "项目类型"

@@ -17,6 +17,4 @@ en:
           contract_time: "Contract time"
           min_timecard_fill: "Min timecard fill"
           min_date_hrcost_amount: "Min date HR cost amount"
-          project_code: "Project code"
-          project_name: "Project name"
           project_type: "Project type"
