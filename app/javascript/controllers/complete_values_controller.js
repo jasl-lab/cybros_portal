@@ -11,12 +11,13 @@ export default class extends Controller {
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
 var completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
+var completeValueYearTotalsRemain = JSON.parse(this.data.get("complete_value_year_totals_remain"));
 var completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
 var completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
 
 var option_total = {
     legend: {
-        data: ['累计完成产值（百万元）','预计全年人均完成产值（百万元）'],
+        data: ['累计完成产值（百万元）','预计全年完成产值（百万元）'],
         align: 'left'
     },
     tooltip: {
@@ -59,6 +60,15 @@ var option_total = {
       }
     }],
     series: [{
+      name: '预计全年完成产值（百万元）',
+      type: 'bar',
+      barWidth: '30%',
+      barGap: '-100%',
+      data: completeValueYearTotals,
+      itemStyle: {
+        color: '#DDDDDD'
+      }
+    },{
       name: '累计完成产值（百万元）',
       type: 'bar',
       stack: '总量',
@@ -73,10 +83,10 @@ var option_total = {
         }
       }
     },{
-      name: '预计全年人均完成产值（百万元）',
+      name: '全年剩余需完成产值（百万元）',
       type: 'bar',
       stack: '总量',
-      data: completeValueYearTotals,
+      data: completeValueYearTotalsRemain,
       itemStyle: {
         color: '#DDDDDD'
       },

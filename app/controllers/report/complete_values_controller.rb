@@ -27,6 +27,7 @@ class Report::CompleteValuesController < Report::BaseController
     @complete_value_totals = @data.collect { |d| (d.sum_total / 1000000.0).round(0) }
     @sum_complete_value_totals = (@complete_value_totals.sum / 100.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
+    @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
     @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @complete_value_totals_per_staff = @data.collect do |d|
