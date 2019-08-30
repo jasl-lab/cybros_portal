@@ -72,6 +72,7 @@ class Report::ContractHoldsController < Report::BaseController
     last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
     @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail)
       .where(date: last_available_date, deptcode: dept_code)
+      .order(:projectitemcode)
     render
   end
 
@@ -126,6 +127,7 @@ class Report::ContractHoldsController < Report::BaseController
     @signed_data = policy_scope(Bi::ContractHoldSignDetail)
       .where(date: last_available_date, deptcode: dept_code)
       .where("sign_hold_value > 0")
+      .order(:projectitemcode)
     render
   end
 
