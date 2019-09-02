@@ -6,13 +6,15 @@ class Report::ContractSignDetailsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    @show_hide_item = params[:show_hide_item] == "true"
+
     respond_to do |format|
       format.html
       format.json do
         contract_sign_detail_dates = policy_scope(Bi::ContractSignDetailDate)
         render json: ContractSignDetailDatatable.new(params,
           contract_sign_detail_dates: contract_sign_detail_dates,
-          show_hide: false,
+          show_hide: @show_hide_item,
           view_context: view_context)
       end
     end

@@ -4,6 +4,8 @@ en:
     contract_sign_details:
       show:
         title: "Contract sign date detail"
+        show_hide_item: "Show hide item"
+        confirm: "Confirm"
         table:
           org_name: "Org name"
           dept_name: "Dept name"

@@ -44,14 +44,18 @@ class ContractSignDetailDatatable < ApplicationDatatable
         min_timecard_fill: r.mintimecardfill,
         min_date_hrcost_amount: r.mindatehrcostamount,
         project_type: r.projecttype,
-        admin_action: link_to(hide_icon, hide_report_contract_sign_detail_path(contract_code: r.salescontractcode), method: :patch)
+        admin_action: if @show_hide
+                        link_to(un_hide_icon, un_hide_report_contract_sign_detail_path(contract_code: r.salescontractcode), method: :patch)
+                      else
+                        link_to(hide_icon, hide_report_contract_sign_detail_path(contract_code: r.salescontractcode), method: :patch)
+                      end
      }
     end
   end
 
   def get_raw_records
     if @show_hide
-      @contract_sign_detail_dates.where("NEED_HIDE == 1")
+      @contract_sign_detail_dates.where("NEED_HIDE = 1")
     else
       @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
     end

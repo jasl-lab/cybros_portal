@@ -4,6 +4,8 @@ zh-CN:
     contract_sign_details:
       show:
         title: "归档合同签约周期"
+        show_hide_item: "显示隐藏项目"
+        confirm: "确认"
         table:
           org_name: "子公司"
           dept_name: "商务责任部门"
