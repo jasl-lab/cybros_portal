@@ -56,7 +56,7 @@ class User < ApplicationRecord
   end
 
   def report_admin?
-    %(曾嵘 过纯中 王玥 冯巧容).include?(chinese_name) || admin?
+    %(曾嵘 王玥 冯巧容).include?(chinese_name) || admin?
   end
 
   def user_company_names

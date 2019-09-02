@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bi
   class ContractSignDetailDatePolicy < BasePolicy
     class Scope < Scope
@@ -12,6 +14,14 @@ module Bi
 
     def drill_down_date?
       show?
+    end
+
+    def hide?
+      user&.report_viewer?
+    end
+
+    def un_hide?
+      user&.report_viewer?
     end
   end
 end

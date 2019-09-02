@@ -6,7 +6,9 @@ class Report::ContractSignDetailsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @show_hide_item = params[:show_hide_item] == "true"
+    authorize Bi::ContractSignDetailDate
+    @can_hide_item = pundit_user.report_admin?
+    @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
     respond_to do |format|
       format.html
@@ -21,15 +23,17 @@ class Report::ContractSignDetailsController < Report::BaseController
   end
 
   def hide
+    authorize Bi::ContractSignDetailDate
     contract_code = params[:contract_code]
     Bi::ContractSignDetailDate.where(salescontractcode: contract_code).update_all(need_hide: true)
     redirect_to report_contract_sign_detail_path
   end
 
   def un_hide
+    authorize Bi::ContractSignDetailDate
     contract_code = params[:contract_code]
     Bi::ContractSignDetailDate.where(salescontractcode: contract_code).update_all(need_hide: nil)
-    redirect_to report_contract_sign_detail_path
+    redirect_to report_contract_sign_detail_path(show_hide_item: true)
   end
 
   private
