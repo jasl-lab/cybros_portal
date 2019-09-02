@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class ContractSignDetailDatatable < ApplicationDatatable
+  def_delegator :@view, :hide_report_contract_sign_detail_path
+  def_delegator :@view, :un_hide_report_contract_sign_detail_path
+
   def initialize(params, opts = {})
     @contract_sign_detail_dates = opts[:contract_sign_detail_dates]
-    @view = opts[:view_context]
+    @show_hide = opts[:show_hide]
     super
   end
 
@@ -21,7 +24,8 @@ class ContractSignDetailDatatable < ApplicationDatatable
       contract_time: { source: "Bi::ContractSignDetailDate.contracttime", orderable: true },
       min_timecard_fill: { source: "Bi::ContractSignDetailDate.mintimecardfill", orderable: true },
       min_date_hrcost_amount: { source: "Bi::ContractSignDetailDate.mindatehrcostamount", orderable: true },
-      project_type: { source: "Bi::ContractSignDetailDate.projecttype", cond: :eq, searchable: true, orderable: true }
+      project_type: { source: "Bi::ContractSignDetailDate.projecttype", cond: :eq, searchable: true, orderable: true },
+      admin_action: { source: nil, searchable: false, orderable: false }
     }
   end
 
@@ -40,11 +44,24 @@ class ContractSignDetailDatatable < ApplicationDatatable
         min_timecard_fill: r.mintimecardfill,
         min_date_hrcost_amount: r.mindatehrcostamount,
         project_type: r.projecttype,
+        admin_action: link_to(hide_icon, hide_report_contract_sign_detail_path(contract_code: r.salescontractcode), method: :patch)
      }
     end
   end
 
   def get_raw_records
-    @contract_sign_detail_dates
+    if @show_hide
+      @contract_sign_detail_dates.where("NEED_HIDE == 1")
+    else
+      @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
+    end
+  end
+
+  def hide_icon
+    @_hide_icon ||= '<i class="fas fa-trash"></i>'.html_safe
+  end
+
+  def un_hide_icon
+    @_un_hide_icon ||= '<i class="fas fa-trash-restore"></i>'.html_safe
   end
 end

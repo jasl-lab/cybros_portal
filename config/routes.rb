@@ -103,7 +103,12 @@ Rails.application.routes.draw do
         get :export_sign_detail
       end
     end
-    resource :contract_sign_detail, only: %i[show]
+    resource :contract_sign_detail, only: %i[show] do
+      member do
+        patch :hide
+        patch :un_hide
+      end
+    end
   end
 
   namespace :person do

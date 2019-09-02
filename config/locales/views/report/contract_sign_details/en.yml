@@ -18,3 +18,4 @@ en:
           min_timecard_fill: "Min timecard fill"
           min_date_hrcost_amount: "Min date HR cost amount"
           project_type: "Project type"
+          admin_action: "Admin action"

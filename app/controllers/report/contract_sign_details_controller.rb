@@ -10,9 +10,24 @@ class Report::ContractSignDetailsController < Report::BaseController
       format.html
       format.json do
         contract_sign_detail_dates = policy_scope(Bi::ContractSignDetailDate)
-        render json: ContractSignDetailDatatable.new(params, contract_sign_detail_dates: contract_sign_detail_dates, view_context: view_context)
+        render json: ContractSignDetailDatatable.new(params,
+          contract_sign_detail_dates: contract_sign_detail_dates,
+          show_hide: false,
+          view_context: view_context)
       end
     end
+  end
+
+  def hide
+    contract_code = params[:contract_code]
+    Bi::ContractSignDetailDate.where(salescontractcode: contract_code).update_all(need_hide: true)
+    redirect_to report_contract_sign_detail_path
+  end
+
+  def un_hide
+    contract_code = params[:contract_code]
+    Bi::ContractSignDetailDate.where(salescontractcode: contract_code).update_all(need_hide: nil)
+    redirect_to report_contract_sign_detail_path
   end
 
   private

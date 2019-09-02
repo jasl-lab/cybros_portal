@@ -18,3 +18,4 @@ zh-CN:
           min_timecard_fill: "项目起始工时填报日期"
           min_date_hrcost_amount: "对应项目人力成本累计达到一定值日期"
           project_type: "项目类型"
+          admin_action: "管理员操作"
