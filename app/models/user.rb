@@ -51,8 +51,12 @@ class User < ApplicationRecord
     Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name) || admin?
   end
 
-  def report_maintainer?
-    %(崔立杰 亢梦婕 付焕鹏 曾嵘 过纯中 许瑞庭 王玥 冯巧容 陆文娟 董欢欢 王燕).include?(chinese_name) || admin?
+  def report_viewer?
+    %(崔立杰 亢梦婕 付焕鹏 许瑞庭 陆文娟 董欢欢 王燕).include?(chinese_name) || admin?
+  end
+
+  def report_admin?
+    %(曾嵘 过纯中 王玥 冯巧容).include?(chinese_name) || admin?
   end
 
   def user_company_names

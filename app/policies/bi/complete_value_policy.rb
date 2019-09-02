@@ -3,7 +3,7 @@
 module Bi
   class CompleteValuePolicy < BasePolicy
     def show?
-      user&.report_maintainer?
+      user&.report_viewer? || user&.report_admin?
     end
   end
 end
