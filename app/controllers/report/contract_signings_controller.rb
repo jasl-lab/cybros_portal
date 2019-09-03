@@ -73,7 +73,7 @@ class Report::ContractSigningsController < Report::BaseController
         staff_count = @staff_per_dept_code[dept_code]
       else
         company_name = @department_or_company_short_names[index]
-        staff_count = @staff_per_company[company_name] || 10000
+        staff_count = @staff_per_company[company_name] || 1000_0000
       end
       staff_count = 1 if staff_count.nil? || staff_count.zero?
       @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
