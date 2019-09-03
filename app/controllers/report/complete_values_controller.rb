@@ -33,7 +33,7 @@ class Report::CompleteValuesController < Report::BaseController
     @complete_value_totals_per_staff = @data.collect do |d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
-      staff_number = @staff_per_company.fetch(short_name, 1000)
+      staff_number = @staff_per_company.fetch(short_name, 10000)
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
     @avg_complete_value_totals_per_staff = (@complete_value_totals_per_staff.sum.to_f / @complete_value_totals_per_staff.size).round(0)
