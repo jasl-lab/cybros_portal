@@ -4,3 +4,17 @@ zh-CN:
     subsidiary_need_receive_unsign_details:
       show:
         title: "未签约项目业务应收"
+        show_hide_item: "显示隐藏项目"
+        confirm: "确认"
+        table:
+          org_name: "子公司"
+          dept_name: "商务责任部门"
+          project_manager_name: "项目经理"
+          project_item_code: "项目编号"
+          project_item_name: "项目名称"
+          created_date: "立项日期"
+          unsign_receive: "业务应收（未签约）（万元）"
+          f_date: "开始投入人力时间"
+          min_timecard_fill: "累计项目人力成本到达一定值的时间"
+          days_to_min_timecard_fill: "人力成本达2万日期距本月底的天数"
+          admin_action: "管理员操作"

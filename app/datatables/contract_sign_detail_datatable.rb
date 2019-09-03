@@ -60,12 +60,4 @@ class ContractSignDetailDatatable < ApplicationDatatable
       @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
     end
   end
-
-  def hide_icon
-    @_hide_icon ||= '<i class="fas fa-trash"></i>'.html_safe
-  end
-
-  def un_hide_icon
-    @_un_hide_icon ||= '<i class="fas fa-trash-restore"></i>'.html_safe
-  end
 end

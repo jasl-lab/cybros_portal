@@ -14,7 +14,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
       format.html
       format.json do
         subsidiary_need_receive_unsign_details = policy_scope(Bi::SubCompanyNeedReceiveUnsignDetail)
-        render json: ContractSignDetailDatatable.new(params,
+        render json: SubsidiaryNeedReceiveUnsignDetailDatatable.new(params,
           subsidiary_need_receive_unsign_details: subsidiary_need_receive_unsign_details,
           show_hide: @show_hide_item,
           view_context: view_context)
@@ -24,15 +24,15 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
 
   def hide
     authorize Bi::SubCompanyNeedReceiveUnsignDetail
-    contract_code = params[:contract_code]
-    Bi::SubCompanyNeedReceiveUnsignDetail.where(salescontractcode: contract_code).update_all(need_hide: true)
+    project_item_code = params[:project_item_code]
+    Bi::SubCompanyNeedReceiveUnsignDetail.where(projectitemcode: project_item_code).update_all(need_hide: true)
     redirect_to report_subsidiary_need_receive_unsign_detail_path
   end
 
   def un_hide
     authorize Bi::SubCompanyNeedReceiveUnsignDetail
-    contract_code = params[:contract_code]
-    Bi::SubCompanyNeedReceiveUnsignDetail.where(salescontractcode: contract_code).update_all(need_hide: nil)
+    project_item_code = params[:project_item_code]
+    Bi::SubCompanyNeedReceiveUnsignDetail.where(projectitemcode: project_item_code).update_all(need_hide: nil)
     redirect_to report_subsidiary_need_receive_unsign_detail_path(show_hide_item: true)
   end
 

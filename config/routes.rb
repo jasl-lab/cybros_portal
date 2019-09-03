@@ -109,7 +109,12 @@ Rails.application.routes.draw do
         patch :un_hide
       end
     end
-    resource :subsidiary_need_receive_unsign_detail, only: %i[show]
+    resource :subsidiary_need_receive_unsign_detail, only: %i[show] do
+      member do
+        patch :hide
+        patch :un_hide
+      end
+    end
   end
 
   namespace :person do

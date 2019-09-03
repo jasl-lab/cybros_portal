@@ -4,3 +4,17 @@ en:
     subsidiary_need_receive_unsign_details:
       show:
         title: "Subsidiary need receive unsign detail"
+        show_hide_item: "Show hide item"
+        confirm: "Confirm"
+        table:
+          org_name: "Org name"
+          dept_name: "Dept name"
+          project_manager_name: "Project manager name"
+          project_item_code: "Project item code"
+          project_item_name: "Project item name"
+          created_date: "Created date"
+          unsign_receive: "Unsign receive amount"
+          f_date: "First date"
+          min_timecard_fill: "Min timecard fill"
+          days_to_min_timecard_fill: "Days to min timecard fill"
+          admin_action: "Admin action"
