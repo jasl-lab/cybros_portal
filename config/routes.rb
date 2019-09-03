@@ -109,6 +109,7 @@ Rails.application.routes.draw do
         patch :un_hide
       end
     end
+    resource :subsidiary_need_receive_unsign_detail, only: %i[show]
   end
 
   namespace :person do
