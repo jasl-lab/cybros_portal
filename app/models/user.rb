@@ -17,6 +17,14 @@ class User < ApplicationRecord
   include DeviseFailsafe
   include Devise::JWT::RevocationStrategies::Whitelist
 
+  def self.find_for_jwt_authentication(sub)
+    find_by(email: sub)
+  end
+
+  def jwt_subject
+    email
+  end
+
   def expired_jwts
     whitelisted_jwts.where("exp <= ?", Time.now)
   end
