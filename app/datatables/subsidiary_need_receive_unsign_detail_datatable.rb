@@ -15,7 +15,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       org_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.orgname", cond: :eq, searchable: true, orderable: true },
       dept_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.deptname", cond: :eq, searchable: true, orderable: true },
       project_manager_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectmanagername", cond: :like, searchable: true, orderable: true },
-      project_item_code: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemcode", cond: :eq, searchable: true, orderable: true },
+      project_item_code: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemcode", cond: :like, searchable: true, orderable: true },
       project_item_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemname", cond: :like, searchable: true, orderable: true },
       created_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.createddate", cond: :eq, searchable: true, orderable: true },
       unsign_receive: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.unsign_receive", orderable: true },
@@ -52,6 +52,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       @subsidiary_need_receive_unsign_details.where("NEED_HIDE = 1")
     else
       @subsidiary_need_receive_unsign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
-    end
+    end.select(:orgname, :deptname, :projectmanagername, :projectitemcode, :projectitemname,
+      :createddate, :unsign_receive, :fdate, :mintimecardfill, :days_to_mintimecardfill).distinct
   end
 end
