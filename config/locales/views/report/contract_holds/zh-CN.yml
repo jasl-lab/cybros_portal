@@ -19,7 +19,7 @@ zh-CN:
           contractname: "合同名称"
           profession: "专业"
           planning_output: "策划产值"
-          workhour_cost: "工时人力成本"
+          workhour_cost: "完成产值"
           unsign_hold_value: "业务保有量"
           output: "策划产值"
           milestone: "项目进度"
