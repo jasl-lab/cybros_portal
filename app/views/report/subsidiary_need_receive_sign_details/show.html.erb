@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="row">
+      <div class="col-lg-12" data-controller="subsidiary-need-receive-sign-details"
+        data-subsidiary-need-receive-sign-details-can_hide_item="<%= @can_hide_item -%>">
+        <% if @can_hide_item -%>
+          <%= form_tag report_subsidiary_need_receive_sign_detail_path, method: :get, class: 'form-inline' do -%>
+            <div class="form-group mx-2">
+              <%= check_box_tag 'show_hide_item', true, @show_hide_item, class: 'form-control' %>
+              <label class="mr-1"> <%= t(".show_hide_item") -%></label>
+            </div>
+            <div>
+              <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
+            </div>
+          <% end -%>
+        <% end %>
+        <table id="subsidiary-need-receive-sign-details-datatable"
+          class="table table-hover table-bordered table-responsive"
+          data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json, show_hide_item: @show_hide_item) %>">
+          <thead>
+            <tr>
+              <th><%= t(".table.org_name") -%></th>
+              <th><%= t(".table.dept_name") -%></th>
+              <th><%= t(".table.business_director_name") -%></th>
+              <th><%= t(".table.sales_contract_code") -%></th>
+              <th><%= t(".table.sales_contract_name") -%></th>
+              <th><%= t(".table.amount_total") -%></th>
+              <th><%= t(".table.contract_property_name") -%></th>
+              <th><%= t(".table.contract_time") -%></th>
+              <th><%= t(".table.sign_receive") -%></th>
+              <th><%= t(".table.over_amount") -%></th>
+              <% if @can_hide_item -%>
+                <th><%= t(".table.admin_action") -%></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

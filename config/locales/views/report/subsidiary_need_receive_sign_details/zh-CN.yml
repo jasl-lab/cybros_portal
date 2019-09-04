@@ -1,0 +1,20 @@
+---
+zh-CN:
+  report:
+    subsidiary_need_receive_sign_details:
+      show:
+        title: "已签约项目业务应收"
+        show_hide_item: "显示隐藏项目"
+        confirm: "确认"
+        table:
+          org_name: "商务责任公司"
+          dept_name: "商务责任部门"
+          business_director_name: "商务责任人"
+          sales_contract_code: "合同编号"
+          sales_contract_name: "合同名称"
+          amount_total: "合同额（单位：万元）"
+          contract_property_name: "合同性质"
+          contract_time: "归档日期"
+          sign_receive: "合同业务应收（万元）"
+          over_amount: "账龄3个月以上金额"
+          admin_action: "管理员操作"

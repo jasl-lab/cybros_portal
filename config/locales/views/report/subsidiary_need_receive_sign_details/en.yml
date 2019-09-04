@@ -1,0 +1,20 @@
+---
+en:
+  report:
+    subsidiary_need_receive_sign_details:
+      show:
+        title: "Subsidiary need receive sign detail"
+        show_hide_item: "Show hide item"
+        confirm: "Confirm"
+        table:
+          org_name: "Org name"
+          dept_name: "Dept name"
+          business_director_name: "Business director name"
+          sales_contract_code: "Sales contract code"
+          sales_contract_name: "Sales contract name"
+          amount_total: "Amount total"
+          contract_property_name: "Contract property name"
+          contract_time: "Contract time"
+          sign_receive: "Sign receive"
+          over_amount: "Over amount"
+          admin_action: "Admin action"
