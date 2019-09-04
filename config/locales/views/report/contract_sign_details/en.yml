@@ -3,7 +3,7 @@ en:
   report:
     contract_sign_details:
       show:
-        title: "Contract sign date detail"
+        title: "Archiving contract signing cycle"
         show_hide_item: "Show hide item"
         confirm: "Confirm"
         table:
