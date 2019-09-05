@@ -6,6 +6,8 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def initialize(params, opts = {})
     @contract_sign_detail_dates = opts[:contract_sign_detail_dates]
+    @beginning_of_month = opts[:beginning_of_month]
+    @end_of_month = opts[:end_of_month]
     @show_hide = opts[:show_hide]
     super
   end
@@ -58,6 +60,6 @@ class ContractSignDetailDatatable < ApplicationDatatable
       @contract_sign_detail_dates.where("NEED_HIDE = 1")
     else
       @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
-    end
+    end.where(contracttime: @beginning_of_month..@end_of_month)
   end
 end

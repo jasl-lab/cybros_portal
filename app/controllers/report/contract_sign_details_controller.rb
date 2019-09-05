@@ -7,6 +7,10 @@ class Report::ContractSignDetailsController < Report::BaseController
 
   def show
     authorize Bi::ContractSignDetailDate
+    @all_month_names = policy_scope(Bi::ContractSignDetailDate).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.last
+    @beginning_of_month = Date.parse(@month_name).beginning_of_month
+    @end_of_month = Date.parse(@month_name).end_of_month
     @can_hide_item = pundit_user.report_admin?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
@@ -16,6 +20,8 @@ class Report::ContractSignDetailsController < Report::BaseController
         contract_sign_detail_dates = policy_scope(Bi::ContractSignDetailDate)
         render json: ContractSignDetailDatatable.new(params,
           contract_sign_detail_dates: contract_sign_detail_dates,
+          beginning_of_month: @beginning_of_month,
+          end_of_month: @end_of_month,
           show_hide: @show_hide_item,
           view_context: view_context)
       end

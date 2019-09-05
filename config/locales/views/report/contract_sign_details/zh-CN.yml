@@ -4,6 +4,7 @@ zh-CN:
     contract_sign_details:
       show:
         title: "归档合同签约周期"
+        month_name: "查询年月"
         show_hide_item: "显示隐藏项目"
         confirm: "确认"
         table:
