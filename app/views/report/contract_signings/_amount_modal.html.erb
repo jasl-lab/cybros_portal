@@ -24,7 +24,7 @@
         <td><%= d.salescontractname -%></td>
         <td><%= d.moneytax.round(0) -%></td>
         <td><%= d.clientsname -%></td>
-        <td><%= Bi::ContractSignDetailDate.find_by(salescontractcode: d.salescontractcode)&.businessdirectorname -%></td>
+        <td><%= d.businessdirectorname -%></td>
       </tr>
     <% end %>
   </tbody>
