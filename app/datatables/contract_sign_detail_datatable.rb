@@ -15,7 +15,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
       org_name: { source: "Bi::ContractSignDetailDate.orgname", cond: :eq, searchable: true, orderable: true },
       dept_name: { source: "Bi::ContractSignDetailDate.deptname", cond: :eq, searchable: true, orderable: true },
       business_director_name: { source: "Bi::ContractSignDetailDate.businessdirectorname", cond: :eq, searchable: true, orderable: true },
-      sales_contract_code: { source: "Bi::ContractSignDetailDate.salescontractcode", cond: :eq, searchable: true, orderable: true },
+      sales_contract_code: { source: "Bi::ContractSignDetailDate.salescontractcode", cond: :like, searchable: true, orderable: true },
       sales_contract_name: { source: "Bi::ContractSignDetailDate.salescontractname", cond: :like, searchable: true, orderable: true },
       first_party_name: { source: "Bi::ContractSignDetailDate.firstpartyname", cond: :like, searchable: true, orderable: true },
       amount_total: { source: "Bi::ContractSignDetailDate.amounttotal", orderable: true },
