@@ -4,6 +4,7 @@ zh-CN:
     subsidiary_need_receive_unsign_details:
       show:
         title: "未签约项目业务应收"
+        month_name: "查询年月"
         show_hide_item: "显示隐藏项目"
         confirm: "确认"
         table:

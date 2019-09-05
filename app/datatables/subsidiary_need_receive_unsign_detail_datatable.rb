@@ -6,6 +6,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
 
   def initialize(params, opts = {})
     @subsidiary_need_receive_unsign_details = opts[:subsidiary_need_receive_unsign_details]
+    @end_of_date = opts[:end_of_date]
     @show_hide = opts[:show_hide]
     super
   end
@@ -52,7 +53,6 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       @subsidiary_need_receive_unsign_details.where("NEED_HIDE = 1")
     else
       @subsidiary_need_receive_unsign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
-    end.select(:orgname, :deptname, :projectmanagername, :projectitemcode, :projectitemname,
-      :createddate, :unsign_receive, :fdate, :mintimecardfill, :days_to_mintimecardfill).distinct
+    end.where(date: @end_of_date)
   end
 end
