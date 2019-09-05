@@ -6,6 +6,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def initialize(params, opts = {})
     @subsidiary_need_receive_sign_details = opts[:subsidiary_need_receive_sign_details]
+    @end_of_date = opts[:end_of_date]
     @show_hide = opts[:show_hide]
     super
   end
@@ -52,6 +53,6 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       @subsidiary_need_receive_sign_details.where("NEED_HIDE = 1")
     else
       @subsidiary_need_receive_sign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
-    end
+    end.where(date: @end_of_date)
   end
 end

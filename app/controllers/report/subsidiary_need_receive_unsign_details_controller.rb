@@ -10,7 +10,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
     @all_month_names = policy_scope(Bi::SubCompanyNeedReceiveUnsignDetail).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_date = policy_scope(Bi::SubCompanyNeedReceiveUnsignDetail)
-      .where("date <= ?", Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
+      .where(date: Date.parse(@month_name).beginning_of_month..Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
     @can_hide_item = pundit_user.report_admin?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
