@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    resource :name_card, only: %i[create]
+
     match "me" => "application#user_info", via: :options
+    match "sync_white_jwts" => "application#sync_white_jwts", via: :options
 
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]
@@ -136,10 +139,6 @@ Rails.application.routes.draw do
     end
     resources :name_card_black_titles, only: %i[index create]
     resources :name_card_white_titles, only: %i[index create]
-  end
-
-  namespace :api do
-    resource :name_card, only: %i[create]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {
