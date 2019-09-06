@@ -13,6 +13,7 @@ zh-CN:
         dept_names: "显示部门"
         confirm: "确认"
         table:
+          dept_name: "部门名称"
           projectitemcode_name: "项目编号及名称"
           projectitemcode: "项目编号"
           projectitemname: "项目名称"

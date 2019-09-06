@@ -13,6 +13,7 @@ en:
         dept_names: "Department names"
         confirm: "submit"
         table:
+          dept_name: "Department name"
           projectitemcode_name: "Project item code & name"
           projectitemcode: "Project item code"
           projectitemname: "Project item name"

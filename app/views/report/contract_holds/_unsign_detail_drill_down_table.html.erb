@@ -1,17 +1,25 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
+      <% if @view_deptcode_sum %>
+        <th width="10%"><%= t("report.contract_holds.show.table.dept_name") -%></th>
+      <% end %>
       <th width="20%"><%= t("report.contract_holds.show.table.projectitemcode_name") -%></th>
-      <th width="30%"><%= t("report.contract_holds.show.table.contractcode_name") -%></th>
+      <th width="26%"><%= t("report.contract_holds.show.table.contractcode_name") -%></th>
       <th width="10%"><%= t("report.contract_holds.show.table.profession") -%></th>
       <th width="10%"><%= t("report.contract_holds.show.table.planning_output") -%></th>
       <th width="10%"><%= t("report.contract_holds.show.table.workhour_cost") -%></th>
-      <th width="20%"><%= t("report.contract_holds.show.table.unsign_hold_value") -%></th>
+      <th width="14%"><%= t("report.contract_holds.show.table.unsign_hold_value") -%></th>
     </tr>
   </thead>
   <tbody>
     <% rows.each do |r| %>
       <tr>
+        <% if @view_deptcode_sum %>
+        <% long_name = Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
+           short_name = Bi::StaffCount.company_short_names.fetch(long_name, long_name) %>
+          <td><%= short_name -%></td>
+        <% end %>
         <td><%= r.projectitemcode -%><br /><%= r.projectitemname -%></td>
         <td><%= r.contractcode -%><br /><%= r.contractname -%></td>
         <td><%= r.profession -%></td>

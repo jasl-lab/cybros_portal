@@ -90,13 +90,13 @@ class Report::ContractHoldsController < Report::BaseController
   def unsign_detail_drill_down
     @department_name = params[:department_name]
     dept_code = params[:department_code]
-    view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
     @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail)
       .order(:projectitemcode)
-    @unsigned_data = if view_deptcode_sum
+    @unsigned_data = if @view_deptcode_sum
       @unsigned_data.where(date: last_available_date, deptcode_sum: dept_code)
     else
       @unsigned_data.where(date: last_available_date, deptcode: dept_code)
@@ -149,14 +149,14 @@ class Report::ContractHoldsController < Report::BaseController
   def sign_detail_drill_down
     @department_name = params[:department_name]
     dept_code = params[:department_code]
-    view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @drill_down_subtitle = t(".subtitle")
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
     @signed_data = policy_scope(Bi::ContractHoldSignDetail)
       .where("sign_hold_value > 0")
       .order(:projectitemcode)
-    @signed_data = if view_deptcode_sum
+    @signed_data = if @view_deptcode_sum
       @signed_data.where(date: last_available_date, deptcode_sum: dept_code)
     else
       @signed_data.where(date: last_available_date, deptcode: dept_code)
