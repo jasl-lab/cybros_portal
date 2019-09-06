@@ -4,6 +4,7 @@ zh-CN:
     contract_holds:
       show:
         actions:
+          view_deptcode_sum: "显示汇总部门"
           export_unsign_detail: "导出未签约明细"
           export_sign_detail: "导出已签约明细"
         title: "业务保有量"

@@ -12,16 +12,38 @@ class Report::ContractHoldsController < Report::BaseController
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
     @dept_options = params[:depts]
+    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date)
       .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = CONTRACT_HOLD.deptcode")
-      .select("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
-      .group("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
       .order("SH_REPORT_DEPT_ORDER.dept_asc")
 
-    @dept_options = data.pluck("CONTRACT_HOLD.deptcode") if @dept_options.blank?
-    data = data.where("CONTRACT_HOLD.deptcode": @dept_options)
+    data = if @view_deptcode_sum
+      data.select("CONTRACT_HOLD.deptcode_sum deptcode, SH_REPORT_DEPT_ORDER.dept_asc, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
+        .group("CONTRACT_HOLD.deptcode_sum, SH_REPORT_DEPT_ORDER.dept_asc")
+    else
+      data.select("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
+        .group("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
+    end
+
+    @dept_options = if @dept_options.blank? && @view_deptcode_sum
+      data_sum = policy_scope(Bi::ContractHold).where(date: @last_available_date)
+      h_deptcodes = data_sum.where("deptcode_sum like 'H%'").pluck(:deptcode_sum)
+      belongs_to_h_deptcodes = data_sum.where(deptcode_sum: h_deptcodes).pluck(:deptcode)
+      data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
+    elsif @dept_options.blank?
+      data.pluck("CONTRACT_HOLD.deptcode")
+    else
+      @dept_options
+    end
+
+    data = if @view_deptcode_sum
+      data.where("CONTRACT_HOLD.deptcode_sum": @dept_options)
+    else
+      data.where("CONTRACT_HOLD.deptcode": @dept_options)
+    end
+
     @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
 
     @deptnames_in_order = @only_have_data_dept.collect do |c|
