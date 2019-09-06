@@ -5,6 +5,10 @@
           report_contract_hold_path(month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
+      <%= link_to t('.actions.view_deptcode'),
+          report_contract_hold_path(month_name: @month_name), class: 'btn text-primary' %>
+    </li>
+    <li class="action_bar-item">
       <%= link_to t('.actions.export_unsign_detail'), export_unsign_detail_report_contract_hold_path(month_name: @month_name, format: :csv), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">

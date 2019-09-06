@@ -16,14 +16,15 @@ class Report::ContractHoldsController < Report::BaseController
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date)
-      .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = CONTRACT_HOLD.deptcode")
       .order("SH_REPORT_DEPT_ORDER.dept_asc")
 
     data = if @view_deptcode_sum
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, SH_REPORT_DEPT_ORDER.dept_asc, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
+        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = CONTRACT_HOLD.deptcode_sum")
         .group("CONTRACT_HOLD.deptcode_sum, SH_REPORT_DEPT_ORDER.dept_asc")
     else
       data.select("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
+        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = CONTRACT_HOLD.deptcode")
         .group("CONTRACT_HOLD.deptcode, SH_REPORT_DEPT_ORDER.dept_asc")
     end
 

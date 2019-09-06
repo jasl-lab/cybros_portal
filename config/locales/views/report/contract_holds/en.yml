@@ -5,6 +5,7 @@ en:
       show:
         actions:
           view_deptcode_sum: "View department in sum"
+          view_deptcode: "View department in detail"
           export_unsign_detail: "Export unsign detail"
           export_sign_detail: "Export sign detail"
         title: "Business retent contract and no contract"
