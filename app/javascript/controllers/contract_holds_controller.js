@@ -177,8 +177,9 @@ export default class extends Controller {
         if (params.seriesType === 'bar') {
           const department_name = xAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
+          const view_deptcode_sum = $('#view_deptcode_sum').val();
           const department_code = deptCode[params.dataIndex];
-          const sent_data = { department_name, month_name, department_code};
+          const sent_data = { department_name, month_name, department_code, view_deptcode_sum};
           let drill_down_url;
           switch (params.seriesName) {
             case '已签约的业务保有量（万元）':
