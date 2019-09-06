@@ -162,6 +162,7 @@ export default class extends Controller {
         itemStyle: {
           color: '#334B5C'
         },
+        barMaxWidth: 90,
         label: {
           normal: {
             show: true,
