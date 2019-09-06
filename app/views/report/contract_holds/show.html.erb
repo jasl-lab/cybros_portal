@@ -75,7 +75,7 @@
               <th scope="row" class="col-1">平均人数</th>
               <% @dept_avg_staff.each do |staff_count| %>
                 <% total_staff_num += (staff_count || 0) %>
-                <td class="col-1"><%= staff_count.round(0) -%></td>
+                <td class="col-1"><%= staff_count&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
