@@ -83,7 +83,7 @@
       <% end %>
       <% if current_user.present? && policy(Bi::ContractHold).show? %>
         <%= nav_item controller: 'report/contract_holds', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_contract_hold_path, class: "nav-link" do %>
+          <%= link_to report_contract_hold_path(view_deptcode_sum: true), class: "nav-link" do %>
             <i class="nav-icon fas fa-business-time"></i>
             <%= t("layouts.sidebar.operation.contract_hold") %>
           <% end %>

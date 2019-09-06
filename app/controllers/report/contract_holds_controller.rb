@@ -223,7 +223,7 @@ class Report::ContractHoldsController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.contract_hold"),
-        link: report_contract_hold_path }]
+        link: report_contract_hold_path(view_deptcode_sum: true) }]
     end
 
     def set_page_layout_data
