@@ -9,7 +9,7 @@ module Bi
     end
 
     def self.person_count_by_department(target_date)
-      deps = where(date: target_date)
+      deps = where(date: target_date).where("SH_REFRESH_RATE.orgcode IS NOT NULL")
         .select('deptcode, count(work_no) work_no')
         .group(:deptcode).order(deptcode: :asc)
       @_person_count_by_department = deps.reduce({}) do |h, s|
@@ -19,7 +19,7 @@ module Bi
     end
 
     def self.person_by_department_in_sh(target_date, show_all_dept = false)
-      lad = where(date: target_date)
+      lad = where(date: target_date).where("SH_REFRESH_RATE.orgcode IS NOT NULL")
       lad = lad.where(deptcode: Bi::ShReportDeptOrder.all_deptcodes_in_order) unless show_all_dept
       lad = lad.joins("LEFT JOIN SH_REPORT_DEPT_ORDER ON SH_REPORT_DEPT_ORDER.deptcode = SH_REFRESH_RATE.deptcode")
         .order('SH_REPORT_DEPT_ORDER.dept_asc')
