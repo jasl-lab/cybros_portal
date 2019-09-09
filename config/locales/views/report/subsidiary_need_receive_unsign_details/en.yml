@@ -6,6 +6,7 @@ en:
         title: "Subsidiary need receive unsign detail"
         month_name: "Month Name"
         unsign_receive_great_than: "Unsigned receive greater than"
+        days_to_min_timecard_fill_great_than: "Days to min timecard fill greater than"
         show_hide_item: "Show hide item"
         confirm: "Confirm"
         table:
