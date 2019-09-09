@@ -5,6 +5,7 @@ en:
       show:
         title: "Subsidiary need receive unsign detail"
         month_name: "Month Name"
+        unsign_receive_great_than: "Unsigned receive greater than"
         show_hide_item: "Show hide item"
         confirm: "Confirm"
         table:

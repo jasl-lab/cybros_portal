@@ -5,6 +5,7 @@ zh-CN:
       show:
         title: "未签约项目业务应收"
         month_name: "查询年月"
+        unsign_receive_great_than: "业务应收（未签约）大于"
         show_hide_item: "显示隐藏项目"
         confirm: "确认"
         table:

@@ -11,6 +11,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_date = policy_scope(Bi::SubCompanyNeedReceiveUnsignDetail)
       .where(date: Date.parse(@month_name).beginning_of_month..Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
+    @unsign_receive_great_than = params[:unsign_receive_great_than] || 100_0000
     @can_hide_item = pundit_user.report_admin?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
@@ -21,6 +22,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
         render json: SubsidiaryNeedReceiveUnsignDetailDatatable.new(params,
           subsidiary_need_receive_unsign_details: subsidiary_need_receive_unsign_details,
           end_of_date: @end_of_date,
+          unsign_receive_great_than: @unsign_receive_great_than.to_i,
           show_hide: @show_hide_item,
           view_context: view_context)
       end
