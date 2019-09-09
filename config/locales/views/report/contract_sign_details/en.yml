@@ -5,6 +5,7 @@ en:
       show:
         title: "Archiving contract signing cycle"
         month_name: "Month Name"
+        date_1_great_than: "Date 1 greater than"
         show_hide_item: "Show hide item"
         confirm: "Confirm"
         table:

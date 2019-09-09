@@ -8,6 +8,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
     @contract_sign_detail_dates = opts[:contract_sign_detail_dates]
     @beginning_of_month = opts[:beginning_of_month]
     @end_of_month = opts[:end_of_month]
+    @date_1_great_than = opts[:date_1_great_than]
     @show_hide = opts[:show_hide]
     super
   end
@@ -56,10 +57,12 @@ class ContractSignDetailDatatable < ApplicationDatatable
   end
 
   def get_raw_records
-    if @show_hide
+    rr = if @show_hide
       @contract_sign_detail_dates.where("NEED_HIDE = 1")
     else
       @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
     end.where(contracttime: @beginning_of_month..@end_of_month)
+    rr = rr.where("date1 > ?", @date_1_great_than) unless @date_1_great_than.zero?
+    rr
   end
 end

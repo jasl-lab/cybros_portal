@@ -11,6 +11,7 @@ class Report::ContractSignDetailsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @beginning_of_month = Date.parse(@month_name).beginning_of_month
     @end_of_month = Date.parse(@month_name).end_of_month
+    @date_1_great_than = params[:date_1_great_than] || 100
     @can_hide_item = pundit_user.report_admin?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
@@ -22,6 +23,7 @@ class Report::ContractSignDetailsController < Report::BaseController
           contract_sign_detail_dates: contract_sign_detail_dates,
           beginning_of_month: @beginning_of_month,
           end_of_month: @end_of_month,
+          date_1_great_than: @date_1_great_than.to_i,
           show_hide: @show_hide_item,
           view_context: view_context)
       end
