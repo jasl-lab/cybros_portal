@@ -6,6 +6,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def initialize(params, opts = {})
     @subsidiary_need_receive_sign_details = opts[:subsidiary_need_receive_sign_details]
+    @sign_receive_great_than = opts[:sign_receive_great_than]
     @end_of_date = opts[:end_of_date]
     @show_hide = opts[:show_hide]
     super
@@ -49,10 +50,12 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
   end
 
   def get_raw_records
-    if @show_hide
+    rr = if @show_hide
       @subsidiary_need_receive_sign_details.where("NEED_HIDE = 1")
     else
       @subsidiary_need_receive_sign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
     end.where(date: @end_of_date)
+    rr = rr.where("sign_receive > ?", @sign_receive_great_than) unless @sign_receive_great_than.zero?
+    rr
   end
 end
