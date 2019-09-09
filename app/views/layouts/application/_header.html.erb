@@ -5,7 +5,7 @@
     </button>
   <% end %>
   <%= link_to root_path, class: "navbar-brand" do %>
-    <%= t("layouts.header.brand") %>
+    <%= image_pack_tag "tianhua_logo.png" -%>
   <% end %>
   <ul class="nav navbar-nav ml-auto">
     <% if current_user.present? %>
