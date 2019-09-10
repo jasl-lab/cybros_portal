@@ -101,6 +101,8 @@ class Admin::UsersController < Admin::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.fetch(:user, {}).permit(:email, :position_title, :clerk_code, :chinese_name, :password, :password_confirmation)
+      params.fetch(:user, {})
+        .permit(:email, :position_title, :clerk_code, :chinese_name,
+                :password, :password_confirmation, role_ids: [])
     end
 end

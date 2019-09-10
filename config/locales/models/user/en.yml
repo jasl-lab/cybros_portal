@@ -5,6 +5,7 @@ en:
     attributes:
       user:
         current_password: "Current password"
+        roles: "Roles"
         email: "Email"
         position_title: "Position title"
         clerk_code: "Clerk code"

@@ -5,6 +5,7 @@ zh-CN:
     attributes:
       user:
         current_password: "当前密码"
+        roles: "角色"
         email: "Email"
         position_title: "职位"
         clerk_code: "员工号"

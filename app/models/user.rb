@@ -61,6 +61,26 @@ class User < ApplicationRecord
     %(曾嵘 王玥 冯巧容).include?(chinese_name) || admin?
   end
 
+  def role_ids
+    @_role_ids ||= roles.pluck(:id)
+  end
+
+  def role_ids=(values)
+    select_values = values.reject(&:blank?).map(&:to_i)
+    if new_record?
+      (select_values - role_ids).each do |to_new_id|
+        role_users.build(role_id: to_new_id)
+      end
+    else
+      (role_ids - select_values).each do |to_destroy_id|
+        role_users.find_by(role_id: to_destroy_id).destroy
+      end
+      (select_values - role_ids).each do |to_add_id|
+        role_users.create(role_id: to_add_id)
+      end
+    end
+  end
+
   def user_company_names
     @belongs_to_company_names ||= departments.collect(&:company_name)
   end
