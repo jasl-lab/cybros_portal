@@ -2,7 +2,7 @@ module Company
   class PendingQuestionPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        if user.knowledge_maintainer?
+        if user.roles.pluck(:knowledge_maintainer).any? || user.admin?
           scope.all
         else
           scope.where(owner_id: user.id)
@@ -15,15 +15,15 @@ module Company
     end
 
     def create?
-      user.knowledge_maintainer?
+      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
     end
 
     def update?
-      user.knowledge_maintainer?
+      create?
     end
 
     def destroy?
-      user.knowledge_maintainer?
+      create?
     end
   end
 end

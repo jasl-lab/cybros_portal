@@ -1,6 +1,5 @@
 module Company
   class Knowledge < ApplicationRecord
-    KNOWLEDGE_MAINTAINER = %w(忻琳 聂玲玲 冯可 季建杰 柳怡帆 吴婷 郑贤来 邢侃 袁士捷 张雨 龙默涵 杨琼 季建杰 龚筑媛 吴冬丹 王婷玉 高於 冷文欣 周萍).freeze
     attr_accessor :q_user_id
 
     NO_ANSWER_FOUND_1 = %w(我还小~还不知道呢 你。。。你问到我了 嗯，这个问题有意思).freeze
@@ -60,11 +59,9 @@ module Company
     end
 
     def self.knowledge_maintainers
-      @knowledge_maintainers ||= KNOWLEDGE_MAINTAINER.collect do |name|
-        user = User.find_by(chinese_name: name)
-        next if user.blank?
-        [name, user.id]
-      end.reject(&:blank?)
+      @knowledge_maintainers ||= Role.find_by(role_name: "知识库维护").users.collect do |user|
+        [user.chinese_name, user.id]
+      end
     end
 
     def self.no_answer_content

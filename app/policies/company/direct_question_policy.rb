@@ -5,11 +5,11 @@ module Company
     end
 
     def create?
-      user.knowledge_maintainer?
+      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
     end
 
     def destroy?
-      user.knowledge_maintainer?
+      create?
     end
   end
 end

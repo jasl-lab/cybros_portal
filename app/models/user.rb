@@ -49,10 +49,6 @@ class User < ApplicationRecord
     allowlisted_jwts.where("exp <= ?", Time.now)
   end
 
-  def knowledge_maintainer?
-    Company::Knowledge::KNOWLEDGE_MAINTAINER.include?(chinese_name) || admin?
-  end
-
   def role_ids
     @_role_ids ||= roles.pluck(:id)
   end

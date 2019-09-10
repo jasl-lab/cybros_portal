@@ -31,7 +31,7 @@ module Company
     end
 
     def create?
-      user.knowledge_maintainer?
+      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
     end
 
     def edit?
@@ -47,11 +47,11 @@ module Company
     end
 
     def update?
-      user.knowledge_maintainer?
+      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
     end
 
     def destroy?
-      user.admin? || user.email == 'chenzifan@thape.com.cn'
+      user.admin?
     end
   end
 end
