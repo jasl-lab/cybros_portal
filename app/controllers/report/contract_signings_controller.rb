@@ -61,11 +61,23 @@ class Report::ContractSigningsController < Report::BaseController
       mean.nan? ? 0 : mean.round(0)
     end
     @avg_period_mean_max = @avg_period_mean.max.round(-1)
-    @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(2)
+    @sum_contract_amounts = if @short_company_name.present?
+      (@contract_amounts.sum / 10000.to_f).round(2)
+    else
+      (policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+        .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first.sum_contract_amounts / 10000.to_f).round(2)
+    end
     contract_period = @data.collect { |d| d.sum_contract_period.to_f }
     contract_count = @data.collect { |d| d.sum_contract_amount_count.to_f }
-    @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
-
+    @sum_avg_period_mean = if @short_company_name.present?
+      (contract_period.sum / contract_count.sum).round(0)
+    else
+      df = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+        .select("SUM(contract_period) one_sum_contract_period, SUM(count) one_sum_contract_amount_count").first
+      one_sum_contract_period = df.one_sum_contract_period
+      one_sum_contract_amount_count = df.one_sum_contract_amount_count
+      (one_sum_contract_period / one_sum_contract_amount_count).round(0)
+    end
     @contract_amounts_per_staff = []
     @contract_amounts.each_with_index do |contract_amount, index|
       if @short_company_name.present?
