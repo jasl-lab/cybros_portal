@@ -35,8 +35,9 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where("realdate <= ?", @end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
 
-    @need_data = policy_scope(Bi::SubCompanyNeedReceive) \
-      # should add .where('date <= ?', @end_of_month), but date is refresh date
+    need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
+    @need_data = policy_scope(Bi::SubCompanyNeedReceive)
+      .where(date: need_data_last_available_date)
       .select("orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
       .group(:orgcode, :org_order)
@@ -50,7 +51,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_short_account_receives = @need_data.collect { |d| ((d.short_account_receive || 0) / 10000.0).round(0) }
     @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0).round(0) }
 
-    fix_need_data = policy_scope(Bi::SubCompanyNeedReceive)
+    fix_need_data = policy_scope(Bi::SubCompanyNeedReceive).where(date: need_data_last_available_date)
       .select("SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive").first
     @fix_need_long_account_receives = (fix_need_data.long_account_receive / 10000.0).round(0)
     @fix_need_short_account_receives = (fix_need_data.short_account_receive / 10000.0).round(0)
