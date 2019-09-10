@@ -4,7 +4,7 @@ module Bi
   class ContractSignDetailDatePolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user&.report_viewer? || user&.report_admin?
+        if user.present? && (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?)
           scope.all
         else
           scope.where(orgname: user.departments.pluck(:company_name))
@@ -17,11 +17,12 @@ module Bi
     end
 
     def hide?
-      user&.report_viewer?
+      return false unless user.present?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?
     end
 
     def un_hide?
-      user&.report_viewer?
+      hide?
     end
   end
 end

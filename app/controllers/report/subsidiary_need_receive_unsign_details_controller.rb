@@ -13,7 +13,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
       .where(date: Date.parse(@month_name).beginning_of_month..Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
     @unsign_receive_great_than = params[:unsign_receive_great_than] || 100_0000
     @days_to_min_timecard_fill_great_than = params[:days_to_min_timecard_fill_great_than] || 100
-    @can_hide_item = pundit_user.report_admin?
+    @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
     respond_to do |format|

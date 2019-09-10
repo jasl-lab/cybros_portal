@@ -4,7 +4,7 @@ role_report_viewer:
   report_viewer: true
 
 role_report_reviewer:
-  role_name: 报表复查
+  role_name: 报表编辑
   report_viewer: true
   report_reviewer: true
 

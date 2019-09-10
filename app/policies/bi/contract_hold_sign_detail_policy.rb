@@ -3,11 +3,13 @@
 module Bi
   class ContractHoldSignDetailPolicy < BasePolicy
     def show?
-      user&.report_viewer? || user&.report_admin?
+      return false unless user.present?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?
     end
 
     def export_sign_detail?
-      user&.report_viewer? || user&.report_admin?
+      return false unless user.present?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?
     end
   end
 end
