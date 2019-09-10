@@ -1,0 +1,13 @@
+---
+role_report_viewer:
+  role_name: 报表查看
+  report_viewer: true
+
+role_report_reviewer:
+  role_name: 报表复查
+  report_viewer: true
+  report_reviewer: true
+
+role_knowledge_maintainer:
+  role_name: 知识库维护
+  knowledge_maintainer: true

@@ -1,0 +1,8 @@
+---
+role_user_eric_report_reviewer:
+  role: role_report_reviewer
+  user_id: 1
+
+role_user_eric_knowledge_maintainer:
+  role: role_knowledge_maintainer
+  user_id: 1

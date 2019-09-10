@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   scope :active, -> { where(locked_at: nil) }
 
+  has_many :role_users, dependent: :destroy
+  has_many :roles, through: :role_users
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
   has_many :name_card_applies, dependent: :restrict_with_error
