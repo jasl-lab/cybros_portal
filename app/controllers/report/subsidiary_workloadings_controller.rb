@@ -49,7 +49,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     end
 
     @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
-    @day_rate_ref = params[:day_rate_ref] || 90
+    @day_rate_ref = params[:day_rate_ref] || 95
 
     @planning_day_rate = blue_print_data.collect { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 }
     @planning_day_rate_ref = params[:planning_day_rate_ref] || 95
