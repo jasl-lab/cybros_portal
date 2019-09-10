@@ -100,6 +100,9 @@ export default class extends Controller {
     };
 
     var need_option = {
+        title: {
+          text: '应收款（财务+业务）'
+        },
         legend: {
             data: ['超长帐龄','扣除超长帐龄以外的财务应收','业务应收款'],
             align: 'left'
@@ -137,7 +140,6 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
-          name: '应收款（万元）',
           position: 'left',
           axisLabel: {
             formatter: '{value}万'
