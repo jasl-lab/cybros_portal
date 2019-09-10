@@ -17,7 +17,7 @@ var completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_y
 
 var option_total = {
     legend: {
-        data: ['累计完成产值（百万元）','预计全年完成产值（百万元）'],
+        data: ['累计本年完成产值（百万元）','预计全年完成产值（百万元）'],
         align: 'left'
     },
     tooltip: {
@@ -56,7 +56,7 @@ var option_total = {
       name: '累计完成产值（百万元）',
       position: 'left',
       axisLabel: {
-        formatter: '{value}万'
+        formatter: '{value}百万'
       }
     }],
     series: [{
@@ -67,9 +67,16 @@ var option_total = {
       data: completeValueYearTotals,
       itemStyle: {
         color: '#DDDDDD'
+      },
+      label: {
+        normal: {
+          show: true,
+          position: 'top',
+          color: '#666666'
+        }
       }
     },{
-      name: '累计完成产值（百万元）',
+      name: '累计本年完成产值（百万元）',
       type: 'bar',
       stack: '总量',
       data: completeValueTotals,
@@ -79,7 +86,7 @@ var option_total = {
       label: {
         normal: {
           show: true,
-          position: 'insideTop'
+          position: 'inside'
         }
       }
     },{
@@ -93,7 +100,7 @@ var option_total = {
       label: {
         normal: {
           show: true,
-          position: 'top',
+          position: 'inside',
           color: '#353535'
         }
       }
@@ -102,7 +109,7 @@ var option_total = {
 
 var option_staff = {
     legend: {
-        data: ['人均完成产值（万元）','预计全年人均完成产值（万元）'],
+        data: ['累计本年人均完成产值（万元）','预计全年人均完成产值（万元）'],
         align: 'left'
     },
     tooltip: {
@@ -115,7 +122,7 @@ var option_staff = {
       left: 70,
       right: 110,
       top: 50,
-      bottom: 60
+      bottom: 80
     },
     toolbox: {
       feature: {
@@ -127,6 +134,7 @@ var option_staff = {
     },
     xAxis: {
       data: xAxisData,
+      offset: 16,
       silent: true,
       axisLabel: {
         interval: 0,
@@ -145,7 +153,7 @@ var option_staff = {
       }
     }],
     series: [{
-      name: '人均完成产值（万元）',
+      name: '累计本年人均完成产值（万元）',
       type: 'bar',
       stack: '人均',
       data: completeValueTotalsPerStaff,

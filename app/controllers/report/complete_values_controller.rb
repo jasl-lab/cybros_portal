@@ -19,16 +19,15 @@ class Report::CompleteValuesController < Report::BaseController
       .group(:orgcode, :org_order)
       .having("SUM(total) > 0")
       .order("ORG_ORDER.org_order DESC")
-    @data = @data.where.not(orgcode: "000101") unless @show_shanghai_hq
-    @all_company_names = @data.collect(&:orgcode).collect do |c|
+    all_company_names = @data.collect(&:orgcode).collect do |c|
       Bi::PkCodeName.mapping2orgcode.fetch(c, c)
     end
-    @all_company_short_names = @all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @complete_value_totals = @data.collect { |d| (d.sum_total / 1000000.0).round(0) }
-    @sum_complete_value_totals = (@complete_value_totals.sum / 100.0).round(1)
+    @all_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @complete_value_totals = @data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
+    @fix_sum_complete_value_totals = (Bi::CompleteValue.where("date <= ?", @end_of_month).select("SUM(total) sum_total").first.sum_total / 100000000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
-    @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
+    @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @complete_value_totals_per_staff = @data.collect do |d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
@@ -36,9 +35,17 @@ class Report::CompleteValuesController < Report::BaseController
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
-    @avg_complete_value_totals_per_staff = (@complete_value_totals_per_staff.sum.to_f / @complete_value_totals_per_staff.size).round(0)
+    @fix_avg_complete_value_totals_per_staff = (@complete_value_totals_per_staff.sum.to_f / @complete_value_totals_per_staff.size).round(0)
     @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
-    @avg_complete_value_year_totals_per_staff = (@complete_value_year_totals_per_staff.sum.to_f / @complete_value_year_totals_per_staff.size).round(0)
+    @fix_avg_complete_value_year_totals_per_staff = (@complete_value_year_totals_per_staff.sum.to_f / @complete_value_year_totals_per_staff.size).round(0)
+    unless @show_shanghai_hq
+      @all_company_short_names = @all_company_short_names[1..]
+      @complete_value_totals = @complete_value_totals[1..]
+      @complete_value_year_totals = @complete_value_year_totals[1..]
+      @complete_value_year_totals_remain = @complete_value_year_totals_remain[1..]
+      @complete_value_totals_per_staff = @complete_value_totals_per_staff[1..]
+      @complete_value_year_totals_per_staff = @complete_value_year_totals_per_staff[1..]
+    end
   end
 
   private

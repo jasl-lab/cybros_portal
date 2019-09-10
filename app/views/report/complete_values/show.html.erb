@@ -24,8 +24,8 @@
     <% end -%>
     <div class="row">
       <div class="col-lg-12 p-2">
-        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,集团累计完成产值 <span style="color:red"><%= @sum_complete_value_totals -%> 亿元</span>，全年人均产值 <span style="color:red"><%= @avg_complete_value_totals_per_staff -%> 万元</span>；</h5>
-        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,集团预计全年完成产值 <span style="color:red"><%= @sum_complete_value_year_totals -%> 亿元</span>，预计全年人均产值 <span style="color:red"><%= @avg_complete_value_year_totals_per_staff -%> 万元</span>。</h5>
+        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,集团本年累计完成产值 <span style="color:red"><%= @fix_sum_complete_value_totals -%> 亿元</span>，累计本年人均完成产值 <span style="color:red"><%= @fix_avg_complete_value_totals_per_staff -%> 万元</span>；</h5>
+        <h5 class="text-center">集团预计全年完成产值 <span style="color:red"><%= @fix_sum_complete_value_year_totals -%> 亿元</span>，预计全年人均完成产值 <span style="color:red"><%= @fix_avg_complete_value_year_totals_per_staff -%> 万元</span>。</h5>
       </div>
     </div>
     <div class="row">
@@ -55,12 +55,12 @@
               <th scope="row" class="col-1">人数</th>
               <% @all_company_short_names.each do |short_company_name| %>
                 <% total_staff_num += (@staff_per_company[short_company_name] || 0) %>
-                <td class="col-1"><%= @staff_per_company[short_company_name] -%></td>
+                <td class="col-1"><%= @staff_per_company[short_company_name]&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
         </table>
-        <h6>表格上的总人数：<%= total_staff_num -%></h6>
+        <h6>表格上的总人数：<%= total_staff_num.round(0) -%></h6>
       </div>
     </div>
   </div>
