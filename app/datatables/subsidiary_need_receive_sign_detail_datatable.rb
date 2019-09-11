@@ -14,12 +14,12 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.orgname", cond: :eq, searchable: true, orderable: true },
-      dept_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.deptname", cond: :eq, searchable: true, orderable: true },
-      business_director_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname", cond: :like, searchable: true, orderable: true },
-      sales_contract_code: { source: "Bi::SubCompanyNeedReceiveSignDetail.salescontractcode", cond: :like, searchable: true, orderable: true },
+      org_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.orgname", cond: :like, searchable: true, orderable: true },
+      dept_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
+      business_director_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
+      sales_contract_code: { source: "Bi::SubCompanyNeedReceiveSignDetail.salescontractcode", cond: :string_eq, searchable: true, orderable: true },
       sales_contract_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.salescontractname", cond: :like, searchable: true, orderable: true },
-      amount_total: { source: "Bi::SubCompanyNeedReceiveSignDetail.amounttotal", cond: :eq, searchable: true, orderable: true },
+      amount_total: { source: "Bi::SubCompanyNeedReceiveSignDetail.amounttotal", cond: :gteq, searchable: true, orderable: true },
       contract_property_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname", orderable: true },
       contract_time: { source: "Bi::SubCompanyNeedReceiveSignDetail.contracttime", orderable: true },
       sign_receive: { source: "Bi::SubCompanyNeedReceiveSignDetail.sign_receive", orderable: true },

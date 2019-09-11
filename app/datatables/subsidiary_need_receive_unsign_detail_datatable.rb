@@ -15,12 +15,12 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.orgname", cond: :eq, searchable: true, orderable: true },
-      dept_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.deptname", cond: :eq, searchable: true, orderable: true },
-      project_manager_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectmanagername", cond: :like, searchable: true, orderable: true },
-      project_item_code: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemcode", cond: :like, searchable: true, orderable: true },
+      org_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.orgname", cond: :like, searchable: true, orderable: true },
+      dept_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
+      project_manager_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectmanagername", cond: :string_eq, searchable: true, orderable: true },
+      project_item_code: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemcode", cond: :string_eq, searchable: true, orderable: true },
       project_item_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemname", cond: :like, searchable: true, orderable: true },
-      created_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.createddate", cond: :eq, searchable: true, orderable: true },
+      created_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.createddate", cond: :string_eq, searchable: true, orderable: true },
       unsign_receive: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.unsign_receive", orderable: true },
       f_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.fdate", orderable: true },
       min_timecard_fill: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.mintimecardfill", orderable: true },

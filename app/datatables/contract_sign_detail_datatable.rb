@@ -15,18 +15,18 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::ContractSignDetailDate.orgname", cond: :eq, searchable: true, orderable: true },
-      dept_name: { source: "Bi::ContractSignDetailDate.deptname", cond: :eq, searchable: true, orderable: true },
-      business_director_name: { source: "Bi::ContractSignDetailDate.businessdirectorname", cond: :eq, searchable: true, orderable: true },
+      org_name: { source: "Bi::ContractSignDetailDate.orgname", cond: :like, searchable: true, orderable: true },
+      dept_name: { source: "Bi::ContractSignDetailDate.deptname", cond: :string_eq, searchable: true, orderable: true },
+      business_director_name: { source: "Bi::ContractSignDetailDate.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
       sales_contract_code_name: { source: "Bi::ContractSignDetailDate.salescontractname", cond: :like, searchable: true, orderable: true },
       first_party_name: { source: "Bi::ContractSignDetailDate.firstpartyname", cond: :like, searchable: true, orderable: true },
-      amount_total: { source: "Bi::ContractSignDetailDate.amounttotal", orderable: true },
+      amount_total: { source: "Bi::ContractSignDetailDate.amounttotal", cond: :gteq, orderable: true },
       date_1: { source: "Bi::ContractSignDetailDate.date1", orderable: true },
       date_2: { source: "Bi::ContractSignDetailDate.date2", orderable: true },
       contract_time: { source: "Bi::ContractSignDetailDate.contracttime", orderable: true },
       min_timecard_fill: { source: "Bi::ContractSignDetailDate.mintimecardfill", orderable: true },
       min_date_hrcost_amount: { source: "Bi::ContractSignDetailDate.mindatehrcostamount", orderable: true },
-      project_type: { source: "Bi::ContractSignDetailDate.projecttype", cond: :eq, searchable: true, orderable: true },
+      project_type: { source: "Bi::ContractSignDetailDate.projecttype", cond: :string_eq, searchable: true, orderable: true },
       admin_action: { source: nil, searchable: false, orderable: false }
     }
   end
