@@ -88,7 +88,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
       complete_value = complete_value_hash.fetch(short_name, 100000)
-      ((d.real_receive / complete_value.to_f) * 100).round(0)
+      if complete_value % 1 == 0
+        0
+      else
+        ((d.real_receive / complete_value.to_f) * 100).round(0)
+      end
     end
   end
 
