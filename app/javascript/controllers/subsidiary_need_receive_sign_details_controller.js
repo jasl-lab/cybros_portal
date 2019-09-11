@@ -22,6 +22,7 @@ export default class extends Controller {
     $('#subsidiary-need-receive-sign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "autoWidth": false,
       "ajax": $('#subsidiary-need-receive-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": (canHideItem ? adminColumns : normalColumns),

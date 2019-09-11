@@ -24,6 +24,7 @@ export default class extends Controller {
     $('#contract-sign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "autoWidth": false,
       "ajax": $('#contract-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": (canHideItem ? adminColumns : normalColumns),
