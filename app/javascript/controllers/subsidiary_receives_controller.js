@@ -49,11 +49,11 @@ export default class extends Controller {
           text: '本年累计实收款'
         },
         legend: {
-            data: ['本年累计实收款（万元）'],
+            data: ['本年累计实收款（百万元）'],
             align: 'left'
         },
         grid: {
-          left: 50,
+          left: 70,
           right: 110,
           top: 60,
           bottom: 125
@@ -81,11 +81,12 @@ export default class extends Controller {
         yAxis: {
           axisLabel: {
             show: true,
-            interval: 'auto'
+            interval: 'auto',
+            formatter: '{value}百万'
           }
         },
         series: [{
-          name: '本年累计实收款（万元）',
+          name: '本年累计实收款（百万元）',
           type: 'bar',
           data: realReceives,
           color: '#738496',
@@ -142,7 +143,7 @@ export default class extends Controller {
           type: 'value',
           position: 'left',
           axisLabel: {
-            formatter: '{value}万'
+            formatter: '{value}百万'
           }
         }],
         series: [{
@@ -227,7 +228,8 @@ export default class extends Controller {
         yAxis: {
           axisLabel: {
             show: true,
-            interval: 'auto'
+            interval: 'auto',
+            formatter: '{value}万'
           }
         },
         series: [{
@@ -284,7 +286,8 @@ export default class extends Controller {
           interval: Math.ceil(20 / 5),
           axisLabel: {
             show: true,
-            interval: 'auto'
+            interval: 'auto',
+            formatter: '{value}万'
           }
         },{
           type: 'value',

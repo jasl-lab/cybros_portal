@@ -31,7 +31,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     @real_data = real_data.where(orgcode: @orgs_options)
     @real_company_short_names = @real_data.collect { |r| Bi::StaffCount.company_short_names_by_orgcode(@end_of_month).fetch(r.orgcode, r.orgcode) }
-    @real_receives = @real_data.collect { |d| (d.real_receive / 10000.0).round(0) }
+    @real_receives = @real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where("realdate <= ?", @end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
 
@@ -47,14 +47,14 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       Bi::PkCodeName.mapping2orgcode.fetch(nd.orgcode, nd.orgcode)
     end
     @need_company_short_names = @need_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-    @need_long_account_receives = @need_data.collect { |d| ((d.long_account_receive || 0) / 10000.0).round(0) }
-    @need_short_account_receives = @need_data.collect { |d| ((d.short_account_receive || 0) / 10000.0).round(0) }
-    @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0).round(0) }
+    @need_long_account_receives = @need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
+    @need_short_account_receives = @need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
+    @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
 
     fix_need_data = policy_scope(Bi::SubCompanyNeedReceive).where(date: need_data_last_available_date)
       .select("SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive").first
-    @fix_need_long_account_receives = (fix_need_data.long_account_receive / 10000.0).round(0)
-    @fix_need_short_account_receives = (fix_need_data.short_account_receive / 10000.0).round(0)
+    @fix_need_long_account_receives = (fix_need_data.long_account_receive / 100_0000.0).round(0)
+    @fix_need_short_account_receives = (fix_need_data.short_account_receive / 100_0000.0).round(0)
     @fix_need_should_receives = @fix_need_long_account_receives + @fix_need_short_account_receives
 
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
