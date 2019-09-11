@@ -11,7 +11,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_date = policy_scope(Bi::SubCompanyNeedReceiveSignDetail)
       .where(date: Date.parse(@month_name).beginning_of_month..Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
-    @sign_receive_great_than = params[:sign_receive_great_than] || 100_0000
+    @sign_receive_great_than = params[:sign_receive_great_than] || 100
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
@@ -22,7 +22,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
         render json: SubsidiaryNeedReceiveSignDetailDatatable.new(params,
           subsidiary_need_receive_sign_details: subsidiary_need_receive_sign_details,
           end_of_date: @end_of_date,
-          sign_receive_great_than: @sign_receive_great_than.to_i,
+          sign_receive_great_than: @sign_receive_great_than.to_i * 10000,
           show_hide: @show_hide_item,
           view_context: view_context)
       end

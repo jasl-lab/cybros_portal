@@ -35,11 +35,11 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         business_director_name: r.businessdirectorname,
         sales_contract_code: r.salescontractcode,
         sales_contract_name: r.salescontractname,
-        amount_total: r.amounttotal,
+        amount_total: (r.amounttotal / 10000.0)&.round(0),
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime.to_date,
-        sign_receive: r.sign_receive,
-        over_amount: r.overamount,
+        sign_receive: (r.sign_receive / 10000.0)&.round(0),
+        over_amount: (r.overamount / 10000.0)&.round(0),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
                       else
