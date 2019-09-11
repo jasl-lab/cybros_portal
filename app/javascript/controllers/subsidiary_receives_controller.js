@@ -279,6 +279,9 @@ export default class extends Controller {
         yAxis: [{
           type: 'value',
           name: '人均应收款（万元）',
+          min: 0,
+          max: 20,
+          interval: Math.ceil(20 / 5),
           axisLabel: {
             show: true,
             interval: 'auto'
@@ -289,6 +292,7 @@ export default class extends Controller {
           position: 'right',
           min: 0,
           max: 200,
+          interval: Math.ceil(200 / 5),
           axisLine: {
             lineStyle: {
               color: '#675BBA'
@@ -306,7 +310,7 @@ export default class extends Controller {
           label: {
             normal: {
               show: true,
-              position: 'top',
+              position: 'inside',
               color: '#3E3E3E'
             }
           }
@@ -321,6 +325,7 @@ export default class extends Controller {
             normal: {
               show: true,
               position: 'top',
+              distance: 100,
               formatter: '{c}%'
             }
           }
