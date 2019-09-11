@@ -28,7 +28,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
 
     last_available_refresh_date = policy_scope(Bi::CompleteValueDept).last_available_refresh_date(@end_of_month)
-    @data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(date: last_available_refresh_date)
+    @data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(refresh_date: last_available_refresh_date)
       .select("COMPLETE_VALUE_DEPT.deptcode, dept_asc, SUM(total) sum_total")
       .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
       .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
