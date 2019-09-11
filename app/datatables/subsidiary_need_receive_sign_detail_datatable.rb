@@ -31,7 +31,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { org_name: Bi::StaffCount.company_short_names.fetch(r.orgname, r.orgname),
+      { org_name: r.orgname,
         dept_name: r.deptname,
         business_director_name: r.businessdirectorname,
         sales_contract_code_name:  "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,

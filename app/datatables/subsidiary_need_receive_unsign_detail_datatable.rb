@@ -32,7 +32,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { org_name: Bi::StaffCount.company_short_names.fetch(r.orgname, r.orgname),
+      { org_name: r.orgname,
         dept_name: r.deptname,
         project_manager_name: r.projectmanagername,
         project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}".html_safe,
