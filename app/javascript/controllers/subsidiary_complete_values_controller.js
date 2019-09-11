@@ -70,6 +70,7 @@ var option_total = {
       itemStyle: {
         color: '#DDDDDD'
       },
+      barWidth: 20,
       label: {
         normal: {
           show: true,
@@ -85,6 +86,7 @@ var option_total = {
       itemStyle: {
         color: '#738496'
       },
+      barWidth: 20,
       label: {
         normal: {
           show: true,
@@ -161,6 +163,7 @@ var option_staff = {
       itemStyle: {
         color: '#60A0A8'
       },
+      barWidth: 20,
       label: {
         normal: {
           show: true,
