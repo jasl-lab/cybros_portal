@@ -328,7 +328,7 @@ export default class extends Controller {
             normal: {
               show: true,
               position: 'top',
-              distance: 100,
+              distance: 20,
               formatter: '{c}%'
             }
           }
