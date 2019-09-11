@@ -27,7 +27,8 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
 
-    @data = Bi::CompleteValueDept.where(orgcode: orgcode).where("date <= ?", @end_of_month)
+    last_available_refresh_date = policy_scope(Bi::CompleteValueDept).last_available_refresh_date(@end_of_month)
+    @data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(date: last_available_refresh_date)
       .select("COMPLETE_VALUE_DEPT.deptcode, dept_asc, SUM(total) sum_total")
       .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
       .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
@@ -38,7 +39,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @all_department_names = @all_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
-    @complete_value_totals = @data.collect { |d| (d.sum_total / 10000).round(0) }
+    @complete_value_totals = @data.collect { |d| (d.sum_total / 10000.0).round(0) }
     @sum_complete_value_totals = (@complete_value_totals.sum / 10000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 10000.0).round(1)
