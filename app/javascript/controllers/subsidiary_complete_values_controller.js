@@ -100,6 +100,7 @@ var option_total = {
       itemStyle: {
         color: '#DDDDDD'
       },
+      barWidth: 20,
       label: {
         normal: {
           show: false
@@ -174,6 +175,7 @@ var option_staff = {
       itemStyle: {
         color: '#DDDDDD'
       },
+      barWidth: 20,
       label: {
         normal: {
           show: true,

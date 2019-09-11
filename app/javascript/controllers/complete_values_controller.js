@@ -72,7 +72,9 @@ var option_total = {
         normal: {
           show: true,
           position: 'top',
-          color: '#666666'
+          fontWeight: 'bold',
+          fontSize: 15,
+          color: '#000000'
         }
       }
     },{
@@ -94,6 +96,7 @@ var option_total = {
       type: 'bar',
       stack: '总量',
       data: completeValueYearTotalsRemain,
+      barWidth: 28,
       itemStyle: {
         color: '#DDDDDD'
       },
@@ -174,11 +177,13 @@ var option_staff = {
       itemStyle: {
         color: '#DDDDDD'
       },
+      barWidth: 28,
       label: {
         normal: {
           show: true,
           position: 'top',
-          color: '#353535'
+          fontWeight: 'bold',
+          color: '#000000'
         }
       }
     }]
