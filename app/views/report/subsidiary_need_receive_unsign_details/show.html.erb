@@ -34,12 +34,11 @@
           data-source="<%= report_subsidiary_need_receive_unsign_detail_path(format: :json, unsign_receive_great_than: @unsign_receive_great_than, days_to_min_timecard_fill_great_than: @days_to_min_timecard_fill_great_than, month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
           <thead>
             <tr>
-              <th><%= t(".table.org_name") -%></th>
+              <th style="width: 48px"><%= t(".table.org_name") -%></th>
               <th><%= t(".table.dept_name") -%></th>
               <th><%= t(".table.project_manager_name") -%></th>
-              <th><%= t(".table.project_item_code") -%></th>
-              <th><%= t(".table.project_item_name") -%></th>
-              <th><%= t(".table.created_date") -%></th>
+              <th style="width: 280px"><%= t(".table.project_item_code_name") -%></th>
+              <th style="width: 60px"><%= t(".table.created_date") -%></th>
               <th><%= t(".table.unsign_receive") -%></th>
               <th><%= t(".table.f_date") -%></th>
               <th><%= t(".table.min_timecard_fill") -%></th>
@@ -54,7 +53,7 @@
         </table>
       </div>
       <div class="col-lg-12">
-        <p>说明：</p>
+        <h6>说明：</h6>
         <p>业务应收款（未签约项目）= Σ商务责任部门为本部门的项目累计工时人力成本X标准产工比，只计未签约项目完成产值≥50万以上，上海公司计算立项时间在2016年8月1日之后的项目，其他子公司计算立项时间在2018年1月1日之后的项目。</p>
       </div>
     </div>

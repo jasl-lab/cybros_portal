@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ContractSignDetailDatatable < ApplicationDatatable
+  include ActionView::Helpers::TagHelper
+
   def_delegator :@view, :hide_report_contract_sign_detail_path
   def_delegator :@view, :un_hide_report_contract_sign_detail_path
 
@@ -38,9 +40,9 @@ class ContractSignDetailDatatable < ApplicationDatatable
         business_director_name: r.businessdirectorname,
         sales_contract_code_name: "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
         first_party_name: r.firstpartyname,
-        amount_total: r.amounttotal,
-        date_1: r.date1,
-        date_2: r.date2,
+        amount_total: tag.div(r.amounttotal, class: "text-center"),
+        date_1: tag.div(r.date1, class: "text-center"),
+        date_2: tag.div(r.date2, class: "text-center"),
         contract_time: r.contracttime,
         min_timecard_fill: r.mintimecardfill,
         min_date_hrcost_amount: r.mindatehrcostamount,

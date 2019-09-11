@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
+  include ActionView::Helpers::TagHelper
+
   def_delegator :@view, :hide_report_subsidiary_need_receive_unsign_detail_path
   def_delegator :@view, :un_hide_report_subsidiary_need_receive_unsign_detail_path
 
@@ -18,8 +20,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       org_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.orgname", cond: :like, searchable: true, orderable: true },
       dept_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
       project_manager_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectmanagername", cond: :string_eq, searchable: true, orderable: true },
-      project_item_code: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemcode", cond: :string_eq, searchable: true, orderable: true },
-      project_item_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemname", cond: :like, searchable: true, orderable: true },
+      project_item_code_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemname", cond: :like, searchable: true, orderable: true },
       created_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.createddate", cond: :string_eq, searchable: true, orderable: true },
       unsign_receive: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.unsign_receive", orderable: true },
       f_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.fdate", orderable: true },
@@ -34,13 +35,12 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       { org_name: Bi::StaffCount.company_short_names.fetch(r.orgname, r.orgname),
         dept_name: r.deptname,
         project_manager_name: r.projectmanagername,
-        project_item_code: r.projectitemcode,
-        project_item_name: r.projectitemname,
+        project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}".html_safe,
         created_date: r.createddate.to_date,
-        unsign_receive: (r.unsign_receive / 10000)&.round(0),
+        unsign_receive: tag.div((r.unsign_receive / 10000)&.round(0), class: "text-center"),
         f_date: r.fdate,
         min_timecard_fill: r.mintimecardfill,
-        days_to_min_timecard_fill: r.days_to_mintimecardfill,
+        days_to_min_timecard_fill: tag.div(r.days_to_mintimecardfill, class: "text-center"),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_unsign_detail_path(project_item_code: r.projectitemcode), method: :patch)
                       else
