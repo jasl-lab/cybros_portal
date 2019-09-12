@@ -45,7 +45,7 @@
 
     <div class="row">
       <div class="col-lg-12 p-2">
-        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,创意集团累计归档业绩合同额<span style="color:red"><%= @sum_contract_amounts -%> 亿元</span>; 本年平均签约周期 <span style="color:red"><%= @sum_avg_period_mean -%> 天</span>。</h5>
+        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name.presence || "创意集团" -%>累计归档业绩合同额<span style="color:red"><%= @sum_contract_amounts -%> 亿元</span>; 本年平均签约周期 <span style="color:red"><%= @sum_avg_period_mean -%> 天</span>。</h5>
       </div>
     </div>
     <div class="row">
