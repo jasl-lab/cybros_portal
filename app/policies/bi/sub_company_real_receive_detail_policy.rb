@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class SubCompanyRealReceivePolicy < BasePolicy
+  class SubCompanyRealReceiveDetailPolicy < BasePolicy
     class Scope < Scope
       def resolve
         if user.present? && (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?)
@@ -10,11 +10,6 @@ module Bi
           scope.none
         end
       end
-    end
-
-    def show?
-      return false unless user.present?
-      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?
     end
   end
 end

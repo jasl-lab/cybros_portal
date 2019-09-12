@@ -9,25 +9,25 @@ export default class extends Controller {
   connect() {
     subsidiaryRealReceivesChart = echarts.init(document.getElementById('subsidiary-real-receives-chart'));
 
-    var realXAxisData = JSON.parse(this.data.get("real_x_axis"));
-    var realReceives = JSON.parse(this.data.get("real_receives"));
-    var staffRealReceiveRef = this.data.get("staff_real_receive_ref");
+    const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
+    const realReceives = JSON.parse(this.data.get("real_receives"));
+    const staffRealReceiveRef = this.data.get("staff_real_receive_ref");
 
     subsidiaryNeedReceivesChart = echarts.init(document.getElementById('subsidiary-need-receives-chart'));
 
-    var needXAxisData = JSON.parse(this.data.get("need_x_axis"));
-    var needLongAccountReceives = JSON.parse(this.data.get("need_long_account_receives"));
-    var needShortAccountReceives = JSON.parse(this.data.get("need_short_account_receives"));
-    var needShouldReceives = JSON.parse(this.data.get("need_should_receives"));
+    const needXAxisData = JSON.parse(this.data.get("need_x_axis"));
+    const needLongAccountReceives = JSON.parse(this.data.get("need_long_account_receives"));
+    const needShortAccountReceives = JSON.parse(this.data.get("need_short_account_receives"));
+    const needShouldReceives = JSON.parse(this.data.get("need_should_receives"));
 
     subsidiaryRealReceivesStaffChart = echarts.init(document.getElementById('subsidiary-real-receives-staff-chart'));
 
-    var realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
+    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
 
     subsidiaryNeedReceivesStaffChart = echarts.init(document.getElementById('subsidiary-need-receives-staff-chart'));
 
-    var needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
-    var paybackRates = JSON.parse(this.data.get("payback_rates"));
+    const needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
+    const paybackRates = JSON.parse(this.data.get("payback_rates"));
 
     function differentColor(amount) {
       let color;
@@ -41,10 +41,10 @@ export default class extends Controller {
       return { value: amount, itemStyle: { color: color }}
     }
 
-    var paybackRatesWithColor = paybackRates.map(differentColor);
+    const paybackRatesWithColor = paybackRates.map(differentColor);
 
 
-    var real_option = {
+    const real_option = {
         title: {
           text: '本年累计实收款'
         },
@@ -335,6 +335,20 @@ export default class extends Controller {
         }]
     };
 
+    function drill_down_real_receives_on_click(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          const company_name = realXAxisData[params.dataIndex];
+          const month_name = $('#month_name').val();
+          const sent_data = { company_name, month_name };
+          const drill_down_url = '/report/subsidiary_receive';
+
+          console.log(drill_down_url);
+        }
+      }
+    }
+
+    subsidiaryRealReceivesChart.on('click', drill_down_real_receives_on_click);
     subsidiaryRealReceivesChart.setOption(real_option, false);
     subsidiaryNeedReceivesChart.setOption(need_option, false);
     subsidiaryRealReceivesStaffChart.setOption(real_staff_option, false);
