@@ -83,7 +83,7 @@
                   <% company_name = @department_or_company_short_names[index] %>
                   <% staff_count = @staff_per_company[company_name] %>
                 <% end %>
-                <td class="col-1"><%= staff_count -%></td>
+                <td class="col-1"><%= staff_count&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>

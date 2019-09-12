@@ -25,7 +25,7 @@ class Report::CompleteValuesController < Report::BaseController
     end
     @all_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @complete_value_totals = @data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
-    @fix_sum_complete_value_totals = (Bi::CompleteValue.where(date: last_available_refresh_date).select("SUM(total) sum_total").first.sum_total / 10000_0000.0).round(1)
+    @fix_sum_complete_value_totals = ((Bi::CompleteValue.where(date: last_available_refresh_date).select("SUM(total) sum_total").first.sum_total || 0) / 10000_0000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
@@ -36,9 +36,19 @@ class Report::CompleteValuesController < Report::BaseController
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
-    @fix_avg_complete_value_totals_per_staff = (@complete_value_totals_per_staff.sum.to_f / @complete_value_totals_per_staff.size).round(0)
+    sum_of_complete_value_totals_per_staff = @complete_value_totals_per_staff.sum.to_f
+    @fix_avg_complete_value_totals_per_staff = if sum_of_complete_value_totals_per_staff % 1 == 0
+      0
+    else
+      (sum_of_complete_value_totals_per_staff / @complete_value_totals_per_staff.size).round(0)
+    end
     @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
-    @fix_avg_complete_value_year_totals_per_staff = (@complete_value_year_totals_per_staff.sum.to_f / @complete_value_year_totals_per_staff.size).round(0)
+    sum_of_complete_value_year_totals_per_staff = @complete_value_year_totals_per_staff.sum.to_f
+    @fix_avg_complete_value_year_totals_per_staff = if sum_of_complete_value_year_totals_per_staff % 1 == 0
+      0
+    else
+      (sum_of_complete_value_year_totals_per_staff / @complete_value_year_totals_per_staff.size).round(0)
+    end
     unless @show_shanghai_hq
       @all_company_short_names = @all_company_short_names[1..]
       @complete_value_totals = @complete_value_totals[1..]
