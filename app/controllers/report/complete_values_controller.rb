@@ -14,7 +14,7 @@ class Report::CompleteValuesController < Report::BaseController
     @show_shanghai_hq = params[:show_shanghai_hq]&.presence
 
     last_available_refresh_date = policy_scope(Bi::CompleteValue).last_available_refresh_date(@end_of_month)
-    @data = policy_scope(Bi::CompleteValue).where(date: last_available_refresh_date)
+    @data = policy_scope(Bi::CompleteValue).where(refresh_date: last_available_refresh_date)
       .select("orgcode, org_order, SUM(total) sum_total")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
       .group(:orgcode, :org_order)
@@ -25,7 +25,7 @@ class Report::CompleteValuesController < Report::BaseController
     end
     @all_company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
     @complete_value_totals = @data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
-    @fix_sum_complete_value_totals = ((Bi::CompleteValue.where(date: last_available_refresh_date).select("SUM(total) sum_total").first.sum_total || 0) / 10000_0000.0).round(1)
+    @fix_sum_complete_value_totals = ((Bi::CompleteValue.where(refresh_date: last_available_refresh_date).select("SUM(total) sum_total").first.sum_total || 0) / 10000_0000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
