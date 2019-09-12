@@ -6,8 +6,17 @@ class Person::NameCardsController < ApplicationController
   before_action :set_name_card_apply, only: %i[destroy start_approve show]
 
   def index
-    prepare_meta_tags title: t(".title")
-    @name_card_applies = policy_scope(NameCardApply)
+    respond_to do |format|
+      format.html do
+        prepare_meta_tags title: t(".title")
+      end
+      format.json do
+        name_card_applies = policy_scope(NameCardApply)
+        render json: NameCardApplyDatatable.new(params,
+          name_card_applies: name_card_applies,
+          view_context: view_context)
+      end
+    end
   end
 
   def new
