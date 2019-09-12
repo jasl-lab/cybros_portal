@@ -12,6 +12,7 @@ en:
           org_name: "Org name"
           dept_name: "Dept name"
           business_director_name: "Business director name"
+          first_party_name: "First party name"
           sales_contract_code_name: "Sales contract code name"
           amount_total: "Amount total"
           contract_property_name: "Contract property name"

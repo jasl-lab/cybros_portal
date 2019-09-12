@@ -19,6 +19,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       org_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.orgname", cond: :like, searchable: true, orderable: true },
       dept_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
       business_director_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
+      first_party_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.firstpartyname", cond: :like, searchable: true, orderable: true },
       sales_contract_code_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.salescontractname", cond: :like, searchable: true, orderable: true },
       amount_total: { source: "Bi::SubCompanyNeedReceiveSignDetail.amounttotal", cond: :gteq, searchable: true, orderable: true },
       contract_property_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname", orderable: true },
@@ -34,12 +35,13 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       { org_name: r.orgname,
         dept_name: r.deptname,
         business_director_name: r.businessdirectorname,
+        first_party_name: r.firstpartyname,
         sales_contract_code_name:  "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
-        amount_total: tag.div((r.amounttotal / 10000.0)&.round(0), class: "text-center"),
+        amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: "text-center"),
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime.to_date,
-        sign_receive: tag.div((r.sign_receive / 10000.0)&.round(0), class: "text-center"),
-        over_amount: tag.div((r.overamount / 10000.0)&.round(0), class: "text-center"),
+        sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: "text-center"),
+        over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: "text-center"),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
                       else

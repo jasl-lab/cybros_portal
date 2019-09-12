@@ -8,6 +8,7 @@ export default class extends Controller {
       {"data": "org_name"},
       {"data": "dept_name"},
       {"data": "business_director_name"},
+      {"data": "first_party_name"},
       {"data": "sales_contract_code_name"},
       {"data": "amount_total"},
       {"data": "contract_property_name"},

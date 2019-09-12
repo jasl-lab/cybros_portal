@@ -13,7 +13,7 @@ zh-CN:
           dept_name: "商务责任部门"
           business_director_name: "商务负责人"
           sales_contract_code_name: "合同编号和名称"
-          first_party_name: "客户名称"
+          first_party_name: "甲方集团"
           amount_total: "合同金额"
           date_1: "签约周期 1"
           date_2: "签约周期 2"
