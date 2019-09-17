@@ -16,12 +16,18 @@ class Report::CompleteValuesController < Report::BaseController
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValue).where(date: last_available_date)
-      .select("orgcode, org_order, SUM(total) sum_total")
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
-      .group(:orgcode, :org_order)
       .having("SUM(total) > 0")
       .order("ORG_ORDER.org_order DESC")
 
+    data = if @view_orgcode_sum
+      data.select("orgcode_sum orgcode, org_order, SUM(total) sum_total")
+        .group(:orgcode_sum, :org_order)
+      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode_sum")
+    else
+      data.select("orgcode, org_order, SUM(total) sum_total")
+        .group(:orgcode, :org_order)
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
+    end
 
     all_company_names = data.collect(&:orgcode).collect do |c|
       Bi::PkCodeName.mapping2orgcode.fetch(c, c)
