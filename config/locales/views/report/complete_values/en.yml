@@ -3,6 +3,9 @@ en:
   report:
     complete_values:
       show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
         title: "Complete value"
         month_name: "Query year and month"
         show_shanghai_hq: "Show Shanghai HQ"

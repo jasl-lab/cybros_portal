@@ -3,6 +3,9 @@ zh-CN:
   report:
     complete_values:
       show:
+        actions:
+          view_orgcode_sum: "显示汇总组织"
+          view_orgcode: "显示明细部门"
         title: "工作完成情况分析"
         month_name: "查询年月"
         show_shanghai_hq: "显示上海天华"
