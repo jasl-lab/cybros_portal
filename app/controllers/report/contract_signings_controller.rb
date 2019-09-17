@@ -60,7 +60,7 @@ class Report::ContractSigningsController < Report::BaseController
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
     end
-    @avg_period_mean_max = @avg_period_mean.max.round(-1)
+    @avg_period_mean_max = 150
     @sum_contract_amounts = if @short_company_name.present?
       (@contract_amounts.sum / 10000.to_f).round(2)
     else
