@@ -4,5 +4,5 @@ en:
       models:
         company/direct_question:
             attributes:
-              real_question:
+              real_questions:
                 must_exist: "Must existing in knowledge"

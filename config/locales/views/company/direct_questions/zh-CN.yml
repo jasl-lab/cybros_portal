@@ -4,9 +4,9 @@ zh-CN:
     direct_questions:
       index:
         title: "维护可以直接回答的问题"
+        real_question: "实际应该回答的问题"
         table:
           question: "问题"
-          real_question: "实际想问的问题"
           real_questions: "实际对应的问题和答案"
         create_button: "新建"
       create:

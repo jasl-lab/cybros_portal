@@ -10,7 +10,7 @@
           <%= f.text_field :question, class: 'form-control', id: 'new-question-text' %>
         </div>
         <div class="form-group mx-sm-3 mb-2">
-          <label for="new-real-question-text"><%= t(".table.real_question") %>：</label>
+          <label for="new-real-question-text"><%= t(".real_question") %>：</label>
           <%= f.text_field :real_question, class: 'form-control', id: 'new-real-question-text' %>
           <%= f.error_message :real_question, tag: :span, class: "help-block error-message" %>
         </div>
@@ -21,7 +21,6 @@
           <thead>
             <tr>
               <th><%= t('.table.question') -%></th>
-              <th><%= t('.table.real_question') -%></th>
               <th><%= t('.table.real_questions') -%></th>
               <th></th>
             </tr>
@@ -31,7 +30,6 @@
             <% @direct_questions.each do |direct_question| %>
               <tr>
                 <td><%= direct_question.question -%></td>
-                <td><%= direct_question.real_question -%></td>
                 <td><%= direct_question.knowledges.pluck(:question).join("<br>").html_safe -%></td>
                 <td>
                   <%= link_to company_direct_question_path(direct_question), method: :delete, data: { confirm: 'Are you sure?' } do %>

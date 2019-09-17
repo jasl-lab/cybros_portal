@@ -4,9 +4,9 @@ en:
     direct_questions:
       index:
         title: "Direct questions maintain"
+        real_question: "Real question"
         table:
           question: "Question"
-          real_question: "Real question"
           real_questions: "Real questions (knowledge item)"
         create_button: "Create"
       create:

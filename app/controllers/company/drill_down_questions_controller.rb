@@ -15,7 +15,8 @@ class Company::DrillDownQuestionsController < ApplicationController
 
     @direct_question = Company::DirectQuestion.find_by(question: params[:question])
     if @direct_question.present?
-      @ans_1 = Company::Knowledge.find_by(question: @direct_question.real_question)
+      @ans_1 = @direct_question.knowledges.first
+      @ans_2 = @direct_question.knowledges.second
       return render
     end
 

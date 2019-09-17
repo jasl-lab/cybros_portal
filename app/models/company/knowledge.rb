@@ -15,7 +15,7 @@ module Company
     def self.answer(question)
       direct_question = Company::DirectQuestion.find_by(question: question)
       if direct_question.present?
-        return [Company::Knowledge.find_by(question: direct_question.real_question)]
+        return direct_question.knowledges
       end
 
       nouns = Company::Knowledge.extract_the_noun_and_verb_in_question(question)
