@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Company
   class Knowledge < ApplicationRecord
     attr_accessor :q_user_id
@@ -8,6 +10,8 @@ module Company
 
     has_rich_text :answer
 
+    has_many :direct_question_answers
+
     def self.answer(question)
       direct_question = Company::DirectQuestion.find_by(question: question)
       if direct_question.present?
@@ -17,10 +21,10 @@ module Company
       nouns = Company::Knowledge.extract_the_noun_and_verb_in_question(question)
       if nouns.count == 1
         only_noun = nouns.first
-        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun}%").limit(1)
+        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where("question LIKE ?", "%#{only_noun}%").limit(1)
         if only_noun_question.blank?
           only_noun_in_synonym = user_synonym.fetch(only_noun, only_noun)
-          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun_in_synonym}%").limit(1)
+          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where("question LIKE ?", "%#{only_noun_in_synonym}%").limit(1)
         end
 
         return [] if only_noun_question.blank?
@@ -41,7 +45,7 @@ module Company
     def self.user_synonym
       @@h ||= {}
       return @@h if @@h.present?
-      File.readlines(Rails.root.join('config', 'synonym.dict.utf8')).each do |l|
+      File.readlines(Rails.root.join("config", "synonym.dict.utf8")).each do |l|
         words = l.strip.split(' ')
         to_change_word = words[0]
         words.each_with_index do |w, i|
@@ -54,7 +58,7 @@ module Company
 
     def self.extract_the_noun_and_verb_in_question(question)
       tags = Current.jieba_tagging.tag question
-      noun_tags = tags.reject { |h| !(h.has_value?('n') || h.has_value?('v') || h.has_value?('t'))  }
+      noun_tags = tags.reject { |h| !(h.has_value?("n") || h.has_value?("v") || h.has_value?("t"))  }
       noun_tags.collect { |h| h.keys.first }
     end
 

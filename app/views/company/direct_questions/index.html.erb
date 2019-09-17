@@ -22,6 +22,7 @@
             <tr>
               <th><%= t('.table.question') -%></th>
               <th><%= t('.table.real_question') -%></th>
+              <th><%= t('.table.real_questions') -%></th>
               <th></th>
             </tr>
           </thead>
@@ -31,6 +32,7 @@
               <tr>
                 <td><%= direct_question.question -%></td>
                 <td><%= direct_question.real_question -%></td>
+                <td><%= direct_question.knowledges.pluck(:question).join("<br>").html_safe -%></td>
                 <td>
                   <%= link_to company_direct_question_path(direct_question), method: :delete, data: { confirm: 'Are you sure?' } do %>
                     <i class="fa fa-trash"></i>

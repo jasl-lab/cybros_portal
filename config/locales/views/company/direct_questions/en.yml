@@ -7,6 +7,7 @@ en:
         table:
           question: "Question"
           real_question: "Real question"
+          real_questions: "Real questions (knowledge item)"
         create_button: "Create"
       create:
         success: "Successfully create the direct question: %{question}"
