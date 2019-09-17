@@ -96,7 +96,7 @@ var option_total = {
       type: 'bar',
       stack: '总量',
       data: completeValueYearTotalsRemain,
-      barWidth: 28,
+      barWidth: 26,
       itemStyle: {
         color: '#DDDDDD'
       },
@@ -177,7 +177,7 @@ var option_staff = {
       itemStyle: {
         color: '#DDDDDD'
       },
-      barWidth: 28,
+      barWidth: 26,
       label: {
         normal: {
           show: true,
