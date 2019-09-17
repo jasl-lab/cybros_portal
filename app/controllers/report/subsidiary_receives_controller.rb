@@ -12,10 +12,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @all_month_names = Bi::SubCompanyRealReceive.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
+    beginning_of_year = Date.parse(@month_name).beginning_of_year
     @orgs_options = params[:orgs]
 
     current_user_companies = current_user.user_company_names
-    real_data = policy_scope(Bi::SubCompanyRealReceive).where("realdate <= ?", @end_of_month)
+    real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
       .select("orgcode, org_order, SUM(real_receive) real_receive")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
       .group(:orgcode, :org_order)
@@ -32,7 +33,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @real_data = real_data.where(orgcode: @orgs_options)
     @real_company_short_names = @real_data.collect { |r| Bi::StaffCount.company_short_names_by_orgcode(@end_of_month).fetch(r.orgcode, r.orgcode) }
     @real_receives = @real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
-    @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where("realdate <= ?", @end_of_month)
+    @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
@@ -75,7 +76,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       Bi::CompleteValue.all
     else
       Bi::CompleteValue.where(orgcode: current_user_companies)
-    end.where("date <= ?", @end_of_month)
+    end.where(date: beginning_of_year..@end_of_month)
       .select("orgcode, SUM(total) sum_total")
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
