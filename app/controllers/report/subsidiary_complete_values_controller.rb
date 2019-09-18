@@ -19,9 +19,9 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       @all_company_names = current_user_companies
       @selected_company_name = current_company
     end
-    @selected_company_name = Bi::StaffCount.company_long_names.fetch(@selected_company_name, @selected_company_name)
+    @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
     orgcode = Bi::PkCodeName.mapping2org_name.fetch(@selected_company_name, @selected_company_name)
-    @selected_short_company_name = Bi::StaffCount.company_short_names.fetch(@selected_company_name, @selected_company_name)
+    @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
     Rails.logger.debug "orgcode: #{orgcode}"
     @all_month_names = Bi::CompleteValueDept.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last

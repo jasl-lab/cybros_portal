@@ -17,7 +17,7 @@
       <tr>
         <% if @view_deptcode_sum %>
         <% long_name = Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
-           short_name = Bi::StaffCount.company_short_names.fetch(long_name, long_name) %>
+           short_name = Bi::OrgShortName.company_short_names.fetch(long_name, long_name) %>
           <td><%= short_name -%></td>
         <% end %>
         <td><%= r.projectitemcode -%><br /><%= r.projectitemname -%></td>

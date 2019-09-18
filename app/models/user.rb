@@ -25,7 +25,7 @@ class User < ApplicationRecord
     @_username_details_mapping ||= all.joins(department_users: :department)
       .select(:email, :chinese_name, :desk_phone, "departments.name", "departments.company_name").reduce({}) do |h, u|
       user_name = u.email.split("@")[0]
-      h[user_name] ||= "#{Bi::StaffCount.company_short_names.fetch(u.company_name, u.company_name)}-#{u.name}-#{u.chinese_name}-#{u.desk_phone}"
+      h[user_name] ||= "#{Bi::OrgShortName.company_short_names.fetch(u.company_name, u.company_name)}-#{u.name}-#{u.chinese_name}-#{u.desk_phone}"
       h
     end
   end
@@ -74,7 +74,7 @@ class User < ApplicationRecord
   end
 
   def user_company_short_names
-    @user_company_short_names ||= user_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @user_company_short_names ||= user_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
   end
 
   def user_company_short_name

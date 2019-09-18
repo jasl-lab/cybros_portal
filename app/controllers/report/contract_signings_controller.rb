@@ -21,7 +21,7 @@ class Report::ContractSigningsController < Report::BaseController
     end
 
     current_user_companies = current_user.user_company_names
-    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
 
     @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
       .select("orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
@@ -33,7 +33,7 @@ class Report::ContractSigningsController < Report::BaseController
     all_company_names = @data.collect(&:orgcode).collect do |c|
       Bi::PkCodeName.mapping2orgcode.fetch(c, c)
     end
-    @company_short_names = all_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @company_short_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
 
     @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }

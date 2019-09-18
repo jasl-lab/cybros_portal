@@ -27,7 +27,7 @@ class Report::PredictContractsController < Report::BaseController
 
     @company_short_names = only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
-      Bi::StaffCount.company_short_names.fetch(long_name, long_name)
+      Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
     end
     @department_options = @company_short_names.zip(only_have_data_dept)
 

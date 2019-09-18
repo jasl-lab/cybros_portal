@@ -20,7 +20,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
     @short_company_name = params[:company_name]
     if @short_company_name.present?
-      @company_name = Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
+      @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
       data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month).where(orgname: @company_name)
         .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
         .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
@@ -43,9 +43,9 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       job_data = data.having("SUM(date_real) > 0")
       blue_print_data = data.having("SUM(blue_print_real)")
       construction_data = data.having("SUM(construction_real) > 0")
-      @job_company_or_department_names = job_data.collect(&:orgname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-      @blue_print_company_or_department_names = blue_print_data.collect(&:orgname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
-      @construction_company_or_department_names = construction_data.collect(&:orgname).collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+      @job_company_or_department_names = job_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+      @blue_print_company_or_department_names = blue_print_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+      @construction_company_or_department_names = construction_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     end
 
     @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
@@ -57,7 +57,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     @building_day_rate = construction_data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
 
-    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
   end
 
   def export
@@ -107,7 +107,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     def set_drill_down_params_and_title
       authorize Bi::WorkHoursCountDetailStaff
       short_company_name = params[:company_name]
-      @company_name = Bi::StaffCount.company_long_names.fetch(short_company_name, short_company_name)
+      @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
       @department_name = params[:department_name]
       begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
       end_month = Date.parse(params[:end_month_name]).end_of_month

@@ -26,12 +26,12 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       Bi::PkCodeName.mapping2orgcode.fetch(orgcode, orgcode)
     end
 
-    real_company_short_names = @real_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    real_company_short_names = @real_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @orgs_options = real_data.where.not(orgcode: "000101").pluck(:orgcode) if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
 
     @real_data = real_data.where(orgcode: @orgs_options)
-    @real_company_short_names = @real_data.collect { |r| Bi::StaffCount.company_short_names_by_orgcode(@end_of_month).fetch(r.orgcode, r.orgcode) }
+    @real_company_short_names = @real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
     @real_receives = @real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
@@ -47,7 +47,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_company_names = @need_data.collect do |nd|
       Bi::PkCodeName.mapping2orgcode.fetch(nd.orgcode, nd.orgcode)
     end
-    @need_company_short_names = @need_company_names.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @need_company_short_names = @need_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @need_long_account_receives = @need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
     @need_short_account_receives = @need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
     @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
@@ -61,13 +61,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @real_receives_per_staff = @real_data.collect do |d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
+      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       (d.real_receive / (staff_number * 10000).to_f).round(0)
     end
     @need_should_receives_per_staff = @need_data.collect do |d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
+      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       ((d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
@@ -81,13 +81,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
+      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       h[short_name] = d.sum_total
       h
     end
     @payback_rates = @real_data.collect do |d|
       company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::StaffCount.company_short_names.fetch(company_name, company_name)
+      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       complete_value = complete_value_hash.fetch(short_name, 100000)
       if complete_value % 1 == 0
         0

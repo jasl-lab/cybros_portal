@@ -49,7 +49,7 @@ class Report::ContractHoldsController < Report::BaseController
 
     @deptnames_in_order = @only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
-      Bi::StaffCount.company_short_names.fetch(long_name, long_name)
+      Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
     end
     @department_options = @deptnames_in_order.zip(@only_have_data_dept)
 
@@ -108,7 +108,7 @@ class Report::ContractHoldsController < Report::BaseController
     authorize Bi::ContractHoldUnsignDetail
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
-    company_short_names_by_orgcode = Bi::StaffCount.company_short_names_by_orgcode(end_of_month)
+    company_short_names_by_orgcode = Bi::OrgShortName.company_short_names_by_orgcode
 
     respond_to do |format|
       format.csv do
@@ -168,7 +168,7 @@ class Report::ContractHoldsController < Report::BaseController
     authorize Bi::ContractHoldSignDetail
     end_of_month = Date.parse(params[:month_name]).end_of_month
     last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
-    company_short_names_by_orgcode = Bi::StaffCount.company_short_names_by_orgcode(end_of_month)
+    company_short_names_by_orgcode = Bi::OrgShortName.company_short_names_by_orgcode
     respond_to do |format|
       format.csv do
         render_csv_header "Sign #{last_available_date.to_date} details"

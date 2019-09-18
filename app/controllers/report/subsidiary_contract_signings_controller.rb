@@ -23,10 +23,10 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     current_user_companies = current_user.user_company_names
-    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::StaffCount.company_short_names.fetch(c, c) }
+    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
 
     @company_name = if @short_company_name.present?
-      Bi::StaffCount.company_long_names.fetch(@short_company_name, @short_company_name)
+      Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
     else
       current_user_companies.first
     end
