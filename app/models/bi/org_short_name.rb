@@ -32,8 +32,8 @@ module Bi
       end
     end
 
-    def self.org_code_by_org_name
-      @org_code_by_org_name ||= where(isbusinessunit: "Y").reduce({}) do |h, s|
+    def self.org_code_by_long_name
+      @org_code_by_long_name ||= where(isbusinessunit: "Y").reduce({}) do |h, s|
         h[s.name] = s.code
         h
       end
