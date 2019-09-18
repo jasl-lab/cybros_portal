@@ -13,6 +13,7 @@ class Report::CompleteValuesController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
+    @selected_short_name = params[:company_name]&.strip
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValue).where(date: last_available_date)
@@ -22,7 +23,7 @@ class Report::CompleteValuesController < Report::BaseController
     data = if @view_orgcode_sum
       data.select("orgcode_sum orgcode, org_order, SUM(total) sum_total")
         .group(:orgcode_sum, :org_order)
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode_sum")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode_sum")
     else
       data.select("orgcode, org_order, SUM(total) sum_total")
         .group(:orgcode, :org_order)
@@ -34,6 +35,12 @@ class Report::CompleteValuesController < Report::BaseController
 
     @orgs_options = all_company_orgcodes - ["000101"] if @orgs_options.blank?
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
+    @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
+
+    if @selected_short_name.present?
+      selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
+      @orgs_options = Bi::CompleteValue.where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
+    end
 
     data = if @view_orgcode_sum
       data.where(orgcode_sum: @orgs_options)

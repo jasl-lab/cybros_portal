@@ -8,12 +8,13 @@ export default class extends Controller {
     completeValuesTotalChart = echarts.init(document.getElementById('complete-values-total-chart'));
     completeValuesStaffChart = echarts.init(document.getElementById('complete-values-staff-chart'));
 
-var xAxisData = JSON.parse(this.data.get("x_axis"));
-var completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
-var completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
-var completeValueYearTotalsRemain = JSON.parse(this.data.get("complete_value_year_totals_remain"));
-var completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
-var completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
+    const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
+    const completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
+    const completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
+    const completeValueYearTotalsRemain = JSON.parse(this.data.get("complete_value_year_totals_remain"));
+    const completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
+    const completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
 
 var option_total = {
     legend: {
@@ -62,7 +63,7 @@ var option_total = {
     series: [{
       name: '预计全年完成产值（百万元）',
       type: 'bar',
-      barWidth: '30%',
+      barWidth: 26,
       barGap: '-100%',
       data: completeValueYearTotals,
       itemStyle: {
@@ -192,9 +193,14 @@ var option_staff = {
     function drill_down_complete_value_total(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          const department_name = xAxisData[params.dataIndex];
-          let url = "/report/subsidiary_complete_value";
           let series_company = xAxisData[params.dataIndex]
+          let url;
+          if(sumOrgNames.indexOf(series_company) > -1) {
+            url = "/report/complete_value";
+          } else {
+            url = "/report/subsidiary_complete_value";
+          }
+
           if (url.indexOf('?') > -1) {
             url += '&company_name=' + encodeURIComponent(series_company);
           } else {

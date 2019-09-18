@@ -38,5 +38,12 @@ module Bi
         h
       end
     end
+
+    def self.org_code_by_short_name
+      @org_code_by_short_name ||= where(isbusinessunit: "Y").reduce({}) do |h, s|
+        h[s.shortname] = s.code
+        h
+      end
+    end
   end
 end
