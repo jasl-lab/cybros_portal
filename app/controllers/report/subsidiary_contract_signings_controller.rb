@@ -31,7 +31,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       current_user_companies.first
     end
 
-    org_code = Bi::PkCodeName.mapping2org_name.fetch(@company_name, @company_name)
+    org_code = Bi::OrgShortName.org_code_by_org_name.fetch(@company_name, @company_name)
     @data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
       .where(orgcode: org_code)
       .select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")

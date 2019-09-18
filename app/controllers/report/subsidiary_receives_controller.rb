@@ -23,7 +23,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order("ORG_ORDER.org_order DESC")
     @only_have_real_data_orgs = real_data.collect(&:orgcode)
     @real_company_names = @only_have_real_data_orgs.collect do |orgcode|
-      Bi::PkCodeName.mapping2orgcode.fetch(orgcode, orgcode)
+      Bi::OrgShortName.company_long_names_by_orgcode.fetch(orgcode, orgcode)
     end
 
     real_company_short_names = @real_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
@@ -45,7 +45,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order("ORG_ORDER.org_order DESC")
       .where(orgcode: @orgs_options)
     @need_company_names = @need_data.collect do |nd|
-      Bi::PkCodeName.mapping2orgcode.fetch(nd.orgcode, nd.orgcode)
+      Bi::OrgShortName.company_long_names_by_orgcode.fetch(nd.orgcode, nd.orgcode)
     end
     @need_company_short_names = @need_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @need_long_account_receives = @need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
@@ -60,13 +60,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @real_receives_per_staff = @real_data.collect do |d|
-      company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
+      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       (d.real_receive / (staff_number * 10000).to_f).round(0)
     end
     @need_should_receives_per_staff = @need_data.collect do |d|
-      company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
+      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       ((d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
@@ -80,13 +80,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .select("orgcode, SUM(total) sum_total")
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
+      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       h[short_name] = d.sum_total
       h
     end
     @payback_rates = @real_data.collect do |d|
-      company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
+      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       complete_value = complete_value_hash.fetch(short_name, 100000)
       if complete_value % 1 == 0

@@ -24,5 +24,19 @@ module Bi
         h
       end
     end
+
+    def self.company_long_names_by_orgcode
+      @company_long_names_by_orgcode ||= where(isbusinessunit: "Y").reduce({}) do |h, s|
+        h[s.code] = s.name
+        h
+      end
+    end
+
+    def self.org_code_by_org_name
+      @org_code_by_org_name ||= where(isbusinessunit: "Y").reduce({}) do |h, s|
+        h[s.name] = s.code
+        h
+      end
+    end
   end
 end

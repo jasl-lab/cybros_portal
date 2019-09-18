@@ -30,7 +30,7 @@ class Report::CompleteValuesController < Report::BaseController
     end
 
     all_company_names = data.collect(&:orgcode).collect do |c|
-      Bi::PkCodeName.mapping2orgcode.fetch(c, c)
+      Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
     end
     @all_company_short_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @complete_value_totals = data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
@@ -40,7 +40,7 @@ class Report::CompleteValuesController < Report::BaseController
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @complete_value_totals_per_staff = data.collect do |d|
-      company_name = Bi::PkCodeName.mapping2orgcode.fetch(d.orgcode, d.orgcode)
+      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       (d.sum_total / (staff_number * 10000).to_f).round(0)

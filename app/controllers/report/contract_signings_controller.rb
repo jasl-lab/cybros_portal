@@ -31,7 +31,7 @@ class Report::ContractSigningsController < Report::BaseController
       .order("ORG_ORDER.org_order DESC")
     @data = @data.where.not(orgcode: "000101") unless @show_shanghai_hq
     all_company_names = @data.collect(&:orgcode).collect do |c|
-      Bi::PkCodeName.mapping2orgcode.fetch(c, c)
+      Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
     end
     @company_short_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)

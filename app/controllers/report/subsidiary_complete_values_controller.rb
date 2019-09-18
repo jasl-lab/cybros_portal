@@ -12,7 +12,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     if current_user_companies.include?("上海天华建筑设计有限公司")
       all_orgcodes = Bi::CompleteValueDept.distinct.pluck(:orgcode)
       @all_company_names = all_orgcodes.collect do |c|
-        Bi::PkCodeName.mapping2orgcode.fetch(c, c)
+        Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
       end
       @selected_company_name = params[:company_name]&.strip || current_company
     else
@@ -20,7 +20,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       @selected_company_name = current_company
     end
     @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
-    orgcode = Bi::PkCodeName.mapping2org_name.fetch(@selected_company_name, @selected_company_name)
+    orgcode = Bi::OrgShortName.org_code_by_org_name.fetch(@selected_company_name, @selected_company_name)
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
     Rails.logger.debug "orgcode: #{orgcode}"
     @all_month_names = Bi::CompleteValueDept.all_month_names
