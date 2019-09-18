@@ -1,0 +1,25 @@
+---
+zh-CN:
+  report:
+    subsidiary_contract_signings:
+      show:
+        title: "%{company} 本年累计合同额及签约周期"
+        month_name: "查询年月"
+        period_mean_ref: "签约周期预警"
+        contract_amounts_per_staff_ref: "人均合同额预警"
+        manual_set_staff_ref: "手工设置预警"
+        confirm: "确认"
+      amount_modal:
+        table:
+          salescontractcode: "合同编号"
+          salescontractname: "合同名称"
+          moneytax: "业绩合同额"
+          clientsname: "甲方"
+          businessdirectorname: "商务负责人"
+      date_modal:
+        table:
+          salescontractcode: "合同编号"
+          salescontractname: "合同名称"
+          date1: "签约天数"
+          firstpartyname: "第一甲方"
+          businessdirectorname: "商务负责人"

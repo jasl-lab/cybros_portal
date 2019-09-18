@@ -1,17 +1,16 @@
 import { Controller } from "stimulus"
 
-let contractSigningsChart;
-let contractSigningsAvgChart;
+let subsidiaryContractSigningsChart;
+let subsidiaryContractSigningsAvgChart;
 
 export default class extends Controller {
   connect() {
-    contractSigningsChart = echarts.init(document.getElementById('contract-signings-chart'));
-    contractSigningsAvgChart = echarts.init(document.getElementById('contract-signings-avg-chart'));
+    subsidiaryContractSigningsChart = echarts.init(document.getElementById('subsidiary-contract-signings-chart'));
+    subsidiaryContractSigningsAvgChart = echarts.init(document.getElementById('subsidiary-contract-signings-avg-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
 var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
 var companyName = this.data.get("company_name");
-var secondLevelDrill = this.data.get("second_level_drill");
 var sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
 var sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
 var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
@@ -72,13 +71,13 @@ var option = {
     },
     yAxis: [{
       type: 'value',
-      name: '本年累计合同额（百万元）',
+      name: '本年累计合同额（万元）',
       position: 'left',
       min: 0,
       max: sumContractAmountMax,
       interval: Math.ceil(sumContractAmountMax / 5),
       axisLabel: {
-        formatter: '{value}百万'
+        formatter: '{value}万'
       }
     },{
       type: 'value',
@@ -210,41 +209,44 @@ var option_avg = {
       }
     }]
 };
-
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
+        const series_department = xAxisData[params.dataIndex]
+        const month_name = $('#month_name').val();
+        const sent_data = {
+          company_name: companyName,
+          department_name: series_department,
+          month_name: month_name };
+        let drill_down_url;
         if (params.seriesType === 'bar') {
-          let url = '/report/subsidiary_contract_signing';
-          const series_company = xAxisData[params.dataIndex]
-          if (url.indexOf('?') > -1) {
-            url += '&company_name=' + encodeURIComponent(series_company);
-          } else {
-            url += '?company_name=' + encodeURIComponent(series_company);
-          }
-          if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
-            window.location.href = url;
-          }
+          drill_down_url = '/report/subsidiary_contract_signing/drill_down_amount'
+        } else if (params.seriesType === 'line') {
+          drill_down_url = '/report/subsidiary_contract_signing/drill_down_date'
         }
+        $.ajax(drill_down_url, {
+          data: sent_data,
+          dataType: 'script'
+        });
       }
     }
 
-    contractSigningsChart.setOption(option, false);
-    contractSigningsChart.on('click', drill_down_on_click);
+    subsidiaryContractSigningsChart.setOption(option, false);
+    subsidiaryContractSigningsChart.on('click', drill_down_on_click);
 
-    contractSigningsAvgChart.setOption(option_avg, false);
+    subsidiaryContractSigningsAvgChart.setOption(option_avg, false);
     setTimeout(() => {
-      contractSigningsChart.resize();
-      contractSigningsAvgChart.resize();
+      subsidiaryContractSigningsChart.resize();
+      subsidiaryContractSigningsAvgChart.resize();
     }, 200);
   }
 
   layout() {
-    contractSigningsChart.resize();
-    contractSigningsAvgChart.resize();
+    subsidiaryContractSigningsChart.resize();
+    subsidiaryContractSigningsAvgChart.resize();
   }
 
   disconnect() {
-    contractSigningsChart.dispose();
-    contractSigningsAvgChart.dispose();
+    subsidiaryContractSigningsChart.dispose();
+    subsidiaryContractSigningsAvgChart.dispose();
   }
 }

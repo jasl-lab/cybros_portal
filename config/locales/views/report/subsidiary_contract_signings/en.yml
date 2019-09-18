@@ -1,0 +1,25 @@
+---
+en:
+  report:
+    subsidiary_contract_signings:
+      show:
+        title: "%{company} Signing situation analysis"
+        month_name: "Query year and month"
+        period_mean_ref: "Period mean ref"
+        contract_amounts_per_staff_ref: "Contract amounts per staff ref"
+        manual_set_staff_ref: "Manual set staff ref"
+        confirm: "Confirm"
+      amount_modal:
+        table:
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          moneytax: "Money tax"
+          clientsname: "Client name"
+          businessdirectorname: "Business director name"
+      date_modal:
+        table:
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          date1: "Signing days"
+          firstpartyname: "First client name"
+          businessdirectorname: "Business director name"
