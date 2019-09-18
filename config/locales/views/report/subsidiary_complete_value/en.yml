@@ -3,6 +3,9 @@ en:
   report:
     subsidiary_complete_values:
       show:
+        actions:
+          view_deptcode_sum: "View department in sum"
+          view_deptcode: "View department in detail"
         title: "%{company} subsidiary complete value"
         company_name: "Company name"
         month_name: "Query year and month"

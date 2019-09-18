@@ -61,7 +61,7 @@
       <% end %>
       <% if current_user.present? && policy(Bi::CompleteValue).show? %>
         <%= nav_item controller: 'report/subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_complete_value_path, class: "nav-link" do %>
+          <%= link_to report_subsidiary_complete_value_path(view_deptcode_sum: true), class: "nav-link" do %>
             <i class="nav-icon fas fa-draw-polygon"></i>
             <%= t("layouts.sidebar.operation.subsidiary_complete_value") %>
           <% end %>

@@ -26,27 +26,37 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @all_month_names = Bi::CompleteValueDept.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
+    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+
 
     last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
-    @data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(date: last_available_date)
-      .select("COMPLETE_VALUE_DEPT.deptcode, dept_asc, SUM(total) sum_total")
-      .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
-      .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
-      .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode")
+    data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(date: last_available_date)
       .where("SH_REPORT_DEPT_ORDER.dept_asc IS NOT NULL OR COMPLETE_VALUE_DEPT.orgcode != '000101'")
 
-    @all_department_codes = @data.collect(&:deptcode)
+    data = if @view_deptcode_sum
+      data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, dept_asc, SUM(total) sum_total")
+        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode_sum")
+        .group("COMPLETE_VALUE_DEPT.deptcode_sum, dept_asc")
+        .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode_sum")
+    else
+      data.select("COMPLETE_VALUE_DEPT.deptcode, dept_asc, SUM(total) sum_total")
+        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
+        .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
+        .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode")
+    end
+
+    @all_department_codes = data.collect(&:deptcode)
     @all_department_names = @all_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
-    @complete_value_totals = @data.collect { |d| (d.sum_total / 10000.0).round(0) }
+    @complete_value_totals = data.collect { |d| (d.sum_total / 10000.0).round(0) }
     @sum_complete_value_totals = (@complete_value_totals.sum / 10000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 10000.0).round(1)
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
 
     @staff_per_dept_code = Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
-    @complete_value_totals_per_staff = @data.collect do |d|
+    @complete_value_totals_per_staff = data.collect do |d|
       staff_number = @staff_per_dept_code.fetch(d.deptcode, 1000_0000)
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
@@ -62,7 +72,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.subsidiary_complete_value"),
-        link: report_subsidiary_complete_value_path }]
+        link: report_subsidiary_complete_value_path(view_deptcode_sum: true) }]
     end
 
 
