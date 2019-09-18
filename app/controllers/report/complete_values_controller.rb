@@ -11,7 +11,7 @@ class Report::CompleteValuesController < Report::BaseController
     @all_month_names = Bi::CompleteValue.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
-    @show_shanghai_hq = params[:show_shanghai_hq]&.presence
+    @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
@@ -29,10 +29,14 @@ class Report::CompleteValuesController < Report::BaseController
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
     end
 
-    all_company_names = data.collect(&:orgcode).collect do |c|
-      Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
-    end
-    @all_company_short_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+    all_company_orgcodes = data.collect(&:orgcode)
+    all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+
+    @orgs_options = all_company_orgcodes - ["000101"] if @orgs_options.blank?
+    @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    data = data.where(orgcode: @orgs_options)
+    @company_short_names = data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @complete_value_totals = data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
     @fix_sum_complete_value_totals = ((Bi::CompleteValue.where(date: last_available_date).select("SUM(total) sum_total").first.sum_total || 0) / 10000_0000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
@@ -57,14 +61,6 @@ class Report::CompleteValuesController < Report::BaseController
       0
     else
       (sum_of_complete_value_year_totals_per_staff / @complete_value_year_totals_per_staff.size).round(0)
-    end
-    unless @show_shanghai_hq
-      @all_company_short_names = @all_company_short_names[1..]
-      @complete_value_totals = @complete_value_totals[1..]
-      @complete_value_year_totals = @complete_value_year_totals[1..]
-      @complete_value_year_totals_remain = @complete_value_year_totals_remain[1..]
-      @complete_value_totals_per_staff = @complete_value_totals_per_staff[1..]
-      @complete_value_year_totals_per_staff = @complete_value_year_totals_per_staff[1..]
     end
   end
 

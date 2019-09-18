@@ -8,5 +8,5 @@ en:
           view_orgcode: "View organization in detail"
         title: "Complete value"
         month_name: "Query year and month"
-        show_shanghai_hq: "Show Shanghai HQ"
+        org_names: "Organization names"
         confirm: "Confirm"

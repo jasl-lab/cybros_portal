@@ -8,5 +8,5 @@ zh-CN:
           view_orgcode: "显示明细部门"
         title: "工作完成情况分析"
         month_name: "查询年月"
-        show_shanghai_hq: "显示上海天华"
+        org_names: "显示子公司"
         confirm: "确认"
