@@ -167,7 +167,7 @@ class Report::ContractHoldsController < Report::BaseController
   def export_sign_detail
     authorize Bi::ContractHoldSignDetail
     end_of_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractHoldSignDetail).order(:orgcode, :deptcode).where("date <= ?", end_of_month).order(date: :desc).first.date
+    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
     company_short_names_by_orgcode = Bi::StaffCount.company_short_names_by_orgcode(end_of_month)
     respond_to do |format|
       format.csv do
@@ -185,7 +185,7 @@ class Report::ContractHoldsController < Report::BaseController
             t("report.contract_holds.show.table.milestone"),
             t("report.contract_holds.show.table.sign_hold_value")
           ]
-          policy_scope(Bi::ContractHoldSignDetail).where(date: last_available_date).find_each do |r|
+          policy_scope(Bi::ContractHoldSignDetail).order(:orgcode, :deptcode).where(date: last_available_date).each do |r|
             values = []
             values << company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode)
             values << Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
