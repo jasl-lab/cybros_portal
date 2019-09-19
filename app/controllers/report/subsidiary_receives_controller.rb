@@ -15,6 +15,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
+    @selected_short_name = params[:company_name]&.strip
 
     current_user_companies = current_user.user_company_names
     real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
@@ -38,6 +39,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     real_company_short_names = @real_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @orgs_options = @only_have_real_data_orgs - ["000101"] if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
+
+    @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
+
+    if @selected_short_name.present?
+      selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
+      @orgs_options = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
+    end
 
     real_data = if @view_orgcode_sum
       real_data.where(orgcode_sum: @orgs_options)

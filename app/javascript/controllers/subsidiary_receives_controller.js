@@ -9,6 +9,7 @@ export default class extends Controller {
   connect() {
     subsidiaryRealReceivesChart = echarts.init(document.getElementById('subsidiary-real-receives-chart'));
 
+    const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
     const realReceives = JSON.parse(this.data.get("real_receives"));
     const staffRealReceiveRef = this.data.get("staff_real_receive_ref");
@@ -90,6 +91,7 @@ export default class extends Controller {
           type: 'bar',
           data: realReceives,
           color: '#738496',
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
@@ -100,7 +102,7 @@ export default class extends Controller {
         }]
     };
 
-    var need_option = {
+    const need_option = {
         title: {
           text: '应收款（财务+业务）'
         },
@@ -182,6 +184,7 @@ export default class extends Controller {
           itemStyle: {
             color: '#738496'
           },
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
@@ -191,7 +194,7 @@ export default class extends Controller {
         }]
     };
 
-    var real_staff_option = {
+    const real_staff_option = {
         title: {
           text: '人均实收款'
         },
@@ -237,6 +240,7 @@ export default class extends Controller {
           type: 'bar',
           data: realReceivesPerStaff,
           color: '#738496',
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
@@ -247,7 +251,7 @@ export default class extends Controller {
         }]
     };
 
-    var need_staff_option = {
+    const need_staff_option = {
         legend: {
             data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
             align: 'left'
@@ -310,6 +314,7 @@ export default class extends Controller {
           type: 'bar',
           data: needShouldReceivesPerStaff,
           color: '#738496',
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
@@ -324,6 +329,7 @@ export default class extends Controller {
           symbol: 'circle',
           symbolSize: 8,
           data: paybackRatesWithColor,
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
@@ -338,12 +344,22 @@ export default class extends Controller {
     function drill_down_real_receives_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          const company_name = realXAxisData[params.dataIndex];
+          const series_company = realXAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
-          const sent_data = { company_name, month_name };
-          const drill_down_url = '/report/subsidiary_receive';
+          let url;
+          if(sumOrgNames.indexOf(series_company) > -1) {
+            url = "/report/subsidiary_receive";
+          } else {
+            url = "/report/subsidiary_receive";
+          }
 
-          console.log(drill_down_url);
+          if (url.indexOf('?') > -1) {
+            url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          } else {
+            url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          }
+
+          window.location.href = url;
         }
       }
     }
