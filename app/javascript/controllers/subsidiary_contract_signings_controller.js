@@ -103,6 +103,7 @@ var option = {
       symbolSize: 8,
       data: avgPeriodMean,
       color: '#675BBA',
+      barMaxWidth: 40,
       label: {
         normal: {
           show: true,
@@ -128,7 +129,7 @@ var option = {
       type: 'bar',
       data: sumContractAmounts,
       color: '#738496',
-      barMaxWidth: 80,
+      barMaxWidth: 40,
       label: {
         normal: {
           show: true,
@@ -186,7 +187,7 @@ var option_avg = {
       name: '本年累计人均合同额',
       type: 'bar',
       data: contractAmountsPerStaffWithColor,
-      barMaxWidth: 80,
+      barMaxWidth: 40,
       label: {
         normal: {
           show: true,
