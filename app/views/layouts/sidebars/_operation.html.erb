@@ -41,14 +41,14 @@
         <%= nav_item controller: 'report/project_milestores', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_project_milestore_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-project-diagram"></i>
-            <%= t("layouts.sidebar.operation.project_milestore") %>
+            <%= t("layouts.sidebar.operation.project_milestore", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>
       <%= nav_item controller: 'report/yearly_subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
         <%= link_to report_yearly_subsidiary_workloading_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-stopwatch"></i>
-          <%= t("layouts.sidebar.operation.yearly_subsidiary_workloading") %>
+          <%= t("layouts.sidebar.operation.yearly_subsidiary_workloading", company: current_user.user_company_short_name) %>
         <% end %>
       <% end %>
       <% if current_user.present? %>
@@ -63,7 +63,7 @@
         <%= nav_item controller: 'report/subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_complete_value_path(view_deptcode_sum: true), class: "nav-link" do %>
             <i class="nav-icon fas fa-draw-polygon"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_complete_value") %>
+            <%= t("layouts.sidebar.operation.subsidiary_complete_value", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>
@@ -79,7 +79,7 @@
         <%= nav_item controller: 'report/contract_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_contract_sign_detail_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-list"></i>
-            <%= t("layouts.sidebar.operation.contract_sign_detail") %>
+            <%= t("layouts.sidebar.operation.contract_sign_detail", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>
@@ -87,7 +87,7 @@
         <%= nav_item controller: 'report/subsidiary_need_receive_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_need_receive_sign_detail_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-list-alt"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_need_receive_sign_detail") %>
+            <%= t("layouts.sidebar.operation.subsidiary_need_receive_sign_detail", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>
@@ -95,7 +95,7 @@
         <%= nav_item controller: 'report/subsidiary_need_receive_unsign_details', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_need_receive_unsign_detail_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-list-alt"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_need_receive_unsign_detail") %>
+            <%= t("layouts.sidebar.operation.subsidiary_need_receive_unsign_detail", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>
