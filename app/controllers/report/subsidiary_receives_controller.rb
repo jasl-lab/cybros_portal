@@ -14,43 +14,67 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @orgs_options = params[:orgs]
+    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
     current_user_companies = current_user.user_company_names
     real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
-      .select("orgcode, org_order, SUM(real_receive) real_receive")
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
-      .group(:orgcode, :org_order)
       .order("ORG_ORDER.org_order DESC")
+
+    real_data = if @view_orgcode_sum
+      real_data.select("orgcode_sum orgcode, org_order, SUM(real_receive) real_receive")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
+        .group(:orgcode_sum, :org_order)
+    else
+      real_data.select("orgcode, org_order, SUM(real_receive) real_receive")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
+        .group(:orgcode, :org_order)
+    end
+
     @only_have_real_data_orgs = real_data.collect(&:orgcode)
     @real_company_names = @only_have_real_data_orgs.collect do |orgcode|
       Bi::OrgShortName.company_long_names_by_orgcode.fetch(orgcode, orgcode)
     end
 
     real_company_short_names = @real_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-    @orgs_options = real_data.where.not(orgcode: "000101").pluck(:orgcode) if @orgs_options.blank?
+    @orgs_options = @only_have_real_data_orgs - ["000101"] if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
 
-    @real_data = real_data.where(orgcode: @orgs_options)
-    @real_company_short_names = @real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
-    @real_receives = @real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
+    real_data = if @view_orgcode_sum
+      real_data.where(orgcode_sum: @orgs_options)
+    else
+      real_data.where(orgcode: @orgs_options)
+    end
+
+    @real_company_short_names = real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
+    @real_receives = real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
-    @need_data = policy_scope(Bi::SubCompanyNeedReceive)
+
+    need_data = policy_scope(Bi::SubCompanyNeedReceive)
       .where(date: need_data_last_available_date)
-      .select("orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
-      .group(:orgcode, :org_order)
       .order("ORG_ORDER.org_order DESC")
-      .where(orgcode: @orgs_options)
-    @need_company_names = @need_data.collect do |nd|
+
+    need_data = if @view_orgcode_sum
+      need_data.select("orgcode_sum orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode_sum")
+        .group(:orgcode_sum, :org_order)
+        .where(orgcode_sum: @orgs_options)
+    else
+      need_data.select("orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
+        .group(:orgcode, :org_order)
+        .where(orgcode: @orgs_options)
+    end
+
+    @need_company_names = need_data.collect do |nd|
       Bi::OrgShortName.company_long_names_by_orgcode.fetch(nd.orgcode, nd.orgcode)
     end
     @need_company_short_names = @need_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-    @need_long_account_receives = @need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
-    @need_short_account_receives = @need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
-    @need_should_receives = @need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
+    @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
+    @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
+    @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
 
     fix_need_data = policy_scope(Bi::SubCompanyNeedReceive).where(date: need_data_last_available_date)
       .select("SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive").first
@@ -59,13 +83,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @fix_need_should_receives = @fix_need_long_account_receives + @fix_need_short_account_receives
 
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
-    @real_receives_per_staff = @real_data.collect do |d|
+    @real_receives_per_staff = real_data.collect do |d|
       company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
       (d.real_receive / (staff_number * 10000).to_f).round(0)
     end
-    @need_should_receives_per_staff = @need_data.collect do |d|
+    @need_should_receives_per_staff = need_data.collect do |d|
       company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
@@ -85,7 +109,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       h[short_name] = d.sum_total
       h
     end
-    @payback_rates = @real_data.collect do |d|
+    @payback_rates = real_data.collect do |d|
       company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       complete_value = complete_value_hash.fetch(short_name, 100000)
@@ -106,7 +130,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.subsidiary_receive"),
-        link: report_subsidiary_receive_path }]
+        link: report_subsidiary_receive_path(view_orgcode_sum: params[:view_orgcode_sum]) }]
     end
 
 

@@ -3,6 +3,9 @@ en:
   report:
     subsidiary_receives:
       show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
         title: "Subsidiary receive"
         month_name: "Real receive year and month"
         org_names: "Organization names"
