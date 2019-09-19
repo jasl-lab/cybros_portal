@@ -8,8 +8,8 @@ module Bi
       order(contracttime: :asc).pluck(:contracttime).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
-    def self.all_org_long_names(contracttime_range)
-      where(contracttime: contracttime_range).select(:orgname).distinct.pluck(:orgname)
+    def self.all_org_long_names(last_available_date)
+      where(date: last_available_date).select(:orgname).distinct.pluck(:orgname)
     end
 
     def self.last_available_date(end_of_month)
