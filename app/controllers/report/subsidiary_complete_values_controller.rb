@@ -31,18 +31,18 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
     last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(date: last_available_date)
-      .where("SH_REPORT_DEPT_ORDER.dept_asc IS NOT NULL OR COMPLETE_VALUE_DEPT.orgcode != '000101'")
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
 
     data = if @view_deptcode_sum
-      data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, dept_asc, SUM(total) sum_total")
-        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode_sum")
-        .group("COMPLETE_VALUE_DEPT.deptcode_sum, dept_asc")
-        .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode_sum")
+      data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 显示顺序, SUM(total) sum_total")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode_sum")
+        .group("COMPLETE_VALUE_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.显示顺序")
+        .order("ORG_REPORT_DEPT_ORDER.显示顺序, COMPLETE_VALUE_DEPT.deptcode_sum")
     else
-      data.select("COMPLETE_VALUE_DEPT.deptcode, dept_asc, SUM(total) sum_total")
-        .joins("LEFT JOIN SH_REPORT_DEPT_ORDER on SH_REPORT_DEPT_ORDER.deptcode = COMPLETE_VALUE_DEPT.deptcode")
-        .group("COMPLETE_VALUE_DEPT.deptcode, dept_asc")
-        .order("SH_REPORT_DEPT_ORDER.dept_asc, COMPLETE_VALUE_DEPT.deptcode")
+      data.select("COMPLETE_VALUE_DEPT.deptcode, 显示顺序, SUM(total) sum_total")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode")
+        .group("COMPLETE_VALUE_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.显示顺序")
+        .order("ORG_REPORT_DEPT_ORDER.显示顺序, COMPLETE_VALUE_DEPT.deptcode")
     end
 
     @all_department_codes = data.collect(&:deptcode)
