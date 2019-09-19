@@ -9,7 +9,6 @@ class Report::ContractSigningsController < Report::BaseController
   def show
     authorize Bi::ContractSign
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
-    @show_shanghai_hq = params[:show_shanghai_hq]&.presence
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
@@ -19,27 +18,33 @@ class Report::ContractSigningsController < Report::BaseController
     else
       ((100 / 12.0) * @end_of_month.month).round(0)
     end
+    @orgs_options = params[:orgs]
 
     current_user_companies = current_user.user_company_names
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
 
-    @data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+    data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
       .select("orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN.orgcode")
       .group(:orgcode, :org_order)
       .having("SUM(contract_amount) > 0")
       .order("ORG_ORDER.org_order DESC")
-    @data = @data.where.not(orgcode: "000101") unless @show_shanghai_hq
-    all_company_names = @data.collect(&:orgcode).collect do |c|
-      Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
-    end
-    @company_short_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+
+    all_company_orgcodes = data.collect(&:orgcode)
+    all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+
+    @orgs_options = all_company_orgcodes - ["000101"] if @orgs_options.blank?
+    @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    data = data.where(orgcode: @orgs_options)
+
+    @company_short_names = data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
 
-    @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }
-    @contract_amounts_div_100 = @data.collect { |d| (d.sum_contract_amount / 100.0).round(0) }
+    @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
+    @contract_amounts_div_100 = data.collect { |d| (d.sum_contract_amount / 100.0).round(0) }
     @contract_amount_max = 250
-    @avg_period_mean = @data.collect do |d|
+    @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
     end

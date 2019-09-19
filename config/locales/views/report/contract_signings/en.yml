@@ -8,7 +8,7 @@ en:
         period_mean_ref: "Period mean ref"
         contract_amounts_per_staff_ref: "Contract amounts per staff ref"
         manual_set_staff_ref: "Manual set staff ref"
-        show_shanghai_hq: "Show Shanghai HQ"
+        org_names: "Organization names"
         confirm: "Confirm"
       amount_modal:
         table:
