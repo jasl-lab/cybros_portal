@@ -5,6 +5,7 @@ zh-CN:
       show:
         title: "已签约项目业务应收"
         month_name: "查询年月"
+        org_name: "公司名称"
         sign_receive_great_than: "合同业务应收 大于（万元）"
         show_hide_item: "显示隐藏项目"
         confirm: "确认"

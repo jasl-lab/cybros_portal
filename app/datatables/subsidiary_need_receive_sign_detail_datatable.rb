@@ -10,6 +10,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     @subsidiary_need_receive_sign_details = opts[:subsidiary_need_receive_sign_details]
     @sign_receive_great_than = opts[:sign_receive_great_than]
     @end_of_date = opts[:end_of_date]
+    @org_name = opts[:org_name]
     @show_hide = opts[:show_hide]
     super
   end
@@ -58,6 +59,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       @subsidiary_need_receive_sign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
     end.where(date: @end_of_date)
     rr = rr.where("sign_receive > ?", @sign_receive_great_than) unless @sign_receive_great_than.zero?
+    rr = rr.where(orgname: @org_name) if @org_name.present?
     rr
   end
 end

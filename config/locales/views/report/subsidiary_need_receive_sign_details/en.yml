@@ -5,6 +5,7 @@ en:
       show:
         title: "Subsidiary need receive sign detail"
         month_name: "Month Name"
+        org_name: "Company name"
         sign_receive_great_than: "Sign receive greater than"
         show_hide_item: "Show hide item"
         confirm: "Confirm"
