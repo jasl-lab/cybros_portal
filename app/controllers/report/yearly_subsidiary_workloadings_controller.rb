@@ -6,6 +6,7 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    authorize Bi::WorkHoursCountOrg
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
     if current_user_companies.include?('上海天华建筑设计有限公司')
