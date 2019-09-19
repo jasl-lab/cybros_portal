@@ -11,9 +11,9 @@ en:
         month_name: "Query year and month"
         confirm: "Confirm"
         table:
-          projectcode: "Project code"
-          projectname: "Project name"
-          contractcode: "Contract code"
-          salescontractname: "Sale contract name"
+          sales_contract_code_name: "Sale contract code & name"
+          project_code_name: "Project code & name"
           sumamount: "Sum amount"
+          addvalue: "Add value in month"
+          reducevalue: "Reduce value in month"
           confirmdate: "Confirm date"
