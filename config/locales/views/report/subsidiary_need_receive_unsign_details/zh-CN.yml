@@ -5,6 +5,7 @@ zh-CN:
       show:
         title: "未签约项目业务应收"
         month_name: "查询年月"
+        org_name: "公司名称"
         unsign_receive_great_than: "业务应收（未签约）大于（万元）"
         days_to_min_timecard_fill_great_than: "人力成本达2万日期距本月底的天数 大于"
         show_hide_item: "显示隐藏项目"

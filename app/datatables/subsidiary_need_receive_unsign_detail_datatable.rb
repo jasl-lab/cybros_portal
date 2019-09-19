@@ -9,6 +9,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
   def initialize(params, opts = {})
     @subsidiary_need_receive_unsign_details = opts[:subsidiary_need_receive_unsign_details]
     @end_of_date = opts[:end_of_date]
+    @org_name = opts[:org_name]
     @unsign_receive_great_than = opts[:unsign_receive_great_than]
     @days_to_min_timecard_fill_great_than = opts[:days_to_min_timecard_fill_great_than]
     @show_hide = opts[:show_hide]
@@ -56,6 +57,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
     else
       @subsidiary_need_receive_unsign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
     end.where(date: @end_of_date)
+    rr = rr.where(orgname: @org_name) if @org_name.present?
     rr = rr.where("unsign_receive > ?", @unsign_receive_great_than) unless @unsign_receive_great_than.zero?
     rr = rr.where("days_to_mintimecardfill > ?", @days_to_min_timecard_fill_great_than) unless @days_to_min_timecard_fill_great_than.zero?
     rr
