@@ -73,7 +73,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @company_name = params[:company_name]
     @department_name = params[:department_name]
     end_month = Date.parse(params[:month_name]).end_of_month
-    @data = policy_scope(Bi::ContractSignDetailAmount).where("filingtime <= ?", end_month)
+    last_available_date = policy_scope(Bi::ContractSignDetailAmount).last_available_date(end_month)
+
+    @data = policy_scope(Bi::ContractSignDetailAmount).where(date: last_available_date)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
   end
@@ -83,7 +85,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @company_name = params[:company_name]
     @department_name = params[:department_name]
     end_month = Date.parse(params[:month_name]).end_of_month
-    @data = policy_scope(Bi::ContractSignDetailDate).where("contracttime <= ?", end_month)
+    last_available_date = policy_scope(Bi::ContractSignDetailDate).last_available_date(end_month)
+
+    @data = policy_scope(Bi::ContractSignDetailDate).where(date: last_available_date)
       .where(orgname: @company_name, deptname: @department_name)
       .order(contracttime: :asc)
   end
