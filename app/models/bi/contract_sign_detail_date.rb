@@ -7,5 +7,9 @@ module Bi
     def self.all_month_names
       order(contracttime: :asc).pluck(:contracttime).collect { |d| d.to_s(:month_and_year) }.uniq
     end
+
+    def self.all_org_long_names(contracttime_range)
+      where(contracttime: contracttime_range).select(:orgname).distinct.pluck(:orgname)
+    end
   end
 end

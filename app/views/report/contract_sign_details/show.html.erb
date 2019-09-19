@@ -11,6 +11,10 @@
               <label class="mr-1"><%= t(".month_name") -%>：</label>
               <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
             </div>
+            <div class="form-group mr-3">
+              <label class="mr-1"><%= t(".org_name") -%>：</label>
+              <%= select_tag 'org_name', options_for_select(@all_org_long_names, @org_name), include_blank: true, class: 'form-control' %>
+            </div>
             <div class="form-group">
               <label class="mr-1"><%= t(".date_1_great_than") -%>：</label>
               <%= text_field_tag 'date_1_great_than', @date_1_great_than, class: 'form-control form-control2' %>
@@ -27,7 +31,7 @@
           <% end -%>
         <table id="contract-sign-details-datatable"
           class="table table-hover table-bordered table-responsive"
-          data-source="<%= report_contract_sign_detail_path(format: :json, date_1_great_than: @date_1_great_than, month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
+          data-source="<%= report_contract_sign_detail_path(format: :json, org_name: @org_name, date_1_great_than: @date_1_great_than, month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
           <thead>
             <tr>
               <th style="width: 48px"><%= t(".table.org_name") -%></th>

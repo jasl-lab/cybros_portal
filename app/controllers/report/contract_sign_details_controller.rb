@@ -11,6 +11,8 @@ class Report::ContractSignDetailsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @beginning_of_month = Date.parse(@month_name).beginning_of_month
     @end_of_month = Date.parse(@month_name).end_of_month
+    @all_org_long_names = policy_scope(Bi::ContractSignDetailDate).all_org_long_names(@beginning_of_month..@end_of_month)
+    @org_name = params[:org_name]&.strip
     @date_1_great_than = params[:date_1_great_than] || 100
     @days_to_min_timecard_fill_great_than = params[:days_to_min_timecard_fill_great_than] || 100
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
@@ -22,6 +24,7 @@ class Report::ContractSignDetailsController < Report::BaseController
         contract_sign_detail_dates = policy_scope(Bi::ContractSignDetailDate)
         render json: ContractSignDetailDatatable.new(params,
           contract_sign_detail_dates: contract_sign_detail_dates,
+          org_name: @org_name,
           beginning_of_month: @beginning_of_month,
           end_of_month: @end_of_month,
           date_1_great_than: @date_1_great_than.to_i,
