@@ -39,8 +39,17 @@
     <% end -%>
     <div class="row">
       <div class="col-lg-12 p-2">
-        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,集团本年累计完成产值 <span style="color:red"><%= @fix_sum_complete_value_totals -%> 亿元</span>，本年累计人均完成产值 <span style="color:red"><%= @fix_avg_complete_value_totals_per_staff -%> 万元</span>；</h5>
-        <h5 class="text-center">集团预计全年完成产值 <span style="color:red"><%= @fix_sum_complete_value_year_totals -%> 亿元</span>，预计全年人均完成产值 <span style="color:red"><%= @fix_avg_complete_value_year_totals_per_staff -%> 万元</span>。</h5>
+        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,
+          <%= @selected_short_name.presence || '集团' -%>本年累计完成产值
+          <span style="color:red"><%= @selected_short_name.present? ? "#{@complete_value_totals.sum.round(1)}百万元" : "#{@fix_sum_complete_value_totals}亿元" -%></span>，
+          本年累计人均完成产值
+          <span style="color:red"><%= @selected_short_name.present? ? (@complete_value_totals_per_staff.sum.to_f / @complete_value_totals_per_staff.size).round(0) : @fix_avg_complete_value_totals_per_staff -%> 万元</span>；
+        </h5>
+        <h5 class="text-center">
+          <%= @selected_short_name.presence || '集团' -%>预计全年完成产值
+          <span style="color:red"><%= @selected_short_name.present? ? "#{@complete_value_year_totals.sum.round(1)}百万元" : "#{@fix_sum_complete_value_year_totals}亿元" -%></span>，
+          预计全年人均完成产值
+          <span style="color:red"><%= @selected_short_name.present? ? (@complete_value_year_totals_per_staff.sum.to_f / @complete_value_year_totals_per_staff.size).round(0) : @fix_avg_complete_value_year_totals_per_staff -%> 万元</span>。</h5>
       </div>
     </div>
     <div class="row">

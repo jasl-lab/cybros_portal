@@ -47,6 +47,7 @@ class Report::CompleteValuesController < Report::BaseController
     else
       data.where(orgcode: @orgs_options)
     end
+
     @company_short_names = data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @complete_value_totals = data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
     @fix_sum_complete_value_totals = ((Bi::CompleteValue.where(date: last_available_date).select("SUM(total) sum_total").first.sum_total || 0) / 10000_0000.0).round(1)
