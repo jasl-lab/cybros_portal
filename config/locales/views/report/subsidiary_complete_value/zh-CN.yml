@@ -10,3 +10,10 @@ zh-CN:
         company_name: "公司名"
         month_name: "查询年月"
         confirm: "确认"
+        table:
+          projectcode: "项目编号"
+          projectname: "项目名称"
+          contractcode: "合同编号"
+          salescontractname: "合同名称"
+          sumamount: "合同金额"
+          confirmdate: "确认日期"

@@ -286,10 +286,12 @@ var option3 = {
                 drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
                 break;
             }
-            $.ajax(drill_down_url, {
-              data: sent_data,
-              dataType: 'script'
-            });
+            if (drill_down_url !== undefined) {
+              $.ajax(drill_down_url, {
+                data: sent_data,
+                dataType: 'script'
+              });
+            }
           } else {
             let url = window.location.href;
             if (url.indexOf('?') > -1) {

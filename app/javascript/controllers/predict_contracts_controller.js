@@ -111,7 +111,6 @@ var option = {
           const month_name = $('#month_name').val();
           const sent_data = { department_name, month_name };
           let drill_down_url;
-          console.log(params.seriesName);
           switch (params.seriesName) {
             case '跟踪合同额（成功率小于80%）':
               drill_down_url = '/report/predict_contract/opportunity_detail_drill_down';
@@ -120,10 +119,12 @@ var option = {
               drill_down_url = '/report/predict_contract/signing_detail_drill_down';
               break;
           }
-          $.ajax(drill_down_url, {
-            data: sent_data,
-            dataType: 'script'
-          });
+          if (drill_down_url !== undefined) {
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
+          }
         }
       }
     }

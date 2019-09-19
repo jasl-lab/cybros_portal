@@ -190,10 +190,12 @@ export default class extends Controller {
               drill_down_url = '/report/contract_hold/unsign_detail_drill_down';
               break;
           }
-          $.ajax(drill_down_url, {
-            data: sent_data,
-            dataType: 'script'
-          });
+          if (drill_down_url !== undefined) {
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
+          }
         }
       }
     }

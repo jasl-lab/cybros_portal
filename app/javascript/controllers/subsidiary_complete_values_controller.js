@@ -9,6 +9,7 @@ export default class extends Controller {
     subsidiaryCompleteValuesPerStaffChart = echarts.init(document.getElementById('subsidiary-complete-values-per-staff-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
+var selectedCompanyName = this.data.get("selected_company_name");
 var completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
 var completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
 var completeValueYearRemains = JSON.parse(this.data.get("complete_value_year_remains"));
@@ -189,7 +190,32 @@ var option_staff = {
     }]
 };
 
+
+    function drill_down_subsidiary_complete_values_detail(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          const department_name = xAxisData[params.dataIndex];
+          const month_name = $('#month_name').val();
+          const sent_data = { department_name, month_name, company_name: selectedCompanyName };
+          let drill_down_url;
+          switch (params.seriesName) {
+            case '累计完成产值（万元）':
+              drill_down_url = '/report/subsidiary_complete_value/drill_down';
+              break;
+          }
+
+          if (drill_down_url !== undefined) {
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
+          }
+        }
+      }
+    }
+
     subsidiaryCompleteValuesChart.setOption(option_total, false);
+    subsidiaryCompleteValuesChart.on('click', drill_down_subsidiary_complete_values_detail);
     subsidiaryCompleteValuesPerStaffChart.setOption(option_staff, false);
     setTimeout(() => {
       subsidiaryCompleteValuesChart.resize();

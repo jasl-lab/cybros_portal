@@ -17,6 +17,7 @@
     data-controller="subsidiary-complete-values"
     data-action="resize@window->subsidiary-complete-values#layout"
     data-subsidiary-complete-values-x_axis="<%= @all_department_names.to_json -%>"
+    data-subsidiary-complete-values-selected_company_name="<%= @selected_company_name -%>"
     data-subsidiary-complete-values-complete_value_totals="<%= @complete_value_totals.to_json -%>"
     data-subsidiary-complete-values-complete_value_year_totals="<%= @complete_value_year_totals.to_json -%>"
     data-subsidiary-complete-values-complete_value_year_remains="<%= @complete_value_year_remains.to_json -%>"
@@ -74,3 +75,5 @@
   </div>
   </div>
 </div>
+
+<div id="subsidiary-complete-value-modal" class="modal" tabindex="-1" role="dialog"></div>

@@ -10,3 +10,10 @@ en:
         company_name: "Company name"
         month_name: "Query year and month"
         confirm: "Confirm"
+        table:
+          projectcode: "Project code"
+          projectname: "Project name"
+          contractcode: "Contract code"
+          salescontractname: "Sale contract name"
+          sumamount: "Sum amount"
+          confirmdate: "Confirm date"

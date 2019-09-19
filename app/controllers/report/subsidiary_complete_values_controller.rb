@@ -63,6 +63,19 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
   end
 
+  def drill_down
+    @company_name = params[:company_name].strip
+    @dept_name = params[:department_name].strip
+
+    month_name = params[:month_name]&.strip
+    end_of_month = Date.parse(month_name).end_of_month
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+
+    last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
+    @rows = policy_scope(Bi::CompleteValueDetail).where(orgname: @company_name, deptname: @dept_name, date: last_available_date)
+    render
+  end
+
   private
 
     def set_breadcrumbs
