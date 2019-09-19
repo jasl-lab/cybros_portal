@@ -97,9 +97,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.contract_signing"),
-        link: report_contract_signing_path }]
+        link: report_subsidiary_contract_signing_path }]
     end
-
 
     def set_page_layout_data
       @_sidebar_name = "operation"

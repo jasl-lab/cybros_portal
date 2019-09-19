@@ -19,16 +19,24 @@ class Report::ContractSigningsController < Report::BaseController
       ((100 / 12.0) * @end_of_month.month).round(0)
     end
     @orgs_options = params[:orgs]
+    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
     current_user_companies = current_user.user_company_names
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
 
     data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
-      .select("orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN.orgcode")
-      .group(:orgcode, :org_order)
       .having("SUM(contract_amount) > 0")
       .order("ORG_ORDER.org_order DESC")
+
+    data = if @view_orgcode_sum
+      data.select("orgcode_sum orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN.orgcode_sum")
+        .group(:orgcode_sum, :org_order)
+    else
+      data.select("orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN.orgcode")
+        .group(:orgcode, :org_order)
+    end
 
     all_company_orgcodes = data.collect(&:orgcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
@@ -36,7 +44,11 @@ class Report::ContractSigningsController < Report::BaseController
     @orgs_options = all_company_orgcodes - ["000101"] if @orgs_options.blank?
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
-    data = data.where(orgcode: @orgs_options)
+    data = if @view_orgcode_sum
+      data.where(orgcode_sum: @orgs_options)
+    else
+      data.where(orgcode: @orgs_options)
+    end
 
     @company_short_names = data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
     @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
@@ -77,7 +89,7 @@ class Report::ContractSigningsController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.contract_signing"),
-        link: report_contract_signing_path }]
+        link: report_contract_signing_path(view_orgcode_sum: params[:view_orgcode_sum]) }]
     end
 
 

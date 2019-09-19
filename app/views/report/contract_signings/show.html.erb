@@ -1,3 +1,16 @@
+<%- content_for :action_bar do %>
+  <ol>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.view_orgcode_sum'),
+          report_contract_signing_path(month_name: @month_name, view_orgcode_sum: true), class: 'btn text-primary' %>
+    </li>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.view_orgcode'),
+          report_contract_signing_path(month_name: @month_name), class: 'btn text-primary' %>
+    </li>
+  </ol>
+<% end %>
+
 <div class="row">
   <div class="col-lg-12"
     data-controller="contract-signings"
@@ -17,6 +30,7 @@
       <%= t(".title", company: @company_name) %>
     </h3>
     <%= form_tag report_contract_signing_path, method: :get, class: 'form-inline' do -%>
+      <%= hidden_field_tag :view_orgcode_sum, @view_orgcode_sum %>
       <div class="form-group">
         <label class="mr-1"><%= t(".period_mean_ref") -%>：</label>
         <%= text_field_tag 'period_mean_ref', @period_mean_ref, class: 'form-control form-control2' %>
