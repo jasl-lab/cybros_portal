@@ -9,7 +9,7 @@ export default class extends Controller {
     contractSigningsAvgChart = echarts.init(document.getElementById('contract-signings-avg-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
-    const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
+    const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const companyName = this.data.get("company_name");
     const secondLevelDrill = this.data.get("second_level_drill");
     const sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
@@ -214,16 +214,20 @@ export default class extends Controller {
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          let url = '/report/subsidiary_contract_signing';
           const series_company = xAxisData[params.dataIndex];
+          let url;
+          if(sumOrgNames.indexOf(series_company) > -1) {
+            url = "/report/contract_signing";
+          } else {
+            url = "/report/subsidiary_contract_signing";
+          }
+
           if (url.indexOf('?') > -1) {
             url += '&company_name=' + encodeURIComponent(series_company);
           } else {
             url += '?company_name=' + encodeURIComponent(series_company);
           }
-          if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
-            window.location.href = url;
-          }
+          window.location.href = url;
         }
       }
     }
