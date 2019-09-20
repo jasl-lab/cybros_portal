@@ -9,8 +9,9 @@ class Report::ContractSignDetailsController < Report::BaseController
     authorize Bi::ContractSignDetailDate
     @all_month_names = policy_scope(Bi::ContractSignDetailDate).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
-    end_of_month = Date.parse(@month_name).end_of_month
-    last_available_date = policy_scope(Bi::ContractSignDetailDate).last_available_date(end_of_month)
+    @beginning_of_month = Date.parse(@month_name).beginning_of_month
+    @end_of_month = Date.parse(@month_name).end_of_month
+    last_available_date = policy_scope(Bi::ContractSignDetailDate).last_available_date(@end_of_month)
     @all_org_long_names = policy_scope(Bi::ContractSignDetailDate).all_org_long_names(last_available_date)
     @org_name = params[:org_name]&.strip
     @date_1_great_than = params[:date_1_great_than] || 100
@@ -25,6 +26,8 @@ class Report::ContractSignDetailsController < Report::BaseController
         render json: ContractSignDetailDatatable.new(params,
           contract_sign_detail_dates: contract_sign_detail_dates,
           org_name: @org_name,
+          beginning_of_month: @beginning_of_month,
+          end_of_month: @end_of_month,
           last_available_date: last_available_date,
           date_1_great_than: @date_1_great_than.to_i,
           show_hide: @show_hide_item,
