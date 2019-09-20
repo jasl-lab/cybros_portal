@@ -304,7 +304,7 @@ export default class extends Controller {
           label: {
             normal: {
               show: true,
-              position: 'inside',
+              position: 'top',
               color: '#3E3E3E'
             }
           }

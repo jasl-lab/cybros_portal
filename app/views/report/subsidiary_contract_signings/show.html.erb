@@ -60,22 +60,22 @@
     </div>
     <div class="row mt-3">
       <div class="col-lg-12">
-        <table class="table table-striped table-responsive table-dark">
+        <table class="table table-striped table-dark">
           <thead>
-            <tr class="d-flex">
-              <th scope="col" class="col-1">部门</th>
+            <tr>
+              <th>部门</th>
               <% @department_names.each do |company_name| %>
-                <th scope="col" class="col-1"><%= company_name -%></th>
+                <th><%= company_name -%></th>
               <% end %>
             </tr>
           </thead>
           <tbody>
-            <tr class="d-flex">
-              <th scope="row" class="col-1">平均人数</th>
+            <tr>
+              <td>平均人数</td>
               <% @contract_amounts.each_with_index do |contract_amount, index| %>
                 <% dept_code = @all_department_codes[index] %>
                 <% staff_count = @staff_per_dept_code[dept_code] %>
-                <td class="col-1"><%= staff_count&.round(0) -%></td>
+                <td><%= staff_count&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
