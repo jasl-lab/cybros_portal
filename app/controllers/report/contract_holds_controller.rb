@@ -65,7 +65,7 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
 
-    this_month_staff_data = Bi::YearAvgStaff.staff_per_dept_code_by_date("000101", @end_of_month)
+    this_month_staff_data = Bi::ShStaffCount.staff_per_dept_code_by_date(end_of_month)
 
     @dept_avg_staff = @only_have_data_dept.collect do |dept_code|
       this_month_staff_data[dept_code]

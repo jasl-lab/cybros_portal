@@ -50,7 +50,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     @all_department_codes = @data.collect(&:deptcode)
-    @staff_per_dept_code = Bi::YearAvgStaff.staff_per_dept_code_by_date(org_code, @end_of_month)
+
+    @staff_per_dept_code = if org_code == "000101"
+      Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
+    else
+      Bi::YearAvgStaff.staff_per_dept_code_by_date(org_code, @end_of_month)
+    end
 
     @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amount_max = @contract_amounts.max.round(-1)
