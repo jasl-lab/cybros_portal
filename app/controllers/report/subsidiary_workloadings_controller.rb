@@ -2,10 +2,11 @@
 
 class Report::SubsidiaryWorkloadingsController < Report::BaseController
   before_action :authenticate_user!
-  before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
   before_action :set_drill_down_params_and_title, only: %i[day_rate_drill_down planning_day_rate_drill_down building_day_rate_drill_down],
     if: -> { request.format.js? }
+  after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
   after_action :verify_authorized
 
   def show

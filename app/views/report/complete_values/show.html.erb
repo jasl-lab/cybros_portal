@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_orgcode_sum'),
-          report_complete_value_path(month_name: @month_name, view_orgcode_sum: true), class: 'btn text-primary' %>
+          report_complete_value_path(month_name: @month_name, view_orgcode_sum: true, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_orgcode'),
-          report_complete_value_path(month_name: @month_name), class: 'btn text-primary' %>
+          report_complete_value_path(month_name: @month_name, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
   </ol>
 <% end %>
@@ -27,6 +27,9 @@
     </h3>
     <%= form_tag report_complete_value_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :view_orgcode_sum, @view_orgcode_sum %>
+      <% if params[:in_iframe].present? %>
+        <%= hidden_field_tag :in_iframe, true -%>
+      <% end %>
       <div class="form-group">
         <label class="mr-1"><%= t(".month_name") -%>：</label>
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>

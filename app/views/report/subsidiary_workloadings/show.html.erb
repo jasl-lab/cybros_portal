@@ -20,6 +20,9 @@
     <%= form_tag report_subsidiary_workloading_path, method: :get do -%>
       <div class="form-row">
         <%= hidden_field_tag :company_name, @short_company_name %>
+        <% if params[:in_iframe].present? %>
+          <%= hidden_field_tag :in_iframe, true -%>
+        <% end %>
         <div class="form-group col-md-4">
           <label class="mr-1"><%= t(".day_rate_ref") -%>：</label>
           <%= text_field_tag 'day_rate_ref', @day_rate_ref, class: 'form-control form-control2' %>
