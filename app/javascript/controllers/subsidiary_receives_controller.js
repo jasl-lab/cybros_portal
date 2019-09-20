@@ -197,7 +197,7 @@ export default class extends Controller {
 
     const real_staff_option = {
         title: {
-          text: '人均实收款'
+          text: '一线人均实收款'
         },
         legend: {
             data: ['人均实收款（万元）'],
@@ -253,6 +253,9 @@ export default class extends Controller {
     };
 
     const need_staff_option = {
+        title: {
+          text: '一线人均应收款（财务+业务）'
+        },
         legend: {
             data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
             align: 'left'
@@ -285,7 +288,6 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
-          name: '人均应收款（万元）',
           min: 0,
           max: 50,
           interval: Math.ceil(50 / 5),
