@@ -38,7 +38,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
 
     real_company_short_names = @real_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-    @orgs_options = @only_have_real_data_orgs - ["000101"] if @orgs_options.blank?
+    @orgs_options = @only_have_real_data_orgs if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
 
     @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
