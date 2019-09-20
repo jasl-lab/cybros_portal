@@ -30,7 +30,7 @@
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
       <div class="form-group">
         <label class="mr-1"><%= t(".company_name") -%>：</label>
-        <%= select_tag 'company_name', options_for_select(@all_company_names, @selected_company_name), class: 'form-control' %>
+        <%= select_tag 'company_name', options_for_select(@all_short_company_names, @selected_short_company_name), class: 'form-control' %>
       </div>
       <div class="form-group">
         <label class="mr-1"><%= t(".month_name") -%>：</label>

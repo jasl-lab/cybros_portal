@@ -11,14 +11,15 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     current_company = current_user_companies.first
     if current_user_companies.include?("上海天华建筑设计有限公司")
       all_orgcodes = Bi::CompleteValueDept.distinct.pluck(:orgcode)
-      @all_company_names = all_orgcodes.collect do |c|
+      all_company_names = all_orgcodes.collect do |c|
         Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
       end
       @selected_company_name = params[:company_name]&.strip || current_company
     else
-      @all_company_names = current_user_companies
+      all_company_names = current_user_companies
       @selected_company_name = current_company
     end
+    @all_short_company_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
     orgcode = Bi::OrgShortName.org_code_by_long_name.fetch(@selected_company_name, @selected_company_name)
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
