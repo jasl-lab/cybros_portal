@@ -74,7 +74,6 @@ export default class extends Controller {
               show: true,
               position: 'top',
               fontWeight: 'bold',
-              fontSize: 15,
               color: '#000000'
             }
           }
@@ -100,13 +99,6 @@ export default class extends Controller {
           barWidth: 26,
           itemStyle: {
             color: '#DDDDDD'
-          },
-          label: {
-            normal: {
-              show: true,
-              position: 'inside',
-              color: '#353535'
-            }
           }
         }]
     };
