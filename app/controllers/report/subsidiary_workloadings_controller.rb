@@ -20,7 +20,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     end_of_month = Date.parse(@end_month_name).end_of_month
 
     @short_company_name = params[:company_name]
-    @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname).where(orgname: current_user_companies)
+    @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname)
       .distinct.where(date: beginning_of_month..end_of_month).collect { |r| Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname) }
 
     if @short_company_name.present?
