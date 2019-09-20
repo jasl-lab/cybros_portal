@@ -287,8 +287,8 @@ export default class extends Controller {
           type: 'value',
           name: '人均应收款（万元）',
           min: 0,
-          max: 20,
-          interval: Math.ceil(20 / 5),
+          max: 50,
+          interval: Math.ceil(50 / 5),
           axisLabel: {
             show: true,
             interval: 'auto',

@@ -102,7 +102,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
       staff_number = @staff_per_company.fetch(short_name, 1000_0000)
-      ((d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
+      (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
 
     complete_value_data = if current_user_companies.include?("上海天华建筑设计有限公司")
