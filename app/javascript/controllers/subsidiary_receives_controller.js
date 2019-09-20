@@ -294,21 +294,6 @@ export default class extends Controller {
             interval: 'auto',
             formatter: '{value}万'
           }
-        },{
-          type: 'value',
-          name: '回款率',
-          position: 'right',
-          min: 0,
-          max: 200,
-          interval: Math.ceil(200 / 5),
-          axisLine: {
-            lineStyle: {
-              color: '#675BBA'
-            }
-          },
-          axisLabel: {
-            formatter: '{value}%'
-          }
         }],
         series: [{
           name: '人均应收款（财务+业务）（万元）',
@@ -321,22 +306,6 @@ export default class extends Controller {
               show: true,
               position: 'inside',
               color: '#3E3E3E'
-            }
-          }
-        },{
-          name: '本年回款率',
-          type: 'line',
-          yAxisIndex: 1,
-          symbol: 'circle',
-          symbolSize: 8,
-          data: paybackRatesWithColor,
-          barMaxWidth: 38,
-          label: {
-            normal: {
-              show: true,
-              position: 'top',
-              distance: 20,
-              formatter: '{c}%'
             }
           }
         }]
