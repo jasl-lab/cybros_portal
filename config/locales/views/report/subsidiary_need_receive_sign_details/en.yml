@@ -7,6 +7,7 @@ en:
         month_name: "Month Name"
         org_name: "Company name"
         sign_receive_great_than: "Sign receive greater than"
+        over_amount_great_than: "Over amount greater than"
         show_hide_item: "Show hide item"
         company_name: "Company name"
         confirm: "Confirm"

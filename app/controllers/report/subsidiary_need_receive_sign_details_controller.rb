@@ -14,6 +14,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     @all_org_long_names = policy_scope(Bi::SubCompanyNeedReceiveSignDetail).all_org_long_names(@end_of_date)
     @org_name = params[:org_name]&.strip
     @sign_receive_great_than = params[:sign_receive_great_than] || 100
+    @over_amount_great_than = params[:over_amount_great_than] || 1
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
     @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
 
@@ -26,6 +27,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
           end_of_date: @end_of_date,
           org_name: @org_name,
           sign_receive_great_than: @sign_receive_great_than.to_i * 10000,
+          over_amount_great_than: @over_amount_great_than.to_i * 10000,
           show_hide: @show_hide_item,
           view_context: view_context)
       end
