@@ -9,6 +9,7 @@ en:
         building_day_rate_ref: "Building date rate ref"
         begin_month_name: "Beginning of the month"
         end_month_name: "End of the month"
+        company_name: "Company name"
         confirm: "Confirm"
         back_to_top: "Back to top"
         export: "Export data"

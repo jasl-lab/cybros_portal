@@ -19,33 +19,36 @@
     </h3>
     <%= form_tag report_subsidiary_workloading_path, method: :get do -%>
       <div class="form-row">
-        <%= hidden_field_tag :company_name, @short_company_name %>
         <% if params[:in_iframe].present? %>
           <%= hidden_field_tag :in_iframe, true -%>
         <% end %>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
+          <label class="mr-1"><%= t(".company_name") -%>：</label>
+          <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".day_rate_ref") -%>：</label>
           <%= text_field_tag 'day_rate_ref', @day_rate_ref, class: 'form-control form-control2' %>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".planning_day_rate_ref") -%>：</label>
           <%= text_field_tag 'planning_day_rate_ref', @planning_day_rate_ref, class: 'form-control form-control2' %>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".building_day_rate_ref") -%>：</label>
           <%= text_field_tag 'building_day_rate_ref', @building_day_rate_ref, class: 'form-control form-control2' %>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".begin_month_name") -%>：</label>
           <%= select_tag 'begin_month_name', options_for_select(@all_month_names, @begin_month_name), class: 'form-control' %>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".end_month_name") -%>：</label>
           <%= select_tag 'end_month_name', options_for_select(@all_month_names, @end_month_name), class: 'form-control' %>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
           <label class="mr-1">&nbsp;</label>
           <div class="form-control form-button">
             <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>

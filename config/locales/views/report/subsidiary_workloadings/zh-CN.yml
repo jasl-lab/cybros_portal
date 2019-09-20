@@ -9,6 +9,7 @@ zh-CN:
         building_day_rate_ref: "施工预警"
         begin_month_name: "开始月份"
         end_month_name: "截止月份"
+        company_name: "公司名"
         confirm: "确认"
         back_to_top: "回到集团"
         export: "导出数据"
