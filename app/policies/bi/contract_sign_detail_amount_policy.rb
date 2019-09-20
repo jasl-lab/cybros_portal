@@ -11,7 +11,7 @@ module Bi
     end
 
     def drill_down_amount?
-      show?
+      show? || user.user_company_names.include?(record.orgname)
     end
   end
 end

@@ -13,13 +13,8 @@ module Bi
       end
     end
 
-    def show?
-      return false unless user.present?
-      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?
-    end
-
     def drill_down_date?
-      show?
+      show? || user.user_company_names.include?(record.orgname)
     end
 
     def hide?
