@@ -34,7 +34,7 @@ class Report::CompleteValuesController < Report::BaseController
     all_company_orgcodes = data.collect(&:orgcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
-    @orgs_options = all_company_orgcodes if @orgs_options.blank?
+    @orgs_options = all_company_orgcodes - ["000103"] if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
 
