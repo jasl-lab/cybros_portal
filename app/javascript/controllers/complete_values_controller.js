@@ -9,6 +9,7 @@ export default class extends Controller {
     completeValuesStaffChart = echarts.init(document.getElementById('complete-values-staff-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const inIFrame = this.data.get("in_iframe");
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
     const completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
@@ -198,7 +199,10 @@ export default class extends Controller {
           } else {
             url += '?company_name=' + encodeURIComponent(series_company);
           }
-          window.location.href = url;
+
+          if (inIFrame != "true") {
+            window.location.href = url;
+          }
         }
       }
     }

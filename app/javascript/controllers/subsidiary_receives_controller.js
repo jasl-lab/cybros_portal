@@ -10,6 +10,7 @@ export default class extends Controller {
     subsidiaryRealReceivesChart = echarts.init(document.getElementById('subsidiary-real-receives-chart'));
 
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
+    const inIFrame = this.data.get("in_iframe");
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
     const realReceives = JSON.parse(this.data.get("real_receives"));
     const staffRealReceiveRef = this.data.get("staff_real_receive_ref");
@@ -359,7 +360,9 @@ export default class extends Controller {
             url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
           }
 
-          window.location.href = url;
+          if (inIFrame != "true") {
+            window.location.href = url;
+          }
         }
       }
     }
