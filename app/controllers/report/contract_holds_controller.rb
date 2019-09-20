@@ -65,24 +65,19 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
 
-    this_month_staff_data = month_staff_data(end_of_month)
+    this_month_staff_data = Bi::YearAvgStaff.staff_per_dept_code_by_date("000101", @end_of_month)
 
     @dept_avg_staff = @only_have_data_dept.collect do |dept_code|
-      d = this_month_staff_data.find { |c| c.deptcode == dept_code }
-      d&.avgamount
+      this_month_staff_data[dept_code]
     end
     @biz_retent_totals_per_dept = @biz_retent_totals.zip(@dept_avg_staff).map do |d|
       (d[0] / d[1]).to_f.round(0) rescue 0
     end
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
-    avg_staff_per_company = this_month_staff_data.reduce({}) do |h, d|
-      h[d.deptname] = d.avgamount
-      h
-    end
     @biz_retent_totals_sum_per_staff = @biz_retent_totals_sum /
       (@deptnames_in_order.inject(0) do |sum, deptname|
-        sum += avg_staff_per_company.fetch(deptname, 0)
+        sum += this_month_staff_data.fetch(deptname, 1)
         sum
       end).to_f
   end
@@ -207,14 +202,6 @@ class Report::ContractHoldsController < Report::BaseController
 
 
   private
-
-    def month_staff_data(end_of_month)
-      d = Bi::ShStaffCount.where(f_month: end_of_month.to_s(:short_month))
-      if d.blank?
-        d = Bi::ShStaffCount.where(f_month: Bi::ShStaffCount.last_available_f_month)
-      end
-      d
-    end
 
     def set_breadcrumbs
       @_breadcrumbs = [

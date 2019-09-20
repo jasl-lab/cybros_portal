@@ -55,7 +55,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 10000.0).round(1)
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
 
-    @staff_per_dept_code = Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
+    @staff_per_dept_code = Bi::YearAvgStaff.staff_per_dept_code_by_date(orgcode, @end_of_month)
     @complete_value_totals_per_staff = data.collect do |d|
       staff_number = @staff_per_dept_code.fetch(d.deptcode, 1000_0000)
       (d.sum_total / (staff_number * 10000).to_f).round(0)

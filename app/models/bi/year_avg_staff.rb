@@ -23,5 +23,14 @@ module Bi
         h
       end
     end
+
+    def self.staff_per_dept_code_by_date(org_code, end_of_month)
+      d1 = available_data_at_month(end_of_month)
+      d2 = d1.where(orgcode: org_code).select("deptcode, SUM(date_x) sum_x, MAX(date_y) max_y").group(:deptcode)
+      d2.reduce({}) do |h, s|
+        h[s.deptcode] = (s.sum_x / s.max_y.to_f)
+        h
+      end
+    end
   end
 end
