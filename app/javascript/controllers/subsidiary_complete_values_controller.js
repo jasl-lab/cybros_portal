@@ -18,7 +18,7 @@ var completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_y
 
 var option_total = {
     legend: {
-        data: ['预计全年完成产值（万元）','累计完成产值（万元）','预计将完成产值（万元）'],
+        data: ['预计全年完成产值（万元）','累计完成产值（万元）'],
         align: 'left'
     },
     tooltip: {
