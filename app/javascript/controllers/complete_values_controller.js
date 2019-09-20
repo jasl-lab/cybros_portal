@@ -188,7 +188,7 @@ export default class extends Controller {
           let series_company = xAxisData[params.dataIndex]
           let url;
           if(sumOrgNames.indexOf(series_company) > -1) {
-            url = "/report/complete_value";
+            url = window.location.href;
           } else {
             url = "/report/subsidiary_complete_value";
           }

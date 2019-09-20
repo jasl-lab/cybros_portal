@@ -50,7 +50,7 @@
           <div class="form-control form-button">
             <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
             <% if @short_company_name.present? %>
-              <%= link_to t('.back_to_top'), report_subsidiary_workloading_path, class: 'btn' %>
+              <%= link_to t('.back_to_top'), report_subsidiary_workloading_path(in_iframe: params[:in_iframe]), class: 'btn' %>
             <% end %>
             <%= link_to t('.export'), export_report_subsidiary_workloading_path(format: :csv), class: 'btn' %>
           </div>
