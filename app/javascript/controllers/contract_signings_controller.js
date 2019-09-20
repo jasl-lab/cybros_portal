@@ -9,6 +9,7 @@ export default class extends Controller {
     contractSigningsAvgChart = echarts.init(document.getElementById('contract-signings-avg-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const companyName = this.data.get("company_name");
     const secondLevelDrill = this.data.get("second_level_drill");
@@ -20,7 +21,28 @@ export default class extends Controller {
     const periodMeanRef = this.data.get("period_mean_ref");
     const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
 
-    function differentColor(amount) {
+    let myOwnCompanyIndex = [];
+    for (let index = 0; index < xAxisData.length; ++index) {
+        if (currentUserCompaniesShortNames.includes(xAxisData[index])) {
+            myOwnCompanyIndex.push(index);
+        }
+    }
+
+    function differentColorForContractSigning(amount, index) {
+      let color;
+
+      if (myOwnCompanyIndex.includes(index) || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+        color = '#738496';
+      } else {
+        color = '#8EA1B5';
+      }
+
+      return { value: amount, itemStyle: { color: color }}
+    }
+
+    const sumContractAmountsWithColor = sumContractAmounts.map(differentColorForContractSigning);
+
+    function differentColorForAmountPerStaff(amount) {
       let color;
 
       if(contractAmountsPerStaffRef > amount) {
@@ -32,7 +54,7 @@ export default class extends Controller {
       return { value: amount, itemStyle: { color: color }}
     }
 
-    const contractAmountsPerStaffWithColor = contractAmountsPerStaff.map(differentColor);
+    const contractAmountsPerStaffWithColor = contractAmountsPerStaff.map(differentColorForAmountPerStaff);
 
     const option = {
         legend: {
@@ -127,8 +149,7 @@ export default class extends Controller {
         },{
           name: '本年累计合同额',
           type: 'bar',
-          data: sumContractAmounts,
-          color: '#738496',
+          data: sumContractAmountsWithColor,
           barMaxWidth: 80,
           label: {
             normal: {
@@ -227,7 +248,9 @@ export default class extends Controller {
           } else {
             url += '?company_name=' + encodeURIComponent(series_company);
           }
-          window.location.href = url;
+          if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+            window.location.href = url;
+          }
         }
       }
     }
