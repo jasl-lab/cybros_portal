@@ -29,7 +29,10 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     else
       current_user_companies.first
     end
-    @company_short_names = policy_scope(Bi::ContractSignDept).select(:orgcode).distinct.where("date <= ?", @end_of_month).collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
+
+    @company_short_names = policy_scope(Bi::ContractSignDept)
+      .select(:orgcode).distinct.where("date <= ?", @end_of_month)
+      .collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
     @data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
