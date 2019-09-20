@@ -10,7 +10,10 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
     if current_user_companies.include?("上海天华建筑设计有限公司")
-      all_orgcodes = Bi::CompleteValueDept.distinct.pluck(:orgcode)
+      all_orgcodes = Bi::CompleteValueDept
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode")
+        .order("ORG_ORDER.org_order DESC")
+        .pluck(:orgcode).uniq
       all_company_names = all_orgcodes.collect do |c|
         Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
       end

@@ -31,7 +31,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     @company_short_names = policy_scope(Bi::ContractSignDept)
-      .select(:orgcode).distinct.where("date <= ?", @end_of_month)
+      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN_DEPT.orgcode")
+      .order("ORG_ORDER.org_order DESC")
+      .select("CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order").distinct.where("date <= ?", @end_of_month)
       .collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
