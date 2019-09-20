@@ -90,7 +90,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @fix_need_short_account_receives = (fix_need_data.short_account_receive / 100_0000.0).round(0)
     @fix_need_should_receives = @fix_need_long_account_receives + @fix_need_short_account_receives
 
-    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
+    @staff_per_company = Bi::YearAvgStaff.staff_per_short_company_name(@end_of_month)
     @real_receives_per_staff = real_data.collect do |d|
       company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)

@@ -57,7 +57,7 @@ class Report::ContractSigningsController < Report::BaseController
     end
 
     @company_short_names = data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
-    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
+    @staff_per_company = Bi::YearAvgStaff.staff_per_short_company_name(@end_of_month)
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amounts_div_100 = data.collect { |d| (d.sum_contract_amount / 100.0).round(0) }
