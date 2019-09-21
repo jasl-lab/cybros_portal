@@ -15,6 +15,7 @@ export default class extends Controller {
     const completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
     const completeValueYearTotalsRemain = JSON.parse(this.data.get("complete_value_year_totals_remain"));
     const completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
+    const completeValueGapPerStaff = JSON.parse(this.data.get("complete_value_gap_per_staff"));
     const completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
 
     const option_total = {
@@ -106,7 +107,7 @@ export default class extends Controller {
 
     const option_staff = {
         legend: {
-            data: ['本年累计人均完成产值（万元）','预计全年人均完成产值（万元）'],
+            data: ['预计全年人均完成产值（万元）','本年累计人均完成产值（万元）'],
             align: 'left'
         },
         tooltip: {
@@ -150,23 +151,10 @@ export default class extends Controller {
           }
         }],
         series: [{
-          name: '本年累计人均完成产值（万元）',
-          type: 'bar',
-          stack: '人均',
-          data: completeValueTotalsPerStaff,
-          itemStyle: {
-            color: '#60A0A8'
-          },
-          label: {
-            normal: {
-              show: true,
-              position: 'insideTop'
-            }
-          }
-        },{
           name: '预计全年人均完成产值（万元）',
           type: 'bar',
-          stack: '人均',
+          barWidth: '30%',
+          barGap: '-100%',
           data: completeValueYearTotalsPerStaff,
           itemStyle: {
             color: '#DDDDDD'
@@ -175,9 +163,39 @@ export default class extends Controller {
           label: {
             normal: {
               show: true,
-              position: 'top',
+              color: '#353535',
+              position: 'top'
+            }
+          }
+        },{
+          name: '本年累计人均完成产值（万元）',
+          type: 'bar',
+          stack: '人均',
+          data: completeValueTotalsPerStaff,
+          itemStyle: {
+            color: '#60A0A8'
+          },
+          barWidth: 26,
+          label: {
+            normal: {
+              show: true,
+              position: 'insideTop',
               fontWeight: 'bold',
               color: '#000000'
+            }
+          }
+        },{
+          name: '预计人均将完成产值（万元）',
+          type: 'bar',
+          stack: '人均',
+          data: completeValueGapPerStaff,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          barWidth: 26,
+          label: {
+            normal: {
+              show: false
             }
           }
         }]
