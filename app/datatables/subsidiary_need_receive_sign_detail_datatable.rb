@@ -18,7 +18,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.orgname", cond: :like, searchable: true, orderable: true },
+      org_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.orgname", searchable: false, orderable: true },
       dept_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
       business_director_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
       first_party_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.firstpartyname", cond: :like, searchable: true, orderable: true },
@@ -34,7 +34,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { org_name: r.orgname,
+      { org_name: Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname),
         dept_name: r.deptname,
         business_director_name: r.businessdirectorname,
         first_party_name: r.firstpartyname,

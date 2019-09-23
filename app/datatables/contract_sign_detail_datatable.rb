@@ -19,7 +19,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::ContractSignDetailDate.orgname", cond: :like, searchable: true, orderable: true },
+      org_name: { source: "Bi::ContractSignDetailDate.orgname", searchable: false, orderable: true },
       dept_name: { source: "Bi::ContractSignDetailDate.deptname", cond: :string_eq, searchable: true, orderable: true },
       business_director_name: { source: "Bi::ContractSignDetailDate.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
       sales_contract_code_name: { source: "Bi::ContractSignDetailDate.salescontractname", cond: :like, searchable: true, orderable: true },
@@ -37,7 +37,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { org_name: r.orgname,
+      { org_name: Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname),
         dept_name: r.deptname,
         business_director_name: r.businessdirectorname,
         sales_contract_code_name: "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
