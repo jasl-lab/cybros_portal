@@ -72,6 +72,10 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
     @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
+    @total_staff_num = 0
+    @all_department_codes.each do |dept_code|
+      @total_staff_num += (@staff_per_dept_code[dept_code] || 0)
+    end
   end
 
   def drill_down

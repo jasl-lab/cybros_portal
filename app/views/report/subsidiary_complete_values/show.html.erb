@@ -41,10 +41,12 @@
      <div class="col-lg-12 p-2">
        <h5 class="text-center">
          至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,
-         <%= @selected_short_company_name -%>累计完成产值 <span style="color:red"><%= @sum_complete_value_totals -%> 亿元</span>；
+         <%= @selected_short_company_name -%>累计完成产值 <span style="color:red"><%= @sum_complete_value_totals -%> 亿元</span>，
+         人均累计完成产值 <span style="color:red"><%= (@complete_value_totals_per_staff.sum / @total_staff_num).round(1) -%> 万元</span>；
        </h5>
        <h5 class="text-center">
          <%= @selected_short_company_name -%>预计全年完成产值 <span style="color:red"><%= @sum_complete_value_year_totals -%> 亿元</span>。
+         人均预计全年完成产值 <span style="color:red"><%= (@complete_value_year_totals_per_staff.sum / @total_staff_num).round(1) -%> 万元</span>；
        </h5>
      </div>
     </div>
@@ -62,18 +64,16 @@
                 <% end %>
               </tr>
             </thead>
-            <% total_staff_num = 0 %>
             <tbody>
               <tr>
                 <td>人数</td>
                 <% @all_department_codes.each do |dept_code| %>
-                  <% total_staff_num += (@staff_per_dept_code[dept_code] || 0) %>
                   <td><%= @staff_per_dept_code[dept_code]&.round(0) -%></td>
                 <% end %>
               </tr>
             </tbody>
           </table>
-          <h6>表格上的总人数：<%= total_staff_num.round(0) -%></h6>
+          <h6>表格上的总人数：<%= @total_staff_num.round(0) -%></h6>
         </div>
       </div>
     </div>
