@@ -49,6 +49,7 @@ zh-CN:
         company_subsidiary_workloading: "工时填报情况"
         yearly_subsidiary_workloading: "%{company}年度工时报表"
         contract_signing: "集团累计合同额"
+        subsidiary_contract_signing: "子公司累计合同额"
         company_contract_signing: "本年累计合同额"
         complete_value: "集团工作完成情况"
         subsidiary_complete_value: "工作完成情况"
