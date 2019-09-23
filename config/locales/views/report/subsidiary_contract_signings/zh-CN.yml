@@ -3,6 +3,9 @@ zh-CN:
   report:
     subsidiary_contract_signings:
       show:
+        actions:
+          view_deptcode_sum: "显示汇总部门"
+          view_deptcode: "显示明细部门"
         title: "%{company} 本年累计合同额及签约周期"
         month_name: "查询年月"
         period_mean_ref: "签约周期预警"

@@ -3,6 +3,9 @@ en:
   report:
     subsidiary_contract_signings:
       show:
+        actions:
+          view_deptcode_sum: "View department in sum"
+          view_deptcode: "View department in detail"
         title: "%{company} Signing situation analysis"
         month_name: "Query year and month"
         period_mean_ref: "Period mean ref"

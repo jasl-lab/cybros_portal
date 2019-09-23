@@ -14,6 +14,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
+    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @period_mean_ref = params[:period_mean_ref] || 100
     @contract_amounts_per_staff_ref = if @manual_set_staff_ref
       params[:contract_amounts_per_staff_ref]
@@ -38,20 +39,29 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
 
-    @data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
+    data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
       .where(orgcode: org_code)
-      .select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
-      .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode")
-      .group("CONTRACT_SIGN_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
       .having("SUM(contract_amount) > 0")
-      .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
-    @department_names = @data.collect do |d|
+
+    data = if @view_deptcode_sum
+      data.select("CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode_sum")
+        .group("CONTRACT_SIGN_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门排名")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum")
+    else
+      data.select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode")
+        .group("CONTRACT_SIGN_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
+    end
+
+    @department_names = data.collect do |d|
       Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
     end
 
-    @all_department_codes = @data.collect(&:deptcode)
+    @all_department_codes = data.collect(&:deptcode)
 
     @staff_per_dept_code = if org_code == "000101"
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
@@ -59,17 +69,17 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       Bi::YearAvgStaff.staff_per_dept_code_by_date(org_code, @end_of_month)
     end
 
-    @contract_amounts = @data.collect { |d| d.sum_contract_amount.round(0) }
+    @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amount_max = @contract_amounts.max.round(-1)
-    @avg_period_mean = @data.collect do |d|
+    @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
     end
     @avg_period_mean_max = @avg_period_mean.max.round(-1)
     @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(2)
 
-    contract_period = @data.collect { |d| d.sum_contract_period.to_f }
-    contract_count = @data.collect { |d| d.sum_contract_amount_count.to_f }
+    contract_period = data.collect { |d| d.sum_contract_period.to_f }
+    contract_count = data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
 
     @contract_amounts_per_staff = []
@@ -116,7 +126,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       { text: t("layouts.sidebar.operation.contract_signing"),
         link: report_contract_signing_path(view_orgcode_sum: params[:view_orgcode_sum]) },
       { text: t("layouts.sidebar.operation.subsidiary_contract_signing"),
-        link: report_subsidiary_contract_signing_path }]
+        link: report_subsidiary_contract_signing_path(view_deptcode_sum: true) }]
     end
 
     def set_page_layout_data

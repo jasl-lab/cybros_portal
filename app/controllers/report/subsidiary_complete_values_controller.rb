@@ -32,7 +32,6 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
-
     last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(date: last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", last_available_date)
