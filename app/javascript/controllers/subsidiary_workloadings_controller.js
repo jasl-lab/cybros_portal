@@ -1,8 +1,8 @@
 import { Controller } from "stimulus"
 
-let subsidiaryWorkloadingsChart1
-let subsidiaryWorkloadingsChart2
-let subsidiaryWorkloadingsChart3
+let subsidiaryWorkloadingsChart1;
+let subsidiaryWorkloadingsChart2;
+let subsidiaryWorkloadingsChart3;
 
 export default class extends Controller {
   connect() {
@@ -10,246 +10,245 @@ export default class extends Controller {
     subsidiaryWorkloadingsChart2 = echarts.init(document.getElementById('subsidiary-workloadings-chart2'));
     subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
 
-var xAxisJob = JSON.parse(this.data.get("x_axis_job"));
-var xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
-var xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
-var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
-var secondLevelDrill = this.data.get("second_level_drill");
-var companyName = this.data.get("company_name");
-var dayRateData = JSON.parse(this.data.get("day_rate"));
-var dayRateDataRef = this.data.get("day_rate_ref");
-var planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
-var planningDayRateDataRef = this.data.get("planning_day_rate_ref");
-var buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
-var buildingDayRateDataRef = this.data.get("building_day_rate_ref");
+    const xAxisJob = JSON.parse(this.data.get("x_axis_job"));
+    const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
+    const xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
+    const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
+    const companyName = this.data.get("company_name");
+    const dayRateData = JSON.parse(this.data.get("day_rate"));
+    const dayRateDataRef = this.data.get("day_rate_ref");
+    const planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
+    const planningDayRateDataRef = this.data.get("planning_day_rate_ref");
+    const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
+    const buildingDayRateDataRef = this.data.get("building_day_rate_ref");
 
-var option1 = {
-    title: {
-      text: '工作填报率'
-    },
-    grid: {
-      left: 50,
-      right: 110,
-      top: 60,
-      bottom: 60
-    },
-    toolbox: {
-      feature: {
-        dataView: {},
-        saveAsImage: {
-          pixelRatio: 2
-        }
-      }
-    },
-    tooltip: {},
-    xAxis: {
-      data: xAxisJob,
-      silent: true,
-      axisLabel: {
-        interval: 0,
-        rotate: -40
-      },
-      splitLine: {
-        show: false
-      }
-    },
-    yAxis: {
-      axisLabel: {
-        show: true,
-        interval: 'auto',
-        formatter: '{value} %'
-      }
-    },
-    series: [{
-      name: '工作填报率',
-      type: 'line',
-      symbol: 'triangle',
-      symbolSize: function(val, params) {
-        if (val < dayRateDataRef) {
-          return 8;
-        } else {
-          return 16;
-        }
-      },
-      data: dayRateData,
-      itemStyle: {
-        color: '#738496'
-      },
-      label: {
-        normal: {
-          show: true,
-          position: 'top',
-          formatter: '{c}%'
-        }
-      },
-      markLine: {
-        label: {
-          formatter: '{c}% 填报率及格线'
+    const option1 = {
+        title: {
+          text: '工作填报率'
         },
-        lineStyle: {
-          type: 'solid',
-          width: 1
+        grid: {
+          left: 50,
+          right: 110,
+          top: 60,
+          bottom: 60
         },
-        data: [
-          {
-            yAxis: dayRateDataRef
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+              pixelRatio: 2
+            }
           }
-        ]
-      }
-    }]
-};
+        },
+        tooltip: {},
+        xAxis: {
+          data: xAxisJob,
+          silent: true,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+            show: false
+          }
+        },
+        yAxis: {
+          axisLabel: {
+            show: true,
+            interval: 'auto',
+            formatter: '{value} %'
+          }
+        },
+        series: [{
+          name: '工作填报率',
+          type: 'line',
+          symbol: 'triangle',
+          symbolSize: function(val, params) {
+            if (val < dayRateDataRef) {
+              return 8;
+            } else {
+              return 16;
+            }
+          },
+          data: dayRateData,
+          itemStyle: {
+            color: '#738496'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          },
+          markLine: {
+            label: {
+              formatter: '{c}% 填报率及格线'
+            },
+            lineStyle: {
+              type: 'solid',
+              width: 1
+            },
+            data: [
+              {
+                yAxis: dayRateDataRef
+              }
+            ]
+          }
+        }]
+    };
 
-var option2 = {
-    title: {
-      text: '方案饱和度'
-    },
-    grid: {
-      left: 50,
-      right: 110,
-      top: 60,
-      bottom: 125
-    },
-    toolbox: {
-      feature: {
-        dataView: {},
-        saveAsImage: {
-            pixelRatio: 2
-        }
-      }
-    },
-    tooltip: {},
-    xAxis: {
-      data: xAxisBluePrint,
-      silent: true,
-      axisLabel: {
-        interval: 0,
-        rotate: -40
-      },
-      splitLine: {
-          show: false
-      }
-    },
-    yAxis: {
-      axisLabel: {
-        show: true,
-        interval: 'auto',
-        formatter: '{value} %'
-      }
-    },
-    series: [{
-      name: '方案饱和度',
-      type: 'line',
-      symbol: 'circle',
-      symbolSize: function(val, params) {
-        if (val < planningDayRateDataRef) {
-          return 8;
-        } else {
-          return 16;
-        }
-      },
-      data: planningDayRateData,
-      itemStyle: {
-        color: '#334B5C'
-      },
-      label: {
-        normal: {
-          show: true,
-          position: 'top',
-          formatter: '{c}%'
-        }
-      },
-      markLine: {
-        label: {
-          formatter: '{c}% 饱和度线'
+    const option2 = {
+        title: {
+          text: '方案饱和度'
         },
-        lineStyle: {
-          type: 'solid',
-          width: 1
+        grid: {
+          left: 50,
+          right: 110,
+          top: 60,
+          bottom: 125
         },
-        data: [
-          {
-            yAxis: planningDayRateDataRef
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
           }
-        ]
-      }
-    }]
-};
+        },
+        tooltip: {},
+        xAxis: {
+          data: xAxisBluePrint,
+          silent: true,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+              show: false
+          }
+        },
+        yAxis: {
+          axisLabel: {
+            show: true,
+            interval: 'auto',
+            formatter: '{value} %'
+          }
+        },
+        series: [{
+          name: '方案饱和度',
+          type: 'line',
+          symbol: 'circle',
+          symbolSize: function(val, params) {
+            if (val < planningDayRateDataRef) {
+              return 8;
+            } else {
+              return 16;
+            }
+          },
+          data: planningDayRateData,
+          itemStyle: {
+            color: '#334B5C'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          },
+          markLine: {
+            label: {
+              formatter: '{c}% 饱和度线'
+            },
+            lineStyle: {
+              type: 'solid',
+              width: 1
+            },
+            data: [
+              {
+                yAxis: planningDayRateDataRef
+              }
+            ]
+          }
+        }]
+    };
 
-var option3 = {
-    title: {
-      text: '施工图饱和度'
-    },
-    grid: {
-      left: 50,
-      right: 110,
-      top: 60,
-      bottom: 125
-    },
-    toolbox: {
-      feature: {
-        dataView: {},
-        saveAsImage: {
-            pixelRatio: 2
-        }
-      }
-    },
-    tooltip: {},
-    xAxis: {
-      data: xAxisConstruction,
-      silent: true,
-      axisLabel: {
-        interval: 0,
-        rotate: -40
-      },
-      splitLine: {
-          show: false
-      }
-    },
-    yAxis: {
-      axisLabel: {
-        show: true,
-        interval: 'auto',
-        formatter: '{value} %'
-      }
-    },
-    series: [{
-      name: '施工图饱和度',
-      type: 'line',
-      symbol: 'square',
-      symbolSize:  function(val, params) {
-        if (val < buildingDayRateDataRef) {
-          return 8;
-        } else {
-          return 16;
-        }
-      },
-      data: buildingDayRateData,
-      itemStyle: {
-        color: '#6AB0B8'
-      },
-      label: {
-        normal: {
-          show: true,
-          position: 'top',
-          formatter: '{c}%'
-        }
-      },
-      markLine: {
-        label: {
-          formatter: '{c}% 饱和度线'
+    const option3 = {
+        title: {
+          text: '施工图饱和度'
         },
-        lineStyle: {
-          type: 'solid',
-          width: 1
+        grid: {
+          left: 50,
+          right: 110,
+          top: 60,
+          bottom: 125
         },
-        data: [
-          {
-            yAxis: buildingDayRateDataRef
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
           }
-        ]
-      }
-    }]
-};
+        },
+        tooltip: {},
+        xAxis: {
+          data: xAxisConstruction,
+          silent: true,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+              show: false
+          }
+        },
+        yAxis: {
+          axisLabel: {
+            show: true,
+            interval: 'auto',
+            formatter: '{value} %'
+          }
+        },
+        series: [{
+          name: '施工图饱和度',
+          type: 'line',
+          symbol: 'square',
+          symbolSize:  function(val, params) {
+            if (val < buildingDayRateDataRef) {
+              return 8;
+            } else {
+              return 16;
+            }
+          },
+          data: buildingDayRateData,
+          itemStyle: {
+            color: '#6AB0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          },
+          markLine: {
+            label: {
+              formatter: '{c}% 饱和度线'
+            },
+            lineStyle: {
+              type: 'solid',
+              width: 1
+            },
+            data: [
+              {
+                yAxis: buildingDayRateDataRef
+              }
+            ]
+          }
+        }]
+    };
 
     function drill_down_model_show(params) {
       if (params.componentType === 'series') {
@@ -266,42 +265,30 @@ var option3 = {
               department_name = xAxisConstruction[params.dataIndex]
               break;
           }
-          if (secondLevelDrill === 'true') {
-            const begin_month_name = $('#begin_month_name').val();
-            const end_month_name = $('#end_month_name').val();
-            const sent_data = {
-              company_name: companyName,
-              department_name: department_name,
-              begin_month_name: begin_month_name,
-              end_month_name: end_month_name };
-            let drill_down_url;
-            switch (params.seriesName) {
-              case '工作填报率':
-                drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
-                break;
-              case '方案饱和度':
-                drill_down_url = '/report/subsidiary_workloading/planning_day_rate_drill_down';
-                break;
-              case '施工图饱和度':
-                drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
-                break;
-            }
-            if (drill_down_url !== undefined) {
-              $.ajax(drill_down_url, {
-                data: sent_data,
-                dataType: 'script'
-              });
-            }
-          } else {
-            let url = window.location.href;
-            if (url.indexOf('?') > -1) {
-              url += '&company_name=' + encodeURIComponent(department_name);
-            } else {
-              url += '?company_name=' + encodeURIComponent(department_name);
-            }
-            if (currentUserCompaniesShortNames.indexOf(department_name) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
-              window.location.href = url;
-            }
+          const begin_month_name = $('#begin_month_name').val();
+          const end_month_name = $('#end_month_name').val();
+          const sent_data = {
+            company_name: companyName,
+            department_name: department_name,
+            begin_month_name: begin_month_name,
+            end_month_name: end_month_name };
+          let drill_down_url;
+          switch (params.seriesName) {
+            case '工作填报率':
+              drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
+              break;
+            case '方案饱和度':
+              drill_down_url = '/report/subsidiary_workloading/planning_day_rate_drill_down';
+              break;
+            case '施工图饱和度':
+              drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
+              break;
+          }
+          if (drill_down_url !== undefined) {
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
           }
         }
       }

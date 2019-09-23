@@ -6,7 +6,6 @@
     data-subsidiary-workloadings-x_axis_blue_print="<%= @blue_print_company_or_department_names.to_json -%>"
     data-subsidiary-workloadings-x_axis_construction="<%= @construction_company_or_department_names.to_json -%>"
     data-subsidiary-workloadings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
-    data-subsidiary-workloadings-second_level_drill="<%= @second_level_drill -%>"
     data-subsidiary-workloadings-company_name="<%= @company_name -%>"
     data-subsidiary-workloadings-day_rate="<%= @day_rate.to_json -%>"
     data-subsidiary-workloadings-day_rate_ref="<%= @day_rate_ref -%>"
@@ -52,9 +51,7 @@
           <label class="mr-1">&nbsp;</label>
           <div class="form-control form-button">
             <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
-            <% if @short_company_name.present? %>
-              <%= link_to t('.back_to_top'), report_group_workloading_path(in_iframe: params[:in_iframe]), class: 'btn' %>
-            <% end %>
+            <%= link_to t('.back_to_top'), report_group_workloading_path(in_iframe: params[:in_iframe]), class: 'btn' %>
             <%= link_to t('.export'), export_report_subsidiary_workloading_path(format: :csv), class: 'btn' %>
           </div>
         </div>

@@ -19,41 +19,27 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
     end_of_month = Date.parse(@end_month_name).end_of_month
 
-    @short_company_name = params[:company_name]
+    @short_company_name = params[:company_name].presence || current_user.user_company_short_name
     @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname)
       .distinct.where(date: beginning_of_month..end_of_month).collect { |r| Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname) }
 
-    if @short_company_name.present?
-      @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
-      data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month)
-        .where(orgname: @company_name)
-        .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", beginning_of_month)
-        .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", end_of_month)
-        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-        .group("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, deptname")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-      data = data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
-      job_data = data.having("SUM(date_real) > 0")
-      blue_print_data = data.having("SUM(blue_print_real)")
-      construction_data = data.having("SUM(construction_real) > 0")
-      @job_company_or_department_names = job_data.collect(&:deptname)
-      @blue_print_company_or_department_names = blue_print_data.collect(&:deptname)
-      @construction_company_or_department_names = construction_data.collect(&:deptname)
-      @second_level_drill = true
-    else
-      data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
-        .select("orgname, orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode")
-        .group(:orgcode, :orgname, :org_order)
-        .order("ORG_ORDER.org_order DESC")
-      job_data = data.having("SUM(date_real) > 0")
-      blue_print_data = data.having("SUM(blue_print_real)")
-      construction_data = data.having("SUM(construction_real) > 0")
-      @job_company_or_department_names = job_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-      @blue_print_company_or_department_names = blue_print_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-      @construction_company_or_department_names = construction_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-    end
+    @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
+    data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month)
+      .where(orgname: @company_name)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", beginning_of_month)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", end_of_month)
+      .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+      .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+      .group("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, deptname")
+      .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+    data = data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
+    job_data = data.having("SUM(date_real) > 0")
+    blue_print_data = data.having("SUM(blue_print_real)")
+    construction_data = data.having("SUM(construction_real) > 0")
+    @job_company_or_department_names = job_data.collect(&:deptname)
+    @blue_print_company_or_department_names = blue_print_data.collect(&:deptname)
+    @construction_company_or_department_names = construction_data.collect(&:deptname)
+    @second_level_drill = true
 
     @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 95
