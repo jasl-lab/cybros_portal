@@ -121,7 +121,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       @drill_down_subtitle = "#{begin_month} - #{end_month}"
       @data = policy_scope(Bi::WorkHoursCountDetailStaff).where(date: begin_month..end_month)
         .where(orgname: @company_name, deptname: @department_name)
-        .order(date: :asc)
+        .order(user_name: :asc, date: :asc)
     end
 
     def set_breadcrumbs
