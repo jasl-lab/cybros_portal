@@ -17,10 +17,6 @@ class Report::GroupWorkloadingsController < Report::BaseController
     beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
     end_of_month = Date.parse(@end_month_name).end_of_month
 
-    @short_company_name = params[:company_name]
-    @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname)
-      .distinct.where(date: beginning_of_month..end_of_month).collect { |r| Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname) }
-
     data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
       .select("orgname, orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode")
