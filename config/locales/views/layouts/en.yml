@@ -44,6 +44,7 @@ en:
         yingjianke_logins: "Ying Jian Ke Logins"
       operation:
         header: "Operation Home"
+        group_workloading: "Group workloading"
         subsidiary_workloading: "Subsidiary workloading"
         company_subsidiary_workloading: "Workloading"
         yearly_subsidiary_workloading: "%{company} yearly workloading"

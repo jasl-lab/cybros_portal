@@ -44,6 +44,7 @@ zh-CN:
         yingjianke_logins: "盈建科软件登陆情况"
       operation:
         header: "子公司运营月报"
+        group_workloading: "集团工时填报情况"
         subsidiary_workloading: "子公司工时填报情况"
         company_subsidiary_workloading: "工时填报情况"
         yearly_subsidiary_workloading: "%{company}年度工时报表"

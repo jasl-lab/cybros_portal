@@ -8,10 +8,10 @@
   <nav class="sidebar-nav">
     <ul class="nav">
       <% if false # hide %>
-      <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
-        <%= link_to report_subsidiary_workloading_path, class: "nav-link" do %>
+      <%= nav_item controller: 'report/group_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
+        <%= link_to report_group_workloading_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-stopwatch"></i>
-          <%= t("layouts.sidebar.operation.subsidiary_workloading") %>
+          <%= t("layouts.sidebar.operation.group_workloading") %>
         <% end %>
       <% end %>
       <% if current_user.present? && policy(Bi::CompleteValue).show? %>
