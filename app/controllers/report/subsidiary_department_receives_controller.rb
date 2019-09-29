@@ -14,7 +14,14 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
     selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
-    data = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
+    real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
+      .order("ORG_REPORT_DEPT_ORDER.部门排名")
+      .select("deptcode, ORG_REPORT_DEPT_ORDER.编号, SUM(real_receive) real_receive")
+      .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
+      .group(:deptcode, :"ORG_REPORT_DEPT_ORDER.部门排名")
+
+    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, r.deptcode) }
+    @real_receives = real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
   end
 
   private
