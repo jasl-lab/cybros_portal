@@ -33,11 +33,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
 
     @only_have_real_data_orgs = real_data.collect(&:orgcode)
-    @real_company_names = @only_have_real_data_orgs.collect do |orgcode|
-      Bi::OrgShortName.company_long_names_by_orgcode.fetch(orgcode, orgcode)
-    end
-
-    real_company_short_names = @real_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+    real_company_short_names = @only_have_real_data_orgs.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @orgs_options = @only_have_real_data_orgs if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
 

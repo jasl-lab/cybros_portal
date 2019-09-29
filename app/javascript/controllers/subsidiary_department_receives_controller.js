@@ -1,31 +1,29 @@
 import { Controller } from "stimulus"
 
-let subsidiaryRealReceivesChart;
-let subsidiaryNeedReceivesChart;
-let subsidiaryRealReceivesStaffChart;
-let subsidiaryNeedReceivesStaffChart;
+let departmentRealReceivesChart;
+let departmentNeedReceivesChart;
+let departmentRealReceivesStaffChart;
+let departmentNeedReceivesStaffChart;
 
 export default class extends Controller {
   connect() {
-    subsidiaryRealReceivesChart = echarts.init(document.getElementById('subsidiary-real-receives-chart'));
+    departmentRealReceivesChart = echarts.init(document.getElementById('department-real-receives-chart'));
 
-    const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
-    const inIFrame = this.data.get("in_iframe");
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
     const realReceives = JSON.parse(this.data.get("real_receives"));
 
-    subsidiaryNeedReceivesChart = echarts.init(document.getElementById('subsidiary-need-receives-chart'));
+    departmentNeedReceivesChart = echarts.init(document.getElementById('department-need-receives-chart'));
 
     const needXAxisData = JSON.parse(this.data.get("need_x_axis"));
     const needLongAccountReceives = JSON.parse(this.data.get("need_long_account_receives"));
     const needShortAccountReceives = JSON.parse(this.data.get("need_short_account_receives"));
     const needShouldReceives = JSON.parse(this.data.get("need_should_receives"));
 
-    subsidiaryRealReceivesStaffChart = echarts.init(document.getElementById('subsidiary-real-receives-staff-chart'));
+    departmentRealReceivesStaffChart = echarts.init(document.getElementById('department-real-receives-staff-chart'));
 
     const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
 
-    subsidiaryNeedReceivesStaffChart = echarts.init(document.getElementById('subsidiary-need-receives-staff-chart'));
+    departmentNeedReceivesStaffChart = echarts.init(document.getElementById('department-need-receives-staff-chart'));
 
     const needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
     const paybackRates = JSON.parse(this.data.get("payback_rates"));
@@ -318,11 +316,7 @@ export default class extends Controller {
           const series_company = realXAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
           let url;
-          if(sumOrgNames.indexOf(series_company) > -1) {
-            url = "/report/subsidiary_receive";
-          } else {
-            url = "/report/subsidiary_department_receive";
-          }
+          url = "/report/subsidiary_department_receive";
 
           if (url.indexOf('?') > -1) {
             url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
@@ -330,38 +324,36 @@ export default class extends Controller {
             url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
           }
 
-          if (inIFrame != "true") {
-            window.location.href = url;
-          }
+          window.location.href = url;
         }
       }
     }
 
-    subsidiaryRealReceivesChart.on('click', drill_down_real_receives_on_click);
-    subsidiaryRealReceivesChart.setOption(real_option, false);
-    subsidiaryNeedReceivesChart.setOption(need_option, false);
-    subsidiaryRealReceivesStaffChart.setOption(real_staff_option, false);
-    subsidiaryNeedReceivesStaffChart.setOption(need_staff_option, false);
+    departmentRealReceivesChart.on('click', drill_down_real_receives_on_click);
+    departmentRealReceivesChart.setOption(real_option, false);
+    departmentNeedReceivesChart.setOption(need_option, false);
+    departmentRealReceivesStaffChart.setOption(real_staff_option, false);
+    departmentNeedReceivesStaffChart.setOption(need_staff_option, false);
 
     setTimeout(() => {
-      subsidiaryRealReceivesChart.resize();
-      subsidiaryNeedReceivesChart.resize();
-      subsidiaryRealReceivesStaffChart.resize();
-      subsidiaryNeedReceivesStaffChart.resize();
+      departmentRealReceivesChart.resize();
+      departmentNeedReceivesChart.resize();
+      departmentRealReceivesStaffChart.resize();
+      departmentNeedReceivesStaffChart.resize();
     }, 200);
   }
 
   layout() {
-    subsidiaryRealReceivesChart.resize();
-    subsidiaryNeedReceivesChart.resize();
-    subsidiaryRealReceivesStaffChart.resize();
-    subsidiaryNeedReceivesStaffChart.resize();
+    departmentRealReceivesChart.resize();
+    departmentNeedReceivesChart.resize();
+    departmentRealReceivesStaffChart.resize();
+    departmentNeedReceivesStaffChart.resize();
   }
 
   disconnect() {
-    subsidiaryRealReceivesChart.dispose();
-    subsidiaryNeedReceivesChart.dispose();
-    subsidiaryRealReceivesStaffChart.dispose();
-    subsidiaryNeedReceivesStaffChart.dispose();
+    departmentRealReceivesChart.dispose();
+    departmentNeedReceivesChart.dispose();
+    departmentRealReceivesStaffChart.dispose();
+    departmentNeedReceivesStaffChart.dispose();
   }
 }

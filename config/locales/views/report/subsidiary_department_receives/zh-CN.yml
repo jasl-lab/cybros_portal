@@ -1,0 +1,11 @@
+---
+zh-CN:
+  report:
+    subsidiary_department_receives:
+      show:
+        actions:
+          view_deptcode_sum: "显示汇总部门"
+          view_deptcode: "显示明细部门"
+        title: "部门收款情况"
+        month_name: "实收款的查询年月"
+        confirm: "确认"
