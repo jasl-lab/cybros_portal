@@ -73,10 +73,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
         .where(orgcode: @orgs_options)
     end
 
-    @need_company_names = need_data.collect do |nd|
-      Bi::OrgShortName.company_long_names_by_orgcode.fetch(nd.orgcode, nd.orgcode)
-    end
-    @need_company_short_names = @need_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+    @need_company_short_names = need_data.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.orgcode, c.orgcode) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
