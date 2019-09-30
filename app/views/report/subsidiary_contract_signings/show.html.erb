@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode_sum'),
-          report_subsidiary_contract_signing_path(company_name: @selected_company_name, month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+          report_subsidiary_contract_signing_path(company_name: @short_company_name, month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode'),
-          report_subsidiary_contract_signing_path(company_name: @selected_company_name, month_name: @month_name), class: 'btn text-primary' %>
+          report_subsidiary_contract_signing_path(company_name: @short_company_name, month_name: @month_name), class: 'btn text-primary' %>
     </li>
   </ol>
 <% end %>
