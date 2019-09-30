@@ -104,14 +104,12 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .select("orgcode, SUM(total) sum_total")
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
+      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       h[short_name] = d.sum_total
       h
     end
     @payback_rates = real_data.collect do |d|
-      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
+      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       complete_value = complete_value_hash.fetch(short_name, 100000)
       if complete_value % 1 == 0
         0
