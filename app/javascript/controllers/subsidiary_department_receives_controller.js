@@ -29,6 +29,21 @@ export default class extends Controller {
     departmentNeedReceivesStaffChart = echarts.init(document.getElementById('department-need-receives-staff-chart'));
 
     const needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
+    const paybackRates = JSON.parse(this.data.get("payback_rates"));
+
+    function differentColor(amount) {
+      let color;
+
+      if(70 >= amount) {
+        color = '#BB332E';
+      } else {
+        color = '#7E91A5';
+      }
+
+      return { value: amount, itemStyle: { color: color }}
+    }
+
+    const paybackRatesWithColor = paybackRates.map(differentColor);
 
     const real_option = {
         title: {
@@ -277,6 +292,21 @@ export default class extends Controller {
             interval: 'auto',
             formatter: '{value}万'
           }
+        },{
+          type: 'value',
+          name: '回款率',
+          position: 'right',
+          min: 0,
+          max: 180,
+          interval: Math.ceil(180 / 6),
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          axisLabel: {
+            formatter: '{value}%'
+          }
         }],
         series: [{
           name: '人均应收款（财务+业务）（万元）',
@@ -289,6 +319,22 @@ export default class extends Controller {
               show: true,
               position: 'top',
               color: '#3E3E3E'
+            }
+          }
+        },{
+          name: '本年回款率',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'circle',
+          symbolSize: 8,
+          data: paybackRatesWithColor,
+          barMaxWidth: 38,
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              distance: 20,
+              formatter: '{c}%'
             }
           }
         }]

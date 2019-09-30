@@ -79,6 +79,31 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
       (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
+
+    complete_value_data = if @view_deptcode_sum
+      Bi::CompleteValueDept.where(orgcode: selected_orgcode)
+        .select("deptcode_sum deptcode, SUM(total) sum_total")
+        .group(:deptcode_sum)
+    else
+      Bi::CompleteValueDept.where(orgcode: selected_orgcode)
+        .select("deptcode, SUM(total) sum_total")
+        .group(:deptcode)
+    end.where(date: real_data_last_available_date)
+
+    complete_value_hash = complete_value_data.reduce({}) do |h, d|
+      dept_name = Bi::OrgReportDeptOrder.department_names.fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      h[dept_name] = d.sum_total
+      h
+    end
+    @payback_rates = real_data.collect do |d|
+      dept_name = Bi::OrgReportDeptOrder.department_names.fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      complete_value = complete_value_hash.fetch(dept_name, 100000)
+      if complete_value % 1 == 0
+        0
+      else
+        ((d.real_receive / complete_value.to_f) * 100).round(0)
+      end
+    end
   end
 
   private
