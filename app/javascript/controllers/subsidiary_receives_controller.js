@@ -327,17 +327,13 @@ export default class extends Controller {
             }
           } else {
             if (inIFrame == "true") {
-              url = "/report/subsidiary_department_receive?in_iframe=true";
+              url = "/report/subsidiary_department_receive?in_iframe=true&view_deptcode_sum=true";
             } else {
-              url = "/report/subsidiary_department_receive";
+              url = "/report/subsidiary_department_receive?view_deptcode_sum=true";
             }
           }
 
-          if (url.indexOf('?') > -1) {
-            url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
-          } else {
-            url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
-          }
+          url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
 
           window.location.href = url;
         }

@@ -76,6 +76,7 @@ export default class extends Controller {
           type: 'bar',
           data: realReceives,
           color: '#738496',
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
