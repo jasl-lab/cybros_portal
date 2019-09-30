@@ -33,7 +33,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
     end
 
-    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, r.deptcode) }
+    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.real_receive / 100_00.0).round(0) }
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
@@ -51,7 +51,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode", :"ORG_REPORT_DEPT_ORDER.部门排名")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode")
     end
-    @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names.fetch(c.deptcode, c.deptcode) }
+    @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names.fetch(c.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(c.deptcode, c.deptcode)) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
