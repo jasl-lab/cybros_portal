@@ -12,8 +12,9 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = Date.parse(@month_name).beginning_of_year
-    @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
-    selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
+
+    selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
+    selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(selected_short_name, selected_short_name)
 
     real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
       .order("ORG_REPORT_DEPT_ORDER.部门排名")
