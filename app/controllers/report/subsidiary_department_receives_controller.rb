@@ -92,7 +92,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       { text: t("layouts.sidebar.operation.subsidiary_receive"),
         link: report_subsidiary_receive_path },
       { text: t("layouts.sidebar.operation.subsidiary_department_receive", company: params[:company_name]&.strip || current_user.user_company_short_name),
-        link: report_subsidiary_department_receive_path }]
+        link: report_subsidiary_department_receive_path(view_deptcode_sum: true) }]
     end
 
     def set_page_layout_data
