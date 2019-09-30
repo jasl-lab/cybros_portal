@@ -38,6 +38,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.real_receive / 100_00.0).round(0) }
+    @sum_real_receives = (@real_receives.sum / 10000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
     need_data = policy_scope(Bi::SubCompanyNeedReceive)
@@ -60,6 +61,10 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
+
+    @sum_need_should_receives = @need_should_receives.sum
+    @sum_need_long_account_receives = @need_long_account_receives.sum
+    @sum_need_short_account_receives = @need_short_account_receives.sum
 
     staff_per_dept_code = if selected_orgcode == "000101"
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
