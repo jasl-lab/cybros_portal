@@ -2,8 +2,9 @@
 
 class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
   before_action :authenticate_user!
-  before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
+  after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
   after_action :verify_authorized
 
   def show
@@ -14,8 +15,8 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
-    selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
-    selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(selected_short_name, selected_short_name)
+    @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
+    selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
 
     real_data = policy_scope(Bi::SubCompanyRealReceive)
       .where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)

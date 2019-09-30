@@ -7,6 +7,9 @@ let departmentNeedReceivesStaffChart;
 
 export default class extends Controller {
   connect() {
+    const inIFrame = this.data.get("in_iframe");
+    const companyName = this.data.get("company_name");
+
     departmentRealReceivesChart = echarts.init(document.getElementById('department-real-receives-chart'));
 
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
@@ -293,15 +296,19 @@ export default class extends Controller {
     function drill_down_real_receives_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          const series_company = realXAxisData[params.dataIndex];
+          const department_name = realXAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
           let url;
-          url = "/report/subsidiary_department_receive";
+          if (inIFrame == "true") {
+            url = "/report/subsidiary_department_receive?in_iframe=true";
+          } else {
+            url = "/report/subsidiary_department_receive";
+          }
 
           if (url.indexOf('?') > -1) {
-            url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+            url += '&company_name=' + encodeURIComponent(companyName) + '&month_name=' + encodeURIComponent(month_name);
           } else {
-            url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+            url += '?company_name=' + encodeURIComponent(companyName) + '&month_name=' + encodeURIComponent(month_name);
           }
 
           window.location.href = url;

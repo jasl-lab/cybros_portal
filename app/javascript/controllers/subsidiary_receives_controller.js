@@ -7,10 +7,11 @@ let subsidiaryNeedReceivesStaffChart;
 
 export default class extends Controller {
   connect() {
-    subsidiaryRealReceivesChart = echarts.init(document.getElementById('subsidiary-real-receives-chart'));
-
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const inIFrame = this.data.get("in_iframe");
+
+    subsidiaryRealReceivesChart = echarts.init(document.getElementById('subsidiary-real-receives-chart'));
+
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
     const realReceives = JSON.parse(this.data.get("real_receives"));
 
@@ -319,9 +320,17 @@ export default class extends Controller {
           const month_name = $('#month_name').val();
           let url;
           if(sumOrgNames.indexOf(series_company) > -1) {
-            url = "/report/subsidiary_receive";
+            if (inIFrame == "true") {
+              url = "/report/subsidiary_receive?in_iframe=true";
+            } else {
+              url = "/report/subsidiary_receive";
+            }
           } else {
-            url = "/report/subsidiary_department_receive";
+            if (inIFrame == "true") {
+              url = "/report/subsidiary_department_receive?in_iframe=true";
+            } else {
+              url = "/report/subsidiary_department_receive";
+            }
           }
 
           if (url.indexOf('?') > -1) {
@@ -330,9 +339,7 @@ export default class extends Controller {
             url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
           }
 
-          if (inIFrame != "true") {
-            window.location.href = url;
-          }
+          window.location.href = url;
         }
       }
     }

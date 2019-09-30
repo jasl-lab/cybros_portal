@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode_sum'),
-          report_subsidiary_department_receive_path(month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+          report_subsidiary_department_receive_path(month_name: @month_name, view_deptcode_sum: true, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode'),
-          report_subsidiary_department_receive_path(month_name: @month_name), class: 'btn text-primary' %>
+          report_subsidiary_department_receive_path(month_name: @month_name, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
   </ol>
 <% end %>
@@ -15,6 +15,8 @@
   <div class="col-lg-12"
     data-controller="subsidiary-department-receives"
     data-action="resize@window->subsidiary-department-receives#layout"
+    data-subsidiary-department-receives-company_name="<%= @selected_short_name -%>"
+    data-subsidiary-department-receives-in_iframe="<%= params[:in_iframe] -%>"
     data-subsidiary-department-receives-real_x_axis="<%= @real_department_short_names.to_json -%>"
     data-subsidiary-department-receives-real_receives="<%= @real_receives.to_json -%>"
     data-subsidiary-department-receives-need_x_axis="<%= @need_company_short_names.to_json -%>"
