@@ -84,17 +84,15 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @fix_need_short_account_receives = (fix_need_data.short_account_receive / 100_0000.0).round(0)
     @fix_need_should_receives = @fix_need_long_account_receives + @fix_need_short_account_receives
 
-    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
+    staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     @real_receives_per_staff = real_data.collect do |d|
-      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
-      staff_number = @staff_per_company.fetch(short_name, 1000_0000)
+      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
+      staff_number = staff_per_company.fetch(short_name, 1000_0000)
       (d.real_receive / (staff_number * 10000).to_f).round(0)
     end
     @need_should_receives_per_staff = need_data.collect do |d|
-      company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
-      staff_number = @staff_per_company.fetch(short_name, 1000_0000)
+      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
+      staff_number = staff_per_company.fetch(short_name, 1000_0000)
       (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
 
