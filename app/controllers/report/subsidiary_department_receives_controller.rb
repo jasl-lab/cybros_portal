@@ -18,8 +18,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
     selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
 
+    real_data_last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
     real_data = policy_scope(Bi::SubCompanyRealReceive)
       .where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", real_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
 
     real_data = if @view_deptcode_sum
       real_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(real_receive) real_receive")
@@ -39,6 +42,8 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
     need_data = policy_scope(Bi::SubCompanyNeedReceive)
       .where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", need_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", need_data_last_available_date)
 
     need_data = if @view_deptcode_sum
       need_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")

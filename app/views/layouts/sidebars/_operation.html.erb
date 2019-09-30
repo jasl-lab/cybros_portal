@@ -87,6 +87,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if current_user.present? && policy(Bi::SubCompanyRealReceive).show? %>
+        <%= nav_item controller: 'report/subsidiary_department_receives', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= link_to report_subsidiary_department_receive_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-yen-sign"></i>
+            <%= t("layouts.sidebar.operation.subsidiary_department_receive", company: '') %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if current_user.present? && policy(Bi::SubCompanyNeedReceiveSignDetail).show? %>
         <%= nav_item controller: 'report/subsidiary_need_receive_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_need_receive_sign_detail_path, class: "nav-link" do %>
