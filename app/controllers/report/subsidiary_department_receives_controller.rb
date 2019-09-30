@@ -35,6 +35,16 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
+
+    staff_per_dept_code = if selected_orgcode == "000101"
+      Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
+    else
+      Bi::YearAvgStaff.staff_per_dept_code_by_date(orgcode, @end_of_month)
+    end
+    @real_receives_per_staff = real_data.collect do |d|
+      staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
+      (d.real_receive / (staff_number * 10000).to_f).round(0)
+    end
   end
 
   private
