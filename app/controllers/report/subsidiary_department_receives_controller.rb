@@ -45,6 +45,10 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
       (d.real_receive / (staff_number * 10000).to_f).round(0)
     end
+    @need_should_receives_per_staff = need_data.collect do |d|
+      staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
+      (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
+    end
   end
 
   private
