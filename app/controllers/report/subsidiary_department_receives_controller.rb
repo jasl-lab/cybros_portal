@@ -58,7 +58,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     staff_per_dept_code = if selected_orgcode == "000101"
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_dept_code_by_date(orgcode, @end_of_month)
+      Bi::YearAvgStaff.staff_per_dept_code_by_date(selected_orgcode, @end_of_month)
     end
     @real_receives_per_staff = real_data.collect do |d|
       staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
