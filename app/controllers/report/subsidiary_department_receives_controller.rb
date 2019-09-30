@@ -14,14 +14,27 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
     selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
+
     real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
       .order("ORG_REPORT_DEPT_ORDER.部门排名")
-      .select("deptcode, ORG_REPORT_DEPT_ORDER.编号, SUM(real_receive) real_receive")
+      .select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(real_receive) real_receive")
       .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
       .group(:deptcode, :"ORG_REPORT_DEPT_ORDER.部门排名")
 
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, r.deptcode) }
-    @real_receives = real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
+    @real_receives = real_data.collect { |d| (d.real_receive / 100_00.0).round(0) }
+
+    need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
+    need_data = policy_scope(Bi::SubCompanyNeedReceive).where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
+      .order("ORG_REPORT_DEPT_ORDER.部门排名")
+      .select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
+      .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode")
+      .group(:deptcode, :"ORG_REPORT_DEPT_ORDER.部门排名")
+
+    @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names.fetch(c.deptcode, c.deptcode) }
+    @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
+    @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
+    @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
   end
 
   private
