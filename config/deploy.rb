@@ -39,7 +39,7 @@ append :linked_dirs, 'log', 'storage', 'tmp/pids', 'tmp/cache', 'tmp/sockets', '
 # set :ssh_options, verify_host_key: :secure
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.6.3'
+set :rbenv_ruby, '2.6.5'
 
 set :puma_init_active_record, true
 
