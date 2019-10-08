@@ -10,3 +10,11 @@ en:
         month_name: "Real receive year and month"
         dept_names: "Department names"
         confirm: "Confirm"
+      modal:
+        table:
+          projectname: "Project name"
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          real_receive: "Real receive"
+          realdate: "Real date"
+        close: "Close"

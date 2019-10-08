@@ -2,9 +2,9 @@
 
 class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
   before_action :authenticate_user!
-  before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
+  before_action :set_page_layout_data, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
-  after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
+  after_action :cors_set_access_control_headers, only: %i[show], if: -> { params[:in_iframe].present? }
   after_action :verify_authorized
 
   def show
@@ -127,6 +127,14 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         ((d.real_receive / complete_value.to_f) * 100).round(0)
       end
     end
+  end
+
+  def real_data_drill_down
+    authorize Bi::SubCompanyRealReceiveDetail
+    @company_name = params[:company_name]
+    @department_name = params[:department_name]
+    end_month = Date.parse(params[:month_name]).end_of_month
+    beginning_of_year = Date.parse(params[:month_name]).beginning_of_year
   end
 
   private

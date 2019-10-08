@@ -10,3 +10,11 @@ zh-CN:
         month_name: "实收款的查询年月"
         dept_names: "部门名称"
         confirm: "确认"
+      modal:
+        table:
+          projectname: "项目名称"
+          salescontractcode: "合同编号"
+          salescontractname: "合同名称"
+          real_receive: "实收金额"
+          realdate: "实收日期"
+        close: "关闭"

@@ -11,5 +11,9 @@ module Bi
         end
       end
     end
+
+    def real_data_drill_down?
+      show?
+    end
   end
 end

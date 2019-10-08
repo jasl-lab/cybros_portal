@@ -361,6 +361,13 @@ export default class extends Controller {
 
           if(sumDeptNames.indexOf(department_name) > -1) {
             window.location.href = url;
+          } else {
+            const drill_down_url = '/report/subsidiary_department_receive/real_data_drill_down';
+            const sent_data = { department_name, month_name, company_name: companyName };
+            $.ajax(drill_down_url, {
+              data: sent_data,
+              dataType: 'script'
+            });
           }
         }
       }

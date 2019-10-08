@@ -94,7 +94,11 @@ Rails.application.routes.draw do
       end
     end
     resource :subsidiary_receive, only: %i[show]
-    resource :subsidiary_department_receive, only: %i[show]
+    resource :subsidiary_department_receive, only: %i[show] do
+      collection do
+        get :real_data_drill_down
+      end
+    end
     resource :predict_contract, only: %i[show] do
       collection do
         get :opportunity_detail_drill_down
