@@ -346,20 +346,21 @@ export default class extends Controller {
         if (params.seriesType === 'bar') {
           const department_name = realXAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
-          let url;
-          if (inIFrame == "true") {
-            url = "/report/subsidiary_department_receive?in_iframe=true";
-          } else {
-            url = "/report/subsidiary_department_receive";
-          }
-
-          if (url.indexOf('?') > -1) {
-            url += '&company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
-          } else {
-            url += '?company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
-          }
 
           if(sumDeptNames.indexOf(department_name) > -1) {
+            let url;
+            if (inIFrame == "true") {
+              url = "/report/subsidiary_department_receive?in_iframe=true";
+            } else {
+              url = "/report/subsidiary_department_receive";
+            }
+
+            if (url.indexOf('?') > -1) {
+              url += '&company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
+            } else {
+              url += '?company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
+            }
+
             window.location.href = url;
           } else {
             const drill_down_url = '/report/subsidiary_department_receive/real_data_drill_down';

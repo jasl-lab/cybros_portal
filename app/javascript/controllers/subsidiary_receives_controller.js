@@ -333,7 +333,11 @@ export default class extends Controller {
             }
           }
 
-          url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          if (url.indexOf('?') > -1) {
+            url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          } else {
+            url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          }
 
           window.location.href = url;
         }

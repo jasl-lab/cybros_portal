@@ -1,2 +1,2 @@
-$("#subsidiary-department-receive-modal").html('<%= j render partial: "modal" -%>');
+$("#subsidiary-department-receive-modal").html('<%= j render partial: "modal", locals: { rows: @data } -%>');
 $("#subsidiary-department-receive-modal").modal();
