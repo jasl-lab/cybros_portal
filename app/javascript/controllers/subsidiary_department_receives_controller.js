@@ -353,9 +353,9 @@ export default class extends Controller {
           }
 
           if (url.indexOf('?') > -1) {
-            url += '&company_name=' + encodeURIComponent(companyName) + '&month_name=' + encodeURIComponent(month_name);
+            url += '&company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
           } else {
-            url += '?company_name=' + encodeURIComponent(companyName) + '&month_name=' + encodeURIComponent(month_name);
+            url += '?company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
           }
 
           window.location.href = url;
