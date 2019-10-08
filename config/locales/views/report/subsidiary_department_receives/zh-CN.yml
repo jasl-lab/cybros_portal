@@ -8,4 +8,5 @@ zh-CN:
           view_deptcode: "显示明细部门"
         title: "部门收款情况"
         month_name: "实收款的查询年月"
+        dept_names: "部门名称"
         confirm: "确认"

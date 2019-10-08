@@ -13,6 +13,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = Date.parse(@month_name).beginning_of_year
+    @depts_options = params[:depts]
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
@@ -36,6 +37,17 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
     end
 
+    only_have_real_data_depts = real_data.collect(&:deptcode)
+    real_department_short_names = only_have_real_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names.fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    @depts_options = only_have_real_data_depts if @depts_options.blank?
+    @department_options = real_department_short_names.zip(only_have_real_data_depts)
+
+    real_data = if @view_deptcode_sum
+      real_data.where(deptcode_sum: @depts_options)
+    else
+      real_data.where(deptcode: @depts_options)
+    end
+
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.real_receive / 100_00.0).round(0) }
     @sum_real_receives = (@real_receives.sum / 10000.0).round(1)
@@ -51,12 +63,15 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
         .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode_sum", :"ORG_REPORT_DEPT_ORDER.部门排名")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
+        .where(deptcode_sum: @depts_options)
     else
       need_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode")
         .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode", :"ORG_REPORT_DEPT_ORDER.部门排名")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode")
+        .where(deptcode: @depts_options)
     end
+
     @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names.fetch(c.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(c.deptcode, c.deptcode)) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }

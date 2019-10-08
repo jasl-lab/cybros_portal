@@ -8,4 +8,5 @@ en:
           view_deptcode: "View department in detail"
         title: "Subsidiary department receives"
         month_name: "Real receive year and month"
+        dept_names: "Department names"
         confirm: "Confirm"

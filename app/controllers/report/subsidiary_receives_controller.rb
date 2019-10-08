@@ -32,10 +32,10 @@ class Report::SubsidiaryReceivesController < Report::BaseController
         .group(:orgcode, :org_order)
     end
 
-    @only_have_real_data_orgs = real_data.collect(&:orgcode)
-    real_company_short_names = @only_have_real_data_orgs.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
-    @orgs_options = @only_have_real_data_orgs if @orgs_options.blank?
-    @organization_options = real_company_short_names.zip(@only_have_real_data_orgs)
+    only_have_real_data_orgs = real_data.collect(&:orgcode)
+    real_company_short_names = only_have_real_data_orgs.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+    @orgs_options = only_have_real_data_orgs if @orgs_options.blank?
+    @organization_options = real_company_short_names.zip(only_have_real_data_orgs)
 
     @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
 
