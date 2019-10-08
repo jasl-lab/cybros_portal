@@ -18,6 +18,8 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
     selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
+    selected_company_long_name = Bi::OrgShortName.company_long_names.fetch(@selected_short_name, @selected_short_name)
+    selected_department_name = params[:department_name]&.strip
 
     real_data_last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
     real_data = policy_scope(Bi::SubCompanyRealReceive)
@@ -41,6 +43,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     real_department_short_names = only_have_real_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names.fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
     @depts_options = only_have_real_data_depts if @depts_options.blank?
     @department_options = real_department_short_names.zip(only_have_real_data_depts)
+    @sum_dept_names = @department_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
+
+
+    if selected_department_name.present?
+      @depts_options = Bi::OrgReportDeptOrder.dept_code_by_short_name(selected_company_long_name, real_data_last_available_date).where(上级部门: selected_department_name).pluck(:'编号')
+    end
 
     real_data = if @view_deptcode_sum
       real_data.where(deptcode_sum: @depts_options)

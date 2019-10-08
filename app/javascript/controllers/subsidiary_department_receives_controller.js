@@ -7,6 +7,7 @@ let departmentNeedReceivesStaffChart;
 
 export default class extends Controller {
   connect() {
+    const sumDeptNames = JSON.parse(this.data.get("sum_dept_names"));
     const inIFrame = this.data.get("in_iframe");
     const companyName = this.data.get("company_name");
 
@@ -358,7 +359,9 @@ export default class extends Controller {
             url += '?company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
           }
 
-          window.location.href = url;
+          if(sumDeptNames.indexOf(department_name) > -1) {
+            window.location.href = url;
+          }
         }
       }
     }
