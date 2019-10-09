@@ -19,10 +19,10 @@ module Bi
     end
 
     def self.person_by_department_in_sh(target_date, show_all_dept = false)
-      lad = where(date: target_date).where("SH_REFRESH_RATE.orgcode IS NOT NULL")
-      lad = lad.where(deptcode: Bi::ShReportDeptOrder.all_deptcodes_in_order) unless show_all_dept
-      lad = lad.joins("LEFT JOIN SH_REPORT_DEPT_ORDER ON SH_REPORT_DEPT_ORDER.deptcode = SH_REFRESH_RATE.deptcode")
-        .order('SH_REPORT_DEPT_ORDER.dept_asc')
+      lad = where(date: target_date)
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SH_REFRESH_RATE.deptcode")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, SH_REFRESH_RATE.deptcode")
+      lad = lad.where(orgcode: '000101') unless show_all_dept
       h = {}
       department_code_in_order = lad.collect(&:deptcode).uniq
       department_code_in_order.each do |deptcode|

@@ -22,7 +22,7 @@ class Report::ProjectMilestoresController < Report::BaseController
     @departments = @person_by_department_in_sh.keys
 
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @departments)
-    @deptnames_in_order = only_have_data_dept.collect { |deptcode| Bi::ShReportDeptOrder.all_deptnames[deptcode] }
+    @deptnames_in_order = only_have_data_dept.collect { |deptcode| Bi::OrgReportDeptOrder.department_names[deptcode] }
 
     @milestore_update_rate = only_have_data_dept.collect do |deptcode|
       rr = @person_by_department_in_sh[deptcode]
@@ -80,7 +80,7 @@ class Report::ProjectMilestoresController < Report::BaseController
         link: root_path },
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.project_milestore"),
+      { text: t("layouts.sidebar.operation.project_milestore", company: params[:company_name]&.strip || current_user.user_company_short_name),
         link: report_project_milestore_path }]
     end
 
