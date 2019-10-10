@@ -115,6 +115,7 @@ Rails.application.routes.draw do
         get :export_unsign_detail
         get :sign_detail_drill_down
         get :export_sign_detail
+        get :fill_dept_names
       end
     end
     resource :contract_sign_detail, only: %i[show] do

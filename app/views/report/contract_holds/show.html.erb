@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode_sum'),
-          report_contract_hold_path(month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+          report_contract_hold_path(month_name: @month_name, org_code: @selected_org_code, view_deptcode_sum: true), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode'),
-          report_contract_hold_path(month_name: @month_name), class: 'btn text-primary' %>
+          report_contract_hold_path(month_name: @month_name, org_code: @selected_org_code), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.export_unsign_detail'), export_unsign_detail_report_contract_hold_path(month_name: @month_name, format: :csv), class: 'btn text-primary' %>
@@ -28,7 +28,8 @@
           <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".company_name") -%>：</label>
-            <%= select_tag 'org_code', options_for_select(@company_short_names, @selected_org_code), class: 'form-control' %>
+            <%= select_tag 'org_code', options_for_select(@company_short_names, @selected_org_code), class: 'form-control-lg',
+              data: { remote: true, type: :script, url: url_for(controller: 'report/contract_holds', action: 'fill_dept_names', format: 'js') } %>
           </div>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".month_name") -%>：</label>
@@ -36,7 +37,7 @@
           </div>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".dept_names") -%>：</label>
-              <%= select_tag 'depts', options_for_select(@department_options, @dept_options), {include_blank: true, multiple: true, class: 'form-control' } %>
+              <%= select_tag 'depts', options_for_select(@department_options, @dept_options), {include_blank: true, multiple: true, class: 'form-control', id: 'select-depts' } %>
           </div>
           <% if params[:in_iframe].present? %>
             <%= hidden_field_tag :in_iframe, true -%>
@@ -45,7 +46,7 @@
             <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
           </div>
         <% end -%>
-        <h5 class="text-center">至<%= @last_available_date.year -%>年至<%= @last_available_date.month -%>月,上海天华 业务保有量为<%= (@biz_retent_totals_sum/10000.0).round(2) -%>亿元,人均业务保有量为<%= @biz_retent_totals_sum_per_staff.round(0) -%>万元。</h5>
+        <h5 class="text-center">至<%= @last_available_date.year -%>年至<%= @last_available_date.month -%>月,<%= @selected_company_short_name =%>业务保有量为<%= (@biz_retent_totals_sum/10000.0).round(2) -%>亿元,人均业务保有量为<%= @biz_retent_totals_sum_per_staff.round(0) -%>万元。</h5>
         <div
           data-controller="contract-holds"
           data-action="resize@window->contract-holds#layout"

@@ -6,6 +6,9 @@ class Report::ContractHoldsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
+  def fill_dept_names
+  end
+
   def show
     @all_month_names = policy_scope(Bi::ContractHold).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
@@ -15,6 +18,7 @@ class Report::ContractHoldsController < Report::BaseController
     @company_short_names = Bi::ContractHold.available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date).where(orgcode: @selected_org_code)
