@@ -23,6 +23,8 @@ class Report::ContractHoldsController < Report::BaseController
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date).where(orgcode: @selected_org_code)
       .order("ORG_REPORT_DEPT_ORDER.部门排名, ORG_REPORT_DEPT_ORDER.编号")
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
 
     data = if @view_deptcode_sum
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
