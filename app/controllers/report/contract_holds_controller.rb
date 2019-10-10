@@ -51,7 +51,11 @@ class Report::ContractHoldsController < Report::BaseController
       data.where("CONTRACT_HOLD.deptcode": @dept_options)
     end
 
-    @only_have_data_dept = @dept_options
+    @only_have_data_dept = if @selected_company_short_name == '上海天华'
+      (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
+    else
+      @dept_options
+    end
 
     @deptnames_in_order = @only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
