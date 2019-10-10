@@ -12,10 +12,12 @@ class Report::ContractHoldsController < Report::BaseController
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
     @dept_options = params[:depts]
+    @company_short_names = Bi::ContractHold.available_company_names(@last_available_date)
+    @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
     data = policy_scope(Bi::ContractHold)
-      .where(date: @last_available_date)
+      .where(date: @last_available_date).where(orgcode: @selected_org_code)
       .order("ORG_REPORT_DEPT_ORDER.部门排名, ORG_REPORT_DEPT_ORDER.编号")
 
     data = if @view_deptcode_sum
@@ -29,7 +31,7 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum
-      data_sum = policy_scope(Bi::ContractHold).where(date: @last_available_date)
+      data_sum = policy_scope(Bi::ContractHold).where(date: @last_available_date).where(orgcode: @selected_org_code)
       h_deptcodes = data_sum.where("deptcode_sum like 'H%'").pluck(:deptcode_sum)
       belongs_to_h_deptcodes = data_sum.where(deptcode_sum: h_deptcodes).pluck(:deptcode)
       data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
@@ -45,7 +47,7 @@ class Report::ContractHoldsController < Report::BaseController
       data.where("CONTRACT_HOLD.deptcode": @dept_options)
     end
 
-    @only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
+    @only_have_data_dept = @dept_options
 
     @deptnames_in_order = @only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
@@ -55,12 +57,20 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_contract = @only_have_data_dept.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
-      (d.busiretentcontract / 10000.to_f).round(0)
+      if d.present?
+        (d.busiretentcontract.to_f / 10000.to_f).round(0)
+      else
+        0
+      end
     end
 
     @biz_retent_no_contract = @only_have_data_dept.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
-      (d.busiretentnocontract.to_f / 10000.to_f).round(0)
+      if d.present?
+        (d.busiretentnocontract.to_f / 10000.to_f).round(0)
+      else
+        0
+      end
     end
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }

@@ -9,6 +9,7 @@ en:
           export_unsign_detail: "Export unsign detail"
           export_sign_detail: "Export sign detail"
         title: "Business retent contract and no contract"
+        company_name: "Company name"
         month_name: "Query year and month"
         dept_names: "Department names"
         confirm: "submit"
