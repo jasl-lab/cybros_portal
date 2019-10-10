@@ -10,12 +10,12 @@
   </thead>
   <tbody>
     <% @data.each do |d| %>
-      <tr>
+      <tr class=<%= (d.blue_print_rate.present? && ((d.blue_print_rate.to_f * 100) < @planning_day_rate_ref)) ? 'table-danger' : '' -%>>
         <td><%= d.user_name -%></td>
         <td><%= d.date.to_date -%></td>
         <td><%= d.blue_print_need -%></td>
         <td><%= d.blue_print_real -%></td>
-        <td><%= d.blue_print_rate -%></td>
+        <td><%= d.blue_print_rate && (d.blue_print_rate.to_f * 100).round(1) -%>%</td>
       </tr>
     <% end %>
   </tbody>

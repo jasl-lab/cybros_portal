@@ -269,9 +269,13 @@ export default class extends Controller {
           const end_month_name = $('#end_month_name').val();
           const sent_data = {
             company_name: companyName,
-            department_name: department_name,
-            begin_month_name: begin_month_name,
-            end_month_name: end_month_name };
+            department_name,
+            begin_month_name,
+            end_month_name,
+            day_rate_ref: dayRateDataRef,
+            planning_day_rate_ref: planningDayRateDataRef,
+            building_day_rate_ref: buildingDayRateDataRef,
+          };
           let drill_down_url;
           switch (params.seriesName) {
             case '工作填报率':

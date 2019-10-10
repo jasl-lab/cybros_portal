@@ -10,12 +10,12 @@
   </thead>
   <tbody>
     <% @data.each do |d| %>
-      <tr>
+      <tr class=<%= (d.construction_rate.present? && ((d.construction_rate.to_f * 100) < @building_day_rate_ref)) ? 'table-danger' : '' -%>>
         <td><%= d.user_name -%></td>
         <td><%= d.date.to_date -%></td>
         <td><%= d.construction_need -%></td>
         <td><%= d.construction_real -%></td>
-        <td><%= d.construction_rate -%></td>
+        <td><%= d.construction_rate && (d.construction_rate.to_f * 100).round(1) -%>%</td>
       </tr>
     <% end %>
   </tbody>
