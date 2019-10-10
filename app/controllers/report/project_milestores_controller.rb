@@ -14,16 +14,17 @@ class Report::ProjectMilestoresController < Report::BaseController
     target_date = policy_scope(Bi::ShRefreshRate).where("date <= ?", end_of_month).order(date: :desc).first.date
 
     @number_in_row = (params[:number_in_row] || 7).to_i
-
     Rails.logger.debug "Bi::ShRefreshRate target_date: #{target_date}"
+    @company_short_names = Bi::ShRefreshRate.company_short_names(target_date)
+    @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
+
     @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department(target_date)
-    @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(target_date, '000101')
+    @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(target_date, @selected_org_code)
     @departments = @person_by_department_in_sh.keys
 
-    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @departments)
-    @deptnames_in_order = only_have_data_dept.collect { |deptcode| Bi::OrgReportDeptOrder.department_names[deptcode] }
+    @deptnames_in_order = @departments.collect { |deptcode| Bi::OrgReportDeptOrder.department_names[deptcode] }
 
-    @milestore_update_rate = only_have_data_dept.collect do |deptcode|
+    @milestore_update_rate = @departments.collect do |deptcode|
       rr = @person_by_department_in_sh[deptcode]
       if rr.present?
         rr_refresh = rr.collect { |d| d.refresh_count.to_i }.sum

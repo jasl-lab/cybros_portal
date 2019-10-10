@@ -8,6 +8,14 @@ module Bi
       Bi::ShRefreshRate.order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
+    def self.company_short_names(target_date)
+      orgcodes = where(date: target_date).where("SH_REFRESH_RATE.orgcode IS NOT NULL")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SH_REFRESH_RATE.orgcode")
+        .order("ORG_ORDER.org_order DESC")
+        .pluck(:orgcode).uniq
+        .collect { |c| [Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c), c] }
+    end
+
     def self.person_count_by_department(target_date)
       deps = where(date: target_date).where("SH_REFRESH_RATE.orgcode IS NOT NULL")
         .select('deptcode, count(work_no) work_no')
