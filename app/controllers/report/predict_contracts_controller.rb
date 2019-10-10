@@ -17,12 +17,12 @@ class Report::PredictContractsController < Report::BaseController
     @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
 
     data = policy_scope(Bi::TrackContract).where(date: @last_available_date)
-      .select("businessdeptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
-      .group(:businessdeptcode)
+      .select("deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
+      .group(:deptcode)
 
 
-    @dept_options = data.collect(&:businessdeptcode) if @dept_options.blank?
-    data = data.where(businessdeptcode: @dept_options)
+    @dept_options = data.collect(&:deptcode) if @dept_options.blank?
+    data = data.where(deptcode: @dept_options)
     only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
 
     @company_short_names = only_have_data_dept.collect do |c|
@@ -32,11 +32,11 @@ class Report::PredictContractsController < Report::BaseController
     @department_options = @company_short_names.zip(only_have_data_dept)
 
     @contract_convert = only_have_data_dept.collect do |dept_code|
-      d = data.find { |t| t.businessdeptcode == dept_code }
+      d = data.find { |t| t.deptcode == dept_code }
       (d.contractconvert / 10000.to_f).round(0)
     end
     @convert_real_amount = only_have_data_dept.collect do |dept_code|
-      d = data.find { |t| t.businessdeptcode == dept_code }
+      d = data.find { |t| t.deptcode == dept_code }
       (d.convertrealamount / 10000.to_f).round(0)
     end
     @contract_convert_totals = @contract_convert.zip(@convert_real_amount).map { |d| d[0] + d[1] }
@@ -45,7 +45,7 @@ class Report::PredictContractsController < Report::BaseController
   def opportunity_detail_drill_down
     @tcod = Bi::TrackContractOpportunityDetail
       .where(date: @last_available_date)
-      .where(businessdeptcode: @dept_code)
+      .where(deptcode: @dept_code)
       .where("contractconvert > 0")
     render
   end
@@ -53,7 +53,7 @@ class Report::PredictContractsController < Report::BaseController
   def signing_detail_drill_down
     @tcsd = Bi::TrackContractSigningDetail
       .where(date: @last_available_date)
-      .where(businessdeptcode: @dept_code)
+      .where(deptcode: @dept_code)
       .where("convertrealamount > 0")
     render
   end
