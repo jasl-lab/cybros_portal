@@ -6,7 +6,6 @@ en:
         title: "Project milestore"
         month_name: "Query year and month"
         number_in_row: "Number in row"
-        show_all_dept: "Display all department"
         confirm: "Confirm"
         close: "Close"
         table:

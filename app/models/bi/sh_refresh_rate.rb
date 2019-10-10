@@ -18,11 +18,11 @@ module Bi
       end
     end
 
-    def self.person_by_department_in_sh(target_date, show_all_dept = false)
+    def self.person_by_department_in_sh(target_date, orgcode)
       lad = where(date: target_date)
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SH_REFRESH_RATE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SH_REFRESH_RATE.deptcode")
-      lad = lad.where(orgcode: '000101') unless show_all_dept
+      lad = lad.where(orgcode: orgcode)
       h = {}
       department_code_in_order = lad.collect(&:deptcode).uniq
       department_code_in_order.each do |deptcode|
