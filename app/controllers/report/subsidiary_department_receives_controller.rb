@@ -40,7 +40,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     only_have_real_data_depts = real_data.collect(&:deptcode)
-    real_department_short_names = only_have_real_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names.fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    real_department_short_names = only_have_real_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
     @depts_options = only_have_real_data_depts if @depts_options.blank?
     @department_options = real_department_short_names.zip(only_have_real_data_depts)
     @sum_dept_names = @department_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
@@ -56,7 +56,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       real_data.where(deptcode: @depts_options)
     end
 
-    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names.fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
+    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.real_receive / 100_00.0).round(0) }
     @sum_real_receives = (@real_receives.sum / 10000.0).round(1)
 
@@ -80,7 +80,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .where(deptcode: @depts_options)
     end
 
-    @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names.fetch(c.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(c.deptcode, c.deptcode)) }
+    @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names(need_data_last_available_date).fetch(c.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(c.deptcode, c.deptcode)) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
@@ -114,12 +114,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end.where(date: real_data_last_available_date)
 
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      dept_name = Bi::OrgReportDeptOrder.department_names.fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       h[dept_name] = d.sum_total
       h
     end
     @payback_rates = real_data.collect do |d|
-      dept_name = Bi::OrgReportDeptOrder.department_names.fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       complete_value = complete_value_hash.fetch(dept_name, 100000)
       if complete_value % 1 == 0
         0
