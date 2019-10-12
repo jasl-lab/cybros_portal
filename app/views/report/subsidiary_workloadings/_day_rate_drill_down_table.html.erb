@@ -12,7 +12,7 @@
     <% @data.each do |d| %>
       <tr class=<%= ((d&.fill_rate&.to_f * 100) < @day_rate_ref) ? 'table-danger' : '' -%>>
         <td><%= d.user_name -%></td>
-        <td><%= d.date.to_date -%></td>
+        <td><%= d.date.to_s(:short_month) -%></td>
         <td><%= d.date_need -%></td>
         <td><%= d.date_real -%></td>
         <td><%= (d&.fill_rate&.to_f * 100).round(1) -%>%</td>

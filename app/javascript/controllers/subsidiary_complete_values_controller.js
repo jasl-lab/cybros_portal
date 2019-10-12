@@ -92,7 +92,9 @@ export default class extends Controller {
           label: {
             normal: {
               show: true,
-              position: 'insideTop'
+              position: 'insideTop',
+              fontWeight: 'bold',
+              color: '#000000'
             }
           }
         },{
