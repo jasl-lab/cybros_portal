@@ -7,6 +7,9 @@ class Report::PredictContractsController < Report::BaseController
   before_action :set_drill_down_variables, only: %i[opportunity_detail_drill_down signing_detail_drill_down], if: -> { request.format.js? }
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
+  def fill_dept_names
+  end
+
   def show
     @all_month_names = policy_scope(Bi::TrackContract).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
@@ -15,15 +18,23 @@ class Report::PredictContractsController < Report::BaseController
     @dept_options = params[:depts]
 
     @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
+    @select_company_short_names = policy_scope(Bi::TrackContract).available_company_names(@last_available_date)
+    @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
+    @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
 
-    data = policy_scope(Bi::TrackContract).where(date: @last_available_date)
+    data = policy_scope(Bi::TrackContract)
+      .where(orgcode: @selected_org_code)
+      .where(date: @last_available_date)
       .select("deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
       .group(:deptcode)
 
-
     @dept_options = data.collect(&:deptcode) if @dept_options.blank?
     data = data.where(deptcode: @dept_options)
-    only_have_data_dept = (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
+    only_have_data_dept = if @selected_org_code == '000101'
+      (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
+    else
+      @dept_options
+    end
 
     @company_short_names = only_have_data_dept.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)

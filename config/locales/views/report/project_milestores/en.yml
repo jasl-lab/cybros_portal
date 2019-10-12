@@ -4,6 +4,7 @@ en:
     project_milestores:
       show:
         title: "Project milestore"
+        company_name: "Company name"
         month_name: "Query year and month"
         number_in_row: "Number in row"
         confirm: "Confirm"

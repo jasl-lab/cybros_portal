@@ -63,6 +63,7 @@ var option = {
       barWidth: '30%',
       barGap: '-100%',
       data: contractConvertTotals,
+      barMaxWidth: 90,
       itemStyle: {
         color: '#DDDDDD'
       },
@@ -78,6 +79,7 @@ var option = {
       type: 'bar',
       stack: '总量',
       data: contractConvert,
+      barMaxWidth: 90,
       itemStyle: {
         color: '#738496'
       },

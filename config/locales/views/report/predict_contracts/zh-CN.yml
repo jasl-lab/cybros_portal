@@ -3,7 +3,7 @@ zh-CN:
   report:
     predict_contracts:
       show:
-        title: "上海天华跟踪合同额"
+        title: "%{company}跟踪合同额"
         table:
           opportunitycode: "商机编号"
           opportunityname: "商机名称"
@@ -18,6 +18,7 @@ zh-CN:
           projectcode: "项目号"
           realamounttotal: "实际合同金额"
           convertrealamount: "折算合同额"
+        company_name: "公司名称"
         month_name: "查询年月"
         dept_names: "显示部门"
         confirm: "确认"

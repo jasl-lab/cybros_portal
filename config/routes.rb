@@ -103,6 +103,7 @@ Rails.application.routes.draw do
       collection do
         get :opportunity_detail_drill_down
         get :signing_detail_drill_down
+        get :fill_dept_names
       end
     end
     resource :project_milestore, only: %i[show] do
