@@ -15,7 +15,7 @@ class Report::ProjectMilestoresController < Report::BaseController
 
     @number_in_row = (params[:number_in_row] || 7).to_i
     Rails.logger.debug "Bi::ShRefreshRate target_date: #{@target_date}"
-    @company_short_names = Bi::ShRefreshRate.available_company_names(@target_date)
+    @company_short_names = policy_scope(Bi::ShRefreshRate).available_company_names(@target_date)
     @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
 
     @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department(@target_date)
