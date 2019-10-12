@@ -11,7 +11,7 @@ zh-CN:
         show_hide_item: "显示隐藏项目"
         confirm: "确认"
         table:
-          org_name: "子公司"
+          org_name: "商务责任公司"
           dept_name: "商务责任部门"
           project_manager_name: "项目经理"
           project_item_code_name: "项目编号及名称"
