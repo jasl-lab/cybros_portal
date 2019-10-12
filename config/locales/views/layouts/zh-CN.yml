@@ -57,7 +57,7 @@ zh-CN:
         subsidiary_department_receive: "%{company}部门收款情况"
         predict_contract: "上海天华跟踪合同额"
         project_milestore: "%{company}里程碑更新率"
-        contract_hold: "上海业务保有量"
+        contract_hold: "%{company}业务保有量"
         contract_sign_detail: "归档合同签约周期"
         subsidiary_need_receive_sign_detail: "已签约项目业务应收"
         subsidiary_need_receive_unsign_detail: "未签约项目业务应收"

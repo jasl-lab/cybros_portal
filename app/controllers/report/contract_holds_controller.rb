@@ -15,7 +15,7 @@ class Report::ContractHoldsController < Report::BaseController
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
     @dept_options = params[:depts]
-    @company_short_names = Bi::ContractHold.available_company_names(@last_available_date)
+    @company_short_names = policy_scope(Bi::ContractHold).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
@@ -85,7 +85,11 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
 
-    this_month_staff_data = Bi::ShStaffCount.staff_per_dept_code_by_date(end_of_month)
+    this_month_staff_data = if @selected_org_code == "000101"
+      Bi::ShStaffCount.staff_per_dept_code_by_date(end_of_month)
+    else
+      Bi::YearAvgStaff.staff_per_dept_code_by_date(@selected_org_code, end_of_month)
+    end
 
     @dept_avg_staff = @only_have_data_dept.collect do |dept_code|
       this_month_staff_data[dept_code]
@@ -229,7 +233,7 @@ class Report::ContractHoldsController < Report::BaseController
         link: root_path },
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.contract_hold"),
+      { text: t("layouts.sidebar.operation.contract_hold", company: params[:company_name]&.strip || current_user.user_company_short_name),
         link: report_contract_hold_path(view_deptcode_sum: true) }]
     end
 
