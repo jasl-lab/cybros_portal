@@ -127,15 +127,20 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       h[dept_name] = d.sum_total
       h
     end
+    sum_real_receives_for_payback = 0
+    total_complete_value_per_staff = 0
     @payback_rates = real_data.collect do |d|
       dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       complete_value = complete_value_hash.fetch(dept_name, 100000)
+      sum_real_receives_for_payback += d.real_receive
+      total_complete_value_per_staff += (complete_value % 1 == 0) ? 0 : complete_value
       if complete_value % 1 == 0
         0
       else
         ((d.real_receive / complete_value.to_f) * 100).round(0)
       end
     end
+    @avg_payback_rate = ((sum_real_receives_for_payback / total_complete_value_per_staff.to_f) * 100).round(0)
   end
 
   def real_data_drill_down
