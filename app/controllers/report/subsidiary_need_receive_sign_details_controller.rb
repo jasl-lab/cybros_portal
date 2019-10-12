@@ -11,7 +11,9 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_date = policy_scope(Bi::SubCompanyNeedReceiveSignDetail)
       .where(date: Date.parse(@month_name).beginning_of_month..Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
-    @all_org_long_names = policy_scope(Bi::SubCompanyNeedReceiveSignDetail).all_org_long_names(@end_of_date)
+    all_org_long_names = policy_scope(Bi::SubCompanyNeedReceiveSignDetail).all_org_long_names(@end_of_date)
+    all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+    @all_org_names = all_org_short_names.zip(all_org_long_names)
     @org_name = params[:org_name]&.strip
     @sign_receive_great_than = params[:sign_receive_great_than] || 100
     @over_amount_great_than = params[:over_amount_great_than] || 1
