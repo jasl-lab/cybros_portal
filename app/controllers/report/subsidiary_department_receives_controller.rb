@@ -94,14 +94,23 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     else
       Bi::YearAvgStaff.staff_per_dept_code_by_date(selected_orgcode, @end_of_month)
     end
+    real_total_staff_num = 0
     @real_receives_per_staff = real_data.collect do |d|
       staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
+      real_total_staff_num += staff_number
       (d.real_receive / (staff_number * 10000).to_f).round(0)
     end
+    @avg_of_real_receives_per_staff = (@real_receives.sum.to_f / real_total_staff_num).round(1)
+    need_total_staff_num = 0
+    total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
-      (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
+      need_total_staff_num += staff_number
+      should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
+      total_should_receives_per_staff += should_receives_per_staff
+      ( should_receives_per_staff / staff_number.to_f).round(0)
     end
+    @avg_of_need_should_receives_per_staff = (total_should_receives_per_staff / need_total_staff_num).round(1)
 
     complete_value_data = if @view_deptcode_sum
       Bi::CompleteValueDept.where(orgcode: selected_orgcode)
