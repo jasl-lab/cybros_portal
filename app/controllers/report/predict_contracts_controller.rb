@@ -78,7 +78,7 @@ class Report::PredictContractsController < Report::BaseController
         link: root_path },
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.predict_contract"),
+      { text: t("layouts.sidebar.operation.predict_contract", company: params[:company_name]&.strip || current_user.user_company_short_name),
         link: report_predict_contract_path }]
     end
 
