@@ -117,7 +117,7 @@ export default class extends Controller {
 
     const option_staff = {
         legend: {
-            data: ['人均完成产值（万元）','预计全年人均完成产值（万元）'],
+            data: ['预计全年人均完成产值（万元）','本年累计人均完成产值（万元）'],
             align: 'left'
         },
         tooltip: {
