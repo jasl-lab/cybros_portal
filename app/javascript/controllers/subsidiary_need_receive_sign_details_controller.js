@@ -26,6 +26,7 @@ export default class extends Controller {
       "ajax": $('#subsidiary-need-receive-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": (canHideItem ? adminColumns : normalColumns),
+      "order": [[ 5, 'desc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_subsidiary-need-receive-sign-details', JSON.stringify(data));

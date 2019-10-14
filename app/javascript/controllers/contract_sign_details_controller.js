@@ -28,6 +28,7 @@ export default class extends Controller {
       "ajax": $('#contract-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": (canHideItem ? adminColumns : normalColumns),
+      "order": [[ 6, 'desc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_contract-sign-details', JSON.stringify(data));
