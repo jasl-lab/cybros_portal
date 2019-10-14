@@ -28,12 +28,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
 
     real_data = if @view_deptcode_sum
-      real_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(real_receive) real_receive")
+      real_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .group(:"SUB_COMPANY_REAL_RECEIVE.deptcode_sum", :"ORG_REPORT_DEPT_ORDER.部门排名")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
     else
-      real_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(real_receive) real_receive")
+      real_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
         .group(:"SUB_COMPANY_REAL_RECEIVE.deptcode", :"ORG_REPORT_DEPT_ORDER.部门排名")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
@@ -57,7 +57,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
-    @real_receives = real_data.collect { |d| (d.real_receive / 100_00.0).round(0) }
+    @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
     @sum_real_receives = (@real_receives.sum / 10000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
@@ -98,7 +98,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @real_receives_per_staff = real_data.collect do |d|
       staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
       real_total_staff_num += staff_number
-      (d.real_receive / (staff_number * 10000).to_f).round(0)
+      (d.total / (staff_number * 10000).to_f).round(0)
     end
     @avg_of_real_receives_per_staff = (@real_receives.sum.to_f / real_total_staff_num).round(1)
     need_total_staff_num = 0
@@ -132,12 +132,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @payback_rates = real_data.collect do |d|
       dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       complete_value = complete_value_hash.fetch(dept_name, 100000)
-      sum_real_receives_for_payback += d.real_receive
+      sum_real_receives_for_payback += d.total
       total_complete_value_per_staff += (complete_value % 1 == 0) ? 0 : complete_value
       if complete_value % 1 == 0
         0
       else
-        ((d.real_receive / complete_value.to_f) * 100).round(0)
+        ((d.total / complete_value.to_f) * 100).round(0)
       end
     end
     @avg_payback_rate = ((sum_real_receives_for_payback / total_complete_value_per_staff.to_f) * 100).round(0)

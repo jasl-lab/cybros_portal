@@ -23,11 +23,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order("ORG_ORDER.org_order DESC")
 
     real_data = if @view_orgcode_sum
-      real_data.select("orgcode_sum orgcode, org_order, SUM(real_receive) real_receive")
+      real_data.select("orgcode_sum orgcode, org_order, SUM(total) total")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
         .group(:orgcode_sum, :org_order)
     else
-      real_data.select("orgcode, org_order, SUM(real_receive) real_receive")
+      real_data.select("orgcode, org_order, SUM(total) total")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
         .group(:orgcode, :org_order)
     end
@@ -51,7 +51,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
 
     @real_company_short_names = real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
-    @real_receives = real_data.collect { |d| (d.real_receive / 100_0000.0).round(0) }
+    @real_receives = real_data.collect { |d| (d.total / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
 
@@ -88,7 +88,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @real_receives_per_staff = real_data.collect do |d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       staff_number = staff_per_company.fetch(short_name, 1000_0000)
-      (d.real_receive / (staff_number * 10000).to_f).round(0)
+      (d.total / (staff_number * 10000).to_f).round(0)
     end
     @need_should_receives_per_staff = need_data.collect do |d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
@@ -114,7 +114,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       if complete_value % 1 == 0
         0
       else
-        ((d.real_receive / complete_value.to_f) * 100).round(0)
+        ((d.total / complete_value.to_f) * 100).round(0)
       end
     end
   end
