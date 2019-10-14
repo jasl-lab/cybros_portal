@@ -99,11 +99,8 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
-    @biz_retent_totals_sum_per_staff = @biz_retent_totals_sum /
-      (@deptnames_in_order.inject(0) do |sum, deptname|
-        sum += this_month_staff_data.fetch(deptname, 1)
-        sum
-      end).to_f
+    @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.sum.to_f
+
   end
 
   def unsign_detail_drill_down
