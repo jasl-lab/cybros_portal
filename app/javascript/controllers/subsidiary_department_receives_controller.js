@@ -48,7 +48,10 @@ export default class extends Controller {
 
     const real_option = {
         title: {
-          text: '本年累计实收款'
+          text: '本年累计实收款',
+          textStyle: {
+            fontSize: 12,
+          }
         },
         legend: {
             data: ['本年累计实收款（万元）'],
@@ -105,7 +108,10 @@ export default class extends Controller {
 
     const need_option = {
         title: {
-          text: '应收款（财务+业务）'
+          text: '应收款（财务+业务）',
+          textStyle: {
+            fontSize: 12,
+          }
         },
         legend: {
             data: ['超长帐龄','扣除超长帐龄以外的财务应收','业务应收款'],
@@ -197,7 +203,10 @@ export default class extends Controller {
 
     const real_staff_option = {
         title: {
-          text: '一线人均实收款'
+          text: '一线人均实收款',
+          textStyle: {
+            fontSize: 12,
+          }
         },
         legend: {
             data: ['人均实收款（万元）'],
@@ -254,7 +263,10 @@ export default class extends Controller {
 
     const need_staff_option = {
         title: {
-          text: '一线人均应收款（财务+业务）'
+          text: '一线人均应收款（财务+业务）',
+          textStyle: {
+            fontSize: 12,
+          }
         },
         legend: {
             data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
