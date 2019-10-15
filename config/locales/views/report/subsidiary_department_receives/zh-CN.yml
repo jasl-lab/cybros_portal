@@ -12,7 +12,7 @@ zh-CN:
         confirm: "确认"
       modal:
         table:
-          projectname: "项目名称"
+          project_name_and_code: "项目名称和编号"
           salescontractcode: "合同编号"
           salescontractname: "合同名称"
           real_receive: "实收金额"

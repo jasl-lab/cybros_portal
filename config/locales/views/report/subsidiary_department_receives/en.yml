@@ -12,7 +12,7 @@ en:
         confirm: "Confirm"
       modal:
         table:
-          projectname: "Project name"
+          project_name_and_code: "Project name and code"
           salescontractcode: "Sales contract code"
           salescontractname: "Sales contract name"
           real_receive: "Real receive"
