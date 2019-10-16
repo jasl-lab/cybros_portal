@@ -85,6 +85,14 @@ class User < ApplicationRecord
     Bi::OrgShortName.org_code_by_short_name.fetch(user_company_short_name, user_company_short_name)
   end
 
+  def user_department_names
+    @belongs_to_department_names ||= departments.collect(&:name)
+  end
+
+  def user_department_name
+    user_department_names.first
+  end
+
   def in_tianhua_hq?
     user_company_names.include?("上海天华建筑设计有限公司")
   end

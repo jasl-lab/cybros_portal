@@ -10,7 +10,9 @@ class WechatsController < ApplicationController
     ks = Company::Knowledge.answer(content)
     if ks.present?
       k = ks.first
-      Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
+      Rails.logger.debug "User name: #{request[:FromUserName]}, User company: #{Current.user.user_company_short_name}, "
+      "department: #{Current.user.user_department_name}, User question: #{content} "
+      "Question category: #{k.category_1}, answered as question: #{k.question}"
       if k.can_show_text_directly? && ks.count == 1
         request.reply.text k.answer.to_plain_text
       else
