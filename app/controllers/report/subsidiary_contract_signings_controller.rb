@@ -80,14 +80,6 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     contract_count = data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
 
-    @contract_amounts_per_staff = []
-    @contract_amounts.each_with_index do |contract_amount, index|
-      dept_code = @all_department_codes[index]
-      staff_count = @staff_per_dept_code[dept_code]
-      staff_count = 1 if staff_count.nil? || staff_count.zero?
-      @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
-    end
-
     contract_production_last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
 
     cp_data = policy_scope(Bi::ContractProductionDept).where(date: contract_production_last_available_date)
@@ -110,6 +102,15 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
+    @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
+
+    @cp_contract_amounts_per_staff = []
+    @cp_contract_amounts.each_with_index do |contract_amount, index|
+      dept_code = all_cp_department_codes[index]
+      staff_count = @staff_per_dept_code[dept_code]
+      staff_count = 1 if staff_count.nil? || staff_count.zero?
+      @cp_contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
+    end
   end
 
   def drill_down_amount

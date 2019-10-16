@@ -23,9 +23,9 @@
     data-subsidiary-contract-signings-sum_contract_amount_max="<%= @contract_amount_max -%>"
     data-subsidiary-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
     data-subsidiary-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
-    data-subsidiary-contract-signings-contract_amounts_per_staff="<%= @contract_amounts_per_staff.to_json -%>"
+    data-subsidiary-contract-signings-cp_contract_amounts_per_staff="<%= @cp_contract_amounts_per_staff.to_json -%>"
     data-subsidiary-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
-    data-subsidiary-contract-signings-contract_amounts_per_staff_ref="<%= @contract_amounts_per_staff_ref -%>"
+    data-subsidiary-contract-signings-cp_contract_amounts_per_staff_ref="<%= @cp_contract_amounts_per_staff_ref -%>"
     data-subsidiary-contract-signings-cp_department_names="<%= @cp_department_names.to_json -%>"
     data-subsidiary-contract-signings-cp_contract_amounts="<%= @cp_contract_amounts.to_json -%>">
     <h3 class="page-title">
@@ -57,7 +57,7 @@
 
     <div class="row">
       <div class="col-lg-12 p-2">
-        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name.presence || "创意集团" -%>累计归档业绩合同额<span style="color:red"><%= @sum_contract_amounts -%> 亿元</span>; 本年平均签约周期 <span style="color:red"><%= @sum_avg_period_mean -%> 天</span>。</h5>
+        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name -%>累计归档签约合同额<span style="color:red"><%= @sum_contract_amounts -%></span>亿元，累积生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元，本年平均签约周期<span style="color:red"><%= @sum_avg_period_mean -%></span>天。</h5>
       </div>
     </div>
     <div class="row">

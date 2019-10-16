@@ -17,9 +17,11 @@ export default class extends Controller {
     const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
     const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
     const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
-    const contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
     const periodMeanRef = this.data.get("period_mean_ref");
-    const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
+
+    const contractAmountsPerStaff = JSON.parse(this.data.get("cp_contract_amounts_per_staff"));
+    const contractAmountsPerStaffRef = this.data.get("cp_contract_amounts_per_staff_ref");
+
     const cpDepartmentNames = JSON.parse(this.data.get("cp_department_names"));
     const cpContractAmounts = JSON.parse(this.data.get("cp_contract_amounts"));
 
@@ -39,7 +41,7 @@ var contractAmountsPerStaffWithColor = contractAmountsPerStaff.map(differentColo
 
 var option = {
     legend: {
-        data: ['签约周期','本年累计合同额'],
+        data: ['签约周期','本年累计签约合同额'],
         align: 'left'
     },
     tooltip: {
@@ -75,7 +77,7 @@ var option = {
     },
     yAxis: [{
       type: 'value',
-      name: '本年累计合同额（万元）',
+      name: '本年累计签约合同额（万元）',
       position: 'left',
       min: 0,
       max: sumContractAmountMax,
@@ -129,7 +131,7 @@ var option = {
         ]
       }
     },{
-      name: '本年累计合同额',
+      name: '本年累计签约合同额',
       type: 'bar',
       data: sumContractAmounts,
       color: '#738496',
@@ -205,7 +207,7 @@ var cp_option = {
 
 var option_avg = {
     legend: {
-        data: ['本年累计人均合同额'],
+        data: ['本年累计人均生产合同额'],
         align: 'left'
     },
     tooltip: {
@@ -229,7 +231,7 @@ var option_avg = {
       }
     },
     xAxis: {
-      data: xAxisData,
+      data: cpDepartmentNames,
       silent: true,
       axisLabel: {
         interval: 0,
@@ -241,14 +243,14 @@ var option_avg = {
     },
     yAxis: [{
       type: 'value',
-      name: '本年累计人均合同额（万元）',
+      name: '本年累计人均生产合同额（万元）',
       position: 'left',
       axisLabel: {
         formatter: '{value}万'
       }
     }],
     series: [{
-      name: '本年累计人均合同额',
+      name: '本年累计人均生产合同额',
       type: 'bar',
       data: contractAmountsPerStaffWithColor,
       barMaxWidth: 40,
