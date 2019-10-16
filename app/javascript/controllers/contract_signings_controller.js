@@ -72,7 +72,7 @@ export default class extends Controller {
           }
         },
         grid: {
-          left: 80,
+          left: 85,
           right: 110,
           top: 50,
           bottom: 60
@@ -154,6 +154,7 @@ export default class extends Controller {
           name: '本年累计合同额',
           type: 'bar',
           data: sumContractAmountsWithColor,
+          color: '#7E91A5',
           barMaxWidth: 80,
           label: {
             normal: {
@@ -212,6 +213,7 @@ export default class extends Controller {
           name: '本年累计生产合同额',
           type: 'bar',
           data: cpContractAmounts,
+          color: '#7E91A5',
           barMaxWidth: 80,
           label: {
             normal: {
