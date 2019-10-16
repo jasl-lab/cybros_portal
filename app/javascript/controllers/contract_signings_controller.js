@@ -1,11 +1,13 @@
 import { Controller } from "stimulus"
 
 let contractSigningsChart;
+let contractProductionChart;
 let contractSigningsAvgChart;
 
 export default class extends Controller {
   connect() {
     contractSigningsChart = echarts.init(document.getElementById('contract-signings-chart'));
+    contractProductionChart = echarts.init(document.getElementById('contract-production-chart'));
     contractSigningsAvgChart = echarts.init(document.getElementById('contract-signings-avg-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
@@ -20,6 +22,8 @@ export default class extends Controller {
     const contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
     const periodMeanRef = this.data.get("period_mean_ref");
     const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
+    const cpOrgNames = JSON.parse(this.data.get("cp_org_names"));
+    const cpContractAmounts = JSON.parse(this.data.get("cp_contract_amounts"));
 
     let myOwnCompanyIndex = [];
     for (let index = 0; index < xAxisData.length; ++index) {
@@ -68,7 +72,7 @@ export default class extends Controller {
           }
         },
         grid: {
-          left: 70,
+          left: 80,
           right: 110,
           top: 50,
           bottom: 60
@@ -150,6 +154,64 @@ export default class extends Controller {
           name: '本年累计合同额',
           type: 'bar',
           data: sumContractAmountsWithColor,
+          barMaxWidth: 80,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          }
+        }]
+    };
+
+    const cp_option = {
+        legend: {
+            data: ['本年累计生产合同额'],
+            align: 'left'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        grid: {
+          left: 85,
+          right: 110,
+          top: 50,
+          bottom: 60
+        },
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
+          }
+        },
+        xAxis: {
+          data: cpOrgNames,
+          silent: true,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+              show: false
+          }
+        },
+        yAxis: [{
+          type: 'value',
+          name: '本年累计生产合同额（百万元）',
+          position: 'left',
+          axisLabel: {
+            formatter: '{value}百万'
+          }
+        }],
+        series: [{
+          name: '本年累计生产合同额',
+          type: 'bar',
+          data: cpContractAmounts,
           barMaxWidth: 80,
           label: {
             normal: {
@@ -258,20 +320,25 @@ export default class extends Controller {
     contractSigningsChart.setOption(option, false);
     contractSigningsChart.on('click', drill_down_on_click);
 
+    contractProductionChart.setOption(cp_option, false);
+
     contractSigningsAvgChart.setOption(option_avg, false);
     setTimeout(() => {
       contractSigningsChart.resize();
+      contractProductionChart.resize();
       contractSigningsAvgChart.resize();
     }, 200);
   }
 
   layout() {
     contractSigningsChart.resize();
+    contractProductionChart.resize();
     contractSigningsAvgChart.resize();
   }
 
   disconnect() {
     contractSigningsChart.dispose();
+    contractProductionChart.dispose();
     contractSigningsAvgChart.dispose();
   }
 }

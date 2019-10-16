@@ -26,7 +26,9 @@
     data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
     data-contract-signings-contract_amounts_per_staff="<%= @contract_amounts_per_staff.to_json -%>"
     data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
-    data-contract-signings-contract_amounts_per_staff_ref="<%= @contract_amounts_per_staff_ref -%>">
+    data-contract-signings-contract_amounts_per_staff_ref="<%= @contract_amounts_per_staff_ref -%>"
+    data-contract-signings-cp_org_names="<%= @cp_org_names.to_json -%>"
+    data-contract-signings-cp_contract_amounts="<%= @cp_contract_amounts_div_100.to_json -%>">
     <h3 class="page-title">
       <%= t(".title", company: @company_name) %>
     </h3>
@@ -63,6 +65,13 @@
     <div class="row">
       <div class="col-lg-12">
         <div id="contract-signings-chart" style="width: 100%;height: 400px;">
+        </div>
+        <p class="text-lg-right">点击图标合同额可以钻取。（如果允许）</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="contract-production-chart" style="width: 100%;height: 400px;">
         </div>
         <p class="text-lg-right">点击图标合同额可以钻取。（如果允许）</p>
       </div>

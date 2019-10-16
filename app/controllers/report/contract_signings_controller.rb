@@ -61,7 +61,7 @@ class Report::ContractSigningsController < Report::BaseController
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amounts_div_100 = data.collect { |d| (d.sum_contract_amount / 100.0).round(0) }
-    @contract_amount_max = 250
+    @contract_amount_max = 260
     @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
@@ -76,6 +76,28 @@ class Report::ContractSigningsController < Report::BaseController
     one_sum_contract_period = df.one_sum_contract_period
     one_sum_contract_amount_count = df.one_sum_contract_amount_count
     @sum_avg_period_mean = (one_sum_contract_period / one_sum_contract_amount_count).round(0)
+
+    contract_production_last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
+
+    cp_data = policy_scope(Bi::ContractProductionDept).where(date: contract_production_last_available_date)
+      .having("SUM(total) > 0")
+      .order("ORG_ORDER.org_order DESC")
+
+    cp_data = if @view_orgcode_sum
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode_sum orgcode, org_order, ROUND(SUM(total)/10000, 2) cp_amount")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRODUCTION_DEPT.orgcode_sum")
+        .group(:orgcode_sum, :org_order)
+        .where(orgcode_sum: @orgs_options)
+    else
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode, org_order, ROUND(SUM(total)/10000, 2) cp_amount")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRODUCTION_DEPT.orgcode")
+        .group(:orgcode, :org_order)
+        .where(orgcode: @orgs_options)
+    end
+    @cp_org_names = cp_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
+    @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
+    @cp_contract_amounts_div_100 = cp_data.collect { |d| (d.cp_amount / 100.0).round(0) }
+    @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
 
     @contract_amounts_per_staff = []
     @contract_amounts.each_with_index do |contract_amount, index|
