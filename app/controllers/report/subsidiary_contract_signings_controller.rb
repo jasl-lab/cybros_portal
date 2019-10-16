@@ -57,11 +57,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
     end
 
-    @department_names = data.collect do |d|
-      Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode)
-    end
-
     @all_department_codes = data.collect(&:deptcode)
+
+    @department_names = @all_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
 
     @staff_per_dept_code = if org_code == "000101"
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
