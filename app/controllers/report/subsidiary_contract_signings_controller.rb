@@ -16,7 +16,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @period_mean_ref = params[:period_mean_ref] || 100
-    @contract_amounts_per_staff_ref = if @manual_set_staff_ref
+    @cp_contract_amounts_per_staff_ref = if @manual_set_staff_ref
       params[:contract_amounts_per_staff_ref]
     else
       ((100 / 12.0) * @end_of_month.month).round(0)
