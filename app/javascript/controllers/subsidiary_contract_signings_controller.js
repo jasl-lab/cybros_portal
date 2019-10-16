@@ -49,7 +49,7 @@ var option = {
       }
     },
     grid: {
-      left: 70,
+      left: 80,
       right: 110,
       top: 50,
       bottom: 60
@@ -155,7 +155,7 @@ var cp_option = {
       }
     },
     grid: {
-      left: 70,
+      left: 80,
       right: 110,
       top: 50,
       bottom: 60
@@ -298,7 +298,27 @@ var option_avg = {
     subsidiaryContractSigningsChart.setOption(option, false);
     subsidiaryContractSigningsChart.on('click', drill_down_on_click);
 
+    function cp_drill_down(params) {
+      if (params.componentType === 'series') {
+        const series_department = cpDepartmentNames[params.dataIndex]
+        const month_name = $('#month_name').val();
+        const sent_data = {
+          company_name: companyName,
+          department_name: series_department,
+          month_name: month_name };
+        let drill_down_url;
+        if (params.seriesType === 'bar') {
+          drill_down_url = '/report/subsidiary_contract_signing/cp_drill_down'
+        }
+        $.ajax(drill_down_url, {
+          data: sent_data,
+          dataType: 'script'
+        });
+      }
+    }
+
     subsidiaryContractProductionChart.setOption(cp_option, false);
+    subsidiaryContractProductionChart.on('click', cp_drill_down);
 
     subsidiaryContractSigningsAvgChart.setOption(option_avg, false);
 

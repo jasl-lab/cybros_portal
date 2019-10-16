@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title"><%= @company_name -%> <%= Array(@department_name).to_sentence -%> 签约周期明细</h5>
+      <h5 class="modal-title"><%= @company_name -%> <%= Array(@department_name).to_sentence -%> 累计合同明细</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -12,9 +12,9 @@
     <tr>
       <th width="10%"><%= t(".table.salescontractcode") -%></th>
       <th width="30%"><%= t(".table.salescontractname") -%></th>
-      <th width="15%"><%= t(".table.date1") -%></th>
-      <th width="25%"><%= t(".table.firstpartyname") -%></th>
-      <th width="20%"><%= t(".table.businessdirectorname") -%></th>
+      <th width="15%"><%= t(".table.filingtime") -%></th>
+      <th width="25%"><%= t(".table.deptvalue") -%></th>
+      <th width="20%"><%= t(".table.total") -%></th>
     </tr>
   </thead>
   <tbody>
@@ -22,9 +22,9 @@
       <tr>
         <td><%= d.salescontractcode -%></td>
         <td><%= d.salescontractname -%></td>
-        <td><%= d.date1.round(0) -%></td>
-        <td><%= d.firstpartyname -%></td>
-        <td><%= d.businessdirectorname -%></td>
+        <td><%= d.filingtime.to_date -%></td>
+        <td><%= d.deptvalue -%></td>
+        <td><%= d.total -%></td>
       </tr>
     <% end %>
   </tbody>

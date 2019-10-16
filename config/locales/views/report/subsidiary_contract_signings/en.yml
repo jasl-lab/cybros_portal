@@ -26,3 +26,10 @@ en:
           date1: "Signing days"
           firstpartyname: "First client name"
           businessdirectorname: "Business director name"
+      cp_modal:
+        table:
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          filingtime: "Filing time"
+          deptvalue: "Department value"
+          total: "Total"

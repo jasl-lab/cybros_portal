@@ -27,3 +27,10 @@ zh-CN:
           date1: "签约天数"
           firstpartyname: "甲方集团"
           businessdirectorname: "商务负责人"
+      cp_modal:
+        table:
+          salescontractcode: "合同编号"
+          salescontractname: "合同名称"
+          filingtime: "归档日期"
+          deptvalue: "部门产值"
+          total: "调整产值"

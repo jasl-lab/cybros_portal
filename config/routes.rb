@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       collection do
         get :drill_down_amount
         get :drill_down_date
+        get :cp_drill_down
       end
     end
     resource :complete_value, only: %i[show]
