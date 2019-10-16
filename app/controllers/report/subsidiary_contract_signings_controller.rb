@@ -87,6 +87,29 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       staff_count = 1 if staff_count.nil? || staff_count.zero?
       @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
+
+    contract_production_last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
+
+    cp_data = policy_scope(Bi::ContractProductionDept).where(date: contract_production_last_available_date)
+      .where(orgcode: org_code)
+      .having("SUM(total) > 0")
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
+
+    cp_data = if @view_deptcode_sum
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(total)/10000, 2) cp_amount")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum")
+        .group("CONTRACT_PRODUCTION_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门排名")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
+    else
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(total)/10000, 2) cp_amount")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode")
+        .group("CONTRACT_PRODUCTION_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
+    end
+    all_cp_department_codes = cp_data.collect(&:deptcode)
+    @cp_department_names = all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
+    @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
   end
 
   def drill_down_amount

@@ -1,23 +1,27 @@
 import { Controller } from "stimulus"
 
 let subsidiaryContractSigningsChart;
+let subsidiaryContractProductionChart;
 let subsidiaryContractSigningsAvgChart;
 
 export default class extends Controller {
   connect() {
     subsidiaryContractSigningsChart = echarts.init(document.getElementById('subsidiary-contract-signings-chart'));
+    subsidiaryContractProductionChart = echarts.init(document.getElementById('subsidiary-contract-production-chart'));
     subsidiaryContractSigningsAvgChart = echarts.init(document.getElementById('subsidiary-contract-signings-avg-chart'));
 
-var xAxisData = JSON.parse(this.data.get("x_axis"));
-var currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
-var companyName = this.data.get("company_name");
-var sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
-var sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
-var avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
-var avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
-var contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
-var periodMeanRef = this.data.get("period_mean_ref");
-var contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
+    const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
+    const companyName = this.data.get("company_name");
+    const sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
+    const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
+    const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
+    const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
+    const contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
+    const periodMeanRef = this.data.get("period_mean_ref");
+    const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
+    const cpDepartmentNames = JSON.parse(this.data.get("cp_department_names"));
+    const cpContractAmounts = JSON.parse(this.data.get("cp_contract_amounts"));
 
 function differentColor(amount) {
   let color;
@@ -139,6 +143,66 @@ var option = {
     }]
 };
 
+var cp_option = {
+    legend: {
+        data: ['本年累计生产合同额'],
+        align: 'left'
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross'
+      }
+    },
+    grid: {
+      left: 70,
+      right: 110,
+      top: 50,
+      bottom: 60
+    },
+    toolbox: {
+      feature: {
+        dataView: {},
+        saveAsImage: {
+            pixelRatio: 2
+        }
+      }
+    },
+    xAxis: {
+      data: cpDepartmentNames,
+      silent: true,
+      axisLabel: {
+        interval: 0,
+        rotate: -40
+      },
+      splitLine: {
+          show: false
+      }
+    },
+    yAxis: [{
+      type: 'value',
+      name: '本年累计生产合同额（万元）',
+      position: 'left',
+      axisLabel: {
+        formatter: '{value}万'
+      }
+    }],
+    series: [{
+      name: '本年累计生产合同额',
+      type: 'bar',
+      data: cpContractAmounts,
+      color: '#738496',
+      barMaxWidth: 40,
+      label: {
+        normal: {
+          show: true,
+          position: 'top'
+        }
+      }
+    }]
+};
+
+
 var option_avg = {
     legend: {
         data: ['本年累计人均合同额'],
@@ -234,20 +298,26 @@ var option_avg = {
     subsidiaryContractSigningsChart.setOption(option, false);
     subsidiaryContractSigningsChart.on('click', drill_down_on_click);
 
+    subsidiaryContractProductionChart.setOption(cp_option, false);
+
     subsidiaryContractSigningsAvgChart.setOption(option_avg, false);
+
     setTimeout(() => {
       subsidiaryContractSigningsChart.resize();
+      subsidiaryContractProductionChart.resize();
       subsidiaryContractSigningsAvgChart.resize();
     }, 200);
   }
 
   layout() {
     subsidiaryContractSigningsChart.resize();
+    subsidiaryContractProductionChart.resize();
     subsidiaryContractSigningsAvgChart.resize();
   }
 
   disconnect() {
     subsidiaryContractSigningsChart.dispose();
+    subsidiaryContractProductionChart.dispose();
     subsidiaryContractSigningsAvgChart.dispose();
   }
 }
