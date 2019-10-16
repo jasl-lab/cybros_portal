@@ -39,7 +39,10 @@ class VoiceAnswerWorker
     ks = Company::Knowledge.answer(content)
     if ks.present?
       k = ks.first
-      Rails.logger.debug "User question: #{content} answered as question: #{k.question}"
+      Current.user = User.find_by email: "#{openid}@thape.com.cn"
+      Rails.logger.debug "User name: #{openid}, User company: #{Current.user.user_company_short_name}, "
+      "department: #{Current.user.user_department_name}, User voice question: #{content} "
+      "Question category: #{k.category_1}, answered as question: #{k.question}"
       if k.can_show_text_directly? && ks.count == 1
         Wechat.api.custom_message_send Wechat::Message.to(openid).text k.answer.to_plain_text
       else
