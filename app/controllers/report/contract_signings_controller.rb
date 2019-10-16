@@ -57,7 +57,6 @@ class Report::ContractSigningsController < Report::BaseController
     end
 
     @company_short_names = data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
-    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amounts_div_100 = data.collect { |d| (d.sum_contract_amount / 100.0).round(0) }
@@ -99,12 +98,13 @@ class Report::ContractSigningsController < Report::BaseController
     @cp_contract_amounts_div_100 = cp_data.collect { |d| (d.cp_amount / 100.0).round(0) }
     @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
 
-    @contract_amounts_per_staff = []
-    @contract_amounts.each_with_index do |contract_amount, index|
-      company_name = @company_short_names[index]
+    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
+    @production_amounts_per_staff = []
+    @cp_contract_amounts.each_with_index do |contract_amount, index|
+      company_name = @cp_org_names[index]
       staff_count = @staff_per_company[company_name] || 1000_0000
       staff_count = 1 if staff_count.nil? || staff_count.zero?
-      @contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
+      @production_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
   end
 

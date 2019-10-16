@@ -24,7 +24,7 @@
     data-contract-signings-sum_contract_amount_max="<%= @contract_amount_max -%>"
     data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
     data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
-    data-contract-signings-contract_amounts_per_staff="<%= @contract_amounts_per_staff.to_json -%>"
+    data-contract-signings-production_amounts_per_staff="<%= @production_amounts_per_staff.to_json -%>"
     data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
     data-contract-signings-contract_amounts_per_staff_ref="<%= @contract_amounts_per_staff_ref -%>"
     data-contract-signings-cp_org_names="<%= @cp_org_names.to_json -%>"
@@ -88,7 +88,7 @@
           <thead>
             <tr class="d-flex">
               <th scope="col" class="col-1">部门</th>
-              <% @company_short_names.each do |company_name| %>
+              <% @cp_org_names.each do |company_name| %>
                 <th scope="col" class="col-1"><%= company_name -%></th>
               <% end %>
             </tr>
@@ -97,13 +97,8 @@
             <tr class="d-flex">
               <th scope="row" class="col-1">平均人数</th>
               <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                <% if @short_company_name.present? %>
-                  <% dept_code = @all_department_codes[index] %>
-                  <% staff_count = @staff_per_dept_code[dept_code] %>
-                <% else %>
-                  <% company_name = @company_short_names[index] %>
-                  <% staff_count = @staff_per_company[company_name] %>
-                <% end %>
+                <% company_name = @cp_org_names[index] %>
+                <% staff_count = @staff_per_company[company_name] %>
                 <td class="col-1"><%= staff_count&.round(0) -%></td>
               <% end %>
             </tr>

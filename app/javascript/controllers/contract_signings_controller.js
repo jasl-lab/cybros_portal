@@ -19,7 +19,7 @@ export default class extends Controller {
     const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
     const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
     const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
-    const contractAmountsPerStaff = JSON.parse(this.data.get("contract_amounts_per_staff"));
+    const productionAmountsPerStaff = JSON.parse(this.data.get("production_amounts_per_staff"));
     const periodMeanRef = this.data.get("period_mean_ref");
     const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
     const cpOrgNames = JSON.parse(this.data.get("cp_org_names"));
@@ -58,7 +58,7 @@ export default class extends Controller {
       return { value: amount, itemStyle: { color: color }}
     }
 
-    const contractAmountsPerStaffWithColor = contractAmountsPerStaff.map(differentColorForAmountPerStaff);
+    const productionAmountsPerStaffWithColor = productionAmountsPerStaff.map(differentColorForAmountPerStaff);
 
     const option = {
         legend: {
@@ -224,7 +224,7 @@ export default class extends Controller {
 
     const option_avg = {
         legend: {
-            data: ['本年累计人均合同额'],
+            data: ['本年累计人均生产合同额'],
             align: 'left'
         },
         tooltip: {
@@ -260,16 +260,16 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
-          name: '本年累计人均合同额（万元）',
+          name: '本年累计人均生产合同额（万元）',
           position: 'left',
           axisLabel: {
             formatter: '{value}万'
           }
         }],
         series: [{
-          name: '本年累计人均合同额',
+          name: '本年累计人均生产合同额',
           type: 'bar',
-          data: contractAmountsPerStaffWithColor,
+          data: productionAmountsPerStaffWithColor,
           barMaxWidth: 80,
           label: {
             normal: {
