@@ -108,7 +108,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @cp_contract_amounts.each_with_index do |contract_amount, index|
       dept_code = all_cp_department_codes[index]
       staff_count = @staff_per_dept_code[dept_code]
-      staff_count = 1 if staff_count.nil? || staff_count.zero?
+      staff_count = 1000_0000 if staff_count.nil? || staff_count.zero?
       @cp_contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
   end
