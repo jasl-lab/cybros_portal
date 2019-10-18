@@ -143,15 +143,13 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def cp_drill_down
     @company_name = params[:company_name]
     @department_name = params[:department_name]
-    end_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractSignDetailDate).last_available_date(end_month)
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
       @department_name = belong_deparments.pluck(:部门)
     end
 
-    @data = policy_scope(Bi::ContractProductionDetail).where(date: last_available_date)
+    @data = policy_scope(Bi::ContractProductionDetail)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
     authorize @data.first
