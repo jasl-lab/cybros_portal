@@ -80,9 +80,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     contract_count = data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
 
-    contract_production_last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
-
-    cp_data = policy_scope(Bi::ContractProductionDept).where(filingtime: contract_production_last_available_date)
+    cp_data = policy_scope(Bi::ContractProductionDept)
       .where(orgcode: org_code)
       .having("SUM(cum_total) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
