@@ -11,7 +11,6 @@ class ContractSignDetailDatatable < ApplicationDatatable
     @org_name = opts[:org_name]
     @beginning_of_month = opts[:beginning_of_month]
     @end_of_month = opts[:end_of_month]
-    @last_available_date = opts[:last_available_date]
     @date_1_great_than = opts[:date_1_great_than]
     @show_hide = opts[:show_hide]
     super
@@ -63,7 +62,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
       @contract_sign_detail_dates.where("NEED_HIDE = 1")
     else
       @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
-    end.where(date: @last_available_date).where(contracttime: @beginning_of_month..@end_of_month)
+    end.where(filingtime: @beginning_of_month..@end_of_month)
     rr = rr.where("date1 > ?", @date_1_great_than) unless @date_1_great_than.zero?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr

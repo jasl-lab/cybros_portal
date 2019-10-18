@@ -34,12 +34,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @company_short_names = policy_scope(Bi::ContractSignDept)
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN_DEPT.orgcode")
       .order("ORG_ORDER.org_order DESC")
-      .select("CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order").distinct.where("date <= ?", @end_of_month)
+      .select("CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order").distinct.where("filingtime <= ?", @end_of_month)
       .collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
 
-    data = policy_scope(Bi::ContractSignDept).where("date <= ?", @end_of_month)
+    data = policy_scope(Bi::ContractSignDept).where("filingtime <= ?", @end_of_month)
       .where(orgcode: org_code)
       .having("SUM(contract_amount) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
@@ -82,7 +82,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     contract_production_last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
 
-    cp_data = policy_scope(Bi::ContractProductionDept).where(date: contract_production_last_available_date)
+    cp_data = policy_scope(Bi::ContractProductionDept).where(filingtime: contract_production_last_available_date)
       .where(orgcode: org_code)
       .having("SUM(total) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
@@ -116,14 +116,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def drill_down_amount
     @company_name = params[:company_name]
     @department_name = params[:department_name]
-    end_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractSignDetailAmount).last_available_date(end_month)
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
       @department_name = belong_deparments.pluck(:部门)
     end
-    @data = policy_scope(Bi::ContractSignDetailAmount).where(date: last_available_date)
+    @data = policy_scope(Bi::ContractSignDetailAmount)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
     authorize @data.first
@@ -132,17 +130,15 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def drill_down_date
     @company_name = params[:company_name]
     @department_name = params[:department_name]
-    end_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractSignDetailDate).last_available_date(end_month)
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
       @department_name = belong_deparments.pluck(:部门)
     end
 
-    @data = policy_scope(Bi::ContractSignDetailDate).where(date: last_available_date)
+    @data = policy_scope(Bi::ContractSignDetailDate)
       .where(orgname: @company_name, deptname: @department_name)
-      .order(contracttime: :asc)
+      .order(filingtime: :asc)
     authorize @data.first
   end
 

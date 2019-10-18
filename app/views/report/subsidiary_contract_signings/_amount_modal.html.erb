@@ -12,8 +12,8 @@
     <tr>
       <th width="10%"><%= t(".table.salescontractcode") -%></th>
       <th width="30%"><%= t(".table.salescontractname") -%></th>
-      <th width="15%"><%= t(".table.moneytax") -%></th>
-      <th width="25%"><%= t(".table.clientsname") -%></th>
+      <th width="15%"><%= t(".table.realamounttotal") -%></th>
+      <th width="25%"><%= t(".table.belongcompanyname") -%></th>
       <th width="20%"><%= t(".table.businessdirectorname") -%></th>
     </tr>
   </thead>
@@ -22,8 +22,8 @@
       <tr>
         <td><%= d.salescontractcode -%></td>
         <td><%= d.salescontractname -%></td>
-        <td><%= d.moneytax.round(0) -%></td>
-        <td><%= d.clientsname -%></td>
+        <td><%= d.realamounttotal.round(0) -%></td>
+        <td><%= d.belongcompanyname -%></td>
         <td><%= d.businessdirectorname -%></td>
       </tr>
     <% end %>

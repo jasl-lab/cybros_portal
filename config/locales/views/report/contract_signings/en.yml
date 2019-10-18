@@ -13,17 +13,3 @@ en:
         manual_set_staff_ref: "Manual set staff ref"
         org_names: "Organization names"
         confirm: "Confirm"
-      amount_modal:
-        table:
-          salescontractcode: "Sales contract code"
-          salescontractname: "Sales contract name"
-          moneytax: "Money tax"
-          clientsname: "Client name"
-          businessdirectorname: "Business director name"
-      date_modal:
-        table:
-          salescontractcode: "Sales contract code"
-          salescontractname: "Sales contract name"
-          date1: "Signing days"
-          firstpartyname: "First client name"
-          businessdirectorname: "Business director name"

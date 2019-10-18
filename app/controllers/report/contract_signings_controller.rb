@@ -24,7 +24,7 @@ class Report::ContractSigningsController < Report::BaseController
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     selected_short_name = params[:company_name]&.strip
 
-    data = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+    data = policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month)
       .having("SUM(contract_amount) > 0")
       .order("ORG_ORDER.org_order DESC")
 
@@ -67,10 +67,10 @@ class Report::ContractSigningsController < Report::BaseController
     end
     @avg_period_mean_max = 150
 
-    @sum_contract_amounts = (policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+    @sum_contract_amounts = (policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month)
       .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first.sum_contract_amounts / 10000.to_f).round(2)
 
-    df = policy_scope(Bi::ContractSign).where("date <= ?", @end_of_month)
+    df = policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month)
       .select("SUM(contract_period) one_sum_contract_period, SUM(count) one_sum_contract_amount_count").first
     one_sum_contract_period = df.one_sum_contract_period
     one_sum_contract_amount_count = df.one_sum_contract_amount_count
@@ -78,7 +78,7 @@ class Report::ContractSigningsController < Report::BaseController
 
     contract_production_last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
 
-    cp_data = policy_scope(Bi::ContractProductionDept).where(date: contract_production_last_available_date)
+    cp_data = policy_scope(Bi::ContractProductionDept).where(filingtime: contract_production_last_available_date)
       .having("SUM(total) > 0")
       .order("ORG_ORDER.org_order DESC")
 

@@ -11,8 +11,7 @@ class Report::ContractSignDetailsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @beginning_of_month = Date.parse(@month_name).beginning_of_month
     @end_of_month = Date.parse(@month_name).end_of_month
-    last_available_date = policy_scope(Bi::ContractSignDetailDate).last_available_date(@end_of_month)
-    all_org_long_names = policy_scope(Bi::ContractSignDetailDate).all_org_long_names(last_available_date)
+    all_org_long_names = policy_scope(Bi::ContractSignDetailDate).all_org_long_names
     all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @all_org_names = all_org_short_names.zip(all_org_long_names)
     @org_name = params[:org_name]&.strip
@@ -30,7 +29,6 @@ class Report::ContractSignDetailsController < Report::BaseController
           org_name: @org_name,
           beginning_of_month: @beginning_of_month,
           end_of_month: @end_of_month,
-          last_available_date: last_available_date,
           date_1_great_than: @date_1_great_than.to_i,
           show_hide: @show_hide_item,
           view_context: view_context)

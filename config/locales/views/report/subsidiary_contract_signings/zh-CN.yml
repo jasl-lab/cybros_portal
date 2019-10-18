@@ -17,8 +17,8 @@ zh-CN:
         table:
           salescontractcode: "合同编号"
           salescontractname: "合同名称"
-          moneytax: "业绩合同额"
-          clientsname: "甲方"
+          realamounttotal: "业绩合同额"
+          belongcompanyname: "甲方"
           businessdirectorname: "商务负责人"
       date_modal:
         table:

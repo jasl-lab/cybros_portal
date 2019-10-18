@@ -5,8 +5,8 @@ module Bi
     self.table_name = "CONTRACT_PRODUCTION_DEPT"
 
     def self.last_available_date(end_of_month)
-      available_date = where("date <= ?", end_of_month).order(date: :desc).first&.date
-      available_date = order(date: :desc).first.date if available_date.nil?
+      available_date = where("filingtime <= ?", end_of_month).order(filingtime: :desc).first&.filingtime
+      available_date = order(filingtime: :desc).first.filingtime if available_date.nil?
       available_date
     end
   end
