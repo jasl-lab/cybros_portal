@@ -9,7 +9,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
   def show
     authorize Bi::SubCompanyRealReceive
-    @all_month_names = Bi::SubCompanyRealReceive.all_month_names
+    @all_month_names = Bi::SubCompanyNeedReceive.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = Date.parse(@month_name).beginning_of_year
