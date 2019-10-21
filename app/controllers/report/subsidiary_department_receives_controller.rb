@@ -13,6 +13,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = Date.parse(@month_name).beginning_of_year
+    @real_receive_per_staff_ref = params[:real_receive_per_staff_ref] || 60
     @depts_options = params[:depts]
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 

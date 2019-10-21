@@ -26,6 +26,7 @@ export default class extends Controller {
     departmentRealReceivesStaffChart = echarts.init(document.getElementById('department-real-receives-staff-chart'));
 
     const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
+    const realReceivePerStaffRef = this.data.get("real_receive_per_staff_ref");
 
     departmentNeedReceivesStaffChart = echarts.init(document.getElementById('department-need-receives-staff-chart'));
 
@@ -45,6 +46,20 @@ export default class extends Controller {
     }
 
     const paybackRatesWithColor = paybackRates.map(differentColor);
+
+    function realReceivePerStaffRefColor(amount) {
+      let color;
+
+      if(amount <= realReceivePerStaffRef) {
+        color = '#BB332E';
+      } else {
+        color = '#7E91A5';
+      }
+
+      return { value: amount, itemStyle: { color: color }}
+    }
+
+    const realReceivesPerStaffWithColor = realReceivesPerStaff.map(realReceivePerStaffRefColor);
 
     const real_option = {
         title: {
@@ -248,7 +263,7 @@ export default class extends Controller {
         series: [{
           name: '人均实收款（万元）',
           type: 'bar',
-          data: realReceivesPerStaff,
+          data: realReceivesPerStaffWithColor,
           color: '#738496',
           barMaxWidth: 38,
           label: {
@@ -257,6 +272,20 @@ export default class extends Controller {
               position: 'top',
               color: '#3E3E3E'
             }
+          },
+          markLine: {
+            label: {
+              formatter: '{c}万元预警线'
+            },
+            lineStyle: {
+              type: 'solid',
+              width: 1
+            },
+            data: [
+              {
+                yAxis: realReceivePerStaffRef
+              }
+            ]
           }
         }]
     };

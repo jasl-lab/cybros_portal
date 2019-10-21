@@ -8,6 +8,7 @@ en:
           view_deptcode: "View department in detail"
         title: "Subsidiary department receives"
         month_name: "Real receive year and month"
+        real_receive_per_staff_ref: "Real receive per staff ref"
         dept_names: "Department names"
         confirm: "Confirm"
       modal:
