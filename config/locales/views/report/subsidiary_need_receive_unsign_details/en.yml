@@ -14,7 +14,7 @@ en:
           org_name: "Org name"
           dept_name: "Dept name"
           project_manager_name: "Project manager name"
-          project_item_code_name: "Project item code name"
+          project_item_code_name_status: "Project item code name & status"
           created_date: "Created date"
           unsign_receive: "Unsign receive amount"
           f_date: "First date"

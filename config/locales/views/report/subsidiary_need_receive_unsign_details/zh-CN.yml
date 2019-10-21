@@ -14,7 +14,7 @@ zh-CN:
           org_name: "生产主责公司"
           dept_name: "生产主责部门"
           project_manager_name: "项目经理"
-          project_item_code_name: "项目编号及名称"
+          project_item_code_name_status: "项目编号、名称及状态"
           created_date: "立项日期"
           unsign_receive: "业务应收（未签约）（万元）"
           f_date: "开始投入人力时间"

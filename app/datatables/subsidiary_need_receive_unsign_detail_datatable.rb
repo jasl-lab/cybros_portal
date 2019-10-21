@@ -36,7 +36,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       { org_name: Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname),
         dept_name: r.deptname,
         project_manager_name: r.projectmanagername,
-        project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}".html_safe,
+        project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}<br />#{r.projectstatus}".html_safe,
         created_date: r.createddate.to_date,
         unsign_receive: tag.div((r.unsign_receive / 10000)&.round(0), class: "text-center"),
         f_date: r.fdate,
