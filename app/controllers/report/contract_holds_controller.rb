@@ -22,7 +22,6 @@ class Report::ContractHoldsController < Report::BaseController
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date).where(orgcode: @selected_org_code)
-      .order("ORG_REPORT_DEPT_ORDER.部门排名, ORG_REPORT_DEPT_ORDER.编号")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
 
@@ -30,10 +29,12 @@ class Report::ContractHoldsController < Report::BaseController
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
     else
       data.select("CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum
@@ -100,7 +101,6 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
     @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.sum.to_f
-
   end
 
   def unsign_detail_drill_down
