@@ -48,12 +48,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     data = if @view_deptcode_sum
       data.select("CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode_sum")
-        .group("CONTRACT_SIGN_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum")
     else
       data.select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode")
-        .group("CONTRACT_SIGN_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
     end
 
@@ -89,12 +89,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     cp_data = if @view_deptcode_sum
       cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(total)/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum")
-        .group("CONTRACT_PRODUCTION_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
     else
       cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(total)/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode")
-        .group("CONTRACT_PRODUCTION_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
     end
     all_cp_department_codes = cp_data.collect(&:deptcode)

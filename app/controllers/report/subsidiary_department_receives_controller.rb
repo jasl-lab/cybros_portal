@@ -30,12 +30,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     real_data = if @view_deptcode_sum
       real_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
-        .group(:"SUB_COMPANY_REAL_RECEIVE.deptcode_sum", :"ORG_REPORT_DEPT_ORDER.部门排名")
+        .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
     else
       real_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
-        .group(:"SUB_COMPANY_REAL_RECEIVE.deptcode", :"ORG_REPORT_DEPT_ORDER.部门排名")
+        .group( :"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
     end
 
@@ -69,13 +69,13 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     need_data = if @view_deptcode_sum
       need_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
-        .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode_sum", :"ORG_REPORT_DEPT_ORDER.部门排名")
+        .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
         .where(deptcode_sum: @depts_options)
     else
       need_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode")
-        .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode", :"ORG_REPORT_DEPT_ORDER.部门排名")
+        .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_NEED_RECEIVE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode")
         .where(deptcode: @depts_options)
     end

@@ -40,12 +40,12 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     data = if @view_deptcode_sum
       data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(total) sum_total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode_sum")
-        .group("COMPLETE_VALUE_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
     else
       data.select("COMPLETE_VALUE_DEPT.deptcode, 部门排名, SUM(total) sum_total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode")
-        .group("COMPLETE_VALUE_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
     end
 

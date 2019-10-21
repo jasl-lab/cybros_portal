@@ -29,11 +29,11 @@ class Report::ContractHoldsController < Report::BaseController
     data = if @view_deptcode_sum
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
-        .group("CONTRACT_HOLD.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
     else
       data.select("CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode")
-        .group("CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum

@@ -30,7 +30,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", end_of_month)
       .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
       .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-      .group("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, deptname")
+      .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, deptname")
       .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
     data = data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
     job_data = data.having("SUM(date_real) > 0")
