@@ -23,6 +23,7 @@ namespace :import_export do
       email = row['email']
       position_title = row['position_title']
       clerk_code = row['clerk_code']
+      job_level = row['job_level']
       chinese_name = row['chinese_name']
       desk_phone = row['desk_phone']
       combine_departments = row['combine_departments'].split(';')
