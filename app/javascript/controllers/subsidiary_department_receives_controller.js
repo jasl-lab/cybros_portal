@@ -31,6 +31,7 @@ export default class extends Controller {
     departmentNeedReceivesStaffChart = echarts.init(document.getElementById('department-need-receives-staff-chart'));
 
     const needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
+    const needShouldReceivesPerStaffMax = JSON.parse(this.data.get("need_should_receives_per_staff_max"));
     const paybackRates = JSON.parse(this.data.get("payback_rates"));
 
     function differentColor(amount) {
@@ -329,6 +330,11 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
+          name: '人均应收款',
+          position: 'left',
+          min: 0,
+          max: needShouldReceivesPerStaffMax,
+          interval: Math.ceil(needShouldReceivesPerStaffMax / 5),
           axisLabel: {
             show: true,
             interval: 'auto',
@@ -340,7 +346,7 @@ export default class extends Controller {
           position: 'right',
           min: 0,
           max: 180,
-          interval: Math.ceil(180 / 6),
+          interval: Math.ceil(180 / 5),
           axisLine: {
             lineStyle: {
               color: '#675BBA'

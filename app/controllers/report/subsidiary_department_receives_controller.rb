@@ -116,8 +116,9 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       need_total_staff_num += staff_number
       should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
       total_should_receives_per_staff += should_receives_per_staff
-      ( should_receives_per_staff / staff_number.to_f).round(0)
+      (should_receives_per_staff / staff_number.to_f).round(0)
     end
+    @need_should_receives_per_staff_max = @need_should_receives_per_staff.max.round(-1)
     @avg_of_need_should_receives_per_staff = (total_should_receives_per_staff / need_total_staff_num).round(1)
 
     complete_value_data = if @view_deptcode_sum
