@@ -14,7 +14,7 @@ class Report::ContractHoldsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
-    @dept_options = params[:depts]
+    @dept_options = params[:depts].presence
     @company_short_names = policy_scope(Bi::ContractHold).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
@@ -27,21 +27,28 @@ class Report::ContractHoldsController < Report::BaseController
 
     data = if @view_deptcode_sum
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
+        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
     else
       data.select("CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode")
+        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum
-      data_sum = policy_scope(Bi::ContractHold).where(date: @last_available_date).where(orgcode: @selected_org_code)
+      data_sum = policy_scope(Bi::ContractHold)
+        .where(date: @last_available_date).where(orgcode: @selected_org_code)
+        .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
+        .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
+        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
+
       h_deptcodes = data_sum.where("deptcode_sum like 'H%'").pluck(:deptcode_sum)
       belongs_to_h_deptcodes = data_sum.where(deptcode_sum: h_deptcodes).pluck(:deptcode)
-      data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
+      sum_depts = data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
+      Bi::OrgReportDeptOrder.where(编号: sum_depts).order("ORG_REPORT_DEPT_ORDER.部门排名").pluck(:编号)
     elsif @dept_options.blank?
       data.pluck("CONTRACT_HOLD.deptcode")
     else
@@ -54,19 +61,13 @@ class Report::ContractHoldsController < Report::BaseController
       data.where("CONTRACT_HOLD.deptcode": @dept_options)
     end
 
-    @only_have_data_dept = if @selected_company_short_name == '上海天华'
-      (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
-    else
-      @dept_options
-    end
-
-    @deptnames_in_order = @only_have_data_dept.collect do |c|
+    @deptnames_in_order = @dept_options.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
     end
-    @department_options = @deptnames_in_order.zip(@only_have_data_dept)
+    @department_options = @deptnames_in_order.zip(@dept_options)
 
-    @biz_retent_contract = @only_have_data_dept.collect do |dept_code|
+    @biz_retent_contract = @dept_options.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
       if d.present?
         (d.busiretentcontract.to_f / 10000.to_f).round(0)
@@ -75,7 +76,7 @@ class Report::ContractHoldsController < Report::BaseController
       end
     end
 
-    @biz_retent_no_contract = @only_have_data_dept.collect do |dept_code|
+    @biz_retent_no_contract = @dept_options.collect do |dept_code|
       d = data.find { |c| c.deptcode == dept_code }
       if d.present?
         (d.busiretentnocontract.to_f / 10000.to_f).round(0)
@@ -92,7 +93,7 @@ class Report::ContractHoldsController < Report::BaseController
       Bi::YearAvgStaff.staff_per_dept_code_by_date(@selected_org_code, end_of_month)
     end
 
-    @dept_avg_staff = @only_have_data_dept.collect do |dept_code|
+    @dept_avg_staff = @dept_options.collect do |dept_code|
       this_month_staff_data[dept_code] || 1000_0000
     end
     @biz_retent_totals_per_dept = @biz_retent_totals.zip(@dept_avg_staff).map do |d|
