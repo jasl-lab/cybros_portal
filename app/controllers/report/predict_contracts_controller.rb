@@ -25,28 +25,27 @@ class Report::PredictContractsController < Report::BaseController
     data = policy_scope(Bi::TrackContract)
       .where(orgcode: @selected_org_code)
       .where(date: @last_available_date)
-      .select("deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
-      .group(:deptcode)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
+      .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode")
+      .select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
+      .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
+      .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
 
     @dept_options = data.collect(&:deptcode) if @dept_options.blank?
     data = data.where(deptcode: @dept_options)
-    only_have_data_dept = if @selected_org_code == '000101'
-      (Bi::ShReportDeptOrder.all_deptcodes_in_order & @dept_options)
-    else
-      @dept_options
-    end
 
-    @company_short_names = only_have_data_dept.collect do |c|
+    @company_short_names = @dept_options.collect do |c|
       long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
       Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
     end
-    @department_options = @company_short_names.zip(only_have_data_dept)
+    @department_options = @company_short_names.zip(@dept_options)
 
-    @contract_convert = only_have_data_dept.collect do |dept_code|
+    @contract_convert = @dept_options.collect do |dept_code|
       d = data.find { |t| t.deptcode == dept_code }
       (d.contractconvert / 10000.to_f).round(0)
     end
-    @convert_real_amount = only_have_data_dept.collect do |dept_code|
+    @convert_real_amount = @dept_options.collect do |dept_code|
       d = data.find { |t| t.deptcode == dept_code }
       (d.convertrealamount / 10000.to_f).round(0)
     end

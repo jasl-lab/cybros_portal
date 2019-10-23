@@ -4,10 +4,6 @@ module Bi
   class ShReportDeptOrder < BiLocalTimeRecord
     self.table_name = "SH_REPORT_DEPT_ORDER"
 
-    def self.all_deptcodes_in_order
-      @_all_deptcodes_in_order ||= all.order(:dept_asc).pluck(:deptcode)
-    end
-
     def self.mapping2deptname
       @_mapping2deptname ||= all.reduce({}) do |h, s|
         h[s.deptname] = s.deptcode
