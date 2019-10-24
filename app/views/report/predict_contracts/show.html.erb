@@ -30,6 +30,7 @@
           data-controller="predict-contracts"
           data-action="resize@window->predict-contracts#layout"
           data-predict-contracts-x_axis="<%= @dept_names.to_json -%>"
+          data-predict-contracts-dept_codes_as_options="<%= @dept_codes_as_options.to_json -%>"
           data-predict-contracts-contract_convert="<%= @contract_convert.to_json -%>"
           data-predict-contracts-convert_real_amount="<%= @convert_real_amount.to_json -%>"
           data-predict-contracts-contract_convert_totals="<%= @contract_convert_totals.to_json -%>"

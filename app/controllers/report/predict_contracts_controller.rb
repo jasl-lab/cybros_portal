@@ -52,17 +52,19 @@ class Report::PredictContractsController < Report::BaseController
   end
 
   def opportunity_detail_drill_down
+    dept_code = params[:department_code].strip
     @tcod = Bi::TrackContractOpportunityDetail
       .where(date: @last_available_date)
-      .where(deptcode: @dept_code)
+      .where(deptcode: dept_code)
       .where("contractconvert > 0")
     render
   end
 
   def signing_detail_drill_down
+    dept_code = params[:department_code].strip
     @tcsd = Bi::TrackContractSigningDetail
       .where(date: @last_available_date)
-      .where(deptcode: @dept_code)
+      .where(deptcode: dept_code)
       .where("convertrealamount > 0")
     render
   end
@@ -71,8 +73,7 @@ class Report::PredictContractsController < Report::BaseController
 
     def set_drill_down_variables
       @dept_name = params[:department_name].strip
-      @drill_down_subtitle = t('.subtitle')
-      @dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
+      @drill_down_subtitle = t(".subtitle")
 
       month_name = params[:month_name]&.strip
       end_of_month = Date.parse(month_name).end_of_month

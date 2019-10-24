@@ -7,6 +7,7 @@ export default class extends Controller {
     predictContractChart = echarts.init(document.getElementById('predict-contract-chart'));
 
 var xAxisData = JSON.parse(this.data.get("x_axis"));
+var deptCodes = JSON.parse(this.data.get("dept_codes_as_options"));
 var contractConvert = JSON.parse(this.data.get("contract_convert"));
 var convertRealAmount = JSON.parse(this.data.get("convert_real_amount"));
 var contractConvertTotals = JSON.parse(this.data.get("contract_convert_totals"));
@@ -110,8 +111,9 @@ var option = {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
           const department_name = xAxisData[params.dataIndex];
+          const department_code = deptCodes[params.dataIndex];
           const month_name = $('#month_name').val();
-          const sent_data = { department_name, month_name };
+          const sent_data = { department_name, department_code, month_name };
           let drill_down_url;
           switch (params.seriesName) {
             case '跟踪合同额（成功率小于80%）':
