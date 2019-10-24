@@ -20,11 +20,11 @@ class Report::ProjectMilestoresController < Report::BaseController
 
     @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department(@target_date)
     @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(@target_date, @selected_org_code)
-    @departments = @person_by_department_in_sh.keys
+    @department_codes = @person_by_department_in_sh.keys
 
-    @deptnames_in_order = @departments.collect { |deptcode| Bi::OrgReportDeptOrder.department_names(@target_date)[deptcode] }
+    @deptnames_in_order = @department_codes.collect { |deptcode| Bi::OrgReportDeptOrder.department_names(@target_date)[deptcode] }
 
-    @milestore_update_rate = @departments.collect do |deptcode|
+    @milestore_update_rate = @department_codes.collect do |deptcode|
       rr = @person_by_department_in_sh[deptcode]
       if rr.present?
         rr_refresh = rr.collect { |d| d.refresh_count.to_i }.sum
@@ -54,16 +54,16 @@ class Report::ProjectMilestoresController < Report::BaseController
   end
 
   def detail_drill_down
+    dept_code = params[:department_code].strip
     @rows = Bi::ShRefreshRateDetail
               .where(date: @last_available_date)
-              .where(deptcode: @dept_code)
+              .where(deptcode: dept_code)
     render
   end
 
   def set_drill_down_variables
     @dept_name = params[:department_name].strip
     @drill_down_subtitle = t(".subtitle")
-    @dept_code = Bi::ShReportDeptOrder.mapping2deptname.fetch(@dept_name, @dept_name)
 
     month_name = params[:month_name]&.strip
     end_of_month = Date.parse(month_name).end_of_month
