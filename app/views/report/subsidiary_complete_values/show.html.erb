@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode_sum'),
-          report_subsidiary_complete_value_path(company_name: @selected_company_name, month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+          report_subsidiary_complete_value_path(company_name: @selected_company_name, month_name: @month_name, view_deptcode_sum: true, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode'),
-          report_subsidiary_complete_value_path(company_name: @selected_company_name, month_name: @month_name), class: 'btn text-primary' %>
+          report_subsidiary_complete_value_path(company_name: @selected_company_name, month_name: @month_name, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
   </ol>
 <% end %>
@@ -15,6 +15,7 @@
   <div class="col-lg-12"
     data-controller="subsidiary-complete-values"
     data-action="resize@window->subsidiary-complete-values#layout"
+    data-subsidiary-complete-values-in_iframe="<%= params[:in_iframe] -%>"
     data-subsidiary-complete-values-x_axis="<%= @all_department_names.to_json -%>"
     data-subsidiary-complete-values-selected_company_name="<%= @selected_company_name -%>"
     data-subsidiary-complete-values-complete_value_totals="<%= @complete_value_totals.to_json -%>"
@@ -28,6 +29,9 @@
     </h3>
     <%= form_tag report_subsidiary_complete_value_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
+      <% if params[:in_iframe].present? %>
+        <%= hidden_field_tag :in_iframe, true -%>
+      <% end %>
       <div class="form-group">
         <label class="mr-1"><%= t(".company_name") -%>：</label>
         <%= select_tag 'company_name', options_for_select(@all_short_company_names, @selected_short_company_name), class: 'form-control' %>

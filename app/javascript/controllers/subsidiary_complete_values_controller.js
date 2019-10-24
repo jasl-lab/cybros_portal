@@ -5,6 +5,8 @@ let subsidiaryCompleteValuesPerStaffChart;
 
 export default class extends Controller {
   connect() {
+    const inIFrame = this.data.get("in_iframe");
+
     subsidiaryCompleteValuesChart = echarts.init(document.getElementById('subsidiary-complete-values-chart'));
     subsidiaryCompleteValuesPerStaffChart = echarts.init(document.getElementById('subsidiary-complete-values-per-staff-chart'));
 
@@ -220,7 +222,11 @@ export default class extends Controller {
           let drill_down_url;
           switch (params.seriesName) {
             case '累计完成产值（万元）':
-              drill_down_url = '/report/subsidiary_complete_value/drill_down';
+              if (inIFrame == "true") {
+                drill_down_url = "/report/subsidiary_complete_value/drill_down?in_iframe=true";
+              } else {
+                drill_down_url = "/report/subsidiary_complete_value/drill_down";
+              }
               break;
           }
 
