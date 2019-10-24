@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode_sum'),
-          report_subsidiary_contract_signing_path(company_name: @short_company_name, month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+          report_subsidiary_contract_signing_path(company_name: @short_company_name, month_name: @month_name, view_deptcode_sum: true, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode'),
-          report_subsidiary_contract_signing_path(company_name: @short_company_name, month_name: @month_name), class: 'btn text-primary' %>
+          report_subsidiary_contract_signing_path(company_name: @short_company_name, month_name: @month_name, in_iframe: params[:in_iframe]), class: 'btn text-primary' %>
     </li>
   </ol>
 <% end %>
@@ -32,6 +32,10 @@
       <%= t(".title", company: @company_name) %>
     </h3>
     <%= form_tag report_subsidiary_contract_signing_path, method: :get, class: 'form-inline' do -%>
+      <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
+      <% if params[:in_iframe].present? %>
+        <%= hidden_field_tag :in_iframe, true -%>
+      <% end %>
       <div class="form-group">
         <label class="mr-1"><%= t(".company_name") -%>：</label>
         <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control' %>
