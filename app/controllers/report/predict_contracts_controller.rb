@@ -15,7 +15,7 @@ class Report::PredictContractsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
-    @dept_options = params[:depts]
+    @dept_codes_as_options = params[:depts]
 
     @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @select_company_short_names = policy_scope(Bi::TrackContract).available_company_names(@last_available_date)
@@ -32,20 +32,19 @@ class Report::PredictContractsController < Report::BaseController
       .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
       .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
 
-    @dept_options = data.collect(&:deptcode) if @dept_options.blank?
-    data = data.where(deptcode: @dept_options)
+    @dept_codes_as_options = data.collect(&:deptcode) if @dept_codes_as_options.blank?
+    data = data.where(deptcode: @dept_codes_as_options)
 
-    @company_short_names = @dept_options.collect do |c|
-      long_name = Bi::PkCodeName.mapping2deptcode.fetch(c, c)
-      Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
+    @dept_names = @dept_codes_as_options.collect do |c|
+      Bi::PkCodeName.mapping2deptcode.fetch(c, c)
     end
-    @department_options = @company_short_names.zip(@dept_options)
+    @department_options = @dept_names.zip(@dept_codes_as_options)
 
-    @contract_convert = @dept_options.collect do |dept_code|
+    @contract_convert = @dept_codes_as_options.collect do |dept_code|
       d = data.find { |t| t.deptcode == dept_code }
       (d.contractconvert / 10000.to_f).round(0)
     end
-    @convert_real_amount = @dept_options.collect do |dept_code|
+    @convert_real_amount = @dept_codes_as_options.collect do |dept_code|
       d = data.find { |t| t.deptcode == dept_code }
       (d.convertrealamount / 10000.to_f).round(0)
     end

@@ -17,7 +17,7 @@
           </div>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".dept_names") -%>：</label>
-              <%= select_tag 'depts', options_for_select(@department_options, @dept_options), {include_blank: true, multiple: true, class: 'form-control', id: 'select-depts' } %>
+              <%= select_tag 'depts', options_for_select(@department_options, @dept_codes_as_options), {include_blank: true, multiple: true, class: 'form-control', id: 'select-depts' } %>
           </div>
           <% if params[:in_iframe].present? %>
             <%= hidden_field_tag :in_iframe, true -%>
@@ -29,7 +29,7 @@
         <div id="predict-contract-chart"
           data-controller="predict-contracts"
           data-action="resize@window->predict-contracts#layout"
-          data-predict-contracts-x_axis="<%= @company_short_names.to_json -%>"
+          data-predict-contracts-x_axis="<%= @dept_names.to_json -%>"
           data-predict-contracts-contract_convert="<%= @contract_convert.to_json -%>"
           data-predict-contracts-convert_real_amount="<%= @convert_real_amount.to_json -%>"
           data-predict-contracts-contract_convert_totals="<%= @contract_convert_totals.to_json -%>"
