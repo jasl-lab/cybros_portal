@@ -1,3 +1,4 @@
+---
 en:
   layouts:
     header:
@@ -32,6 +33,7 @@ en:
         pending_questions: "Pending knowledge questions"
         direct_questions: "Direct questions maintains"
         drill_down_question: "Drill down question"
+        contracts: "View contracts"
       person:
         header: "Personal Home"
         name_card: "Name card"
