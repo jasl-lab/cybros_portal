@@ -11,9 +11,6 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% if @using_lbs_qq.present? %>
-      <script charset="utf-8" src="https://map.qq.com/api/gljs?v=1.exp&key=EJPBZ-7TEKU-DLQVP-2K6EE-XZ6O6-NWBKM"></script>
-    <% end %>
     <%= yield :head %>
   </head>
 
