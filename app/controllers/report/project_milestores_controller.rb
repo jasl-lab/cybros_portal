@@ -22,7 +22,7 @@ class Report::ProjectMilestoresController < Report::BaseController
     @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(@target_date, @selected_org_code)
     @department_codes = @person_by_department_in_sh.keys
 
-    @deptnames_in_order = @department_codes.collect { |deptcode| Bi::OrgReportDeptOrder.department_names(@target_date)[deptcode] }
+    @deptnames_in_order = @department_codes.collect { |deptcode| Bi::OrgReportDeptOrder.all_department_names[deptcode] }
 
     @milestore_update_rate = @department_codes.collect do |deptcode|
       rr = @person_by_department_in_sh[deptcode]

@@ -39,7 +39,7 @@
     <thead class="thead-light">
       <tr>
       <% group.each do |dep| %>
-        <th><%= Bi::OrgReportDeptOrder.department_names(@target_date)[dep] || dep || '　'*6 %></th>
+        <th><%= Bi::OrgReportDeptOrder.all_department_names[dep] || dep || '　'*6 %></th>
       <% end %>
       </tr>
     </thead>
