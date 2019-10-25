@@ -8,7 +8,7 @@ zh-CN:
         profile: "编辑个人资料"
         sign_out: "登出"
     footer:
-      copyright: "天华建筑设计有限公司 由Cybros © 2019 Jasl, MIT license 驱动"
+      copyright: "天华建筑设计有限公司 由Cybros © 2019 Jasl 驱动"
     sidebar:
       application:
         header: "首页"
@@ -33,7 +33,7 @@ zh-CN:
         pending_questions: "无法回答的问题"
         direct_questions: "可以直接回答的问题"
         drill_down_question: "分析知识库的回答"
-        contracts: "合同查看"
+        contracts: "合同地图"
       person:
         header: "个人首页"
         name_card: "名片"

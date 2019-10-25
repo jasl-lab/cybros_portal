@@ -22,3 +22,12 @@
     height: 18px;
   }
 }
+
+#full-map {
+  background-color: $sidebar-bg;
+  bottom: 50px;
+  left: 0;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+}
