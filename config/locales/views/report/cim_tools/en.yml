@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    cim_tools:
+      index:
+        title: "CIM usage report"
+        actions:
+          report_sessions: "Export sessions"
+          report_operations: "Export operations"

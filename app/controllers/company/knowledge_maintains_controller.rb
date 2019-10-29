@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Company::KnowledgeMaintainsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
@@ -86,7 +88,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF" << csv_res
+        send_data "\xEF\xBB\xBF#{csv_res}"
       end
     end
   end

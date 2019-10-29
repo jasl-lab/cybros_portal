@@ -71,7 +71,12 @@ Rails.application.routes.draw do
     end
 
     resources :tianzhen_logins, only: %i[index]
-    resources :cim_tools, only: %i[index]
+    resources :cim_tools, only: %i[index] do
+      collection do
+        get :report_sessions
+        get :report_operations
+      end
+    end
     resource :group_workloading, only: %i[show]
     resource :subsidiary_workloading, only: %i[show] do
       collection do

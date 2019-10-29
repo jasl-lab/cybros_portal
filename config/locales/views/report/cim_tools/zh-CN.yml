@@ -1,0 +1,9 @@
+---
+zh-CN:
+  report:
+    cim_tools:
+      index:
+        title: "CIM智能工具报告"
+        actions:
+          report_sessions: "导出会话"
+          report_operations: "导出操作"
