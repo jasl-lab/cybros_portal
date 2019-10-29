@@ -19,6 +19,14 @@
           <%= t("layouts.sidebar.report.yingjianke_logins") %>
         <% end %>
       <% end %>
+      <% if current_user.present? && policy(Cad::CadSession).index? %>
+        <%= nav_item controller: 'report/cim_tools', html_options: { class: "nav-item" } do %>
+          <%= link_to report_cim_tools_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-draw-polygon"></i>
+            <%= t("layouts.sidebar.report.cim_tools") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

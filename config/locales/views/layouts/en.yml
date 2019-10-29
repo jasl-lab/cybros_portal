@@ -44,6 +44,7 @@ en:
         header: "Report Home"
         tianzhen_logins: "Tian Zhen Logins"
         yingjianke_logins: "Ying Jian Ke Logins"
+        cim_tools: "CIM tools"
       operation:
         header: "Operation Home"
         group_workloading: "Group workloading"
