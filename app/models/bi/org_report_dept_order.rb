@@ -17,7 +17,7 @@ module Bi
     end
 
     def self.all_department_names
-      @all_department_names ||= all.reduce({}) do |h, s|
+      @all_department_names ||= where("是否显示 = '1'").reduce({}) do |h, s|
         h[s.编号] = s.部门
         h
       end
