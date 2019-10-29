@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Report::ProjectMilestoresController < Report::BaseController
-  before_action :authenticate_user!, unless: -> { params[:in_iframe].present? }, only: [:show]
+  before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
   before_action :set_drill_down_variables, only: %i[detail_drill_down], if: -> { request.format.js? }
