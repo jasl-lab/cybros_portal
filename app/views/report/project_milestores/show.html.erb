@@ -51,6 +51,7 @@
               <% person = @person_by_department_in_sh[dep][i] %>
               <td data-action="click->project-milestone-table#drill_down"
                 data-project-milestone-table-work_no="<%= person.work_no -%>"
+                data-project-milestone-table-dept_code="<%= dep -%>"
                 class="<%= person.refresh_count.to_i.zero? ? 'table-warning' : '' -%>"><%= person.work_name -%>（<%= person.refresh_count.to_i -%> / <%= person.total_count.to_i -%>）</td>
             <% else %>
               <td></td>
