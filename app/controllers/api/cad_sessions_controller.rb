@@ -5,12 +5,26 @@ module API
     before_action :authenticate_user!
 
     def create
-      cad_session = current_user.cad_sessions.create(cad_sessions_params)
-      if cad_session.persisted?
+      sessions_params = cad_sessions_params
+      previous_begin_session = find_previous_begin_session(sessions_params)
+
+      if previous_begin_session.present?
+        previous_begin_session.update(operation: sessions_params[:operation], end_operation: 'End')
         head :created
       else
-        render json: { error: cad_session.errors.full_messages }, status: :bad_request
+        cad_session = current_user.cad_sessions.create(sessions_params)
+        if cad_session.persisted?
+          cad_session.update(begin_operation: 'Begin') if sessions_params[:operation] == 'Begin'
+          head :created
+        else
+          render json: { error: cad_session.errors.full_messages }, status: :bad_request
+        end
       end
+    end
+
+    def find_previous_begin_session(sessions_params)
+      return nil unless sessions_params[:operation] == 'End'
+      current_user.cad_sessions.find_by(session: sessions_params[:session], operation: 'Begin')
     end
 
     private
