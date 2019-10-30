@@ -94,7 +94,7 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @dept_avg_staff = @dept_options.collect do |dept_code|
-      this_month_staff_data[dept_code] || 1000_0000
+      this_month_staff_data[dept_code] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
     end
     @biz_retent_totals_per_dept = @biz_retent_totals.zip(@dept_avg_staff).map do |d|
       (d[0] / d[1]).to_f.round(0) rescue 0

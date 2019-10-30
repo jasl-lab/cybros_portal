@@ -104,7 +104,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
     real_total_staff_num = 0
     @real_receives_per_staff = real_data.collect do |d|
-      staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
+      staff_number = staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       real_total_staff_num += staff_number
       (d.total / (staff_number * 10000).to_f).round(0)
     end
@@ -112,7 +112,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     need_total_staff_num = 0
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|
-      staff_number = staff_per_dept_code.fetch(d.deptcode, 1000_0000)
+      staff_number = staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       need_total_staff_num += staff_number
       should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
       total_should_receives_per_staff += should_receives_per_staff

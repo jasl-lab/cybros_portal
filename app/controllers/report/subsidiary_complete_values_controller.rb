@@ -68,7 +68,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
 
     @complete_value_totals_per_staff = data.collect do |d|
-      staff_number = @staff_per_dept_code.fetch(d.deptcode, 1000_0000)
+      staff_number = @staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
     @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }

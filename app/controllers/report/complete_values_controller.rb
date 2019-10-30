@@ -59,7 +59,7 @@ class Report::CompleteValuesController < Report::BaseController
     @complete_value_totals_per_staff = data.collect do |d|
       company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       short_name = Bi::OrgShortName.company_short_names.fetch(company_name, company_name)
-      staff_number = @staff_per_company.fetch(short_name, 1000_0000)
+      staff_number = @staff_per_company.fetch(short_name, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
     sum_of_complete_value_totals_per_staff = @complete_value_totals_per_staff.sum.to_f

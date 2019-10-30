@@ -101,8 +101,8 @@ class Report::ContractSigningsController < Report::BaseController
     @production_amounts_per_staff = []
     @cp_contract_amounts.each_with_index do |contract_amount, index|
       company_name = @cp_org_names[index]
-      staff_count = @staff_per_company[company_name] || 1000_0000
-      staff_count = 1000_0000 if staff_count.nil? || staff_count.zero?
+      staff_count = @staff_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
+      staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
       @production_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
   end
