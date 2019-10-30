@@ -1,12 +1,17 @@
 import { Controller } from "stimulus"
 
+let inIFrame;
 let contractSigningsChart;
 let contractProductionChart;
 let contractSigningsAvgChart;
 
 export default class extends Controller {
   connect() {
-    contractSigningsChart = echarts.init(document.getElementById('contract-signings-chart'));
+    inIFrame = this.data.get("in_iframe");
+
+    if (inIFrame != "true") {
+      contractSigningsChart = echarts.init(document.getElementById('contract-signings-chart'));
+    }
     contractProductionChart = echarts.init(document.getElementById('contract-production-chart'));
     contractSigningsAvgChart = echarts.init(document.getElementById('contract-signings-avg-chart'));
 
@@ -319,27 +324,35 @@ export default class extends Controller {
       }
     }
 
-    contractSigningsChart.setOption(option, false);
-    contractSigningsChart.on('click', drill_down_on_click);
+    if (inIFrame != "true") {
+      contractSigningsChart.setOption(option, false);
+      contractSigningsChart.on('click', drill_down_on_click);
+    }
 
     contractProductionChart.setOption(cp_option, false);
 
     contractSigningsAvgChart.setOption(option_avg, false);
     setTimeout(() => {
-      contractSigningsChart.resize();
+      if (inIFrame != "true") {
+        contractSigningsChart.resize();
+      }
       contractProductionChart.resize();
       contractSigningsAvgChart.resize();
     }, 200);
   }
 
   layout() {
-    contractSigningsChart.resize();
+    if (inIFrame != "true") {
+      contractSigningsChart.resize();
+    }
     contractProductionChart.resize();
     contractSigningsAvgChart.resize();
   }
 
   disconnect() {
-    contractSigningsChart.dispose();
+    if (inIFrame != "true") {
+      contractSigningsChart.dispose();
+    }
     contractProductionChart.dispose();
     contractSigningsAvgChart.dispose();
   }

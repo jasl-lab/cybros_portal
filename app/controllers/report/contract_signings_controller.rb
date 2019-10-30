@@ -2,9 +2,10 @@
 
 class Report::ContractSigningsController < Report::BaseController
   before_action :authenticate_user!
-  before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
   after_action :verify_authorized, except: [:show]
+  after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
     authorize Bi::ContractSign
