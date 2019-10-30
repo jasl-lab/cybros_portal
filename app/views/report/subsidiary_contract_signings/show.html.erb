@@ -15,6 +15,7 @@
   <div class="col-lg-12"
     data-controller="subsidiary-contract-signings"
     data-action="resize@window->subsidiary-contract-signings#layout"
+    data-subsidiary-contract-signings-in_iframe="<%= params[:in_iframe] -%>"
     data-subsidiary-contract-signings-x_axis="<%= @department_names.to_json -%>"
     data-subsidiary-contract-signings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
     data-subsidiary-contract-signings-second_level_drill="<%= @second_level_drill -%>"
@@ -59,18 +60,27 @@
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
 
-    <div class="row">
-      <div class="col-lg-12 p-2">
-        <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name -%>累计归档签约合同额<span style="color:red"><%= @sum_contract_amounts -%></span>亿元，累积生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元，本年平均签约周期<span style="color:red"><%= @sum_avg_period_mean -%></span>天。</h5>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div id="subsidiary-contract-signings-chart" style="width: 100%;height: 400px;">
+    <% unless params[:in_iframe].present? %>
+      <div class="row">
+        <div class="col-lg-12 p-2">
+          <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name -%>累计归档签约合同额<span style="color:red"><%= @sum_contract_amounts -%></span>亿元，累积生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元，本年平均签约周期<span style="color:red"><%= @sum_avg_period_mean -%></span>天。</h5>
         </div>
-        <p class="text-lg-right">点击图标合同额可以钻取。（如果允许）</p>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div id="subsidiary-contract-signings-chart" style="width: 100%;height: 400px;">
+          </div>
+          <p class="text-lg-right">点击图标合同额可以钻取。（如果允许）</p>
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-lg-12 p-2">
+          <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name -%>累积生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元。</h5>
+        </div>
+      </div>
+    <% end %>
+
     <div class="row">
       <div class="col-lg-12">
         <div id="subsidiary-contract-production-chart" style="width: 100%;height: 400px;">
@@ -84,6 +94,7 @@
         </div>
       </div>
     </div>
+
     <div class="row mt-3">
       <div class="col-lg-12">
         <table class="table table-striped table-dark">
