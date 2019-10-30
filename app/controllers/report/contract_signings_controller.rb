@@ -60,12 +60,13 @@ class Report::ContractSigningsController < Report::BaseController
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
     @contract_amounts_div_100 = data.collect { |d| (d.sum_contract_amount / 100.0).round(0) }
-    @contract_amount_max = 260
+    @contract_amount_max = @contract_amounts_div_100.max.round(-1)
+
     @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
     end
-    @avg_period_mean_max = 150
+    @avg_period_mean_max = @avg_period_mean.max.round(-1)
 
     @sum_contract_amounts = (policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month)
       .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first.sum_contract_amounts / 10000.to_f).round(2)
