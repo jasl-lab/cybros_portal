@@ -9,7 +9,7 @@ module API
       previous_begin_session = find_previous_begin_session(sessions_params)
 
       if previous_begin_session.present?
-        previous_begin_session.update(operation: sessions_params[:operation], end_operation: 'End')
+        previous_begin_session.update(operation: sessions_params[:operation], end_operation: sessions_params[:operation])
         head :created
       else
         cad_session = current_user.cad_sessions.create(sessions_params)
@@ -23,7 +23,6 @@ module API
     end
 
     def find_previous_begin_session(sessions_params)
-      return nil unless sessions_params[:operation] == 'End'
       current_user.cad_sessions.find_by(session: sessions_params[:session], operation: 'Begin')
     end
 
