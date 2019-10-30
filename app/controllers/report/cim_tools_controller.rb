@@ -14,12 +14,14 @@ class Report::CimToolsController < Report::BaseController
       format.csv do
         render_csv_header 'CAD session report'
         csv_res = CSV.generate do |csv|
-          csv << ['ID', 'Session', 'Operation', 'IP address', 'MAC address', 'User ID', 'User email', 'User Name', 'User title', 'Created At']
+          csv << ['ID', 'Session', 'Begin Operation', 'Operation', 'End Operation' 'IP address', 'MAC address', 'User ID', 'User email', 'User Name', 'User title', 'Created At']
           policy_scope(Cad::CadSession).includes(:user).order(id: :asc).find_each do |s|
             values = []
             values << s.id
             values << s.session
+            values << s.begin_operation
             values << s.operation
+            values << s.end_operation
             values << s.ip_address
             values << s.mac_address
             values << s.user_id
