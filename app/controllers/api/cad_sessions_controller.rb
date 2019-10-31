@@ -23,7 +23,7 @@ module API
     end
 
     def find_previous_begin_session(sessions_params)
-      current_user.cad_sessions.find_by(session: sessions_params[:session], operation: 'Begin')
+      current_user.cad_sessions.find_by(session: sessions_params[:session], begin_operation: 'Begin')
     end
 
     private
