@@ -13,6 +13,7 @@ class OpenidConnectController < ApplicationController
     clerk_code = @omniaut_auth.dig(:extra, :raw_info, :clerk_code)
     chinese_name = @omniaut_auth.dig(:extra, :raw_info, :chinese_name)
     desk_phone = @omniaut_auth.dig(:extra, :raw_info, :desk_phone)
+    job_level = @omniaut_auth.dig(:extra, :raw_info, :job_level)
     departments = @omniaut_auth.dig(:extra, :raw_info, :departments)
     departments.each do |d|
       dep = Department.find_or_create_by(id: d[:id]) do |department|
@@ -23,7 +24,7 @@ class OpenidConnectController < ApplicationController
       DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
     end
     user.update(position_title: main_position_title, clerk_code: clerk_code,
-      chinese_name: chinese_name, desk_phone: desk_phone)
+      chinese_name: chinese_name, job_level: job_level, desk_phone: desk_phone)
 
     original_url = request.env["omniauth.origin"]
     sign_in user
