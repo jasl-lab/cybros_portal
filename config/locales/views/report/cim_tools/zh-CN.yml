@@ -3,7 +3,16 @@ zh-CN:
   report:
     cim_tools:
       index:
-        title: "CIM智能工具报告"
+        title: "CIM智能工具使用数据报告"
         actions:
           report_sessions: "导出会话"
           report_operations: "导出操作"
+        table:
+          session: "会话"
+          begin_operation: "开始操作"
+          operation: "操作"
+          end_operation: "结束操作"
+          ip_address: "IP 地址"
+          mac_address: "MAC 地址"
+          created_at: "创建日期"
+          updated_at: "更新日期"

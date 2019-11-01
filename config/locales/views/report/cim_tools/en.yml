@@ -7,3 +7,12 @@ en:
         actions:
           report_sessions: "Export sessions"
           report_operations: "Export operations"
+        table:
+          session: "Session"
+          begin_operation: "Begin operation"
+          operation: "Operation"
+          end_operation: "End operation"
+          ip_address: "IP address"
+          mac_address: "MAC address"
+          created_at: "Created at"
+          updated_at: "Updated at"

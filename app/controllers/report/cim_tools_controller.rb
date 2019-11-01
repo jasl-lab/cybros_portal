@@ -5,6 +5,16 @@ class Report::CimToolsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def index
+    authorize Cad::CadSession
+
+    respond_to do |format|
+      format.html
+      format.json do
+        cad_sessions = policy_scope(Cad::CadSession)
+        render json: CadSessionDatatable.new(params,
+          cad_sessions: cad_sessions)
+      end
+    end
   end
 
   def report_sessions

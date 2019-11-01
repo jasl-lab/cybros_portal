@@ -8,3 +8,33 @@
     </li>
   </ol>
 <% end %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="row">
+      <div class="col-lg-12" data-controller="cim-tools-sessions">
+        <table id="cim-tools-sessions-datatable"
+          class="table table-hover table-bordered table-responsive"
+          data-source="<%= report_cim_tools_path(format: :json) %>">
+          <thead>
+            <tr>
+              <th><%= t(".table.session") -%></th>
+              <th><%= t(".table.begin_operation") -%></th>
+              <th><%= t(".table.operation") -%></th>
+              <th><%= t(".table.end_operation") -%></th>
+              <th><%= t(".table.ip_address") -%></th>
+              <th><%= t(".table.mac_address") -%></th>
+              <th><%= t(".table.created_at") -%></th>
+              <th><%= t(".table.updated_at") -%></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
