@@ -14,7 +14,6 @@ class Company::PendingQuestionsController < ApplicationController
   def create
     pending_question = Company::PendingQuestion.find(params[:id])
     authorize pending_question
-    pending_question.destroy
 
     redirect_to new_company_knowledge_maintain_path(q: pending_question.question, q_user_id: pending_question.user_id), notice: t('.success', question: pending_question.question)
   end
