@@ -31,6 +31,7 @@ namespace :import_export do
       user = User.find_or_create_by(email: email)
       user.position_title = position_title
       user.clerk_code = clerk_code
+      user.job_level = job_level
       user.chinese_name = chinese_name
       user.desk_phone = desk_phone
       user.confirmed_at = Time.current
