@@ -44,8 +44,7 @@ class Report::ProjectMilestoresController < Report::BaseController
 
     @drill_down_subtitle = t(".subtitle")
     work_no = params[:work_no].strip
-    dept_code = params[:dept_code].strip
-    scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no, deptcode: dept_code).where(date: beginning_of_month..end_of_month)
+    scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no).where(date: beginning_of_month..end_of_month)
     project_item_codes = scope_of_drill_down.pluck(:projectitemcode).uniq
     @name = Bi::ShRefreshRateDetail.find_by(projectpacode: work_no).projectpaname
     @rows = project_item_codes.collect do |project_item_code|
