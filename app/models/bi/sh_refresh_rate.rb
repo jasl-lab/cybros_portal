@@ -4,8 +4,8 @@ module Bi
   class ShRefreshRate < BiLocalTimeRecord
     self.table_name = "SH_REFRESH_RATE"
 
-    def self.all_month_names
-      Bi::ShRefreshRate.order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
+    def self.all_month_names(org_code)
+      Bi::ShRefreshRate.where(orgcode: org_code).order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
     def self.available_company_names(target_date)

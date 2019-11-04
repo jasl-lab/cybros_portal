@@ -8,7 +8,8 @@ class Report::ProjectMilestoresController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names
+    @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
+    @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(@selected_org_code)
     @month_name = params[:month_name]&.strip || @all_month_names.last
     end_of_month = Date.parse(@month_name).end_of_month
     @target_date = policy_scope(Bi::ShRefreshRate).where("date <= ?", end_of_month).order(date: :desc).first.date
@@ -16,7 +17,6 @@ class Report::ProjectMilestoresController < Report::BaseController
     @number_in_row = (params[:number_in_row] || 7).to_i
     Rails.logger.debug "Bi::ShRefreshRate target_date: #{@target_date}"
     @company_short_names = policy_scope(Bi::ShRefreshRate).available_company_names(@target_date)
-    @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
 
     @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department(@target_date)
     @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(@target_date, @selected_org_code)
