@@ -45,6 +45,8 @@ zh-CN:
         position_title: "职位"
         clerk_code: "员工号"
         chinese_name: "姓名"
+        desk_phone: "座机"
+        job_level: "职级"
         created_at: "创建于"
         current_sign_in_at: "最后登录"
         status: "状态"

@@ -45,6 +45,8 @@ en:
         position_title: "Position title"
         clerk_code: "Clerk code"
         chinese_name: "Chinese name"
+        desk_phone: "Desk phone"
+        job_level: "Job level"
         created_at: "Created at"
         current_sign_in_at: "Current sign in at"
         status: "Status"
