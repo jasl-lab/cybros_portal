@@ -96,7 +96,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
 
-    complete_value_data = if current_user_companies.include?("上海天华建筑设计有限公司")
+    complete_value_data = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       Bi::CompleteValue.all
     else
       Bi::CompleteValue.where(orgcode: current_user_companies)

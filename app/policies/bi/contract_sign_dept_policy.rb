@@ -4,14 +4,14 @@ module Bi
   class ContractSignDeptPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? &&
-           (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?) &&
-           (user.departments.pluck(:company_name).uniq == ["上海天华建筑设计有限公司"])
+        if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
           scope.all
-        else
+        elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.job_level.to_i >= 11)
           allow_orgcodes = user.departments.pluck(:company_name)
             .collect { |n| Bi::OrgShortName.org_code_by_long_name.fetch(n, n) }
           scope.where(orgcode: allow_orgcodes)
+        else
+          scope.none
         end
       end
     end

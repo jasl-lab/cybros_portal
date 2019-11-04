@@ -4,18 +4,19 @@ module Bi
   class ContractSignDetailDatePolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? && (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?) && \
-           user.departments.pluck(:company_name).uniq == ["上海天华建筑设计有限公司"]
+        if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
           scope.all
-        else
+        elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.job_level.to_i >= 11)
           scope.where(orgname: user.departments.pluck(:company_name))
+        else
+          scope.none
         end
       end
     end
 
     def show?
       return false unless user.present?
-      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.job_level.to_i >= 11 || user.admin?
     end
 
     def drill_down_date?

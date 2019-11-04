@@ -10,7 +10,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     authorize Bi::CompleteValueDept
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
-    if current_user_companies.include?("上海天华建筑设计有限公司")
+    if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       all_orgcodes = Bi::CompleteValueDept
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode")
         .order("ORG_ORDER.org_order DESC")

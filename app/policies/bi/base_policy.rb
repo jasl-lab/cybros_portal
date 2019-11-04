@@ -4,8 +4,8 @@ module Bi
   class BasePolicy < ApplicationPolicy
     def show?
       return false unless user.present?
-      (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?) &&
-        user.departments.pluck(:company_name).uniq == ["上海天华建筑设计有限公司"]
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? \
+      || user.job_level.to_i >= 11 || user.admin?
     end
 
     def export?

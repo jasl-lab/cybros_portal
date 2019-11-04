@@ -9,7 +9,7 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
     authorize Bi::WorkHoursCountOrg
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
-    if current_user_companies.include?('上海天华建筑设计有限公司')
+    if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       @all_company_names = Bi::WorkHoursCountOrg.distinct.pluck(:orgname)
       @selected_company_name = params[:company_name]&.strip || current_company
     else

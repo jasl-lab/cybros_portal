@@ -2,10 +2,12 @@ module Bi
   class WorkHoursCountDetailStaffPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? && (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_reviewer).any? || user.admin?)
+        if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
           scope.all
-        else
+        elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.job_level.to_i >= 11)
           scope.where(businessltdname: user.departments.pluck(:company_name))
+        else
+          scope.none
         end
       end
     end

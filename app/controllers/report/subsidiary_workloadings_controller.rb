@@ -32,7 +32,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
       .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, deptname")
       .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-    data = data.where(orgname: current_user_companies) unless current_user_companies.include?("上海天华建筑设计有限公司")
+    data = data.where(orgname: current_user_companies) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
     job_data = data.having("SUM(date_real) > 0")
     job_data = job_data.where.not(deptname: %w[建筑专项技术咨询所]) if @short_company_name == '上海天华'
     blue_print_data = data.having("SUM(blue_print_real)")
