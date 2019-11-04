@@ -101,7 +101,7 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
-    @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.sum.to_f
+    @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.reject {|d| d == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM}.sum.to_f
   end
 
   def unsign_detail_drill_down
