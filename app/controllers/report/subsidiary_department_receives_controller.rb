@@ -59,7 +59,15 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
-    @sum_real_receives = (@real_receives.sum / 10000.0).round(1)
+    true_real_receives = policy_scope(Bi::SubCompanyRealReceive)
+      .where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
+      .where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", real_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
+      .select("SUM(total) total")
+      .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
+      .collect { |d| (d.total / 100_00.0).round(0) }
+
+    @sum_real_receives = (true_real_receives.sum / 10000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
     need_data = policy_scope(Bi::SubCompanyNeedReceive)
