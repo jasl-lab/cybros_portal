@@ -37,7 +37,8 @@ class Report::ProjectMilestoresController < Report::BaseController
   end
 
   def detail_table_drill_down
-    @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names
+    selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
+    @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(selected_org_code)
     @month_name = params[:month_name]&.strip
     end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
