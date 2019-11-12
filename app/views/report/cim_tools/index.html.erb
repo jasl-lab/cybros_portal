@@ -21,12 +21,10 @@
           data-source="<%= report_cim_tools_path(format: :json) %>">
           <thead>
             <tr>
+              <th><%= t(".table.user_name") -%></th>
               <th><%= t(".table.session") -%></th>
-              <th><%= t(".table.begin_operation") -%></th>
               <th><%= t(".table.operation") -%></th>
-              <th><%= t(".table.end_operation") -%></th>
-              <th><%= t(".table.ip_address") -%></th>
-              <th><%= t(".table.mac_address") -%></th>
+              <th><%= t(".table.ip_mac_address") -%></th>
               <th><%= t(".table.created_at") -%></th>
               <th><%= t(".table.updated_at") -%></th>
             </tr>
