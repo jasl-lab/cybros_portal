@@ -4,7 +4,9 @@ export default class extends Controller {
   connect() {
     const normalColumns = [
       {"data": "user_name"},
-      {"data": "session"},
+      {"data": "user_company"},
+      {"data": "user_department"},
+      {"data": "user_title"},
       {"data": "operation"},
       {"data": "ip_mac_address"},
       {"data": "created_at"},
