@@ -9,7 +9,7 @@
           <%= form_tag report_contract_sign_detail_path, method: :get, class: 'form-inline' do -%>
             <div class="form-group mr-3">
               <label class="mr-1"><%= t(".month_name") -%>：</label>
-              <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+              <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), include_blank: true, class: 'form-control' %>
             </div>
             <div class="form-group mr-3">
               <label class="mr-1"><%= t(".org_name") -%>：</label>

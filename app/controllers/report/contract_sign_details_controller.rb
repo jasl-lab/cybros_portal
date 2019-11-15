@@ -8,9 +8,11 @@ class Report::ContractSignDetailsController < Report::BaseController
   def show
     authorize Bi::ContractSignDetailDate
     @all_month_names = policy_scope(Bi::ContractSignDetailDate).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.last
-    @beginning_of_month = Date.parse(@month_name).beginning_of_month
-    @end_of_month = Date.parse(@month_name).end_of_month
+    @month_name = params[:month_name]&.strip
+    if @month_name.present?
+      @beginning_of_month = Date.parse(@month_name).beginning_of_month
+      @end_of_month = Date.parse(@month_name).end_of_month
+    end
     all_org_long_names = policy_scope(Bi::ContractSignDetailDate).all_org_long_names
     all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @all_org_names = all_org_short_names.zip(all_org_long_names)

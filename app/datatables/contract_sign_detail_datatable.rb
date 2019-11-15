@@ -62,7 +62,8 @@ class ContractSignDetailDatatable < ApplicationDatatable
       @contract_sign_detail_dates.where("NEED_HIDE = 1")
     else
       @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
-    end.where(filingtime: @beginning_of_month..@end_of_month)
+    end
+    rr = rr.where(filingtime: @beginning_of_month..@end_of_month) if @beginning_of_month.present? && @end_of_month.present?
     rr = rr.where("date1 > ?", @date_1_great_than) unless @date_1_great_than.zero?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr
