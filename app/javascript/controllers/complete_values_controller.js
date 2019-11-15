@@ -65,7 +65,7 @@ export default class extends Controller {
         series: [{
           name: '预计全年完成产值（百万元）',
           type: 'bar',
-          barWidth: 26,
+          barWidth: 20,
           barGap: '-100%',
           data: completeValueYearTotals,
           itemStyle: {
@@ -98,7 +98,7 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           data: completeValueYearTotalsRemain,
-          barWidth: 26,
+          barWidth: 20,
           itemStyle: {
             color: '#DDDDDD'
           }
@@ -159,7 +159,7 @@ export default class extends Controller {
           itemStyle: {
             color: '#DDDDDD'
           },
-          barWidth: 26,
+          barWidth: 20,
           label: {
             normal: {
               show: true,
@@ -175,7 +175,7 @@ export default class extends Controller {
           itemStyle: {
             color: '#60A0A8'
           },
-          barWidth: 26,
+          barWidth: 20,
           label: {
             normal: {
               show: true,
@@ -192,7 +192,7 @@ export default class extends Controller {
           itemStyle: {
             color: '#DDDDDD'
           },
-          barWidth: 26,
+          barWidth: 20,
           label: {
             normal: {
               show: false

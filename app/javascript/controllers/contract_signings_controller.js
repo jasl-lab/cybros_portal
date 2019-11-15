@@ -135,6 +135,7 @@ export default class extends Controller {
           symbolSize: 8,
           data: avgPeriodMean,
           color: '#675BBA',
+          barWidth: 20,
           label: {
             normal: {
               show: true,
@@ -160,7 +161,7 @@ export default class extends Controller {
           type: 'bar',
           data: sumContractAmountsWithColor,
           color: '#7E91A5',
-          barMaxWidth: 80,
+          barWidth: 20,
           label: {
             normal: {
               show: true,
@@ -219,7 +220,7 @@ export default class extends Controller {
           type: 'bar',
           data: cpContractAmounts,
           color: '#7E91A5',
-          barMaxWidth: 80,
+          barWidth: 20,
           label: {
             normal: {
               show: true,
@@ -277,7 +278,7 @@ export default class extends Controller {
           name: '本年累计人均生产合同额',
           type: 'bar',
           data: productionAmountsPerStaffWithColor,
-          barMaxWidth: 80,
+          barWidth: 20,
           label: {
             normal: {
               show: true,
