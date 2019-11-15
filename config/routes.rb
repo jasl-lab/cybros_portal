@@ -75,6 +75,7 @@ Rails.application.routes.draw do
       collection do
         get :report_sessions
         get :report_operations
+        get :report_all
       end
     end
     resource :group_workloading, only: %i[show]

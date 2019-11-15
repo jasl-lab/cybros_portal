@@ -10,5 +10,13 @@ module Cad
     def report_sessions?
       index?
     end
+
+    def report_operations?
+      index?
+    end
+
+    def report_all?
+      index?
+    end
   end
 end

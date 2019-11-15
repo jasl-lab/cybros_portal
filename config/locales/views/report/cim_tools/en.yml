@@ -7,6 +7,7 @@ en:
         actions:
           report_sessions: "Export sessions"
           report_operations: "Export operations"
+          report_all: "Export report"
         table:
           session: "Session"
           begin_operation: "Begin operation"

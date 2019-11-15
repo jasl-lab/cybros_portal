@@ -7,6 +7,7 @@ zh-CN:
         actions:
           report_sessions: "导出会话"
           report_operations: "导出操作"
+          report_all: "导出报表"
         table:
           session: "会话"
           begin_operation: "开始操作"
