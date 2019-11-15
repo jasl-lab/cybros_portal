@@ -29,12 +29,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
 
     real_data = if @view_deptcode_sum
-      real_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total")
+      real_data.select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
     else
-      real_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total")
+      real_data.select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
         .group( :"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
@@ -58,12 +58,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
-    @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
+    @real_receives = real_data.collect { |d| ((d.total + d.markettotal) / 100_00.0).round(0) }
     true_real_receives = policy_scope(Bi::SubCompanyRealReceive)
       .where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
       .where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", real_data_last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
-      .select("SUM(total) total")
+      .select("SUM(total+markettotal) total")
       .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
       .collect { |d| (d.total / 100_00.0).round(0) }
 

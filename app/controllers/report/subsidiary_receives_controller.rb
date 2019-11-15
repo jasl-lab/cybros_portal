@@ -23,11 +23,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order("ORG_ORDER.org_order DESC")
 
     real_data = if @view_orgcode_sum
-      real_data.select("orgcode_sum orgcode, org_order, SUM(total) total")
+      real_data.select("orgcode_sum orgcode, org_order, SUM(total) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
         .group(:orgcode_sum, :org_order)
     else
-      real_data.select("orgcode, org_order, SUM(total) total")
+      real_data.select("orgcode, org_order, SUM(total) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
         .group(:orgcode, :org_order)
     end
@@ -51,9 +51,9 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
 
     @real_company_short_names = real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
-    @real_receives = real_data.collect { |d| (d.total / 100_0000.0).round(0) }
+    @real_receives = real_data.collect { |d| ((d.total + d.markettotal) / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
-      .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
+      .select("SUM(real_receive+markettotal) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
 
