@@ -53,7 +53,9 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @real_company_short_names = real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
     @real_receives = real_data.collect { |d| ((d.total + d.markettotal) / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
-      .select("SUM(real_receive+markettotal) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
+      .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
+    @fix_sum_market_totals = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
+      .select("SUM(markettotal) fix_sum_markettotals").first.fix_sum_markettotals / 10000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
 

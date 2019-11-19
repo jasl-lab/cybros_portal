@@ -48,7 +48,7 @@ export default class extends Controller {
 
     const real_option = {
         title: {
-          text: '本年累计实收款'
+          text: '本年累计实收款(包括市场费)'
         },
         legend: {
             data: ['本年累计实收款（百万元）'],
