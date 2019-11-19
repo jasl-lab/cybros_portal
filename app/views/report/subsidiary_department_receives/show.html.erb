@@ -20,6 +20,7 @@
     data-subsidiary-department-receives-company_name="<%= @selected_short_name -%>"
     data-subsidiary-department-receives-real_x_axis="<%= @real_department_short_names.to_json -%>"
     data-subsidiary-department-receives-real_receives="<%= @real_receives.to_json -%>"
+    data-subsidiary-department-receives-real_markettotals="<%= @real_markettotals.to_json -%>"
     data-subsidiary-department-receives-need_x_axis="<%= @need_company_short_names.to_json -%>"
     data-subsidiary-department-receives-need_long_account_receives="<%= @need_long_account_receives.to_json -%>"
     data-subsidiary-department-receives-need_short_account_receives="<%= @need_short_account_receives.to_json -%>"
@@ -54,7 +55,9 @@
     <div class="row">
       <div class="col-lg-12 p-2">
         <h5 class="text-center">
-          至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,本年累计实收款 <span style="color:red"><%= @sum_real_receives -%> 亿元</span>。
+          至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,
+          本年累计实收款 <span style="color:red"><%= @sum_real_receives -%></span> 亿元，
+          市场费 <span style="color:red"><%= @sum_real_markettotals -%></span> 万元。
         </h5>
       </div>
     </div>
