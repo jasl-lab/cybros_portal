@@ -4,3 +4,9 @@ zh-CN:
     contracts:
       index:
         title: "查看合同"
+        form:
+          city: "城市"
+          client: "客户"
+          tracestate: "跟踪状态"
+          query_text: "输入模糊查询条件"
+          query: "查询"

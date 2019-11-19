@@ -4,3 +4,9 @@ en:
     contracts:
       index:
         title: "View contract"
+        form:
+          city: "City"
+          client: "Client"
+          tracestate: "Trace state"
+          query_text: "Query text"
+          query: "Query"
