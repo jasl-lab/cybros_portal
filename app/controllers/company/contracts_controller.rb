@@ -28,6 +28,12 @@ class Company::ContractsController < ApplicationController
         lat: m.coordinate.split(',')[1].to_f,
         lng: m.coordinate.split(',')[0].to_f,
         owner: m.maindeptnamedet,
+        developer_company: m.developercompanyname,
+        project_code: m.id,
+        trace_state: m.tracestate,
+        scale_area: m.scalearea,
+        project_type: m.projecttype,
+        big_stage: m.bigstage,
         contracts: m.rels.collect { |r| { docname: r.docname, url: r.address } } }
     end
 
