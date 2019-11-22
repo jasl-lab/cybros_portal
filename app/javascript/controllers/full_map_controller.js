@@ -1,10 +1,17 @@
 import { Controller } from "stimulus"
 
 window.initFullMap = function () {
-  const center = new TMap.LatLng(31.228177,121.487003); //设置中心点坐标
-  //初始化地图
+  const minLat = $('#full-map').data("full-map-min_lat");
+  const maxLat = $('#full-map').data("full-map-max_lat");
+  const minLng = $('#full-map').data("full-map-min_lng");
+  const maxLng = $('#full-map').data("full-map-max_lng");
+
+  const sw = new TMap.LatLng(minLat, minLng);
+  const ne = new TMap.LatLng(maxLat, maxLng);
+  const map_bound = new TMap.LatLngBounds(sw, ne);
+
   window.full_map = new TMap.Map("full-map", {
-      center: center
+    boundary: map_bound
   });
 }
 

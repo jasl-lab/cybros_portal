@@ -24,5 +24,10 @@
     </div>
   </div>
 <% end %>
-<div id="full-map" data-controller="full-map">
+<div id="full-map"
+  data-controller="full-map"
+  data-full-map-min_lat="<%= @min_lat -%>"
+  data-full-map-max_lat="<%= @max_lat -%>"
+  data-full-map-min_lng="<%= @min_lng -%>"
+  data-full-map-max_lng="<%= @max_lng -%>">
 </div>
