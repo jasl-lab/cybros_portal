@@ -5,7 +5,7 @@ window.initFullMap = function () {
   const avgLat = $('#full-map').data("full-map-avg_lat");
   const avgLng = $('#full-map').data("full-map-avg_lng");
 
-  const center = new TMap.LatLng(avgLat,avgLng); //设置中心点坐标
+  const center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
 
   window.full_map = new TMap.Map("full-map", {
     center
@@ -16,37 +16,40 @@ window.initFullMap = function () {
       position: new TMap.LatLng(m.lat, m.lng),
       properties: {
         title: m.title,
-        owner: m.owner
+        owner: m.owner,
+        contracts: m.contracts
       }
     };
   });
 
   var marker = new TMap.MultiMarker({
-      id: 'marker-layer',
-      map: window.full_map,
-      styles: {
-          "marker": new TMap.MarkerStyle({
-              "width": 25,
-              "height": 35,
-              "anchor": { x: 16, y: 32 },
-              "src": '/images/marker_default.png'
-          })
-      },
-      geometries: geometries
+    id: 'marker-layer',
+    map: window.full_map,
+    styles: {
+      "marker": new TMap.MarkerStyle({
+          "width": 25,
+          "height": 35,
+          "anchor": { x: 16, y: 32 },
+          "src": '/images/marker_default.png'
+      })
+    },
+    geometries: geometries
   });
 
   var infoWindow = new TMap.InfoWindow({
-      map: window.full_map,
-      position: new TMap.LatLng(31.228177,121.487003),
-      offset: { x: -8, y: -32 } //设置信息窗相对position偏移像素
+    map: window.full_map,
+    position: new TMap.LatLng(31.228177,121.487003),
+    offset: { x: -8, y: -32 } // 设置信息窗相对position偏移像素
   });
-  infoWindow.close();//初始关闭信息窗关闭
-  //监听标注点击事件
+  infoWindow.close();// 初始关闭信息窗关闭
+
   marker.on("click", function (evt) {
-      //设置infoWindow
-      infoWindow.open(); //打开信息窗
-      infoWindow.setPosition(evt.geometry.position);//设置信息窗位置
-      infoWindow.setContent(evt.geometry.properties.title.toString());//设置信息窗内容
+    infoWindow.open();
+    infoWindow.setPosition(evt.geometry.position);
+    const links = evt.geometry.properties.contracts.map(function(m) {
+      return `<a href='${m.url}' target='_blank'>${m.docname}</a>`
+    }).join("<br />");
+    infoWindow.setContent(evt.geometry.properties.title.toString() + '<br />' + evt.geometry.properties.owner.toString() + '<br />' + links);
   })
 }
 

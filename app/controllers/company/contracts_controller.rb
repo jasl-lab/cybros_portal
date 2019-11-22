@@ -27,7 +27,8 @@ class Company::ContractsController < ApplicationController
       { title: m.marketinfoname,
         lat: m.coordinate.split(',')[1].to_f,
         lng: m.coordinate.split(',')[0].to_f,
-        owner: m.maindeptnamedet }
+        owner: m.maindeptnamedet,
+        contracts: m.rels.collect { |r| { docname: r.docname, url: r.address } } }
     end
 
     lat_total_cos = total_cos.collect { |c| c.split(',')[1].to_f }
