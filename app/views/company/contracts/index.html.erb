@@ -20,14 +20,13 @@
       <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
     </div>
     <div class="col-auto my-1">
-      <span>查得<%= @map_infos.count -%>记录</span>
+      <span>查得<%= @valid_map_infos.count -%>地图记录</span>
     </div>
   </div>
 <% end %>
 <div id="full-map"
   data-controller="full-map"
-  data-full-map-min_lat="<%= @min_lat -%>"
-  data-full-map-max_lat="<%= @max_lat -%>"
-  data-full-map-min_lng="<%= @min_lng -%>"
-  data-full-map-max_lng="<%= @max_lng -%>">
+  data-full-map-map_point="<%= @valid_map_point.to_json -%>"
+  data-full-map-avg_lat="<%= @avg_lat -%>"
+  data-full-map-avg_lng="<%= @avg_lng -%>">
 </div>
