@@ -9,10 +9,16 @@ class Company::ContractsController < ApplicationController
     @hide_app_footer = true
 
     @all_cities = Bi::NewMapInfo.all_cities
-    @city = '上海市'
+    @city = params[:city].presence || '上海市'
+    @client = params[:client].presence
+
 
     @all_tracestates = Bi::NewMapInfo.all_tracestates
-    @tracestate = '跟踪中'
+    @tracestate = params[:tracestate].presence || '跟踪中'
+    @query_text = params[:query_text].presence
+
+    @map_infos = Bi::NewMapInfo.where(tracestate: @tracestate).where(company: @city)
+    @map_infos = @map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
   end
 
   protected

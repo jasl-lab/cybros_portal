@@ -1,4 +1,4 @@
-<%= form_tag company_contracts_path do -%>
+<%= form_tag company_contracts_path, method: :get do -%>
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
       <label class="mr-sm-2 sr-only"><%= t(".form.city") -%></label>
@@ -6,7 +6,7 @@
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-2 sr-only"><%= t(".form.client") -%></label>
-      <%= text_field_tag 'client', nil, placeholder: t(".form.client"), class: 'form-control form-control2' %>
+      <%= text_field_tag 'client', @client, placeholder: t(".form.client"), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-2 sr-only"><%= t(".form.tracestate") -%></label>
@@ -14,10 +14,13 @@
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-2 sr-only"><%= t(".form.query_text") -%></label>
-      <%= text_field_tag 'query_text', nil, placeholder: t(".form.query_text"), class: 'form-control form-control2' %>
+      <%= text_field_tag 'query_text', @query_text, placeholder: t(".form.query_text"), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
+    </div>
+    <div class="col-auto my-1">
+      <span>查得<%= @map_infos.count -%>记录</span>
     </div>
   </div>
 <% end %>
