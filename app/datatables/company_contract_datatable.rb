@@ -6,7 +6,6 @@ class CompanyContractDatatable < ApplicationDatatable
   def initialize(params, opts = {})
     @map_infos = opts[:map_infos]
     @city = opts[:city]
-    @client = opts[:client]
     @tracestate = opts[:tracestate]
     super
   end
@@ -36,7 +35,6 @@ class CompanyContractDatatable < ApplicationDatatable
   def get_raw_records
     rr = @map_infos
     rr = rr.where(company: @city) if @city.present?
-    rr = rr.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
     rr = rr.where(tracestate: @tracestate) if @tracestate.present?
     rr
   end

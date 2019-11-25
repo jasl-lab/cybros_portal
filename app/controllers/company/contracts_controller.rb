@@ -9,8 +9,6 @@ class Company::ContractsController < ApplicationController
 
     @all_cities = Bi::NewMapInfo.all_cities
     @city = params[:city].presence || '上海市'
-    @client = params[:client].presence
-
 
     @all_tracestates = Bi::NewMapInfo.all_tracestates
     @tracestate = params[:tracestate].presence || '跟踪中'
@@ -21,7 +19,7 @@ class Company::ContractsController < ApplicationController
       format.html
       format.json do
         render json: CompanyContractDatatable.new(params, map_infos: map_infos,
-          city: @city, client: @client, tracestate: @tracestate)
+          city: @city, tracestate: @tracestate)
       end
     end
   end
