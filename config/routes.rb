@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     resources :direct_questions, only: %i[index create destroy]
     resource :drill_down_question, only: %i[show]
     resources :contracts, only: %i[index]
+    resource :contracts_map, only: %i[show]
   end
 
   namespace :report do

@@ -33,7 +33,7 @@ en:
         pending_questions: "Pending knowledge questions"
         direct_questions: "Direct questions maintains"
         drill_down_question: "Drill down question"
-        contracts: "Contracts map"
+        contracts_maps: "Contracts map"
       person:
         header: "Personal Home"
         name_card: "Name card"

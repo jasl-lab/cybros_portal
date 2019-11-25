@@ -1,8 +1,8 @@
 ---
 en:
   company:
-    contracts:
-      index:
+    contracts_maps:
+      show:
         title: "View contract"
         form:
           city: "City"

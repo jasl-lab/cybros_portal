@@ -1,8 +1,8 @@
 ---
 zh-CN:
   company:
-    contracts:
-      index:
+    contracts_maps:
+      show:
         title: "查看合同"
         form:
           city: "城市"

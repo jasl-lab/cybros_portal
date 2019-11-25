@@ -40,10 +40,10 @@
         <% end %>
       <% end %>
       <% if policy(Company::Contract).index? %>
-        <%= nav_item controller: 'company/contracts', html_options: {class: "nav-item"} do %>
-          <%= link_to company_contracts_path, class: "nav-link" do %>
+        <%= nav_item controller: 'company/contracts_maps', html_options: {class: "nav-item"} do %>
+          <%= link_to company_contracts_map_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.company.contracts") %>
+            <%= t("layouts.sidebar.company.contracts_maps") %>
           <% end %>
         <% end %>
       <% end %>
