@@ -34,6 +34,7 @@ zh-CN:
         direct_questions: "可以直接回答的问题"
         drill_down_question: "分析知识库的回答"
         contracts_maps: "合同地图"
+        contracts: "公司合同"
       person:
         header: "个人首页"
         name_card: "名片"

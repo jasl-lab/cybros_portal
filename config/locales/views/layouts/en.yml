@@ -34,6 +34,7 @@ en:
         direct_questions: "Direct questions maintains"
         drill_down_question: "Drill down question"
         contracts_maps: "Contracts map"
+        contracts: "Contracts"
       person:
         header: "Personal Home"
         name_card: "Name card"

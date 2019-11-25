@@ -1,0 +1,18 @@
+---
+zh-CN:
+  company:
+    contracts:
+      index:
+        title: "查看合同"
+        form:
+          city: "城市"
+          client: "客户"
+          tracestate: "跟踪状态"
+          query_text: "输入模糊查询条件"
+          query: "查询"
+        table:
+          project_no: "项目编号"
+          market_info_name: "项目名称"
+          project_type: "类型"
+          scale_area: "规模"
+          main_dept_name: "公司部门"
