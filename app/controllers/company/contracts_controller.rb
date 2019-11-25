@@ -32,6 +32,8 @@ class Company::ContractsController < ApplicationController
         project_code: m.id,
         trace_state: m.tracestate,
         scale_area: m.scalearea,
+        province: m.province,
+        city: m.company,
         project_type: m.projecttype,
         big_stage: m.bigstage,
         contracts: m.rels.collect { |r| { docname: r.docname, url: r.address } } }
