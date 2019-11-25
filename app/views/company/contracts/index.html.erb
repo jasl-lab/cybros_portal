@@ -20,21 +20,18 @@
               <%= select_tag 'tracestate', options_for_select(@all_tracestates, @tracestate), class: 'form-control form-control2' %>
             </div>
             <div class="col-auto my-1">
-              <label class="mr-sm-2 sr-only"><%= t(".form.query_text") -%></label>
-              <%= text_field_tag 'query_text', @query_text, placeholder: t(".form.query_text"), class: 'form-control form-control2' %>
-            </div>
-            <div class="col-auto my-1">
               <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
             </div>
           </div>
         <% end %>
         <table id="company-contracts-datatable"
           class="table table-hover table-bordered table-responsive"
-          data-source="<%= company_contracts_path(format: :json) %>">
+          data-source="<%= company_contracts_path(format: :json, city: @city, client: @client, tracestate: @tracestate) -%>">
           <thead>
             <tr>
               <th><%= t(".table.project_no") -%></th>
               <th><%= t(".table.market_info_name") -%></th>
+              <th><%= t(".table.developer_company_name") -%></th>
               <th><%= t(".table.project_type") -%></th>
               <th><%= t(".table.scale_area") -%></th>
               <th><%= t(".table.main_dept_name") -%></th>

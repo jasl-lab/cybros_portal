@@ -5,6 +5,7 @@ export default class extends Controller {
     const normalColumns = [
       {"data": "project_no"},
       {"data": "market_info_name"},
+      {"data": "developer_company_name"},
       {"data": "project_type"},
       {"data": "scale_area"},
       {"data": "main_dept_name"}

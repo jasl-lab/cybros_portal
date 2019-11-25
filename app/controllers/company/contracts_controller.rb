@@ -14,14 +14,14 @@ class Company::ContractsController < ApplicationController
 
     @all_tracestates = Bi::NewMapInfo.all_tracestates
     @tracestate = params[:tracestate].presence || '跟踪中'
-    @query_text = params[:query_text].presence
 
     map_infos = policy_scope(Bi::NewMapInfo).where(tracestate: @tracestate).where(company: @city)
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
     respond_to do |format|
       format.html
       format.json do
-        render json: CompanyContractDatatable.new(params, map_infos: map_infos)
+        render json: CompanyContractDatatable.new(params, map_infos: map_infos,
+          city: @city, client: @client, tracestate: @tracestate)
       end
     end
   end
