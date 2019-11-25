@@ -6,11 +6,11 @@ module Bi
     has_many :rels, class_name: "Bi::NewMapInfoRel", primary_key: :id, foreign_key: :projectcode
 
     def self.all_cities
-      @_all_cities ||= Bi::NewMapInfo.order(company: :asc).select(:company).distinct.pluck(:company)
+      @_all_cities ||= ['所有'] + Bi::NewMapInfo.order(company: :asc).select(:company).distinct.pluck(:company)
     end
 
     def self.all_tracestates
-      @_all_tracestates ||= Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
+      @_all_tracestates ||= ['所有'] + Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
     end
   end
 end

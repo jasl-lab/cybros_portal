@@ -13,7 +13,9 @@ class Company::ContractsController < ApplicationController
     @all_tracestates = Bi::NewMapInfo.all_tracestates
     @tracestate = params[:tracestate].presence || '跟踪中'
 
-    map_infos = policy_scope(Bi::NewMapInfo).where(tracestate: @tracestate).where(company: @city)
+    map_infos = policy_scope(Bi::NewMapInfo)
+    map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
+    map_infos = map_infos.where(company: @city) unless @city == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
     respond_to do |format|
       format.html

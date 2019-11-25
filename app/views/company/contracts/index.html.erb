@@ -22,7 +22,7 @@
         <% end %>
         <table id="company-contracts-datatable"
           class="table table-hover table-bordered table-responsive"
-          data-source="<%= company_contracts_path(format: :json, city: @city, client: @client, tracestate: @tracestate) -%>">
+          data-source="<%= company_contracts_path(format: :json, city: @city, tracestate: @tracestate) -%>">
           <thead>
             <tr>
               <th><%= t(".table.project_no") -%></th>

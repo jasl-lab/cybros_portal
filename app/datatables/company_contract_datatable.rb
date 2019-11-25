@@ -34,8 +34,8 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def get_raw_records
     rr = @map_infos
-    rr = rr.where(company: @city) if @city.present?
-    rr = rr.where(tracestate: @tracestate) if @tracestate.present?
+    rr = rr.where(company: @city) if @city.present? && @city != '所有'
+    rr = rr.where(tracestate: @tracestate) if @tracestate.present? && @tracestate != '所有'
     rr
   end
 end

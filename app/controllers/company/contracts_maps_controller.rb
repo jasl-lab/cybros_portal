@@ -17,7 +17,9 @@ class Company::ContractsMapsController < ApplicationController
     @tracestate = params[:tracestate].presence || '跟踪中'
     @query_text = params[:query_text].presence
 
-    map_infos = Bi::NewMapInfo.where(tracestate: @tracestate).where(company: @city).where.not(coordinate: nil)
+    map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:rels)
+    map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
+    map_infos = map_infos.where(company: @city) unless @city == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
 
     @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}
