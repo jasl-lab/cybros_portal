@@ -13,33 +13,82 @@ window.initFullMap = function () {
   });
 
   const geometries = mapPoint.map(function(m) {
-    return { styleId: 'marker',
-      position: new TMap.LatLng(m.lat, m.lng),
-      properties: {
-        title: m.title,
-        owner: m.owner,
-        developer_company: m.developer_company,
-        project_code: m.project_code,
-        trace_state: m.trace_state,
-        scale_area: m.scale_area,
-        province: m.province,
-        city: m.city,
-        project_type: m.project_type,
-        big_stage: m.big_stage,
-        contracts: m.contracts
-      }
-    };
+    switch (m.trace_state) {
+      case '跟踪中':
+        return { styleId: 'marker_processing',
+          position: new TMap.LatLng(m.lat, m.lng),
+          properties: {
+            title: m.title,
+            owner: m.owner,
+            developer_company: m.developer_company,
+            project_code: m.project_code,
+            trace_state: m.trace_state,
+            scale_area: m.scale_area,
+            province: m.province,
+            city: m.city,
+            project_type: m.project_type,
+            big_stage: m.big_stage,
+            contracts: m.contracts
+          }
+        };
+      case '跟踪失败':
+        return { styleId: 'marker_failure',
+          position: new TMap.LatLng(m.lat, m.lng),
+          properties: {
+            title: m.title,
+            owner: m.owner,
+            developer_company: m.developer_company,
+            project_code: m.project_code,
+            trace_state: m.trace_state,
+            scale_area: m.scale_area,
+            province: m.province,
+            city: m.city,
+            project_type: m.project_type,
+            big_stage: m.big_stage,
+            contracts: m.contracts
+          }
+        };
+      default:
+        return { styleId: 'marker',
+          position: new TMap.LatLng(m.lat, m.lng),
+          properties: {
+            title: m.title,
+            owner: m.owner,
+            developer_company: m.developer_company,
+            project_code: m.project_code,
+            trace_state: m.trace_state,
+            scale_area: m.scale_area,
+            province: m.province,
+            city: m.city,
+            project_type: m.project_type,
+            big_stage: m.big_stage,
+            contracts: m.contracts
+          }
+        };
+    }
   });
 
   var marker = new TMap.MultiMarker({
     id: 'marker-layer',
     map: window.full_map,
     styles: {
+      "marker_failure": new TMap.MarkerStyle({
+          "width": 18,
+          "height": 27,
+          "anchor": { x: 12, y: 24 },
+          "src": "/images/marker_failure.png"
+      }),
+      "marker_processing": new TMap.MarkerStyle({
+          "width": 18,
+          "height": 27,
+          "anchor": { x: 12, y: 24 },
+          "src": "/images/marker_processing.png"
+      }),
       "marker": new TMap.MarkerStyle({
           "width": 18,
           "height": 27,
           "anchor": { x: 12, y: 24 },
-          "src": '/images/marker_default.png'
+          "src": "/images/marker_default.png"
       })
     },
     geometries: geometries
