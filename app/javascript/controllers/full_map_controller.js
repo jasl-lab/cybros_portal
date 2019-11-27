@@ -113,7 +113,6 @@ window.initFullMap = function () {
 `;
     infoWindow.dom.children[0].style["text-align"] = "left";
     infoWindow.dom.children[0].style["line-height"] = "1";
-    infoWindow.dom.children[0].style["white-space"] = "normal";
     infoWindow.setContent(content);
   })
 }
