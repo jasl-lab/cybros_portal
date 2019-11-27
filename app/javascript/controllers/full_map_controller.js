@@ -13,57 +13,34 @@ window.initFullMap = function () {
   });
 
   const geometries = mapPoint.map(function(m) {
+    const properties = {
+      title: m.title,
+      owner: m.owner,
+      developer_company: m.developer_company,
+      project_code: m.project_code,
+      trace_state: m.trace_state,
+      scale_area: m.scale_area,
+      province: m.province,
+      city: m.city,
+      project_type: m.project_type,
+      big_stage: m.big_stage,
+      contracts: m.contracts
+    }
     switch (m.trace_state) {
       case '跟踪中':
         return { styleId: 'marker_processing',
           position: new TMap.LatLng(m.lat, m.lng),
-          properties: {
-            title: m.title,
-            owner: m.owner,
-            developer_company: m.developer_company,
-            project_code: m.project_code,
-            trace_state: m.trace_state,
-            scale_area: m.scale_area,
-            province: m.province,
-            city: m.city,
-            project_type: m.project_type,
-            big_stage: m.big_stage,
-            contracts: m.contracts
-          }
+          properties
         };
       case '跟踪失败':
         return { styleId: 'marker_failure',
           position: new TMap.LatLng(m.lat, m.lng),
-          properties: {
-            title: m.title,
-            owner: m.owner,
-            developer_company: m.developer_company,
-            project_code: m.project_code,
-            trace_state: m.trace_state,
-            scale_area: m.scale_area,
-            province: m.province,
-            city: m.city,
-            project_type: m.project_type,
-            big_stage: m.big_stage,
-            contracts: m.contracts
-          }
+          properties
         };
       default:
         return { styleId: 'marker',
           position: new TMap.LatLng(m.lat, m.lng),
-          properties: {
-            title: m.title,
-            owner: m.owner,
-            developer_company: m.developer_company,
-            project_code: m.project_code,
-            trace_state: m.trace_state,
-            scale_area: m.scale_area,
-            province: m.province,
-            city: m.city,
-            project_type: m.project_type,
-            big_stage: m.big_stage,
-            contracts: m.contracts
-          }
+          properties
         };
     }
   });
@@ -109,16 +86,35 @@ window.initFullMap = function () {
       return `<a href='${m.url}' target='_blank'>${m.docname}</a>`
     }).join("<br />");
     const content = `
-<h5>工程编号：${props.project_code} | 商机状态：${props.trace_state}</h5>
-<p>工程名称：${props.title}</p>
-<p>甲方集团：${props.developer_company}</p>
-<p>包含项目类型：${props.project_type}</p>
-<p>所在地：${props.province}-${props.city}</p>
-<p>生产主责公司部门：${props.owner}</p>
+<table class="table table-striped">
+<tbody>
+  <tr>
+    <td>工程编号</td>
+    <td>${props.project_code} （${props.trace_state} ${props.province}-${props.city}）</td>
+  </tr>
+  <tr>
+    <td>工程名称</td>
+    <td>${props.title}</td>
+  </tr>
+  <tr>
+    <td>甲方集团</td>
+    <td>${props.developer_company}</td>
+  </tr>
+  <tr>
+    <td>项目类型</td>
+    <td>${props.project_type}</td>
+  </tr>
+  <tr>
+    <td>生产主责</td>
+    <td>${props.owner}</td>
+  </tr>
+</tbody>
+</table>
 `;
     infoWindow.dom.children[0].style["text-align"] = "left";
     infoWindow.dom.children[0].style["line-height"] = "1";
-    infoWindow.setContent(content + '<p>包含合同: ' + links + '</p>');
+    infoWindow.dom.children[0].style["white-space"] = "normal";
+    infoWindow.setContent(content);
   })
 }
 
