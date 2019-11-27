@@ -102,11 +102,11 @@ window.initFullMap = function () {
   </tr>
   <tr>
     <td>项目<br />类型</td>
-    <td>${props.project_type.toString().split(',').join('<br />')}</td>
+    <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
   </tr>
   <tr>
     <td>生产<br />主责</td>
-    <td>${props.owner.toString().split(',').join('<br />')}</td>
+    <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
   </tr>
 </tbody>
 </table>
