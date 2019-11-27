@@ -89,30 +89,31 @@ window.initFullMap = function () {
 <table class="table table-striped">
 <tbody>
   <tr>
-    <td>工程编号</td>
-    <td>${props.project_code} （${props.trace_state} ${props.province}-${props.city}）</td>
+    <td>工程<br />编号</td>
+    <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
   </tr>
   <tr>
-    <td>工程名称</td>
+    <td>工程<br />名称</td>
     <td>${props.title}</td>
   </tr>
   <tr>
-    <td>甲方集团</td>
+    <td>甲方<br />集团</td>
     <td>${props.developer_company}</td>
   </tr>
   <tr>
-    <td>项目类型</td>
-    <td>${props.project_type}</td>
+    <td>项目<br />类型</td>
+    <td>${props.project_type.toString().split(',').join('<br />')}</td>
   </tr>
   <tr>
-    <td>生产主责</td>
-    <td>${props.owner}</td>
+    <td>生产<br />主责</td>
+    <td>${props.owner.toString().split(',').join('<br />')}</td>
   </tr>
 </tbody>
 </table>
 `;
     infoWindow.dom.children[0].style["text-align"] = "left";
     infoWindow.dom.children[0].style["line-height"] = "1";
+    infoWindow.dom.children[0].style["padding"] = "unset";
     infoWindow.setContent(content);
   })
 }
