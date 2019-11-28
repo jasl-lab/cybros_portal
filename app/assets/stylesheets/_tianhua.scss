@@ -35,3 +35,15 @@
   top: 50px;
   width: 100%;
 }
+
+// Keep as a separate element so folks can easily override it with another icon
+// or image file as needed.
+.aside-style-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+}
