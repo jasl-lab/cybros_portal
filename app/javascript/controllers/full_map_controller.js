@@ -94,35 +94,58 @@ window.initFullMap = function () {
       return `<a href='${m.url}' target='_blank'>${m.docname}</a>`
     }).join("<br />");
     const content = `
-<table class="table table-striped">
-<tbody>
-  <tr>
-    <td>工程<br />编号</td>
-    <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
-  </tr>
-  <tr>
-    <td>工程<br />名称</td>
-    <td>${chunkString(props.title, 17).join('<br />')}</td>
-  </tr>
-  <tr>
-    <td>甲方<br />集团</td>
-    <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
-  </tr>
-  <tr>
-    <td>项目<br />类型</td>
-    <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
-  </tr>
-  <tr>
-    <td>生产<br />主责</td>
-    <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
-  </tr>
-</tbody>
-</table>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">介绍</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同下载</a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="brief" role="tabpanel" aria-labelledby="brief-tab">
+    <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>工程<br />编号</td>
+        <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
+      </tr>
+      <tr>
+        <td>工程<br />名称</td>
+        <td>${chunkString(props.title, 17).join('<br />')}</td>
+      </tr>
+      <tr>
+        <td>甲方<br />集团</td>
+        <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
+      </tr>
+      <tr>
+        <td>项目<br />类型</td>
+        <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
+      </tr>
+      <tr>
+        <td>生产<br />主责</td>
+        <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="contract" role="tabpanel" aria-labelledby="contract-tab">
+    <p>${links}</p>
+  </div>
+</div>
 `;
     infoWindow.dom.children[0].style["text-align"] = "left";
     infoWindow.dom.children[0].style["line-height"] = "1";
     infoWindow.dom.children[0].style["padding"] = "unset";
     infoWindow.setContent(content);
+    $('#brief-tab').on('click', function(e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+    $('#contract-tab').on('click', function(e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
   })
 }
 
