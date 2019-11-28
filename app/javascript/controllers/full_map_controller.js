@@ -1,6 +1,10 @@
 import { Controller } from "stimulus"
 
 window.initFullMap = function () {
+  function chunkString(str, length) {
+    return str.match(new RegExp('.{1,' + length + '}', 'g'));
+  }
+
   const mapPoint = $('#full-map').data("full-map-map_point");
   const avgLat = $('#full-map').data("full-map-avg_lat");
   const avgLng = $('#full-map').data("full-map-avg_lng");
@@ -94,11 +98,11 @@ window.initFullMap = function () {
   </tr>
   <tr>
     <td>工程<br />名称</td>
-    <td>${props.title}</td>
+    <td>${chunkString(props.title, 17).join('<br />')}</td>
   </tr>
   <tr>
     <td>甲方<br />集团</td>
-    <td>${props.developer_company}</td>
+    <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
   </tr>
   <tr>
     <td>项目<br />类型</td>
