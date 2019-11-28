@@ -21,6 +21,7 @@ class Company::ContractsMapsController < ApplicationController
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
     map_infos = map_infos.where(company: @city) unless @city == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
+    map_infos = map_infos.where("developercompanyname LIKE ? OR marketinfoname LIKE ?", "%#{@query_text}%", "%#{@query_text}%") if @query_text.present?
 
     @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}
 
