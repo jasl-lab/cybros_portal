@@ -8,10 +8,8 @@ class Company::ContractsMapsController < ApplicationController
     prepare_meta_tags title: t(".title")
     @hide_app_footer = true
 
-    @all_cities = Bi::NewMapInfo.all_cities
     @city = params[:city].presence || '上海市'
     @client = params[:client].presence
-
 
     @all_tracestates = Bi::NewMapInfo.all_tracestates
     @tracestate = params[:tracestate].presence || '所有'
@@ -21,9 +19,13 @@ class Company::ContractsMapsController < ApplicationController
 
     map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:rels)
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
-    map_infos = map_infos.where(company: @city) unless @city == '所有'
+    map_infos = map_infos.where("company LIKE ?", "%#{@city}%") unless @city == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
-    map_infos = map_infos.where("developercompanyname LIKE ? OR marketinfoname LIKE ?", "%#{@query_text}%", "%#{@query_text}%") if @query_text.present?
+    if @query_text.present?
+      map_infos = map_infos
+        .where("developercompanyname LIKE ? OR marketinfoname LIKE ? OR ID LIKE ?",
+          "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
+    end
 
     @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}
 

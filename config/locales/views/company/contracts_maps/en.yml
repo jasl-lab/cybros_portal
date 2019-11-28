@@ -6,7 +6,9 @@ en:
         title: "View contract"
         form:
           city: "City"
+          city_hint: "City name 市 can be added"
           client: "Client"
           tracestate: "Trace state"
           query_text: "Query text"
+          query_text_hint: "Fuzzy query can query project number, project name and Party A group"
           query: "Query"

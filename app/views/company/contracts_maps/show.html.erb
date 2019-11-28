@@ -4,7 +4,8 @@
 <%= form_tag company_contracts_map_path, method: :get do -%>
   <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.city") -%></label>
-    <%= select_tag 'city', options_for_select(@all_cities, @city), class: 'form-control form-control2' %>
+    <%= text_field_tag 'city', @city, class: 'form-control form-control2' %>
+    <span class="help-block"><%= t('.form.city_hint') %></span>
   </div>
   <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.client") -%></label>
@@ -16,7 +17,8 @@
   </div>
   <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.query_text") -%></label>
-    <%= text_field_tag 'query_text', @query_text, placeholder: t(".form.query_text"), class: 'form-control form-control2' %>
+    <%= text_field_tag 'query_text', @query_text, class: 'form-control form-control2' %>
+    <span class="help-block"><%= t('.form.query_text_hint') %></span>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
