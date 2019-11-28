@@ -6,10 +6,14 @@ window.initFullMap = function () {
   }
 
   const mapPoint = $('#full-map').data("full-map-map_point");
+  const needLocateToShanghai = $('#full-map').data("full-map-need_locate_to_shanghai");
   const avgLat = $('#full-map').data("full-map-avg_lat");
   const avgLng = $('#full-map').data("full-map-avg_lng");
 
-  const center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
+  let center = new TMap.LatLng(31.228177,121.487003);
+  if (!needLocateToShanghai) {
+    center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
+  }
 
   window.full_map = new TMap.Map("full-map", {
     center,
