@@ -7,17 +7,27 @@ window.initFullMap = function () {
 
   const mapPoint = $('#full-map').data("full-map-map_point");
   const needLocateToShanghai = $('#full-map').data("full-map-need_locate_to_shanghai");
+  const needLocateToChina = $('#full-map').data("full-map-need_locate_to_china");
   const avgLat = $('#full-map').data("full-map-avg_lat");
   const avgLng = $('#full-map').data("full-map-avg_lng");
 
-  let center = new TMap.LatLng(31.228177,121.487003);
-  if (!needLocateToShanghai) {
+  let center;
+  let zoom;
+
+  if (needLocateToShanghai) {
+    center = new TMap.LatLng(31.228177,121.487003);
+    zoom = 9;
+  } else if (needLocateToChina) {
+    center = new TMap.LatLng(30.576473,112.224908);
+    zoom = 4;
+  } else {
     center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
+    zoom = 11;
   }
 
   window.full_map = new TMap.Map("full-map", {
     center,
-    zoom: 11
+    zoom
   });
 
   const geometries = mapPoint.map(function(m) {

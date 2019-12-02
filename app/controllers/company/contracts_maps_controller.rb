@@ -16,6 +16,7 @@ class Company::ContractsMapsController < ApplicationController
     @query_text = params[:query_text].presence
 
     @need_locate_to_shanghai = @city == '上海市' && @tracestate == '所有' && @client.nil? && @query_text.nil?
+    @need_locate_to_china = @city == '所有' && @tracestate == '所有' && @client.nil? && @query_text.nil?
 
     map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:rels)
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
