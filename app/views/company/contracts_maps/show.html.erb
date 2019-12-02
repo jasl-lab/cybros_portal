@@ -1,34 +1,28 @@
-<%- content_for :aside do %>
-<div class="tab-content">
-<div class="tab-pane p-2 active show">
 <%= form_tag company_contracts_map_path, method: :get do -%>
-  <div class="form-group">
-    <label class="mr-sm-2"><%= t(".form.city") -%></label>
+  <div class="form-row align-items-center">
+  <div class="col-auto my-1">
+    <label class="mr-sm-2 sr-only"><%= t(".form.city") -%></label>
     <%= text_field_tag 'city', @city, class: 'form-control form-control2' %>
-    <span class="help-block"><%= t('.form.city_hint') %></span>
   </div>
-  <div class="form-group">
-    <label class="mr-sm-2"><%= t(".form.client") -%></label>
+  <div class="col-auto my-1">
+    <label class="mr-sm-2 sr-only"><%= t(".form.client") -%></label>
     <%= text_field_tag 'client', @client, placeholder: t(".form.client"), class: 'form-control form-control2' %>
   </div>
-  <div class="form-group">
-    <label class="mr-sm-2"><%= t(".form.tracestate") -%></label>
+  <div class="col-auto my-1">
+    <label class="mr-sm-2 sr-only"><%= t(".form.tracestate") -%></label>
     <%= select_tag 'tracestate', options_for_select(@all_tracestates, @tracestate), class: 'form-control form-control2' %>
   </div>
-  <div class="form-group">
-    <label class="mr-sm-2"><%= t(".form.query_text") -%></label>
+  <div class="col-auto my-1">
+    <label class="mr-sm-2 sr-only"><%= t(".form.query_text") -%></label>
     <%= text_field_tag 'query_text', @query_text, class: 'form-control form-control2' %>
-    <span class="help-block"><%= t('.form.query_text_hint') %></span>
   </div>
-  <div class="form-group">
+  <div class="col-auto my-1">
     <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
   </div>
-  <div class="form-group">
+  <div class="col-auto my-1">
     <span>查得<%= @valid_map_infos.count -%>地图记录</span>
   </div>
-<% end %>
-</div>
-</div>
+  </div>
 <% end %>
 
 <div id="full-map"
