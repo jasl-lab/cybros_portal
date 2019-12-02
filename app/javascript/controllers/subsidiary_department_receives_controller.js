@@ -15,11 +15,6 @@ export default class extends Controller {
 
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
     const realReceives = JSON.parse(this.data.get("real_receives"));
-    const realMarketTotals = JSON.parse(this.data.get("real_markettotals"));
-
-    const realReceivesPlusMarketTotals = realReceives.map(function (num, idx) {
-      return num + realMarketTotals[idx];
-    });
 
     departmentNeedReceivesChart = echarts.init(document.getElementById('department-need-receives-chart'));
 
@@ -69,13 +64,13 @@ export default class extends Controller {
 
     const real_option = {
         title: {
-          text: '本年累计实收款与市场费',
+          text: '本年累计实收款',
           textStyle: {
             fontSize: 12,
           }
         },
         legend: {
-            data: ['本年累计实收款（万元）','本年累计市场费（万元）'],
+            data: ['本年累计实收款（万元）'],
             align: 'left'
         },
         grid: {
@@ -112,23 +107,6 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '本年累计实收款+市场费',
-          type: 'bar',
-          barWidth: 20,
-          barGap: '-100%',
-          data: realReceivesPlusMarketTotals,
-          itemStyle: {
-            color: '#DDDDDD'
-          },
-          label: {
-            normal: {
-              show: true,
-              position: 'top',
-              fontWeight: 'bold',
-              color: '#000000'
-            }
-          }
-        },{
           name: '本年累计实收款（万元）',
           type: 'bar',
           stack: '总量',
@@ -141,15 +119,6 @@ export default class extends Controller {
               show: true,
               position: 'inside'
             }
-          }
-        },{
-          name: '本年累计市场费（万元）',
-          type: 'bar',
-          stack: '总量',
-          data: realMarketTotals,
-          barWidth: 20,
-          itemStyle: {
-            color: '#DDDDDD'
           }
         }]
     };

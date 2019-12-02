@@ -59,7 +59,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
-    @real_markettotals = real_data.collect { |d| (d.markettotal / 100_00.0).round(0) }
     true_real_meta_receives = policy_scope(Bi::SubCompanyRealReceive)
       .where(realdate: beginning_of_year..@end_of_month).where(orgcode: selected_orgcode)
       .where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", real_data_last_available_date)
