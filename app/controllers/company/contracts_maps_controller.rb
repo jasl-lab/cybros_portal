@@ -11,14 +11,14 @@ class Company::ContractsMapsController < ApplicationController
     @city = params[:city].presence || '上海市'
     @client = params[:client].presence
 
-    @all_tracestates = Bi::NewMapInfo.all_tracestates
+    @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
     @tracestate = params[:tracestate].presence || '所有'
     @query_text = params[:query_text].presence
 
     @need_locate_to_shanghai = @city == '上海市' && @tracestate == '所有' && @client.nil? && @query_text.nil?
     @need_locate_to_china = @city == '所有' && @tracestate == '所有' && @client.nil? && @query_text.nil?
 
-    map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:rels)
+    map_infos = policy_scope(Bi::NewMapInfo).where.not(coordinate: nil).includes(:rels)
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
     map_infos = map_infos.where("company LIKE ?", "%#{@city}%") unless @city == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?

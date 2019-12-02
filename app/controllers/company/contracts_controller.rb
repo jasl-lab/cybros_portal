@@ -7,10 +7,10 @@ class Company::ContractsController < ApplicationController
   def index
     prepare_meta_tags title: t(".title")
 
-    @all_cities = Bi::NewMapInfo.all_cities
+    @all_cities = policy_scope(Bi::NewMapInfo).all_cities
     @city = params[:city].presence || '上海市'
 
-    @all_tracestates = Bi::NewMapInfo.all_tracestates
+    @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
     @tracestate = params[:tracestate].presence || '跟踪中'
 
     map_infos = policy_scope(Bi::NewMapInfo)
