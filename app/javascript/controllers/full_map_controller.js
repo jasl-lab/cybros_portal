@@ -170,6 +170,13 @@ export default class extends Controller {
     } else {
       window.initFullMap();
     }
+    const asideShowTime = parseInt(localStorage.getItem('map-aside-show-time') || '0', 10);
+    if(asideShowTime <= 2) {
+      localStorage.setItem('map-aside-show-time', asideShowTime + 1);
+      setTimeout(function(){
+        $('#aside-menu-toggler').click();
+      }, 500);
+    }
   }
 
   disconnect() {
