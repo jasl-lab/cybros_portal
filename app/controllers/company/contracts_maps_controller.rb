@@ -33,9 +33,12 @@ class Company::ContractsMapsController < ApplicationController
     total_cos = @valid_map_infos.collect(&:coordinate)
     @valid_map_point = @valid_map_infos.collect do |m|
       lat = m.coordinate.split(',')[1].to_f
+      if lat >= 85.051128 || lat <= -85.051128
+        Rails.logger.error "coordinate lat error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
+      end
       lng = m.coordinate.split(',')[0].to_f
       if lng >= 180 || lng <= -180
-        Rails.logger.error "#{m.id} #{m.marketinfoname} #{m.coordinate}"
+        Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
       end
       { title: m.marketinfoname,
         lat: lat,
