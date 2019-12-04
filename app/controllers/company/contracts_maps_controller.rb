@@ -28,6 +28,13 @@ class Company::ContractsMapsController < ApplicationController
           "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
     end
 
+    @allow_download = begin
+      authorize Bi::NewMapInfo, :allow_download?
+      true
+    rescue NotAuthorizedError
+      false
+    end
+
     @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}
 
     total_cos = @valid_map_infos.collect(&:coordinate)
@@ -40,19 +47,22 @@ class Company::ContractsMapsController < ApplicationController
       if lng >= 180 || lng <= -180
         Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
       end
-      { title: m.marketinfoname,
-        lat: lat,
-        lng: lng,
-        owner: m.maindeptnamedet,
-        developer_company: m.developercompanyname,
-        project_code: m.id,
-        trace_state: m.tracestate,
-        scale_area: m.scalearea,
-        province: m.province,
-        city: m.company,
-        project_type: m.projecttype,
-        big_stage: m.bigstage,
-        contracts: m.rels.collect { |r| { docname: r.docname, url: r.address } } }
+      map_info = { title: m.marketinfoname,
+                   lat: lat,
+                   lng: lng,
+                   owner: m.maindeptnamedet,
+                   developer_company: m.developercompanyname,
+                   project_code: m.id,
+                   trace_state: m.tracestate,
+                   scale_area: m.scalearea,
+                   province: m.province,
+                   city: m.company,
+                   project_type: m.projecttype,
+                   big_stage: m.bigstage }
+      if @allow_download
+        map_info = map_info.merge(contracts: (m.rels.collect { |r| { docname: r.docname, url: r.address } }))
+      end
+      map_info
     end
 
     lat_total_cos = total_cos.collect { |c| c.split(',')[1].to_f }

@@ -8,6 +8,7 @@ window.initFullMap = function () {
   const mapPoint = $('#full-map').data("full-map-map_point");
   const needLocateToShanghai = $('#full-map').data("full-map-need_locate_to_shanghai");
   const needLocateToChina = $('#full-map').data("full-map-need_locate_to_china");
+  const allowDownload = $('#full-map').data("full-map-allow_download");
   const avgLat = $('#full-map').data("full-map-avg_lat");
   const avgLng = $('#full-map').data("full-map-avg_lng");
 
@@ -42,7 +43,7 @@ window.initFullMap = function () {
       city: m.city,
       project_type: m.project_type,
       big_stage: m.big_stage,
-      contracts: m.contracts
+      contracts: allowDownload ? m.contracts : []
     }
     switch (m.trace_state) {
       case '跟踪中':
@@ -97,65 +98,98 @@ window.initFullMap = function () {
   infoWindow.close();// 初始关闭信息窗关闭
 
   marker.on("click", function (evt) {
+    const allowDownload = $('#full-map').data("full-map-allow_download");
     infoWindow.open();
     infoWindow.setPosition(evt.geometry.position);
     const props = evt.geometry.properties
     const links = props.contracts.map(function(m) {
       return `<a href='${m.url}' target='_blank'>${m.docname}</a>`
     }).join("<br />");
-    const content = `
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">介绍</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同下载</a>
-  </li>
-</ul>
-<div class="tab-content">
-  <div class="tab-pane active" id="brief" role="tabpanel" aria-labelledby="brief-tab">
-    <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td>工程<br />编号</td>
-        <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
-      </tr>
-      <tr>
-        <td>工程<br />名称</td>
-        <td>${chunkString(props.title, 17).join('<br />')}</td>
-      </tr>
-      <tr>
-        <td>甲方<br />集团</td>
-        <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
-      </tr>
-      <tr>
-        <td>项目<br />类型</td>
-        <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
-      </tr>
-      <tr>
-        <td>生产<br />主责</td>
-        <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
-      </tr>
-    </tbody>
-    </table>
-  </div>
-  <div class="tab-pane" id="contract" role="tabpanel" aria-labelledby="contract-tab">
-    <p>${links}</p>
-  </div>
-</div>
-`;
+    let content;
+    if(allowDownload == true) {
+      content = `
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">介绍</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同下载</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="brief" role="tabpanel" aria-labelledby="brief-tab">
+        <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td>工程<br />编号</td>
+            <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
+          </tr>
+          <tr>
+            <td>工程<br />名称</td>
+            <td>${chunkString(props.title, 17).join('<br />')}</td>
+          </tr>
+          <tr>
+            <td>甲方<br />集团</td>
+            <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
+          </tr>
+          <tr>
+            <td>项目<br />类型</td>
+            <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
+          </tr>
+          <tr>
+            <td>生产<br />主责</td>
+            <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="contract" role="tabpanel" aria-labelledby="contract-tab">
+        <p>${links}</p>
+      </div>
+    </div>
+    `;
+    } else {
+      content = `
+        <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td>工程<br />编号</td>
+            <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
+          </tr>
+          <tr>
+            <td>工程<br />名称</td>
+            <td>${chunkString(props.title, 17).join('<br />')}</td>
+          </tr>
+          <tr>
+            <td>甲方<br />集团</td>
+            <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
+          </tr>
+          <tr>
+            <td>项目<br />类型</td>
+            <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
+          </tr>
+          <tr>
+            <td>生产<br />主责</td>
+            <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
+          </tr>
+        </tbody>
+        </table>
+    `;
+    }
     infoWindow.dom.children[0].style["text-align"] = "left";
     infoWindow.dom.children[0].style["line-height"] = "1";
     infoWindow.dom.children[0].style["padding"] = "unset";
     infoWindow.setContent(content);
-    $('#brief-tab').on('click', function(e) {
-      e.preventDefault();
-      $(this).tab('show');
-    });
-    $('#contract-tab').on('click', function(e) {
-      e.preventDefault();
-      $(this).tab('show');
-    });
+    if (allowDownload == true) {
+      $('#brief-tab').on('click', function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+      $('#contract-tab').on('click', function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+    }
   })
 }
 
