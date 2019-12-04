@@ -17,11 +17,13 @@ module Bi
     end
 
     def show?
-      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+      # user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+      user.admin?
     end
 
     def index?
-      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+      # user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+      user.admin?
     end
 
     def allow_download?

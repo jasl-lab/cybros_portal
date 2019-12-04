@@ -5,6 +5,7 @@ class Company::ContractsController < ApplicationController
   before_action :set_page_layout_data, if: -> { request.format.html? }
 
   def index
+    authorize Bi::NewMapInfo
     prepare_meta_tags title: t(".title")
 
     @all_cities = policy_scope(Bi::NewMapInfo).all_cities

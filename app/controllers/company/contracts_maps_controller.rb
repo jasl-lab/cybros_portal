@@ -5,6 +5,7 @@ class Company::ContractsMapsController < ApplicationController
   before_action :set_page_layout_data, if: -> { request.format.html? }
 
   def show
+    authorize Bi::NewMapInfo
     prepare_meta_tags title: t(".title")
     @hide_app_footer = true
 
