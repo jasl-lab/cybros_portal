@@ -115,7 +115,7 @@ window.initFullMap = function () {
       content = `
     <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">介绍</a>
+        <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">项目信息</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同下载</a>
@@ -134,7 +134,7 @@ window.initFullMap = function () {
             <td>${chunkString(props.title, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>甲方<br />集团</td>
+            <td>案名</td>
             <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
           </tr>
           <tr>
@@ -162,7 +162,7 @@ window.initFullMap = function () {
             <td>${chunkString(props.title, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>甲方<br />集团</td>
+            <td>案名</td>
             <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
           </tr>
           <tr>
