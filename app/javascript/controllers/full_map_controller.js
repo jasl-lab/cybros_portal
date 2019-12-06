@@ -103,7 +103,7 @@ window.initFullMap = function () {
     const props = evt.geometry.properties;
 
     const project_items = props.project_items.map(function(p) {
-      return chunkString(`${p.deptname}（${p.project_type}）`,17).join('<br />');
+      return "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
     }).join("<br />");
 
     const links = props.contracts.map(function(m) {

@@ -51,6 +51,8 @@ class Company::ContractsMapsController < ApplicationController
       if lng >= 180 || lng <= -180
         Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
       end
+      project_items = m.project_items.order(:businesstypecnname, :projectitemdeptname)
+        .group_by(&:businesstypecnname).transform_values { |a| a.collect(&:projectitemdeptname) }.to_a
       map_info = { title: m.marketinfoname,
                    lat: lat,
                    lng: lng,
@@ -61,7 +63,7 @@ class Company::ContractsMapsController < ApplicationController
                    province: m.province,
                    city: m.company,
                    big_stage: m.bigstage,
-                   project_items: m.project_items.collect { |r| { deptname: r.projectitemdeptname, project_type: r.businesstypecnname } } }
+                   project_items: project_items }
       if @allow_download
         map_info = map_info.merge(contracts: (m.rels.collect { |r| { docname: r.docname, url: r.address } }))
       end
