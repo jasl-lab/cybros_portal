@@ -17,6 +17,7 @@ export default class extends Controller {
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
+    const lastAvailableSignDeptDate = this.data.get("last_available_sign_dept_date");
     const companyName = this.data.get("company_name");
     const sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
     const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
@@ -315,7 +316,8 @@ export default class extends Controller {
         const sent_data = {
           company_name: companyName,
           department_name: series_department,
-          month_name: month_name };
+          month_name: month_name,
+          last_available_sign_dept_date: lastAvailableSignDeptDate };
         let drill_down_url;
         if (params.seriesType === 'bar') {
           drill_down_url = '/report/subsidiary_contract_signing/cp_drill_down'

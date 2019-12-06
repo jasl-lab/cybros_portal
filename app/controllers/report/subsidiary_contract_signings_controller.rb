@@ -32,7 +32,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       current_user_companies.first
     end
 
-    @company_short_names = policy_scope(Bi::ContractSignDept)
+    @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(@end_of_month)
+    @company_short_names = policy_scope(Bi::ContractSignDept).where(date: @last_available_sign_dept_date)
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN_DEPT.orgcode")
       .order("ORG_ORDER.org_order DESC")
       .select("CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order").distinct.where("filingtime <= ?", @end_of_month)
@@ -40,7 +41,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
 
-    data = policy_scope(Bi::ContractSignDept).where("filingtime <= ?", @end_of_month)
+    data = policy_scope(Bi::ContractSignDept).where("filingtime <= ?", @end_of_month).where(date: @last_available_sign_dept_date)
       .where(orgcode: org_code)
       .having("SUM(contract_amount) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
@@ -81,7 +82,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     contract_count = data.collect { |d| d.sum_contract_amount_count.to_f }
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
 
-    cp_data = policy_scope(Bi::ContractProductionDept)
+    @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
+    cp_data = policy_scope(Bi::ContractProductionDept).where(date: @last_available_production_dept_date)
       .where(orgcode: org_code)
       .having("SUM(total) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
@@ -120,6 +122,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     if belong_deparments.exists?
       @department_name = belong_deparments.pluck(:部门)
     end
+
     @data = policy_scope(Bi::ContractSignDetailAmount)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
@@ -150,7 +153,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       @department_name = belong_deparments.pluck(:部门)
     end
 
-    @data = policy_scope(Bi::ContractProductionDetail)
+    last_available_sign_dept_date = Date.parse(params[:last_available_sign_dept_date])
+    @data = policy_scope(Bi::ContractProductionDetail).where(date: last_available_sign_dept_date)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
     authorize @data.first
