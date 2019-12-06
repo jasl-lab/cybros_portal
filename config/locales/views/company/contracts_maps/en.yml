@@ -9,6 +9,7 @@ en:
           city_hint: "City name 市 can be added"
           client: "Client"
           tracestate: "Trace state"
+          createddate_year: "Created date year"
           query_text: "Query text"
           query_text_hint: "Fuzzy query can query project number, project name and Party A group"
           query: "Query"

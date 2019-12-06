@@ -9,6 +9,7 @@ zh-CN:
           city_hint: "城市名可以加市，输入“所有”查询所有"
           client: "客户"
           tracestate: "跟踪状态"
+          createddate_year: "合同年份"
           query_text: "模糊查询条件"
           query_text_hint: "模糊查询可以查询工程编号、工程名称和甲方集团"
           query: "查询"

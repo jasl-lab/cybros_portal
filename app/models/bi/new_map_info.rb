@@ -12,5 +12,9 @@ module Bi
     def self.all_tracestates
       @_all_tracestates ||= ['所有'] + Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
     end
+
+    def self.all_createddate_year
+      @_all_createddate_year ||= ['所有'] + Bi::NewMapInfo.order('YEAR(CREATEDDATE)').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
+    end
   end
 end
