@@ -34,15 +34,14 @@ window.initFullMap = function () {
   const geometries = mapPoint.map(function(m) {
     const properties = {
       title: m.title,
-      owner: m.owner,
       developer_company: m.developer_company,
       project_code: m.project_code,
       trace_state: m.trace_state,
       scale_area: m.scale_area,
       province: m.province,
       city: m.city,
-      project_type: m.project_type,
       big_stage: m.big_stage,
+      project_items: m.project_items,
       contracts: allowDownload ? m.contracts : []
     }
     switch (m.trace_state) {
@@ -101,10 +100,16 @@ window.initFullMap = function () {
     const allowDownload = $('#full-map').data("full-map-allow_download");
     infoWindow.open();
     infoWindow.setPosition(evt.geometry.position);
-    const props = evt.geometry.properties
+    const props = evt.geometry.properties;
+
+    const project_items = props.project_items.map(function(p) {
+      return chunkString(`${p.deptname}（${p.project_type}）`,17).join('<br />');
+    }).join("<br />");
+
     const links = props.contracts.map(function(m) {
       return `<a href='${m.url}' target='_blank'>${m.docname}</a>`
     }).join("<br />");
+
     let content;
     if(allowDownload == true) {
       content = `
@@ -133,12 +138,8 @@ window.initFullMap = function () {
             <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>项目<br />类型</td>
-            <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
-          </tr>
-          <tr>
             <td>生产<br />主责</td>
-            <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
+            <td>${project_items}</td>
           </tr>
         </tbody>
         </table>
@@ -165,12 +166,8 @@ window.initFullMap = function () {
             <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>项目<br />类型</td>
-            <td>${props.project_type === null ? '' : props.project_type.toString().split(',').join('<br />')}</td>
-          </tr>
-          <tr>
             <td>生产<br />主责</td>
-            <td>${props.owner === null ? '' : props.owner.toString().split(',').join('<br />')}</td>
+            <td>${project_items}</td>
           </tr>
         </tbody>
         </table>
