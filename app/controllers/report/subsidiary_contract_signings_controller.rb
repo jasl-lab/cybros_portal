@@ -76,7 +76,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       mean.nan? ? 0 : mean.round(0)
     end
     @avg_period_mean_max = @avg_period_mean.max.round(-1)
-    @sum_contract_amounts = (@contract_amounts.sum / 10000.to_f).round(2)
+    @sum_contract_amounts = (policy_scope(Bi::ContractSignDept).where(orgcode: org_code).where(date: @last_available_sign_dept_date)
+      .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first.sum_contract_amounts / 10000.to_f).round(2)
 
     contract_period = data.collect { |d| d.sum_contract_period.to_f }
     contract_count = data.collect { |d| d.sum_contract_amount_count.to_f }
@@ -103,7 +104,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
-    @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
+    @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept).where(orgcode: org_code).where(date: @last_available_production_dept_date)
+      .select("ROUND(SUM(total)/10000, 2) cp_amounts").first.cp_amounts / 10000.to_f).round(2)
 
     @cp_contract_amounts_per_staff = []
     @cp_contract_amounts.each_with_index do |contract_amount, index|
