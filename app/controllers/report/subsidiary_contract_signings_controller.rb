@@ -76,7 +76,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       mean.nan? ? 0 : mean.round(0)
     end
     @avg_period_mean_max = @avg_period_mean.max.round(-1)
-    @sum_contract_amounts = (policy_scope(Bi::ContractSignDept).where(orgcode: org_code).where(date: @last_available_sign_dept_date)
+    @sum_contract_amounts = (policy_scope(Bi::ContractSignDept).where("filingtime <= ?", @end_of_month).where(orgcode: org_code).where(date: @last_available_sign_dept_date)
       .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first.sum_contract_amounts / 10000.to_f).round(2)
 
     contract_period = data.collect { |d| d.sum_contract_period.to_f }
@@ -84,7 +84,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @sum_avg_period_mean = (contract_period.sum / contract_count.sum).round(0)
 
     @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
-    cp_data = policy_scope(Bi::ContractProductionDept).where(date: @last_available_production_dept_date)
+    cp_data = policy_scope(Bi::ContractProductionDept).where("filingtime <= ?", @end_of_month).where(date: @last_available_production_dept_date)
       .where(orgcode: org_code)
       .having("SUM(total) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
@@ -104,7 +104,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
-    @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept).where(orgcode: org_code).where(date: @last_available_production_dept_date)
+    @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept).where("filingtime <= ?", @end_of_month).where(orgcode: org_code).where(date: @last_available_production_dept_date)
       .select("ROUND(SUM(total)/10000, 2) cp_amounts").first.cp_amounts / 10000.to_f).round(2)
 
     @cp_contract_amounts_per_staff = []
