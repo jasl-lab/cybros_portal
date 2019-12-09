@@ -108,7 +108,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.complete_value"),
-        link: report_complete_value_path },
+        link: report_complete_value_path(view_orgcode_sum: true) },
       { text: t("layouts.sidebar.operation.subsidiary_complete_value"),
         link: report_subsidiary_complete_value_path(view_deptcode_sum: true) }]
     end
