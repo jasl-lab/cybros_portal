@@ -32,21 +32,6 @@ export default class extends Controller {
 
     const needShouldReceivesPerStaff = JSON.parse(this.data.get("need_should_receives_per_staff"));
     const needShouldReceivesPerStaffMax = JSON.parse(this.data.get("need_should_receives_per_staff_max"));
-    const paybackRates = JSON.parse(this.data.get("payback_rates"));
-
-    function differentColor(amount) {
-      let color;
-
-      if(70 >= amount) {
-        color = '#BB332E';
-      } else {
-        color = '#7E91A5';
-      }
-
-      return { value: amount, itemStyle: { color: color }}
-    }
-
-    const paybackRatesWithColor = paybackRates.map(differentColor);
 
     function realReceivePerStaffRefColor(amount) {
       let color;
@@ -300,7 +285,7 @@ export default class extends Controller {
           }
         },
         legend: {
-            data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
+            data: ['人均应收款（财务+业务）（万元）'],
             align: 'left'
         },
         grid: {
@@ -341,21 +326,6 @@ export default class extends Controller {
             interval: 'auto',
             formatter: '{value}万'
           }
-        },{
-          type: 'value',
-          name: '回款率',
-          position: 'right',
-          min: 0,
-          max: 180,
-          interval: Math.ceil(180 / 5),
-          axisLine: {
-            lineStyle: {
-              color: '#675BBA'
-            }
-          },
-          axisLabel: {
-            formatter: '{value}%'
-          }
         }],
         series: [{
           name: '人均应收款（财务+业务）（万元）',
@@ -368,22 +338,6 @@ export default class extends Controller {
               show: true,
               position: 'top',
               color: '#3E3E3E'
-            }
-          }
-        },{
-          name: '本年回款率',
-          type: 'line',
-          yAxisIndex: 1,
-          symbol: 'circle',
-          symbolSize: 8,
-          data: paybackRatesWithColor,
-          barMaxWidth: 38,
-          label: {
-            normal: {
-              show: true,
-              position: 'top',
-              distance: 20,
-              formatter: '{c}%'
             }
           }
         }]

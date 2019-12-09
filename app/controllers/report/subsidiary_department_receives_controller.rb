@@ -154,7 +154,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
     sum_real_receives_for_payback = 0
     total_complete_value_per_staff = 0
-    @payback_rates = real_data.collect do |d|
+    payback_rates = real_data.collect do |d|
       dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       complete_value = complete_value_hash.fetch(dept_name, 100000)
       sum_real_receives_for_payback += d.total
