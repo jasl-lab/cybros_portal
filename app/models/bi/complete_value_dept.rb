@@ -5,7 +5,7 @@ module Bi
     self.table_name = "COMPLETE_VALUE_DEPT"
 
     def self.all_month_names
-      Bi::CompleteValueDept.order(date: :asc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
+      Bi::CompleteValueDept.order(month: :asc).pluck(:month).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
     def self.last_available_date(end_of_month)
