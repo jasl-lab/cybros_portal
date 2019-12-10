@@ -12,7 +12,8 @@ class Report::CimToolsController < Report::BaseController
       format.json do
         cad_sessions = policy_scope(Cad::CadSession)
         render json: CadSessionDatatable.new(params,
-          cad_sessions: cad_sessions)
+          cad_sessions: cad_sessions,
+          view_context: view_context)
       end
     end
   end

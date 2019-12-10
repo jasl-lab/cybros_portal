@@ -3,6 +3,8 @@
 class CompanyContractDatatable < ApplicationDatatable
   include ActionView::Helpers::TagHelper
 
+  def_delegator :@view, :company_contract_path
+
   def initialize(params, opts = {})
     @map_infos = opts[:map_infos]
     @city = opts[:city]
@@ -23,7 +25,7 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { project_no: r.id,
+      { project_no: "#{r.id}<br />#{link_to('合同查看', company_contract_path(id: r.id))}".html_safe,
         market_info_name: r.marketinfoname,
         developer_company_name: r.developercompanyname,
         project_type: r.projecttype,

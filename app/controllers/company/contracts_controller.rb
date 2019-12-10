@@ -22,9 +22,13 @@ class Company::ContractsController < ApplicationController
       format.html
       format.json do
         render json: CompanyContractDatatable.new(params, map_infos: map_infos,
-          city: @city, tracestate: @tracestate)
+          city: @city, tracestate: @tracestate, view_context: view_context)
       end
     end
+  end
+
+  def show
+
   end
 
   protected
