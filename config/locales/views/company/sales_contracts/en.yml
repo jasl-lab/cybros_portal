@@ -1,0 +1,6 @@
+---
+en:
+  company:
+    sales_contracts:
+      show:
+        title: "%{project_id} contract detail"

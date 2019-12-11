@@ -16,3 +16,9 @@ zh-CN:
           project_type: "类型"
           scale_area: "规模"
           main_dept_name: "公司部门"
+      show:
+        title: "%{project_id}合同明细"
+        table:
+          contract_id: "合同编号"
+          contract_name: "合同名称"
+          amount_total: "合同金额"

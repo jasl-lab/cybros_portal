@@ -56,7 +56,9 @@ Rails.application.routes.draw do
     resources :pending_questions, only: %i[index create destroy update]
     resources :direct_questions, only: %i[index create destroy]
     resource :drill_down_question, only: %i[show]
-    resources :contracts, only: %i[index show]
+    resources :contracts, only: %i[index show] do
+      resources :sales_contracts, only: %i[show]
+    end
     resource :contracts_map, only: %i[show]
   end
 

@@ -1,0 +1,6 @@
+---
+zh-CN:
+  company:
+    sales_contracts:
+      show:
+        title: "%{project_id}合同明细"

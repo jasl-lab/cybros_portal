@@ -28,7 +28,7 @@ class Company::ContractsController < ApplicationController
   end
 
   def show
-
+    @sas = Bi::SaContract.where(projectcode: params[:id])
   end
 
   protected

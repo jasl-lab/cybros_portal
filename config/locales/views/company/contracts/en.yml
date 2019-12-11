@@ -16,3 +16,9 @@ en:
           project_type: "Project type"
           scale_area: "Scale area"
           main_dept_name: "Main department"
+      show:
+        title: "%{project_id} contract detail"
+        table:
+          contract_id: "Contract ID"
+          contract_name: "Contract name"
+          amount_total: "Amount total"
