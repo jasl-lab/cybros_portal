@@ -13,6 +13,10 @@
           <% if params[:in_iframe].present? %>
             <%= hidden_field_tag :in_iframe, true -%>
           <% end %>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".org_names") -%>：</label>
+              <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), {include_blank: true, multiple: true, class: 'form-control' } %>
+          </div>
           <div>
             <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
           </div>
@@ -21,7 +25,7 @@
         <div
           data-controller="group-contract-holds"
           data-action="resize@window->group-contract-holds#layout"
-          data-group-contract-holds-all_company_short_names="<%= @all_company_short_names.to_json -%>"
+          data-group-contract-holds-company_short_names="<%= @company_short_names.to_json -%>"
           data-group-contract-holds-biz_retent_contract="<%= @biz_retent_contract.to_json -%>"
           data-group-contract-holds-biz_retent_no_contract="<%= @biz_retent_no_contract.to_json -%>"
           data-group-contract-holds-biz_retent_totals="<%= @biz_retent_totals.to_json -%>"

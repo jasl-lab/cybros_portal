@@ -12,9 +12,11 @@ class Report::GroupContractHoldsController < Report::BaseController
     end_of_month = Date.parse(@month_name).end_of_month
     @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
     @company_short_names = policy_scope(Bi::ContractHold).available_company_names(@last_available_date)
+    @orgs_options = params[:orgs]
+    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
     data = policy_scope(Bi::ContractHold)
-      .where(date: @last_available_date)
+      .where(date: @last_available_date).where(orgcode: @orgs_options)
       .select("CONTRACT_HOLD.orgcode, ORG_ORDER.org_order, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_HOLD.orgcode")
       .group("CONTRACT_HOLD.orgcode, ORG_ORDER.org_order")
@@ -24,9 +26,10 @@ class Report::GroupContractHoldsController < Report::BaseController
     @all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @orgs_options = all_company_orgcodes - ["000103"] if @orgs_options.blank? # hide 天华节能
+    @organization_options = @all_company_short_names.zip(all_company_orgcodes)
 
-    @biz_retent_contract = @orgs_options.collect do |org_code|
-      d = data.find { |c| c.orgcode == org_code }
+    @company_short_names = data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+    @biz_retent_contract = data.collect do |d|
       if d.present?
         (d.busiretentcontract.to_f / 10000.to_f).round(0)
       else
@@ -34,8 +37,7 @@ class Report::GroupContractHoldsController < Report::BaseController
       end
     end
 
-    @biz_retent_no_contract = @orgs_options.collect do |org_code|
-      d = data.find { |c| c.orgcode == org_code }
+    @biz_retent_no_contract = data.collect do |d|
       if d.present?
         (d.busiretentnocontract.to_f / 10000.to_f).round(0)
       else

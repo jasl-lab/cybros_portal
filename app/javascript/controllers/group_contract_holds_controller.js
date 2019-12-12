@@ -8,7 +8,7 @@ export default class extends Controller {
     groupContractHoldChart = echarts.init(document.getElementById('group-contract-hold-chart'));
     groupContractHoldPerDeptChart = echarts.init(document.getElementById('group-contract-hold-per-dept-chart'));
 
-    var allCompanyShortNames = JSON.parse(this.data.get("all_company_short_names"));
+    var companyShortNames = JSON.parse(this.data.get("company_short_names"));
     var bizRetentContract = JSON.parse(this.data.get("biz_retent_contract"));
     var bizRetentNoContract = JSON.parse(this.data.get("biz_retent_no_contract"));
     var bizRetentTotals = JSON.parse(this.data.get("biz_retent_totals"));
@@ -40,7 +40,7 @@ export default class extends Controller {
           }
         },
         xAxis: {
-          data: allCompanyShortNames,
+          data: companyShortNames,
           silent: true,
           axisLabel: {
             interval: 0,
@@ -135,7 +135,7 @@ export default class extends Controller {
         }
       },
       xAxis: {
-        data: allCompanyShortNames,
+        data: companyShortNames,
         silent: true,
         axisLabel: {
           interval: 0,
