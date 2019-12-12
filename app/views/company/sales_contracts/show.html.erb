@@ -126,6 +126,21 @@
           <% end %>
         </tbody>
       </table>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= t(".table.contract_files") %></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sc.files.each do |f| %>
+            <tr>
+              <td colspan="3"><%= link_to f.enclosurename, f.attachmentaddress, target: "_blank" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
