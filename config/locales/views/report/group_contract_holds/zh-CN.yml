@@ -3,6 +3,10 @@ zh-CN:
   report:
     group_contract_holds:
       show:
+        actions:
+          view_orgcode_sum: "显示汇总组织"
+          view_orgcode: "显示明细部门"
         title: "集团业务保有量"
         month_name: "查询年月"
+        org_names: "显示子公司"
         confirm: "确认"

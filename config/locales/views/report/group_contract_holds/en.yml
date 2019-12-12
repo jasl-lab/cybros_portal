@@ -3,6 +3,10 @@ en:
   report:
     group_contract_holds:
       show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
         title: "Business retent contract and no contract on Group"
         month_name: "Query year and month"
+        org_names: "Organization names"
         confirm: "Submit"

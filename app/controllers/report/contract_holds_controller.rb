@@ -232,7 +232,7 @@ class Report::ContractHoldsController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.group_contract_hold"),
-        link: report_group_contract_hold_path },
+        link: report_group_contract_hold_path(view_orgcode_sum: true) },
       { text: t("layouts.sidebar.operation.contract_hold", company: params[:company_name]&.strip || current_user.user_company_short_name),
         link: report_contract_hold_path(view_deptcode_sum: true) }]
     end
