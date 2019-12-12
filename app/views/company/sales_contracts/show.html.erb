@@ -3,5 +3,91 @@
     <h3 class="page-title">
       <%= t(".title", project_id: params[:contract_id]) %>
     </h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= t(".table.contract_info") %></th>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= t(".table.contract_id") %></td>
+            <td colspan="4"><%= @sc.salescontractcode -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.contract_name") %></td>
+            <td colspan="4"><%= @sc.salescontractname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.contract_status") %></td>
+            <td colspan="4"><%= @sc.contractstatusname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.amount_total") %></td>
+            <td colspan="4"><%= @sc.amounttotal -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.shard_con_amount") %></td>
+            <td colspan="4"><%= @sc.shardconamount -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.real_amount_total") %></td>
+            <td colspan="4"><%= @sc.realamounttotal -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.shard_con_amount") %></td>
+            <td colspan="4"><%= @sc.shardconamount -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.real_amount_total") %></td>
+            <td colspan="4"><%= @sc.realamounttotal -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.business_ltd_name") %></td>
+            <td colspan="4"><%= @sc.businessltdname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.business_departments_name") %></td>
+            <td colspan="4"><%= @sc.businessdepartmentsname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.contract_category") %></td>
+            <td colspan="4"><%= @sc.contractcategoryname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.contract_property") %></td>
+            <td colspan="4"><%= @sc.contractpropertyname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.scale_type") %></td>
+            <td colspan="4"><%= @sc.scaletypename -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.scale_area") %></td>
+            <td colspan="4"><%= @sc.scalearea -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.first_party_name") %></td>
+            <td colspan="4"><%= @sc.firstpartyname -%></td>
+          </tr>
+          <tr>
+            <td><%= t(".table.party_b_name") %></td>
+            <td colspan="4"><%= @sc.partybname -%></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= t(".table.contract_detail") %></th>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

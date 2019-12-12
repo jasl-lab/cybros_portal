@@ -4,3 +4,20 @@ en:
     sales_contracts:
       show:
         title: "%{project_id} contract detail"
+        table:
+          contract_info: "Contract info"
+          contract_id: "Contract ID"
+          contract_name: "Contract name"
+          contract_status: "Contract status"
+          amount_total: "Amount total"
+          shard_con_amount: "Shared con amount"
+          real_amount_total: "Real amount total"
+          business_ltd_name: "Business LTD name"
+          business_departments_name: "Business department name"
+          contract_category: "Contract category"
+          contract_property: "Contract property"
+          scale_type: "Scale type"
+          scale_area: "Scale area"
+          first_party_name: "First party name"
+          party_b_name: "Party B name"
+          contract_detail: "Contract detail"

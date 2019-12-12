@@ -4,3 +4,20 @@ zh-CN:
     sales_contracts:
       show:
         title: "%{project_id}合同明细"
+        table:
+          contract_info: "合同信息"
+          contract_id: "合同编号"
+          contract_name: "合同名称"
+          contract_status: "合同状态"
+          amount_total: "合同金额"
+          shard_con_amount: "切分合同额"
+          real_amount_total: "实际合同额"
+          business_ltd_name: "商务责任公司"
+          business_departments_name: "商务责任部门"
+          contract_category: "合同类型"
+          contract_property: "合同性质"
+          scale_type: "规模类型"
+          scale_area: "规模面积（平方米）"
+          first_party_name: "甲方名称"
+          party_b_name: "乙方名称"
+          contract_detail: "分项单价"
