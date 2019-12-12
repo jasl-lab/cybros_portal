@@ -21,3 +21,8 @@ en:
           first_party_name: "First party name"
           party_b_name: "Party B name"
           contract_detail: "Contract detail"
+          operation_genre: "Operation genre"
+          building_genre: "Building genre"
+          big_stage_name: "Big stage name"
+          univalence: "Univalence"
+          scale: "Scale"

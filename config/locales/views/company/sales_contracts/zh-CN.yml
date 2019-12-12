@@ -21,3 +21,8 @@ zh-CN:
           first_party_name: "甲方名称"
           party_b_name: "乙方名称"
           contract_detail: "分项单价"
+          operation_genre: "业务类型"
+          building_genre: "建筑类型"
+          big_stage_name: "服务大阶段"
+          univalence: "单价"
+          scale: "规模"
