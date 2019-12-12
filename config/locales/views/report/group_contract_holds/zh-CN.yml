@@ -1,0 +1,8 @@
+---
+zh-CN:
+  report:
+    group_contract_holds:
+      show:
+        title: "集团业务保有量"
+        month_name: "查询年月"
+        confirm: "确认"

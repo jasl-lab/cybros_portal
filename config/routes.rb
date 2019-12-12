@@ -131,6 +131,7 @@ Rails.application.routes.draw do
         get :fill_dept_names
       end
     end
+    resource :group_contract_hold, only: %i[show]
     resource :contract_sign_detail, only: %i[show] do
       member do
         patch :hide

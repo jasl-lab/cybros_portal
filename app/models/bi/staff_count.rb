@@ -17,5 +17,13 @@ module Bi
         h
       end
     end
+
+    def self.staff_per_orgcode(end_of_month)
+      available_date = last_available_date(end_of_month)
+      where("f_month = ?", available_date).reduce({}) do |h, s|
+        h[s.orgcode] = s.avg_work
+        h
+      end
+    end
   end
 end

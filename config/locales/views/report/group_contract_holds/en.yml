@@ -1,0 +1,8 @@
+---
+en:
+  report:
+    group_contract_holds:
+      show:
+        title: "Business retent contract and no contract on Group"
+        month_name: "Query year and month"
+        confirm: "Submit"
