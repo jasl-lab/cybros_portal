@@ -9,11 +9,12 @@ GIT
 
 GIT
   remote: https://git.dev.tencent.com/ericguo/ajax-datatables-rails.git
-  revision: 71e2c12f0aaa8aaa848c54e03aca05d7c5f9ef97
+  revision: b06604e1b14aaef6352a814cfb07a796bcde1c84
   branch: master
   specs:
     ajax-datatables-rails (1.1.0)
-      railties (>= 4.2)
+      railties (>= 5.0)
+      zeitwerk
 
 GIT
   remote: https://github.com/Eric-Guo/wechat
