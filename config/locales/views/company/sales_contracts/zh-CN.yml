@@ -26,3 +26,8 @@ zh-CN:
           big_stage_name: "服务大阶段"
           univalence: "单价"
           scale: "规模"
+          contract_pay_condition: "付款条件"
+          view: "查看"
+          cont_coll_plan: "合同收款条件"
+          coll_ratio: "收款比例"
+          coll_money: "收款金额"

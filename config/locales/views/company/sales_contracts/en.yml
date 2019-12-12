@@ -26,3 +26,8 @@ en:
           big_stage_name: "Big stage name"
           univalence: "Univalence"
           scale: "Scale"
+          contract_pay_condition: "Pay condition"
+          view: "View"
+          cont_coll_plan: "Contract collection conditions"
+          coll_ratio: "Collection ratio"
+          coll_money: "Amount received"

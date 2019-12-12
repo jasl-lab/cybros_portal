@@ -107,25 +107,21 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th><%= t(".table.contract_detail") %></th>
-            <th colspan="4"></th>
+            <th colspan="2"><%= t(".table.contract_pay_condition") %></th>
+            <th><%= t(".table.view") %></th>
           </tr>
           <tr>
-            <th><%= t(".table.operation_genre") %></th>
-            <th><%= t(".table.building_genre") %></th>
-            <th><%= t(".table.big_stage_name") %></th>
-            <th><%= t(".table.univalence") %></th>
-            <th><%= t(".table.scale") %></th>
+            <th><%= t(".table.cont_coll_plan") %></th>
+            <th><%= t(".table.coll_ratio") %></th>
+            <th><%= t(".table.coll_money") %></th>
           </tr>
         </thead>
         <tbody>
-          <% @sc.prices.each do |p| %>
+          <% @sc.pay_plans.each do |p| %>
             <tr>
-              <td><%= p.operationgenrename %></td>
-              <td><%= p.buildinggenrename %></td>
-              <td><%= p.bigstagename %></td>
-              <td><%= p.univalence %></td>
-              <td><%= p.scale %></td>
+              <td><%= p.contcollplan %></td>
+              <td><%= p.collratio %></td>
+              <td><%= p.collmoney %></td>
             </tr>
           <% end %>
         </tbody>
