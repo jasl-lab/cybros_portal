@@ -48,8 +48,7 @@ window.initFullMap = function () {
       province: m.province,
       city: m.city,
       big_stage: m.big_stage,
-      project_items: m.project_items,
-      contracts: allowDownload ? m.contracts : []
+      project_items: m.project_items
     }
     switch (m.trace_state) {
       case '跟踪中':
@@ -113,10 +112,6 @@ window.initFullMap = function () {
       return "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
     }).join("<br />");
 
-    const links = props.contracts.map(function(m) {
-      return `<a href='${m.url}' target='_blank'>${m.docname}</a>`
-    }).join("<br />");
-
     let content;
     if(allowDownload == true) {
       content = `
@@ -152,7 +147,6 @@ window.initFullMap = function () {
         </table>
       </div>
       <div class="tab-pane" id="contract" role="tabpanel" aria-labelledby="contract-tab">
-        <p>${links}</p>
         <p><a href='/company/contracts/${props.project_code}'>进一步显示明细（跳出地图）</a></p>
       </div>
     </div>
@@ -174,7 +168,7 @@ window.initFullMap = function () {
             <td>${chunkString(props.project_frame_name, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>项目<br />类型<br />于<br />生产<br />主责</td>
+            <td>项目<br />类型<br />与<br />生产<br />主责</td>
             <td>${project_items}</td>
           </tr>
         </tbody>

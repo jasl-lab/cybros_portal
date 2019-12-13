@@ -21,7 +21,7 @@ class Company::ContractsMapsController < ApplicationController
     @need_locate_to_shanghai = @city == '上海市' && @tracestate == '所有' && @client.nil? && @query_text.nil?
     @need_locate_to_china = @city == '所有' && @tracestate == '所有' && @client.nil? && @query_text.nil?
 
-    map_infos = policy_scope(Bi::NewMapInfo).where.not(coordinate: nil).includes(:rels, :project_items)
+    map_infos = policy_scope(Bi::NewMapInfo).where.not(coordinate: nil).includes(:project_items)
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
     map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
     map_infos = map_infos.where("company LIKE ?", "%#{@city}%") unless @city == '所有'
@@ -55,21 +55,17 @@ class Company::ContractsMapsController < ApplicationController
 
       project_items = project_items_array.group_by(&:first).transform_values { |a| a.collect(&:second) }.to_a
 
-      map_info = { title: m.marketinfoname,
-                   lat: lat,
-                   lng: lng,
-                   project_frame_name: m.projectframename,
-                   project_code: m.id,
-                   trace_state: m.tracestate,
-                   scale_area: m.scalearea,
-                   province: m.province,
-                   city: m.company,
-                   big_stage: m.bigstage,
-                   project_items: project_items }
-      if @allow_download
-        map_info = map_info.merge(contracts: (m.rels.collect { |r| { docname: r.docname, url: r.address } }))
-      end
-      map_info
+      { title: m.marketinfoname,
+        lat: lat,
+        lng: lng,
+        project_frame_name: m.projectframename,
+        project_code: m.id,
+        trace_state: m.tracestate,
+        scale_area: m.scalearea,
+        province: m.province,
+        city: m.company,
+        big_stage: m.bigstage,
+        project_items: project_items }
     end
 
     lat_total_cos = total_cos.collect { |c| c.split(',')[1].to_f }
