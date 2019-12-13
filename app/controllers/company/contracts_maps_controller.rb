@@ -58,7 +58,7 @@ class Company::ContractsMapsController < ApplicationController
       map_info = { title: m.marketinfoname,
                    lat: lat,
                    lng: lng,
-                   developer_company: m.developercompanyname,
+                   project_frame_name: m.projectframename,
                    project_code: m.id,
                    trace_state: m.tracestate,
                    scale_area: m.scalearea,

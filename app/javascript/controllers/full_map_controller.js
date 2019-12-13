@@ -2,7 +2,11 @@ import { Controller } from "stimulus"
 
 window.initFullMap = function () {
   function chunkString(str, length) {
-    return str.match(new RegExp('.{1,' + length + '}', 'g'));
+    if(str) {
+      return str.match(new RegExp('.{1,' + length + '}', 'g'));
+    } else {
+      return [''];
+    }
   }
 
   const mapPoint = $('#full-map').data("full-map-map_point");
@@ -34,7 +38,7 @@ window.initFullMap = function () {
   const geometries = mapPoint.map(function(m) {
     const properties = {
       title: m.title,
-      developer_company: m.developer_company,
+      project_frame_name: m.project_frame_name,
       project_code: m.project_code,
       trace_state: m.trace_state,
       scale_area: m.scale_area,
@@ -135,10 +139,10 @@ window.initFullMap = function () {
           </tr>
           <tr>
             <td>案名</td>
-            <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
+            <td>${chunkString(props.project_frame_name, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>生产<br />主责</td>
+            <td>项目<br />类型<br />于<br />生产<br />主责</td>
             <td>${project_items}</td>
           </tr>
         </tbody>
@@ -163,10 +167,10 @@ window.initFullMap = function () {
           </tr>
           <tr>
             <td>案名</td>
-            <td>${chunkString(props.developer_company, 17).join('<br />')}</td>
+            <td>${chunkString(props.project_frame_name, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>生产<br />主责</td>
+            <td>项目<br />类型<br />于<br />生产<br />主责</td>
             <td>${project_items}</td>
           </tr>
         </tbody>
