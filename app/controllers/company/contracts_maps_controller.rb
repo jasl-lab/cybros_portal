@@ -76,6 +76,7 @@ class Company::ContractsMapsController < ApplicationController
 
   def detail
     @mi = Bi::NewMapInfo.find_by id: params[:project_code]
+    @sas = Bi::SaContract.where(projectcode: params[:project_code])
   end
 
   protected

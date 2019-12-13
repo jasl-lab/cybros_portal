@@ -1,1 +1,7 @@
+<%= render partial: "company/contracts/table", locals: { sas: @sas } %>
+
+<% mi.rels.each do |r| %>
+  <p><a href='<%= r.address -%>' target='_blank'><%= r.docname -%></a></p>
+<% end %>
+
 <p><a href='/company/contracts/<%= mi.id -%>'>进一步显示明细（跳出地图）</a></p>
