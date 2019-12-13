@@ -18,6 +18,7 @@ zh-CN:
           main_dept_name: "公司部门"
       show:
         title: "%{project_id}合同明细"
+        close: "关闭"
         table:
           contract_id: "合同编号"
           contract_name: "合同名称"

@@ -4,6 +4,8 @@ zh-CN:
     sales_contracts:
       show:
         title: "%{project_id}合同明细"
+        back: "后退"
+        close: "关闭"
         table:
           contract_info: "合同信息"
           contract_id: "合同编号"

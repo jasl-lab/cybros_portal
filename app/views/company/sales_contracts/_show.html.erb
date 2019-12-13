@@ -2,14 +2,16 @@
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title">
-        <%= t(".title", project_id: params[:id]) %>
+        <%= link_to t('.back'), company_contract_path(id: params[:contract_id]), remote: true, class: 'btn btn-primary' %>
+        <%= t(".title", project_id: sc.salescontractcode) %>
       </h5>
     </div>
     <div class="modal-body">
       <%= render partial: "table", locals: { sc: sc } %>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
+      <%= link_to t('.back'), company_contract_path(id: params[:contract_id]), remote: true, class: 'btn btn-primary' %>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
     </div>
   </div>
 </div>

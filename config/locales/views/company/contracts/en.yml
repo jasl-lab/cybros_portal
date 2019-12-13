@@ -18,6 +18,7 @@ en:
           main_dept_name: "Main department"
       show:
         title: "%{project_id} contract detail"
+        close: "Close"
         table:
           contract_id: "Contract ID"
           contract_name: "Contract name"

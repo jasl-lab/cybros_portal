@@ -4,6 +4,8 @@ en:
     sales_contracts:
       show:
         title: "%{project_id} contract detail"
+        back: "Back"
+        close: "Close"
         table:
           contract_info: "Contract info"
           contract_id: "Contract ID"
