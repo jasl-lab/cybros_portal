@@ -125,7 +125,7 @@ window.initFullMap = function () {
         <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">项目信息</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同下载</a>
+        <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同明细</a>
       </li>
     </ul>
     <div class="tab-content">
@@ -145,7 +145,7 @@ window.initFullMap = function () {
             <td>${chunkString(props.project_frame_name, 17).join('<br />')}</td>
           </tr>
           <tr>
-            <td>项目<br />类型<br />于<br />生产<br />主责</td>
+            <td>项目<br />类型<br />与<br />生产<br />主责</td>
             <td>${project_items}</td>
           </tr>
         </tbody>
@@ -153,6 +153,7 @@ window.initFullMap = function () {
       </div>
       <div class="tab-pane" id="contract" role="tabpanel" aria-labelledby="contract-tab">
         <p>${links}</p>
+        <p><a href='/company/contracts/${props.project_code}'>进一步显示明细（跳出地图）</a></p>
       </div>
     </div>
     `;

@@ -9,7 +9,7 @@ class Company::ContractsMapsController < ApplicationController
     prepare_meta_tags title: t(".title")
     @hide_app_footer = true
 
-    @city = params[:city].presence || '默认空白'
+    @city = params[:city].presence || '项目所在城市'
     @client = params[:client].presence
 
     @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
