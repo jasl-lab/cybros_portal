@@ -25,9 +25,12 @@ window.initFullMap = function () {
   } else if (needLocateToChina) {
     center = new TMap.LatLng(30.576473,112.224908);
     zoom = 4;
-  } else {
+  } else if (!isNaN(avgLat) && !isNaN(avgLng)) {
     center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
     zoom = 11;
+  } else {
+    center = new TMap.LatLng(31.228177,121.487003);
+    zoom = 10;
   }
 
   window.full_map = new TMap.Map("full-map", {
