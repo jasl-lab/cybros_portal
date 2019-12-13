@@ -71,9 +71,10 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th><%= t("company.sales_contracts.table.contract_detail") %></th>
-        <th colspan="4"></th>
+        <th colspan="5" data-toggle="collapse" data-target="#workDetail" aria-expanded="false" aria-controls="workDetail"><%= t("company.sales_contracts.table.contract_detail") %> >> </th>
       </tr>
+    </thead>
+    <tbody class="collapse" id="workDetail">
       <tr>
         <th><%= t("company.sales_contracts.table.operation_genre") %></th>
         <th><%= t("company.sales_contracts.table.building_genre") %></th>
@@ -81,8 +82,6 @@
         <th><%= t("company.sales_contracts.table.univalence") %></th>
         <th><%= t("company.sales_contracts.table.scale") %></th>
       </tr>
-    </thead>
-    <tbody>
       <% sc.prices.each do |p| %>
         <tr>
           <td><%= p.operationgenrename %></td>
@@ -100,16 +99,15 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th colspan="2"><%= t("company.sales_contracts.table.contract_pay_condition") %></th>
-        <th><%= t("company.sales_contracts.table.view") %></th>
+        <th colspan="3" data-toggle="collapse" data-target="#payConditionDetail" aria-expanded="false" aria-controls="payConditionDetail"><%= t("company.sales_contracts.table.contract_pay_condition") -%> >> </th>
       </tr>
+    </thead>
+    <tbody class="collapse" id="payConditionDetail">
       <tr>
         <th><%= t("company.sales_contracts.table.cont_coll_plan") %></th>
         <th><%= t("company.sales_contracts.table.coll_ratio") %></th>
         <th><%= t("company.sales_contracts.table.coll_money") %></th>
       </tr>
-    </thead>
-    <tbody>
       <% sc.pay_plans.each do |p| %>
         <tr>
           <td><%= p.contcollplan %></td>
