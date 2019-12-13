@@ -19,7 +19,7 @@ class Report::GroupContractHoldsController < Report::BaseController
       .where(date: @last_available_date)
       .order("ORG_ORDER.org_order DESC")
 
-    data = if @view_deptcode_sum
+    data = if @view_orgcode_sum
       data.select("CONTRACT_HOLD.orgcode_sum orgcode, ORG_ORDER.org_order, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_HOLD.orgcode_sum")
       .group("CONTRACT_HOLD.orgcode_sum, ORG_ORDER.org_order")
