@@ -6,26 +6,7 @@
       </h5>
     </div>
     <div class="modal-body">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th><%= t(".table.contract_id") %></th>
-            <th><%= t(".table.contract_name") %></th>
-            <th><%= t(".table.amount_total") %></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% sas.each do |s| %>
-            <tr>
-              <td><%= link_to s.salescontractcode, company_contract_sales_contract_path(id: s.salescontractid, contract_id: s.projectcode) %></td>
-              <td><%= s.salescontractshort %></td>
-              <td><%= s.amounttotal %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
+      <%= render partial: "table", locals: { sas: sas } %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
