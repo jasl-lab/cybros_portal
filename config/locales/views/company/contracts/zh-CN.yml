@@ -19,7 +19,7 @@ zh-CN:
       show:
         title: "%{project_id}合同明细"
         close: "关闭"
-        table:
-          contract_id: "合同编号"
-          contract_name: "合同名称"
-          amount_total: "合同金额"
+      table:
+        contract_id: "合同编号"
+        contract_name: "合同名称"
+        amount_total: "合同金额"

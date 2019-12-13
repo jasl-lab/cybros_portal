@@ -19,7 +19,7 @@ en:
       show:
         title: "%{project_id} contract detail"
         close: "Close"
-        table:
-          contract_id: "Contract ID"
-          contract_name: "Contract name"
-          amount_total: "Amount total"
+      table:
+        contract_id: "Contract ID"
+        contract_name: "Contract name"
+        amount_total: "Amount total"
