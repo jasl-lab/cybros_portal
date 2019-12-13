@@ -10,11 +10,9 @@ zh-CN:
           tracestate: "跟踪状态"
           query: "查询"
         table:
-          project_no: "项目编号"
-          market_info_name: "项目名称"
-          developer_company_name: "甲方集团"
-          project_type: "类型"
-          scale_area: "规模"
+          project_no: "工程编号"
+          market_info_name: "工程名称"
+          project_type_and_scale_area: "类型 与 规模"
           main_dept_name: "公司部门"
       show:
         title: "%{project_id}合同明细"
