@@ -171,7 +171,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.contract_signing"),
-        link: report_contract_signing_path(view_orgcode_sum: params[:view_orgcode_sum]) },
+        link: report_contract_signing_path(view_orgcode_sum: true) },
       { text: t("layouts.sidebar.operation.subsidiary_contract_signing"),
         link: report_subsidiary_contract_signing_path(view_deptcode_sum: true) }]
     end
