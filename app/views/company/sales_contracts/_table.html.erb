@@ -1,0 +1,140 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><%= t(".table.contract_info") %></th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= t(".table.contract_id") %></td>
+        <td colspan="4"><%= sc.salescontractcode -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.contract_name") %></td>
+        <td colspan="4"><%= sc.salescontractname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.contract_status") %></td>
+        <td colspan="4"><%= sc.contractstatusname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.amount_total") %></td>
+        <td colspan="4"><%= sc.amounttotal -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.shard_con_amount") %></td>
+        <td colspan="4"><%= sc.shardconamount -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.real_amount_total") %></td>
+        <td colspan="4"><%= sc.realamounttotal -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.business_ltd_name") %></td>
+        <td colspan="4"><%= sc.businessltdname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.business_departments_name") %></td>
+        <td colspan="4"><%= sc.businessdepartmentsname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.contract_category") %></td>
+        <td colspan="4"><%= sc.contractcategoryname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.contract_property") %></td>
+        <td colspan="4"><%= sc.contractpropertyname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.scale_type") %></td>
+        <td colspan="4"><%= sc.scaletypename -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.scale_area") %></td>
+        <td colspan="4"><%= sc.scalearea -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.first_party_name") %></td>
+        <td colspan="4"><%= sc.firstpartyname -%></td>
+      </tr>
+      <tr>
+        <td><%= t(".table.party_b_name") %></td>
+        <td colspan="4"><%= sc.partybname -%></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr />
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t(".table.contract_detail") %></th>
+        <th colspan="4"></th>
+      </tr>
+      <tr>
+        <th><%= t(".table.operation_genre") %></th>
+        <th><%= t(".table.building_genre") %></th>
+        <th><%= t(".table.big_stage_name") %></th>
+        <th><%= t(".table.univalence") %></th>
+        <th><%= t(".table.scale") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sc.prices.each do |p| %>
+        <tr>
+          <td><%= p.operationgenrename %></td>
+          <td><%= p.buildinggenrename %></td>
+          <td><%= p.bigstagename %></td>
+          <td><%= p.univalence %></td>
+          <td><%= p.scale %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<hr />
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th colspan="2"><%= t(".table.contract_pay_condition") %></th>
+        <th><%= t(".table.view") %></th>
+      </tr>
+      <tr>
+        <th><%= t(".table.cont_coll_plan") %></th>
+        <th><%= t(".table.coll_ratio") %></th>
+        <th><%= t(".table.coll_money") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sc.pay_plans.each do |p| %>
+        <tr>
+          <td><%= p.contcollplan %></td>
+          <td><%= p.collratio %></td>
+          <td><%= p.collmoney %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<hr />
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t(".table.contract_files") %></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sc.files.each do |f| %>
+        <tr>
+          <td colspan="3"><%= link_to f.enclosurename, f.attachmentaddress, target: "_blank" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
