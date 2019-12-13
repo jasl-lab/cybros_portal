@@ -51,9 +51,10 @@ class Company::ContractsMapsController < ApplicationController
       if lng >= 180 || lng <= -180
         Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
       end
-      project_items = m.project_items.select(:businesstypecnname, :projectitemdeptname)
-        .order(:businesstypecnname, :projectitemdeptname).distinct
-        .group_by(&:businesstypecnname).transform_values { |a| a.collect(&:projectitemdeptname) }.to_a
+      project_items_array = m.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
+
+      project_items = project_items_array.group_by(&:first).transform_values { |a| a.collect(&:second) }.to_a
+
       map_info = { title: m.marketinfoname,
                    lat: lat,
                    lng: lng,
