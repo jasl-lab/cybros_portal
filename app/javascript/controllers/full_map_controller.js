@@ -120,7 +120,7 @@ window.initFullMap = function () {
         <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">项目信息</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="contract-tab" data-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">合同明细</a>
+        <a class="nav-link" id="contract-tab" data-project-code="${props.project_code}" data-toggle="tab" href="#contract-detail" role="tab" aria-controls="contract" aria-selected="false">合同明细</a>
       </li>
     </ul>
     <div class="tab-content">
@@ -146,7 +146,7 @@ window.initFullMap = function () {
         </tbody>
         </table>
       </div>
-      <div class="tab-pane" id="contract" role="tabpanel" aria-labelledby="contract-tab">
+      <div class="tab-pane" id="contract-detail" role="tabpanel" aria-labelledby="contract-tab">
         <p><a href='/company/contracts/${props.project_code}'>进一步显示明细（跳出地图）</a></p>
       </div>
     </div>
@@ -186,6 +186,13 @@ window.initFullMap = function () {
       });
       $('#contract-tab').on('click', function(e) {
         e.preventDefault();
+        const project_code = $(event.target).data("project-code");
+        $.ajax({
+          type: 'GET',
+          dataType: 'script',
+          url: '/company/contracts_map/detail.js',
+          data: { project_code }
+        });
         $(this).tab('show');
       });
     }

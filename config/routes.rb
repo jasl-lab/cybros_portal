@@ -59,7 +59,11 @@ Rails.application.routes.draw do
     resources :contracts, only: %i[index show] do
       resources :sales_contracts, only: %i[show]
     end
-    resource :contracts_map, only: %i[show]
+    resource :contracts_map, only: %i[show] do
+      collection do
+        get :detail
+      end
+    end
   end
 
   namespace :report do

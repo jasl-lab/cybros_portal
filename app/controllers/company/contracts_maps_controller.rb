@@ -74,6 +74,10 @@ class Company::ContractsMapsController < ApplicationController
     @avg_lng = lng_total_cos.sum / lng_total_cos.size.to_f
   end
 
+  def detail
+    @mi = Bi::NewMapInfo.find_by id: params[:project_code]
+  end
+
   protected
 
     def set_page_layout_data
