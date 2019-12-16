@@ -13,3 +13,6 @@ zh-CN:
           query_text: "模糊查询条件"
           query_text_hint: "模糊查询可以查询工程编号、工程名称和甲方集团"
           query: "查询"
+      detail:
+        title: "%{project_id}合同明细"
+        close: "关闭"
