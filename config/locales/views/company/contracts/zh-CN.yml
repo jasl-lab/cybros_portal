@@ -8,6 +8,8 @@ zh-CN:
           city: "城市"
           client: "客户"
           tracestate: "跟踪状态"
+          createddate_year: "跟踪创建年份"
+          query_text: "模糊查询条件"
           query: "查询"
         table:
           project_no: "工程编号"

@@ -12,8 +12,20 @@
               <%= select_tag 'city', options_for_select(@all_cities, @city), class: 'form-control' %>
             </div>
             <div class="col-auto my-1">
+              <label class="mr-sm-2 sr-only"><%= t(".form.client") -%></label>
+              <%= text_field_tag 'client', @client, placeholder: t(".form.client"), class: 'form-control form-control2' %>
+            </div>
+            <div class="col-auto my-1">
               <label class="mr-sm-2 sr-only"><%= t(".form.tracestate") -%></label>
               <%= select_tag 'tracestate', options_for_select(@all_tracestates, @tracestate), class: 'form-control form-control2' %>
+            </div>
+            <div class="col-auto my-1">
+              <label class="mr-sm-2 sr-only"><%= t(".form.createddate_year") -%></label>
+              <%= select_tag 'createddate_year', options_for_select(@all_createddate_years, @createddate_year), class: 'form-control form-control2' %>
+            </div>
+            <div class="col-auto my-1">
+              <label class="mr-sm-2 sr-only"><%= t(".form.query_text") -%></label>
+              <%= text_field_tag 'query_text', @query_text, placeholder: t(".form.query_text"), class: 'form-control form-control2' %>
             </div>
             <div class="col-auto my-1">
               <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
@@ -22,7 +34,9 @@
         <% end %>
         <table id="company-contracts-datatable"
           class="table table-hover table-bordered table-responsive"
-          data-source="<%= company_contracts_path(format: :json, city: @city, tracestate: @tracestate) -%>">
+          data-source="<%= company_contracts_path(format: :json,
+            city: @city, client: @client, tracestate: @tracestate,
+            createddate_year: @createddate_year, query_text: @query_text) -%>">
           <thead>
             <tr>
               <th><%= t(".table.project_no") -%></th>

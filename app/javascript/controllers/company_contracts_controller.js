@@ -15,15 +15,12 @@ export default class extends Controller {
       "autoWidth": false,
       "ajax": $('#company-contracts-datatable').data('source'),
       "pagingType": "full_numbers",
+      "lengthChange": false,
+      "pageLength": 20,
+      "searching": false,
       "columns": normalColumns,
       "order": [[ 1, 'desc' ]],
-      stateSave: true,
-      stateSaveCallback: function(settings, data) {
-          localStorage.setItem('DataTables_company-contracts', JSON.stringify(data));
-        },
-      stateLoadCallback: function(settings) {
-        return JSON.parse(localStorage.getItem('DataTables_company-contracts'));
-        }
+      "stateSave": false
     });
   }
 

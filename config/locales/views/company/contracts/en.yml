@@ -8,6 +8,8 @@ en:
           city: "City"
           client: "Client"
           tracestate: "Trace state"
+          createddate_year: "Created date year"
+          query_text: "Query text"
           query: "Query"
         table:
           project_no: "Project #"
