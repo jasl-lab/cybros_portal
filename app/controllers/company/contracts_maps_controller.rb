@@ -9,8 +9,9 @@ class Company::ContractsMapsController < ApplicationController
     prepare_meta_tags title: t(".title")
     @hide_app_footer = true
 
-    @city = params[:city].presence || '项目所在城市'
+    @city = params[:city].presence || '上海市'
     @client = params[:client].presence
+    @show_empty = params[:show_empty].presence
 
     @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
     @tracestate = params[:tracestate].presence || '所有'
@@ -26,17 +27,11 @@ class Company::ContractsMapsController < ApplicationController
     map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
     map_infos = map_infos.where("company LIKE ?", "%#{@city}%") unless @city == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
+    map_infos = map_infos.none if @show_empty.present?
     if @query_text.present?
       map_infos = map_infos
         .where("developercompanyname LIKE ? OR marketinfoname LIKE ? OR ID LIKE ?",
           "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
-    end
-
-    @allow_download = begin
-      authorize Bi::NewMapInfo, :allow_download?
-      true
-    rescue NotAuthorizedError
-      false
     end
 
     @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}

@@ -41,7 +41,7 @@
       <% end %>
       <% if policy(Bi::NewMapInfo).show? %>
         <%= nav_item controller: 'company/contracts_maps', html_options: {class: "nav-item"} do %>
-          <%= link_to company_contracts_map_path, class: "nav-link" do %>
+          <%= link_to company_contracts_map_path(show_empty: true), class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.company.contracts_maps") %>
           <% end %>

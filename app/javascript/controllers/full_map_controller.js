@@ -12,7 +12,6 @@ window.initFullMap = function () {
   const mapPoint = $('#full-map').data("full-map-map_point");
   const needLocateToShanghai = $('#full-map').data("full-map-need_locate_to_shanghai");
   const needLocateToChina = $('#full-map').data("full-map-need_locate_to_china");
-  const allowDownload = $('#full-map').data("full-map-allow_download");
   const avgLat = $('#full-map').data("full-map-avg_lat");
   const avgLng = $('#full-map').data("full-map-avg_lng");
 
@@ -103,7 +102,6 @@ window.initFullMap = function () {
   infoWindow.close();// 初始关闭信息窗关闭
 
   marker.on("click", function (evt) {
-    const allowDownload = $('#full-map').data("full-map-allow_download");
     infoWindow.open();
     infoWindow.setPosition(evt.geometry.position);
     const props = evt.geometry.properties;
@@ -112,20 +110,8 @@ window.initFullMap = function () {
       return "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
     }).join("<br />");
 
-    let content;
-    if(allowDownload == true) {
-      content = `
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" id="brief-tab" data-toggle="tab" href="#brief" role="tab" aria-controls="brief" aria-selected="true">项目信息</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contract-tab" data-project-code="${props.project_code}" data-toggle="tab" href="#contract-detail" role="tab" aria-controls="contract" aria-selected="false">合同明细</a>
-      </li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane active" id="brief" role="tabpanel" aria-labelledby="brief-tab">
-        <table class="table table-striped">
+    const content = `
+      <table class="table table-striped">
         <tbody>
           <tr>
             <td>工程<br />编号</td>
@@ -143,59 +129,25 @@ window.initFullMap = function () {
             <td>项目<br />类型<br />与<br />生产<br />主责</td>
             <td>${project_items}</td>
           </tr>
-        </tbody>
-        </table>
-      </div>
-      <div class="tab-pane" id="contract-detail" role="tabpanel" aria-labelledby="contract-tab">
-        <p><a href='/company/contracts/${props.project_code}'>进一步显示明细（跳出地图）</a></p>
-      </div>
-    </div>
-    `;
-    } else {
-      content = `
-        <table class="table table-striped">
-        <tbody>
           <tr>
-            <td>工程<br />编号</td>
-            <td>${props.project_code}<br />${props.trace_state} ${props.province}-${props.city}</td>
-          </tr>
-          <tr>
-            <td>工程<br />名称</td>
-            <td>${chunkString(props.title, 17).join('<br />')}</td>
-          </tr>
-          <tr>
-            <td>案名</td>
-            <td>${chunkString(props.project_frame_name, 17).join('<br />')}</td>
-          </tr>
-          <tr>
-            <td>项目<br />类型<br />与<br />生产<br />主责</td>
-            <td>${project_items}</td>
+            <td colspan="2" id="contract-tab" data-project-code="${props.project_code}">点击显示更多明细</td>
           </tr>
         </tbody>
-        </table>
+      </table>
     `;
-    }
     infoWindow.dom.children[0].style["text-align"] = "left";
     infoWindow.dom.children[0].style["line-height"] = "1";
     infoWindow.dom.children[0].style["padding"] = "unset";
     infoWindow.setContent(content);
-    if (allowDownload == true) {
-      $('#brief-tab').on('click', function(e) {
-        e.preventDefault();
-        $(this).tab('show');
+    $('#contract-tab').on('click', function(e) {
+      const project_code = $(event.target).data("project-code");
+      $.ajax({
+        type: 'GET',
+        dataType: 'script',
+        url: '/company/contracts_map/detail.js',
+        data: { project_code }
       });
-      $('#contract-tab').on('click', function(e) {
-        e.preventDefault();
-        const project_code = $(event.target).data("project-code");
-        $.ajax({
-          type: 'GET',
-          dataType: 'script',
-          url: '/company/contracts_map/detail.js',
-          data: { project_code }
-        });
-        $(this).tab('show');
-      });
-    }
+    });
   })
 }
 
