@@ -16,6 +16,7 @@ en:
         real_amount_total: "Real amount total"
         business_ltd_name: "Business LTD name"
         business_departments_name: "Business department name"
+        business_director_name: "Business director name"
         contract_category: "Contract category"
         contract_property: "Contract property"
         scale_type: "Scale type"
