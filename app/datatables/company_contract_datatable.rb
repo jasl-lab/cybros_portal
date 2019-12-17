@@ -17,19 +17,17 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      project_no: { source: "Bi::NewMapInfo.id", cond: :like, searchable: true, orderable: true },
-      market_info_name: { source: "Bi::NewMapInfo.marketinfoname", cond: :like, searchable: true, orderable: true },
-      project_type_scale_area: { source: "Bi::NewMapInfo.scalearea", orderable: true },
-      main_dept_name: { source: "Bi::NewMapInfo.maindeptnamedet", cond: :string_eq, searchable: true, orderable: true }
+      project_no_and_name: { source: "Bi::NewMapInfo.marketinfoname", orderable: true },
+      project_type_and_main_dept_name: { source: "Bi::NewMapInfo.maindeptnamedet", orderable: true },
+      scale_area: { source: "Bi::NewMapInfo.scalearea", orderable: true }
     }
   end
 
   def data
     records.map do |r|
-      { project_no: "#{r.id}<br />#{link_to('合同查看', company_contract_path(id: r.id), remote: true)}".html_safe,
-        market_info_name: r.marketinfoname,
-        project_type_scale_area: "#{r.projecttype}<br />#{r.scalearea}".html_safe,
-        main_dept_name: r.maindeptnamedet }
+      { project_no_and_name: "#{r.id}<br />#{link_to(r.marketinfoname, company_contract_path(id: r.id), remote: true)}".html_safe,
+        project_type_and_main_dept_name: "#{r.projecttype}<br />#{r.maindeptnamedet}".html_safe,
+        scale_area: r.scalearea }
     end
   end
 

@@ -3,10 +3,9 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   connect() {
     const normalColumns = [
-      {"data": "project_no"},
-      {"data": "market_info_name"},
-      {"data": "project_type_scale_area"},
-      {"data": "main_dept_name"}
+      {"data": "project_no_and_name"},
+      {"data": "project_type_and_main_dept_name"},
+      {"data": "scale_area"}
     ];
 
     $('#company-contracts-datatable').dataTable({

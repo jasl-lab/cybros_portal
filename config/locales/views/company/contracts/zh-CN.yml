@@ -12,10 +12,9 @@ zh-CN:
           query_text: "模糊查询条件"
           query: "查询"
         table:
-          project_no: "工程编号"
-          market_info_name: "工程名称"
-          project_type_and_scale_area: "类型 与 规模"
-          main_dept_name: "公司部门"
+          project_no_and_name: "工程编号 及 工程名称"
+          project_type_and_main_dept_name: "类型 与 生产主责"
+          scale_area: "规模"
       show:
         title: "%{project_id}合同明细"
         close: "关闭"
