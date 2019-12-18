@@ -17,6 +17,8 @@ class Company::ContractsMapsController < ApplicationController
     @tracestate = params[:tracestate].presence || '所有'
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
+    @all_project_item_genre_name = Bi::SaContractPrice.all_project_item_genre_name
+    @project_item_genre_name = params[:project_item_genre_name].presence
     @query_text = params[:query_text].presence
 
     @need_locate_to_shanghai = @city == '上海市' && @tracestate == '所有' && @client.nil? && @query_text.nil?
@@ -26,6 +28,7 @@ class Company::ContractsMapsController < ApplicationController
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
     map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
     map_infos = map_infos.where("company LIKE ?", "%#{@city}%") unless @city == '所有'
+    map_infos = map_infos.where("projecttype LIKE ?", "%#{@project_item_genre_name}%") unless @project_item_genre_name == '所有'
     map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
     map_infos = map_infos.none if @show_empty.present?
     if @query_text.present?

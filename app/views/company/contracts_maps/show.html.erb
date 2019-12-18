@@ -20,6 +20,10 @@
     <%= select_tag 'createddate_year', options_for_select(@all_createddate_years, @createddate_year), class: 'form-control form-control2' %>
   </div>
   <div class="form-group">
+    <label class="mr-sm-2"><%= t(".form.project_item_genre_name") -%></label>
+    <%= select_tag 'project_item_genre_name', options_for_select(@all_project_item_genre_name, @project_item_genre_name), class: 'form-control form-control2' %>
+  </div>
+  <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.query_text") -%></label>
     <%= text_field_tag 'query_text', @query_text, class: 'form-control form-control2' %>
     <span class="help-block"><%= t('.form.query_text_hint') %></span>

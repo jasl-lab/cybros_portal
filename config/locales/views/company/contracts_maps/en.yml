@@ -10,6 +10,7 @@ en:
           client: "Client"
           tracestate: "Trace state"
           createddate_year: "Created date year"
+          project_item_genre_name: "Project item genre"
           query_text: "Query text"
           query_text_hint: "Fuzzy query can query project number, project name and Party A group"
           query: "Query"

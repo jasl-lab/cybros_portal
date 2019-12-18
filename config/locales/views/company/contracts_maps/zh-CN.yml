@@ -10,6 +10,7 @@ zh-CN:
           client: "客户"
           tracestate: "跟踪状态"
           createddate_year: "跟踪创建年份"
+          project_item_genre_name: "项目类型"
           query_text: "模糊查询条件"
           query_text_hint: "模糊查询可以查询工程编号、工程名称和甲方集团"
           query: "查询"
