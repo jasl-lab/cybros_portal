@@ -67,13 +67,13 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     true_real_receives = true_real_meta_receives
       .select("SUM(total) total")
-      .collect { |d| (d.total / 100_00.0).round(0) }
+      .collect { |d| (d.total.to_f / 100_00.0).round(0) }
 
     @sum_real_receives = (true_real_receives.sum / 10000.0).round(1)
 
     true_real_markettotals = true_real_meta_receives
       .select("SUM(markettotal) markettotal")
-      .collect { |d| (d.markettotal / 100_00.0).round(0) }
+      .collect { |d| (d.markettotal.to_f / 100_00.0).round(0) }
     @sum_real_markettotals = true_real_markettotals.sum.round(1)
 
 
@@ -134,8 +134,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       total_should_receives_per_staff += should_receives_per_staff
       (should_receives_per_staff / staff_number.to_f).round(0)
     end
-    @need_should_receives_per_staff_max = @need_should_receives_per_staff.max.round(-1)
-    @avg_of_need_should_receives_per_staff = (total_should_receives_per_staff / need_total_staff_num).round(1)
+    @need_should_receives_per_staff_max = @need_should_receives_per_staff.max&.round(-1) || 1
+    @avg_of_need_should_receives_per_staff = if need_total_staff_num.zero?
+      0
+    else
+      (total_should_receives_per_staff / need_total_staff_num).round(1)
+    end
 
     complete_value_data = if @view_deptcode_sum
       Bi::CompleteValueDept.where(orgcode: selected_orgcode)
@@ -165,7 +169,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         ((d.total / complete_value.to_f) * 100).round(0)
       end
     end
-    @avg_payback_rate = ((sum_real_receives_for_payback / total_complete_value_per_staff.to_f) * 100).round(0)
+    @avg_payback_rate = if total_complete_value_per_staff.zero?
+      0
+    else
+      ((sum_real_receives_for_payback.to_f / total_complete_value_per_staff.to_f) * 100).round(0)
+    end
   end
 
   def real_data_drill_down
