@@ -25,7 +25,7 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { project_no_and_name: "#{r.id}<br />#{link_to(r.marketinfoname, company_contract_path(id: r.id), remote: true)}".html_safe,
+      { project_no_and_name: "#{r.id}<br />#{r.projectframename}<br />#{link_to(r.marketinfoname, company_contract_path(id: r.id), remote: true)}".html_safe,
         project_type_and_main_dept_name: "#{r.projecttype}<br />#{r.maindeptnamedet}".html_safe,
         scale_area: r.scalearea }
     end
