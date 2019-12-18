@@ -9,7 +9,7 @@ module Bi
         elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.job_level.to_i >= 11)
           allow_orgcodes = user.departments.pluck(:company_name)
             .collect { |n| Bi::OrgShortName.org_code_by_long_name.fetch(n, n) }
-          scope.where(orgcode: allow_orgcodes)
+          scope.where(orgcode: allow_orgcodes).or(scope.where(orgcode_sum: allow_orgcodes))
         else
           scope.none
         end
