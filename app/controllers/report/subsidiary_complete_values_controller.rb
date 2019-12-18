@@ -34,7 +34,8 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
     last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
-    data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
+    data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).or(policy_scope(Bi::CompleteValueDept).where(orgcode_sum: orgcode))
+      .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", last_available_date)
 
