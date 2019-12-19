@@ -13,7 +13,5 @@ zh-CN:
         table:
           sales_contract_code_name: "合同编号及名称"
           project_code_name: "项目编号及名称"
-          sumamount: "当月策划产值"
-          addvalue: "当月新增完成产值"
-          reducevalue: "当月缩减完成产值"
-          confirmdate: "确认日期"
+          sumamount: "当月完成产值"
+          confirmdate: "完成月份"

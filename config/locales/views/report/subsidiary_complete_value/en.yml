@@ -14,6 +14,4 @@ en:
           sales_contract_code_name: "Sale contract code & name"
           project_code_name: "Project code & name"
           sumamount: "Sum amount"
-          addvalue: "Add value in month"
-          reducevalue: "Reduce value in month"
           confirmdate: "Confirm date"

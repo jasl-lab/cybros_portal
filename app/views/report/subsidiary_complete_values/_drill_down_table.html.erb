@@ -4,8 +4,6 @@
       <th width="28%"><%= t("report.subsidiary_complete_values.show.table.sales_contract_code_name") -%></th>
       <th width="27%"><%= t("report.subsidiary_complete_values.show.table.project_code_name") -%></th>
       <th width="10%"><%= t("report.subsidiary_complete_values.show.table.sumamount") -%></th>
-      <th width="10%"><%= t("report.subsidiary_complete_values.show.table.addvalue") -%></th>
-      <th width="10%"><%= t("report.subsidiary_complete_values.show.table.reducevalue") -%></th>
       <th width="15%"><%= t("report.subsidiary_complete_values.show.table.confirmdate") -%></th>
     </tr>
   </thead>
@@ -21,8 +19,6 @@
           <%= r.projectname -%>
         </td>
         <td><%= r.sumamount -%></td>
-        <td><%= r.addvalue -%></td>
-        <td><%= r.reducevalue -%></td>
         <td><%= r.confirmdate -%></td>
       </tr>
     <% end %>
