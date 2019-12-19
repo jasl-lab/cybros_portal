@@ -26,7 +26,7 @@ window.initFullMap = function () {
     zoom = 4;
   } else if (!isNaN(avgLat) && !isNaN(avgLng)) {
     center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
-    zoom = 11;
+    zoom = 10;
   } else {
     center = new TMap.LatLng(31.228177,121.487003);
     zoom = 10;
@@ -46,7 +46,6 @@ window.initFullMap = function () {
       scale_area: m.scale_area,
       province: m.province,
       city: m.city,
-      big_stage: m.big_stage,
       project_items: m.project_items
     }
     switch (m.trace_state) {
@@ -126,11 +125,15 @@ window.initFullMap = function () {
             <td>${chunkString(props.project_frame_name, 17).join('<br />')}</td>
           </tr>
           <tr>
+            <td>规模</td>
+            <td>${props.scale_area}</td>
+          </tr>
+          <tr>
             <td>项目<br />类型<br />与<br />生产<br />主责</td>
             <td>${project_items}</td>
           </tr>
           <tr>
-            <td colspan="2" id="contract-tab" data-project-code="${props.project_code}">点击显示更多明细</td>
+            <td colspan="2" id="contract-tab" data-project-code="${props.project_code}">点击查询合同明细</td>
           </tr>
         </tbody>
       </table>

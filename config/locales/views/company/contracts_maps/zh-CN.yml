@@ -6,13 +6,13 @@ zh-CN:
         title: "查看合同"
         form:
           city: "城市"
-          city_hint: "城市名可以加市，输入“所有”查询所有"
           client: "客户"
           tracestate: "跟踪状态"
           createddate_year: "跟踪创建年份"
           project_item_genre_name: "项目类型"
+          project_item_genre_name_placeholder: "公建/住宅"
           query_text: "模糊查询条件"
-          query_text_hint: "模糊查询可以查询工程编号、工程名称和甲方集团"
+          query_text_hint: "模糊查询可以查询工程名称、案名和工程编号"
           query: "查询"
       detail:
         title: "%{project_id}合同明细"

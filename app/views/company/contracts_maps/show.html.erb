@@ -3,13 +3,28 @@
 <div class="tab-pane p-2 active show">
 <%= form_tag company_contracts_map_path, method: :get do -%>
   <div class="form-group">
+    <span>查得<%= @valid_map_infos.count -%>地图记录</span>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
+  </div>
+  <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.city") -%></label>
     <%= text_field_tag 'city', @city, class: 'form-control form-control2' %>
-    <span class="help-block"><%= t('.form.city_hint') %></span>
   </div>
   <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.client") -%></label>
     <%= text_field_tag 'client', @client, placeholder: t(".form.client"), class: 'form-control form-control2' %>
+  </div>
+  <div class="form-group">
+    <label class="mr-sm-2"><%= t(".form.project_item_genre_name") -%></label>
+    <%= text_field_tag 'project_item_genre_name', @project_item_genre_name,
+      placeholder: t(".form.project_item_genre_name_placeholder"), class: 'form-control form-control2' %>
+  </div>
+  <div class="form-group">
+    <label class="mr-sm-2"><%= t(".form.query_text") -%></label>
+    <%= text_field_tag 'query_text', @query_text, class: 'form-control form-control2' %>
+    <span class="help-block"><%= t('.form.query_text_hint') %></span>
   </div>
   <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.tracestate") -%></label>
@@ -18,21 +33,6 @@
   <div class="form-group">
     <label class="mr-sm-2"><%= t(".form.createddate_year") -%></label>
     <%= select_tag 'createddate_year', options_for_select(@all_createddate_years, @createddate_year), class: 'form-control form-control2' %>
-  </div>
-  <div class="form-group">
-    <label class="mr-sm-2"><%= t(".form.project_item_genre_name") -%></label>
-    <%= select_tag 'project_item_genre_name', options_for_select(@all_project_item_genre_name, @project_item_genre_name), class: 'form-control form-control2' %>
-  </div>
-  <div class="form-group">
-    <label class="mr-sm-2"><%= t(".form.query_text") -%></label>
-    <%= text_field_tag 'query_text', @query_text, class: 'form-control form-control2' %>
-    <span class="help-block"><%= t('.form.query_text_hint') %></span>
-  </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
-  </div>
-  <div class="form-group">
-    <span>查得<%= @valid_map_infos.count -%>地图记录</span>
   </div>
 <% end %>
 </div>
