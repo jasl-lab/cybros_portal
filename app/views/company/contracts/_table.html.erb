@@ -11,7 +11,7 @@
     <% sas.each do |s| %>
       <tr>
         <td><%= link_to s.salescontractcode, company_contract_sales_contract_path(id: s.salescontractid, contract_id: s.projectcode), remote: true -%> <%= s.contractpropertyname -%></td>
-        <td><%= s.salescontractshort %></td>
+        <td><%= s.salescontractshort.presence || s.salescontractname %></td>
         <td><%= s.amounttotal %></td>
       </tr>
     <% end %>
