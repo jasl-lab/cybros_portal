@@ -16,6 +16,7 @@ class Company::ContractsController < ApplicationController
     @tracestate = params[:tracestate].presence || '所有'
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
+    @project_item_genre_name = params[:project_item_genre_name].presence
     @query_text = params[:query_text].presence
 
     map_infos = policy_scope(Bi::NewMapInfo)
@@ -27,6 +28,7 @@ class Company::ContractsController < ApplicationController
           client: @client,
           tracestate: @tracestate,
           createddate_year: @createddate_year,
+          project_item_genre_name: @project_item_genre_name,
           query_text: @query_text,
           view_context: view_context)
       end

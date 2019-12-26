@@ -11,6 +11,7 @@ class CompanyContractDatatable < ApplicationDatatable
     @client = opts[:client]
     @tracestate = opts[:tracestate]
     @createddate_year = opts[:createddate_year]
+    @project_item_genre_name = opts[:project_item_genre_name]
     @query_text = opts[:query_text]
     super
   end
@@ -37,6 +38,7 @@ class CompanyContractDatatable < ApplicationDatatable
     rr = rr.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
     rr = rr.where(tracestate: @tracestate) if @tracestate.present? && @tracestate != '所有'
     rr = rr.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
+    rr = rr.where("projecttype LIKE ?", "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
     if @query_text.present?
       rr = rr.where("developercompanyname LIKE ? OR marketinfoname LIKE ? OR ID LIKE ?",
         "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")

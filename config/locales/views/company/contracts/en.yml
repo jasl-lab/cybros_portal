@@ -3,12 +3,13 @@ en:
   company:
     contracts:
       index:
-        title: "View contract"
         form:
           city: "City"
           client: "Client"
           tracestate: "Trace state"
           createddate_year: "Created date year"
+          project_item_genre_name: "Project item genre"
+          project_item_genre_name_placeholder: "公建/住宅"
           query_text: "Query text"
           query: "Query"
         table:
