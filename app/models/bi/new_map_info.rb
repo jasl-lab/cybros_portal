@@ -14,6 +14,21 @@ module Bi
       @_all_tracestates ||= ['所有'] + Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
     end
 
+    def self.all_tracestates_with_color_hint
+      tracestates = Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
+      tracestates = tracestates.collect do |t|
+        case t
+        when '跟踪中'
+          "#{t}(红色)"
+        when '跟踪失败'
+          "#{t}(灰色)"
+        when '跟踪成功'
+          "#{t}(蓝色)"
+        end
+      end
+      @_all_tracestates ||= ['所有'] + tracestates
+    end
+
     def self.all_createddate_year
       @_all_createddate_year ||= ['所有'] + Bi::NewMapInfo.order('YEAR(CREATEDDATE)').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
     end

@@ -13,7 +13,7 @@ class Company::ContractsMapsController < ApplicationController
     @client = params[:client].presence
     @show_empty = params[:show_empty].presence
 
-    @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
+    @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates_with_color_hint
     @tracestate = params[:tracestate].presence || '所有'
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
