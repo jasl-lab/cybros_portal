@@ -26,7 +26,7 @@ module Bi
           ["#{t}(蓝色)", t]
         end
       end
-      @_all_tracestates ||= ['所有'] + tracestates
+      @_all_tracestates ||= tracestates.unshift(['所有跟踪状态','所有'])
     end
 
     def self.all_createddate_year

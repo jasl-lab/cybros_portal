@@ -26,10 +26,10 @@ window.initFullMap = function () {
     zoom = 4;
   } else if (!isNaN(avgLat) && !isNaN(avgLng)) {
     center = new TMap.LatLng(avgLat,avgLng); // 设置中心点坐标
-    zoom = 10;
+    zoom = 8;
   } else {
     center = new TMap.LatLng(31.228177,121.487003);
-    zoom = 10;
+    zoom = 9;
   }
 
   window.full_map = new TMap.Map("full-map", {

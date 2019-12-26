@@ -32,8 +32,8 @@ class Company::ContractsMapsController < ApplicationController
     map_infos = map_infos.none if @show_empty.present?
     if @query_text.present?
       map_infos = map_infos
-        .where("marketinfoname LIKE ? OR projectframename LIKE ? OR ID = ?",
-          "%#{@query_text}%", "%#{@query_text}%", @query_text)
+        .where("marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?",
+          "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
     end
 
     @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}
