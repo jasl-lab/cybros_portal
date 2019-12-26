@@ -19,11 +19,11 @@ module Bi
       tracestates = tracestates.collect do |t|
         case t
         when '跟踪中'
-          "#{t}(红色)"
+          ["#{t}(红色)", t]
         when '跟踪失败'
-          "#{t}(灰色)"
+          ["#{t}(灰色)", t]
         when '跟踪成功'
-          "#{t}(蓝色)"
+          ["#{t}(蓝色)", t]
         end
       end
       @_all_tracestates ||= ['所有'] + tracestates
