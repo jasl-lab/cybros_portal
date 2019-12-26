@@ -23,7 +23,7 @@ module Company
     end
 
     def drill_down?
-      true
+      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
     end
 
     def new?
