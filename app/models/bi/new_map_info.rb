@@ -11,10 +11,13 @@ module Bi
     end
 
     def self.all_tracestates
-      @_all_tracestates ||= ['所有'] + Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
+      return @_all_tracestates if @_all_tracestates.present?
+      tracestates = Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
+      @_all_tracestates = tracestates.unshift(['跟踪状态', '所有'])
     end
 
     def self.all_tracestates_with_color_hint
+      return @_all_tracestates_with_color_hint if @_all_tracestates_with_color_hint.present?
       tracestates = Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
       tracestates = tracestates.collect do |t|
         case t
@@ -26,11 +29,13 @@ module Bi
           ["#{t}(蓝色)", t]
         end
       end
-      @_all_tracestates ||= tracestates.unshift(['所有跟踪状态','所有'])
+      @_all_tracestates_with_color_hint = tracestates.unshift(['跟踪状态','所有'])
     end
 
     def self.all_createddate_year
-      @_all_createddate_year ||= ['所有'] + Bi::NewMapInfo.order('YEAR(CREATEDDATE)').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
+      return @_all_createddate_year if @_all_createddate_year.present?
+      all_createddate_year = Bi::NewMapInfo.order('YEAR(CREATEDDATE)').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
+      @_all_createddate_year = all_createddate_year.unshift(['跟踪时间','所有'])
     end
   end
 end

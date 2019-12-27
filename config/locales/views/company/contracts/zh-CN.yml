@@ -13,7 +13,7 @@ zh-CN:
           query_text: "模糊查询条件"
           query: "查询"
         table:
-          project_no_and_name: "工程编号 及 案名/工程名称"
+          project_no_and_name: "工程编号<br />工程名称及案名"
           project_type_and_main_dept_name: "类型 与 生产主责"
           scale_area: "规模"
       show:

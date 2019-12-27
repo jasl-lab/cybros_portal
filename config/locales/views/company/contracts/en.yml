@@ -13,7 +13,7 @@ en:
           query_text: "Query text"
           query: "Query"
         table:
-          project_no_and_name: "Project # & frame names"
+          project_no_and_name: "Project # <br /> Project name & frame names"
           project_type_and_main_dept_name: "Project type & main department"
           scale_area: "Scale area"
       show:

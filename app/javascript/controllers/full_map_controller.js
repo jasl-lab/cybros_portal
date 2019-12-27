@@ -126,7 +126,7 @@ window.initFullMap = function () {
           </tr>
           <tr>
             <td>规模</td>
-            <td>${props.scale_area}</td>
+            <td>${props.scale_area} 平方米</td>
           </tr>
           <tr>
             <td>项目<br />类型<br />与<br />生产<br />主责</td>
