@@ -26,8 +26,17 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
+      project_items_array = r.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
+
+      project_items = project_items_array.group_by(&:first).transform_values { |a| a.collect(&:second) }.to_a
+
+
+      project_type_and_main_dept_name = project_items.map do |p|
+        "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
+      end.join("<br />")
+
       { project_no_and_name: "#{r.id}<br />#{link_to(r.marketinfoname, company_contract_path(id: r.id), remote: true)}<br />#{r.projectframename}".html_safe,
-        project_type_and_main_dept_name: "#{r.projecttype}<br />#{r.maindeptnamedet}".html_safe,
+        project_type_and_main_dept_name: project_type_and_main_dept_name.html_safe,
         scale_area: r.scalearea }
     end
   end
