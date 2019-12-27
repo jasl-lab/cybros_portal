@@ -18,7 +18,7 @@ export default class extends Controller {
       "pageLength": 20,
       "searching": false,
       "columns": normalColumns,
-      "order": [[ 1, 'desc' ]],
+      "order": [[ 0, 'desc' ]],
       "stateSave": false
     });
   }
