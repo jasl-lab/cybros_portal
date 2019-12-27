@@ -23,6 +23,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname)
       .distinct.where(date: beginning_of_month..end_of_month).collect { |r| Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname) }
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @selected_company_name = params[:company_name]&.strip || current_company
 
     @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
     data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month)
