@@ -3,6 +3,9 @@ en:
   report:
     subsidiary_workloadings:
       show:
+        actions:
+          view_deptcode_sum: "View department in sum"
+          view_deptcode: "View department in detail"
         title: "%{company} Work rate and saturation analysis"
         day_rate_ref: "Date rate ref"
         planning_day_rate_ref: "Planning date rate ref"

@@ -3,6 +3,9 @@ zh-CN:
   report:
     subsidiary_workloadings:
       show:
+        actions:
+          view_deptcode_sum: "显示汇总部门"
+          view_deptcode: "显示明细部门"
         title: "%{company} 工作填报率及饱和度分析"
         day_rate_ref: "填报预警"
         planning_day_rate_ref: "方案预警"

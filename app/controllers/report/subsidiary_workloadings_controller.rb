@@ -22,16 +22,28 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     @short_company_name = params[:company_name].presence || current_user.user_company_short_name
     @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname)
       .distinct.where(date: beginning_of_month..end_of_month).collect { |r| Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname) }
+    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
 
     @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
     data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month)
       .where(orgname: @company_name)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", end_of_month)
-      .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-      .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-      .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, deptname")
-      .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+
+    data = if @view_deptcode_sum
+      data
+        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum, deptname")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
+    else
+      data
+        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, deptname")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+    end
+
     data = data.where(orgname: current_user_companies) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
     job_data = data.having("SUM(date_real) > 0")
     job_data = job_data.where.not(deptname: %w[建筑专项技术咨询所]) if @short_company_name == '上海天华'
