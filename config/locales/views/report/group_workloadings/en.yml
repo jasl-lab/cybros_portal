@@ -3,6 +3,9 @@ en:
   report:
     group_workloadings:
       show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
         title: "Group work rate and saturation analysis"
         day_rate_ref: "Date rate ref"
         planning_day_rate_ref: "Planning date rate ref"

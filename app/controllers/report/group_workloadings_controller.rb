@@ -16,12 +16,23 @@ class Report::GroupWorkloadingsController < Report::BaseController
     @end_month_name = params[:end_month_name]&.strip || @all_month_names.last
     beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
     end_of_month = Date.parse(@end_month_name).end_of_month
+    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
     data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
-      .select("orgname, orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode")
-      .group(:orgcode, :orgname, :org_order)
       .order("ORG_ORDER.org_order DESC")
+
+    data = if @view_orgcode_sum
+      data
+        .select("orgname, orgcode_sum orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode_sum")
+        .group(:orgcode_sum, :orgname, :org_order)
+    else
+      data
+        .select("orgname, orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_COUNT_ORG.orgcode")
+        .group(:orgcode, :orgname, :org_order)
+    end
+
     job_data = data.having("SUM(date_real) > 0")
     blue_print_data = data.having("SUM(blue_print_real)")
     construction_data = data.having("SUM(construction_real) > 0")

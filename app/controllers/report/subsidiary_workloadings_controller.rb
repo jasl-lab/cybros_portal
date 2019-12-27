@@ -135,7 +135,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
       { text: t("layouts.sidebar.operation.group_workloading"),
-        link: report_group_workloading_path },
+        link: report_group_workloading_path(view_orgcode_sum: true) },
       { text: t("layouts.sidebar.operation.subsidiary_workloading"),
         link: report_subsidiary_workloading_path }]
     end
