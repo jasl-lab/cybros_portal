@@ -8,7 +8,7 @@ module Bi
 
     class Scope < Scope
       def resolve
-        if user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+        if user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?
           scope.all
         else
           scope.none
@@ -17,16 +17,17 @@ module Bi
     end
 
     def show?
-      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?
     end
 
     def index?
-      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES)
+      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?
     end
 
     def allow_download?
       user.admin? || (user.in_tianhua_hq? && user.position_title.in?(ALLOW_DOWNLOAD_HQ_TITLES)) \
-        || (!user.in_tianhua_hq? && user.position_title.in?(ALLOW_DOWNLOAD_SUBSIDIARY_TITLES))
+        || (!user.in_tianhua_hq? && user.position_title.in?(ALLOW_DOWNLOAD_SUBSIDIARY_TITLES)) \
+        || user.roles.pluck(:project_map_viewer).any?
     end
   end
 end
