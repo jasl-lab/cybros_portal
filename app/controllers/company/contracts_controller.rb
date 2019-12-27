@@ -2,6 +2,7 @@
 
 class Company::ContractsController < ApplicationController
   before_action :authenticate_user!
+  before_action :make_sure_wechat_user_login, only: %i[index ]
   before_action :set_page_layout_data, if: -> { request.format.html? }
 
   def index

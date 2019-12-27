@@ -2,6 +2,7 @@
 
 class Company::ContractsMapsController < ApplicationController
   before_action :authenticate_user!
+  before_action :make_sure_wechat_user_login, only: %i[show]
   before_action :set_page_layout_data, if: -> { request.format.html? }
 
   def show

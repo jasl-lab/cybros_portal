@@ -75,6 +75,17 @@ class ApplicationController < ActionController::Base
       RUBY_EVAL
     end
 
+  def make_sure_wechat_user_login
+    wechat_oauth2 do |user_name|
+      Current.user = User.find_by email: "#{user_name}@thape.com.cn"
+      if Current.user.present?
+        sign_in Current.user
+      else
+        return redirect_to new_user_session_path
+      end
+    end unless current_user.present?
+  end
+
   private
 
   def set_current_user
