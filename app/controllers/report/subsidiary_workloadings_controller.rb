@@ -33,15 +33,15 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
     data = if @view_deptcode_sum
       data
-        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum, deptname")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
     else
       data
-        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, WORK_HOURS_COUNT_DETAIL_DEPT.deptname, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, deptname")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
     end
 
@@ -52,9 +52,19 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     blue_print_data = blue_print_data.where.not(deptname: %w[公建一所 施工图综合所 建筑专项技术咨询所]) if @short_company_name == '上海天华'
     construction_data = data.having("SUM(construction_real) > 0")
     construction_data = construction_data.where.not(deptname: %w[建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所]) if @short_company_name == '上海天华'
-    @job_company_or_department_names = job_data.collect(&:deptname)
-    @blue_print_company_or_department_names = blue_print_data.collect(&:deptname)
-    @construction_company_or_department_names = construction_data.collect(&:deptname)
+
+    job_company_or_department_codes = job_data.collect(&:deptcode)
+    @job_company_or_department_names = job_company_or_department_codes.collect do |dept_code|
+      Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
+    end
+    blue_print_company_or_department_codes = blue_print_data.collect(&:deptcode)
+    @blue_print_company_or_department_names = blue_print_company_or_department_codes.collect do |dept_code|
+      Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
+    end
+    construction_company_or_department_codes = construction_data.collect(&:deptcode)
+    @construction_company_or_department_names = construction_company_or_department_codes.collect do |dept_code|
+      Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
+    end
     @second_level_drill = true
 
     @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
