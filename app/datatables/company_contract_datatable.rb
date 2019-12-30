@@ -18,7 +18,7 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      project_no_and_name: { source: "Bi::NewMapInfo.marketinfoname", orderable: true },
+      project_no_and_name: { source: "Bi::NewMapInfo.id", orderable: true },
       project_type_and_main_dept_name: { source: "Bi::NewMapInfo.maindeptnamedet", orderable: true },
       scale_area: { source: "Bi::NewMapInfo.scalearea", orderable: true }
     }
@@ -43,6 +43,7 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def get_raw_records
     rr = @map_infos
+    rr = rr.where.not(id: ['TX001','TH999999'])
     rr = rr.where(company: @city) if @city.present? && @city != '所有'
     rr = rr.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
     rr = rr.where(tracestate: @tracestate) if @tracestate.present? && @tracestate != '所有'
