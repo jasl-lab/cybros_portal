@@ -34,7 +34,7 @@ module Bi
 
     def self.all_createddate_year
       return @_all_createddate_year if @_all_createddate_year.present?
-      all_createddate_year = Bi::NewMapInfo.order('YEAR(CREATEDDATE)').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
+      all_createddate_year = Bi::NewMapInfo.order('YEAR(CREATEDDATE) DESC').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
       @_all_createddate_year = all_createddate_year.unshift(['跟踪时间','所有'])
     end
   end
