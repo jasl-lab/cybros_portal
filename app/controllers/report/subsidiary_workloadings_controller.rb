@@ -130,9 +130,16 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       @department_name = params[:department_name]
       begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
       end_month = Date.parse(params[:end_month_name]).end_of_month
+
       @day_rate_ref = params[:day_rate_ref].to_i
       @planning_day_rate_ref = params[:planning_day_rate_ref].to_i
       @building_day_rate_ref = params[:building_day_rate_ref].to_i
+
+      belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
+      if belong_deparments.exists?
+        @department_name = belong_deparments.pluck(:部门)
+      end
+
       @drill_down_subtitle = "#{begin_month} - #{end_month}"
       @data = policy_scope(Bi::WorkHoursCountDetailStaff).where(date: begin_month..end_month)
         .where(orgname: @company_name, deptname: @department_name)
