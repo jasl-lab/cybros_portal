@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Company::ContractsMapsController < ApplicationController
+  wechat_api
   before_action :authenticate_user!
   before_action :make_sure_wechat_user_login, only: %i[show]
   before_action :set_page_layout_data, if: -> { request.format.html? }
