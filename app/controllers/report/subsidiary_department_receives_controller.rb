@@ -97,14 +97,20 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
-        .where(deptcode_sum: @depts_options)
     else
       need_data.where(orgcode: selected_orgcode)
         .select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_NEED_RECEIVE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_NEED_RECEIVE.deptcode")
-        .where(deptcode: @depts_options)
+    end
+
+    need_data = if @view_deptcode_sum && @depts_options.present?
+      need_data.where(deptcode_sum: @depts_options)
+    elsif @depts_options.present?
+      need_data.where(deptcode: @depts_options)
+    else
+      need_data
     end
 
     @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names(need_data_last_available_date).fetch(c.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(c.deptcode, c.deptcode)) }
