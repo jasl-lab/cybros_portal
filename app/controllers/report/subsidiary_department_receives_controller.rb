@@ -112,15 +112,14 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
 
-    sum_need_total = policy_scope(Bi::SubCompanyNeedReceive).where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
+    sum_need_total = policy_scope(Bi::SubCompanyNeedReceive)
+      .select("SUM(account_need_receive) account_need_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
+      .where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
     @sum_need_should_receives = sum_need_total
-      .select("SUM(account_need_receive) account_need_receive")
       .collect { |d| ((d.account_need_receive || 0) / 100_00.0).round(0) }.first
     @sum_need_long_account_receives = sum_need_total
-      .select("SUM(account_longbill) long_account_receive")
       .collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }.first
     @sum_need_short_account_receives = sum_need_total
-      .select("SUM(account_shortbill) short_account_receive")
       .collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }.first
 
     staff_per_dept_code = if selected_orgcode == "000101"
