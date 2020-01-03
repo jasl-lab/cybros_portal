@@ -58,7 +58,13 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @complete_value_totals = data.collect { |d| (d.sum_total / 10000.0).round(0) }
     @sum_complete_value_totals = (@complete_value_totals.sum / 10000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
-    @sum_complete_value_year_totals = (@complete_value_year_totals.sum / 10000.0).round(1)
+    @sum_complete_value_year_totals = if orgcode == "000101"
+      (policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode)
+        .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
+        .select("SUM(total) sum_total").first.sum_total / 10000.0).round(1)
+    else
+      (@complete_value_year_totals.sum / 10000.0).round(1)
+    end
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
 
 
