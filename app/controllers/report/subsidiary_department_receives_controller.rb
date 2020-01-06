@@ -38,7 +38,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       real_data.where(orgcode: selected_orgcode)
         .select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
-        .group( :"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode")
+        .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
     end
 
@@ -156,6 +156,27 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       (total_should_receives_per_staff / need_total_staff_num).round(1)
     end
 
+    previous_year_need_receive_data = policy_scope(Bi::SubCompanyNeedReceive)
+      .where(date: (@end_of_month.beginning_of_year - 1.day))
+
+    previous_year_need_receive_data = if @view_deptcode_sum
+      previous_year_need_receive_data
+        .select("deptcode_sum deptcode, SUM(account_need_receive) account_need_receive")
+        .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
+        .order("SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
+    else
+      previous_year_need_receive_data
+        .select("deptcode, SUM(account_need_receive) account_need_receive")
+        .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode")
+        .order("SUB_COMPANY_NEED_RECEIVE.deptcode")
+    end
+
+    previous_year_need_receive_hash = previous_year_need_receive_data.reduce({}) do |h, d|
+      dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      h[dept_name] = d.account_need_receive
+      h
+    end
+
     complete_value_data = if @view_deptcode_sum
       Bi::CompleteValueDept.where(orgcode: selected_orgcode)
         .select("deptcode_sum deptcode, SUM(total) sum_total")
@@ -176,12 +197,13 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     payback_rates = real_data.collect do |d|
       dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       complete_value = complete_value_hash.fetch(dept_name, 100000)
+      previous_year_need_receive = previous_year_need_receive_hash.fetch(dept_name, 100000)
       sum_real_receives_for_payback += d.total
       total_complete_value_per_staff += (complete_value % 1 == 0) ? 0 : complete_value
       if complete_value % 1 == 0
         0
       else
-        ((d.total / complete_value.to_f) * 100).round(0)
+        ((d.total / (previous_year_need_receive.to_f + complete_value.to_f)) * 100).round(0)
       end
     end
     @avg_payback_rate = if total_complete_value_per_staff.zero?
