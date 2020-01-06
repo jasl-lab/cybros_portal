@@ -23,7 +23,7 @@ class Report::ContractSigningsController < Report::BaseController
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
     current_user_companies = current_user.user_company_names
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-    selected_short_name = params[:company_name]&.strip
+    @selected_short_name = params[:company_name]&.strip
 
     last_available_date = policy_scope(Bi::ContractSign).last_available_date(@end_of_month)
     data = policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month).where(date: last_available_date)

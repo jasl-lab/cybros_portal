@@ -33,6 +33,7 @@
     </h3>
     <%= form_tag report_subsidiary_department_receive_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
+      <%= hidden_field_tag :company_name, @selected_short_name %>
       <% if params[:in_iframe].present? %>
         <%= hidden_field_tag :in_iframe, true -%>
       <% end %>

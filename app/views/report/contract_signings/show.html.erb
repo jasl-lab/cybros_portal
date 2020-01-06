@@ -35,6 +35,7 @@
     </h3>
     <%= form_tag report_contract_signing_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :view_orgcode_sum, @view_orgcode_sum %>
+      <%= hidden_field_tag :company_name, @selected_short_name %>
       <% if params[:in_iframe].present? %>
         <%= hidden_field_tag :in_iframe, true -%>
       <% end %>
