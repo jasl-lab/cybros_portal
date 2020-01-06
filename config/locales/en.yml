@@ -33,3 +33,4 @@ en:
   values:
     'true': "Yes"
     'false': "No"
+  not_authorized: "You are not authorized to perform this action."

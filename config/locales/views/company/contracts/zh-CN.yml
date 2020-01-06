@@ -3,6 +3,7 @@ zh-CN:
   company:
     contracts:
       index:
+        title: "合同列表"
         form:
           city: "城市"
           client: "客户"

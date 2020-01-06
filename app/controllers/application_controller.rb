@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   include StoreLocation
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   protected
 
     def render_csv_header(filename = nil)
@@ -90,5 +92,10 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     Current.user = current_user
+  end
+
+  def user_not_authorized
+    flash[:alert] = t('not_authorized')
+    redirect_to(request.referrer || root_path)
   end
 end

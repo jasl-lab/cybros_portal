@@ -3,6 +3,7 @@ en:
   company:
     contracts:
       index:
+        title: "Contracts list"
         form:
           city: "City"
           client: "Client"
