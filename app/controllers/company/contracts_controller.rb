@@ -10,7 +10,7 @@ class Company::ContractsController < ApplicationController
     authorize Bi::NewMapInfo
     prepare_meta_tags title: t(".title")
 
-    @city = params[:city].presence || '上海市'
+    @city = params[:city].presence
     @client = params[:client].presence
 
     @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
