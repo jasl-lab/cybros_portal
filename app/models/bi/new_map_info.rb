@@ -6,10 +6,6 @@ module Bi
     has_many :rels, class_name: "Bi::NewMapInfoRel", primary_key: :id, foreign_key: :projectcode
     has_many :project_items, class_name: "Bi::GczProjectItem", primary_key: :id, foreign_key: :projectcode
 
-    def self.all_cities
-      @_all_cities ||= ['所有'] + Bi::NewMapInfo.order(company: :asc).select(:company).distinct.pluck(:company)
-    end
-
     def self.all_tracestates
       return @_all_tracestates if @_all_tracestates.present?
       tracestates = Bi::NewMapInfo.order(tracestate: :asc).select(:tracestate).distinct.pluck(:tracestate)
