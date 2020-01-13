@@ -4,7 +4,7 @@ en:
     name_cards:
       new:
         form_title: "New name card apply"
-        form_header: "Tianhua name card apply table"
+        form_header: "Tianhua name card apply form"
         name: "Name in Chinese"
         english_name: "English name"
         company_name: "Company name"

@@ -41,6 +41,10 @@ en:
         new_name_card: "Apply for a name card"
         name_card_white_title: "Name card white title"
         name_card_black_title: "Name card black title"
+        copy_of_business_license: "Copy of Business License"
+        proof_of_employment: "Proof of employment"
+        proof_of_income: "Proof of income"
+        public_rental_housing: "Public rental housing"
       report:
         header: "Report Home"
         tianzhen_logins: "Tian Zhen Logins"

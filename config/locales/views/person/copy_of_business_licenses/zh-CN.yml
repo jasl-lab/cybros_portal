@@ -1,0 +1,12 @@
+---
+zh-CN:
+  person:
+    copy_of_business_licenses:
+      new:
+        form_title: "新的公司营业执照副本申请"
+        form_header: "公司营业执照副本申请表"
+        submit: "递交"
+      index:
+        title: "公司营业执照副本申请历史列表"
+        actions:
+          new: "新的公司营业执照副本"

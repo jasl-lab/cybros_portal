@@ -29,6 +29,30 @@
           <% end %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'person/copy_of_business_licenses', html_options: {class: "nav-item"} do %>
+        <%= link_to new_person_copy_of_business_license_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.person.copy_of_business_license") %>
+        <% end %>
+      <% end %>
+      <%= nav_item controller: 'person/proof_of_employments', html_options: {class: "nav-item"} do %>
+        <%= link_to new_person_proof_of_employment_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.person.proof_of_employment") %>
+        <% end %>
+      <% end %>
+      <%= nav_item controller: 'person/proof_of_incomes', html_options: {class: "nav-item"} do %>
+        <%= link_to new_person_proof_of_income_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.person.proof_of_income") %>
+        <% end %>
+      <% end %>
+      <%= nav_item controller: 'person/public_rental_housings', html_options: {class: "nav-item"} do %>
+        <%= link_to new_person_public_rental_housing_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-alt"></i>
+          <%= t("layouts.sidebar.person.public_rental_housing") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

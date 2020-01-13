@@ -1,0 +1,12 @@
+---
+en:
+  person:
+    proof_of_employments:
+      new:
+        form_title: "New proof of employment apply"
+        form_header: "Proof of employment apply form"
+        submit: "Submit"
+      index:
+        title: "Proof of employment apply history list"
+        actions:
+          new: "New proof of employment apply"

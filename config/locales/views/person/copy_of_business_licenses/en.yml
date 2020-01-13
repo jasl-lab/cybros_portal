@@ -1,0 +1,12 @@
+---
+en:
+  person:
+    copy_of_business_licenses:
+      new:
+        form_title: "New copy of business license apply"
+        form_header: "Copy of business license apply form"
+        submit: "Submit"
+      index:
+        title: "Copy of business license history list"
+        actions:
+          new: "New copy of business license"

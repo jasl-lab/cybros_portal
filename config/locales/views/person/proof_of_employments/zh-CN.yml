@@ -1,0 +1,12 @@
+---
+zh-CN:
+  person:
+    proof_of_employments:
+      new:
+        form_title: "在职证明申请"
+        form_header: "在职证明申请表"
+        submit: "递交"
+      index:
+        title: "在职证明历史列表"
+        actions:
+          new: "新的在职证明"

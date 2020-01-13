@@ -1,0 +1,12 @@
+---
+zh-CN:
+  person:
+    proof_of_incomes:
+      new:
+        form_title: "收入证明申请"
+        form_header: "收入证明申请表"
+        submit: "递交"
+      index:
+        title: "收入证明历史列表"
+        actions:
+          new: "新的收入证明"

@@ -157,7 +157,7 @@ Rails.application.routes.draw do
   end
 
   namespace :person do
-    root to: "home#index"
+    root to: 'home#index'
 
     resources :name_cards, only: %i[index new create show destroy] do
       member do
@@ -169,6 +169,11 @@ Rails.application.routes.draw do
     end
     resources :name_card_black_titles, only: %i[index create]
     resources :name_card_white_titles, only: %i[index create]
+
+    resources :copy_of_business_licenses, only: %i[index new create]
+    resources :proof_of_employments, only: %i[index new create]
+    resources :proof_of_incomes, only: %i[index new create]
+    resources :public_rental_housings, only: %i[index new create]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

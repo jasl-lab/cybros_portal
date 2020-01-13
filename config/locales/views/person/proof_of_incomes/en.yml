@@ -1,0 +1,12 @@
+---
+en:
+  person:
+    proof_of_incomes:
+      new:
+        form_title: "New proof of income apply"
+        form_header: "Proof of income apply form"
+        submit: "Submit"
+      index:
+        title: "Proof of income apply history list"
+        actions:
+          new: "New proof of income apply"

@@ -1,0 +1,19 @@
+<div class="row">
+<div class="col-md-12">
+<div class="card">
+<div class="card-header">
+  <strong><%= t('.form_header') %></strong>
+
+</div>
+<%= form_with model: @public_rental_housing_apply, url: person_public_rental_housings_path, class: 'form-horizontal', local: true do |f| %>
+<div class="card-body">
+
+</div>
+
+<div class="card-footer">
+  <%= f.submit t('.submit'), class: 'btn btn-sm btn-primary' %>
+</div>
+<% end %>
+</div>
+</div>
+</div>
