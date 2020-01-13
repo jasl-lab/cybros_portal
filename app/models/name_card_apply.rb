@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NameCardApply < ApplicationRecord
   belongs_to :user
 
@@ -30,9 +32,9 @@ class NameCardApply < ApplicationRecord
 
   private
 
-  def title_exclude_from_black_title
-    if title.in?(NameCardBlackTitle.where(original_title: Current.user.position_title).pluck(:required_title))
-      errors.add(:title, :title_is_blocked)
+    def title_exclude_from_black_title
+      if title.in?(NameCardBlackTitle.where(original_title: Current.user.position_title).pluck(:required_title))
+        errors.add(:title, :title_is_blocked)
+      end
     end
-  end
 end
