@@ -170,10 +170,26 @@ Rails.application.routes.draw do
     resources :name_card_black_titles, only: %i[index create]
     resources :name_card_white_titles, only: %i[index create]
 
-    resources :copy_of_business_licenses, only: %i[index new create]
-    resources :proof_of_employments, only: %i[index new create]
-    resources :proof_of_incomes, only: %i[index new create]
-    resources :public_rental_housings, only: %i[index new create]
+    resources :copy_of_business_licenses, only: %i[index new create destroy] do
+      member do
+        patch :start_approve
+      end
+    end
+    resources :proof_of_employments, only: %i[index new create destroy] do
+      member do
+        patch :start_approve
+      end
+    end
+    resources :proof_of_incomes, only: %i[index new create destroy] do
+      member do
+        patch :start_approve
+      end
+    end
+    resources :public_rental_housings, only: %i[index new create destroy] do
+      member do
+        patch :start_approve
+      end
+    end
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

@@ -17,10 +17,14 @@ en:
         stamp_comment: "Stamp"
       create:
         success: "Your proof of income apply created successfully."
+      destroy:
+        success: "Your proof of income apply deleted!"
       index:
         title: "Proof of income apply history list"
         actions:
           new: "New proof of income apply"
+          delete: "Delete"
+          start_approve: "Request approve and submit"
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"

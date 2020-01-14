@@ -2,8 +2,8 @@
 
 module Personal
   class ProofOfEmploymentDatatable < ApplicationDatatable
-    def_delegator :@view, :person_name_card_path
-    def_delegator :@view, :start_approve_person_name_card_path
+    def_delegator :@view, :person_proof_of_employment_path
+    def_delegator :@view, :start_approve_person_proof_of_employment_path
 
     def initialize(params, opts = {})
       @proof_of_employment_applies = opts[:proof_of_employment_applies]
@@ -25,9 +25,9 @@ module Personal
 
     def data
       records.map do |r|
-        r_delete = link_to I18n.t('person.name_cards.index.actions.delete'), person_name_card_path(r),
+        r_delete = link_to I18n.t('person.proof_of_employments.index.actions.delete'), person_proof_of_employment_path(r),
           method: :delete, data: { confirm: '你确定要删除吗？' }
-        r_start_approve = link_to I18n.t('person.name_cards.index.actions.start_approve'), start_approve_person_name_card_path(r),
+        r_start_approve = link_to I18n.t('person.proof_of_employments.index.actions.start_approve'), start_approve_person_proof_of_employment_path(r),
           class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' }
         { employee_name: r.employee_name,
           clerk_code: r.clerk_code,

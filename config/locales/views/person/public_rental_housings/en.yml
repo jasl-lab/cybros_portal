@@ -17,10 +17,14 @@ en:
         stamp_comment: "Stamp"
       create:
         success: "Your public rental housing apply created successfully."
+      destroy:
+        success: "Your public rental housing apply deleted!"
       index:
         title: "Public rental housing apply history list"
         actions:
           new: "New public rental housing apply"
+          delete: "Delete"
+          start_approve: "Request approve and submit"
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"

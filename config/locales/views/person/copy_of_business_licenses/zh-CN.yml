@@ -17,10 +17,14 @@ zh-CN:
         stamp_comment: "用章事宜"
       create:
         success: "您的公司营业执照副本申请成功创建！"
+      destroy:
+        success: "您的公司营业执照副本申请成功删除！"
       index:
         title: "公司营业执照副本申请历史列表"
         actions:
           new: "新的公司营业执照副本"
+          delete: "删除"
+          start_approve: "提交并发起流程"
         table:
           employee_name: "员工姓名"
           clerk_code: "员工号"

@@ -17,10 +17,14 @@ zh-CN:
         stamp_comment: "用章事宜"
       create:
         success: "您的收入证明申请成功创建！"
+      destroy:
+        success: "您的收入证明申请成功删除！"
       index:
         title: "收入证明历史列表"
         actions:
           new: "新的收入证明"
+          delete: "删除"
+          start_approve: "提交并发起流程"
         table:
           employee_name: "员工姓名"
           clerk_code: "员工号"

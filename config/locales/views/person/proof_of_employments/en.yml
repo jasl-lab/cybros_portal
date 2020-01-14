@@ -17,10 +17,14 @@ en:
         stamp_comment: "Stamp"
       create:
         success: "Your proof of employment apply created successfully."
+      destroy:
+        success: "Your proof of employment apply deleted!"
       index:
         title: "Proof of employment apply history list"
         actions:
           new: "New proof of employment apply"
+          delete: "Delete"
+          start_approve: "Request approve and submit"
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"

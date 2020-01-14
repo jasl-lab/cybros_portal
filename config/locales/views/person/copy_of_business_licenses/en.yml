@@ -17,10 +17,14 @@ en:
         stamp_comment: "Stamp"
       create:
         success: "Your copy of business license apply created successfully."
+      destroy:
+        success: "Your copy of business license apply deleted!"
       index:
         title: "Copy of business license history list"
         actions:
           new: "New copy of business license"
+          delete: "Delete"
+          start_approve: "Request approve and submit"
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"

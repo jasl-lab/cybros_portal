@@ -6,6 +6,7 @@ module Person
     before_action :authenticate_user!
     before_action :set_page_layout_data, if: -> { request.format.html? }
     before_action :set_breadcrumbs, only: %i[index new], if: -> { request.format.html? }
+    before_action :set_proof_of_income_apply, only: %i[destroy start_approve]
 
     def index
       respond_to do |format|
@@ -43,7 +44,22 @@ module Person
       end
     end
 
+    def destroy
+      @public_rental_housing_apply.destroy
+      respond_to do |format|
+        format.html { redirect_to person_public_rental_housings_path, notice: t('.success') }
+        format.json { head :no_content }
+      end
+    end
+
+    def start_approve
+    end
+
     private
+
+      def set_proof_of_income_apply
+        @public_rental_housing_apply = policy_scope(Personal::PublicRentalHousingApply).find(params[:id])
+      end
 
       def set_page_layout_data
         @_sidebar_name = 'person'
