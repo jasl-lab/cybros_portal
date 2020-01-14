@@ -12,6 +12,12 @@ module Person
         format.html do
           prepare_meta_tags title: t('.title')
         end
+        format.json do
+          public_rental_housing_applies = policy_scope(Personal::PublicRentalHousingApply).all
+          render json: Personal::PublicRentalHousingDatatable.new(params,
+            public_rental_housing_applies: public_rental_housing_applies,
+            view_context: view_context)
+        end
       end
     end
 
@@ -24,6 +30,17 @@ module Person
       @public_rental_housing_apply.belong_company_name = current_user.departments.first&.company_name
       @public_rental_housing_apply.belong_department_name = current_user.departments.first&.name
       @public_rental_housing_apply.contract_belong_company = current_user.departments.first&.company_name
+    end
+
+    def create
+      @public_rental_housing_apply = current_user.public_rental_housing_applies.build(public_rental_housing_apply_params)
+      respond_to do |format|
+        if @public_rental_housing_apply.save
+          format.html { redirect_to person_public_rental_housings_path, notice: t('.success') }
+        else
+          format.html { render :new }
+        end
+      end
     end
 
     private
@@ -40,6 +57,12 @@ module Person
           link: person_root_path },
         { text: t('layouts.sidebar.person.public_rental_housing'),
           link: person_public_rental_housings_path }]
+      end
+
+      def public_rental_housing_apply_params
+        params.require(:personal_public_rental_housing_apply)
+          .permit(:employee_name, :clerk_code, :belong_company_name,
+            :belong_department_name, :contract_belong_company, :stamp_to_place, :stamp_comment)
       end
   end
 end

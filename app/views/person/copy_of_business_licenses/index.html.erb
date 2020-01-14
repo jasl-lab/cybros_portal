@@ -1,0 +1,37 @@
+<%- content_for :action_bar do %>
+  <ol>
+    <li class="action_bar-item">
+      <%= link_to t(".actions.new"), new_person_copy_of_business_license_path, class: "btn text-primary" %>
+    </li>
+  </ol>
+<% end %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="row">
+      <div class="col-lg-12" data-controller="copy-of-business-licenses-lists">
+        <table id="copy-of-business-licenses-lists-datatable"
+          class="table table-hover table-bordered table-responsive"
+          data-source="<%= person_copy_of_business_licenses_path(format: :json) %>">
+          <thead>
+            <tr>
+              <th><%= t(".table.employee_name") -%></th>
+              <th><%= t(".table.clerk_code") -%></th>
+              <th><%= t(".table.belong_company_name") -%></th>
+              <th><%= t(".table.belong_department_name") -%></th>
+              <th><%= t(".table.contract_belong_company") -%></th>
+              <th><%= t(".table.stamp_to_place") -%></th>
+              <th><%= t(".table.stamp_comment") -%></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

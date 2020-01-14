@@ -13,7 +13,7 @@ module Personal
     end
 
     def new?
-      user.chinese_name.in? %w(过纯中 赵峥逸 李捡)
+      user.chinese_name.in? %w(过纯中 赵峥逸 李俭)
     end
   end
 end

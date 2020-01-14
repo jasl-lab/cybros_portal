@@ -15,7 +15,17 @@ en:
         stamp_to_place: "Stamp to place"
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
         stamp_comment: "Stamp"
+      create:
+        success: "Your copy of business license apply created successfully."
       index:
         title: "Copy of business license history list"
         actions:
           new: "New copy of business license"
+        table:
+          employee_name: "Employee name"
+          clerk_code: "Clerk code"
+          belong_company_name: "Belong company name"
+          belong_department_name: "Belong department name"
+          contract_belong_company: "Contract belong company"
+          stamp_to_place: "Stamp to place"
+          stamp_comment: "Stamp comment"

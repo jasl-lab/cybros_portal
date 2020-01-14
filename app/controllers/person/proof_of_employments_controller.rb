@@ -12,6 +12,12 @@ module Person
         format.html do
           prepare_meta_tags title: t('.title')
         end
+        format.json do
+          proof_of_employment_applies = policy_scope(Personal::ProofOfEmploymentApply).all
+          render json: Personal::ProofOfEmploymentDatatable.new(params,
+            proof_of_employment_applies: proof_of_employment_applies,
+            view_context: view_context)
+        end
       end
     end
 
@@ -24,6 +30,17 @@ module Person
       @proof_of_employment_apply.belong_company_name = current_user.departments.first&.company_name
       @proof_of_employment_apply.belong_department_name = current_user.departments.first&.name
       @proof_of_employment_apply.contract_belong_company = current_user.departments.first&.company_name
+    end
+
+    def create
+      @proof_of_employment_apply = current_user.proof_of_employment_applies.build(proof_of_employment_apply_params)
+      respond_to do |format|
+        if @proof_of_employment_apply.save
+          format.html { redirect_to person_proof_of_employments_path, notice: t('.success') }
+        else
+          format.html { render :new }
+        end
+      end
     end
 
     private
@@ -40,6 +57,12 @@ module Person
           link: person_root_path },
         { text: t('layouts.sidebar.person.proof_of_employment'),
           link: person_proof_of_employments_path }]
+      end
+
+      def proof_of_employment_apply_params
+        params.require(:personal_proof_of_employment_apply)
+          .permit(:employee_name, :clerk_code, :belong_company_name,
+            :belong_department_name, :contract_belong_company, :stamp_to_place, :stamp_comment)
       end
   end
 end

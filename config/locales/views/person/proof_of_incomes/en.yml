@@ -15,7 +15,17 @@ en:
         stamp_to_place: "Stamp to place"
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
         stamp_comment: "Stamp"
+      create:
+        success: "Your proof of income apply created successfully."
       index:
         title: "Proof of income apply history list"
         actions:
           new: "New proof of income apply"
+        table:
+          employee_name: "Employee name"
+          clerk_code: "Clerk code"
+          belong_company_name: "Belong company name"
+          belong_department_name: "Belong department name"
+          contract_belong_company: "Contract belong company"
+          stamp_to_place: "Stamp to place"
+          stamp_comment: "Stamp comment"

@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://git.dev.tencent.com/ericguo/ajax-datatables-rails.git
-  revision: b06604e1b14aaef6352a814cfb07a796bcde1c84
+  revision: 2f826df1379a8b6f3129c5603c5aea1772cfbd4f
   branch: master
   specs:
     ajax-datatables-rails (1.1.0)
