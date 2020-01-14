@@ -6,6 +6,15 @@ en:
         form_title: "New proof of income apply"
         form_header: "Proof of income apply form"
         submit: "Submit"
+        employee_name: "Employee name"
+        clerk_code: "Clerk code"
+        belong_company_name: "Belong company name"
+        belong_department_name: "Belong department name"
+        contract_belong_company: "Contract belong company"
+        contract_belong_company_hint: "Choose 1 from 3"
+        stamp_to_place: "Stamp to place"
+        stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        stamp_comment: "Stamp"
       index:
         title: "Proof of income apply history list"
         actions:

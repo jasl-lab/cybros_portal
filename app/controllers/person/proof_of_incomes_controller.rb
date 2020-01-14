@@ -20,6 +20,7 @@ module Person
       add_to_breadcrumbs(t('person.proof_of_employments.index.actions.new'), new_person_proof_of_employment_path)
       @proof_of_income_apply = current_user.proof_of_income_applies.build
       @proof_of_income_apply.employee_name = current_user.chinese_name
+      @proof_of_income_apply.clerk_code = current_user.clerk_code
       @proof_of_income_apply.belong_company_name = current_user.departments.first&.company_name
       @proof_of_income_apply.belong_department_name = current_user.departments.first&.name
       @proof_of_income_apply.contract_belong_company = current_user.departments.first&.company_name

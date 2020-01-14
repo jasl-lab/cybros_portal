@@ -20,6 +20,7 @@ module Person
       add_to_breadcrumbs(t('person.public_rental_housings.index.actions.new'), new_person_public_rental_housing_path)
       @public_rental_housing_apply = current_user.public_rental_housing_applies.build
       @public_rental_housing_apply.employee_name = current_user.chinese_name
+      @public_rental_housing_apply.clerk_code = current_user.clerk_code
       @public_rental_housing_apply.belong_company_name = current_user.departments.first&.company_name
       @public_rental_housing_apply.belong_department_name = current_user.departments.first&.name
       @public_rental_housing_apply.contract_belong_company = current_user.departments.first&.company_name

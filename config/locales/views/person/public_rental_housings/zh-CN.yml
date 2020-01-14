@@ -6,6 +6,15 @@ zh-CN:
         form_title: "公租房申请"
         form_header: "公租房申请表"
         submit: "递交"
+        employee_name: "员工姓名"
+        clerk_code: "员工号"
+        belong_company_name: "归属公司"
+        belong_department_name: "所属部门"
+        contract_belong_company: "劳动合同归属单位"
+        contract_belong_company_hint: "三选一"
+        stamp_to_place: "盖章地点"
+        stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        stamp_comment: "用章事宜"
       index:
         title: "公租房申请历史列表"
         actions:

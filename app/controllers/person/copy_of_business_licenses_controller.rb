@@ -20,6 +20,7 @@ module Person
       add_to_breadcrumbs(t('person.copy_of_business_licenses.index.actions.new'), new_person_copy_of_business_license_path)
       @copy_of_business_license_apply = current_user.copy_of_business_license_applies.build
       @copy_of_business_license_apply.employee_name = current_user.chinese_name
+      @copy_of_business_license_apply.clerk_code = current_user.clerk_code
       @copy_of_business_license_apply.belong_company_name = current_user.departments.first&.company_name
       @copy_of_business_license_apply.belong_department_name = current_user.departments.first&.name
       @copy_of_business_license_apply.contract_belong_company = current_user.departments.first&.company_name

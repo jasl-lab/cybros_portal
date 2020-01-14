@@ -7,7 +7,80 @@
 </div>
 <%= form_with model: @proof_of_employment_apply, url: person_proof_of_employments_path, class: 'form-horizontal', local: true do |f| %>
 <div class="card-body">
-
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-employee-name"><%= t('.employee_name') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :employee_name, class: 'form-control', id: 'text-input-employee-name' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-clerk-code"><%= t('.clerk_code') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :clerk_code, class: 'form-control', id: 'text-input-clerk-code' %>
+          <%= f.error_message :clerk_code, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-belong-company-name"><%= t('.belong_company_name') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :belong_company_name, class: 'form-control', id: 'text-input-belong-company-name' %>
+          <%= f.error_message :belong_company_name, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-belong-department-name"><%= t('.belong_department_name') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :belong_department_name, class: 'form-control', id: 'text-input-belong-department-name' %>
+          <%= f.error_message :belong_department_name, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-contract-belong-company"><%= t('.contract_belong_company') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :contract_belong_company, id: 'text-input-contract-belong-company', class: 'form-control' %>
+          <span class="help-block"><%= t('.contract_belong_company_hint') %></span>
+          <%= f.error_message :contract_belong_company, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-stamp-to-place"><%= t('.stamp_to_place') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :stamp_to_place, class: 'form-control', id: 'text-input-stamp-to-place' %>
+          <span class="help-block"><%= t('.stamp_to_place_hint') %></span>
+          <%= f.error_message :stamp_to_place, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input-stamp-comment"><%= t('.stamp_comment') %></label>
+        <div class="col-md-9">
+          <%= f.text_field :stamp_comment, class: 'form-control', id: 'text-input-stamp-comment' %>
+          <%= f.error_message :stamp_comment, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="card-footer">
