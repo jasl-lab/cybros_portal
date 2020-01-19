@@ -13,6 +13,7 @@ class Report::ContractSigningsController < Report::BaseController
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
+    @beginning_of_year = Date.parse(@month_name).beginning_of_year
     @period_mean_ref = params[:period_mean_ref] || 100
     @contract_amounts_per_staff_ref = if @manual_set_staff_ref
       params[:contract_amounts_per_staff_ref]
@@ -26,7 +27,7 @@ class Report::ContractSigningsController < Report::BaseController
     @selected_short_name = params[:company_name]&.strip
 
     last_available_date = policy_scope(Bi::ContractSign).last_available_date(@end_of_month)
-    data = policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month).where(date: last_available_date)
+    data = policy_scope(Bi::ContractSign).where(filingtime: @beginning_of_year..@end_of_month).where(date: last_available_date)
       .having("SUM(contract_amount) > 0")
       .order("ORG_ORDER.org_order DESC")
 
@@ -70,10 +71,10 @@ class Report::ContractSigningsController < Report::BaseController
     end
     @avg_period_mean_max = @avg_period_mean.max.round(-1)
 
-    @sum_contract_amounts = (policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month).where(date: last_available_date)
+    @sum_contract_amounts = (policy_scope(Bi::ContractSign).where(filingtime: @beginning_of_year..@end_of_month).where(date: last_available_date)
       .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first.sum_contract_amounts / 10000.to_f).round(2)
 
-    df = policy_scope(Bi::ContractSign).where("filingtime <= ?", @end_of_month).where(date: last_available_date)
+    df = policy_scope(Bi::ContractSign).where(filingtime: @beginning_of_year..@end_of_month).where(date: last_available_date)
       .select("SUM(contract_period) one_sum_contract_period, SUM(count) one_sum_contract_amount_count").first
     one_sum_contract_period = df.one_sum_contract_period
     one_sum_contract_amount_count = df.one_sum_contract_amount_count
