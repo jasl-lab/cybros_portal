@@ -47,7 +47,7 @@ class Report::ContractSigningsController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
 
-    if selected_short_name.present?
+    if @selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(selected_short_name, selected_short_name)
       @orgs_options = Bi::CompleteValue.where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
     end
