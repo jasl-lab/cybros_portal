@@ -16,7 +16,7 @@
 
         <br />
 
-<% if !Rails.env.production? || (browser.safari? && browser.full_version == '13.0.4' && browser.platform.mac?) %>
+<% if !Rails.env.production? || (browser.safari? && browser.full_version == '13.0.5' && browser.platform.mac?) %>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), id: "user-sign-in") do |f| %>
           <div class="form-group">
             <%= f.label :email %>
