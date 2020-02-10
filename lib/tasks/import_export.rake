@@ -53,4 +53,38 @@ namespace :import_export do
       end
     end
   end
+
+  desc 'Generate the tianhua2019 report'
+  task :tianhua2019_report, [:log_file] => [:environment] do |task, args|
+    REGEXP = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s?\-\s?-\s?\[(\d{2}\/[a-z]{3}\/\d{4}:\d{2}:\d{2}:\d{2} (\+|\-)\d{4})\]\s?\\?"?(GET|POST|PUT|HEAD|DELETE|OPTIONS)\s?(.*?)\s(HTTP\/\d\.\d)\\?"?\s?(\d{3})\s?(\d+)\s?\\?\"\-\\?\"\s?\\?\"(.*?)\"/i
+
+    CSV.open('tianhua2019.csv', 'w') do |csv|
+      csv << %w[ip time clerk_code chinese_name position_title company_short_name department_name user_agent]
+
+      File.foreach(args[:log_file]) do |line|
+        matches = line.match(REGEXP)
+        next if matches.nil?
+
+        ip = matches[1]
+        time_str = matches[2]
+        time = DateTime.strptime(time_str, '%d/%b/%Y:%H:%M:%S %z')
+        url = matches[5]
+        clerk_code = url[14..19]
+        user_agent = matches[9]
+        user = User.find_by(clerk_code: clerk_code)
+        if user.present?
+          values = []
+          values << ip
+          values << time
+          values << clerk_code
+          values << user.chinese_name
+          values << user.position_title
+          values << user.user_company_names&.first
+          values << user.user_department_name
+          values << user_agent
+          csv << values
+        end
+      end
+    end
+  end
 end
