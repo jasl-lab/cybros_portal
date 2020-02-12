@@ -78,7 +78,7 @@ module Person
       def proof_of_employment_apply_params
         params.require(:personal_proof_of_employment_apply)
           .permit(:employee_name, :clerk_code, :belong_company_name,
-            :belong_department_name, :contract_belong_company, :stamp_to_place, :stamp_comment)
+            :belong_department_name, :contract_belong_company, :stamp_to_place, :attachment, :stamp_comment)
       end
   end
 end

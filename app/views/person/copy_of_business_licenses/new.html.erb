@@ -70,6 +70,13 @@
   </div>
   <div class="row">
     <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="file-input-attachment"><%= t('.attachment') %></label>
+        <div class="col-md-9">
+          <%= f.file_field :attachment, class: 'form-control', id: 'file-input-attachment' %>
+          <%= f.error_message :attachment, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="form-group row">
