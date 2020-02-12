@@ -1,2 +1,2 @@
-$("#proof-of-income-modal").html('<%= j render partial: "modal", locals: { attachment: @proof_of_income_apply.attachment } -%>');
+$("#proof-of-income-modal").html('<%= j render partial: "shared/attachment_modal", locals: { attachment: @proof_of_income_apply.attachment } -%>');
 $("#proof-of-income-modal").modal();

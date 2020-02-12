@@ -6,7 +6,11 @@
       </button>
     </div>
     <div class="modal-body">
-      <%= image_tag attachment %>
+      <% if attachment.blob.content_type.starts_with?('image/') %>
+        <%= image_tag attachment %>
+      <% else %>
+        <%= link_to '下载', rails_blob_url(attachment) %>
+      <% end %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
