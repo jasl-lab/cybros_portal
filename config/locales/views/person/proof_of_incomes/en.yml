@@ -14,6 +14,7 @@ en:
         contract_belong_company_hint: "Choose 1 from 3"
         stamp_to_place: "Stamp to place"
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        attachment: "Attachment"
         stamp_comment: "Stamp"
       create:
         success: "Your proof of income apply created successfully."

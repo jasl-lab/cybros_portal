@@ -3,6 +3,7 @@
 module Personal
   class CopyOfBusinessLicenseDatatable < ApplicationDatatable
     def_delegator :@view, :person_copy_of_business_license_path
+    def_delegator :@view, :view_attachment_person_copy_of_business_license_path
     def_delegator :@view, :start_approve_person_copy_of_business_license_path
 
     def initialize(params, opts = {})
@@ -29,13 +30,16 @@ module Personal
           method: :delete, data: { confirm: '你确定要删除吗？' }
         r_start_approve = link_to I18n.t('person.copy_of_business_licenses.index.actions.start_approve'), start_approve_person_copy_of_business_license_path(r),
           class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' }
+        see_attachment = if r.attachment.attached?
+          link_to I18n.t('person.copy_of_business_licenses.new.attachment'), view_attachment_person_copy_of_business_license_path(r), remote: true
+        end
         { employee_name: r.employee_name,
           clerk_code: r.clerk_code,
           belong_company_name: r.belong_company_name,
           belong_department_name: r.belong_department_name,
           contract_belong_company: r.contract_belong_company,
           stamp_to_place: r.stamp_to_place,
-          stamp_comment: r.stamp_comment,
+          stamp_comment: "#{r.stamp_comment}#{see_attachment}".html_safe,
           item_action: "#{r_delete}#{r_start_approve}".html_safe
         }
       end
