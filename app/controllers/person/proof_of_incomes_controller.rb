@@ -6,7 +6,7 @@ module Person
     before_action :authenticate_user!
     before_action :set_page_layout_data, if: -> { request.format.html? }
     before_action :set_breadcrumbs, only: %i[index new], if: -> { request.format.html? }
-    before_action :set_proof_of_income_apply, only: %i[destroy start_approve]
+    before_action :set_proof_of_income_apply, only: %i[destroy start_approve view_attachment]
 
     def index
       respond_to do |format|
@@ -53,6 +53,9 @@ module Person
     end
 
     def start_approve
+    end
+
+    def view_attachment
     end
 
     private
