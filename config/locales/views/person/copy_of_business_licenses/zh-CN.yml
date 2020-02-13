@@ -20,6 +20,10 @@ zh-CN:
         success: "您的公司营业执照副本申请成功创建！"
       destroy:
         success: "您的公司营业执照副本申请成功删除！"
+      start_approve:
+        success: "您的公司营业执照副本申请成功发起流程！"
+        failed: "公司营业执照副本申请发起流程失败，BPM返回：%{message}"
+        repeated_approve_request: "公司营业执照副本申请发起流程已经发起"
       index:
         title: "公司营业执照副本申请历史列表"
         actions:

@@ -20,6 +20,10 @@ zh-CN:
         success: "您的收入证明申请成功创建！"
       destroy:
         success: "您的收入证明申请成功删除！"
+      start_approve:
+        success: "您的收入证明申请成功发起流程！"
+        failed: "收入证明申请发起流程失败，BPM返回：%{message}"
+        repeated_approve_request: "收入证明申请发起流程已经发起。"
       index:
         title: "收入证明历史列表"
         actions:

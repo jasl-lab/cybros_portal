@@ -38,7 +38,7 @@ module Personal
           belong_company_name: r.belong_company_name,
           belong_department_name: r.belong_department_name,
           contract_belong_company: r.contract_belong_company,
-          stamp_to_place: r.stamp_to_place,
+          stamp_to_place: Personal::CopyOfBusinessLicenseApply.sh_stamp_place.key(r.stamp_to_place),
           stamp_comment: "#{r.stamp_comment}#{see_attachment}".html_safe,
           item_action: "#{r_delete}#{r_start_approve}".html_safe
         }

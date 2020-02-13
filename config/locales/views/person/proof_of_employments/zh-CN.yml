@@ -20,6 +20,10 @@ zh-CN:
         success: "您的在职证明申请成功创建！"
       destroy:
         success: "您的在职证明申请成功删除！"
+      start_approve:
+        success: "您的在职证明申请成功发起流程！"
+        failed: "在职证明申请发起流程失败，BPM返回：%{message}"
+        repeated_approve_request: "在职证明申请发起流程已经发起。"
       index:
         title: "在职证明历史列表"
         actions:

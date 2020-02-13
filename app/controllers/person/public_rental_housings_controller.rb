@@ -53,6 +53,47 @@ module Person
     end
 
     def start_approve
+      if @public_rental_housing_apply.begin_task_id.present? || @public_rental_housing_apply.backend_in_processing
+        redirect_to person_public_rental_housings_path, notice: t('.repeated_approve_request')
+        return
+      end
+
+      bizData = {
+        sender: 'Cybros',
+        cybros_form_id: "public_rental_housing_apply_id_#{@public_rental_housing_apply.id}",
+        applicant_name: @public_rental_housing_apply.employee_name,
+        applicant_code: @public_rental_housing_apply.clerk_code,
+        application_type: 'personal',
+        application_class: 'gzfsq',
+        work_company_name: @public_rental_housing_apply.belong_company_name,
+        work_company_code: '', # 申请人归属公司编码
+        work_dept_name: @public_rental_housing_apply.belong_department_name,
+        work_dept_code: '', # 申请人所属部门编码
+        lc_company_name: @public_rental_housing_apply.contract_belong_company,
+        lc_company_code: '', # 申请人所属部门编码
+        stamp_location_name: Personal::PublicRentalHousingApply.sh_stamp_place.key(@public_rental_housing_apply.stamp_to_place),
+        stamp_location_code: @public_rental_housing_apply.stamp_to_place,
+        application_reason: @public_rental_housing_apply.stamp_comment,
+        attachment_list: [ rails_blob_url(@public_rental_housing_apply.attachment) ],
+        created_at: @public_rental_housing_apply.created_at,
+        updated_at: @public_rental_housing_apply.updated_at
+      }
+
+      @public_rental_housing_apply.update_columns(backend_in_processing: true)
+      response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
+        json: { processName: 'OfficialSealUsageApplication', taskId: '', action: '', comments: '', step: 'Begin',
+        userCode: current_user.clerk_code, bizData: bizData.to_json })
+      Rails.logger.debug "OfficialSealUsage PublicRentalHousingApply handler response: #{response}"
+      result = JSON.parse(response.body.to_s)
+      @public_rental_housing_apply.update_columns(backend_in_processing: false)
+
+      if result['isSuccess'] == '1'
+        @public_rental_housing_apply.update(begin_task_id: result['BeginTaskId'])
+        redirect_to person_public_rental_housings_path, notice: t('.success')
+      else
+        @public_rental_housing_apply.update(bpm_message: result['message'])
+        redirect_to person_public_rental_housings_path, notice: t('.failed', message: result['message'])
+      end
     end
 
     def view_attachment

@@ -41,7 +41,7 @@ zh-CN:
       start_approve:
         success: "您的名片申请成功发起流程！"
         failed: "名片申请发起流程失败，BPM返回：%{message}"
-        repeated_approve_request: "名片申请发起流程已经发起"
+        repeated_approve_request: "名片申请发起流程已经发起。"
       show:
         title: "名片申请历史详细信息"
         table:

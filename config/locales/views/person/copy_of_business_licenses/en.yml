@@ -20,6 +20,10 @@ en:
         success: "Your copy of business license apply created successfully."
       destroy:
         success: "Your copy of business license apply deleted!"
+      start_approve:
+        success: "Your copy of business license  apply now in approve process!"
+        failed: "Copy of business license apply initiation process failed, BPM returned：%{message}"
+        repeated_approve_request: "Copy of business license apply process is already initialized."
       index:
         title: "Copy of business license history list"
         actions:

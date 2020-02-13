@@ -20,6 +20,10 @@ en:
         success: "Your public rental housing apply created successfully."
       destroy:
         success: "Your public rental housing apply deleted!"
+      start_approve:
+        success: "Your public rental housing apply now in approve process!"
+        failed: "Public rental housing apply initiation process failed, BPM returned：%{message}"
+        repeated_approve_request: "Public rental housing apply process is already initialized."
       index:
         title: "Public rental housing apply history list"
         actions:

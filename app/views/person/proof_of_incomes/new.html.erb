@@ -59,9 +59,9 @@
     </div>
     <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-stamp-to-place"><%= t('.stamp_to_place') %></label>
+        <label class="col-md-3 col-form-label" for="select-stamp-to-place"><%= t('.stamp_to_place') %></label>
         <div class="col-md-9">
-          <%= f.text_field :stamp_to_place, class: 'form-control', id: 'text-input-stamp-to-place' %>
+          <%= f.select :stamp_to_place, options_for_select(Personal::ProofOfIncomeApply.sh_stamp_place, selected = @proof_of_income_apply.stamp_to_place), {}, class: 'form-control', id: 'select-stamp-to-place' %>
           <span class="help-block"><%= t('.stamp_to_place_hint') %></span>
           <%= f.error_message :stamp_to_place, tag: :span, class: "help-block error-message" %>
         </div>

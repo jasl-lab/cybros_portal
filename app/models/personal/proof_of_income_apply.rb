@@ -6,5 +6,6 @@ module Personal
     has_one_attached :attachment
 
     include AttachmentValidate
+    include StampPlace
   end
 end

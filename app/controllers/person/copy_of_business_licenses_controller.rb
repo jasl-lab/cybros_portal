@@ -53,6 +53,47 @@ module Person
     end
 
     def start_approve
+      if @copy_of_business_license_apply.begin_task_id.present? || @copy_of_business_license_apply.backend_in_processing
+        redirect_to person_copy_of_business_licenses_path, notice: t('.repeated_approve_request')
+        return
+      end
+
+      bizData = {
+        sender: 'Cybros',
+        cybros_form_id: "copy_of_business_license_apply_id_#{@copy_of_business_license_apply.id}",
+        applicant_name: @copy_of_business_license_apply.employee_name,
+        applicant_code: @copy_of_business_license_apply.clerk_code,
+        application_type: 'personal',
+        application_class: 'gsyyzz',
+        work_company_name: @copy_of_business_license_apply.belong_company_name,
+        work_company_code: '', # 申请人归属公司编码
+        work_dept_name: @copy_of_business_license_apply.belong_department_name,
+        work_dept_code: '', # 申请人所属部门编码
+        lc_company_name: @copy_of_business_license_apply.contract_belong_company,
+        lc_company_code: '', # 申请人所属部门编码
+        stamp_location_name: Personal::CopyOfBusinessLicenseApply.sh_stamp_place.key(@copy_of_business_license_apply.stamp_to_place),
+        stamp_location_code: @copy_of_business_license_apply.stamp_to_place,
+        application_reason: @copy_of_business_license_apply.stamp_comment,
+        attachment_list: [ rails_blob_url(@copy_of_business_license_apply.attachment) ],
+        created_at: @copy_of_business_license_apply.created_at,
+        updated_at: @copy_of_business_license_apply.updated_at
+      }
+
+      @copy_of_business_license_apply.update_columns(backend_in_processing: true)
+      response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
+        json: { processName: 'OfficialSealUsageApplication', taskId: '', action: '', comments: '', step: 'Begin',
+        userCode: current_user.clerk_code, bizData: bizData.to_json })
+      Rails.logger.debug "OfficialSealUsage CopyOfBusinessLicenseApply handler response: #{response}"
+      result = JSON.parse(response.body.to_s)
+      @copy_of_business_license_apply.update_columns(backend_in_processing: false)
+
+      if result['isSuccess'] == '1'
+        @copy_of_business_license_apply.update(begin_task_id: result['BeginTaskId'])
+        redirect_to person_copy_of_business_licenses_path, notice: t('.success')
+      else
+        @copy_of_business_license_apply.update(bpm_message: result['message'])
+        redirect_to person_copy_of_business_licenses_path, notice: t('.failed', message: result['message'])
+      end
     end
 
     def view_attachment

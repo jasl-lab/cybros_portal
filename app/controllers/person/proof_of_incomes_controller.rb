@@ -53,6 +53,47 @@ module Person
     end
 
     def start_approve
+      if @proof_of_income_apply.begin_task_id.present? || @proof_of_income_apply.backend_in_processing
+        redirect_to person_proof_of_incomes_path, notice: t('.repeated_approve_request')
+        return
+      end
+
+      bizData = {
+        sender: 'Cybros',
+        cybros_form_id: "proof_of_income_apply_id_#{@proof_of_income_apply.id}",
+        applicant_name: @proof_of_income_apply.employee_name,
+        applicant_code: @proof_of_income_apply.clerk_code,
+        application_type: 'personal',
+        application_class: 'srzm',
+        work_company_name: @proof_of_income_apply.belong_company_name,
+        work_company_code: '', # 申请人归属公司编码
+        work_dept_name: @proof_of_income_apply.belong_department_name,
+        work_dept_code: '', # 申请人所属部门编码
+        lc_company_name: @proof_of_income_apply.contract_belong_company,
+        lc_company_code: '', # 申请人所属部门编码
+        stamp_location_name: Personal::ProofOfIncomeApply.sh_stamp_place.key(@proof_of_income_apply.stamp_to_place),
+        stamp_location_code: @proof_of_income_apply.stamp_to_place,
+        application_reason: @proof_of_income_apply.stamp_comment,
+        attachment_list: [ rails_blob_url(@proof_of_income_apply.attachment) ],
+        created_at: @proof_of_income_apply.created_at,
+        updated_at: @proof_of_income_apply.updated_at
+      }
+
+      @proof_of_income_apply.update_columns(backend_in_processing: true)
+      response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
+        json: { processName: 'OfficialSealUsageApplication', taskId: '', action: '', comments: '', step: 'Begin',
+        userCode: current_user.clerk_code, bizData: bizData.to_json })
+      Rails.logger.debug "OfficialSealUsage ProofOfIncomeApply handler response: #{response}"
+      result = JSON.parse(response.body.to_s)
+      @proof_of_income_apply.update_columns(backend_in_processing: false)
+
+      if result['isSuccess'] == '1'
+        @proof_of_income_apply.update(begin_task_id: result['BeginTaskId'])
+        redirect_to person_proof_of_incomes_path, notice: t('.success')
+      else
+        @proof_of_income_apply.update(bpm_message: result['message'])
+        redirect_to person_proof_of_incomes_path, notice: t('.failed', message: result['message'])
+      end
     end
 
     def view_attachment
