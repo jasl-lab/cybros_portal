@@ -2,7 +2,7 @@
 lock '~> 3.12.0'
 
 set :application, 'cybros'
-set :repo_url, 'git@e.coding.net:ericguo/cybros_portal.git'
+set :repo_url, 'git@e.coding.net:sew/cybros_portal.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
