@@ -1,0 +1,18 @@
+---
+en:
+  company:
+    km_maps:
+      show:
+        title: "View KM projects"
+        form:
+          biz_category: "Business category"
+          prj_category: "Project category"
+          client: "Client"
+          client_placeholder: "Client name"
+          city: "City"
+          city_placeholder: "Project address"
+          department: "Department"
+          service_stage: "Service stage"
+          project_progress: "Project progress"
+          scale: "Scale"
+          query: "Query"

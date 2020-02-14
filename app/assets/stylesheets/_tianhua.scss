@@ -36,6 +36,15 @@
   width: 100%;
 }
 
+#km-full-map {
+  background-color: $sidebar-bg;
+  bottom: 50px;
+  left: 0;
+  position: absolute;
+  top: 168px;
+  width: 100%;
+}
+
 // Keep as a separate element so folks can easily override it with another icon
 // or image file as needed.
 .aside-style-toggler-icon {

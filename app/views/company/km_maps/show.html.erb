@@ -1,0 +1,47 @@
+<%= form_tag company_km_map_path, method: :get do -%>
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.biz_category") -%></label>
+      <%= text_field_tag 'biz_category', @biz_category, class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.prj_category") -%></label>
+      <%= text_field_tag 'prj_category', @prj_category, class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.client") -%></label>
+      <%= text_field_tag 'client', @client,
+        placeholder: t(".form.client_placeholder"), class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.city") -%></label>
+      <%= text_field_tag 'city', @city,
+        placeholder: t(".form.city_placeholder"), class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.department") -%></label>
+      <%= text_field_tag 'department', @department, class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.service_stage") -%></label>
+      <%= text_field_tag 'service_stage', @service_stage, class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.project_progress") -%></label>
+      <%= text_field_tag 'project_progress', @project_progress, class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <label class="mr-sm-1"><%= t(".form.scale") -%></label>
+      <%= text_field_tag 'scale', @scale, class: 'form-control form-control2' %>
+    </div>
+    <div class="col-auto my-1">
+      <span>查得<%= 1 -%>记录</span>
+      <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
+    </div>
+  </div>
+<% end %>
+
+<div id="km-full-map"
+  data-controller="km-full-map"
+  data-km-full-map-map_point="<%= @valid_map_point.to_json -%>"
+</div>

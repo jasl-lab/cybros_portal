@@ -64,6 +64,7 @@ Rails.application.routes.draw do
         get :detail
       end
     end
+    resource :km_map, only: %i[show]
   end
 
   namespace :report do
