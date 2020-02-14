@@ -8,7 +8,7 @@ class Company::ContractsMapsController < ApplicationController
 
   def show
     authorize Bi::NewMapInfo
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @hide_app_footer = true
 
     @city = params[:city].presence || '所有'
@@ -28,17 +28,17 @@ class Company::ContractsMapsController < ApplicationController
     map_infos = policy_scope(Bi::NewMapInfo).where.not(coordinate: nil).includes(:project_items)
     map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
     map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
-    map_infos = map_infos.where("company LIKE ?", "%#{@city}%") unless @city == '所有'
-    map_infos = map_infos.where("projecttype LIKE ?", "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
-    map_infos = map_infos.where("developercompanyname LIKE ?", "%#{@client}%") if @client.present?
+    map_infos = map_infos.where('company LIKE ?', "%#{@city}%") unless @city == '所有'
+    map_infos = map_infos.where('projecttype LIKE ?', "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
+    map_infos = map_infos.where('developercompanyname LIKE ?', "%#{@client}%") if @client.present?
     map_infos = map_infos.none if @show_empty.present?
     if @query_text.present?
       map_infos = map_infos
-        .where("marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?",
+        .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
           "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
     end
 
-    @valid_map_infos = map_infos.reject {|m| !m.coordinate.include?(',')}
+    @valid_map_infos = map_infos.reject { |m| !m.coordinate.include?(',') }
 
     total_cos = @valid_map_infos.collect(&:coordinate)
     @valid_map_point = @valid_map_infos.collect do |m|
@@ -79,6 +79,6 @@ class Company::ContractsMapsController < ApplicationController
   protected
 
     def set_page_layout_data
-      @_sidebar_name = "company"
+      @_sidebar_name = 'company'
     end
 end

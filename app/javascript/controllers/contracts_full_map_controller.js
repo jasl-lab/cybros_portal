@@ -9,11 +9,11 @@ window.initFullMap = function () {
     }
   }
 
-  const mapPoint = $('#full-map').data("full-map-map_point");
-  const needLocateToShanghai = $('#full-map').data("full-map-need_locate_to_shanghai");
-  const needLocateToChina = $('#full-map').data("full-map-need_locate_to_china");
-  const avgLat = $('#full-map').data("full-map-avg_lat");
-  const avgLng = $('#full-map').data("full-map-avg_lng");
+  const mapPoint = $('#full-map').data("contracts-full-map-map_point");
+  const needLocateToShanghai = $('#full-map').data("contracts-full-map-need_locate_to_shanghai");
+  const needLocateToChina = $('#full-map').data("contracts-full-map-need_locate_to_china");
+  const avgLat = $('#full-map').data("contracts-full-map-avg_lat");
+  const avgLng = $('#full-map').data("contracts-full-map-avg_lng");
 
   let center;
   let zoom;

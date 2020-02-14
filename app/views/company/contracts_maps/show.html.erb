@@ -40,13 +40,13 @@
 <% end %>
 
 <div id="full-map"
-  data-controller="full-map"
-  data-full-map-map_point="<%= @valid_map_point.to_json -%>"
-  data-full-map-need_locate_to_shanghai="<%= @need_locate_to_shanghai -%>"
-  data-full-map-need_locate_to_china="<%= @need_locate_to_china -%>"
-  data-full-map-allow_download="<%= @allow_download -%>"
-  data-full-map-avg_lat="<%= @avg_lat -%>"
-  data-full-map-avg_lng="<%= @avg_lng -%>">
+  data-controller="contracts-full-map"
+  data-contracts-full-map-map_point="<%= @valid_map_point.to_json -%>"
+  data-contracts-full-map-need_locate_to_shanghai="<%= @need_locate_to_shanghai -%>"
+  data-contracts-full-map-need_locate_to_china="<%= @need_locate_to_china -%>"
+  data-contracts-full-map-allow_download="<%= @allow_download -%>"
+  data-contracts-full-map-avg_lat="<%= @avg_lat -%>"
+  data-contracts-full-map-avg_lng="<%= @avg_lng -%>">
 </div>
 
 <div id="company-contracts-modal" class="modal" tabindex="-1" role="dialog"></div>
