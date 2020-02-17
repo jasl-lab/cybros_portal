@@ -57,6 +57,35 @@ namespace :import_export do
     end
   end
 
+  desc 'Generate the VPN report'
+  task :vpn_csv_report, [:csv_file] => [:environment] do |task, args|
+    csv_file_path = args[:csv_file]
+
+    CSV.open('vpn_report.csv', 'w') do |csv|
+      csv << %w[user_name chinese_name department company action state]
+
+      CSV.foreach(csv_file_path, headers: true) do |row|
+        user_name = row['1']
+        action = row['2']
+        state = row['3']
+
+        user = User.find_by email: "#{user_name}@thape.com.cn"
+        if user.present?
+          values = []
+          values << user_name
+          values << user.chinese_name
+          values << user.user_department_name
+          values << user.user_company_short_name
+          values << action
+          values << state
+          csv << values
+        else
+          puts "Username: #{user_name} can not find."
+        end
+      end
+    end
+  end
+
   desc 'Generate the tianhua2019 report'
   task :tianhua2019_report, [:log_file] => [:environment] do |task, args|
     REGEXP = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s?\-\s?-\s?\[(\d{2}\/[a-z]{3}\/\d{4}:\d{2}:\d{2}:\d{2} (\+|\-)\d{4})\]\s?\\?"?(GET|POST|PUT|HEAD|DELETE|OPTIONS)\s?(.*?)\s(HTTP\/\d\.\d)\\?"?\s?(\d{3})\s?(\d+)\s?\\?\"\-\\?\"\s?\\?\"(.*?)\"/i
