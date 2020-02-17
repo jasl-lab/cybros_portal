@@ -41,14 +41,17 @@ namespace :import_export do
       user.save
 
       combine_departments.each do |cd|
-        id = cd.split('@')[0]
-        department_name = cd.split('@')[1]
-        company_name = cd.split('@')[2]
+        cds = cd.split('@')
+        id = cds[0]
+        department_name = cds[1]
+        dept_code = cds[2]
+        company_name = cds[3]
+        company_code = cds[4]
 
         dep = Department.find_or_create_by(id: id) do |department|
           department.name = department_name
         end
-        dep.update(company_name: company_name, name: department_name)
+        dep.update(company_name: company_name, company_code: company_code, name: department_name, dept_code: dept_code)
         DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
       end
     end
