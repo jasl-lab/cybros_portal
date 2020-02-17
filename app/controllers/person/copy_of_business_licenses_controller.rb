@@ -28,9 +28,15 @@ module Person
       @copy_of_business_license_apply = current_user.copy_of_business_license_applies.build
       @copy_of_business_license_apply.employee_name = current_user.chinese_name
       @copy_of_business_license_apply.clerk_code = current_user.clerk_code
-      @copy_of_business_license_apply.belong_company_name = current_user.departments.first&.company_name
-      @copy_of_business_license_apply.belong_department_name = current_user.departments.first&.name
-      @copy_of_business_license_apply.contract_belong_company = current_user.departments.first&.company_name
+      current_user_department = current_user.departments.first
+      if current_user_department.present?
+        @copy_of_business_license_apply.belong_company_name = current_user_department.company_name
+        @copy_of_business_license_apply.belong_company_code = current_user_department.company_code
+        @copy_of_business_license_apply.belong_department_name = current_user_department.name
+        @copy_of_business_license_apply.belong_department_code = current_user_department.dept_code
+        @copy_of_business_license_apply.contract_belong_company = current_user_department.company_name
+        @copy_of_business_license_apply.contract_belong_company_code = current_user_department.company_code
+      end
     end
 
     def create
@@ -66,15 +72,15 @@ module Person
         application_type: 'personal',
         application_class: 'gsyyzz',
         work_company_name: @copy_of_business_license_apply.belong_company_name,
-        work_company_code: '', # 申请人归属公司编码
+        work_company_code: @copy_of_business_license_apply.belong_company_code, # 申请人归属公司编码
         work_dept_name: @copy_of_business_license_apply.belong_department_name,
-        work_dept_code: '', # 申请人所属部门编码
+        work_dept_code: @copy_of_business_license_apply.belong_department_code, # 申请人所属部门编码
         lc_company_name: @copy_of_business_license_apply.contract_belong_company,
-        lc_company_code: '', # 申请人所属部门编码
+        lc_company_code: @copy_of_business_license_apply.contract_belong_company_code, # 申请人所属部门编码
         stamp_location_name: Personal::CopyOfBusinessLicenseApply.sh_stamp_place.key(@copy_of_business_license_apply.stamp_to_place),
         stamp_location_code: @copy_of_business_license_apply.stamp_to_place,
         application_reason: @copy_of_business_license_apply.stamp_comment,
-        attachment_list: [ rails_blob_url(@copy_of_business_license_apply.attachment) ],
+        attachment_list: [ { file_name: @copy_of_business_license_apply.attachment.filename.to_s, url: rails_blob_url(@copy_of_business_license_apply.attachment) } ],
         created_at: @copy_of_business_license_apply.created_at,
         updated_at: @copy_of_business_license_apply.updated_at
       }
@@ -121,8 +127,11 @@ module Person
 
       def copy_of_business_license_apply_params
         params.require(:personal_copy_of_business_license_apply)
-          .permit(:employee_name, :clerk_code, :belong_company_name,
-            :belong_department_name, :contract_belong_company, :stamp_to_place, :attachment, :stamp_comment)
+          .permit(:employee_name, :clerk_code,
+            :belong_company_name, :belong_company_code,
+            :belong_department_name, :belong_department_code,
+            :contract_belong_company, :contract_belong_company_code,
+            :stamp_to_place, :attachment, :stamp_comment)
       end
   end
 end

@@ -28,9 +28,15 @@ module Person
       @public_rental_housing_apply = current_user.public_rental_housing_applies.build
       @public_rental_housing_apply.employee_name = current_user.chinese_name
       @public_rental_housing_apply.clerk_code = current_user.clerk_code
-      @public_rental_housing_apply.belong_company_name = current_user.departments.first&.company_name
-      @public_rental_housing_apply.belong_department_name = current_user.departments.first&.name
-      @public_rental_housing_apply.contract_belong_company = current_user.departments.first&.company_name
+      current_user_department = current_user.departments.first
+      if current_user_department.present?
+        @public_rental_housing_apply.belong_company_name = current_user_department.company_name
+        @public_rental_housing_apply.belong_company_code = current_user_department.company_code
+        @public_rental_housing_apply.belong_department_name = current_user_department.name
+        @public_rental_housing_apply.belong_department_code = current_user_department.dept_code
+        @public_rental_housing_apply.contract_belong_company = current_user_department.company_name
+        @public_rental_housing_apply.contract_belong_company_code = current_user_department.company_code
+      end
     end
 
     def create
@@ -66,15 +72,15 @@ module Person
         application_type: 'personal',
         application_class: 'gzfsq',
         work_company_name: @public_rental_housing_apply.belong_company_name,
-        work_company_code: '', # 申请人归属公司编码
+        work_company_code: @public_rental_housing_apply.belong_company_code, # 申请人归属公司编码
         work_dept_name: @public_rental_housing_apply.belong_department_name,
-        work_dept_code: '', # 申请人所属部门编码
+        work_dept_code: @public_rental_housing_apply.belong_department_code, # 申请人所属部门编码
         lc_company_name: @public_rental_housing_apply.contract_belong_company,
-        lc_company_code: '', # 申请人所属部门编码
+        lc_company_code: @public_rental_housing_apply.contract_belong_company_code, # 申请人所属部门编码
         stamp_location_name: Personal::PublicRentalHousingApply.sh_stamp_place.key(@public_rental_housing_apply.stamp_to_place),
         stamp_location_code: @public_rental_housing_apply.stamp_to_place,
         application_reason: @public_rental_housing_apply.stamp_comment,
-        attachment_list: [ rails_blob_url(@public_rental_housing_apply.attachment) ],
+        attachment_list: [ { file_name: @public_rental_housing_apply.attachment.filename.to_s, url: rails_blob_url(@public_rental_housing_apply.attachment) } ],
         created_at: @public_rental_housing_apply.created_at,
         updated_at: @public_rental_housing_apply.updated_at
       }
@@ -121,8 +127,11 @@ module Person
 
       def public_rental_housing_apply_params
         params.require(:personal_public_rental_housing_apply)
-          .permit(:employee_name, :clerk_code, :belong_company_name,
-            :belong_department_name, :contract_belong_company, :stamp_to_place, :attachment, :stamp_comment)
+          .permit(:employee_name, :clerk_code,
+            :belong_company_name, :belong_company_code,
+            :belong_department_name, :belong_department_code,
+            :contract_belong_company, :contract_belong_company_code,
+            :stamp_to_place, :attachment, :stamp_comment)
       end
   end
 end
