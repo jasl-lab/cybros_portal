@@ -8,6 +8,7 @@ module Personal
       validates :belong_company_name, :belong_company_code,
                 :belong_department_name, :belong_department_code,
                 :contract_belong_company, :contract_belong_company_code,
+                :stamp_comment,
         presence: true
     end
 
