@@ -55,9 +55,10 @@ class Person::NameCardsController < ApplicationController
 
   def show
     response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_history],
-      :json => { processName: '', incident: '', taskId: @name_card_apply.begin_task_id })
+      json: { processName: '', incident: '', taskId: @name_card_apply.begin_task_id })
     Rails.logger.debug "name cards apply history response: #{response}"
     @result = JSON.parse(response.body.to_s)
+    render 'shared/show_task_detail'
   end
 
   def start_approve

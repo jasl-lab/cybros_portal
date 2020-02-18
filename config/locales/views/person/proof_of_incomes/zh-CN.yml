@@ -33,6 +33,7 @@ zh-CN:
           new: "新的收入证明"
           delete: "删除"
           start_approve: "提交并发起流程"
+          look_workflow: "查看流程进度"
         table:
           employee_name: "员工姓名"
           clerk_code: "员工号"

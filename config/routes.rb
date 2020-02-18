@@ -172,25 +172,25 @@ Rails.application.routes.draw do
     resources :name_card_black_titles, only: %i[index create]
     resources :name_card_white_titles, only: %i[index create]
 
-    resources :copy_of_business_licenses, only: %i[index new create destroy] do
+    resources :copy_of_business_licenses, except: %i[edit update] do
       member do
         get :view_attachment
         patch :start_approve
       end
     end
-    resources :proof_of_employments, only: %i[index new create destroy] do
+    resources :proof_of_employments, except: %i[edit update] do
       member do
         get :view_attachment
         patch :start_approve
       end
     end
-    resources :proof_of_incomes, only: %i[index new create destroy] do
+    resources :proof_of_incomes, except: %i[edit update] do
       member do
         get :view_attachment
         patch :start_approve
       end
     end
-    resources :public_rental_housings, only: %i[index new create destroy] do
+    resources :public_rental_housings, except: %i[edit update] do
       member do
         get :view_attachment
         patch :start_approve

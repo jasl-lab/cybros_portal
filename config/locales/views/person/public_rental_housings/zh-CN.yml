@@ -22,17 +22,18 @@ zh-CN:
       create:
         success: "您的公租房申请成功创建！"
       destroy:
-        success: "您的收入证明申请成功删除！"
+        success: "您的公租房申请成功删除！"
       start_approve:
-        success: "您的收入证明申请成功发起流程！"
-        failed: "收入证明申请发起流程失败，BPM返回：%{message}"
-        repeated_approve_request: "收入证明申请发起流程已经发起。"
+        success: "您的公租房申请成功发起流程！"
+        failed: "公租房申请发起流程失败，BPM返回：%{message}"
+        repeated_approve_request: "公租房申请发起流程已经发起。"
       index:
         title: "公租房申请历史列表"
         actions:
           new: "新的公租房申请"
           delete: "删除"
           start_approve: "提交并发起流程"
+          look_workflow: "查看流程进度"
         table:
           employee_name: "员工姓名"
           clerk_code: "员工号"

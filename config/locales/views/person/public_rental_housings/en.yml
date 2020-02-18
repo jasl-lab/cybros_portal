@@ -33,6 +33,7 @@ en:
           new: "New public rental housing apply"
           delete: "Delete"
           start_approve: "Request approve and submit"
+          look_workflow: "Look workflow process"
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"

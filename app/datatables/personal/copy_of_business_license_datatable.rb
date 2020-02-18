@@ -15,6 +15,7 @@ module Personal
       @view_columns ||= {
         employee_name: { source: 'Personal::CopyOfBusinessLicenseApply.employee_name', cond: :like, searchable: true, orderable: true },
         clerk_code: { source: 'Personal::CopyOfBusinessLicenseApply.clerk_code', cond: :like, searchable: true, orderable: true },
+        task_id: { source: 'Personal::CopyOfBusinessLicenseApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
         belong_company_name: { source: 'Personal::CopyOfBusinessLicenseApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         belong_department_name: { source: 'Personal::CopyOfBusinessLicenseApply.belong_department_name', cond: :like, searchable: true, orderable: true },
         contract_belong_company: { source: 'Personal::CopyOfBusinessLicenseApply.contract_belong_company', cond: :like, searchable: true, orderable: true },
@@ -35,6 +36,7 @@ module Personal
         end
         { employee_name: r.employee_name,
           clerk_code: r.clerk_code,
+          task_id: (r.begin_task_id.present? ? link_to(I18n.t('person.copy_of_business_licenses.index.actions.look_workflow'), person_copy_of_business_license_path(id: r.id, begin_task_id: r.begin_task_id)) : ''),
           belong_company_name: r.belong_company_name,
           belong_department_name: r.belong_department_name,
           contract_belong_company: r.contract_belong_company,

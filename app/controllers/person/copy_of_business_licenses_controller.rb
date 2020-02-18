@@ -6,7 +6,7 @@ module Person
     before_action :authenticate_user!
     before_action :set_page_layout_data, if: -> { request.format.html? }
     before_action :set_breadcrumbs, only: %i[index new], if: -> { request.format.html? }
-    before_action :set_copy_of_business_license_apply, only: %i[destroy start_approve view_attachment]
+    before_action :set_copy_of_business_license_apply, only: %i[show destroy start_approve view_attachment]
 
     def index
       respond_to do |format|
@@ -20,6 +20,14 @@ module Person
             view_context: view_context)
         end
       end
+    end
+
+    def show
+      response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_history],
+        json: { processName: '', incident: '', taskId: @copy_of_business_license_apply.begin_task_id })
+      Rails.logger.debug "name cards apply history response: #{response}"
+      @result = JSON.parse(response.body.to_s)
+      render 'shared/show_task_detail'
     end
 
     def new

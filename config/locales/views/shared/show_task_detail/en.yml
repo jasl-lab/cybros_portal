@@ -1,0 +1,13 @@
+---
+en:
+  shared:
+    show_task_detail:
+      title: "Apply history details"
+      table:
+        stepname: "Step name"
+        taskuser: "Task user"
+        approver: "Approver"
+        action: "Action"
+        comments: "Comments"
+        starttime: "Start time"
+        endtime: "End time"
