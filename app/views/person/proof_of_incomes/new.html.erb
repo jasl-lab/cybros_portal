@@ -90,16 +90,6 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input-contract-belong-company"><%= t('.contract_belong_company') %></label>
-        <div class="col-md-9">
-          <%= f.text_field :contract_belong_company, id: 'text-input-contract-belong-company', class: 'form-control' %>
-          <span class="help-block"><%= t('.contract_belong_company_hint') %></span>
-          <%= f.error_message :contract_belong_company, tag: :span, class: "help-block error-message" %>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group row">
         <label class="col-md-3 col-form-label" for="select-stamp-to-place"><%= t('.stamp_to_place') %></label>
         <div class="col-md-9">
           <%= f.select :stamp_to_place, options_for_select(Personal::ProofOfIncomeApply.sh_stamp_place, selected = @proof_of_income_apply.stamp_to_place), {}, class: 'form-control', id: 'select-stamp-to-place' %>

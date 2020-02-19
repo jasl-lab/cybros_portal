@@ -12,8 +12,8 @@ module Personal
       end
     end
 
-    def new?
-      user.chinese_name.in? %w(过纯中 赵峥逸 李俭)
+    def index?
+      user.chinese_name.in? %w(过纯中 赵峥逸 李俭 余慧 陈建)
     end
   end
 end
