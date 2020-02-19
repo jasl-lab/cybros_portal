@@ -37,6 +37,7 @@ en:
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"
+          task_id: "Task ID"
           belong_company_name: "Belong company name"
           belong_department_name: "Belong department name"
           contract_belong_company: "Contract belong company"

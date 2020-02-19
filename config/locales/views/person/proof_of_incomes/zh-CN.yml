@@ -37,6 +37,7 @@ zh-CN:
         table:
           employee_name: "员工姓名"
           clerk_code: "员工号"
+          task_id: "任务 ID"
           belong_company_name: "归属公司"
           belong_department_name: "所属部门"
           contract_belong_company: "劳动合同归属单位"
