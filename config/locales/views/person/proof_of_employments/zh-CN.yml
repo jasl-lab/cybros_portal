@@ -19,6 +19,7 @@ zh-CN:
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
         attachment: "附件"
         stamp_comment: "用章事宜"
+        stamp_comment_hint: "例如：出国办理签证、开具介绍信等"
       create:
         success: "您的在职证明申请成功创建！"
       destroy:

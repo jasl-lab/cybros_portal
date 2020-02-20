@@ -114,6 +114,7 @@
         <label class="col-md-3 col-form-label" for="text-input-stamp-comment"><%= t('.stamp_comment') %></label>
         <div class="col-md-9">
           <%= f.text_field :stamp_comment, class: 'form-control', id: 'text-input-stamp-comment' %>
+          <span class="help-block"><%= t('.stamp_comment_hint') %></span>
           <%= f.error_message :stamp_comment, tag: :span, class: "help-block error-message" %>
         </div>
       </div>

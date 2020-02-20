@@ -18,7 +18,8 @@ en:
         stamp_to_place: "Stamp to place"
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
         attachment: "Attachment"
-        stamp_comment: "Stamp"
+        stamp_comment: "Stamp comment"
+        stamp_comment_hint: "e.g. For Visa."
       create:
         success: "Your proof of employment apply created successfully."
       destroy:
