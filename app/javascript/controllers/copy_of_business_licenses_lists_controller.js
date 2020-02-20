@@ -11,6 +11,7 @@ export default class extends Controller {
       {"data": "contract_belong_company"},
       {"data": "stamp_to_place"},
       {"data": "stamp_comment"},
+      {"data": "status"},
       {"data": "item_action", bSortable: false}
     ];
 

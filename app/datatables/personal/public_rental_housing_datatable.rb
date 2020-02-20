@@ -21,6 +21,7 @@ module Personal
         contract_belong_company: { source: 'Personal::PublicRentalHousingApply.contract_belong_company', cond: :like, searchable: true, orderable: true },
         stamp_to_place: { source: 'Personal::PublicRentalHousingApply.stamp_to_place', cond: :like, searchable: true, orderable: true },
         stamp_comment: { source: 'Personal::PublicRentalHousingApply.stamp_comment', cond: :like, searchable: true, orderable: true },
+        status: { source: "Personal::PublicRentalHousingApply.status", cond: :string_eq, searchable: true, orderable: true },
         item_action: { source: nil, searchable: false, orderable: false }
       }
     end
@@ -42,6 +43,7 @@ module Personal
           contract_belong_company: r.contract_belong_company,
           stamp_to_place: Personal::PublicRentalHousingApply.sh_stamp_place.key(r.stamp_to_place),
           stamp_comment: "#{r.stamp_comment}#{see_attachment}".html_safe,
+          status: r.status,
           item_action: "#{r_delete}#{r_start_approve}".html_safe
         }
       end
