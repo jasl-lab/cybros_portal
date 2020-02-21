@@ -1,0 +1,9 @@
+---
+zh-CN:
+  report:
+    yearly_subsidiary_complete_values:
+      show:
+        title: "%{company} 年度工作完成情况"
+        complete_value_ref: "完成情况预警"
+        company_name: "公司名"
+        confirm: "确认"

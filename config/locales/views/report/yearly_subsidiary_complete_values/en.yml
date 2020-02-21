@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    yearly_subsidiary_complete_values:
+      show:
+        title: "%{company} work rate and saturation analysis"
+        complete_value_ref: "Complete value ref"
+        company_name: "Company name"
+        confirm: "Confirm"

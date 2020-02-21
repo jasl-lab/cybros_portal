@@ -55,11 +55,19 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.present? && policy(Bi::CompleteValue).show? %>
+      <% if current_user.present? && policy(Bi::CompleteValueDept).show? %>
         <%= nav_item controller: 'report/subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_complete_value_path(view_deptcode_sum: true), class: "nav-link" do %>
             <i class="nav-icon fas fa-draw-polygon"></i>
             <%= t("layouts.sidebar.operation.subsidiary_complete_value") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.present? && policy(Bi::CompleteValue).show? %>
+        <%= nav_item controller: 'report/yearly_subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= link_to report_yearly_subsidiary_complete_value_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-draw-polygon"></i>
+            <%= t("layouts.sidebar.operation.yearly_subsidiary_complete_value", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>

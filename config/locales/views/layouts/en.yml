@@ -56,6 +56,7 @@ en:
         subsidiary_workloading: "Subsidiary workloading"
         company_subsidiary_workloading: "Workloading"
         yearly_subsidiary_workloading: "%{company} yearly workloading"
+        yearly_subsidiary_complete_value: "%{company} yearly value"
         contract_signing: "Contract signing"
         subsidiary_contract_signing: "Subsidiary contract signing"
         company_contract_signing: "contract signing"
