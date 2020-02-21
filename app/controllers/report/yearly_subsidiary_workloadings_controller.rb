@@ -7,14 +7,10 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountOrg
-    current_user_companies = current_user.user_company_names
-    current_company = current_user_companies.first
-    if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-      @all_company_names = Bi::WorkHoursCountOrg.distinct.pluck(:orgname)
-      @selected_company_name = params[:company_name]&.strip || current_company
+    @all_company_names = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
+      Bi::WorkHoursCountOrg.distinct.pluck(:orgname)
     else
-      @all_company_names = current_user_companies
-      @selected_company_name = current_company
+      current_user.user_company_names
     end
 
     all_month_names = Bi::WorkHoursCountOrg.all_month_names
@@ -33,12 +29,18 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
   private
 
     def set_breadcrumbs
+      current_company = current_user.user_company_names.first
+      @selected_company_name = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
+        params[:company_name]&.strip || current_company
+      else
+        current_company
+      end
       @_breadcrumbs = [
       { text: t("layouts.sidebar.application.header"),
         link: root_path },
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.yearly_subsidiary_workloading"),
+      { text: t("layouts.sidebar.operation.yearly_subsidiary_workloading", company: @selected_company_name),
         link: report_yearly_subsidiary_workloading_path }]
     end
 
