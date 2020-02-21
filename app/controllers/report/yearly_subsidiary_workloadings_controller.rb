@@ -7,16 +7,13 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountOrg
-    @all_company_names = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-      Bi::WorkHoursCountOrg.distinct.pluck(:orgname)
-    else
-      current_user.user_company_names
-    end
+    @all_company_names = policy_scope(Bi::WorkHoursCountOrg).distinct.pluck(:orgname)
 
-    all_month_names = Bi::WorkHoursCountOrg.all_month_names
+
+    all_month_names = policy_scope(Bi::WorkHoursCountOrg).all_month_names
     beginning_of_month = Date.parse(all_month_names.first).beginning_of_month
     end_of_month = Date.parse(all_month_names.last).end_of_month
-    data = Bi::WorkHoursCountOrg.where(date: beginning_of_month..end_of_month, orgname: @selected_company_name)
+    data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month, orgname: @selected_company_name)
     @dates = data.collect { |d| d.date.to_s(:month_and_year) }
     @day_rate = data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(2) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 90
