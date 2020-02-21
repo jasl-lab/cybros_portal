@@ -35,6 +35,9 @@ module Personal
         see_attachment = if r.attachment.attached?
           link_to I18n.t('person.public_rental_housings.new.attachment'), view_attachment_person_public_rental_housing_path(r), remote: true
         end
+        r_status = if r.status.present?
+          "#{r.status} #{r.bpm_message}".html_safe
+        end
         { employee_name: r.employee_name,
           clerk_code: r.clerk_code,
           task_id: (r.begin_task_id.present? ? link_to(I18n.t('person.public_rental_housings.index.actions.look_workflow'), person_public_rental_housing_path(id: r.id, begin_task_id: r.begin_task_id)) : ''),
@@ -43,7 +46,7 @@ module Personal
           contract_belong_company: r.contract_belong_company,
           stamp_to_place: Personal::PublicRentalHousingApply.sh_stamp_place.key(r.stamp_to_place),
           stamp_comment: "#{r.stamp_comment}#{see_attachment}".html_safe,
-          status: r.status,
+          status: r_status,
           item_action: "#{r_delete}#{r_start_approve}".html_safe
         }
       end
