@@ -26,6 +26,7 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
 
     @all_months = data.collect(&:month)
     @complete_value_totals = data.collect { |d| (d.sum_total / 10000.0).round(0) }
+    @complete_value_ref = params[:complete_value_ref] || 9000
   end
 
   private
