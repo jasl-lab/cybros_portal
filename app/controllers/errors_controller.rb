@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
-  layout "sign_in"
+  layout 'sign_in'
 
   before_action :set_page_meta_tags
 

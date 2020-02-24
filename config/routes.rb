@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :account, module: "accounts" do
+  namespace :account, module: 'accounts' do
     resource :password, only: %i[show update]
     resource :profile, only: %i[show update]
     resources :jwts, only: %i[index create destroy] do
@@ -15,15 +15,15 @@ Rails.application.routes.draw do
     resource :name_card, only: %i[create]
     resource :official_seal_usage, only: %i[create]
 
-    match "me" => "application#user_info", via: :options
-    match "sync_white_jwts" => "application#sync_white_jwts", via: :options
+    match "me" => 'application#user_info', via: :options
+    match "sync_white_jwts" => 'application#sync_white_jwts', via: :options
 
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]
   end
 
   namespace :admin do
-    root to: "home#index"
+    root to: 'home#index'
 
     resources :users, except: %i[destroy] do
       member do
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   end
 
   namespace :company do
-    root to: "home#index"
+    root to: 'home#index'
     resource :home, only: %i[] do
       resources :knowledges, only: %i[index show] do
         member do
@@ -75,7 +75,7 @@ Rails.application.routes.draw do
   end
 
   namespace :report do
-    root to: "home#index"
+    root to: 'home#index'
 
     resource :operation, only: %i[show]
 
@@ -206,34 +206,33 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {
-    confirmations: "users/confirmations",
-    passwords: "users/passwords",
-    sessions: "users/sessions"
+    confirmations: 'users/confirmations',
+    passwords: 'users/passwords',
+    sessions: 'users/sessions'
   }
 
   devise_scope :user do
     resource :registrations,
              only: %i[new create],
-             path: "users",
-             path_names: { new: "sign_up" },
-             controller: "users/registrations",
+             path: 'users',
+             path_names: { new: 'sign_up' },
+             controller: 'users/registrations',
              as: :user_registration
 
     resource :invitations,
              only: %i[edit update],
-             path: "users",
-             controller: "users/invitations",
+             path: 'users',
+             controller: 'users/invitations',
              as: :user_invitations
   end
 
-  get "users", to: redirect("/users/sign_up")
+  get 'users', to: redirect('/users/sign_up')
   get 'auth/openid_connect/callback', to: 'openid_connect#callback'
 
-  get "401", to: "errors#unauthorized", as: :unauthorized
-  get "403", to: "errors#forbidden", as: :forbidden
-  get "404", to: "errors#not_found", as: :not_found
+  get '401', to: 'errors#unauthorized', as: :unauthorized
+  get '403', to: 'errors#forbidden', as: :forbidden
+  get '404', to: 'errors#not_found', as: :not_found
 
   resource :wechat, only: [:show, :create]
-  root to: "home#index"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: 'home#index'
 end
