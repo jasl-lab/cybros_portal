@@ -39,7 +39,7 @@ module Company
         end
         { employee_name: r.employee_name,
           clerk_code: r.clerk_code,
-          task_id: (r.begin_task_id.present? ? link_to(I18n.t('company.copy_of_business_licenses.index.actions.look_workflow'), company_official_stamp_usage_path(id: r.id, begin_task_id: r.begin_task_id)) : ''),
+          task_id: (r.begin_task_id.present? ? link_to(I18n.t('company.official_stamp_usages.index.actions.look_workflow'), company_official_stamp_usage_path(id: r.id, begin_task_id: r.begin_task_id)) : ''),
           belong_company_name: r.belong_company_name,
           belong_department_name: r.belong_department_name,
           stamp_to_place: Company::OfficialStampUsageApply.sh_stamp_place.key(r.stamp_to_place),

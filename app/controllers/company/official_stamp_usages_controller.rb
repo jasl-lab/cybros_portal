@@ -24,7 +24,7 @@ module Company
 
     def show
       response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_history],
-        json: { processName: '', incident: '', taskId: @copy_of_business_license_apply.begin_task_id })
+        json: { processName: '', incident: '', taskId: @official_stamp_usage_apply.begin_task_id })
       Rails.logger.debug "name cards apply history response: #{response}"
       @result = JSON.parse(response.body.to_s)
       render 'shared/show_task_detail'
@@ -75,8 +75,9 @@ module Company
         cybros_form_id: "official_stamp_usage_apply_id_#{@official_stamp_usage_apply.id}",
         applicant_name: @official_stamp_usage_apply.employee_name,
         applicant_code: @official_stamp_usage_apply.clerk_code,
-        application_type: 'personal',
-        application_class: 'gsyyzz',
+        application_type: 'administrative',
+        application_class: 'cy_hr',
+        application_subclass_list: ['录用退工手续办理'],
         work_company_name: @official_stamp_usage_apply.belong_company_name,
         work_company_code: @official_stamp_usage_apply.belong_company_code, # 申请人归属公司编码
         work_dept_name: @official_stamp_usage_apply.belong_department_name,
@@ -101,10 +102,10 @@ module Company
 
       if result['isSuccess'] == '1'
         @official_stamp_usage_apply.update(begin_task_id: result['BeginTaskId'])
-        redirect_to person_official_stamp_usages_path, notice: t('.success')
+        redirect_to company_official_stamp_usages_path, notice: t('.success')
       else
         @official_stamp_usage_apply.update(bpm_message: result['message'])
-        redirect_to person_official_stamp_usages_path, notice: t('.failed', message: result['message'])
+        redirect_to company_official_stamp_usages_path, notice: t('.failed', message: result['message'])
       end
     end
 

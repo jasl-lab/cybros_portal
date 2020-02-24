@@ -13,6 +13,8 @@ module API
         Personal::ProofOfIncomeApply.find_by(id: official_seal_usage_id['proof_of_income_apply_id_'.length..])
       elsif official_seal_usage_id.start_with? 'public_rental_housing_apply_id_'
         Personal::PublicRentalHousingApply.find_by(id: official_seal_usage_id['public_rental_housing_apply_id_'.length..])
+      elsif official_seal_usage_id.start_with? 'official_stamp_usage_apply_id_'
+        Company::OfficialStampUsageApply.find_by(id: official_seal_usage_id['official_stamp_usage_apply_id_'.length..])
       end
 
       return render json: { is_success: 404, error_message: '找不到记录' }, status: :not_found unless official_seal_usage_apply.present?
