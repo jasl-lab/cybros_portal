@@ -7,5 +7,7 @@ module Personal
 
     include AttachmentValidate
     include Personal::CommonValidate
+    validates :contract_belong_company, :contract_belong_company_code,
+      presence: true
   end
 end
