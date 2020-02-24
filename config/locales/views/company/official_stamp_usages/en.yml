@@ -1,0 +1,43 @@
+---
+en:
+  company:
+    official_stamp_usages:
+      new:
+        form_title: "New official stamp usage apply"
+        form_header: "Official stamp usage apply form"
+        submit: "Submit"
+        employee_name: "Employee name"
+        clerk_code: "Clerk code"
+        belong_company_name: "Belong company name"
+        belong_company_code: "Belong company code"
+        belong_department_name: "Belong department name"
+        belong_department_code: "Belong department code"
+        stamp_to_place: "Stamp to place"
+        stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        attachment: "Attachment"
+        stamp_comment: "Stamp comment"
+        stamp_comment_hint: "e.g. For Visa."
+      create:
+        success: "Your official stamp usage apply created successfully."
+      destroy:
+        success: "Your official stamp usage apply deleted!"
+      start_approve:
+        success: "Your official stamp usage apply now in approve process!"
+        failed: "Official stamp usage apply initiation process failed, BPM returned：%{message}"
+        repeated_approve_request: "Official stamp usage apply process is already initialized."
+      index:
+        title: "Official stamp usage apply history list"
+        actions:
+          new: "New official stamp usage apply"
+          delete: "Delete"
+          start_approve: "Request approve and submit"
+          look_workflow: "Look workflow process"
+        table:
+          employee_name: "Employee name"
+          clerk_code: "Clerk code"
+          task_id: "Task ID"
+          belong_company_name: "Belong company name"
+          belong_department_name: "Belong department name"
+          stamp_to_place: "Stamp to place"
+          stamp_comment: "Stamp comment"
+          status: "Status"

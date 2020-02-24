@@ -35,6 +35,7 @@ en:
         drill_down_question: "Drill down question"
         contracts_maps: "Project map"
         contracts: "Project list"
+        official_stamp_usage: "Official stamp usage"
       person:
         header: "Personal Home"
         name_card: "Name card"

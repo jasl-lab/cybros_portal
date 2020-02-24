@@ -35,6 +35,7 @@ zh-CN:
         drill_down_question: "分析知识库的回答"
         contracts_maps: "项目地图"
         contracts: "项目列表"
+        official_stamp_usage: "行政职能盖章申请"
       person:
         header: "个人首页"
         name_card: "名片"
