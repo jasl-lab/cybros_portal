@@ -62,6 +62,9 @@ Rails.application.routes.draw do
         get :view_attachment
         patch :start_approve
       end
+      collection do
+        get :fill_application_subclasses
+      end
     end
     resources :contracts, only: %i[index show] do
       resources :sales_contracts, only: %i[show]

@@ -115,6 +115,10 @@ module Company
     def view_attachment
     end
 
+    def fill_application_subclasses
+      @usage_list = Company::OfficialStampUsageApply.usage_list[params[:company_official_stamp_usage_apply][:application_class].to_sym]
+    end
+
     private
 
       def set_official_stamp_usage_apply

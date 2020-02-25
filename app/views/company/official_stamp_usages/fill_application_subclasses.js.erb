@@ -1,0 +1,7 @@
+var selectize_ctl = $("#select-application-subclasses")[0].selectize;
+selectize_ctl.clear();
+selectize_ctl.clearOptions(true);
+<% @usage_list.each do |u| %>
+  selectize_ctl.addOption({text: '<%= u -%>', value: '<%= u -%>'});
+<% end %>
+selectize_ctl.setValue('<%= @usage_list.first -%>');
