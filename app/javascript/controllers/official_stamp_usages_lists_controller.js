@@ -9,6 +9,7 @@ export default class extends Controller {
       {"data": "belong_company_name"},
       {"data": "belong_department_name"},
       {"data": "stamp_to_place"},
+      {"data": "application_class"},
       {"data": "stamp_comment"},
       {"data": "status"},
       {"data": "item_action", bSortable: false}

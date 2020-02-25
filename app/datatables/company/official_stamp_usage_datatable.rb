@@ -19,6 +19,7 @@ module Company
         belong_company_name: { source: 'company::OfficialStampUsageApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         belong_department_name: { source: 'company::OfficialStampUsageApply.belong_department_name', cond: :like, searchable: true, orderable: true },
         stamp_to_place: { source: 'company::OfficialStampUsageApply.stamp_to_place', cond: :like, searchable: true, orderable: true },
+        application_class: { source: 'company::OfficialStampUsageApply.application_class', cond: :like, searchable: true, orderable: true },
         stamp_comment: { source: 'company::OfficialStampUsageApply.stamp_comment', cond: :like, searchable: true, orderable: true },
         status: { source: "company::OfficialStampUsageApply.status", cond: :string_eq, searchable: true, orderable: true },
         item_action: { source: nil, searchable: false, orderable: false }
@@ -43,6 +44,7 @@ module Company
           belong_company_name: r.belong_company_name,
           belong_department_name: r.belong_department_name,
           stamp_to_place: Company::OfficialStampUsageApply.sh_stamp_place.key(r.stamp_to_place),
+          application_class: r.application_class,
           stamp_comment: "#{r.stamp_comment}#{see_attachment}".html_safe,
           status: r_status,
           item_action: "#{r_delete}#{r_start_approve}".html_safe

@@ -14,6 +14,8 @@ en:
         belong_department_code: "Belong department code"
         stamp_to_place: "Stamp to place"
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        application_class: "Department"
+        application_class_hint: "Apply department or relative department"
         attachment: "Attachment"
         stamp_comment: "Stamp comment"
         stamp_comment_hint: "e.g. For Visa."

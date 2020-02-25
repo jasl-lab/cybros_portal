@@ -76,7 +76,7 @@ module Company
         applicant_name: @official_stamp_usage_apply.employee_name,
         applicant_code: @official_stamp_usage_apply.clerk_code,
         application_type: 'administrative',
-        application_class: 'cy_hr',
+        application_class: Company::OfficialStampUsageApply.usage_code_map[@official_stamp_usage_apply.application_class.to_sym],
         application_subclass_list: ['录用退工手续办理'],
         work_company_name: @official_stamp_usage_apply.belong_company_name,
         work_company_code: @official_stamp_usage_apply.belong_company_code, # 申请人归属公司编码
@@ -137,7 +137,8 @@ module Company
           .permit(:employee_name, :clerk_code,
             :belong_company_name, :belong_company_code,
             :belong_department_name, :belong_department_code,
-            :stamp_to_place, :attachment, :stamp_comment)
+            :stamp_to_place, :application_class,
+            :attachment, :stamp_comment)
       end
   end
 end
