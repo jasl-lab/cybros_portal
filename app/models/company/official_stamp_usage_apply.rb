@@ -7,5 +7,6 @@ module Company
 
     include AttachmentValidate
     include Personal::CommonValidate
+    serialize :application_subclasses, Array
   end
 end

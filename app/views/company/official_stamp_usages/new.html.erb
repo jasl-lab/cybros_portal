@@ -81,6 +81,18 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select-stamp-to-place"><%= t('.stamp_to_place') %></label>
+        <div class="col-md-9">
+          <%= f.select :stamp_to_place, options_for_select(Company::OfficialStampUsageApply.sh_stamp_place, selected = @official_stamp_usage_apply.stamp_to_place), {}, class: 'form-control', id: 'select-stamp-to-place' %>
+          <span class="help-block"><%= t('.stamp_to_place_hint') %></span>
+          <%= f.error_message :stamp_to_place, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group row">
         <label class="col-md-3 col-form-label" for="file-input-attachment"><%= t('.attachment') %></label>
         <div class="col-md-9">
           <%= f.file_field :attachment, class: 'form-control', id: 'file-input-attachment' %>
