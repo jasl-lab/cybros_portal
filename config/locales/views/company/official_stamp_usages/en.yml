@@ -16,6 +16,8 @@ en:
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
         application_class: "Department"
         application_class_hint: "Apply department or relative department"
+        application_subclasses: "Apply department reason"
+        application_subclasses_hint: "Apply department reason can choose multiple"
         attachment: "Attachment"
         stamp_comment: "Stamp comment"
         stamp_comment_hint: "e.g. For Visa."

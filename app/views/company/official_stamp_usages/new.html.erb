@@ -89,6 +89,16 @@
         </div>
       </div>
     </div>
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select-application-subclasses"><%= t('.application_subclasses') %></label>
+        <div class="col-md-9">
+          <%= f.select :application_subclasses, options_for_select(Company::OfficialStampUsageApply.usage_list[:人力资源部], selected = @application_subclasses), {}, multiple: true, class: 'form-control', id: 'select-application-subclasses' %>
+          <span class="help-block"><%= t('.application_subclasses_hint') %></span>
+          <%= f.error_message :application_subclasses, tag: :span, class: "help-block error-message" %>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-6">

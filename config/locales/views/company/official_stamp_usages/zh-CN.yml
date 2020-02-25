@@ -16,6 +16,8 @@ zh-CN:
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
         application_class: "业务部门"
         application_class_hint: "申请盖章的部门或者申请所属业务类型的部门"
+        application_subclasses: "申请盖章的原因"
+        application_subclasses_hint: "申请盖章的原因可以多选"
         attachment: "附件"
         stamp_comment: "用章事宜"
         stamp_comment_hint: "例如：出国办理签证、开具介绍信等"

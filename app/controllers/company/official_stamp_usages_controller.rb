@@ -36,6 +36,7 @@ module Company
       @official_stamp_usage_apply = current_user.official_stamp_usage_applies.build
       @official_stamp_usage_apply.employee_name = current_user.chinese_name
       @official_stamp_usage_apply.clerk_code = current_user.clerk_code
+      @official_stamp_usage_apply.application_class = '人力资源部'
       current_user_department = current_user.departments.first
       if current_user_department.present?
         @official_stamp_usage_apply.belong_company_name = current_user_department.company_name
@@ -43,6 +44,7 @@ module Company
         @official_stamp_usage_apply.belong_department_name = current_user_department.name
         @official_stamp_usage_apply.belong_department_code = current_user_department.dept_code
       end
+      @application_subclasses = Company::OfficialStampUsageApply.usage_list[@official_stamp_usage_apply.application_class.to_sym].first
     end
 
     def create
@@ -51,6 +53,7 @@ module Company
         if @official_stamp_usage_apply.save
           format.html { redirect_to company_official_stamp_usages_path, notice: t('.success') }
         else
+          @application_subclasses = Company::OfficialStampUsageApply.usage_list[@official_stamp_usage_apply.application_class.to_sym].first
           format.html { render :new }
         end
       end
@@ -77,7 +80,7 @@ module Company
         applicant_code: @official_stamp_usage_apply.clerk_code,
         application_type: 'administrative',
         application_class: Company::OfficialStampUsageApply.usage_code_map[@official_stamp_usage_apply.application_class.to_sym],
-        application_subclass_list: ['录用退工手续办理'],
+        application_subclass_list: @official_stamp_usage_apply.application_subclasses.reject(&:blank?),
         work_company_name: @official_stamp_usage_apply.belong_company_name,
         work_company_code: @official_stamp_usage_apply.belong_company_code, # 申请人归属公司编码
         work_dept_name: @official_stamp_usage_apply.belong_department_name,
@@ -138,7 +141,7 @@ module Company
             :belong_company_name, :belong_company_code,
             :belong_department_name, :belong_department_code,
             :stamp_to_place, :application_class,
-            :attachment, :stamp_comment)
+            :attachment, :stamp_comment, application_subclasses: [])
       end
   end
 end
