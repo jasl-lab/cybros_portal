@@ -5,13 +5,12 @@ export default class extends Controller {
     const normalColumns = [
       {"data": "employee_name"},
       {"data": "clerk_code"},
-      {"data": "task_id"},
+      {"data": "task_id_and_status"},
       {"data": "belong_company_name"},
       {"data": "belong_department_name"},
       {"data": "contract_belong_company"},
       {"data": "stamp_to_place"},
       {"data": "stamp_comment"},
-      {"data": "status"},
       {"data": "item_action", bSortable: false}
     ];
 

@@ -39,9 +39,9 @@ en:
         table:
           employee_name: "Employee name"
           clerk_code: "Clerk code"
-          task_id: "Task ID"
+          task_id_and_status: "Task ID and Status"
           belong_company_name: "Belong company name"
           belong_department_name: "Belong department name"
+          application_class: "Application class"
           stamp_to_place: "Stamp to place"
           stamp_comment: "Stamp comment"
-          status: "Status"

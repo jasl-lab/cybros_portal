@@ -32,7 +32,7 @@ module Company
 
     def new
       prepare_meta_tags title: t('.form_title')
-      add_to_breadcrumbs(t('person.copy_of_business_licenses.index.actions.new'), new_person_copy_of_business_license_path)
+      add_to_breadcrumbs(t('company.official_stamp_usages.index.actions.new'), new_person_copy_of_business_license_path)
       @official_stamp_usage_apply = current_user.official_stamp_usage_applies.build
       @official_stamp_usage_apply.employee_name = current_user.chinese_name
       @official_stamp_usage_apply.clerk_code = current_user.clerk_code
@@ -44,7 +44,6 @@ module Company
         @official_stamp_usage_apply.belong_department_name = current_user_department.name
         @official_stamp_usage_apply.belong_department_code = current_user_department.dept_code
       end
-      @application_subclasses = Company::OfficialStampUsageApply.usage_list[@official_stamp_usage_apply.application_class.to_sym].first
     end
 
     def create
@@ -53,7 +52,7 @@ module Company
         if @official_stamp_usage_apply.save
           format.html { redirect_to company_official_stamp_usages_path, notice: t('.success') }
         else
-          @application_subclasses = Company::OfficialStampUsageApply.usage_list[@official_stamp_usage_apply.application_class.to_sym].first
+          @application_subclasses = @official_stamp_usage_apply.application_subclasses
           format.html { render :new }
         end
       end

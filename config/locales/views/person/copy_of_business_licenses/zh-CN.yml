@@ -38,10 +38,9 @@ zh-CN:
         table:
           employee_name: "员工姓名"
           clerk_code: "员工号"
-          task_id: "任务 ID"
+          task_id_and_status: "任务ID与状态"
           belong_company_name: "归属公司"
           belong_department_name: "所属部门"
           contract_belong_company: "劳动合同归属单位"
           stamp_to_place: "盖章地点"
           stamp_comment: "用章事宜"
-          status: "状态"
