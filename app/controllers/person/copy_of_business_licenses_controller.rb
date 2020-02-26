@@ -42,8 +42,8 @@ module Person
         @copy_of_business_license_apply.belong_company_code = current_user_department.company_code
         @copy_of_business_license_apply.belong_department_name = current_user_department.name
         @copy_of_business_license_apply.belong_department_code = current_user_department.dept_code
-        @copy_of_business_license_apply.contract_belong_company = current_user_department.company_name
-        @copy_of_business_license_apply.contract_belong_company_code = current_user_department.company_code
+        @copy_of_business_license_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
+        @copy_of_business_license_apply.contract_belong_company_code = Bi::OrgShortName.org_code_by_long_name.fetch(@copy_of_business_license_apply.contract_belong_company, current_user_department.company_code)
       end
     end
 
