@@ -25,7 +25,6 @@ en:
         header: "Backend management"
         home: "Home"
         users: "Users"
-        um_tasks: "UM Tasks"
       company:
         header: "Company Home"
         knowledges: "Knowledges"
