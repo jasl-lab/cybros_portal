@@ -12,8 +12,8 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     current_company = current_user_companies.first
     if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       all_orgcodes = Bi::CompleteValueDept
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode")
-        .order("ORG_ORDER.org_order DESC")
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode')
+        .order('ORG_ORDER.org_order DESC')
         .pluck(:orgcode).uniq
       all_company_names = all_orgcodes.collect do |c|
         Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
@@ -31,13 +31,13 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @all_month_names = policy_scope(Bi::CompleteValueDept).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.last
     @end_of_month = Date.parse(@month_name).end_of_month
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
     last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).or(policy_scope(Bi::CompleteValueDept).where(orgcode_sum: orgcode))
       .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', last_available_date)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', last_available_date)
 
     data = if @view_deptcode_sum
       data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(total) sum_total")
@@ -68,7 +68,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
 
 
-    @staff_per_dept_code = if orgcode == "000101"
+    @staff_per_dept_code = if orgcode == '000101'
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
       Bi::YearAvgStaff.staff_per_dept_code_by_date(orgcode, @end_of_month)
