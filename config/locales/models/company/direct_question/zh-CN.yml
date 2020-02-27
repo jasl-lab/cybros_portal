@@ -3,6 +3,6 @@ zh-CN:
     errors:
       models:
         company/direct_question:
-            attributes:
-              real_questions:
-                must_exist: "必须在知识库中存在"
+          attributes:
+            real_questions:
+              must_exist: "必须在知识库中存在"

@@ -3,6 +3,6 @@ en:
     errors:
       models:
         company/direct_question:
-            attributes:
-              real_questions:
-                must_exist: "Must existing in knowledge"
+          attributes:
+            real_questions:
+              must_exist: "Must existing in knowledge"

@@ -7,7 +7,8 @@ module Company
 
     include AttachmentValidate
     include Personal::CommonValidate
-    validates :application_class, :application_subclasses, presence: true
+    validates :application_class, presence: true
+    validate :application_subclasses_not_empty
 
     serialize :application_subclasses, Array
 
@@ -36,5 +37,13 @@ module Company
         信息部: 'it',
       }
     end
+
+    private
+
+      def application_subclasses_not_empty
+        return true if application_subclasses.reject(&:blank?).present?
+
+        errors.add(:application_subclasses, :must_present)
+      end
   end
 end
