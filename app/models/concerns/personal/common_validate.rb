@@ -7,7 +7,6 @@ module Personal
     included do
       validates :belong_company_name, :belong_company_code,
                 :belong_department_name, :belong_department_code,
-                :stamp_comment,
         presence: true
     end
 
