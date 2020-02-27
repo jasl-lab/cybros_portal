@@ -42,7 +42,7 @@ module Personal
         task_id_and_status = if r.status.present?
           "#{task_id}<br />#{r.status} #{r.bpm_message}".html_safe
         else
-          task_id
+          "#{task_id}<br />#{r.begin_task_id.present? ? '审批中' : nil}".html_safe
         end
         { employee_name: r.employee_name,
           clerk_code: r.clerk_code,
