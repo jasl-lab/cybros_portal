@@ -28,10 +28,14 @@ module Personal
     def data
       records.map do |r|
         task_id = r.begin_task_id.present? ? link_to(I18n.t('person.copy_of_business_licenses.index.actions.look_workflow'), person_copy_of_business_license_path(id: r.id, begin_task_id: r.begin_task_id)) : ''
-        r_delete = link_to I18n.t('person.copy_of_business_licenses.index.actions.delete'), person_copy_of_business_license_path(r),
+        r_delete = if r.begin_task_id.blank?
+          link_to I18n.t('person.copy_of_business_licenses.index.actions.delete'), person_copy_of_business_license_path(r),
           method: :delete, data: { confirm: '你确定要删除吗？' }
-        r_start_approve = link_to I18n.t('person.copy_of_business_licenses.index.actions.start_approve'), start_approve_person_copy_of_business_license_path(r),
+        end
+        r_start_approve = if r.begin_task_id.blank?
+          link_to I18n.t('person.copy_of_business_licenses.index.actions.start_approve'), start_approve_person_copy_of_business_license_path(r),
           class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' }
+        end
         see_attachment = if r.attachment.attached?
           link_to I18n.t('person.copy_of_business_licenses.new.attachment'), view_attachment_person_copy_of_business_license_path(r), remote: true
         end
@@ -48,7 +52,7 @@ module Personal
           contract_belong_company: r.contract_belong_company,
           stamp_to_place: Personal::CopyOfBusinessLicenseApply.sh_stamp_place.key(r.stamp_to_place),
           stamp_comment: "#{r.stamp_comment}<br />#{see_attachment}".html_safe,
-          item_action: "#{r_delete}#{r_start_approve}".html_safe
+          item_action: "#{r_delete}<br />#{r_start_approve}".html_safe
         }
       end
     end

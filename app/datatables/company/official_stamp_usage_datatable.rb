@@ -28,10 +28,14 @@ module Company
     def data
       records.map do |r|
         task_id = r.begin_task_id.present? ? link_to(I18n.t('company.official_stamp_usages.index.actions.look_workflow'), company_official_stamp_usage_path(id: r.id, begin_task_id: r.begin_task_id)) : ''
-        r_delete = link_to I18n.t('company.official_stamp_usages.index.actions.delete'), company_official_stamp_usage_path(r),
+        r_delete = if r.begin_task_id.blank?
+          link_to I18n.t('company.official_stamp_usages.index.actions.delete'), company_official_stamp_usage_path(r),
           method: :delete, data: { confirm: '你确定要删除吗？' }
-        r_start_approve = link_to I18n.t('company.official_stamp_usages.index.actions.start_approve'), start_approve_company_official_stamp_usage_path(r),
+        end
+        r_start_approve = if r.begin_task_id.blank?
+          link_to I18n.t('company.official_stamp_usages.index.actions.start_approve'), start_approve_company_official_stamp_usage_path(r),
           class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' }
+        end
         see_attachment = if r.attachment.attached?
           link_to I18n.t('company.official_stamp_usages.new.attachment'), view_attachment_company_official_stamp_usage_path(r), remote: true
         end
@@ -48,7 +52,7 @@ module Company
           stamp_to_place: Company::OfficialStampUsageApply.sh_stamp_place.key(r.stamp_to_place),
           application_class: r.application_class,
           stamp_comment: "#{r.stamp_comment}<br />#{see_attachment}".html_safe,
-          item_action: "#{r_delete}#{r_start_approve}".html_safe
+          item_action: "#{r_delete}<br />#{r_start_approve}".html_safe
         }
       end
     end
