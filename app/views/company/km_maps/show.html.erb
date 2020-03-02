@@ -1,12 +1,12 @@
 <%= form_tag company_km_map_path, method: :get do -%>
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
-      <label class="mr-sm-1"><%= t(".form.biz_category") -%></label>
-      <%= text_field_tag 'biz_category', @biz_category, class: 'form-control form-control2' %>
+      <label class="mr-sm-1"><%= t(".form.biz_category") -%>：</label>
+      <%= select_tag 'biz_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_name, @biz_category), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.prj_category") -%></label>
-      <%= text_field_tag 'prj_category', @prj_category, class: 'form-control form-control2' %>
+      <%= select_tag 'prj_category', options_for_select(Edoc2::ProjectInfo.project_category_name, @prj_category), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.client") -%></label>
@@ -20,11 +20,11 @@
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.department") -%></label>
-      <%= text_field_tag 'department', @department, class: 'form-control form-control2' %>
+      <%= select_tag 'department', options_for_select(Edoc2::ProjectInfo.project_item_dept_name, @department), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.service_stage") -%></label>
-      <%= text_field_tag 'service_stage', @service_stage, class: 'form-control form-control2' %>
+      <%= select_tag 'service_stage', options_for_select(Edoc2::ProjectInfo.project_big_stage_name, @service_stage), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.project_progress") -%></label>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.scale") -%></label>
-      <%= text_field_tag 'scale', @scale, class: 'form-control form-control2' %>
+      <%= select_tag 'scale', options_for_select(Edoc2::ProjectInfo.milestones_name, @scale), class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
       <span>查得<%= 1 -%>记录</span>
