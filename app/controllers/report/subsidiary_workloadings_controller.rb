@@ -107,17 +107,20 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
   end
 
   def day_rate_drill_down
-    @data.select(:deptname, :date, :date_need, :date_real, :fill_rate)
+    @data = @data.select(:user_name, :deptname, :date, :date_need, :date_real, :fill_rate)
+      .where.not(date_need: nil)
     render
   end
 
   def planning_day_rate_drill_down
-    @data.select(:deptname, :date, :blue_print_need, :blue_print_real, :blue_print_rate)
+    @data = @data.select(:user_name, :deptname, :date, :blue_print_need, :blue_print_real, :blue_print_rate)
+      .where.not(blue_print_need: nil)
     render
   end
 
   def building_day_rate_drill_down
-    @data.select(:deptname, :date, :construction_need, :construction_real, :construction_rate)
+    @data = @data.select(:user_name, :deptname, :date, :construction_need, :construction_real, :construction_rate)
+      .where.not(construction_need: nil)
     render
   end
 
