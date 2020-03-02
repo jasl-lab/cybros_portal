@@ -127,7 +127,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
-      @department_name = belong_deparments.pluck(:部门)
+      @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     @data = policy_scope(Bi::ContractSignDetailAmount)
@@ -142,7 +142,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
-      @department_name = belong_deparments.pluck(:部门)
+      @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     @data = policy_scope(Bi::ContractSignDetailDate)
@@ -157,7 +157,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
-      @department_name = belong_deparments.pluck(:部门)
+      @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     last_available_sign_dept_date = Date.parse(params[:last_available_sign_dept_date])

@@ -140,7 +140,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
       belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
       if belong_deparments.exists?
-        @department_name = belong_deparments.pluck(:部门)
+        @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
       end
 
       @drill_down_subtitle = "#{begin_month} - #{end_month}"
