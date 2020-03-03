@@ -13,7 +13,7 @@ module Company
     end
 
     def index?
-      user.chinese_name.in? %w(过纯中 赵峥逸 李俭 余慧 陈建)
+      user.chinese_name.in? %w(过纯中 赵峥逸 李俭 余慧 陈建 高於 周芳 龙墨涵 任炜炜 徐雅蓉)
     end
   end
 end
