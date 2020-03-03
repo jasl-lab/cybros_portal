@@ -8,6 +8,14 @@ class Company::KmMapsController < ApplicationController
     @prj_category = params[:prj_category]&.strip
     @department = params[:department]&.strip
     @service_stage = params[:service_stage]&.strip
-    @scale = params[:scale]&.strip
+    @project_progress = params[:project_progress]&.strip
+
+    data = Edoc2::ProjectInfo
+    data = data.where(businesstypename: @biz_category) if @biz_category.present?
+    data = data.where(projectcategoryname: @prj_category) if @prj_category.present?
+    data = data.where(projectitemdeptname: @department) if @department.present?
+    data = data.where(projectbigstagename: @service_stage) if @service_stage.present?
+    data = data.where(milestonesname: @project_progress) if @project_progress.present?
+    @valid_map_point = data
   end
 end
