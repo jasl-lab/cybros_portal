@@ -11,6 +11,8 @@ class Company::KmMapsController < ApplicationController
     @service_stage = params[:service_stage]&.strip
     @project_progress = params[:project_progress]&.strip
 
+    @available_departments = Edoc2::ProjectInfo.project_item_dept_name(@company_name)
+
     data = Edoc2::ProjectInfo
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
     data = data.where(projectcategoryname: @prj_category) if @prj_category.present?
@@ -19,5 +21,9 @@ class Company::KmMapsController < ApplicationController
     data = data.where(projectbigstagename: @service_stage) if @service_stage.present?
     data = data.where(milestonesname: @project_progress) if @project_progress.present?
     @valid_map_point = data
+  end
+
+  def fill_department
+    @available_departments = Edoc2::ProjectInfo.project_item_dept_name(params[:company_name]&.strip)
   end
 end

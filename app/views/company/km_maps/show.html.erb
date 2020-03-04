@@ -20,11 +20,12 @@
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.company_name") -%></label>
-      <%= select_tag 'company_name', options_for_select(Edoc2::ProjectInfo.project_item_company_name, @company_name), class: 'form-control form-control2' %>
+      <%= select_tag 'company_name', options_for_select(Edoc2::ProjectInfo.project_item_company_name, @company_name), class: 'form-control form-control2',
+        data: { remote: true, type: :script, url: url_for(controller: 'company/km_maps', action: 'fill_department', format: 'js') } %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.department") -%></label>
-      <%= select_tag 'department', options_for_select(Edoc2::ProjectInfo.project_item_dept_name, @department), include_blank: true, class: 'form-control form-control2' %>
+      <%= select_tag 'department', options_for_select(@available_departments, @department), include_blank: true, class: 'form-control form-control2', id: 'select-km-department' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.service_stage") -%></label>

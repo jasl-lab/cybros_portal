@@ -23,9 +23,16 @@ module Edoc2
         .select(:projectitemcomname).distinct.pluck(:projectitemcomname)
     end
 
-    def self.project_item_dept_name
+    def self.project_item_dept_name(company_name = nil)
       @project_item_dept_name ||= order(projectitemdeptname: :asc)
         .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
+
+      if company_name.blank?
+        @project_item_dept_name
+      else
+        where(projectitemcomname: company_name).order(projectitemdeptname: :asc)
+        .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
+      end
     end
 
     def self.project_big_stage_name
