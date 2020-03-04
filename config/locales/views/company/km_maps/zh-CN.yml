@@ -11,6 +11,7 @@ zh-CN:
           client_placeholder: "客户名称"
           city: "城市"
           city_placeholder: "项目地点"
+          company_name: "公司名称"
           department: "所属部门"
           service_stage: "服务阶段"
           project_progress: "项目进度"

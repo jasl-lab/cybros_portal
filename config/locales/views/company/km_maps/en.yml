@@ -11,6 +11,7 @@ en:
           client_placeholder: "Client name"
           city: "City"
           city_placeholder: "Project address"
+          company_name: "Company name"
           department: "Department"
           service_stage: "Service stage"
           project_progress: "Project progress"

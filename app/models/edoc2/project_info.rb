@@ -18,6 +18,11 @@ module Edoc2
         .select(:projectcategoryname).distinct.pluck(:projectcategoryname)
     end
 
+    def self.project_item_company_name
+      @project_item_company_name ||= order(projectitemcomname: :asc)
+        .select(:projectitemcomname).distinct.pluck(:projectitemcomname)
+    end
+
     def self.project_item_dept_name
       @project_item_dept_name ||= order(projectitemdeptname: :asc)
         .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
