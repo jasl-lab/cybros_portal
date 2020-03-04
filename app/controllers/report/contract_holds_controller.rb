@@ -11,9 +11,9 @@ class Report::ContractHoldsController < Report::BaseController
 
   def show
     @all_month_names = policy_scope(Bi::ContractHold).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.last
+    @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_month = Date.parse(@month_name).end_of_month
-    @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
+    @last_available_date = policy_scope(Bi::ContractHold).where('date <= ?', end_of_month).order(date: :desc).first.date
     @dept_options = params[:depts].presence
     @company_short_names = policy_scope(Bi::ContractHold).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode

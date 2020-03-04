@@ -11,7 +11,7 @@ class Report::ContractSigningsController < Report::BaseController
     authorize Bi::ContractSign
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.last
+    @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = Date.parse(@month_name).beginning_of_year
     @period_mean_ref = params[:period_mean_ref] || 100

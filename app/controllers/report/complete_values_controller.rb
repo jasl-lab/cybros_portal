@@ -10,7 +10,7 @@ class Report::CompleteValuesController < Report::BaseController
   def show
     authorize Bi::CompleteValue
     @all_month_names = policy_scope(Bi::CompleteValue).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.last
+    @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"

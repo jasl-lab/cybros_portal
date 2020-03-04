@@ -14,7 +14,7 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
     @all_short_companies = all_company_names.zip(all_orgcodes)
 
     all_month_names = policy_scope(Bi::CompleteValue).all_month_names
-    end_of_month = Date.parse(all_month_names.last).end_of_month
+    end_of_month = Date.parse(all_month_names.first).end_of_month
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(end_of_month)
 
     data = policy_scope(Bi::CompleteValue).where(orgcode: @selected_org_code)

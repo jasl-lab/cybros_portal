@@ -13,7 +13,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.last
+    @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = Date.parse(@month_name).beginning_of_year
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
@@ -124,7 +124,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def drill_down_amount
     @company_name = params[:company_name]
     @department_name = params[:department_name]
-    month_name = params[:month_name]&.strip || policy_scope(Bi::ContractSign).all_month_names.last
+    month_name = params[:month_name]&.strip || policy_scope(Bi::ContractSign).all_month_names.first
     end_of_month = Date.parse(month_name).end_of_month
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)

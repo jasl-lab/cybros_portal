@@ -29,7 +29,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
     Rails.logger.debug "orgcode: #{orgcode}"
     @all_month_names = policy_scope(Bi::CompleteValueDept).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.last
+    @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 

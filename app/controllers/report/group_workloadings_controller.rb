@@ -12,8 +12,8 @@ class Report::GroupWorkloadingsController < Report::BaseController
     current_user_companies = current_user.user_company_names
 
     @all_month_names = policy_scope(Bi::WorkHoursCountOrg).all_month_names
-    @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.last
-    @end_month_name = params[:end_month_name]&.strip || @all_month_names.last
+    @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.first
+    @end_month_name = params[:end_month_name]&.strip || @all_month_names.first
     beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
     end_of_month = Date.parse(@end_month_name).end_of_month
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"

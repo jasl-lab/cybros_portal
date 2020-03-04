@@ -2,10 +2,10 @@
 
 module Bi
   class ContractSignDetailDate < BiLocalTimeRecord
-    self.table_name = "CONTRACT_SIGN_DETAIL_DATE"
+    self.table_name = 'CONTRACT_SIGN_DETAIL_DATE'
 
     def self.all_month_names
-      order(filingtime: :asc).pluck(:filingtime).collect { |d| d.to_s(:month_and_year) }.uniq
+      order(filingtime: :desc).pluck(:filingtime).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
     def self.all_org_long_names

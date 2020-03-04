@@ -2,7 +2,7 @@
 
 module Bi
   class CompleteValue < BiLocalTimeRecord
-    self.table_name = "COMPLETE_VALUE"
+    self.table_name = 'COMPLETE_VALUE'
 
     def self.all_month_names
       Bi::CompleteValue.order(month: :asc).pluck(:month).collect { |d| d.to_s(:month_and_year) }.uniq
