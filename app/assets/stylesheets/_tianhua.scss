@@ -27,6 +27,32 @@
   }
 }
 
+.modal.right .modal-dialog {
+  height: 100%;
+  margin: auto;
+  position: fixed;
+  transform: translate3d(0%, 0, 0);
+  width: 420px;
+}
+
+.modal.right .modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal.right .modal-body {
+  padding: 15px 15px 80px;
+}
+
+.modal.right.fade .modal-dialog {
+  right: 0;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+  right: 0;
+}
+
 #full-map {
   background-color: $sidebar-bg;
   bottom: 0;
