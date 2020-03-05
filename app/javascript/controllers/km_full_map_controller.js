@@ -1,27 +1,21 @@
 import { Controller } from "stimulus"
 
 window.initKmFullMap = function () {
-  const mapPoint = $('#full-map').data("contracts-full-map-map_point");
+  const mapPoint = $('#km-full-map').data("km-full-map-map_point");
 
   const center = new TMap.LatLng(30.576473,112.224908);
   const zoom = 4;
-
 
   window.full_map = new TMap.Map("km-full-map", {
     center,
     zoom
   });
 
+  console.log(mapPoint);
+
   const geometries = mapPoint.map(function(m) {
     const properties = {
-      title: m.title,
-      project_frame_name: m.project_frame_name,
-      project_code: m.project_code,
-      trace_state: m.trace_state,
-      scale_area: m.scale_area,
-      province: m.province,
-      city: m.city,
-      project_items: m.project_items
+      code: m.code
     }
     return { styleId: 'marker',
       position: new TMap.LatLng(m.lat, m.lng),
@@ -44,7 +38,14 @@ window.initKmFullMap = function () {
   });
 
   marker.on("click", function (evt) {
+    const props = evt.geometry.properties;
 
+    $.ajax({
+      type: 'GET',
+      dataType: 'script',
+      url: '/company/km_map/show_aside.js',
+      data: { project_item_code: props.code }
+    });
   })
 }
 

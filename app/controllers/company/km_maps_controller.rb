@@ -13,14 +13,33 @@ class Company::KmMapsController < ApplicationController
 
     @available_departments = Edoc2::ProjectInfo.project_item_dept_name(@company_name)
 
-    data = Edoc2::ProjectInfo
+    data = Edoc2::ProjectInfo.where.not(coordinate: nil).where.not(projectitemcode: %w[TH20024401 TH20024501 TH20047001 TH20024601])
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
     data = data.where(projectcategoryname: @prj_category) if @prj_category.present?
     data = data.where(projectitemcomname: @company_name) if @company_name.present?
     data = data.where(projectitemdeptname: @department) if @department.present?
     data = data.where(projectbigstagename: @service_stage) if @service_stage.present?
     data = data.where(milestonesname: @project_progress) if @project_progress.present?
-    @valid_map_point = data
+
+    valid_map_infos = data.reject { |m| !m.coordinate.include?(',') }
+
+    @valid_map_point = valid_map_infos.collect do |m|
+      lat = m.coordinate.split(',')[1].to_f
+      if lat >= 85.051128 || lat <= -85.051128
+        Rails.logger.error "coordinate lat error: #{m.projectitemcode} #{m.projectitemname} #{m.coordinate}"
+      end
+      lng = m.coordinate.split(',')[0].to_f
+      if lng >= 180 || lng <= -180
+        Rails.logger.error "coordinate lng error: #{m.projectitemcode} #{m.projectitemname} #{m.coordinate}"
+      end
+
+      { code: m.projectitemcode,
+        lat: lat,
+        lng: lng }
+    end
+  end
+
+  def show_aside
   end
 
   def fill_department
