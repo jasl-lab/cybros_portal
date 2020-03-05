@@ -43,7 +43,7 @@ window.initKmFullMap = function () {
     $.ajax({
       type: 'GET',
       dataType: 'script',
-      url: '/company/km_map/show_aside.js',
+      url: '/company/km_map/show_model.js',
       data: { project_item_code: props.code }
     });
   })

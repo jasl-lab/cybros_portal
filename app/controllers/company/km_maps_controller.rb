@@ -39,7 +39,8 @@ class Company::KmMapsController < ApplicationController
     end
   end
 
-  def show_aside
+  def show_model
+    @project_info = Edoc2::ProjectInfo.find_by projectitemcode: params[:project_item_code]
   end
 
   def fill_department
