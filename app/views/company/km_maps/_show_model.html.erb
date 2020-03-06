@@ -1,11 +1,39 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">
-        <%= project_info.projectitemname %>
-      </h5>
+      <h6 class="modal-title">
+        <%= project_info.projectitemname -%>
+      </h6>
     </div>
     <div class="modal-body">
+      <p>项目编号：<%= project_info.projectitemcode -%></p>
+      <p>工程编号：<%= project_info.projectcode -%></p>
+      <p>城市：<%= project_info.cityname -%></p>
+      <p>案名/宣传名：<%= project_info.projectframename -%></p>
+      <p>项目地点：<%= project_info.projectaddress -%></p>
+      <p>客户集团：<%= project_info.clientname -%></p>
+      <p>公司code：<%= project_info.projectitemcomcode -%></p>
+      <p>公司名称：<%= project_info.projectitemcomname -%></p>
+      <p>所属部门code：<%= project_info.projectitemdeptcode -%></p>
+      <p>所属部门：<%= project_info.projectitemdeptname -%></p>
+      <p>主创/设总code：<%= project_info.projectpacode -%></p>
+      <p>主创/设总：<%= project_info.projectpaname -%></p>
+      <p>业务类型code：<%= project_info.businesstype -%></p>
+      <p>业务类型：<%= project_info.businesstypename -%></p>
+      <p>项目类型code：<%= project_info.projectcategory -%></p>
+      <p>项目类型：<%= project_info.projectcategoryname -%></p>
+      <p>项目分类：<%= project_info.projectsort -%></p>
+      <p>建筑类型：<%= project_info.buildinggenre -%></p>
+      <p>方案/施工图（服务阶段code）：<%= project_info.projectbigstage -%></p>
+      <p>方案/施工图（服务阶段）：<%= project_info.projectbigstagename -%></p>
+      <p>项目进展：<%= project_info.milestonesname -%></p>
+      <p>是否重点项目：<%= project_info.isstresspro -%></p>
+      <p>设计起始时间：<%= project_info.createddate -%></p>
+      <p>设计结束时间：<%= project_info.designenddate -%></p>
+      <p>竣工验收时间：<%= project_info.completiondate -%></p>
+      <p>方案报批归档状态：<%= project_info.scheme -%></p>
+      <p>施工图审图归档状态：<%= project_info.drawing -%></p>
+      <p>竣工验收归档状态：<%= project_info.completion -%></p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
