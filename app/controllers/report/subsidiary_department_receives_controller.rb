@@ -131,7 +131,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     staff_per_dept_code = if selected_orgcode == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_dept_code_by_date(selected_orgcode, @end_of_month)
+      Bi::YearAvgStaff.staff_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, @view_deptcode_sum)
     end
     real_total_staff_num = 0
     @real_receives_per_staff = real_data.collect do |d|
