@@ -64,7 +64,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     @department_names = @all_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
 
-    @staff_per_dept_code = if org_code == "000101"
+    @staff_per_dept_code = if org_code == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
       Bi::YearAvgStaff.staff_per_dept_code_by_date(org_code, @end_of_month)

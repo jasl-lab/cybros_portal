@@ -87,7 +87,7 @@ class Report::ContractHoldsController < Report::BaseController
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
 
-    this_month_staff_data = if @selected_org_code == "000101"
+    this_month_staff_data = if @selected_org_code == '000101' && end_of_month.year < 2020
       Bi::ShStaffCount.staff_per_dept_code_by_date(end_of_month)
     else
       Bi::YearAvgStaff.staff_per_dept_code_by_date(@selected_org_code, end_of_month)

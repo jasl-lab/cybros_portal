@@ -69,7 +69,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
 
 
-    @staff_per_dept_code = if orgcode == '000101'
+    @staff_per_dept_code = if orgcode == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
       Bi::YearAvgStaff.staff_per_dept_code_by_date(orgcode, @end_of_month)

@@ -128,7 +128,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @sum_need_short_account_receives = sum_need_total
       .collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }.first
 
-    staff_per_dept_code = if selected_orgcode == "000101"
+    staff_per_dept_code = if selected_orgcode == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
       Bi::YearAvgStaff.staff_per_dept_code_by_date(selected_orgcode, @end_of_month)
