@@ -11,13 +11,12 @@ window.initKmFullMap = function () {
     zoom
   });
 
-  console.log(mapPoint);
-
   const geometries = mapPoint.map(function(m) {
     const properties = {
       code: m.code
     }
-    return { styleId: 'marker',
+    return {
+      styleId: 'marker',
       position: new TMap.LatLng(m.lat, m.lng),
       properties
     };
@@ -27,6 +26,12 @@ window.initKmFullMap = function () {
     id: 'marker-layer',
     map: window.full_map,
     styles: {
+      "marker_processing": new TMap.MarkerStyle({
+          "width": 18,
+          "height": 27,
+          "anchor": { x: 12, y: 24 },
+          "src": "/images/marker_processing.png"
+      }),
       "marker": new TMap.MarkerStyle({
           "width": 18,
           "height": 27,
@@ -39,12 +44,34 @@ window.initKmFullMap = function () {
 
   marker.on("click", function (evt) {
     const props = evt.geometry.properties;
+    const project_item_code = props.code;
+
+    const mark_current_point_red_geometries = mapPoint.map(function(m) {
+      const properties = {
+        code: m.code
+      }
+      if (project_item_code == m.code) {
+        return {
+          styleId: 'marker_processing',
+          position: new TMap.LatLng(m.lat, m.lng),
+          properties
+        };
+      } else {
+        return {
+          styleId: 'marker',
+          position: new TMap.LatLng(m.lat, m.lng),
+          properties
+        };
+      }
+    });
+
+    marker.updateGeometries(mark_current_point_red_geometries);
 
     $.ajax({
       type: 'GET',
       dataType: 'script',
       url: '/company/km_map/show_model.js',
-      data: { project_item_code: props.code }
+      data: { project_item_code }
     });
   })
 }
