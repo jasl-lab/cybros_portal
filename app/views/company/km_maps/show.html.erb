@@ -1,7 +1,7 @@
 <%= form_tag company_km_map_path, method: :get do -%>
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
-      <label class="mr-sm-1"><%= t(".form.biz_category") -%>：</label>
+      <label class="mr-sm-1"><%= t(".form.biz_category") -%></label>
       <%= select_tag 'biz_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_name, @biz_category), include_blank: true, class: 'form-control form-control2' %>
     </div>
     <div class="col-auto my-1">
