@@ -3,7 +3,7 @@ zh-CN:
   report:
     contract_sign_details:
       show:
-        title: "归档合同签约周期"
+        title: "已归档合同签约周期明细"
         month_name: "查询年月"
         org_name: "公司名称"
         date_1_great_than: "签约周期1 大于"

@@ -53,14 +53,88 @@
           </ul>
         </li>
       <li class="nav-title">子公司所级签约情况</li>
-      <% if current_user.present? %>
-        <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_workloading_path(company_name: current_user.user_company_short_name, view_deptcode_sum: true), class: "nav-link" do %>
-            <i class="nav-icon fas fa-stopwatch"></i>
-            <%= t("layouts.sidebar.operation.company_subsidiary_workloading") %>
+        <% if current_user.present? %>
+          <%= nav_item controller: 'report/subsidiary_contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_contract_signing_path(view_deptcode_sum: true, company_name: current_user.user_company_short_name), class: "nav-link" do %>
+              <i class="nav-icon fas fa-file-contract"></i>
+              <%= t("layouts.sidebar.operation.company_contract_signing") %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
+        <% if current_user.present? && policy(Bi::ContractSignDetailDate).show? %>
+          <%= nav_item controller: 'report/contract_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_contract_sign_detail_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-list"></i>
+              <%= t("layouts.sidebar.operation.contract_sign_detail", company: current_user.user_company_short_name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::TrackContract).show? %>
+          <%= nav_item controller: 'report/predict_contracts', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_predict_contract_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <%= t("layouts.sidebar.operation.predict_contract", company: current_user.user_company_short_name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <li class="nav-title">子公司所级收款情况</li>
+        <% if current_user.present? && policy(Bi::SubCompanyRealReceive).show? %>
+          <%= nav_item controller: 'report/subsidiary_department_receives', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_department_receive_path(view_deptcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-yen-sign"></i>
+              <%= t("layouts.sidebar.operation.subsidiary_department_receive", company: '') %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::SubCompanyNeedReceiveSignDetail).show? %>
+          <%= nav_item controller: 'report/subsidiary_need_receive_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_need_receive_sign_detail_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-list-alt"></i>
+              <%= t("layouts.sidebar.operation.subsidiary_need_receive_sign_detail", company: current_user.user_company_short_name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::SubCompanyNeedReceiveUnsignDetail).show? %>
+          <%= nav_item controller: 'report/subsidiary_need_receive_unsign_details', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_need_receive_unsign_detail_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-list-alt"></i>
+              <%= t("layouts.sidebar.operation.subsidiary_need_receive_unsign_detail", company: current_user.user_company_short_name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <li class="nav-title">子公司所级运营情况</li>
+        <% if current_user.present? %>
+          <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_workloading_path(company_name: current_user.user_company_short_name, view_deptcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-stopwatch"></i>
+              <%= t("layouts.sidebar.operation.company_subsidiary_workloading") %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::ShRefreshRate).show? %>
+          <%= nav_item controller: 'report/project_milestores', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_project_milestore_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-project-diagram"></i>
+              <%= t("layouts.sidebar.operation.project_milestore", company: current_user.user_company_short_name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::CompleteValueDept).show? %>
+          <%= nav_item controller: 'report/subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_complete_value_path(view_deptcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-draw-polygon"></i>
+              <%= t("layouts.sidebar.operation.subsidiary_complete_value") %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::ContractHold).show? %>
+          <%= nav_item controller: 'report/contract_holds', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_contract_hold_path(view_deptcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-business-time"></i>
+              <%= t("layouts.sidebar.operation.contract_hold", company: current_user.user_company_short_name) %>
+            <% end %>
+          <% end %>
+        <% end %>
       <% if current_user.present? && policy(Bi::CompleteValue).show? %>
         <%= nav_item controller: 'report/yearly_subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_yearly_subsidiary_workloading_path, class: "nav-link" do %>
@@ -69,83 +143,11 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.present? && policy(Bi::CompleteValueDept).show? %>
-        <%= nav_item controller: 'report/subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_complete_value_path(view_deptcode_sum: true), class: "nav-link" do %>
-            <i class="nav-icon fas fa-draw-polygon"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_complete_value") %>
-          <% end %>
-        <% end %>
-      <% end %>
       <% if current_user.present? && policy(Bi::CompleteValue).show? %>
         <%= nav_item controller: 'report/yearly_subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_yearly_subsidiary_complete_value_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-draw-polygon"></i>
             <%= t("layouts.sidebar.operation.yearly_subsidiary_complete_value", company: current_user.user_company_short_name) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? %>
-        <%= nav_item controller: 'report/subsidiary_contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_contract_signing_path(view_deptcode_sum: true, company_name: current_user.user_company_short_name), class: "nav-link" do %>
-            <i class="nav-icon fas fa-file-contract"></i>
-            <%= t("layouts.sidebar.operation.company_contract_signing") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::ContractSignDetailDate).show? %>
-        <%= nav_item controller: 'report/contract_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_contract_sign_detail_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-list"></i>
-            <%= t("layouts.sidebar.operation.contract_sign_detail", company: current_user.user_company_short_name) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::SubCompanyRealReceive).show? %>
-        <%= nav_item controller: 'report/subsidiary_department_receives', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_department_receive_path(view_deptcode_sum: true), class: "nav-link" do %>
-            <i class="nav-icon fas fa-yen-sign"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_department_receive", company: '') %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::SubCompanyNeedReceiveSignDetail).show? %>
-        <%= nav_item controller: 'report/subsidiary_need_receive_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_need_receive_sign_detail_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-list-alt"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_need_receive_sign_detail", company: current_user.user_company_short_name) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::SubCompanyNeedReceiveUnsignDetail).show? %>
-        <%= nav_item controller: 'report/subsidiary_need_receive_unsign_details', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_need_receive_unsign_detail_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-list-alt"></i>
-            <%= t("layouts.sidebar.operation.subsidiary_need_receive_unsign_detail", company: current_user.user_company_short_name) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::ShRefreshRate).show? %>
-        <%= nav_item controller: 'report/project_milestores', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_project_milestore_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-project-diagram"></i>
-            <%= t("layouts.sidebar.operation.project_milestore", company: current_user.user_company_short_name) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::ContractHold).show? %>
-        <%= nav_item controller: 'report/contract_holds', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_contract_hold_path(view_deptcode_sum: true), class: "nav-link" do %>
-            <i class="nav-icon fas fa-business-time"></i>
-            <%= t("layouts.sidebar.operation.contract_hold", company: current_user.user_company_short_name) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if current_user.present? && policy(Bi::TrackContract).show? %>
-        <%= nav_item controller: 'report/predict_contracts', action: 'show', html_options: { class: "nav-item" } do %>
-          <%= link_to report_predict_contract_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <%= t("layouts.sidebar.operation.predict_contract", company: current_user.user_company_short_name) %>
           <% end %>
         <% end %>
       <% end %>
