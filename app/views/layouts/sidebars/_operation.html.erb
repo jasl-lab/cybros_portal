@@ -24,7 +24,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <li class="nav-item nav-dropdown">
+        <li class="nav-item nav-dropdown <%= %w[report/group_workloadings report/complete_values report/group_contract_holds].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>
           <ul class="nav-dropdown-items">
