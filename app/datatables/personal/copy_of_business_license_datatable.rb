@@ -36,8 +36,8 @@ module Personal
           link_to I18n.t('person.copy_of_business_licenses.index.actions.start_approve'), start_approve_person_copy_of_business_license_path(r),
           class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' }
         end
-        see_attachment = if r.attachment.attached?
-          link_to I18n.t('person.copy_of_business_licenses.new.attachment'), view_attachment_person_copy_of_business_license_path(r), remote: true
+        see_attachment = if r.attachments.attached?
+          link_to I18n.t('person.copy_of_business_licenses.new.attachments'), view_attachment_person_copy_of_business_license_path(r), remote: true
         end
         task_id_and_status = if r.status.present?
           "#{task_id}<br />#{r.status} #{r.bpm_message}".html_safe

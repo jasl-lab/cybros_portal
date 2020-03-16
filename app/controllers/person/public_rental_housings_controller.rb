@@ -14,7 +14,7 @@ module Person
           prepare_meta_tags title: t('.title')
         end
         format.json do
-          public_rental_housing_applies = policy_scope(Personal::PublicRentalHousingApply).all
+          public_rental_housing_applies = policy_scope(Personal::PublicRentalHousingApply).with_attached_attachments.all
           render json: Personal::PublicRentalHousingDatatable.new(params,
             public_rental_housing_applies: public_rental_housing_applies,
             view_context: view_context)
@@ -72,6 +72,11 @@ module Person
         return
       end
 
+      attachment_list = @public_rental_housing_apply.attachments.collect do |attachment|
+        { file_name: attachment.filename.to_s,
+          url: rails_blob_url(attachment) }
+      end
+
       bizData = {
         sender: 'Cybros',
         cybros_form_id: "public_rental_housing_apply_id_#{@public_rental_housing_apply.id}",
@@ -88,7 +93,7 @@ module Person
         stamp_location_name: Personal::PublicRentalHousingApply.sh_stamp_place.key(@public_rental_housing_apply.stamp_to_place),
         stamp_location_code: @public_rental_housing_apply.stamp_to_place,
         application_reason: @public_rental_housing_apply.stamp_comment,
-        attachment_list: [ { file_name: @public_rental_housing_apply.attachment.filename.to_s, url: rails_blob_url(@public_rental_housing_apply.attachment) } ],
+        attachment_list: attachment_list,
         created_at: @public_rental_housing_apply.created_at,
         updated_at: @public_rental_housing_apply.updated_at
       }
@@ -139,7 +144,7 @@ module Person
             :belong_company_name, :belong_company_code,
             :belong_department_name, :belong_department_code,
             :contract_belong_company, :contract_belong_company_code,
-            :stamp_to_place, :attachment, :stamp_comment)
+            :stamp_to_place, :stamp_comment, attachments: [])
       end
   end
 end

@@ -102,10 +102,11 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="file-input-attachment"><%= t('.attachment') %></label>
+        <label class="col-md-3 col-form-label" for="file-input-attachment"><%= t('.attachments') %></label>
         <div class="col-md-9">
-          <%= f.file_field :attachment, class: 'form-control', id: 'file-input-attachment' %>
-          <%= f.error_message :attachment, tag: :span, class: "help-block error-message" %>
+          <%= f.file_field :attachments, multiple: true, direct_upload: true, class: 'form-control' %>
+          <span class="help-block"><%= t('.attachments_hint') %></span>
+          <%= f.error_message :attachments, tag: :span, class: "help-block error-message" %>
         </div>
       </div>
     </div>

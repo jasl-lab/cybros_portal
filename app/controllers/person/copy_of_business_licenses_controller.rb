@@ -14,7 +14,7 @@ module Person
           prepare_meta_tags title: t('.title')
         end
         format.json do
-          copy_of_business_license_applies = policy_scope(Personal::CopyOfBusinessLicenseApply).all
+          copy_of_business_license_applies = policy_scope(Personal::CopyOfBusinessLicenseApply).with_attached_attachments.all
           render json: Personal::CopyOfBusinessLicenseDatatable.new(params,
             copy_of_business_license_applies: copy_of_business_license_applies,
             view_context: view_context)
@@ -72,6 +72,11 @@ module Person
         return
       end
 
+      attachment_list = @copy_of_business_license_apply.attachments.collect do |attachment|
+        { file_name: attachment.filename.to_s,
+          url: rails_blob_url(attachment) }
+      end
+
       bizData = {
         sender: 'Cybros',
         cybros_form_id: "copy_of_business_license_apply_id_#{@copy_of_business_license_apply.id}",
@@ -88,7 +93,7 @@ module Person
         stamp_location_name: Personal::CopyOfBusinessLicenseApply.sh_stamp_place.key(@copy_of_business_license_apply.stamp_to_place),
         stamp_location_code: @copy_of_business_license_apply.stamp_to_place,
         application_reason: @copy_of_business_license_apply.stamp_comment,
-        attachment_list: [ { file_name: @copy_of_business_license_apply.attachment.filename.to_s, url: rails_blob_url(@copy_of_business_license_apply.attachment) } ],
+        attachment_list: attachment_list,
         created_at: @copy_of_business_license_apply.created_at,
         updated_at: @copy_of_business_license_apply.updated_at
       }
@@ -139,7 +144,7 @@ module Person
             :belong_company_name, :belong_company_code,
             :belong_department_name, :belong_department_code,
             :contract_belong_company, :contract_belong_company_code,
-            :stamp_to_place, :attachment, :stamp_comment)
+            :stamp_to_place, :stamp_comment, attachments: [] )
       end
   end
 end

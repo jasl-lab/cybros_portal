@@ -17,7 +17,8 @@ zh-CN:
         contract_belong_company_hint: "三选一"
         stamp_to_place: "盖章地点"
         stamp_to_place_hint: "崧易和嘉易只能选兆丰"
-        attachment: "附件"
+        attachments: "附件"
+        attachments_hint: "附件允许上传多个文件"
         stamp_comment: "用章事宜"
         stamp_comment_hint: "例如：出国办理签证、开具介绍信等"
       create:

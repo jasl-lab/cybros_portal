@@ -3,7 +3,7 @@
 module Personal
   class CopyOfBusinessLicenseApply < ApplicationRecord
     belongs_to :user
-    has_one_attached :attachment
+    has_many_attached :attachments
 
     include AttachmentValidate
     include Personal::CommonValidate

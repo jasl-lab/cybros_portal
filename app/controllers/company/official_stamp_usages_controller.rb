@@ -14,7 +14,7 @@ module Company
           prepare_meta_tags title: t('.title')
         end
         format.json do
-          official_stamp_usage_applies = policy_scope(Company::OfficialStampUsageApply).all
+          official_stamp_usage_applies = policy_scope(Company::OfficialStampUsageApply).with_attached_attachments.all
           render json: Company::OfficialStampUsageDatatable.new(params,
             official_stamp_usage_applies: official_stamp_usage_applies,
             view_context: view_context)
@@ -72,6 +72,11 @@ module Company
         return
       end
 
+      attachment_list = @official_stamp_usage_apply.attachments.collect do |attachment|
+        { file_name: attachment.filename.to_s,
+          url: rails_blob_url(attachment) }
+      end
+
       bizData = {
         sender: 'Cybros',
         cybros_form_id: "official_stamp_usage_apply_id_#{@official_stamp_usage_apply.id}",
@@ -89,7 +94,7 @@ module Company
         stamp_location_name: Company::OfficialStampUsageApply.sh_stamp_place.key(@official_stamp_usage_apply.stamp_to_place),
         stamp_location_code: @official_stamp_usage_apply.stamp_to_place,
         application_reason: @official_stamp_usage_apply.stamp_comment,
-        attachment_list: [ { file_name: @official_stamp_usage_apply.attachment.filename.to_s, url: rails_blob_url(@official_stamp_usage_apply.attachment) } ],
+        attachment_list: attachment_list,
         created_at: @official_stamp_usage_apply.created_at,
         updated_at: @official_stamp_usage_apply.updated_at
       }
@@ -144,7 +149,7 @@ module Company
             :belong_company_name, :belong_company_code,
             :belong_department_name, :belong_department_code,
             :stamp_to_place, :application_class,
-            :attachment, :stamp_comment, application_subclasses: [])
+            :stamp_comment, attachments: [], application_subclasses: [])
       end
   end
 end

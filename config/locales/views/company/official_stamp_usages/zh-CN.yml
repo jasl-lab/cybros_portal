@@ -18,7 +18,8 @@ zh-CN:
         application_class_hint: "申请盖章的部门或者申请所属业务类型的部门"
         application_subclasses: "申请盖章的原因"
         application_subclasses_hint: "申请盖章的原因可以多选"
-        attachment: "附件"
+        attachments: "附件"
+        attachments_hint: "附件允许上传多个文件"
         stamp_comment: "用章事宜"
         stamp_comment_hint: "例如：出国办理签证、开具介绍信等"
       create:

@@ -18,7 +18,8 @@ en:
         application_class_hint: "Apply department or relative department"
         application_subclasses: "Apply department reason"
         application_subclasses_hint: "Apply department reason can choose multiple"
-        attachment: "Attachment"
+        attachments: "Attachments"
+        attachments_hint: "Attachments allow upload multiple files"
         stamp_comment: "Stamp comment"
         stamp_comment_hint: "e.g. For Visa."
       create:
