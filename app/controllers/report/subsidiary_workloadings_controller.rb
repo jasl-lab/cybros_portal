@@ -23,35 +23,35 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     @short_company_name = params[:company_name].presence || current_user.user_company_short_name
     @company_short_names = policy_scope(Bi::WorkHoursCountDetailDept).select(:orgname)
       .distinct.where(date: beginning_of_month..end_of_month).collect { |r| Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname) }
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_name = params[:company_name]&.strip
 
     @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
     data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month)
       .where(orgname: @company_name)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", end_of_month)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", end_of_month)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_month)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', end_of_month)
 
     data = if @view_deptcode_sum
       data
-        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum")
+        .select('WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum')
+        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode_sum')
     else
       data
-        .select("WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode")
+        .select('WORK_HOURS_COUNT_DETAIL_DEPT.deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_DETAIL_DEPT.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode')
+        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_COUNT_DETAIL_DEPT.deptcode')
     end
 
     data = data.where(orgname: current_user_companies) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-    job_data = data.having("SUM(date_real) > 0")
+    job_data = data.having('SUM(date_real) > 0')
     job_data = job_data.where.not(deptname: %w[建筑专项技术咨询所]) if @short_company_name == '上海天华'
-    blue_print_data = data.having("SUM(blue_print_real)")
+    blue_print_data = data.having('SUM(blue_print_real)')
     blue_print_data = blue_print_data.where.not(deptname: %w[公建一所 施工图综合所 建筑专项技术咨询所]) if @short_company_name == '上海天华'
-    construction_data = data.having("SUM(construction_real) > 0")
+    construction_data = data.having('SUM(construction_real) > 0')
     construction_data = construction_data.where.not(deptname: %w[建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所]) if @short_company_name == '上海天华'
 
     job_company_or_department_codes = job_data.collect(&:deptcode)
@@ -108,20 +108,23 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
   end
 
   def day_rate_drill_down
-    @data = @data.select(:user_name, :deptname, :date, :date_need, :date_real, :fill_rate)
-      .where.not(date_need: nil)
+    @data =
+      @data.select(:user_name, :deptname, :date, :date_need, :date_real, :fill_rate)
+           .where.not(date_need: nil)
     render
   end
 
   def planning_day_rate_drill_down
-    @data = @data.select(:user_name, :deptname, :date, :blue_print_need, :blue_print_real, :blue_print_rate)
-      .where.not(blue_print_need: nil)
+    @data =
+      @data.select(:user_name, :deptname, :date, :blue_print_need, :blue_print_real, :blue_print_rate)
+           .where.not(blue_print_need: nil)
     render
   end
 
   def building_day_rate_drill_down
-    @data = @data.select(:user_name, :deptname, :date, :construction_need, :construction_real, :construction_rate)
-      .where.not(construction_need: nil)
+    @data =
+      @data.select(:user_name, :deptname, :date, :construction_need, :construction_real, :construction_rate)
+           .where.not(construction_need: nil)
     render
   end
 
@@ -152,18 +155,18 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.group_workloading"),
+      { text: t('layouts.sidebar.operation.group_workloading'),
         link: report_group_workloading_path(view_orgcode_sum: true) },
-      { text: t("layouts.sidebar.operation.subsidiary_workloading"),
+      { text: t('layouts.sidebar.operation.subsidiary_workloading'),
         link: report_subsidiary_workloading_path }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end
