@@ -123,13 +123,13 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
   def drill_down_amount
     @company_name = params[:company_name]
-    @department_name = params[:department_name]
+    @department_name = [params[:department_name]]
     month_name = params[:month_name]&.strip || policy_scope(Bi::ContractSign).all_month_names.first
     end_of_month = Date.parse(month_name).end_of_month
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
-      @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
+      @department_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     last_available_date = policy_scope(Bi::ContractSignDetailAmount).last_available_date(end_of_month)
@@ -142,11 +142,11 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
   def drill_down_date
     @company_name = params[:company_name]
-    @department_name = params[:department_name]
+    @department_name = [params[:department_name]]
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
-      @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
+      @department_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     @data = policy_scope(Bi::ContractSignDetailDate)
@@ -157,11 +157,11 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
   def cp_drill_down
     @company_name = params[:company_name]
-    @department_name = params[:department_name]
+    @department_name = [params[:department_name]]
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
-      @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
+      @department_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     last_available_sign_dept_date = Date.parse(params[:last_available_sign_dept_date])

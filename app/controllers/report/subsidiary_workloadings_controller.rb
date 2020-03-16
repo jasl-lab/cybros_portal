@@ -134,7 +134,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
       authorize Bi::WorkHoursCountDetailStaff
       short_company_name = params[:company_name]
       @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
-      @department_name = params[:department_name]
+      @department_name = [params[:department_name]]
       begin_month = Date.parse(params[:begin_month_name]).beginning_of_month
       end_month = Date.parse(params[:end_month_name]).end_of_month
 
@@ -144,7 +144,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
       belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
       if belong_deparments.exists?
-        @department_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
+        @department_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
       end
 
       @drill_down_subtitle = "#{begin_month} - #{end_month}"

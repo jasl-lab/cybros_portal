@@ -89,7 +89,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
   def drill_down
     @company_name = params[:company_name].strip
-    @dept_name = params[:department_name].strip
+    @dept_name = [params[:department_name].strip]
 
     month_name = params[:month_name]&.strip
     end_of_month = Date.parse(month_name).end_of_month
@@ -97,7 +97,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @dept_name)
     if belong_deparments.exists?
-      @dept_name = belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
+      @dept_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
     last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
