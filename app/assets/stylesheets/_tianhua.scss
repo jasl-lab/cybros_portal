@@ -2,6 +2,12 @@
   padding: 0 20px;
 }
 
+.nav-dropdown-items {
+  .nav-item-indent {
+    padding: 0 0 0 12px !important;
+  }
+}
+
 #name-card-back-image img {
   max-width: 100%;
   max-height: auto;

@@ -28,14 +28,14 @@
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>
           <ul class="nav-dropdown-items">
-            <%= nav_item controller: 'report/group_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= nav_item controller: 'report/group_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
               <%= link_to report_group_workloading_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-stopwatch"></i>
                 <%= t("layouts.sidebar.operation.group_workloading") %>
               <% end %>
             <% end %>
             <% if current_user.present? && policy(Bi::CompleteValue).show? %>
-              <%= nav_item controller: 'report/complete_values', action: 'show', html_options: { class: "nav-item" } do %>
+              <%= nav_item controller: 'report/complete_values', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_complete_value_path(view_orgcode_sum: true), class: "nav-link" do %>
                   <i class="nav-icon fas fa-draw-polygon"></i>
                   <%= t("layouts.sidebar.operation.complete_value") %>
@@ -43,7 +43,7 @@
               <% end %>
             <% end %>
             <% if current_user.present? && policy(Bi::ContractHold).show? %>
-              <%= nav_item controller: 'report/group_contract_holds', action: 'show', html_options: { class: "nav-item" } do %>
+              <%= nav_item controller: 'report/group_contract_holds', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_group_contract_hold_path(view_orgcode_sum: true), class: "nav-link" do %>
                   <i class="nav-icon fas fa-draw-polygon"></i>
                   <%= t("layouts.sidebar.operation.group_contract_hold") %>
