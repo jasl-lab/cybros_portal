@@ -20,10 +20,11 @@ module API
     end
 
     def sync_white_jwts
+      white_jwts_attrs = params[:white_jwts_attrs]
       email = params[:email]
-      jti = params[:jti]
-      aud = params[:aud]
-      exp = params[:exp]
+      jti = white_jwts_attrs[:jti]
+      aud = white_jwts_attrs[:aud]
+      exp = white_jwts_attrs[:exp]
       user = User.find_by(email: email)
       if user.present?
         user.whitelisted_jwts.create(jti: jti, aud: aud, exp: exp)
