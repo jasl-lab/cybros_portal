@@ -52,6 +52,7 @@ zh-CN:
         cim_tools: "天华效率工具"
       operation:
         header: "子公司运营月报"
+        overall_operating_status: "历年经营情况总览"
         group_workloading: "工作填报率及饱和度"
         subsidiary_workloading: "子公司工时填报情况"
         company_subsidiary_workloading: "所级工作饱和度"

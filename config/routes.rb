@@ -169,6 +169,7 @@ Rails.application.routes.draw do
         patch :un_hide
       end
     end
+    resource :overall_operating_status, only: %i[show]
   end
 
   namespace :person do

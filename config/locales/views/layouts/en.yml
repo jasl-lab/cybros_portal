@@ -52,6 +52,7 @@ en:
         cim_tools: "CIM tools"
       operation:
         header: "Operation Home"
+        overall_operating_status: "Overall operating status"
         group_workloading: "Group workloading"
         subsidiary_workloading: "Subsidiary workloading"
         company_subsidiary_workloading: "Workloading"

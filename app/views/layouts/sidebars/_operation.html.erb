@@ -8,6 +8,14 @@
   <nav class="sidebar-nav">
     <ul class="nav">
       <li class="nav-title">整体总览</li>
+        <% if current_user.present? && policy(:"Bi::OverallOperatingStatuses").show? %>
+          <%= nav_item controller: 'report/overall_operating_status', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_overall_operating_status_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-file-contract"></i>
+              <%= t("layouts.sidebar.operation.overall_operating_status") %>
+            <% end %>
+          <% end %>
+        <% end %>
         <% if current_user.present? && policy(Bi::ContractSign).show? %>
           <%= nav_item controller: 'report/contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_signing_path(view_orgcode_sum: true), class: "nav-link" do %>
