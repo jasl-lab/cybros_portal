@@ -15,7 +15,7 @@ zh-CN:
         company: "公司"
         person: "个人事务"
         report: "报表报告"
-        operation: "子公司运营月报"
+        operation: "天华市场运营分析"
       accounts:
         header: "用户设置"
         profile: "个人信息"
@@ -51,7 +51,7 @@ zh-CN:
         yingjianke_logins: "盈建科软件登陆情况"
         cim_tools: "天华效率工具"
       operation:
-        header: "子公司运营月报"
+        header: "天华市场运营分析"
         overall_operating_status: "历年经营情况总览"
         group_workloading: "工作填报率及饱和度"
         subsidiary_workloading: "子公司工时填报情况"
