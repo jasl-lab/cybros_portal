@@ -14,7 +14,6 @@ module Personal
     def view_columns
       @view_columns ||= {
         employee_name: { source: 'Personal::ProofOfEmploymentApply.employee_name', cond: :like, searchable: true, orderable: true },
-        clerk_code: { source: 'Personal::ProofOfEmploymentApply.clerk_code', cond: :like, searchable: true, orderable: true },
         task_id_and_status: { source: 'Personal::ProofOfEmploymentApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
         belong_company_name: { source: 'Personal::ProofOfEmploymentApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         belong_department_name: { source: 'Personal::ProofOfEmploymentApply.belong_department_name', cond: :like, searchable: true, orderable: true },
@@ -44,8 +43,7 @@ module Personal
         else
           "#{task_id}<br />#{r.begin_task_id.present? ? '审批中' : nil}".html_safe
         end
-        { employee_name: r.employee_name,
-          clerk_code: r.clerk_code,
+        { employee_name: "#{r.employee_name}<br />#{r.clerk_code}".html_safe,
           task_id_and_status: task_id_and_status,
           belong_company_name: r.belong_company_name,
           belong_department_name: r.belong_department_name,

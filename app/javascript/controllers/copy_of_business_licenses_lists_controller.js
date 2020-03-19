@@ -4,13 +4,12 @@ export default class extends Controller {
   connect() {
     const normalColumns = [
       {"data": "employee_name"},
-      {"data": "clerk_code"},
+      {"data": "stamp_to_place"},
+      {"data": "stamp_comment"},
       {"data": "task_id_and_status"},
       {"data": "belong_company_name"},
       {"data": "belong_department_name"},
       {"data": "contract_belong_company"},
-      {"data": "stamp_to_place"},
-      {"data": "stamp_comment"},
       {"data": "item_action", bSortable: false}
     ];
 
