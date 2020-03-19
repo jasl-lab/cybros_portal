@@ -14,10 +14,9 @@ module Personal
     def view_columns
       @view_columns ||= {
         employee_name: { source: 'Personal::CopyOfBusinessLicenseApply.employee_name', cond: :like, searchable: true, orderable: true },
+        attachments: { source: nil, searchable: false, orderable: false },
         task_id_and_status: { source: 'Personal::CopyOfBusinessLicenseApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
-        belong_company_name: { source: 'Personal::CopyOfBusinessLicenseApply.belong_company_name', cond: :like, searchable: true, orderable: true },
-        belong_department_name: { source: 'Personal::CopyOfBusinessLicenseApply.belong_department_name', cond: :like, searchable: true, orderable: true },
-        contract_belong_company: { source: 'Personal::CopyOfBusinessLicenseApply.contract_belong_company', cond: :like, searchable: true, orderable: true },
+        belong_company_department: { source: 'Personal::CopyOfBusinessLicenseApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         stamp_to_place: { source: 'Personal::CopyOfBusinessLicenseApply.stamp_to_place', cond: :like, searchable: true, orderable: true },
         stamp_comment: { source: 'Personal::CopyOfBusinessLicenseApply.stamp_comment', cond: :like, searchable: true, orderable: true },
         item_action: { source: nil, searchable: false, orderable: false }
@@ -44,12 +43,11 @@ module Personal
           "#{task_id}<br />#{r.begin_task_id.present? ? '审批中' : nil}".html_safe
         end
         { employee_name: "#{r.employee_name}<br />#{r.clerk_code}".html_safe,
+          attachments: see_attachment,
           task_id_and_status: task_id_and_status,
-          belong_company_name: r.belong_company_name,
-          belong_department_name: r.belong_department_name,
-          contract_belong_company: r.contract_belong_company,
+          belong_company_department: "#{r.belong_company_name}<br />#{r.belong_department_name}<br />#{r.contract_belong_company}".html_safe,
           stamp_to_place: Personal::CopyOfBusinessLicenseApply.sh_stamp_place.key(r.stamp_to_place),
-          stamp_comment: "#{r.stamp_comment}<br />#{see_attachment}".html_safe,
+          stamp_comment: r.stamp_comment,
           item_action: "#{r_delete}<br />#{r_start_approve}".html_safe
         }
       end

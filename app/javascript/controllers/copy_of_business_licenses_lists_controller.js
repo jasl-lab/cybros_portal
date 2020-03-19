@@ -6,10 +6,9 @@ export default class extends Controller {
       {"data": "employee_name"},
       {"data": "stamp_to_place"},
       {"data": "stamp_comment"},
+      {"data": "attachments"},
       {"data": "task_id_and_status"},
-      {"data": "belong_company_name"},
-      {"data": "belong_department_name"},
-      {"data": "contract_belong_company"},
+      {"data": "belong_company_department"},
       {"data": "item_action", bSortable: false}
     ];
 
