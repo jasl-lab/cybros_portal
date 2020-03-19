@@ -7,6 +7,7 @@ export default class extends Controller {
       {"data": "stamp_to_place"},
       {"data": "stamp_comment"},
       {"data": "attachments"},
+      {"data": "created_at"},
       {"data": "task_id_and_status"},
       {"data": "belong_company_department"},
       {"data": "application_class"},

@@ -15,6 +15,7 @@ module Personal
       @view_columns ||= {
         employee_name: { source: 'Personal::ProofOfIncomeApply.employee_name', cond: :like, searchable: true, orderable: true },
         attachments: { source: nil, searchable: false, orderable: false },
+        created_at: { source: 'Personal::ProofOfIncomeApply.created_at', searchable: false, orderable: true },
         task_id_and_status: { source: 'Personal::ProofOfIncomeApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
         belong_company_department: { source: 'Personal::ProofOfIncomeApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         stamp_to_place: { source: 'Personal::ProofOfIncomeApply.stamp_to_place', cond: :like, searchable: true, orderable: true },
@@ -44,6 +45,7 @@ module Personal
         end
         { employee_name: "#{r.employee_name}<br />#{r.clerk_code}".html_safe,
           attachments: see_attachment,
+          created_at: r.created_at,
           task_id_and_status: task_id_and_status,
           belong_company_department: "#{r.belong_company_name}<br />#{r.belong_department_name}<br />#{r.contract_belong_company}".html_safe,
           stamp_to_place: Personal::ProofOfIncomeApply.sh_stamp_place.key(r.stamp_to_place),
