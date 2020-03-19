@@ -10,6 +10,7 @@ export default class extends Controller {
       {"data": "project_manager_name"},
       {"data": "project_item_code_name"},
       {"data": "created_date"},
+      {"data": "predict_amount"},
       {"data": "unsign_receive"},
       {"data": "f_date"},
       {"data": "min_timecard_fill"},

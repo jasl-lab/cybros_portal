@@ -21,5 +21,6 @@ en:
           contract_property_name: "Contract property name"
           contract_time: "Contract time"
           sign_receive: "Sign receive"
+          acc_need_receive: "Account need receive"
           over_amount: "Over amount"
           admin_action: "Admin action"

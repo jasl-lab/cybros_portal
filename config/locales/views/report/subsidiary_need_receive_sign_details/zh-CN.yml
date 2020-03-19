@@ -20,5 +20,6 @@ zh-CN:
           contract_property_name: "合同性质"
           contract_time: "归档日期"
           sign_receive: "合同业务应收（万元）"
+          acc_need_receive: "合同财务应收款（万元）"
           over_amount: "账龄3个月以上金额（万元）"
           admin_action: "管理员操作"

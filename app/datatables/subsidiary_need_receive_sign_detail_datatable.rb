@@ -27,6 +27,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       contract_property_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname", orderable: true },
       contract_time: { source: "Bi::SubCompanyNeedReceiveSignDetail.contracttime", orderable: true },
       sign_receive: { source: "Bi::SubCompanyNeedReceiveSignDetail.sign_receive", orderable: true },
+      acc_need_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive', orderable: true },
       over_amount: { source: "Bi::SubCompanyNeedReceiveSignDetail.overamount", orderable: true },
       admin_action: { source: nil, searchable: false, orderable: false }
     }
@@ -43,6 +44,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime.to_date,
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: "text-center"),
+        acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: "text-center"),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)

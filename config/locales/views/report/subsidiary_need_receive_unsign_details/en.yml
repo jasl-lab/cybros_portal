@@ -16,6 +16,7 @@ en:
           project_manager_name: "Project manager name"
           project_item_code_name_status: "Project item code name & status"
           created_date: "Created date"
+          predict_amount: "Predict amount"
           unsign_receive: "Unsign receive amount"
           f_date: "First date"
           min_timecard_fill: "Min timecard fill"
