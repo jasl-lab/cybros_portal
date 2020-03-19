@@ -13,8 +13,8 @@ export default class extends Controller {
       {"data": "amount_total"},
       {"data": "contract_property_name"},
       {"data": "contract_time"},
-      {"data": "sign_receive"},
       {"data": "acc_need_receive"},
+      {"data": "sign_receive"},
       {"data": "over_amount"}
     ];
 
