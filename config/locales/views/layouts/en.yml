@@ -54,6 +54,7 @@ en:
         header: "Operation Home"
         overall_operating_status: "Overall operating status"
         subsidiaries_operating_comparison: "Subsidiaries operating comparison"
+        national_market_share: "National market share"
         group_workloading: "Group workloading"
         subsidiary_workloading: "Subsidiary workloading"
         company_subsidiary_workloading: "Workloading"

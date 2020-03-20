@@ -24,6 +24,14 @@
             <% end %>
           <% end %>
         <% end %>
+        <% if current_user.present? && policy(:"Bi::NationalMarketShares").show? %>
+          <%= nav_item controller: 'report/national_market_share', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_national_market_share_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-file-contract"></i>
+              <%= t("layouts.sidebar.operation.national_market_share") %>
+            <% end %>
+          <% end %>
+        <% end %>
         <% if current_user.present? && policy(Bi::ContractSign).show? %>
           <%= nav_item controller: 'report/contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_signing_path(view_orgcode_sum: true), class: "nav-link" do %>

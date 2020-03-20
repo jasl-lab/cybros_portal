@@ -171,6 +171,7 @@ Rails.application.routes.draw do
     end
     resource :overall_operating_status, only: %i[show]
     resource :subsidiaries_operating_comparison, only: %i[show]
+    resource :national_market_share, only: %i[show]
   end
 
   namespace :person do
