@@ -53,6 +53,7 @@ zh-CN:
       operation:
         header: "天华市场运营分析"
         overall_operating_status: "历年经营情况总览"
+        subsidiaries_operating_comparison: "子公司经营情况对比"
         group_workloading: "工作填报率及饱和度"
         subsidiary_workloading: "子公司工时填报情况"
         company_subsidiary_workloading: "所级工作饱和度"

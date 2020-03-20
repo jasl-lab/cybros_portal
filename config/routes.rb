@@ -170,6 +170,7 @@ Rails.application.routes.draw do
       end
     end
     resource :overall_operating_status, only: %i[show]
+    resource :subsidiaries_operating_comparison, only: %i[show]
   end
 
   namespace :person do

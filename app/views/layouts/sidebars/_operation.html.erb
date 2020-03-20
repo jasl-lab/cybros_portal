@@ -16,6 +16,14 @@
             <% end %>
           <% end %>
         <% end %>
+        <% if current_user.present? && policy(:"Bi::SubsidiariesOperatingComparison").show? %>
+          <%= nav_item controller: 'report/subsidiaries_operating_comparison', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiaries_operating_comparison_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-file-contract"></i>
+              <%= t("layouts.sidebar.operation.subsidiaries_operating_comparison") %>
+            <% end %>
+          <% end %>
+        <% end %>
         <% if current_user.present? && policy(Bi::ContractSign).show? %>
           <%= nav_item controller: 'report/contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_signing_path(view_orgcode_sum: true), class: "nav-link" do %>
