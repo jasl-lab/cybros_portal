@@ -116,6 +116,7 @@ module Person
     end
 
     def view_attachment
+      @attachment = @proof_of_income_apply.attachments.find_by!(id: params[:attachment_id])
     end
 
     private

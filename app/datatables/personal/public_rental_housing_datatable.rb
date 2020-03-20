@@ -36,8 +36,8 @@ module Personal
           link_to I18n.t('person.public_rental_housings.index.actions.start_approve'), start_approve_person_public_rental_housing_path(r),
           class: 'btn btn-primary', method: :patch, data: { disable_with: '处理中' }
         end
-        see_attachment = if r.attachments.attached?
-          link_to I18n.t('person.public_rental_housings.new.attachments'), view_attachment_person_public_rental_housing_path(r), remote: true
+        see_attachments = r.attachments.collect do |attachment|
+          link_to attachment.filename, view_attachment_person_public_rental_housing_path(r, attachment_id: attachment.id), remote: true
         end
         task_id_and_status = if r.status.present?
           "#{task_id}<br />#{r.status} #{r.bpm_message}".html_safe
@@ -45,7 +45,7 @@ module Personal
           "#{task_id}<br />#{r.begin_task_id.present? ? '审批中' : nil}".html_safe
         end
         { employee_name: "#{r.employee_name}<br />#{r.clerk_code}".html_safe,
-          attachments: see_attachment,
+          attachments: see_attachments.join('<br />').html_safe,
           created_at: r.created_at,
           task_id_and_status: task_id_and_status,
           belong_company_department: "#{r.belong_company_name}<br />#{r.belong_department_name}<br />#{r.contract_belong_company}".html_safe,

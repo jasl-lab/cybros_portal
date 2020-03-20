@@ -1,2 +1,2 @@
-$("#copy-of-business-license-modal").html('<%= j render partial: "shared/attachments_modal", locals: { attachments: @copy_of_business_license_apply.attachments } -%>');
+$("#copy-of-business-license-modal").html('<%= j render partial: "shared/attachment_modal", locals: { attachment: @attachment } -%>');
 $("#copy-of-business-license-modal").modal();

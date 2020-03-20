@@ -1,2 +1,2 @@
-$("#public-rental-housing-modal").html('<%= j render partial: "shared/attachments_modal", locals: { attachments: @public_rental_housing_apply.attachments } -%>');
+$("#public-rental-housing-modal").html('<%= j render partial: "shared/attachment_modal", locals: { attachment: @attachment } -%>');
 $("#public-rental-housing-modal").modal();

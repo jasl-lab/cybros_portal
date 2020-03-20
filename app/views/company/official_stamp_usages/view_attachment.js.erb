@@ -1,2 +1,2 @@
-$("#company-official-stamp-usage-modal").html('<%= j render partial: "shared/attachments_modal", locals: { attachments: @official_stamp_usage_apply.attachments } -%>');
+$("#company-official-stamp-usage-modal").html('<%= j render partial: "shared/attachment_modal", locals: { attachment: @attachment } -%>');
 $("#company-official-stamp-usage-modal").modal();

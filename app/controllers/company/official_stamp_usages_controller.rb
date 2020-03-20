@@ -117,6 +117,7 @@ module Company
     end
 
     def view_attachment
+      @attachment = @official_stamp_usage_apply.attachments.find_by!(id: params[:attachment_id])
     end
 
     def fill_application_subclasses

@@ -116,6 +116,7 @@ module Person
     end
 
     def view_attachment
+      @attachment = @copy_of_business_license_apply.attachments.find_by!(id: params[:attachment_id])
     end
 
     private
