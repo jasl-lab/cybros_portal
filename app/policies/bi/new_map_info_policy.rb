@@ -2,8 +2,8 @@
 
 module Bi
   class NewMapInfoPolicy < BasePolicy
-    ALLOW_SHOW_TITLES = %w[商务经理 管理副所长 所长助理 所长 所长（结构）市场总监 总经理助理 副总经理 总经理 运营分析经理].freeze
-    ALLOW_DOWNLOAD_HQ_TITLES = %w[管理副所长 所长助理 所长 所长（结构）市场总监 总经理助理 副总经理 总经理 运营分析经理].freeze
+    ALLOW_SHOW_TITLES = %w[商务经理 管理副所长 所长助理 所长 所长（结构）市场总监 总经理助理 副总经理 副总经理F 总经理 运营分析经理].freeze
+    ALLOW_DOWNLOAD_HQ_TITLES = %w[管理副所长 所长助理 所长 所长（结构）市场总监 总经理助理 副总经理 副总经理F 总经理 运营分析经理].freeze
     ALLOW_DOWNLOAD_SUBSIDIARY_TITLES = %w[总经理助理 副总经理 总经理].freeze
 
     class Scope < Scope
