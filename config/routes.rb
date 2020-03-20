@@ -174,6 +174,7 @@ Rails.application.routes.draw do
     resource :national_market_share, only: %i[show]
     resource :contract_types_analysis, only: %i[show]
     resource :contracts_geographical_analysis, only: %i[show]
+    resource :customer_analysis, only: %i[show]
   end
 
   namespace :person do

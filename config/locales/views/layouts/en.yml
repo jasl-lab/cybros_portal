@@ -57,6 +57,7 @@ en:
         national_market_share: "National market share"
         contract_types_analysis: "Contract types analysis"
         contracts_geographical_analysis: "Contract geographical analysis"
+        customer_analysis: "Customer analysis"
         group_workloading: "Group workloading"
         subsidiary_workloading: "Subsidiary workloading"
         company_subsidiary_workloading: "Workloading"
