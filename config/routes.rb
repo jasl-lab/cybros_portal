@@ -173,6 +173,7 @@ Rails.application.routes.draw do
     resource :subsidiaries_operating_comparison, only: %i[show]
     resource :national_market_share, only: %i[show]
     resource :contract_types_analysis, only: %i[show]
+    resource :contracts_geographical_analysis, only: %i[show]
   end
 
   namespace :person do
