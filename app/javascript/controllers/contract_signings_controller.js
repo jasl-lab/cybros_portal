@@ -32,7 +32,7 @@ export default class extends Controller {
 
     let myOwnCompanyIndex = [];
     for (let index = 0; index < xAxisData.length; ++index) {
-        if (currentUserCompaniesShortNames.includes(xAxisData[index])) {
+        if (currentUserCompaniesShortNames.indexOf(xAxisData[index]) > -1) {
             myOwnCompanyIndex.push(index);
         }
     }
@@ -40,7 +40,7 @@ export default class extends Controller {
     function differentColorForContractSigning(amount, index) {
       let color;
 
-      if (myOwnCompanyIndex.includes(index) || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+      if (myOwnCompanyIndex.indexOf(index) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
         color = '#738496';
       } else {
         color = '#8EA1B5';
