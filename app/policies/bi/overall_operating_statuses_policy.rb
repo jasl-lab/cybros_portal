@@ -3,7 +3,7 @@
 module Bi
   class OverallOperatingStatusesPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
+      user.present? && user.admin?
     end
   end
 end
