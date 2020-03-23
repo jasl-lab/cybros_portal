@@ -20,7 +20,6 @@ class Report::PredictContractsController < Report::BaseController
     @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @select_company_short_names = policy_scope(Bi::TrackContract).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
-    @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
 
     data = policy_scope(Bi::TrackContract)
       .where(orgcode: @selected_org_code)
@@ -56,7 +55,7 @@ class Report::PredictContractsController < Report::BaseController
     @tcod = Bi::TrackContractOpportunityDetail
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
-      .where("contractconvert > 0")
+      .where('contractconvert > 0')
     render
   end
 
@@ -88,10 +87,9 @@ class Report::PredictContractsController < Report::BaseController
         link: root_path },
       { text: t("layouts.sidebar.operation.header"),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.predict_contract", company: params[:company_name]&.strip || current_user.user_company_short_name),
+      { text: t('layouts.sidebar.operation.predict_contract'),
         link: report_predict_contract_path }]
     end
-
 
     def set_page_layout_data
       @_sidebar_name = "operation"

@@ -3,7 +3,7 @@ zh-CN:
   report:
     predict_contracts:
       show:
-        title: "%{company}跟踪合同额"
+        title: "跟踪合同额"
         table:
           opportunitycode: "商机编号"
           opportunityname: "商机名称"

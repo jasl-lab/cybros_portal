@@ -8,7 +8,7 @@ zh-CN:
           view_deptcode: "显示明细部门"
           export_unsign_detail: "导出未签约明细"
           export_sign_detail: "导出已签约明细"
-        title: "业务保有量"
+        title: "所级业务保有量"
         company_name: "公司名"
         month_name: "查询年月"
         dept_names: "显示部门"
