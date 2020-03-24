@@ -22,8 +22,9 @@ class Report::ContractHoldsController < Report::BaseController
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date).where(orgcode: @selected_org_code)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
+      .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @last_available_date)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @last_available_date)
 
     data = if @view_deptcode_sum
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
@@ -50,7 +51,7 @@ class Report::ContractHoldsController < Report::BaseController
       sum_depts = data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
       Bi::OrgReportDeptOrder.where(编号: sum_depts).where(是否显示: 1).order("ORG_REPORT_DEPT_ORDER.部门排名").pluck(:编号)
     elsif @dept_options.blank?
-      data.pluck("CONTRACT_HOLD.deptcode")
+      data.pluck('CONTRACT_HOLD.deptcode')
     else
       @dept_options
     end
