@@ -18,25 +18,25 @@ class Report::CompleteValuesController < Report::BaseController
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValue).where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
-      .having("SUM(total) > 0")
-      .order("ORG_ORDER.org_order DESC")
+      .having('SUM(total) > 0')
+      .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum
-      data.select("orgcode_sum orgcode, org_order, SUM(total) sum_total")
+      data.select('orgcode_sum orgcode, org_order, SUM(total) sum_total')
         .group(:orgcode_sum, :org_order)
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode_sum")
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode_sum')
     else
-      data.select("orgcode, org_order, SUM(total) sum_total")
+      data.select('orgcode, org_order, SUM(total) sum_total')
         .group(:orgcode, :org_order)
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode")
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode')
     end
 
     all_company_orgcodes = data.collect(&:orgcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
-    @orgs_options = all_company_orgcodes - ["000103"] if @orgs_options.blank? # hide 天华节能
+    @orgs_options = all_company_orgcodes - ['000103'] if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
-    @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
+    @sum_org_names = @organization_options.reject { |k, v| !v.start_with?('H') }.collect(&:first)
 
     if @selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
