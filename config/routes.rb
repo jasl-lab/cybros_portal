@@ -175,6 +175,7 @@ Rails.application.routes.draw do
     resource :contract_types_analysis, only: %i[show]
     resource :contracts_geographical_analysis, only: %i[show]
     resource :customer_analysis, only: %i[show]
+    resource :year_report_history, only: %i[show]
   end
 
   namespace :person do
