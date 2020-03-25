@@ -46,7 +46,7 @@ class Report::ContractHoldsController < Report::BaseController
         .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
 
-      h_deptcodes = data_sum.where("deptcode_sum like 'H%'").pluck(:deptcode_sum)
+      h_deptcodes = data_sum.pluck(:deptcode_sum)
       belongs_to_h_deptcodes = data_sum.where(deptcode_sum: h_deptcodes).pluck(:deptcode)
       sum_depts = data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
       Bi::OrgReportDeptOrder.where(编号: sum_depts).where(是否显示: 1).order("ORG_REPORT_DEPT_ORDER.部门排名").pluck(:编号)
