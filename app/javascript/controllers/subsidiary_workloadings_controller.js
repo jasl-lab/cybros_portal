@@ -3,12 +3,17 @@ import { Controller } from "stimulus"
 let subsidiaryWorkloadingsChart1;
 let subsidiaryWorkloadingsChart2;
 let subsidiaryWorkloadingsChart3;
+let isNonConstruction;
 
 export default class extends Controller {
   connect() {
+    isNonConstruction = this.data.get("is_non_construction") == 'true';
     subsidiaryWorkloadingsChart1 = echarts.init(document.getElementById('subsidiary-workloadings-chart1'));
-    subsidiaryWorkloadingsChart2 = echarts.init(document.getElementById('subsidiary-workloadings-chart2'));
-    subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
+
+    if (!isNonConstruction) {
+      subsidiaryWorkloadingsChart2 = echarts.init(document.getElementById('subsidiary-workloadings-chart2'));
+      subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
+    }
 
     const xAxisJob = JSON.parse(this.data.get("x_axis_job"));
     const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
@@ -298,28 +303,39 @@ export default class extends Controller {
       }
     }
 
+
+    console.log('isNonConstruction', isNonConstruction);
+
     subsidiaryWorkloadingsChart1.setOption(option1, false);
     subsidiaryWorkloadingsChart1.on('click', drill_down_model_show);
-    subsidiaryWorkloadingsChart2.setOption(option2, false);
-    subsidiaryWorkloadingsChart2.on('click', drill_down_model_show);
-    subsidiaryWorkloadingsChart3.setOption(option3, false);
-    subsidiaryWorkloadingsChart3.on('click', drill_down_model_show);
+    if(!isNonConstruction) {
+      subsidiaryWorkloadingsChart2.setOption(option2, false);
+      subsidiaryWorkloadingsChart2.on('click', drill_down_model_show);
+      subsidiaryWorkloadingsChart3.setOption(option3, false);
+      subsidiaryWorkloadingsChart3.on('click', drill_down_model_show);
+    }
     setTimeout(() => {
       subsidiaryWorkloadingsChart1.resize();
-      subsidiaryWorkloadingsChart2.resize();
-      subsidiaryWorkloadingsChart3.resize();
+      if(!isNonConstruction) {
+        subsidiaryWorkloadingsChart2.resize();
+        subsidiaryWorkloadingsChart3.resize();
+      }
     }, 200);
   }
 
   layout() {
     subsidiaryWorkloadingsChart1.resize();
-    subsidiaryWorkloadingsChart2.resize();
-    subsidiaryWorkloadingsChart3.resize();
+    if(!isNonConstruction) {
+      subsidiaryWorkloadingsChart2.resize();
+      subsidiaryWorkloadingsChart3.resize();
+    }
   }
 
   disconnect() {
     subsidiaryWorkloadingsChart1.dispose();
-    subsidiaryWorkloadingsChart2.dispose();
-    subsidiaryWorkloadingsChart3.dispose();
+    if(!isNonConstruction) {
+      subsidiaryWorkloadingsChart2.dispose();
+      subsidiaryWorkloadingsChart3.dispose();
+    }
   }
 }
