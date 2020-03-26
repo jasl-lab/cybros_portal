@@ -1,0 +1,9 @@
+---
+zh-CN:
+  report:
+    year_report_histories:
+      show:
+        title: "整体经营状况"
+        year_month: "查询年月"
+        org_names: "显示子公司"
+        confirm: "确认"

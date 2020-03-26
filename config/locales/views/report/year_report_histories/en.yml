@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    year_report_histories:
+      show:
+        title: "Complete value"
+        year_month: "Query year and month"
+        org_names: "Organization names"
+        confirm: "Confirm"
