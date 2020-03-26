@@ -4,6 +4,7 @@ en:
     year_report_histories:
       show:
         title: "Complete value"
-        year_month: "Query year and month"
+        year_names: "Query year"
+        month_name: "Query month"
         org_names: "Organization names"
         confirm: "Confirm"

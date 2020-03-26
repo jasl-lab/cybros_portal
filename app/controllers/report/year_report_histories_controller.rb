@@ -14,13 +14,20 @@ class Report::YearReportHistoriesController < Report::BaseController
 
 
     @year_names = @year_options if @year_names.blank?
-    data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: @month_name)
+    data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: @month_name).order(:year)
 
     all_company_orgcodes = data.collect(&:orgcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @orgs_options = all_company_orgcodes - ['000103'] if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    data = data.where(orgcode: @orgs_options).select('year, month, SUM(realamount) realamount, SUM(contractamount) contractamount, AVG(avg_work_no) avg_work_no, AVG(avg_staff_no) avg_staff_no').group(:year, :month)
+    @years = data.collect(&:year)
+    @real_amount = data.collect(&:realamount)
+    @contract_amount = data.collect(&:contractamount)
+    @avg_work_no = data.collect(&:avg_work_no)
+    @avg_staff_no = data.collect(&:avg_staff_no)
   end
 
   private

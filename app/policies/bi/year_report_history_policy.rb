@@ -9,7 +9,7 @@ module Bi
     end
 
     def show?
-      user.present? && user.admin?
+      user.present? && (user.admin? || user.chinese_name == '蔡钦')
     end
   end
 end
