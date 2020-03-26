@@ -6,12 +6,15 @@ class Report::YearReportHistoriesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @year_month_names = policy_scope(Bi::YearReportHistory).year_month_names
-    @year_month = params[:month_name]&.strip || @year_month_names.first
+    @year_options = policy_scope(Bi::YearReportHistory).year_options
+    @year_names = params[:year_names]
+    @month_names = policy_scope(Bi::YearReportHistory).month_names
+    @month_name = params[:month_name]&.strip || @month_names.first
     @orgs_options = params[:orgs]
 
 
-    data = policy_scope(Bi::YearReportHistory).where(year_month: @year_month)
+    @year_names = @year_options if @year_names.blank?
+    data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: @month_name)
 
     all_company_orgcodes = data.collect(&:orgcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
