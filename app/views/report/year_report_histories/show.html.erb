@@ -5,8 +5,8 @@
     data-year-report-histories-x_axis="<%= @years.to_json -%>"
     data-year-report-histories-real_amount="<%= @real_amount.to_json -%>"
     data-year-report-histories-contract_amount="<%= @contract_amount.to_json -%>"
-    data-year-report-histories-avg_work_no="<%= @avg_work_no.to_json -%>"
-    data-year-report-histories-avg_staff_no="<%= @avg_staff_no.to_json -%>">
+    data-year-report-histories-avg_real_amount="<%= @avg_real_amount.to_json -%>"
+    data-year-report-histories-avg_contract_amount="<%= @avg_contract_amount.to_json -%>">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -26,15 +26,23 @@
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
 
-    <div class="row">
+    <div class="row pt-4">
       <div class="col-6">
         <div id="real-amount-chart" style="width: 100%;height: 400px;">
+        </div>
+      </div>
+      <div class="col-6">
+        <div id="real-amount-avg-chart" style="width: 100%;height: 400px;">
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-6">
         <div id="contract-amount-chart" style="width: 100%;height: 400px;">
+        </div>
+      </div>
+      <div class="col-6">
+        <div id="contract-amount-avg-chart" style="width: 100%;height: 400px;">
         </div>
       </div>
     </div>
