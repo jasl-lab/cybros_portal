@@ -22,18 +22,18 @@ class Report::YearReportHistoriesController < Report::BaseController
     @orgs_options = all_company_orgcodes - ['000103'] if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
-    data = data.where(orgcode: @orgs_options)
+    @data = data.where(orgcode: @orgs_options)
       .select('year, month, SUM(realamount) realamount, SUM(contractamount) contractamount, AVG(avg_work_no) avg_work_no, AVG(avg_staff_no) avg_staff_no').group(:year, :month)
-    @years = data.collect(&:year)
-    @real_amount = data.collect(&:realamount)
-    @contract_amount = data.collect(&:contractamount)
-    avg_work_no = data.collect(&:avg_work_no)
-    avg_staff_no = data.collect(&:avg_staff_no)
+    @years = @data.collect(&:year)
+    @real_amount = @data.collect { |d| d.realamount.to_f.round(0) }
+    @contract_amount = @data.collect { |d| d.contractamount.to_f.round(0) }
+    avg_work_no = @data.collect(&:avg_work_no)
+    avg_staff_no = @data.collect(&:avg_staff_no)
     @avg_real_amount = @real_amount.zip(avg_staff_no).map do |d|
-      (d[0].to_f / d[1].to_f).to_f.round(0) rescue 0
+      (d[0] / d[1].to_f).to_f.round(0) rescue 0
     end
     @avg_contract_amount = @contract_amount.zip(avg_work_no).map do |d|
-      (d[0].to_f / d[1].to_f).to_f.round(0) rescue 0
+      (d[0] / d[1].to_f).to_f.round(0) rescue 0
     end
   end
 

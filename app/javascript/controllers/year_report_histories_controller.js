@@ -24,8 +24,8 @@ export default class extends Controller {
             align: 'left'
         },
         grid: {
-          left: 150,
-          right: 110,
+          left: 130,
+          right: 50,
           top: 60,
           bottom: 125
         },
@@ -59,6 +59,13 @@ export default class extends Controller {
           name: '商务合同额',
           type: 'bar',
           data: contractAmount,
+          barWidth: 30,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
           itemStyle: {
             color: '#738496'
           }
@@ -71,8 +78,8 @@ export default class extends Controller {
             align: 'left'
         },
         grid: {
-          left: 150,
-          right: 110,
+          left: 130,
+          right: 50,
           top: 60,
           bottom: 125
         },
@@ -106,6 +113,13 @@ export default class extends Controller {
           name: '人均商务合同额',
           type: 'bar',
           data: avgContractAmount,
+          barWidth: 30,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
           itemStyle: {
             color: '#738496'
           }
@@ -118,8 +132,8 @@ export default class extends Controller {
             align: 'left'
         },
         grid: {
-          left: 150,
-          right: 110,
+          left: 130,
+          right: 50,
           top: 60,
           bottom: 125
         },
@@ -153,6 +167,13 @@ export default class extends Controller {
           name: '实收款',
           type: 'bar',
           data: realAmount,
+          barWidth: 30,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
           itemStyle: {
             color: '#738496'
           }
@@ -165,8 +186,8 @@ export default class extends Controller {
             align: 'left'
         },
         grid: {
-          left: 150,
-          right: 110,
+          left: 130,
+          right: 50,
           top: 60,
           bottom: 125
         },
@@ -200,6 +221,13 @@ export default class extends Controller {
           name: '人均实收款',
           type: 'bar',
           data: avgRealAmount,
+          barWidth: 30,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
           itemStyle: {
             color: '#738496'
           }
