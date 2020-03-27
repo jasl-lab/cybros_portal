@@ -23,7 +23,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     @data = data.where(orgcode: @orgs_options)
-      .select('year, month, SUM(realamount) realamount, SUM(contractamount) contractamount, AVG(avg_work_no) avg_work_no, AVG(avg_staff_no) avg_staff_no').group(:year, :month)
+      .select('year, month, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(avg_work_no) avg_work_no, SUM(avg_staff_no) avg_staff_no').group(:year, :month)
     @years = @data.collect(&:year)
     @real_amount = @data.collect { |d| d.realamount.to_f.round(0) }
     @contract_amount = @data.collect { |d| d.contractamount.to_f.round(0) }
