@@ -1,7 +1,40 @@
-<iframe id="myiframe" frameborder="0" src="http://172.16.1.159:8080/pentaho/api/repos/%3Apublic%3ATianhua%3Aannualreport%3AOperation%3ALandscape%3AOperationAnalysis-sub.wcdf/generatedContent?userid=admin&amp;password=password&amp;token=admin&amp;rptID=Page20201"></iframe>
-<script>
-var ifm= document.getElementById("myiframe");
+<div class="row">
+  <div class="col-lg-12"
+    data-controller="year-report-histories"
+    data-action="resize@window->year-report-histories#layout"
+    data-year-report-histories-x_axis="<%= @years.to_json -%>"
+    data-year-report-histories-real_amount="<%= @real_amount.to_json -%>"
+    data-year-report-histories-contract_amount="<%= @contract_amount.to_json -%>"
+    data-year-report-histories-avg_real_amount="<%= @avg_real_amount.to_json -%>"
+    data-year-report-histories-avg_contract_amount="<%= @avg_contract_amount.to_json -%>">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag report_subsidiaries_operating_comparison_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".year_names") -%>：</label>
+        <%= select_tag 'year_names', options_for_select(@year_options, @year_names), { include_blank: true, multiple: true, class: 'form-control' } %>
+      </div>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".month_name") -%>：</label>
+        <%= select_tag 'month_name', options_for_select(@month_names, @month_name), class: 'form-control' %>
+      </div>
+      <div class="form-group mr-3">
+        <label class="mr-1"><%= t(".org_names") -%>：</label>
+          <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), { include_blank: true, multiple: true, class: 'form-control' } %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+    <% end -%>
 
-ifm.width=document.documentElement.clientWidth-260;
-ifm.height=document.documentElement.clientHeight-160;
-</script>
+    <div class="row pt-4">
+      <div class="col-6">
+        <div id="real-amount-chart" style="width: 100%;height: 400px;">
+        </div>
+      </div>
+      <div class="col-6">
+        <div id="real-amount-avg-chart" style="width: 100%;height: 400px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+---
+en:
+  report:
+    subsidiaries_operating_comparisons:
+      show:
+        title: "Operating conditions of subsidiaries comparison"
+        year_names: "Query year"
+        month_name: "Query month"
+        org_names: "Organization names"
+        confirm: "Confirm"

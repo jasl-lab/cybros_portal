@@ -1,0 +1,10 @@
+---
+zh-CN:
+  report:
+    subsidiaries_operating_comparisons:
+      show:
+        title: " 子公司经营情况对比"
+        year_names: "查询年"
+        month_name: "查询月"
+        org_names: "显示子公司"
+        confirm: "确认"
