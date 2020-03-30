@@ -14,13 +14,36 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
 
 
     @year_names = @year_options if @year_names.blank?
-    data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: @month_name).order(:year)
+    data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i)
 
-    all_company_orgcodes = data.collect(&:orgcode)
+    all_company_orgcodes = data.pluck(:orgcode).uniq
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @orgs_options = all_company_orgcodes - ['000103'] if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    data = data
+      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, ORG_ORDER.org_code, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(avg_work_no) avg_work_no, SUM(avg_staff_no) avg_staff_no')
+      .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, ORG_ORDER.org_code')
+      .where(orgcode: @orgs_options)
+      .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
+      .order('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year ASC, ORG_ORDER.org_code')
+
+    show_org_codes = data.collect(&:org_code).uniq
+    @years_real_amounts = {}
+    show_org_codes.each do |org_code|
+      @year_names.each do |year|
+        record = data.find { |d| d.org_code == org_code && d.year == year }
+        array = @years_real_amounts.fetch(year, [])
+        array << if record.present?
+          record.realamount || 0
+        else
+          0
+        end
+        @years_real_amounts[year] = array
+      end
+    end
+    @show_org_names = show_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end
 
   private

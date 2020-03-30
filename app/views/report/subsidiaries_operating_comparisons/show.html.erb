@@ -1,12 +1,9 @@
 <div class="row">
   <div class="col-lg-12"
-    data-controller="year-report-histories"
-    data-action="resize@window->year-report-histories#layout"
-    data-year-report-histories-x_axis="<%= @years.to_json -%>"
-    data-year-report-histories-real_amount="<%= @real_amount.to_json -%>"
-    data-year-report-histories-contract_amount="<%= @contract_amount.to_json -%>"
-    data-year-report-histories-avg_real_amount="<%= @avg_real_amount.to_json -%>"
-    data-year-report-histories-avg_contract_amount="<%= @avg_contract_amount.to_json -%>">
+    data-controller="subsidiaries-operating-comparisons"
+    data-action="resize@window->subsidiaries-operating-comparisons#layout"
+    data-subsidiaries-operating-comparisons-x_axis="<%= @show_org_names.to_json -%>"
+    data-subsidiaries-operating-comparisons-years_real_amounts="<%= JSON.generate(@years_real_amounts) -%>">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -27,12 +24,8 @@
     <% end -%>
 
     <div class="row pt-4">
-      <div class="col-6">
+      <div class="col-12">
         <div id="real-amount-chart" style="width: 100%;height: 400px;">
-        </div>
-      </div>
-      <div class="col-6">
-        <div id="real-amount-avg-chart" style="width: 100%;height: 400px;">
         </div>
       </div>
     </div>
