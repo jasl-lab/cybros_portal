@@ -16,7 +16,8 @@ module Company
         employee_name: { source: 'Company::OfficialStampUsageApply.employee_name', cond: :like, searchable: true, orderable: true },
         attachments: { source: nil, searchable: false, orderable: false },
         created_at: { source: 'Personal::OfficialStampUsageApply.created_at', searchable: false, orderable: true },
-        task_id_and_status: { source: 'company::OfficialStampUsageApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
+        task_id: { source: 'company::OfficialStampUsageApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
+        task_status: { source: 'company::OfficialStampUsageApply.status', searchable: false, orderable: true },
         belong_company_department: { source: 'company::OfficialStampUsageApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         stamp_to_place: { source: 'company::OfficialStampUsageApply.stamp_to_place', cond: :like, searchable: true, orderable: true },
         application_class: { source: 'company::OfficialStampUsageApply.application_class', cond: :like, searchable: true, orderable: true },
@@ -39,15 +40,16 @@ module Company
         see_attachments = r.attachments.collect do |attachment|
           link_to attachment.filename, view_attachment_company_official_stamp_usage_path(r, attachment_id: attachment.id), remote: true
         end
-        task_id_and_status = if r.status.present?
-          "#{task_id}<br />#{r.status} #{r.bpm_message}".html_safe
+        task_status = if r.status.present?
+          "#{r.status} #{r.bpm_message}".html_safe
         else
-          "#{task_id}<br />#{r.begin_task_id.present? ? '审批中' : nil}".html_safe
+          "#{r.begin_task_id.present? ? '审批中' : nil}".html_safe
         end
         { employee_name: "#{r.employee_name}<br />#{r.clerk_code}".html_safe,
           attachments: see_attachments.join('<br />').html_safe,
           created_at: r.created_at,
-          task_id_and_status: task_id_and_status,
+          task_id: task_id,
+          task_status: task_status,
           belong_company_department: "#{r.belong_company_name}<br />#{r.belong_department_name}".html_safe,
           stamp_to_place: Company::OfficialStampUsageApply.sh_stamp_place.key(r.stamp_to_place),
           application_class: r.application_class,
