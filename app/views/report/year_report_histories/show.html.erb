@@ -72,21 +72,22 @@
           </thead>
           <tbody>
             <% @data.each do |d| %>
+              <% head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } %>
               <tr>
                 <td><%= d.year %></td>
                 <td><%= d.contractamount.to_f.round(0) %></td>
                 <td></td>
                 <td><%= d.realamount.to_f.round(0) %></td>
 
-                <td><%= (d.contractamount.to_f/d.avg_work_no.to_f).round(0) %></td>
+                <td><%= (d.contractamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
                 <td></td>
-                <td><%= (d.contractamount.to_f/d.avg_staff_no.to_f).round(0) %></td>
+                <td><%= (d.contractamount.to_f/head_count.avg_staff_no.to_f).round(0) %></td>
                 <td></td>
 
-                <td><%= (d.realamount.to_f/d.avg_work_no.to_f).round(0) %></td>
-                <td><%= (d.realamount.to_f/d.avg_staff_no.to_f).round(0) %></td>
-                <td><%= d.avg_work_no.to_f.round(0) %></td>
-                <td><%= d.avg_staff_no.to_f.round(0) %></td>
+                <td><%= (d.realamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
+                <td><%= (d.realamount.to_f/head_count.avg_staff_no.to_f).round(0) %></td>
+                <td><%= head_count.avg_work_no.to_f.round(0) %></td>
+                <td><%= head_count.avg_staff_no.to_f.round(0) %></td>
               </tr>
             <% end %>
           </tbody>
