@@ -6,12 +6,40 @@ export default class extends Controller {
   connect() {
     realAmountChart = echarts.init(document.getElementById('real-amount-chart'));
 
+    const predefine_color = ['#738496','#675BBA','#FA9291','#A1D189'];
+
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const yearsRealAmounts = JSON.parse(this.data.get("years_real_amounts"));
 
+    const yearsRealAmounts_names = Object.keys(yearsRealAmounts)
+    function build_real_amount_serail(series, index) {
+      return {
+          name: yearsRealAmounts_names[index] + '生产合同额',
+          type: 'bar',
+          data: series,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
+          itemStyle: {
+            color: predefine_color[index%3]
+          }
+        }
+    }
+
+    function build_real_amount_legend(year, index) {
+      return yearsRealAmounts_names[index] + '生产合同额';
+    }
+
+    const yearsRealAmount_series = yearsRealAmounts_names.map(build_real_amount_serail);
+
+    const yearsRealAmount_legend = yearsRealAmounts_names.map(build_real_amount_legend);
+
     const option_years_real_amounts = {
         legend: {
-            data: ['生产合同额'],
+            data: yearsRealAmount_legend,
             align: 'left'
         },
         grid: {
@@ -47,21 +75,7 @@ export default class extends Controller {
             formatter: '{value}百万'
           }
         }],
-        series: [{
-          name: '生产合同额',
-          type: 'bar',
-          data: yearsRealAmounts['2018'],
-          barWidth: 20,
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
-          itemStyle: {
-            color: '#738496'
-          }
-        }]
+        series: yearsRealAmount_series
     };
 
 
