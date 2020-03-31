@@ -3,8 +3,11 @@
     data-controller="year-report-histories"
     data-action="resize@window->year-report-histories#layout"
     data-year-report-histories-x_axis="<%= @years.to_json -%>"
+    data-year-report-histories-dept_amount="<%= @dept_amount.to_json -%>"
     data-year-report-histories-real_amount="<%= @real_amount.to_json -%>"
     data-year-report-histories-contract_amount="<%= @contract_amount.to_json -%>"
+    data-year-report-histories-avg_staff_dept_amount="<%= @avg_staff_dept_amount.to_json -%>"
+    data-year-report-histories-avg_work_dept_amount="<%= @avg_work_dept_amount.to_json -%>"
     data-year-report-histories-avg_staff_real_amount="<%= @avg_staff_real_amount.to_json -%>"
     data-year-report-histories-avg_work_real_amount="<%= @avg_work_real_amount.to_json -%>"
     data-year-report-histories-avg_staff_contract_amount="<%= @avg_staff_contract_amount.to_json -%>"
@@ -28,6 +31,16 @@
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
 
+    <div class="row pt-4">
+      <div class="col-5">
+        <div id="dept-amount-chart" style="width: 100%;height: 400px;">
+        </div>
+      </div>
+      <div class="col-7">
+        <div id="dept-amount-avg-chart" style="width: 100%;height: 400px;">
+        </div>
+      </div>
+    </div>
     <div class="row pt-4">
       <div class="col-5">
         <div id="real-amount-chart" style="width: 100%;height: 400px;">
@@ -56,14 +69,14 @@
           <thead>
             <tr>
               <th>年</th>
-              <th>商务合同额（百万元）</th>
               <th>生产合同额（百万元）</th>
+              <th>商务合同额（百万元）</th>
               <th>实收款（百万元）</th>
 
-              <th>一线人均商务合同额（万元）</th>
               <th>一线人均生产合同额（万元）</th>
-              <th>全员人均商务合同额（万元）</th>
+              <th>一线人均商务合同额（万元）</th>
               <th>全员人均生产合同额（万元）</th>
+              <th>全员人均商务合同额（万元）</th>
 
               <th>一线人均实收款（万元）</th>
               <th>全员人均实收款（万元）</th>
@@ -76,14 +89,14 @@
               <% head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } %>
               <tr>
                 <td><%= d.year %></td>
+                <td><%= (d.deptvalue.to_f/100.0).round(0) %></td>
                 <td><%= (d.contractamount.to_f/100.0).round(0) %></td>
-                <td></td>
                 <td><%= (d.realamount.to_f/100.0).round(0) %></td>
 
+                <td><%= (d.deptvalue.to_f/head_count.avg_work_no.to_f).round(0) %></td>
                 <td><%= (d.contractamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
-                <td></td>
+                <td><%= (d.deptvalue.to_f/head_count.avg_work_no.to_f).round(0) %></td>
                 <td><%= (d.contractamount.to_f/head_count.avg_staff_no.to_f).round(0) %></td>
-                <td></td>
 
                 <td><%= (d.realamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
                 <td><%= (d.realamount.to_f/head_count.avg_staff_no.to_f).round(0) %></td>

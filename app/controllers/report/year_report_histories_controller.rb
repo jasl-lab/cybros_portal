@@ -23,18 +23,29 @@ class Report::YearReportHistoriesController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     @data = data.where(orgcode: @orgs_options)
-      .select('year, SUM(realamount) realamount, SUM(contractamount) contractamount')
+      .select('year, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(deptvalue) deptvalue')
       .group(:year)
 
     @years = @data.collect(&:year)
     @real_amount = @data.collect { |d| (d.realamount / 100.0).round(0) }
     @contract_amount = @data.collect { |d| (d.contractamount / 100.0).round(0) }
+    @dept_amount = @data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
 
     @head_count_data = policy_scope(Bi::YearReportHistory)
       .where(orgcode: @orgs_options)
       .where(year: @year_names, month: @month_name.to_i)
       .select('year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
       .group(:year)
+
+    @avg_staff_dept_amount = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      (d.deptvalue / head_count.avg_staff_no.to_f).round(0) rescue 0
+    end
+
+    @avg_work_dept_amount = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      (d.deptvalue / head_count.avg_work_no.to_f).round(0) rescue 0
+    end
 
     @avg_staff_real_amount = @data.collect do |d|
       head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
