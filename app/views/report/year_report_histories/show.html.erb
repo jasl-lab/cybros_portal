@@ -72,7 +72,7 @@
           </thead>
           <tbody>
             <% @data.each do |d| %>
-              <% head_count = @head_count_data.first %>
+              <% head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } %>
               <tr>
                 <td><%= d.year %></td>
                 <td><%= d.contractamount.to_f.round(0) %></td>
