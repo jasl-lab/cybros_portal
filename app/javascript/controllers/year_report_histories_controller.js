@@ -2,19 +2,19 @@ import { Controller } from "stimulus"
 
 let realDeptChart;
 let avgRealDeptChart;
-let realAmountChart;
-let avgRealAmountChart;
 let contractAmountChart;
 let avgContractAmountChart;
+let realAmountChart;
+let avgRealAmountChart;
 
 export default class extends Controller {
   connect() {
     realDeptChart = echarts.init(document.getElementById('dept-amount-chart'));
     avgRealDeptChart = echarts.init(document.getElementById('dept-amount-avg-chart'));
-    realAmountChart = echarts.init(document.getElementById('real-amount-chart'));
-    avgRealAmountChart = echarts.init(document.getElementById('real-amount-avg-chart'));
     contractAmountChart = echarts.init(document.getElementById('contract-amount-chart'));
     avgContractAmountChart = echarts.init(document.getElementById('contract-amount-avg-chart'));
+    realAmountChart = echarts.init(document.getElementById('real-amount-chart'));
+    avgRealAmountChart = echarts.init(document.getElementById('real-amount-avg-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const deptAmount = JSON.parse(this.data.get("dept_amount"));
@@ -178,7 +178,7 @@ export default class extends Controller {
         }]
     };
 
-    const option_real_amount = {
+    const option_contract_amount = {
         legend: {
             data: ['商务合同额'],
             align: 'left'
@@ -232,7 +232,7 @@ export default class extends Controller {
         }]
     };
 
-    const option_avg_real_amount = {
+    const option_avg_contract_amount = {
         legend: {
             data: ['一线人均商务合同额','全员人均商务合同额','一线人数'],
             align: 'left'
@@ -300,7 +300,7 @@ export default class extends Controller {
         },{
           name: '一线人均商务合同额',
           type: 'bar',
-          data: avgWorkRealAmount,
+          data: avgWorkContractAmount,
           barWidth: 30,
           label: {
             normal: {
@@ -314,7 +314,7 @@ export default class extends Controller {
         },{
           name: '全员人均商务合同额',
           type: 'bar',
-          data: avgStaffRealAmount,
+          data: avgStaffContractAmount,
           barWidth: 30,
           label: {
             normal: {
@@ -328,7 +328,7 @@ export default class extends Controller {
         }]
     };
 
-    const option_contract_amount = {
+    const option_real_amount = {
         legend: {
             data: ['实收款'],
             align: 'left'
@@ -382,7 +382,7 @@ export default class extends Controller {
         }]
     };
 
-    const option_avg_contract_amount = {
+    const option_avg_real_amount = {
         legend: {
             data: ['一线人均实收款','全员人均实收款','一线人数'],
             align: 'left'
@@ -450,7 +450,7 @@ export default class extends Controller {
         },{
           name: '一线人均实收款',
           type: 'bar',
-          data: avgWorkContractAmount,
+          data: avgWorkRealAmount,
           barWidth: 30,
           label: {
             normal: {
@@ -464,7 +464,7 @@ export default class extends Controller {
         },{
           name: '全员人均实收款',
           type: 'bar',
-          data: avgStaffContractAmount,
+          data: avgStaffRealAmount,
           barWidth: 30,
           label: {
             normal: {
@@ -480,11 +480,10 @@ export default class extends Controller {
 
     realDeptChart.setOption(option_dept_amount, false);
     avgRealDeptChart.setOption(option_avg_dept_amount, false);
-    realAmountChart.setOption(option_real_amount, false);
-    avgRealAmountChart.setOption(option_avg_real_amount, false);
     contractAmountChart.setOption(option_contract_amount, false);
     avgContractAmountChart.setOption(option_avg_contract_amount, false);
-
+    realAmountChart.setOption(option_real_amount, false);
+    avgRealAmountChart.setOption(option_avg_real_amount, false);
     setTimeout(() => {
       realDeptChart.resize();
       avgRealDeptChart.resize();
