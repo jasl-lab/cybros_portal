@@ -49,7 +49,7 @@ module Personal
           created_at: r.created_at,
           task_id: task_id,
           task_status: task_status,
-          belong_company_department: "#{r.belong_company_name}<br />#{r.belong_department_name}<br />#{r.contract_belong_company}".html_safe,
+          belong_company_department: "#{r.belong_company_name}<br />#{r.belong_department_name}".html_safe,
           stamp_to_place: Personal::ProofOfIncomeApply.sh_stamp_place.key(r.stamp_to_place),
           stamp_comment: r.stamp_comment,
           item_action: "#{r_delete}<br />#{r_start_approve}".html_safe

@@ -44,7 +44,7 @@ zh-CN:
           created_at: "创建时间"
           task_id: "任务 ID"
           task_status: "任务状态"
-          belong_company_department: "归属公司部门，劳动合同归属单位"
+          belong_company_department: "归属公司部门"
           application_class: "业务部门"
           stamp_to_place: "盖章地点"
           stamp_comment: "用章事宜"

@@ -44,7 +44,7 @@ en:
           created_at: "Created at"
           task_id: "Task ID"
           task_status: "Task status"
-          belong_company_department: "Belong company, department and contract company"
+          belong_company_department: "Belong company, department"
           application_class: "Application class"
           stamp_to_place: "Stamp to place"
           stamp_comment: "Stamp comment"
