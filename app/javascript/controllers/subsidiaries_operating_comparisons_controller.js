@@ -12,11 +12,12 @@ export default class extends Controller {
     const yearsRealAmounts = JSON.parse(this.data.get("years_real_amounts"));
 
     const yearsRealAmounts_names = Object.keys(yearsRealAmounts)
-    function build_real_amount_serail(series, index) {
+    function build_real_amount_serail(year, index) {
+      console.log(year, index)
       return {
-          name: yearsRealAmounts_names[index] + '生产合同额',
+          name: yearsRealAmounts_names[index] + '实收款',
           type: 'bar',
-          data: series,
+          data: yearsRealAmounts[year],
           label: {
             normal: {
               show: true,
@@ -30,7 +31,7 @@ export default class extends Controller {
     }
 
     function build_real_amount_legend(year, index) {
-      return yearsRealAmounts_names[index] + '生产合同额';
+      return yearsRealAmounts_names[index] + '实收款';
     }
 
     const yearsRealAmount_series = yearsRealAmounts_names.map(build_real_amount_serail);
