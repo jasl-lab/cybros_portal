@@ -36,14 +36,24 @@ class Report::YearReportHistoriesController < Report::BaseController
       .select('year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
       .group(:year)
 
-    @avg_real_amount = @data.collect do |d|
+    @avg_staff_real_amount = @data.collect do |d|
       head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
-      ((d.realamount * 100) / head_count.avg_staff_no.to_f).round(0) rescue 0
+      (d.realamount / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
-    @avg_contract_amount = @data.collect do |d|
+    @avg_work_real_amount = @data.collect do |d|
       head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
-      ((d.contractamount * 100) / head_count.avg_work_no.to_f).round(0) rescue 0
+      (d.realamount / head_count.avg_work_no.to_f).round(0) rescue 0
+    end
+
+    @avg_staff_contract_amount = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      (d.contractamount / head_count.avg_staff_no.to_f).round(0) rescue 0
+    end
+
+    @avg_work_contract_amount = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      (d.contractamount / head_count.avg_work_no.to_f).round(0) rescue 0
     end
   end
 

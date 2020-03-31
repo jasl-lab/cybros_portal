@@ -15,8 +15,10 @@ export default class extends Controller {
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const realAmount = JSON.parse(this.data.get("real_amount"));
     const contractAmount = JSON.parse(this.data.get("contract_amount"));
-    const avgRealAmount = JSON.parse(this.data.get("avg_real_amount"));
-    const avgContractAmount = JSON.parse(this.data.get("avg_contract_amount"));
+    const avgStaffRealAmount = JSON.parse(this.data.get("avg_staff_real_amount"));
+    const avgWorkRealAmount = JSON.parse(this.data.get("avg_work_real_amount"));
+    const avgStaffContractAmount = JSON.parse(this.data.get("avg_staff_contract_amount"));
+    const avgWorkContractAmount = JSON.parse(this.data.get("avg_work_contract_amount"));
 
     const option_real_amount = {
         legend: {
@@ -74,7 +76,7 @@ export default class extends Controller {
 
     const option_avg_real_amount = {
         legend: {
-            data: ['人均商务合同额'],
+            data: ['一线人均商务合同额','全员人均商务合同额'],
             align: 'left'
         },
         grid: {
@@ -110,9 +112,9 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '人均商务合同额',
+          name: '一线人均商务合同额',
           type: 'bar',
-          data: avgContractAmount,
+          data: avgWorkRealAmount,
           barWidth: 30,
           label: {
             normal: {
@@ -122,6 +124,20 @@ export default class extends Controller {
           },
           itemStyle: {
             color: '#738496'
+          }
+        },{
+          name: '全员人均商务合同额',
+          type: 'bar',
+          data: avgStaffRealAmount,
+          barWidth: 30,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
+          itemStyle: {
+            color: '#6AB0B8'
           }
         }]
     };
@@ -182,7 +198,7 @@ export default class extends Controller {
 
     const option_avg_contract_amount = {
         legend: {
-            data: ['人均实收款'],
+            data: ['一线人均实收款','全员人均实收款'],
             align: 'left'
         },
         grid: {
@@ -218,9 +234,9 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '人均实收款',
+          name: '一线人均实收款',
           type: 'bar',
-          data: avgRealAmount,
+          data: avgWorkContractAmount,
           barWidth: 30,
           label: {
             normal: {
@@ -230,6 +246,20 @@ export default class extends Controller {
           },
           itemStyle: {
             color: '#738496'
+          }
+        },{
+          name: '全员人均实收款',
+          type: 'bar',
+          data: avgStaffContractAmount,
+          barWidth: 30,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          },
+          itemStyle: {
+            color: '#6AB0B8'
           }
         }]
     };
