@@ -36,7 +36,11 @@ class CompanyContractDatatable < ApplicationDatatable
       end.join("<br />")
 
       { project_no_and_name: "#{r.id}<br />#{link_to(r.marketinfoname, company_contract_path(id: r.id), remote: true)}<br />#{r.projectframename}".html_safe,
-        project_type_and_main_dept_name: project_type_and_main_dept_name.html_safe,
+        project_type_and_main_dept_name: if project_type_and_main_dept_name.present?
+                                           project_type_and_main_dept_name.html_safe
+                                         else
+                                           r.maindeptnamedet
+                                         end,
         scale_area: r.scalearea }
     end
   end
