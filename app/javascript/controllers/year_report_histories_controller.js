@@ -106,7 +106,7 @@ export default class extends Controller {
           axisLabel: {
             show: true,
             interval: 'auto',
-            formatter: '{value} 百万'
+            formatter: '{value} 万'
           }
         },
         series: [{
@@ -214,7 +214,7 @@ export default class extends Controller {
           axisLabel: {
             show: true,
             interval: 'auto',
-            formatter: '{value} 百万'
+            formatter: '{value} 万'
           }
         },
         series: [{
