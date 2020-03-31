@@ -37,6 +37,11 @@ class Report::YearReportHistoriesController < Report::BaseController
       .select('year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
       .group(:year)
 
+    @work_head_count = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      head_count.avg_work_no.round(0) rescue 0
+    end
+
     @avg_staff_dept_amount = @data.collect do |d|
       head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
       (d.deptvalue / head_count.avg_staff_no.to_f).round(0) rescue 0

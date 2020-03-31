@@ -22,6 +22,7 @@ export default class extends Controller {
     const avgStaffDeptAmount = JSON.parse(this.data.get("avg_staff_dept_amount"));
     const avgWorkDeptAmount = JSON.parse(this.data.get("avg_work_dept_amount"));
     const contractAmount = JSON.parse(this.data.get("contract_amount"));
+    const workHeadCount = JSON.parse(this.data.get("work_head_count"));
     const avgStaffRealAmount = JSON.parse(this.data.get("avg_staff_real_amount"));
     const avgWorkRealAmount = JSON.parse(this.data.get("avg_work_real_amount"));
     const avgStaffContractAmount = JSON.parse(this.data.get("avg_staff_contract_amount"));
@@ -83,7 +84,7 @@ export default class extends Controller {
 
     const option_avg_dept_amount = {
         legend: {
-            data: ['一线人均生产合同额','全员人均生产合同额'],
+            data: ['一线人均生产合同额','全员人均生产合同额','一线人数'],
             align: 'left'
         },
         grid: {
@@ -111,14 +112,42 @@ export default class extends Controller {
               show: false
           }
         },
-        yAxis: {
+        yAxis: [{
+          type: 'value',
+          name: '人均生产合同额（万元）',
+          position: 'left',
           axisLabel: {
-            show: true,
-            interval: 'auto',
-            formatter: '{value} 万'
+            formatter: '{value}万'
           }
-        },
+        },{
+          type: 'value',
+          name: '一线人数（人）',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          axisLabel: {
+            formatter: '{value}人'
+          }
+        }],
         series: [{
+          name: '一线人数',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'circle',
+          symbolSize: 8,
+          data: workHeadCount,
+          color: '#675BBA',
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          }
+        },{
           name: '一线人均生产合同额',
           type: 'bar',
           data: avgWorkDeptAmount,
@@ -205,7 +234,7 @@ export default class extends Controller {
 
     const option_avg_real_amount = {
         legend: {
-            data: ['一线人均商务合同额','全员人均商务合同额'],
+            data: ['一线人均商务合同额','全员人均商务合同额','一线人数'],
             align: 'left'
         },
         grid: {
@@ -233,14 +262,42 @@ export default class extends Controller {
               show: false
           }
         },
-        yAxis: {
+        yAxis: [{
+          type: 'value',
+          name: '人均商务合同额（万元）',
+          position: 'left',
           axisLabel: {
-            show: true,
-            interval: 'auto',
-            formatter: '{value} 万'
+            formatter: '{value}万'
           }
-        },
+        },{
+          type: 'value',
+          name: '一线人数（人）',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          axisLabel: {
+            formatter: '{value}人'
+          }
+        }],
         series: [{
+          name: '一线人数',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'circle',
+          symbolSize: 8,
+          data: workHeadCount,
+          color: '#675BBA',
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          }
+        },{
           name: '一线人均商务合同额',
           type: 'bar',
           data: avgWorkRealAmount,
@@ -327,7 +384,7 @@ export default class extends Controller {
 
     const option_avg_contract_amount = {
         legend: {
-            data: ['一线人均实收款','全员人均实收款'],
+            data: ['一线人均实收款','全员人均实收款','一线人数'],
             align: 'left'
         },
         grid: {
@@ -355,14 +412,42 @@ export default class extends Controller {
               show: false
           }
         },
-        yAxis: {
+        yAxis: [{
+          type: 'value',
+          name: '人均实收款（万元）',
+          position: 'left',
           axisLabel: {
-            show: true,
-            interval: 'auto',
-            formatter: '{value} 万'
+            formatter: '{value}万'
           }
-        },
+        },{
+          type: 'value',
+          name: '一线人数（人）',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          axisLabel: {
+            formatter: '{value}人'
+          }
+        }],
         series: [{
+          name: '一线人数',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'circle',
+          symbolSize: 8,
+          data: workHeadCount,
+          color: '#675BBA',
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
+          }
+        },{
           name: '一线人均实收款',
           type: 'bar',
           data: avgWorkContractAmount,
