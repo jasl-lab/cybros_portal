@@ -44,7 +44,6 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     data = policy_scope(Bi::ContractSignDept).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_sign_dept_date)
       .where(orgcode: org_code)
-      .having("SUM(contract_amount) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
 
@@ -91,7 +90,6 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
     cp_data = policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_production_dept_date)
       .where(orgcode: org_code)
-      .having("SUM(total) > 0")
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
 
