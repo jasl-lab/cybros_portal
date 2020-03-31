@@ -12,8 +12,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @month_name = params[:month_name]&.strip || @month_names.first
     @orgs_options = params[:orgs]
 
-
-    @year_names = @year_options if @year_names.blank?
+    @year_names = @year_options - [2017, 2016] if @year_names.blank?
     data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i)
 
     all_company_orgcodes = data.pluck(:orgcode).uniq
@@ -23,11 +22,11 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     data = data
-      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, ORG_ORDER.org_code, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(avg_work_no) avg_work_no, SUM(avg_staff_no) avg_staff_no')
+      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, ORG_ORDER.org_code, SUM(realamount) realamount, SUM(contractamount) contractamount')
       .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, ORG_ORDER.org_code')
       .where(orgcode: @orgs_options)
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
-      .order('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year ASC, ORG_ORDER.org_code')
+      .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.year ASC, ORG_ORDER.org_code')
 
     show_org_codes = data.collect(&:org_code).uniq
     @years_real_amounts = {}
@@ -36,7 +35,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
         record = data.find { |d| d.org_code == org_code && d.year == year }
         array = @years_real_amounts.fetch(year, [])
         array << if record.present?
-          record.realamount || 0
+          (record.realamount.to_f / 100.0).round(0)
         else
           0
         end
