@@ -28,18 +28,18 @@ class Report::YearReportHistoriesController < Report::BaseController
 
     @years = @data.collect(&:year)
     @real_amount = @data.collect { |d| (d.realamount / 100.0).round(0) }
-    @contract_amount = @data.collect { |d| (d.contractamount.to_f / 100.0).round(0) }
+    @contract_amount = @data.collect { |d| (d.contractamount / 100.0).round(0) }
 
     @head_count_data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: @month_name.to_i).order(:year)
 
-    avg_work_no = @head_count_data.collect(&:avg_work_no)
-    avg_staff_no = @head_count_data.collect(&:avg_staff_no)
-
-    @avg_real_amount = @real_amount.zip(avg_staff_no).map do |d|
-      (d[0] * 100 / d[1]).round(0) rescue 0
+    @avg_real_amount = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      ((d.realamount * 100) / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
-    @avg_contract_amount = @contract_amount.zip(avg_work_no).map do |d|
-      (d[0] * 100 / d[1]).round(0) rescue 0
+
+    @avg_contract_amount = @data.collect do |d|
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      ((d.contractamount * 100) / head_count.avg_work_no.to_f).round(0) rescue 0
     end
   end
 
