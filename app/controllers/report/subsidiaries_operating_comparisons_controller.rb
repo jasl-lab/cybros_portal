@@ -28,13 +28,58 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
     show_org_codes = data.collect(&:orgcode)
+
+    rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
+    @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
+      .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
+      .where(orgcode: @orgs_options)
+      .select('orgcode, year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+      .group('orgcode, year')
+      .order('orgcode, year')
+
     @years_dept_values = {}
+    @avg_staff_dept_values = {}
+    @avg_work_dept_values = {}
+
     @years_contract_amounts = {}
+    @avg_staff_contract_amount = {}
+    @avg_work_contract_amount = {}
+
     @years_real_amounts = {}
+    @avg_staff_real_amount = {}
+    @avg_work_real_amount = {}
+
     @year_names.each do |year|
-      @years_dept_values[year] = data.where(year: year).collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
-      @years_contract_amounts[year] = data.where(year: year).collect { |d| (d.contractamount.to_f / 100.0).round(0) }
-      @years_real_amounts[year] = data.where(year: year).collect { |d| (d.realamount.to_f / 100.0).round(0) }
+      year_data = data.where(year: year)
+      @years_dept_values[year] = year_data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
+      @avg_staff_dept_values[year] = year_data.collect do |d|
+        head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
+        (d.deptvalue / head_count.avg_staff_no.to_f).round(0) rescue 0
+      end
+      @avg_work_dept_values[year] = year_data.collect do |d|
+        head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
+        (d.deptvalue / head_count.avg_work_no.to_f).round(0) rescue 0
+      end
+
+      @years_contract_amounts[year] = year_data.collect { |d| (d.contractamount.to_f / 100.0).round(0) }
+      @avg_staff_contract_amount[year] = year_data.collect do |d|
+        head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
+        (d.contractamount / head_count.avg_staff_no.to_f).round(0) rescue 0
+      end
+      @avg_work_contract_amount[year] = year_data.collect do |d|
+        head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
+        (d.contractamount / head_count.avg_work_no.to_f).round(0) rescue 0
+      end
+
+      @years_real_amounts[year] = year_data.collect { |d| (d.realamount.to_f / 100.0).round(0) }
+      @avg_staff_real_amount[year] = year_data.collect do |d|
+        head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
+        (d.realamount / head_count.avg_staff_no.to_f).round(0) rescue 0
+      end
+      @avg_work_real_amount[year] = year_data.collect do |d|
+        head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
+        (d.realamount / head_count.avg_work_no.to_f).round(0) rescue 0
+      end
     end
     @show_org_names = show_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end
