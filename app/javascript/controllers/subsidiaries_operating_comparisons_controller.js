@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let deptValueChart;
+let contractAmountChart;
 let realAmountChart;
 
 function set_chart(chart, amounts, amounts_names, x_axis) {
@@ -78,6 +80,8 @@ function set_chart(chart, amounts, amounts_names, x_axis) {
 
 export default class extends Controller {
   connect() {
+    deptValueChart = echarts.init(document.getElementById('dept-value-chart'));
+    contractAmountChart = echarts.init(document.getElementById('contract-amount-chart'));
     realAmountChart = echarts.init(document.getElementById('real-amount-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
@@ -89,18 +93,26 @@ export default class extends Controller {
     const yearsContractAmounts_names = Object.keys(yearsContractAmounts)
     const yearsRealAmounts_names = Object.keys(yearsRealAmounts)
 
+    set_chart(deptValueChart, yearsDeptValues, yearsDeptValues_names, xAxisData);
+    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, xAxisData);
     set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, xAxisData);
 
     setTimeout(() => {
+      deptValueChart.resize();
+      contractAmountChart.resize();
       realAmountChart.resize();
     }, 200);
   }
 
   layout() {
+    deptValueChart.resize();
+    contractAmountChart.resize();
     realAmountChart.resize();
   }
 
   disconnect() {
+    deptValueChart.dispose();
+    contractAmountChart.dispose();
     realAmountChart.dispose();
   }
 }
