@@ -9,7 +9,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
-    @month_name = params[:month_name]&.strip || @month_names.first
+    @month_name = params[:month_name]&.strip || Time.now.month
     @orgs_options = params[:orgs]
 
     @year_names = @year_options - [2017, 2016] if @year_names.blank?
@@ -29,9 +29,21 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
     show_org_codes = data.collect(&:orgcode)
 
+    most_recent_year = @year_names.first
+    most_recent_month = (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)
+    most_recent_data = policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
+      .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
+      .where(orgcode: @orgs_options)
+      .select('orgcode, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+      .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
+      .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
+
+    @most_recent_avg_work_no = most_recent_data.collect(&:avg_work_no)
+    @most_recent_avg_staff_no = most_recent_data.collect(&:avg_staff_no)
     rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
+
     @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
-      .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
+      .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: most_recent_month))
       .where(orgcode: @orgs_options)
       .select('orgcode, year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
       .group('orgcode, year')

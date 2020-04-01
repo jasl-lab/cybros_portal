@@ -3,7 +3,9 @@
     data-controller="subsidiaries-operating-comparisons"
     data-action="resize@window->subsidiaries-operating-comparisons#layout"
     data-subsidiaries-operating-comparisons-x_axis="<%= @show_org_names.to_json -%>"
-    data-subsidiaries-operating-comparisons-years_dept_values="<%= JSON.generate(@years_dept_values) -%>"
+    data-subsidiaries-operating-comparisons-most_recent_avg_work_no="<%= JSON.generate(@most_recent_avg_work_no) -%>",
+    data-subsidiaries-operating-comparisons-most_recent_avg_staff_no="<%= JSON.generate(@most_recent_avg_staff_no) -%>",
+    data-subsidiaries-operating-comparisons-years_dept_values="<%= JSON.generate(@years_dept_values) -%>",
     data-subsidiaries-operating-comparisons-avg_staff_dept_values="<%= JSON.generate(@avg_staff_dept_values) -%>"
     data-subsidiaries-operating-comparisons-avg_work_dept_values="<%= JSON.generate(@avg_work_dept_values) -%>"
     data-subsidiaries-operating-comparisons-years_contract_amounts="<%= JSON.generate(@years_contract_amounts) -%>"
