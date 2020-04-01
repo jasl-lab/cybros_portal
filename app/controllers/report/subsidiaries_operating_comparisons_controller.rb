@@ -22,27 +22,17 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     data = data
-      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, YEAR_REPORT_HISTORY.orgcode, SUM(realamount) realamount, SUM(contractamount) contractamount')
-      .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.year, YEAR_REPORT_HISTORY.orgcode')
+      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(realamount) realamount, SUM(contractamount) contractamount')
+      .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
       .where(orgcode: @orgs_options)
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
-      .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.year ASC, YEAR_REPORT_HISTORY.orgcode')
+      .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
 
     show_org_codes = data.collect(&:orgcode).uniq
-    @years_real_amounts = @year_names.reduce({}) do |h, e|
-      h[e] = []
-      h
-    end
-    show_org_codes.each do |org_code|
-      @year_names.each do |year|
-        record = data.find { |d| d.orgcode == org_code && d.year.to_i == year.to_i }
-        ra = if record.present?
-          (record.realamount.to_f / 1000000.0).round(0)
-        else
-          0
-        end
-        @years_real_amounts[year] << ra
-      end
+    @years_real_amounts = {}
+    @year_names.each do |year|
+      real_amount_array = data.where(year: year).collect { |d| (d.realamount.to_f / 100.0).round(0) }
+      @years_real_amounts[year] = real_amount_array
     end
     @show_org_names = show_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end
