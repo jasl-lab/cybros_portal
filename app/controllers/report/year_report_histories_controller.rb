@@ -9,9 +9,8 @@ class Report::YearReportHistoriesController < Report::BaseController
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
-    @month_name = params[:month_name]&.strip || @month_names.first
+    @month_name = params[:month_name]&.strip || Time.now.month
     @orgs_options = params[:orgs]
-
 
     @year_names = @year_options if @year_names.blank?
     data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i).order(:year)
@@ -31,9 +30,10 @@ class Report::YearReportHistoriesController < Report::BaseController
     @contract_amount = @data.collect { |d| (d.contractamount / 100.0).round(0) }
     @dept_amount = @data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
 
-    @head_count_data = policy_scope(Bi::YearReportHistory)
+    rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
+    @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
+      .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
       .where(orgcode: @orgs_options)
-      .where(year: @year_names, month: @month_name.to_i)
       .select('year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
       .group(:year)
 
