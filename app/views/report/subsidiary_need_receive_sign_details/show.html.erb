@@ -16,8 +16,8 @@
               <%= select_tag 'org_name', options_for_select(@all_org_names, @org_name), include_blank: true, class: 'form-control' %>
             </div>
             <div class="form-group">
-              <label class="mr-1"><%= t(".sign_receive_great_than") -%>：</label>
-              <%= text_field_tag 'sign_receive_great_than', @sign_receive_great_than, class: 'form-control form-control2' %>
+              <label class="mr-1"><%= t(".total_sign_receive_great_than") -%>：</label>
+              <%= text_field_tag 'total_sign_receive_great_than', @sign_receive_great_than, class: 'form-control form-control2' %>
             </div>
             <div class="form-group">
               <label class="mr-1"><%= t(".over_amount_great_than") -%>：</label>
