@@ -28,8 +28,9 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
 
-    show_org_codes = data.collect(&:orgcode).uniq
+    show_org_codes = data.collect(&:orgcode)
     @years_real_amounts = {}
+    TabNine::config
     @year_names.each do |year|
       real_amount_array = data.where(year: year).collect { |d| (d.realamount.to_f / 100.0).round(0) }
       @years_real_amounts[year] = real_amount_array
