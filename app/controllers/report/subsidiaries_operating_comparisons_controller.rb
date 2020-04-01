@@ -42,12 +42,12 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @avg_work_dept_values = {}
 
     @years_contract_amounts = {}
-    @avg_staff_contract_amount = {}
-    @avg_work_contract_amount = {}
+    @avg_staff_contract_amounts = {}
+    @avg_work_contract_amounts = {}
 
     @years_real_amounts = {}
-    @avg_staff_real_amount = {}
-    @avg_work_real_amount = {}
+    @avg_staff_real_amounts = {}
+    @avg_work_real_amounts = {}
 
     @year_names.each do |year|
       year_data = data.where(year: year)
@@ -62,21 +62,21 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       end
 
       @years_contract_amounts[year] = year_data.collect { |d| (d.contractamount.to_f / 100.0).round(0) }
-      @avg_staff_contract_amount[year] = year_data.collect do |d|
+      @avg_staff_contract_amounts[year] = year_data.collect do |d|
         head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
         (d.contractamount / head_count.avg_staff_no.to_f).round(0) rescue 0
       end
-      @avg_work_contract_amount[year] = year_data.collect do |d|
+      @avg_work_contract_amounts[year] = year_data.collect do |d|
         head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
         (d.contractamount / head_count.avg_work_no.to_f).round(0) rescue 0
       end
 
       @years_real_amounts[year] = year_data.collect { |d| (d.realamount.to_f / 100.0).round(0) }
-      @avg_staff_real_amount[year] = year_data.collect do |d|
+      @avg_staff_real_amounts[year] = year_data.collect do |d|
         head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
         (d.realamount / head_count.avg_staff_no.to_f).round(0) rescue 0
       end
-      @avg_work_real_amount[year] = year_data.collect do |d|
+      @avg_work_real_amounts[year] = year_data.collect do |d|
         head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
         (d.realamount / head_count.avg_work_no.to_f).round(0) rescue 0
       end
