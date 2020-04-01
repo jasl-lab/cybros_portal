@@ -2,85 +2,94 @@ import { Controller } from "stimulus"
 
 let realAmountChart;
 
+function set_chart(chart, amounts, amounts_names, x_axis) {
+  const predefine_color = ['#738496','#675BBA','#FA9291','#A1D189'];
+
+  function build_serial(year, index) {
+    console.log(year, index)
+    return {
+        name: amounts_names[index] + '实收款',
+        type: 'bar',
+        data: amounts[year],
+        label: {
+          normal: {
+            show: true,
+            position: 'top'
+          }
+        },
+        itemStyle: {
+          color: predefine_color[index%3]
+        }
+      }
+  }
+
+  function build_legend(year, index) {
+    return amounts_names[index] + '实收款';
+  }
+
+  const series = amounts_names.map(build_serial);
+
+  const legend = amounts_names.map(build_legend);
+
+  const option_amounts = {
+      legend: {
+          data: legend,
+          align: 'left'
+      },
+      grid: {
+        left: 70,
+        right: 50,
+        top: 60,
+        bottom: 125
+      },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
+          }
+        }
+      },
+      tooltip: {},
+      xAxis: {
+        data: x_axis,
+        silent: true,
+        axisLabel: {
+          interval: 0,
+          rotate: -40
+        },
+        splitLine: {
+            show: false
+        }
+      },
+      yAxis: [{
+        type: 'value',
+        position: 'left',
+        axisLabel: {
+          formatter: '{value}百万'
+        }
+      }],
+      series: series
+  };
+
+
+  chart.setOption(option_amounts, false);
+}
+
 export default class extends Controller {
   connect() {
     realAmountChart = echarts.init(document.getElementById('real-amount-chart'));
 
-    const predefine_color = ['#738496','#675BBA','#FA9291','#A1D189'];
-
     const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const yearsDeptValues = JSON.parse(this.data.get("years_dept_values"));
+    const yearsContractAmounts = JSON.parse(this.data.get("years_contract_amounts"));
     const yearsRealAmounts = JSON.parse(this.data.get("years_real_amounts"));
 
+    const yearsDeptValues_names = Object.keys(yearsDeptValues)
+    const yearsContractAmounts_names = Object.keys(yearsContractAmounts)
     const yearsRealAmounts_names = Object.keys(yearsRealAmounts)
-    function build_real_amount_serail(year, index) {
-      console.log(year, index)
-      return {
-          name: yearsRealAmounts_names[index] + '实收款',
-          type: 'bar',
-          data: yearsRealAmounts[year],
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
-          itemStyle: {
-            color: predefine_color[index%3]
-          }
-        }
-    }
 
-    function build_real_amount_legend(year, index) {
-      return yearsRealAmounts_names[index] + '实收款';
-    }
-
-    const yearsRealAmount_series = yearsRealAmounts_names.map(build_real_amount_serail);
-
-    const yearsRealAmount_legend = yearsRealAmounts_names.map(build_real_amount_legend);
-
-    const option_years_real_amounts = {
-        legend: {
-            data: yearsRealAmount_legend,
-            align: 'left'
-        },
-        grid: {
-          left: 70,
-          right: 50,
-          top: 60,
-          bottom: 125
-        },
-        toolbox: {
-          feature: {
-            dataView: {},
-            saveAsImage: {
-                pixelRatio: 2
-            }
-          }
-        },
-        tooltip: {},
-        xAxis: {
-          data: xAxisData,
-          silent: true,
-          axisLabel: {
-            interval: 0,
-            rotate: -40
-          },
-          splitLine: {
-              show: false
-          }
-        },
-        yAxis: [{
-          type: 'value',
-          position: 'left',
-          axisLabel: {
-            formatter: '{value}百万'
-          }
-        }],
-        series: yearsRealAmount_series
-    };
-
-
-    realAmountChart.setOption(option_years_real_amounts, false);
+    set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, xAxisData);
 
     setTimeout(() => {
       realAmountChart.resize();

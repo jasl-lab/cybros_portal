@@ -22,18 +22,19 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     data = data
-      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(realamount) realamount, SUM(contractamount) contractamount')
+      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(deptvalue) deptvalue')
       .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
       .where(orgcode: @orgs_options)
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
-
     show_org_codes = data.collect(&:orgcode)
+    @years_dept_values = {}
+    @years_contract_amounts = {}
     @years_real_amounts = {}
-    TabNine::config
     @year_names.each do |year|
-      real_amount_array = data.where(year: year).collect { |d| (d.realamount.to_f / 100.0).round(0) }
-      @years_real_amounts[year] = real_amount_array
+      @years_dept_values[year] = data.where(year: year).collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
+      @years_contract_amounts[year] = data.where(year: year).collect { |d| (d.contractamount.to_f / 100.0).round(0) }
+      @years_real_amounts[year] = data.where(year: year).collect { |d| (d.realamount.to_f / 100.0).round(0) }
     end
     @show_org_names = show_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end
