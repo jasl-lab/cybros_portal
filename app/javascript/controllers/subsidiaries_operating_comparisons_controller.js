@@ -47,8 +47,8 @@ function set_chart(chart, amounts, amounts_names, title, x_axis) {
       grid: {
         left: 70,
         right: 50,
-        top: 60,
-        bottom: 125
+        top: 30,
+        bottom: 80
       },
       toolbox: {
         feature: {
