@@ -102,7 +102,7 @@
           <thead>
             <tr>
               <th>部门</th>
-              <% @department_names.each do |company_name| %>
+              <% @cp_department_names.each do |company_name| %>
                 <th><%= company_name -%></th>
               <% end %>
             </tr>
@@ -110,8 +110,8 @@
           <tbody>
             <tr>
               <td>平均人数</td>
-              <% @contract_amounts.each_with_index do |contract_amount, index| %>
-                <% dept_code = @all_department_codes[index] %>
+              <% @cp_contract_amounts.each_with_index do |contract_amount, index| %>
+                <% dept_code = @all_cp_department_codes[index] %>
                 <% staff_count = @staff_per_dept_code[dept_code] %>
                 <td><%= staff_count&.round(0) -%></td>
               <% end %>

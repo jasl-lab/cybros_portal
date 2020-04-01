@@ -223,7 +223,7 @@ export default class extends Controller {
           }
         },
         grid: {
-          left: 80,
+          left: 90,
           right: 110,
           top: 50,
           bottom: 60

@@ -104,15 +104,15 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
     end
-    all_cp_department_codes = cp_data.collect(&:deptcode)
-    @cp_department_names = all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
+    @all_cp_department_codes = cp_data.collect(&:deptcode)
+    @cp_department_names = @all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
     @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_production_dept_date)
       .select("ROUND(SUM(total)/10000, 2) cp_amounts").first.cp_amounts.to_f / 10000.to_f).round(2)
 
     @cp_contract_amounts_per_staff = []
     @cp_contract_amounts.each_with_index do |contract_amount, index|
-      dept_code = all_cp_department_codes[index]
+      dept_code = @all_cp_department_codes[index]
       staff_count = @staff_per_dept_code[dept_code]
       staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
       @cp_contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
