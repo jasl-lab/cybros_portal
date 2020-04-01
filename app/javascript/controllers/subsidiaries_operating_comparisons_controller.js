@@ -4,13 +4,13 @@ let deptValueChart;
 let contractAmountChart;
 let realAmountChart;
 
-function set_chart(chart, amounts, amounts_names, x_axis) {
+function set_chart(chart, amounts, amounts_names, title, x_axis) {
   const predefine_color = ['#738496','#675BBA','#FA9291','#A1D189'];
 
   function build_serial(year, index) {
     console.log(year, index)
     return {
-        name: amounts_names[index] + '实收款',
+        name: amounts_names[index] + title,
         type: 'bar',
         data: amounts[year],
         label: {
@@ -26,7 +26,7 @@ function set_chart(chart, amounts, amounts_names, x_axis) {
   }
 
   function build_legend(year, index) {
-    return amounts_names[index] + '实收款';
+    return amounts_names[index] + title;
   }
 
   const series = amounts_names.map(build_serial);
@@ -93,9 +93,9 @@ export default class extends Controller {
     const yearsContractAmounts_names = Object.keys(yearsContractAmounts)
     const yearsRealAmounts_names = Object.keys(yearsRealAmounts)
 
-    set_chart(deptValueChart, yearsDeptValues, yearsDeptValues_names, xAxisData);
-    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, xAxisData);
-    set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, xAxisData);
+    set_chart(deptValueChart, yearsDeptValues, yearsDeptValues_names, '生产合同额', xAxisData);
+    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, '签约合同额', xAxisData);
+    set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, '实收款', xAxisData);
 
     setTimeout(() => {
       deptValueChart.resize();

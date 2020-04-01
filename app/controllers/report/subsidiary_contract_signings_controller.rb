@@ -69,7 +69,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       Bi::YearAvgStaff.staff_per_dept_code_by_date_and_sum(org_code, @end_of_month, @view_deptcode_sum)
     end
 
-    @contract_amounts = data.collect { |d| d.sum_contract_amount.round(0) }
+    @contract_amounts = data.collect { |d| d.sum_contract_amount.to_f.round(0) }
     @contract_amount_max = @contract_amounts.max&.round(-1)
     @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
