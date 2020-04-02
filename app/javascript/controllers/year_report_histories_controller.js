@@ -128,6 +128,9 @@ export default class extends Controller {
               color: '#675BBA'
             }
           },
+          splitLine: {
+            show: false
+          },
           axisLabel: {
             formatter: '{value}人'
           }
@@ -278,6 +281,9 @@ export default class extends Controller {
               color: '#675BBA'
             }
           },
+          splitLine: {
+            show: false
+          },
           axisLabel: {
             formatter: '{value}人'
           }
@@ -427,6 +433,9 @@ export default class extends Controller {
             lineStyle: {
               color: '#675BBA'
             }
+          },
+          splitLine: {
+            show: false
           },
           axisLabel: {
             formatter: '{value}人'

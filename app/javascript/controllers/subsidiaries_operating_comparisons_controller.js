@@ -68,6 +68,9 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
               color: '#dd625e'
             }
           },
+          splitLine: {
+            show: false
+          },
           axisLabel: {
             formatter: '{value}人'
           }
