@@ -38,8 +38,8 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
 
-    @most_recent_avg_work_no = most_recent_data.collect(&:avg_work_no)
-    @most_recent_avg_staff_no = most_recent_data.collect(&:avg_staff_no)
+    @most_recent_avg_work_no = most_recent_data.collect { |d| d.avg_work_no.round(0) }
+    @most_recent_avg_staff_no = most_recent_data.collect { |d| d.avg_staff_no.round(0) }
     rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
 
     @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)

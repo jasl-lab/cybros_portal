@@ -10,11 +10,10 @@ let realAmountChart;
 let avgStaffRealAmountChart;
 let avgWorkRealAmountChart;
 
-function set_chart(chart, amounts, amounts_names, head_count, title, x_axis) {
+function set_chart(chart, amounts, amounts_names, head_count_title, head_count, title, x_axis) {
   const predefine_color = ['#738496','#675BBA','#FA9291','#A1D189'];
 
   function build_serial(year, index) {
-    console.log(year, index)
     return {
         name: amounts_names[index] + title,
         type: 'bar',
@@ -35,6 +34,10 @@ function set_chart(chart, amounts, amounts_names, head_count, title, x_axis) {
     return amounts_names[index] + title;
   }
 
+  function build_x_axis(company_name, index) {
+    return company_name + '(' + head_count[index] + ')';
+  }
+
   let series = amounts_names.map(build_serial);
   let y_axis = [{
           type: 'value',
@@ -44,25 +47,21 @@ function set_chart(chart, amounts, amounts_names, head_count, title, x_axis) {
             formatter: '{value}百万'
           }
         }];
+  let legend = amounts_names.map(build_legend);
   if(head_count) {
     series.unshift({
-            name: '一线人数',
+            name: head_count_title,
             type: 'scatter',
             yAxisIndex: 1,
             symbol: 'circle',
             symbolSize: 8,
             data: head_count,
-            color: '#dd625e',
-            label: {
-              normal: {
-                show: true,
-                position: 'top'
-              }
-            }
+            color: '#dd625e'
           });
+    x_axis = x_axis.map(build_x_axis);
     y_axis.push({
           type: 'value',
-          name: '一线人数（人）',
+          name: '人数（人）',
           position: 'right',
           axisLine: {
             lineStyle: {
@@ -73,10 +72,8 @@ function set_chart(chart, amounts, amounts_names, head_count, title, x_axis) {
             formatter: '{value}人'
           }
         });
+    legend.push(head_count_title);
   }
-
-
-  const legend = amounts_names.map(build_legend);
 
   const option_amounts = {
       legend: {
@@ -158,17 +155,17 @@ export default class extends Controller {
     const avgStaffRealAmounts_names = Object.keys(avgStaffRealAmounts);
     const avgWorkRealAmounts_names = Object.keys(avgWorkRealAmounts);
 
-    set_chart(deptValueChart, yearsDeptValues, yearsDeptValues_names, null, '生产合同额', xAxisData);
-    set_chart(avgStaffDeptValueChart, avgStaffDeptValues, avgStaffDeptValues_names, mostRecentAvgStaffNo, '全员人均生产合同额', xAxisData);
-    set_chart(avgWorkDeptValueChart, avgWorkDeptValues, avgWorkDeptValues_names, mostRecentAvgWorkNo, '一线人均生产合同额', xAxisData);
+    set_chart(deptValueChart, yearsDeptValues, yearsDeptValues_names, null, null, '生产合同额', xAxisData);
+    set_chart(avgStaffDeptValueChart, avgStaffDeptValues, avgStaffDeptValues_names, '全员人数', mostRecentAvgStaffNo, '全员人均生产合同额', xAxisData);
+    set_chart(avgWorkDeptValueChart, avgWorkDeptValues, avgWorkDeptValues_names, '一线人数', mostRecentAvgWorkNo, '一线人均生产合同额', xAxisData);
 
-    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, null, '签约合同额', xAxisData);
-    set_chart(avgStaffContractAmountChart, avgStaffContractAmounts, avgStaffContractAmounts_names, mostRecentAvgStaffNo, '全员人均签约合同额', xAxisData);
-    set_chart(avgWorkContractAmountChart, avgWorkContractAmounts, avgWorkContractAmounts_names, mostRecentAvgWorkNo, '一线人均签约合同额', xAxisData);
+    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, null, null, '签约合同额', xAxisData);
+    set_chart(avgStaffContractAmountChart, avgStaffContractAmounts, avgStaffContractAmounts_names, '全员人数', mostRecentAvgStaffNo, '全员人均签约合同额', xAxisData);
+    set_chart(avgWorkContractAmountChart, avgWorkContractAmounts, avgWorkContractAmounts_names, '一线人数', mostRecentAvgWorkNo, '一线人均签约合同额', xAxisData);
 
-    set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, null, '实收款', xAxisData);
-    set_chart(avgStaffRealAmountChart, avgStaffRealAmounts, avgStaffRealAmounts_names, mostRecentAvgStaffNo, '全员人均实收款', xAxisData);
-    set_chart(avgWorkRealAmountChart, avgWorkRealAmounts, avgWorkRealAmounts_names, mostRecentAvgWorkNo, '一线人均实收款', xAxisData);
+    set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, null, null, '实收款', xAxisData);
+    set_chart(avgStaffRealAmountChart, avgStaffRealAmounts, avgStaffRealAmounts_names, '全员人数', mostRecentAvgStaffNo, '全员人均实收款', xAxisData);
+    set_chart(avgWorkRealAmountChart, avgWorkRealAmounts, avgWorkRealAmounts_names, '一线人数', mostRecentAvgWorkNo, '一线人均实收款', xAxisData);
 
     setTimeout(() => {
       deptValueChart.resize();
