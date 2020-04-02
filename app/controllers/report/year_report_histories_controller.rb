@@ -22,7 +22,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     @data = data.where(orgcode: @orgs_options)
-      .select('year, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(deptvalue) deptvalue')
+      .select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
       .group(:year)
 
     @years = @data.collect(&:year)
@@ -34,7 +34,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
       .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
       .where(orgcode: @orgs_options)
-      .select('year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+      .select('year, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
       .group(:year)
 
     @work_head_count = @data.collect do |d|

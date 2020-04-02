@@ -22,7 +22,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     data = data
-      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(realamount) realamount, SUM(contractamount) contractamount, SUM(deptvalue) deptvalue')
+      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
       .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
       .where(orgcode: @orgs_options)
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
@@ -34,7 +34,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     most_recent_data = policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
       .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
       .where(orgcode: @orgs_options)
-      .select('orgcode, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+      .select('orgcode, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
       .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
 
