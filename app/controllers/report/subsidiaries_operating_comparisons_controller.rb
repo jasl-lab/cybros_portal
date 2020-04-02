@@ -9,7 +9,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
-    @month_name = params[:month_name]&.strip || Time.now.month
+    @month_name = params[:month_name]&.strip || Time.now.month - 1
     @orgs_options = params[:orgs]
 
     @year_names = @year_options - [2017, 2016] if @year_names.blank?

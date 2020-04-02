@@ -9,7 +9,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
-    @month_name = params[:month_name]&.strip || Time.now.month
+    @month_name = params[:month_name]&.strip || Time.now.month - 1
     @orgs_options = params[:orgs]
 
     @year_names = @year_options if @year_names.blank?
