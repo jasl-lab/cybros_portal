@@ -63,6 +63,7 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
           type: 'value',
           name: '人数',
           position: 'right',
+          nameGap: 3,
           axisLine: {
             lineStyle: {
               color: '#5993d2'
