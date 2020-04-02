@@ -61,7 +61,7 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
     x_axis = x_axis.map(build_x_axis);
     y_axis.push({
           type: 'value',
-          name: '人数（人）',
+          name: '人数',
           position: 'right',
           axisLine: {
             lineStyle: {
@@ -86,7 +86,7 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
       grid: {
         left: 70,
         right: 50,
-        top: 30,
+        top: 40,
         bottom: 80
       },
       toolbox: {
