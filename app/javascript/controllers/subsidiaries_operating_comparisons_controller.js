@@ -54,9 +54,9 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
             type: 'scatter',
             yAxisIndex: 1,
             symbol: 'circle',
-            symbolSize: 8,
+            symbolSize: 4,
             data: head_count,
-            color: '#dd625e'
+            color: '#5993d2'
           });
     x_axis = x_axis.map(build_x_axis);
     y_axis.push({
@@ -65,7 +65,7 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
           position: 'right',
           axisLine: {
             lineStyle: {
-              color: '#dd625e'
+              color: '#5993d2'
             }
           },
           splitLine: {
