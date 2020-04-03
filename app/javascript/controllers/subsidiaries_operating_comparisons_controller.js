@@ -11,7 +11,7 @@ let avgStaffRealAmountChart;
 let avgWorkRealAmountChart;
 
 function set_chart(chart, amounts, amounts_names, head_count_title, head_count, title, x_axis) {
-  const predefine_color = ['#738496','#675BBA','#FA9291','#A1D189'];
+  const predefine_color = ['#8d6e6d','#6ab0b8','#738496','#004080'];
 
   function build_serial(year, index) {
     return {
@@ -25,7 +25,7 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
           }
         },
         itemStyle: {
-          color: predefine_color[index%3]
+          color: predefine_color[index%4]
         }
       }
   }
@@ -163,9 +163,9 @@ export default class extends Controller {
     set_chart(avgStaffDeptValueChart, avgStaffDeptValues, avgStaffDeptValues_names, '全员人数', mostRecentAvgStaffNo, '全员人均生产合同额', xAxisData);
     set_chart(avgWorkDeptValueChart, avgWorkDeptValues, avgWorkDeptValues_names, '一线人数', mostRecentAvgWorkNo, '一线人均生产合同额', xAxisData);
 
-    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, null, null, '签约合同额', xAxisData);
-    set_chart(avgStaffContractAmountChart, avgStaffContractAmounts, avgStaffContractAmounts_names, '全员人数', mostRecentAvgStaffNo, '全员人均签约合同额', xAxisData);
-    set_chart(avgWorkContractAmountChart, avgWorkContractAmounts, avgWorkContractAmounts_names, '一线人数', mostRecentAvgWorkNo, '一线人均签约合同额', xAxisData);
+    set_chart(contractAmountChart, yearsContractAmounts, yearsContractAmounts_names, null, null, '商务合同额', xAxisData);
+    set_chart(avgStaffContractAmountChart, avgStaffContractAmounts, avgStaffContractAmounts_names, '全员人数', mostRecentAvgStaffNo, '全员人均商务合同额', xAxisData);
+    set_chart(avgWorkContractAmountChart, avgWorkContractAmounts, avgWorkContractAmounts_names, '一线人数', mostRecentAvgWorkNo, '一线人均商务合同额', xAxisData);
 
     set_chart(realAmountChart, yearsRealAmounts, yearsRealAmounts_names, null, null, '实收款', xAxisData);
     set_chart(avgStaffRealAmountChart, avgStaffRealAmounts, avgStaffRealAmounts_names, '全员人数', mostRecentAvgStaffNo, '全员人均实收款', xAxisData);
