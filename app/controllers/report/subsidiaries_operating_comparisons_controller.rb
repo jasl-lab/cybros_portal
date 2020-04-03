@@ -31,6 +31,9 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
 
     most_recent_year = @year_names.first
     most_recent_month = (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)
+    end_of_month = Time.new(most_recent_year, most_recent_month, 1).end_of_month
+    @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
+
     most_recent_data = policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
       .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
       .where(orgcode: @orgs_options)

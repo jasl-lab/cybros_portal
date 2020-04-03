@@ -9,7 +9,7 @@ module Bi
     end
 
     def show?
-      user.present? && (user.admin? || user.chinese_name == '蔡钦')
+      user.present? && (user.admin? || %w[蔡钦 聂琳 章静].include?(user.chinese_name))
     end
   end
 end
