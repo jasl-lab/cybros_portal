@@ -62,13 +62,20 @@ class Report::CompleteValuesController < Report::BaseController
       (d.sum_total / (staff_number * 10000).to_f).round(0)
     end
     sum_of_complete_value_totals_per_staff = @complete_value_totals_per_staff.sum.to_f
-    @fix_avg_complete_value_totals_per_staff = (sum_of_complete_value_totals_per_staff / @complete_value_totals_per_staff.size).round(0)
+    @fix_avg_complete_value_totals_per_staff = if @complete_value_totals_per_staff.present?
+      (sum_of_complete_value_totals_per_staff / @complete_value_totals_per_staff.size).round(0)
+    else
+      0
+    end
     @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
 
     @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
     sum_of_complete_value_year_totals_per_staff = @complete_value_year_totals_per_staff.sum.to_f
-    @fix_avg_complete_value_year_totals_per_staff =
+    @fix_avg_complete_value_year_totals_per_staff = if @complete_value_year_totals_per_staff.present?
       (sum_of_complete_value_year_totals_per_staff / @complete_value_year_totals_per_staff.size).round(0)
+    else
+      0
+    end
   end
 
   private
