@@ -17,11 +17,23 @@ export default class extends Controller {
     avgRealAmountChart = echarts.init(document.getElementById('real-amount-avg-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
+
+    function calculate_yearly_rate(rate, index, array) {
+      if(index == 0 || array[index] == 0) {
+        return 0;
+      } else {
+        return Math.round((rate / array[index - 1] - 1)*100);
+      }
+    }
+
     const deptAmount = JSON.parse(this.data.get("dept_amount"));
+    const deptAmountRate = deptAmount.map(calculate_yearly_rate);
     const realAmount = JSON.parse(this.data.get("real_amount"));
+    const realAmountRate = realAmount.map(calculate_yearly_rate);
     const avgStaffDeptAmount = JSON.parse(this.data.get("avg_staff_dept_amount"));
     const avgWorkDeptAmount = JSON.parse(this.data.get("avg_work_dept_amount"));
     const contractAmount = JSON.parse(this.data.get("contract_amount"));
+    const contractAmountRate = contractAmount.map(calculate_yearly_rate);
     const workHeadCount = JSON.parse(this.data.get("work_head_count"));
     const avgStaffRealAmount = JSON.parse(this.data.get("avg_staff_real_amount"));
     const avgWorkRealAmount = JSON.parse(this.data.get("avg_work_real_amount"));
@@ -30,11 +42,11 @@ export default class extends Controller {
 
     const option_dept_amount = {
         legend: {
-            data: ['生产合同额'],
+            data: ['生产合同额','年增长率'],
             align: 'left'
         },
         grid: {
-          left: 130,
+          left: 80,
           right: 50,
           top: 60,
           bottom: 125
@@ -58,14 +70,38 @@ export default class extends Controller {
               show: false
           }
         },
-        yAxis: {
+        yAxis: [{
+          type: 'value',
+          name: '生产合同额',
+          position: 'left',
           axisLabel: {
-            show: true,
-            interval: 'auto',
-            formatter: '{value} 百万'
+            formatter: '{value}百万'
           }
-        },
+        },{
+          type: 'value',
+          name: '年增长率',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            formatter: '{value}%'
+          }
+        }],
         series: [{
+          name: '年增长率',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'triangle',
+          symbolSize: 8,
+          data: deptAmountRate,
+          color: '#5993d2'
+        },{
           name: '生产合同额',
           type: 'bar',
           data: deptAmount,
@@ -183,11 +219,11 @@ export default class extends Controller {
 
     const option_contract_amount = {
         legend: {
-            data: ['商务合同额'],
+            data: ['商务合同额','年增长率'],
             align: 'left'
         },
         grid: {
-          left: 130,
+          left: 80,
           right: 50,
           top: 60,
           bottom: 125
@@ -211,14 +247,38 @@ export default class extends Controller {
               show: false
           }
         },
-        yAxis: {
+        yAxis: [{
+          type: 'value',
+          name: '商务合同额',
+          position: 'left',
           axisLabel: {
-            show: true,
-            interval: 'auto',
-            formatter: '{value} 百万'
+            formatter: '{value}百万'
           }
-        },
+        },{
+          type: 'value',
+          name: '年增长率',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            formatter: '{value}%'
+          }
+        }],
         series: [{
+          name: '年增长率',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'triangle',
+          symbolSize: 8,
+          data: contractAmountRate,
+          color: '#5993d2'
+        },{
           name: '商务合同额',
           type: 'bar',
           data: contractAmount,
@@ -336,11 +396,11 @@ export default class extends Controller {
 
     const option_real_amount = {
         legend: {
-            data: ['实收款'],
+            data: ['实收款','年增长率'],
             align: 'left'
         },
         grid: {
-          left: 130,
+          left: 80,
           right: 50,
           top: 60,
           bottom: 125
@@ -364,14 +424,38 @@ export default class extends Controller {
               show: false
           }
         },
-        yAxis: {
+        yAxis: [{
+          type: 'value',
+          name: '实收款',
+          position: 'left',
           axisLabel: {
-            show: true,
-            interval: 'auto',
-            formatter: '{value} 百万'
+            formatter: '{value}百万'
           }
-        },
+        },{
+          type: 'value',
+          name: '年增长率',
+          position: 'right',
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            formatter: '{value}%'
+          }
+        }],
         series: [{
+          name: '年增长率',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'triangle',
+          symbolSize: 8,
+          data: realAmountRate,
+          color: '#5993d2'
+        },{
           name: '实收款',
           type: 'bar',
           data: realAmount,
@@ -493,6 +577,7 @@ export default class extends Controller {
     avgContractAmountChart.setOption(option_avg_contract_amount, false);
     realAmountChart.setOption(option_real_amount, false);
     avgRealAmountChart.setOption(option_avg_real_amount, false);
+
     setTimeout(() => {
       realDeptChart.resize();
       avgRealDeptChart.resize();
