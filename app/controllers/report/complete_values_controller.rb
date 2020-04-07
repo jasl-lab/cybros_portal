@@ -13,7 +13,7 @@ class Report::CompleteValuesController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @orgs_options = params[:orgs]
-    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
+    @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
     @selected_short_name = params[:company_name]&.strip
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
@@ -40,7 +40,8 @@ class Report::CompleteValuesController < Report::BaseController
 
     if @selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
-      @orgs_options = Bi::CompleteValue.where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
+      h_orgs_options = Bi::CompleteValue.where(orgcode_sum: ['H' + selected_sum_h_code, selected_sum_h_code]).pluck(:orgcode).uniq
+      @orgs_options = h_orgs_options.collect { |h| 'H'+h } + h_orgs_options
     end
 
     data = if @view_orgcode_sum

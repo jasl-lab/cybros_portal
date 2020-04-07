@@ -21,7 +21,7 @@ class Report::ContractSigningsController < Report::BaseController
       ((100 / 12.0) * @end_of_month.month).round(0)
     end
     @orgs_options = params[:orgs]
-    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
+    @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
     current_user_companies = current_user.user_company_names
     @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @selected_short_name = params[:company_name]&.strip
@@ -50,7 +50,7 @@ class Report::ContractSigningsController < Report::BaseController
 
     if @selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
-      @orgs_options = Bi::CompleteValue.where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
+      @orgs_options = Bi::CompleteValue.where(orgcode_sum: ['H'+selected_sum_h_code, selected_sum_h_code]).pluck(:orgcode)
     end
 
     data = if @view_orgcode_sum
