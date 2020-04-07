@@ -15,7 +15,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @real_receive_per_staff_ref = params[:real_receive_per_staff_ref] || 60
     @depts_options = params[:depts]
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
     selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
@@ -29,7 +29,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
 
     real_data = if @view_deptcode_sum
-      real_data.where(orgcode_sum: selected_orgcode)
+      real_data.where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
         .select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
@@ -68,7 +68,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
 
     true_real_meta_receives = if @view_deptcode_sum
-      true_real_meta_receives.where(orgcode_sum: selected_orgcode)
+      true_real_meta_receives.where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
     else
       true_real_meta_receives.where(orgcode: selected_orgcode)
     end
@@ -92,7 +92,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", need_data_last_available_date)
 
     need_data = if @view_deptcode_sum
-      need_data.where(orgcode_sum: selected_orgcode)
+      need_data.where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
         .select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
@@ -178,7 +178,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     complete_value_data = if @view_deptcode_sum
-      Bi::CompleteValueDept.where(orgcode: selected_orgcode)
+      Bi::CompleteValueDept.where(orgcode: ['H' + selected_orgcode, selected_orgcode])
         .select("deptcode_sum deptcode, SUM(total) sum_total")
         .group(:deptcode_sum)
     else
