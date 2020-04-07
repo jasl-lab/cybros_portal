@@ -19,14 +19,14 @@ module Bi
     end
 
     def self.company_short_names_by_orgcode
-      @company_short_names_by_orgcode ||= available_unit.reduce({}) do |h, s|
+      @company_short_names_by_orgcode ||= where(isbusinessunit: 'Y').reduce({}) do |h, s|
         h[s.code] = s.shortname
         h
       end
     end
 
     def self.company_long_names_by_orgcode
-      @company_long_names_by_orgcode ||= available_unit.reduce({}) do |h, s|
+      @company_long_names_by_orgcode ||= where(isbusinessunit: 'Y').reduce({}) do |h, s|
         h[s.code] = s.name
         h
       end
