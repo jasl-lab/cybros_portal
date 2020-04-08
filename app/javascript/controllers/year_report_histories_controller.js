@@ -20,7 +20,7 @@ export default class extends Controller {
 
     function calculate_yearly_rate(rate, index, array) {
       if(index == 0 || array[index] == 0) {
-        return 0;
+        return null;
       } else {
         return Math.round((rate / array[index - 1] - 1)*100);
       }
@@ -100,7 +100,15 @@ export default class extends Controller {
           symbol: 'triangle',
           symbolSize: 8,
           data: deptAmountRate,
-          color: '#5993d2'
+          color: '#5993d2',
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%',
+              color: '#0000FF'
+            }
+          },
         },{
           name: '生产合同额',
           type: 'bar',
@@ -277,7 +285,15 @@ export default class extends Controller {
           symbol: 'triangle',
           symbolSize: 8,
           data: contractAmountRate,
-          color: '#5993d2'
+          color: '#5993d2',
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%',
+              color: '#0000FF'
+            }
+          },
         },{
           name: '商务合同额',
           type: 'bar',
@@ -454,7 +470,15 @@ export default class extends Controller {
           symbol: 'triangle',
           symbolSize: 8,
           data: realAmountRate,
-          color: '#5993d2'
+          color: '#5993d2',
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%',
+              color: '#0000FF'
+            }
+          },
         },{
           name: '实收款',
           type: 'bar',
