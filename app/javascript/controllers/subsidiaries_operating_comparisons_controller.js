@@ -59,6 +59,7 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
             color: '#5993d2'
           });
     x_axis = x_axis.map(build_x_axis);
+    y_axis[0]['axisLabel']['formatter'] = '{value}万';
     y_axis.push({
           type: 'value',
           name: '人数',
