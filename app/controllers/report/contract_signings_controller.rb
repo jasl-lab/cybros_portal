@@ -28,7 +28,6 @@ class Report::ContractSigningsController < Report::BaseController
 
     last_available_date = policy_scope(Bi::ContractSign).last_available_date(@end_of_month)
     data = policy_scope(Bi::ContractSign).where(filingtime: @beginning_of_year..@end_of_month).where(date: last_available_date)
-      .having("SUM(contract_amount) > 0")
       .order("ORG_ORDER.org_order DESC")
 
     data = if @view_orgcode_sum
@@ -82,7 +81,6 @@ class Report::ContractSigningsController < Report::BaseController
 
     last_available_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
     cp_data = policy_scope(Bi::ContractProductionDept).where(date: last_available_date)
-      .having("SUM(total) > 0")
       .order("ORG_ORDER.org_order DESC")
 
     cp_data = if @view_orgcode_sum
