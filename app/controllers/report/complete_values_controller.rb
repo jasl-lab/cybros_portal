@@ -18,7 +18,6 @@ class Report::CompleteValuesController < Report::BaseController
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
     data = policy_scope(Bi::CompleteValue).where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
-      .having('SUM(total) > 0')
       .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum
@@ -62,7 +61,11 @@ class Report::CompleteValuesController < Report::BaseController
     staff_per_orgcode = Bi::StaffCount.staff_per_orgcode(@end_of_month)
     @complete_value_totals_per_staff = data.collect do |d|
       staff_number = staff_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
-      (d.sum_total / (staff_number * 10000).to_f).round(0)
+      if staff_number.zero?
+        0
+      else
+        (d.sum_total / (staff_number * 10000).to_f).round(0)
+      end
     end
     sum_of_complete_value_totals_per_staff = @complete_value_totals_per_staff.sum.to_f
     @fix_avg_complete_value_totals_per_staff = if @complete_value_totals_per_staff.present?
