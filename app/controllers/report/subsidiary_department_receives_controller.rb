@@ -208,12 +208,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         ((d.total / (previous_year_need_receive.to_f + complete_value.to_f)) * 100).round(0)
       end
     end
-
-    @avg_payback_rate = if total_complete_value_per_staff.zero?
-      0
-    else
-      ((sum_real_receives_for_payback.to_f / sum_need_receives_for_payback.to_f) * 100).round(0)
-    end
   end
 
   def real_data_drill_down
