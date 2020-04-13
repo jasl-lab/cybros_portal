@@ -53,6 +53,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       .order('orgcode, year')
 
     @years_dept_values = {}
+    @missing_org_code_in_year = {}
     @avg_staff_dept_values = {}
     @avg_work_dept_values = {}
 
@@ -66,7 +67,10 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
 
     @year_names.each do |year|
       year_data = data.where(year: year)
+      year_org_codes = year_data.collect(&:orgcode)
+      @missing_org_code_in_year[year] = show_org_codes - year_org_codes
       @years_dept_values[year] = year_data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
+
       @avg_staff_dept_values[year] = year_data.collect do |d|
         head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
         (d.deptvalue / head_count.avg_staff_no.to_f).round(0) rescue 0
@@ -95,6 +99,10 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
         head_count = @head_count_data.find { |h| h.year.to_i == year.to_i && d.orgcode == h.orgcode }
         (d.realamount / head_count.avg_work_no.to_f).round(0) rescue 0
       end
+    end
+    @no_missing_data = @missing_org_code_in_year.all?(&:blank?)
+    @missing_org_code_in_year = unless @no_missing_data
+      @missing_org_code_in_year.transform_values { |v| v.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) } }
     end
     @show_org_names = show_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end

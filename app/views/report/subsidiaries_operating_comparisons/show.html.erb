@@ -34,6 +34,14 @@
     <% end -%>
 
     <div class="row">
+      <% unless @no_missing_data %>
+        <% @missing_org_code_in_year.each_pair do |year, companies| %>
+          <% next if companies.blank? %>
+          <div class="col-lg-12">
+            <h6 class="text-center"><%= year -%>年缺失数据公司：<%= companies.to_sentence -%></h6>
+          </div>
+        <% end %>
+      <% end %>
       <div class="col-lg-12 p-2">
         <h6 class="text-right">更新时间：<%= @last_available_sign_dept_date.year -%>年<%= @last_available_sign_dept_date.month -%>月<%= @last_available_sign_dept_date.day -%>日</h6>
       </div>
