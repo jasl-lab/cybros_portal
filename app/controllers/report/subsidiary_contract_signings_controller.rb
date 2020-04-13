@@ -4,7 +4,6 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? && params[:in_iframe].blank? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? && params[:in_iframe].blank? }
-  after_action :verify_authorized, except: [:show]
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
@@ -136,12 +135,14 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       .where(date: last_available_date)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
-    authorize @data.first
+    authorize @data.first if @data.present?
   end
 
   def drill_down_date
     @company_name = params[:company_name]
     @department_name = [params[:department_name]]
+    month_name = params[:month_name]&.strip
+    end_of_month = Date.parse(month_name).end_of_month
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
     if belong_deparments.exists?
@@ -150,8 +151,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     @data = policy_scope(Bi::ContractSignDetailDate)
       .where(orgname: @company_name, deptname: @department_name)
+      .where(filingtime: end_of_month.beginning_of_year..end_of_month)
       .order(filingtime: :asc)
-    authorize @data.first
+    authorize @data.first if @data.present?
   end
 
   def cp_drill_down
@@ -167,7 +169,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @data = policy_scope(Bi::ContractProductionDetail).where(date: last_available_sign_dept_date)
       .where(orgname: @company_name, deptname: @department_name)
       .order(filingtime: :asc)
-    authorize @data.first
+    authorize @data.first if @data.present?
   end
 
   private
