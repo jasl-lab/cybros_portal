@@ -27,8 +27,11 @@ class Report::ContractSigningsController < Report::BaseController
     @selected_short_name = params[:company_name]&.strip
 
     last_available_date = policy_scope(Bi::ContractSign).last_available_date(@end_of_month)
-    data = policy_scope(Bi::ContractSign).where(filingtime: @beginning_of_year..@end_of_month).where(date: last_available_date)
-      .order("ORG_ORDER.org_order DESC")
+    data = policy_scope(Bi::ContractSign)
+      .where(filingtime: @beginning_of_year..@end_of_month)
+      .where(date: last_available_date)
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum
       data.select("orgcode_sum orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
@@ -80,8 +83,11 @@ class Report::ContractSigningsController < Report::BaseController
     @sum_avg_period_mean = (one_sum_contract_period / one_sum_contract_amount_count).round(0)
 
     last_available_date = policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).last_available_date(@end_of_month)
-    cp_data = policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).where(date: last_available_date)
-      .order("ORG_ORDER.org_order DESC")
+    cp_data = policy_scope(Bi::ContractProductionDept)
+      .where(filingtime: @beginning_of_year..@end_of_month)
+      .where(date: last_available_date)
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
 
     cp_data = if @view_orgcode_sum
       cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode_sum orgcode, org_order, ROUND(SUM(total)/10000, 2) cp_amount")

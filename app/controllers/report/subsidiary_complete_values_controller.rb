@@ -13,6 +13,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       all_orgcodes = Bi::CompleteValueDept
         .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode')
+        .where('ORG_ORDER.org_order is not null')
         .order('ORG_ORDER.org_order DESC')
         .pluck(:orgcode).uniq
       all_company_names = all_orgcodes.collect do |c|

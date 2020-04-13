@@ -17,7 +17,10 @@ class Report::CompleteValuesController < Report::BaseController
     @selected_short_name = params[:company_name]&.strip
 
     last_available_date = policy_scope(Bi::CompleteValue).last_available_date(@end_of_month)
-    data = policy_scope(Bi::CompleteValue).where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
+    data = policy_scope(Bi::CompleteValue)
+      .where(month: @end_of_month.beginning_of_year..@end_of_month)
+      .where(date: last_available_date)
+      .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum

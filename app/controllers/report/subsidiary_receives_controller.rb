@@ -19,8 +19,10 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     selected_short_name = params[:company_name]&.strip
 
     current_user_companies = current_user.user_company_names
-    real_data = policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
-      .order("ORG_ORDER.org_order DESC")
+    real_data = policy_scope(Bi::SubCompanyRealReceive)
+      .where(realdate: beginning_of_year..@end_of_month)
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
 
     real_data = if @view_orgcode_sum
       real_data.select("orgcode_sum orgcode, org_order, SUM(total) total, SUM(markettotal) markettotal")
@@ -61,7 +63,8 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     need_data = policy_scope(Bi::SubCompanyNeedReceive)
       .where(date: need_data_last_available_date)
-      .order("ORG_ORDER.org_order DESC")
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
 
     need_data = if @view_orgcode_sum
       need_data.select("orgcode_sum orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")

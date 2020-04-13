@@ -18,8 +18,10 @@ class Report::GroupWorkloadingsController < Report::BaseController
     end_of_month = Date.parse(@end_month_name).end_of_month
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
-    data = policy_scope(Bi::WorkHoursCountOrg).where(date: beginning_of_month..end_of_month)
-      .order("ORG_ORDER.org_order DESC")
+    data = policy_scope(Bi::WorkHoursCountOrg)
+      .where(date: beginning_of_month..end_of_month)
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum
       data

@@ -17,7 +17,8 @@ class Report::GroupContractHoldsController < Report::BaseController
 
     data = policy_scope(Bi::ContractHold)
       .where(date: @last_available_date)
-      .order("ORG_ORDER.org_order DESC")
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum
       data.select("CONTRACT_HOLD.orgcode_sum orgcode, ORG_ORDER.org_order, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
