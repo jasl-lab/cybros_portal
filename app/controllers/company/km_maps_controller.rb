@@ -19,7 +19,7 @@ class Company::KmMapsController < ApplicationController
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
     data = data.where('projectsort like ?', "%#{@prj_category}%") if @prj_category.present?
     data = data.where('clientname like ?', "%#{@client}%") if @client.present?
-    data = data.where('cityname like ?', "#{@city}%") if @city.present?
+    data = data.where(cityname: @city) if @city.present?
     data = data.where(projectitemcomname: @company_name) if @company_name.present?
     data = data.where(projectitemdeptname: @department) if @department.present?
     data = data.where(projectbigstagename: @service_stage) if @service_stage.present?

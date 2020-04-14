@@ -17,6 +17,12 @@ module Edoc2
       }
     end
 
+    def self.city_options
+      @city_options ||= order(provincename: :asc, cityname: :asc)
+        .select(:provincename, :cityname).distinct.pluck(:provincename, :cityname)
+        .collect { |a| ["#{a[0]}#{a[1]}", a[1]] }
+    end
+
     def self.project_item_company_name
       @project_item_company_name ||= order(projectitemcomname: :asc)
         .select(:projectitemcomname).distinct.pluck(:projectitemcomname)
