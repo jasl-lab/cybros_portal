@@ -2,11 +2,12 @@
   <div class="form-row align-items-center">
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.biz_category") -%></label>
-      <%= select_tag 'biz_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_name, @biz_category), include_blank: true, class: 'form-control form-control2' %>
+      <%= select_tag 'biz_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_project_category_maps.keys, @biz_category), include_blank: true, class: 'form-control form-control2',
+      data: { remote: true, type: :script, url: url_for(controller: 'company/km_maps', action: 'fill_category', format: 'js') } %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.prj_category") -%></label>
-      <%= select_tag 'prj_category', options_for_select(Edoc2::ProjectInfo.project_category_name, @prj_category), include_blank: true, class: 'form-control form-control2' %>
+      <%= select_tag 'prj_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_project_category_maps[@biz_category&.to_sym] || [], @prj_category), include_blank: true, class: 'form-control form-control2', id: 'select-km-prj-category' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.client") -%></label>

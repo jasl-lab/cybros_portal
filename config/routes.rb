@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     resource :km_map, only: %i[show] do
       collection do
         get :fill_department
+        get :fill_category
         get :show_model
       end
     end

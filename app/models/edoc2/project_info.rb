@@ -8,14 +8,13 @@ module Edoc2
       true
     end
 
-    def self.bussiness_type_name
-      @bussiness_type_name ||= order(businesstypename: :asc)
-        .select(:businesstypename).distinct.pluck(:businesstypename)
-    end
-
-    def self.project_category_name
-      @project_category_name ||= order(projectcategoryname: :asc)
-        .select(:projectcategoryname).distinct.pluck(:projectcategoryname)
+    def self.bussiness_type_project_category_maps
+      {
+        '建筑': %w[居住建筑 商业建筑 办公建筑 酒店建筑 教育建筑 文体建筑 医养建筑 交通建筑 工业建筑],
+        '室内': %w[住宅 公建],
+        '规划': %w[法定规划 非法定规划],
+        '景观': %w[住宅 公建 市政]
+      }
     end
 
     def self.project_item_company_name

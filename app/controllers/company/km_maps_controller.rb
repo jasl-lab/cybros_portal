@@ -17,7 +17,7 @@ class Company::KmMapsController < ApplicationController
 
     data = Edoc2::ProjectInfo.where.not(coordinate: nil).where.not(projectitemcode: %w[TH20024401 TH20024501 TH20047001 TH20024601])
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
-    data = data.where(projectcategoryname: @prj_category) if @prj_category.present?
+    data = data.where('projectsort like ?', "%#{@prj_category}%") if @prj_category.present?
     data = data.where('clientname like ?', "%#{@client}%") if @client.present?
     data = data.where('cityname like ?', "#{@city}%") if @city.present?
     data = data.where(projectitemcomname: @company_name) if @company_name.present?
@@ -50,5 +50,10 @@ class Company::KmMapsController < ApplicationController
 
   def fill_department
     @available_departments = Edoc2::ProjectInfo.project_item_dept_name(params[:company_name]&.strip)
+  end
+
+  def fill_category
+    @biz_category = params[:biz_category]&.strip
+    @prj_category = params[:prj_category]&.strip
   end
 end
