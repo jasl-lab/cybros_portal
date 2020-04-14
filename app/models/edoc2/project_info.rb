@@ -17,6 +17,13 @@ module Edoc2
       }
     end
 
+    def self.project_big_stage_milestones_maps
+      {
+        '前端': %w[概念方案 方案报批通过 立面控制手册 建筑扩初 竣工验收],
+        '后端': %w[扩初完成 方案配合 审图通过 结构封顶 竣工验收]
+      }
+    end
+
     def self.city_options
       @city_options ||= order(provincename: :asc, cityname: :asc)
         .select(:provincename, :cityname).distinct.pluck(:provincename, :cityname)
@@ -38,11 +45,6 @@ module Edoc2
         where(projectitemcomname: company_name).order(projectitemdeptname: :asc)
         .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
       end
-    end
-
-    def self.project_big_stage_name
-      @project_big_stage_name ||= order(projectbigstagename: :asc)
-        .select(:projectbigstagename).distinct.pluck(:projectbigstagename)
     end
 
     def self.milestones_name

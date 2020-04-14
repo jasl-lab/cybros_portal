@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       collection do
         get :fill_department
         get :fill_category
+        get :fill_progress
         get :show_model
       end
     end

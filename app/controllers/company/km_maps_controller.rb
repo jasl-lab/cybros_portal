@@ -56,4 +56,9 @@ class Company::KmMapsController < ApplicationController
     @biz_category = params[:biz_category]&.strip
     @prj_category = params[:prj_category]&.strip
   end
+
+  def fill_progress
+    @service_stage = params[:service_stage]&.strip
+    @project_progress = params[:project_progress]&.strip
+  end
 end

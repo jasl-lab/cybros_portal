@@ -29,11 +29,12 @@
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.service_stage") -%></label>
-      <%= select_tag 'service_stage', options_for_select(Edoc2::ProjectInfo.project_big_stage_name, @service_stage), include_blank: true, class: 'form-control form-control2' %>
+      <%= select_tag 'service_stage', options_for_select(Edoc2::ProjectInfo.project_big_stage_milestones_maps.keys, @service_stage), include_blank: true, class: 'form-control form-control2',
+        data: { remote: true, type: :script, url: url_for(controller: 'company/km_maps', action: 'fill_progress', format: 'js') } %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.project_progress") -%></label>
-      <%= select_tag 'project_progress', options_for_select(Edoc2::ProjectInfo.milestones_name, @project_progress), class: 'form-control form-control2' %>
+      <%= select_tag 'project_progress', options_for_select(Edoc2::ProjectInfo.project_big_stage_milestones_maps[@service_stage&.to_sym] || [], @project_progress), include_blank: true, class: 'form-control form-control2', id: 'select-km-project-progress' %>
     </div>
     <div class="col-auto my-1">
       <label class="mr-sm-1"><%= t(".form.scale") -%></label>
