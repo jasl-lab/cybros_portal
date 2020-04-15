@@ -66,7 +66,7 @@
         <div class="col-lg-12 p-2">
           <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月<%= @last_available_sign_dept_date.day -%>日,
             <%= @short_company_name -%>累计归档签约合同额<span style="color:red"><%= @sum_contract_amounts -%></span>亿元，
-            累积生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元，
+            累计生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元，
             本年平均签约周期<span style="color:red"><%= @sum_avg_period_mean.round(0) -%></span>天。</h5>
         </div>
       </div>
@@ -80,7 +80,7 @@
     <% else %>
       <div class="row">
         <div class="col-lg-12 p-2">
-          <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name -%>累积生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元。</h5>
+          <h5 class="text-center">至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,<%= @short_company_name -%>累计生产合同额<span style="color:red"><%= @sum_cp_contract_amounts -%></span>亿元。</h5>
         </div>
       </div>
     <% end %>
