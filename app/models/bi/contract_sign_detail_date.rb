@@ -11,5 +11,9 @@ module Bi
     def self.all_org_long_names
       select(:orgname).distinct.pluck(:orgname)
     end
+
+    def self.all_province_names
+      select(:provincename).distinct.pluck(:provincename)
+    end
   end
 end

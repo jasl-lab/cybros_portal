@@ -8,6 +8,7 @@ zh-CN:
         org_name: "公司名称"
         date_1_great_than: "签约周期1 大于"
         show_hide_item: "显示隐藏项目"
+        province_names: "省名"
         confirm: "确认"
         table:
           org_name: "商务责任公司"

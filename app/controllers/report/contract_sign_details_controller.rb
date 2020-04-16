@@ -17,6 +17,8 @@ class Report::ContractSignDetailsController < Report::BaseController
     all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @all_org_names = all_org_short_names.zip(all_org_long_names)
     @org_name = params[:org_name]&.strip
+    @all_province_names = policy_scope(Bi::ContractSignDetailDate).all_province_names
+    @province_names = params[:progs].presence || []
     @date_1_great_than = params[:date_1_great_than] || 100
     @days_to_min_timecard_fill_great_than = params[:days_to_min_timecard_fill_great_than] || 100
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?

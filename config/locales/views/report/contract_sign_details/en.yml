@@ -8,6 +8,7 @@ en:
         org_name: "Company name"
         date_1_great_than: "Date 1 greater than"
         show_hide_item: "Show hide item"
+        province_names: "Province names"
         confirm: "Confirm"
         table:
           org_name: "Org name"
