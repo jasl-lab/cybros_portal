@@ -32,7 +32,9 @@ module Edoc2
 
     def self.project_item_company_name
       @project_item_company_name ||= order(projectitemcomname: :asc)
-        .select(:projectitemcomname).distinct.pluck(:projectitemcomname)
+        .select(:projectitemcomname).distinct.pluck(:projectitemcomname).map do |long_name|
+          Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
+        end
     end
 
     def self.project_item_dept_name(company_name = nil)
