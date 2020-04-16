@@ -6,8 +6,9 @@
       </h6>
     </div>
     <div class="modal-body">
+      <p>项目名称：<%= project_info.projectitemname -%></p>
+      <p>项目编号：<%= project_info.projectitemcode -%></p>
       <p>工程编号：<%= link_to project_info.projectcode, "http://172.16.1.93/wcm/tianhua/projectdetails?projectitemcode=#{project_info.projectitemcode}", target: "_blank" -%></p>
-      <p>案名/宣传名：<%= project_info.projectframename -%></p>
 
       <%= render partial: "company/contracts/table", locals: { sas: @sas } %>
     </div>
