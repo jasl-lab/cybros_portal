@@ -25,7 +25,7 @@ module Edoc2
     end
 
     def self.city_options
-      @city_options ||= order(provincename: :asc, cityname: :asc)
+      @city_options ||= order(provincename: :desc, cityname: :asc)
         .select(:provincename, :cityname).distinct.pluck(:provincename, :cityname)
         .collect { |a| ["#{a[0]}#{a[1]}", a[1]] }
     end
