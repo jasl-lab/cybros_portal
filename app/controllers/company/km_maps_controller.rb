@@ -61,7 +61,7 @@ class Company::KmMapsController < ApplicationController
   end
 
   def fill_progress
-    @service_stage = params[:service_stage]&.strip
-    @project_progress = params[:project_progress]&.strip
+    service_stage = params[:service_stage]&.strip
+    @project_progress = Edoc2::ProjectInfo.project_big_stage_milestones_maps[service_stage.to_sym]
   end
 end

@@ -21,10 +21,21 @@ export default class extends Controller {
       });
     };
     $('#select-km-company').on('change', refresh_fill_department);
+
+    function refresh_fill_progress(t) {
+      const service_stage = t.target.value;
+      const fill_progress_url = '/company/km_map/fill_progress';
+      $.ajax(fill_progress_url, {
+        data: { service_stage },
+        dataType: 'script'
+      });
+    };
+    $('#select-km-service-stage').on('change', refresh_fill_progress);
   }
 
   disconnect() {
     $('#select-km-biz-category').off('change');
     $('#select-km-company').off('change');
+    $('#select-km-service-stage').off('change');
   }
 }

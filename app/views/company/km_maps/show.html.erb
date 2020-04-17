@@ -22,8 +22,7 @@
   </div>
   <div class="form-row align-items-center mt-2">
     <div class="col-auto my-1">
-      <%= select_tag 'service_stage', options_for_select(Edoc2::ProjectInfo.project_big_stage_milestones_maps.keys, @service_stage), include_blank: t(".form.service_stage"), class: 'form-control',
-        data: { remote: true, type: :script, url: url_for(controller: 'company/km_maps', action: 'fill_progress', format: 'js') } %>
+      <%= select_tag 'service_stage', options_for_select(Edoc2::ProjectInfo.project_big_stage_milestones_maps.keys, @service_stage), include_blank: t(".form.service_stage"), class: 'form-control', id: 'select-km-service-stage' %>
     </div>
     <div class="col-auto my-1">
       <%= select_tag 'project_progress', options_for_select(Edoc2::ProjectInfo.project_big_stage_milestones_maps[@service_stage&.to_sym] || [], @project_progress), include_blank: t(".form.project_progress"), class: 'form-control', id: 'select-km-project-progress' %>

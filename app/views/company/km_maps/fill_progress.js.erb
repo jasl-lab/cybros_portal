@@ -1,1 +1,6 @@
-$("#select-km-project-progress").html("<%= j select_tag 'project_progress', options_for_select(Edoc2::ProjectInfo.project_big_stage_milestones_maps[@service_stage&.to_sym] || [], @project_progress), include_blank: true, class: 'form-control form-control2', id: 'select-km-project-progress' -%>");
+var selectize_ctl = $("#select-km-project-progress")[0].selectize;
+selectize_ctl.clear();
+selectize_ctl.clearOptions(true);
+<% @project_progress.each do |u| %>
+  selectize_ctl.addOption({text: '<%= u -%>', value: '<%= u -%>'});
+<% end %>
