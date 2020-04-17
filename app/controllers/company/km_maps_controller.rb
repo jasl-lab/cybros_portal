@@ -45,7 +45,7 @@ class Company::KmMapsController < ApplicationController
 
   def show_model
     @project_info = Edoc2::ProjectInfo.find_by projectitemcode: params[:project_item_code]
-    @sas = Bi::SaContract.where(projectcode: @project_info.projectcode)
+    @project_items = Edoc2::ProjectInfo.where(projectcode: @project_info.projectcode)
   end
 
   def fill_department

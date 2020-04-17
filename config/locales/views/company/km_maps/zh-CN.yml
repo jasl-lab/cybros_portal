@@ -17,3 +17,6 @@ zh-CN:
           project_progress: "项目进度"
           scale: "规模"
           query: "查询"
+      table:
+        project_item_code: "项目编号"
+        project_item_name: "项目名称"

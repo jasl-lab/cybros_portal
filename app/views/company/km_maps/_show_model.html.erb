@@ -1,16 +1,28 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
-    <div class="modal-header">
-      <h6 class="modal-title">
-        <%= project_info.projectitemname -%>
-      </h6>
-    </div>
     <div class="modal-body">
-      <p>项目名称：<%= project_info.projectitemname -%></p>
-      <p>项目编号：<%= project_info.projectitemcode -%></p>
       <p>工程编号：<%= link_to project_info.projectcode, "http://172.16.1.93/wcm/tianhua/projectdetails?projectitemcode=#{project_info.projectitemcode}", target: "_blank" -%></p>
+      <p>工程名称：<%=  -%></p>
 
-      <%= render partial: "company/contracts/table", locals: { sas: @sas } %>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t("company.km_maps.table.project_item_code") %></th>
+            <th><%= t("company.km_maps.table.project_item_name") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @project_items.each do |p| %>
+            <tr>
+              <td><%= p.projectitemcode  -%></td>
+              <td><%= p.projectitemname %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>

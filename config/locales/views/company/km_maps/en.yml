@@ -17,3 +17,6 @@ en:
           project_progress: "Project progress"
           scale: "Scale"
           query: "Query"
+      table:
+        project_item_code: "Project item code"
+        project_item_name: "Project item name"
