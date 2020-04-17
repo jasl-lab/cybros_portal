@@ -31,6 +31,7 @@ class Report::ContractSignDetailsController < Report::BaseController
         render json: ContractSignDetailDatatable.new(params,
           contract_sign_detail_dates: contract_sign_detail_dates,
           org_name: @org_name,
+          province_names: @province_names,
           beginning_of_month: @beginning_of_month,
           end_of_month: @end_of_month,
           date_1_great_than: @date_1_great_than.to_i,

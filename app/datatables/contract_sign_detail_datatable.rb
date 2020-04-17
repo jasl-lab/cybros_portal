@@ -9,6 +9,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
   def initialize(params, opts = {})
     @contract_sign_detail_dates = opts[:contract_sign_detail_dates]
     @org_name = opts[:org_name]
+    @province_names = opts[:province_names]
     @beginning_of_month = opts[:beginning_of_month]
     @end_of_month = opts[:end_of_month]
     @date_1_great_than = opts[:date_1_great_than]
@@ -65,6 +66,7 @@ class ContractSignDetailDatatable < ApplicationDatatable
     end
     rr = rr.where(filingtime: @beginning_of_month..@end_of_month) if @beginning_of_month.present? && @end_of_month.present?
     rr = rr.where("date1 > ?", @date_1_great_than) unless @date_1_great_than.zero?
+    rr = rr.where(provincename: @province_names) unless @province_names.blank?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr
   end
