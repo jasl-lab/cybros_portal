@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-body">
       <p>工程编号：<%= link_to project_info.projectcode, "http://172.16.1.93/wcm/tianhua/projectdetails?projectitemcode=#{project_info.projectitemcode}", target: "_blank" -%></p>
-      <p>工程名称：<%=  -%></p>
+      <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
 
       <div class="table-responsive">
         <table class="table table-striped">
