@@ -1,1 +1,6 @@
-$("#select-km-prj-category").html("<%= j select_tag 'prj_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_project_category_maps[@biz_category&.to_sym] || [], @prj_category), include_blank: true, class: 'form-control form-control2', id: 'select-km-prj-category' -%>");
+var selectize_ctl = $("#select-km-prj-category")[0].selectize;
+selectize_ctl.clear();
+selectize_ctl.clearOptions(true);
+<% @prj_categories.each do |u| %>
+  selectize_ctl.addOption({text: '<%= u -%>', value: '<%= u -%>'});
+<% end %>

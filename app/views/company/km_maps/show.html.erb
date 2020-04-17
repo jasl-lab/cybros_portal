@@ -1,8 +1,7 @@
 <%= form_tag company_km_map_path, method: :get do -%>
-  <div class="form-row align-items-center">
+  <div class="form-row align-items-center" data-controller="km-map-form">
     <div class="col-auto my-1">
-      <%= select_tag 'biz_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_project_category_maps.keys, @biz_category), include_blank: t(".form.biz_category"), class: 'form-control',
-      data: { remote: true, type: :script, url: url_for(controller: 'company/km_maps', action: 'fill_category', format: 'js') } %>
+      <%= select_tag 'biz_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_project_category_maps.keys, @biz_category), include_blank: t(".form.biz_category"), class: 'form-control', id: 'select-km-biz-category' %>
     </div>
     <div class="col-auto my-1">
       <%= select_tag 'prj_category', options_for_select(Edoc2::ProjectInfo.bussiness_type_project_category_maps[@biz_category&.to_sym] || [], @prj_category), include_blank: t(".form.prj_category"), class: 'form-control', id: 'select-km-prj-category' %>

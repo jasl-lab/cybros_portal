@@ -54,8 +54,8 @@ class Company::KmMapsController < ApplicationController
   end
 
   def fill_category
-    @biz_category = params[:biz_category]&.strip
-    @prj_category = params[:prj_category]&.strip
+    biz_category = params[:biz_category]&.strip
+    @prj_categories = Edoc2::ProjectInfo.bussiness_type_project_category_maps[biz_category.to_sym]
   end
 
   def fill_progress
