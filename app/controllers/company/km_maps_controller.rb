@@ -50,7 +50,9 @@ class Company::KmMapsController < ApplicationController
   end
 
   def fill_department
-    @available_departments = Edoc2::ProjectInfo.project_item_dept_name(params[:company_name]&.strip)
+    company_name = params[:company_name]&.strip
+    company_long_name = Bi::OrgShortName.company_long_names.fetch(company_name, company_name)
+    @available_departments = Edoc2::ProjectInfo.project_item_dept_name(company_long_name)
   end
 
   def fill_category

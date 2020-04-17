@@ -42,7 +42,7 @@ module Edoc2
         .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
 
       if company_name.blank?
-        @project_item_dept_name
+        []
       else
         where(projectitemcomname: company_name).order(projectitemdeptname: :asc)
         .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
