@@ -27,16 +27,6 @@
   min-width: 150px;
 }
 
-.form-control {
-  &.selectize-control {
-    &.single {
-      &:after {
-        display: none;
-      }
-    }
-  }
-}
-
 .navbar-brand {
   img {
     height: 18px;
