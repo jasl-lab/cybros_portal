@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-body">
-      <p>工程编号：<%= link_to project_info.projectcode, "http://edoc.thape.com.cn:8022/wcm/tianhua/projectdetails?projectitemcode=#{project_info.projectitemcode}", target: "_blank" -%></p>
+      <p>工程编号：<%= @project_info.projectcode -%></p>
       <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
 
       <div class="table-responsive">
@@ -15,7 +15,7 @@
           <tbody>
           <% @project_items.each do |p| %>
             <tr>
-              <td><%= p.projectitemcode  -%></td>
+              <td><%= link_to p.projectitemcode, "http://edoc.thape.com.cn:8022/wcm/tianhua/projectdetails?projectitemcode=#{p.projectitemcode}", target: "_blank" -%></td>
               <td><%= p.projectitemname %></td>
             </tr>
           <% end %>
