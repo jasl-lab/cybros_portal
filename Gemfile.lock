@@ -8,7 +8,7 @@ GIT
       tiny_tds
 
 GIT
-  remote: https://git.dev.tencent.com/ericguo/ajax-datatables-rails.git
+  remote: git@e.coding.net:sew/ajax-datatables-rails.git
   revision: ae0980cc90d74ad85b2e39d82898d196121ab6ec
   branch: master
   specs:
