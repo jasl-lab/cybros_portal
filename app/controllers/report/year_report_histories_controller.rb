@@ -30,6 +30,11 @@ class Report::YearReportHistoriesController < Report::BaseController
     @contract_amount = @data.collect { |d| (d.contractamount / 100.0).round(0) }
     @dept_amount = @data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
 
+    most_recent_year = @year_names.first
+    most_recent_month = (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)
+    end_of_month = Time.new(most_recent_year, most_recent_month, 1).end_of_month
+    @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
+
     rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
     @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
       .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
