@@ -87,6 +87,8 @@ Rails.application.routes.draw do
 
     resource :operation, only: %i[show]
     resource :human_resource, only: %i[show]
+    resource :human_resources_monthly, only: %i[show]
+    resource :subsidiary_hr_monthly, only: %i[show]
 
     resources :yingjianke_logins, only: %i[index destroy] do
       collection do

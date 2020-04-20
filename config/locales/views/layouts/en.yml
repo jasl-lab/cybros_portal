@@ -81,3 +81,5 @@ en:
         subsidiary_need_receive_unsign_detail: "Subsidiary need receive unsign detail"
       human_resource:
         header: "Human resource"
+        human_resources_monthlies: "Human resources monthly"
+        subsidiary_hr_monthlies: "Subsidiary HR monthly"
