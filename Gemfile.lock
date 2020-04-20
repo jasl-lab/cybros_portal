@@ -8,15 +8,6 @@ GIT
       tiny_tds
 
 GIT
-  remote: git@e.coding.net:sew/ajax-datatables-rails.git
-  revision: ae0980cc90d74ad85b2e39d82898d196121ab6ec
-  branch: master
-  specs:
-    ajax-datatables-rails (1.2.0)
-      railties (>= 5.1)
-      zeitwerk
-
-GIT
   remote: https://github.com/Eric-Guo/wechat
   revision: eaecdfb5e0fb5d4fe36f4c3048cb8d78dd264500
   branch: master
@@ -90,6 +81,9 @@ GEM
     aes_key_wrap (1.0.1)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    ajax-datatables-rails (1.2.0)
+      railties (>= 5.0)
+      zeitwerk
     ast (2.4.0)
     attr_required (1.0.1)
     auto_strip_attributes (2.6.0)
@@ -448,7 +442,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-sqlserver-adapter!
-  ajax-datatables-rails!
+  ajax-datatables-rails
   auto_strip_attributes
   bootsnap (>= 1.4.4)
   brakeman

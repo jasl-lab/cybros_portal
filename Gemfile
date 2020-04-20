@@ -57,8 +57,7 @@ gem "pundit"
 gem "meta-tags"
 
 gem "browser"
-# bundle config local.ajax-datatables-rails /Users/guochunzhong/git/oss/ajax-datatables-rails/
-gem "ajax-datatables-rails", git: "git@e.coding.net:sew/ajax-datatables-rails.git", branch: :master
+gem "ajax-datatables-rails"
 gem "kaminari"
 
 # bundle config local.wechat /Users/guochunzhong/git/oss/wechat/
