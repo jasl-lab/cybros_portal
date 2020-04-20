@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.12.1'
+lock '~> 3.13.0'
 
 set :application, 'cybros'
 set :repo_url, 'git@e.coding.net:sew/cybros_portal.git'
@@ -39,7 +39,7 @@ append :linked_dirs, 'log', 'storage', 'tmp/pids', 'tmp/cache', 'tmp/sockets', '
 # set :ssh_options, verify_host_key: :secure
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.6.5'
+set :rbenv_ruby, '2.7.1'
 
 set :puma_init_active_record, true
 
