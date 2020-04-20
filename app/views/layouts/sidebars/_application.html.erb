@@ -31,6 +31,12 @@
           <%= t("layouts.sidebar.application.operation") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/human_resource', html_options: {class: "nav-item"} do %>
+        <%= link_to report_human_resource_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-jedi"></i>
+          <%= t("layouts.sidebar.application.human_resource") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

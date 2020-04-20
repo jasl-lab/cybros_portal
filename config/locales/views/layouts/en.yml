@@ -16,6 +16,7 @@ en:
         person: "Person"
         report: "Report"
         operation: "Operation"
+        human_resource: "Human resource"
       accounts:
         header: "User settings"
         profile: "Profile"
@@ -78,3 +79,5 @@ en:
         contract_sign_detail: "Archiving contract signing cycle"
         subsidiary_need_receive_sign_detail: "Subsidiary need receive sign detail"
         subsidiary_need_receive_unsign_detail: "Subsidiary need receive unsign detail"
+      human_resource:
+        header: "Human resource"
