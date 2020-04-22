@@ -22,11 +22,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     selected_company_long_name = Bi::OrgShortName.company_long_names.fetch(@selected_short_name, @selected_short_name)
     selected_department_name = params[:department_name]&.strip
 
-    real_data_last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
+    @real_data_last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
     real_data = policy_scope(Bi::SubCompanyRealReceive)
       .where(realdate: beginning_of_year..@end_of_month)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", real_data_last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @real_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @real_data_last_available_date)
 
     real_data = if @view_deptcode_sum
       real_data.where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
@@ -43,14 +43,14 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     only_have_real_data_depts = real_data.collect(&:deptcode)
-    real_department_short_names = only_have_real_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    real_department_short_names = only_have_real_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
     @depts_options = only_have_real_data_depts if @depts_options.blank?
     @department_options = real_department_short_names.zip(only_have_real_data_depts)
     @sum_dept_names = @department_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
 
 
     if selected_department_name.present?
-      @depts_options = Bi::OrgReportDeptOrder.dept_code_by_short_name(selected_company_long_name, real_data_last_available_date).where(上级部门: selected_department_name).pluck(:'编号')
+      @depts_options = Bi::OrgReportDeptOrder.dept_code_by_short_name(selected_company_long_name, @real_data_last_available_date).where(上级部门: selected_department_name).pluck(:'编号')
     end
 
     real_data = if @view_deptcode_sum
@@ -59,12 +59,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       real_data.where(deptcode: @depts_options)
     end
 
-    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
+    @real_department_short_names = real_data.collect { |r| Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(r.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)) }
     @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
     true_real_meta_receives = policy_scope(Bi::SubCompanyRealReceive)
       .where(realdate: beginning_of_year..@end_of_month)
-      .where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", real_data_last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", real_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @real_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @real_data_last_available_date)
       .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
 
     true_real_meta_receives = if @view_deptcode_sum
@@ -172,7 +172,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     previous_year_need_receive_hash = previous_year_need_receive_data.reduce({}) do |h, d|
-      dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      dept_name = Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       h[dept_name] = d.account_need_receive
       h
     end
@@ -185,10 +185,10 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       Bi::CompleteValueDept.where(orgcode: selected_orgcode)
         .select("deptcode, SUM(total) sum_total")
         .group(:deptcode)
-    end.where(date: real_data_last_available_date)
+    end.where(date: @real_data_last_available_date)
 
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      dept_name = Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       h[dept_name] = d.sum_total
       h
     end
@@ -196,7 +196,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     sum_need_receives_for_payback = 0
     total_complete_value_per_staff = 0
     payback_rates = real_data.collect do |d|
-      dept_name = Bi::OrgReportDeptOrder.department_names(real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
+      dept_name = Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
       complete_value = complete_value_hash.fetch(dept_name, 100000)
       previous_year_need_receive = previous_year_need_receive_hash.fetch(dept_name, 100000)
       sum_real_receives_for_payback += d.total

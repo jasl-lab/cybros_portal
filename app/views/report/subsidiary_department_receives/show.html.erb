@@ -53,6 +53,9 @@
     <% end -%>
     <div class="row">
       <div class="col-lg-12 p-2">
+        <h6 class="text-right">截止时间：<%= @real_data_last_available_date.year -%>年<%= @real_data_last_available_date.month -%>月<%= @real_data_last_available_date.day -%>日</h6>
+      </div>
+      <div class="col-lg-12 p-2">
         <h5 class="text-center">
           至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,
           本年累计实收款 <span style="color:red"><%= @sum_real_receives -%></span> 亿元，

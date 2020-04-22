@@ -93,11 +93,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @real_receives_per_staff = real_data.collect do |d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       staff_number = staff_per_company.fetch(short_name, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       (d.total / (staff_number * 10000).to_f).round(0)
     end
     @need_should_receives_per_staff = need_data.collect do |d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       staff_number = staff_per_company.fetch(short_name, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
 
