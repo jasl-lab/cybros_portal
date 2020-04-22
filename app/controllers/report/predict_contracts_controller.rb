@@ -30,6 +30,7 @@ class Report::PredictContractsController < Report::BaseController
       .select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
       .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
       .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
+      .having("contractconvert > 0 OR convertrealamount > 0")
 
     @dept_codes_as_options = data.collect(&:deptcode) if @dept_codes_as_options.blank?
     data = data.where(deptcode: @dept_codes_as_options)
