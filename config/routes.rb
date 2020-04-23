@@ -86,9 +86,13 @@ Rails.application.routes.draw do
     root to: 'home#index'
 
     resource :operation, only: %i[show]
+
     resource :human_resource, only: %i[show]
+
     resource :human_resources_monthly, only: %i[show]
     resource :subsidiary_hr_monthly, only: %i[show]
+    resource :hr_monthly_report_data_entry, only: %i[show]
+
 
     resources :yingjianke_logins, only: %i[index destroy] do
       collection do

@@ -4,9 +4,14 @@ class Report::HumanResourcesController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :prepare_encrypt_uid
 
   def show
     prepare_meta_tags title: t(".title")
+    @redirect_url = ERB::Util.url_encode "view/form?viewlet=HR/SY_JT.frm&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33"
+    @hide_app_footer = true
+    @hide_main_header_wrapper = true
+    render 'report/human_resources/show'
   end
 
   protected
