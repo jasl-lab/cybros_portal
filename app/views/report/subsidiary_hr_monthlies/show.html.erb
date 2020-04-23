@@ -1,8 +1,14 @@
+<style>
+.main .container-fluid {
+  padding: 0;
+}
+</style>
+
 <iframe id="myiframe" frameborder="0" src="https://rpt.thape.com.cn/webroot/decision/url/login?uid=<%= @uid -%>&redirect_url=<%= @redirect_url -%>"></iframe>
 
 <script>
 var ifm= document.getElementById("myiframe");
 
-ifm.width=document.documentElement.clientWidth-260;
+ifm.width=document.documentElement.clientWidth-220;
 ifm.height=document.documentElement.clientHeight-50;
 </script>
