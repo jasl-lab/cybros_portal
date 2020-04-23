@@ -15,9 +15,13 @@ class Company::KmMapsController < ApplicationController
 
     @available_departments = Edoc2::ProjectInfo.project_item_dept_name(@company_name)
 
-    data = Edoc2::ProjectInfo.where.not(coordinate: nil).where.not(projectitemcode: %w[TH20024401 TH20024501 TH20047001 TH20024601])
+    data = Edoc2::ProjectInfo.where.not(coordinate: nil)
+      .where.not(projectitemcode: %w[TH20024401 TH20024501 TH20047001 TH20024601])
+      .where.not("projectsort IN ('工程', '采购') AND businesstypename in ('室内')")
+      .where.not("projectsort IN ('工程') AND businesstypename in ('景观')")
+      .where(iscontractcode: 1)
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
-    data = data.where('projectsort like ?', "%#{@prj_category}%") if @prj_category.present?
+    data = data.where(projectsort: @prj_category) if @prj_category.present?
     data = data.where('clientname like ?', "%#{@client}%") if @client.present?
     data = data.where(cityname: @city) if @city.present?
     data = data.where(projectitemcomname: @company_name) if @company_name.present?
