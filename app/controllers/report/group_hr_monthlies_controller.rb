@@ -8,7 +8,7 @@ class Report::GroupHrMonthliesController < Report::BaseController
 
   def show
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4234fac3cfc14"
+    @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1_JT_1.cpt&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     render 'report/human_resources/show'
