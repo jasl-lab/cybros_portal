@@ -9,6 +9,7 @@ class Report::SubsidiaryHrMonthliesController < Report::BaseController
   def show
     prepare_meta_tags title: t(".title")
     @redirect_url = ERB::Util.url_encode "view/report?viewlet=HR/HR_REPORT_MONTH_3.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4-234fac3cfc14"
+    @hide_app_footer = true
   end
 
   protected
