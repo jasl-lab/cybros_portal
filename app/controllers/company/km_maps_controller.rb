@@ -19,7 +19,6 @@ class Company::KmMapsController < ApplicationController
       .where.not(projectitemcode: %w[TH20024401 TH20024501 TH20047001 TH20024601])
       .where.not("projectsort IN ('工程', '采购') AND businesstypename in ('室内')")
       .where.not("projectsort IN ('工程') AND businesstypename in ('景观')")
-      .where(iscontractcode: 1)
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
     data = data.where(projectsort: @prj_category) if @prj_category.present?
     data = data.where('clientname like ?', "%#{@client}%") if @client.present?
