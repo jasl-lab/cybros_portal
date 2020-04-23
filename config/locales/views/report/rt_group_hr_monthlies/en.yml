@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    rt_group_hr_monthlies:
+      show:
+        title: "Realtime group HR monthly"

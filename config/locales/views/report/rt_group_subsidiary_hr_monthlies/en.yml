@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    rt_group_subsidiary_hr_monthlies:
+      show:
+        title: "Realtime group subsidiary HR monthly"
