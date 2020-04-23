@@ -8,6 +8,14 @@
   <nav class="sidebar-nav">
     <ul class="nav">
       <% if current_user.admin? %>
+        <%= nav_item controller: 'report/subsidiary_human_resource', html_options: { class: "nav-item" } do %>
+          <%= link_to report_subsidiary_human_resource_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.subsidiary_human_resources") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
         <%= nav_item controller: 'report/human_resources_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_human_resources_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -20,6 +28,54 @@
           <%= link_to report_subsidiary_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.human_resource.subsidiary_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= nav_item controller: 'report/hr_monthly_report_data_entry', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_monthly_report_data_entry_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hr_monthly_report_data_entries") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= nav_item controller: 'report/group_hr_monthly', html_options: { class: "nav-item" } do %>
+          <%= link_to report_group_hr_monthly_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.group_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= nav_item controller: 'report/group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
+          <%= link_to report_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.group_subsidiary_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= nav_item controller: 'report/rt_group_hr_monthly', html_options: { class: "nav-item" } do %>
+          <%= link_to report_rt_group_hr_monthly_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.rt_group_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= nav_item controller: 'report/rt_group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
+          <%= link_to report_rt_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.rt_group_subsidiary_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= nav_item controller: 'report/hr_talent_pool', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_talent_pool_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hr_talent_pools") %>
           <% end %>
         <% end %>
       <% end %>

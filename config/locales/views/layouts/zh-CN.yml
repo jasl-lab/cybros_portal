@@ -82,5 +82,11 @@ zh-CN:
       human_resource:
         header: "人力资源"
         human_resources_monthlies: "人力资源月报"
+        subsidiary_human_resources: "子公司人力资源月报"
         subsidiary_hr_monthlies: "上海天华人力资源月报"
-
+        hr_monthly_report_data_entries: "人力资源月数据录入"
+        group_hr_monthlies: "集团人力资源月报"
+        group_subsidiary_hr_monthlies: "子公司人力资源月报"
+        rt_group_hr_monthlies: "实时集团人力资源"
+        rt_group_subsidiary_hr_monthlies: "实时子公司人力资源"
+        hr_talent_pools: "人力资源月报-人才池"

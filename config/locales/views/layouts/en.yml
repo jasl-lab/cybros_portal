@@ -81,5 +81,12 @@ en:
         subsidiary_need_receive_unsign_detail: "Subsidiary need receive unsign detail"
       human_resource:
         header: "Human resource"
+        subsidiary_human_resources: "Subsidiary human resources"
         human_resources_monthlies: "Human resources monthly"
         subsidiary_hr_monthlies: "Subsidiary HR monthly"
+        hr_monthly_report_data_entries: "HR monthly report data entries"
+        group_hr_monthlies: "Group HR monthly"
+        group_subsidiary_hr_monthlies: "Group Subsidiary HR monthly"
+        rt_group_hr_monthlies: "Realtime group HR monthly"
+        rt_group_subsidiary_hr_monthlies: "Realtime group subsidiary HR monthly"
+        hr_talent_pools: "HR talent pool"
