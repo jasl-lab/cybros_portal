@@ -4,7 +4,7 @@
 }
 </style>
 
-<iframe id="myiframe" frameborder="0" src="https://rpt.thape.com.cn/webroot/decision/url/login?uid=<%= @uid -%>&redirect_url=<%= @redirect_url -%>"></iframe>
+<iframe id="myiframe" frameborder="0" src="https://rpt.thape.com.cn/webroot/decision/url/login?uid=<%= ERB::Util.url_encode(@uid) -%>&redirect_url=<%= ERB::Util.url_encode(@redirect_url) -%>"></iframe>
 
 <script>
 var ifm= document.getElementById("myiframe");
