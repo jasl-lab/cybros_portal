@@ -51,6 +51,7 @@ en:
         tianzhen_logins: "Tian Zhen Logins"
         yingjianke_logins: "Ying Jian Ke Logins"
         cim_tools: "CIM tools"
+        key_customer_details: "Key customer detail"
       operation:
         header: "Operation Home"
         overall_operating_status: "Overall operating status"

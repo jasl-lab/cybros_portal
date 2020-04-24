@@ -85,6 +85,8 @@ Rails.application.routes.draw do
   namespace :report do
     root to: 'home#index'
 
+    resource :key_customer_detail, only: %i[show]
+
     resource :operation, only: %i[show]
 
     resource :human_resource, only: %i[show]
