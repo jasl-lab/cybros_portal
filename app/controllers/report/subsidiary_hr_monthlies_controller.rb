@@ -13,7 +13,7 @@ class Report::SubsidiaryHrMonthliesController < Report::BaseController
 
     @hide_app_footer = true
     @hide_main_header_wrapper = true
-    render 'report/human_resources/show'
+    render 'shared/report_show'
   end
 
   protected

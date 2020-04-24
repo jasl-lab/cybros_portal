@@ -12,7 +12,7 @@ class Report::GroupHrMonthliesController < Report::BaseController
     @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1_JT_1.cpt&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
-    render 'report/human_resources/show'
+    render 'shared/report_show'
   end
 
   protected
