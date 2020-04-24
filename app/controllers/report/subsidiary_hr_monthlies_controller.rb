@@ -9,7 +9,7 @@ class Report::SubsidiaryHrMonthliesController < Report::BaseController
   def show
     authorize :"Bi::SubsidiaryHrMonthly"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_3.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4-234fac3cfc14"
+    @redirect_url = "view/form?viewlet=HR/SY_2.frm&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     render 'report/human_resources/show'
