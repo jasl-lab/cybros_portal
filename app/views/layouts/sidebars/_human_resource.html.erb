@@ -15,14 +15,6 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::HumanResourcesMonthly").show? %>
-        <%= nav_item controller: 'report/human_resources_monthly', html_options: { class: "nav-item" } do %>
-          <%= link_to report_human_resources_monthly_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.human_resource.human_resources_monthlies") %>
-          <% end %>
-        <% end %>
-      <% end %>
       <% if policy(:"Bi::SubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_hr_monthly_path, class: "nav-link" do %>
