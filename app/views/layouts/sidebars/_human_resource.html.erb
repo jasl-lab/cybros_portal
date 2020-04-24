@@ -7,7 +7,7 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::SubsidiaryHumanResource").show? %>
         <%= nav_item controller: 'report/subsidiary_human_resource', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_human_resource_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -15,7 +15,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::HumanResourcesMonthly").show? %>
         <%= nav_item controller: 'report/human_resources_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_human_resources_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -23,7 +23,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::SubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_subsidiary_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -31,7 +31,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::HrMonthlyReportDataEntry").show? %>
         <%= nav_item controller: 'report/hr_monthly_report_data_entry', html_options: { class: "nav-item" } do %>
           <%= link_to report_hr_monthly_report_data_entry_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -39,7 +39,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::GroupHrMonthly").show? %>
         <%= nav_item controller: 'report/group_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_group_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -47,7 +47,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::GroupSubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -55,7 +55,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::RtGroupHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_rt_group_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -63,7 +63,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::RtGroupSubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_rt_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
@@ -71,7 +71,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.admin? %>
+      <% if policy(:"Bi::HrTalentPool").show? %>
         <%= nav_item controller: 'report/hr_talent_pool', html_options: { class: "nav-item" } do %>
           <%= link_to report_hr_talent_pool_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>

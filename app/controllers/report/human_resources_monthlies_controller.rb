@@ -7,6 +7,7 @@ class Report::HumanResourcesMonthliesController < Report::BaseController
   before_action :prepare_encrypt_uid
 
   def show
+    authorize :"Bi::HumanResourcesMonthly"
     prepare_meta_tags title: t(".title")
     @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4234fac3cfc14"
     @hide_app_footer = true

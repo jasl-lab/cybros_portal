@@ -7,6 +7,7 @@ class Report::HrMonthlyReportDataEntriesController < Report::BaseController
   before_action :prepare_encrypt_uid
 
   def show
+    authorize :"Bi::HrMonthlyReportDataEntry"
     prepare_meta_tags title: t(".title")
     @redirect_url = "view/report?op=write&ref_c=7c332fd4-ca53-4731-8200-9147e584be33&viewlet=HR_FILL/HR_REPORT_FILL_1.cpt&ref_t=design"
     @hide_app_footer = true
