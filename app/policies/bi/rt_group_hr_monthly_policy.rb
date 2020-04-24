@@ -3,7 +3,8 @@
 module Bi
   class RtGroupHrMonthlyPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && user.admin?
+      user.present? &&
+        (user.roles.pluck(:hr_report_admin).any? || user.admin?)
     end
   end
 end
