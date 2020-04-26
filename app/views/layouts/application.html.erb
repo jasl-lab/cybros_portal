@@ -1,6 +1,7 @@
 <%- body_class = "app header-fixed" %>
 <%- body_class << " sidebar-fixed sidebar-lg-show" if has_sidebar? %>
 <%- body_class << " aside-menu-fixed" if has_aside? %>
+<%- body_class << " overflow-hidden" if @hide_scroll %>
 <% content_for(:body_class, body_class) %>
 <% content_for :content do %>
   <%= render "layouts/application/header" unless params[:in_iframe].present? %>
