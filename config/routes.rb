@@ -92,7 +92,8 @@ Rails.application.routes.draw do
     resource :human_resource, only: %i[show]
 
     resource :subsidiary_human_resource, only: %i[show]
-    resource :subsidiary_hr_monthly, only: %i[show]
+    resource :hr_sy, only: %i[show]
+    resource :subsidiary_hr_sy, only: %i[show]
     resource :hr_monthly_report_data_entry, only: %i[show]
     resource :group_hr_monthly, only: %i[show]
     resource :group_subsidiary_hr_monthly, only: %i[show]
