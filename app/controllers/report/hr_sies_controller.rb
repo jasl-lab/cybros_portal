@@ -13,6 +13,7 @@ class Report::HrSiesController < Report::BaseController
 
     @hide_app_footer = true
     @hide_main_header_wrapper = true
+    @hide_scroll = true
     render 'shared/report_show'
   end
 

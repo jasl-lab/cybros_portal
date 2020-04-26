@@ -12,6 +12,7 @@ class Report::SubsidiaryHrSiesController < Report::BaseController
     @redirect_url = "view/form?viewlet=HR/SY_2.frm&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
+    @hide_scroll = true
     render 'shared/report_show'
   end
 

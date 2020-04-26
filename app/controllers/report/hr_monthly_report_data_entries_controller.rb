@@ -12,6 +12,7 @@ class Report::HrMonthlyReportDataEntriesController < Report::BaseController
     @redirect_url = "view/report?op=write&ref_c=7c332fd4-ca53-4731-8200-9147e584be33&viewlet=HR_FILL/HR_REPORT_FILL_1.cpt&ref_t=design"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
+    @hide_scroll = true
     render 'shared/report_show'
   end
 
