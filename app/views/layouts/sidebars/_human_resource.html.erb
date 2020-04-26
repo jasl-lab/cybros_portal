@@ -7,11 +7,11 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if policy(:"Bi::SubsidiaryHumanResource").show? %>
-        <%= nav_item controller: 'report/subsidiary_human_resource', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_human_resource_path, class: "nav-link" do %>
+      <% if policy(:"Bi::HrSy").show? %>
+        <%= nav_item controller: 'report/hr_sy', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_sy_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.human_resource.subsidiary_human_resources") %>
+            <%= t("layouts.sidebar.human_resource.hr_sies") %>
           <% end %>
         <% end %>
       <% end %>
@@ -39,6 +39,14 @@
           <% end %>
         <% end %>
       <% end %>
+<!--       <% if policy(:"Bi::SubsidiaryHumanResource").show? %>
+        <%= nav_item controller: 'report/subsidiary_human_resource', html_options: { class: "nav-item" } do %>
+          <%= link_to report_subsidiary_human_resource_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.subsidiary_human_resources") %>
+          <% end %>
+        <% end %>
+      <% end %> -->
       <% if policy(:"Bi::GroupSubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
