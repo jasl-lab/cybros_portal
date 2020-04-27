@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-body">
       <p>工程编号：<%= @project_info.projectcode -%></p>
-      <% if @project_info.isboutiqueproject %>
+      <% if @project_info.isboutiqueproject == '是' %>
         <p>工程名称：<%= @new_map_info&.marketinfoname -%><span class="badge badge-primary">精品</span></p>
       <% else %>
         <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
