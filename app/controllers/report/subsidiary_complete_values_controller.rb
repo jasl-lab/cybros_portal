@@ -39,7 +39,6 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', last_available_date)
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', last_available_date)
-      .having('sum_total > 0')
 
     data = if @view_deptcode_sum
       data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(total) sum_total")
