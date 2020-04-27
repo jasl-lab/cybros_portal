@@ -15,10 +15,10 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @year_names = @year_options - [2017, 2016] if @year_names.blank?
     data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i)
 
-    all_company_orgcodes = data.pluck(:orgcode).uniq
+    all_company_orgcodes = data.pluck(:orgcode).uniq - ['000103', '000149', '000150', '000130', '00012801']
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
-    @orgs_options = all_company_orgcodes - ['000103', '000149', '000150', '000130', '00012801'] if @orgs_options.blank? # hide 天华节能
+    @orgs_options = all_company_orgcodes if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     data = data
