@@ -14,6 +14,11 @@ class Report::YearReportHistoriesController < Report::BaseController
 
     @year_names = @year_options if @year_names.blank?
     data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i).order(:year)
+    last_month_data = if @month_name.to_i == 1
+      policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i).order(:year)
+    else
+      policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..(@month_name.to_i - 1)).order(:year)
+    end
 
     all_company_orgcodes = data.collect(&:orgcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
@@ -24,11 +29,22 @@ class Report::YearReportHistoriesController < Report::BaseController
     @data = data.where(orgcode: @orgs_options)
       .select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
       .group(:year)
+    last_month_data = last_month_data.where(orgcode: @orgs_options)
+      .select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
+      .group(:year)
 
     @years = @data.collect(&:year)
     @real_amount = @data.collect { |d| (d.realamount / 100.0).round(0) }
+    @last_month_real_amount = last_month_data.collect { |d| (d.realamount / 100.0).round(0) }
+    @this_month_real_amount = @real_amount.zip(@last_month_real_amount).map { |d| d[0] - d[1] }
+
     @contract_amount = @data.collect { |d| (d.contractamount / 100.0).round(0) }
+    @last_month_contract_amount = last_month_data.collect { |d| (d.contractamount / 100.0).round(0) }
+    @this_month_contract_amount = @contract_amount.zip(@last_month_contract_amount).map { |d| d[0] - d[1] }
+
     @dept_amount = @data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
+    @last_month_dept_amount = last_month_data.collect { |d| (d.deptvalue.to_f / 100.0).round(0) }
+    @this_month_dept_amount = @dept_amount.zip(@last_month_dept_amount).map { |d| d[0] - d[1] }
 
     most_recent_year = @year_names.first
     most_recent_month = (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)

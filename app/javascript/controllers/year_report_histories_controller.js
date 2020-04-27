@@ -27,12 +27,18 @@ export default class extends Controller {
     }
 
     const deptAmount = JSON.parse(this.data.get("dept_amount"));
+    const lastMonthDeptAmount = JSON.parse(this.data.get("last_month_dept_amount"));
+    const thisMonthDeptAmount = JSON.parse(this.data.get("this_month_dept_amount"));
     const deptAmountRate = deptAmount.map(calculate_yearly_rate);
     const realAmount = JSON.parse(this.data.get("real_amount"));
+    const lastMonthRealAmount = JSON.parse(this.data.get("last_month_real_amount"));
+    const thisMonthRealAmount = JSON.parse(this.data.get("this_month_real_amount"));
     const realAmountRate = realAmount.map(calculate_yearly_rate);
     const avgStaffDeptAmount = JSON.parse(this.data.get("avg_staff_dept_amount"));
     const avgWorkDeptAmount = JSON.parse(this.data.get("avg_work_dept_amount"));
     const contractAmount = JSON.parse(this.data.get("contract_amount"));
+    const lastMonthContractAmount = JSON.parse(this.data.get("last_month_contract_amount"));
+    const thisMonthContractAmount = JSON.parse(this.data.get("this_month_contract_amount"));
     const contractAmountRate = contractAmount.map(calculate_yearly_rate);
     const workHeadCount = JSON.parse(this.data.get("work_head_count"));
     const avgStaffRealAmount = JSON.parse(this.data.get("avg_staff_real_amount"));
@@ -42,7 +48,7 @@ export default class extends Controller {
 
     const option_dept_amount = {
         legend: {
-            data: ['生产合同额','年增长率'],
+            data: ['当月生产合同额','上月累计生产合同额','年增长率'],
             align: 'left'
         },
         grid: {
@@ -112,16 +118,48 @@ export default class extends Controller {
         },{
           name: '生产合同额',
           type: 'bar',
+          barWidth: '30%',
+          barGap: '-100%',
           data: deptAmount,
-          barWidth: 30,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
           label: {
             normal: {
               show: true,
+              color: '#353535',
+              fontWeight: 'bold',
               position: 'top'
             }
-          },
+          }
+          }, {
+          name: '上月累计生产合同额',
+          type: 'bar',
+          stack: '总量',
+          data: lastMonthDeptAmount,
           itemStyle: {
             color: '#738496'
+          },
+          label: {
+            normal: {
+              show: false
+            }
+          }
+        },{
+          name: '当月生产合同额',
+          type: 'bar',
+          stack: '总量',
+          data: thisMonthDeptAmount,
+          barMaxWidth: 90,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'inside',
+              color: '#738496'
+            }
           }
         }]
     };
