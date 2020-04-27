@@ -265,7 +265,7 @@ export default class extends Controller {
 
     const option_contract_amount = {
         legend: {
-            data: ['商务合同额','年增长率'],
+            data: ['当月商务合同额','上月累计商务合同额','年增长率'],
             align: 'left'
         },
         grid: {
@@ -335,16 +335,48 @@ export default class extends Controller {
         },{
           name: '商务合同额',
           type: 'bar',
+          barWidth: '30%',
+          barGap: '-100%',
           data: contractAmount,
-          barWidth: 30,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
           label: {
             normal: {
               show: true,
+              color: '#353535',
+              fontWeight: 'bold',
               position: 'top'
             }
-          },
+          }
+          }, {
+          name: '上月累计商务合同额',
+          type: 'bar',
+          stack: '总量',
+          data: lastMonthContractAmount,
           itemStyle: {
             color: '#738496'
+          },
+          label: {
+            normal: {
+              show: false
+            }
+          }
+        },{
+          name: '当月商务合同额',
+          type: 'bar',
+          stack: '总量',
+          data: thisMonthContractAmount,
+          barMaxWidth: 90,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'inside',
+              color: '#738496'
+            }
           }
         }]
     };
@@ -450,7 +482,7 @@ export default class extends Controller {
 
     const option_real_amount = {
         legend: {
-            data: ['实收款','年增长率'],
+            data: ['当月实收款','上月累计实收款','年增长率'],
             align: 'left'
         },
         grid: {
@@ -520,16 +552,48 @@ export default class extends Controller {
         },{
           name: '实收款',
           type: 'bar',
+          barWidth: '30%',
+          barGap: '-100%',
           data: realAmount,
-          barWidth: 30,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
           label: {
             normal: {
               show: true,
+              color: '#353535',
+              fontWeight: 'bold',
               position: 'top'
             }
-          },
+          }
+          }, {
+          name: '上月累计实收款',
+          type: 'bar',
+          stack: '总量',
+          data: lastMonthRealAmount,
           itemStyle: {
             color: '#738496'
+          },
+          label: {
+            normal: {
+              show: false
+            }
+          }
+        },{
+          name: '当月实收款',
+          type: 'bar',
+          stack: '总量',
+          data: thisMonthRealAmount,
+          barMaxWidth: 90,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'inside',
+              color: '#738496'
+            }
           }
         }]
     };
