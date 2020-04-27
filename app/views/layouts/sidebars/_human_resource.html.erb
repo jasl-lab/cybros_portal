@@ -7,35 +7,12 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if policy(:"Bi::HrSy").show? %>
-        <%= nav_item controller: 'report/hr_sy', html_options: { class: "nav-item" } do %>
-          <%= link_to report_hr_sy_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.human_resource.hr_sies") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Bi::SubsidiaryHrSy").show? %>
-        <%= nav_item controller: 'report/subsidiary_hr_sy', html_options: { class: "nav-item" } do %>
-          <%= link_to report_subsidiary_hr_sy_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.human_resource.subsidiary_hr_sies") %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <li class="nav-title">数据填报</li>
       <% if policy(:"Bi::HrMonthlyReportDataEntry").show? %>
         <%= nav_item controller: 'report/hr_monthly_report_data_entry', html_options: { class: "nav-item" } do %>
           <%= link_to report_hr_monthly_report_data_entry_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.human_resource.hr_monthly_report_data_entries") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Bi::GroupHrMonthly").show? %>
-        <%= nav_item controller: 'report/group_hr_monthly', html_options: { class: "nav-item" } do %>
-          <%= link_to report_group_hr_monthly_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.human_resource.group_hr_monthlies") %>
           <% end %>
         <% end %>
       <% end %>
@@ -47,14 +24,7 @@
           <% end %>
         <% end %>
       <% end %> -->
-      <% if policy(:"Bi::GroupSubsidiaryHrMonthly").show? %>
-        <%= nav_item controller: 'report/group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
-          <%= link_to report_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.human_resource.group_subsidiary_hr_monthlies") %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <li class="nav-title">集团数据</li>
       <% if policy(:"Bi::RtGroupHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_rt_group_hr_monthly_path, class: "nav-link" do %>
@@ -63,11 +33,44 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::GroupHrMonthly").show? %>
+        <%= nav_item controller: 'report/group_hr_monthly', html_options: { class: "nav-item" } do %>
+          <%= link_to report_group_hr_monthly_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.group_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::HrSy").show? %>
+        <%= nav_item controller: 'report/hr_sy', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_sy_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hr_sies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <li class="nav-title">子公司数据</li>
       <% if policy(:"Bi::RtGroupSubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
           <%= link_to report_rt_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.human_resource.rt_group_subsidiary_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::GroupSubsidiaryHrMonthly").show? %>
+        <%= nav_item controller: 'report/group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
+          <%= link_to report_group_subsidiary_hr_monthly_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.group_subsidiary_hr_monthlies") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::SubsidiaryHrSy").show? %>
+        <%= nav_item controller: 'report/subsidiary_hr_sy', html_options: { class: "nav-item" } do %>
+          <%= link_to report_subsidiary_hr_sy_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.subsidiary_hr_sies") %>
           <% end %>
         <% end %>
       <% end %>
