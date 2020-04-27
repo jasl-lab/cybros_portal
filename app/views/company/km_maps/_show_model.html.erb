@@ -2,7 +2,18 @@
   <div class="modal-content">
     <div class="modal-body">
       <p>工程编号：<%= @project_info.projectcode -%></p>
-      <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
+      <% if @project_info.isboutiqueproject %>
+        <p>工程名称：<%= @new_map_info&.marketinfoname -%><span class="badge badge-primary">精品</span></p>
+      <% else %>
+        <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
+      <% end %>
+      <p>项目编号：<%= @project_info.projectitemcode -%></p>
+      <p>项目名称：<%= @project_info.projectitemname -%></p>
+      <p>业务类型：<%= @project_info.businesstypename -%></p>
+      <p>客户名称：<%= @project_info.clientname -%></p>
+      <p>所属部门：<%= @project_info.projectitemdeptname -%></p>
+      <p>项目进展：<%= @project_info.projectbigstagename -%></p>
+
 
       <div class="table-responsive">
         <table class="table table-striped">
