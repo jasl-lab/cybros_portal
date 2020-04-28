@@ -7,33 +7,43 @@
       <% else %>
         <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
       <% end %>
-      <p>项目编号：<%= @project_info.projectitemcode -%></p>
-      <p>项目名称：<%= @project_info.projectitemname -%></p>
-      <p>业务类型：<%= @project_info.businesstypename -%></p>
-      <p>客户名称：<%= @project_info.clientname -%></p>
-      <p>所属部门：<%= @project_info.projectitemdeptname -%></p>
-      <p>项目进展：<%= @project_info.projectbigstagename -%></p>
 
-
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th><%= t("company.km_maps.table.project_item_code") %></th>
-            <th><%= t("company.km_maps.table.project_item_name") %></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @project_items.each do |p| %>
-            <tr>
-              <td><%= link_to p.projectitemcode, "http://edoc.thape.com.cn:8022/wcm/tianhua/projectdetails?projectitemcode=#{p.projectitemcode}", target: "_blank" -%></td>
-              <td><%= p.projectitemname %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-
+      <% @project_items.each do |p| %>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan="2" data-toggle="collapse" data-target="#projectDetail<%= p.projectitemcode -%>" aria-expanded="false" aria-controls="projectDetail<%= p.projectitemcode -%>"><%= t("company.km_maps.table.project_item_code") -%> <%= p.projectitemcode -%>
+                  <br />
+                  <%= t("company.km_maps.table.project_item_name")  -%> <%= p.projectitemname -%>  &gt;&gt; </th>
+              </tr>
+            </thead>
+            <tbody class="collapse" id="projectDetail<%= p.projectitemcode -%>">
+              <tr>
+                <td>工程编号</td>
+                <td><%= p.projectcode %></td>
+              </tr>
+              <tr>
+                <td>业务类型</td>
+                <td><%= p.businesstypename %></td>
+              </tr>
+              <tr>
+                <td>客户名称</td>
+                <td><%= p.clientname %></td>
+              </tr>
+              <tr>
+                <td>所属部门</td>
+                <td><%= p.projectitemdeptname %></td>
+              </tr>
+              <tr>
+                <td>项目进展</td>
+                <td><%= p.projectbigstagename %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
+      <% end %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
