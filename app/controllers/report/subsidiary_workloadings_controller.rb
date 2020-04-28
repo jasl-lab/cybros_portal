@@ -50,11 +50,11 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     end
 
     data = data.where(orgname: current_user_companies) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-    job_data = data.having('SUM(date_real) > 0')
+    job_data = data.having('SUM(date_need) > 0')
     job_data = job_data.where.not(deptname: %w[建筑专项技术咨询所]) if @short_company_name == '上海天华'
-    blue_print_data = data.having('SUM(blue_print_real)')
+    blue_print_data = data.having('SUM(blue_print_need) > 0')
     blue_print_data = blue_print_data.where.not(deptname: %w[公建一所 施工图综合所 建筑专项技术咨询所]) if @short_company_name == '上海天华'
-    construction_data = data.having('SUM(construction_real) > 0')
+    construction_data = data.having('SUM(construction_need) > 0')
     construction_data = construction_data.where.not(deptname: %w[建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所]) if @short_company_name == '上海天华'
 
     job_company_or_department_codes = job_data.collect(&:deptcode)

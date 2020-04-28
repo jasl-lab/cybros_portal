@@ -35,9 +35,9 @@ class Report::GroupWorkloadingsController < Report::BaseController
         .group(:orgcode, :orgname, :org_order)
     end
 
-    job_data = data.having("SUM(date_real) > 0")
-    blue_print_data = data.having("SUM(blue_print_real)")
-    construction_data = data.having("SUM(construction_real) > 0")
+    job_data = data.having("SUM(date_need) > 0")
+    blue_print_data = data.having("SUM(blue_print_need)")
+    construction_data = data.having("SUM(construction_need) > 0")
     @job_company_or_department_names = job_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @blue_print_company_or_department_names = blue_print_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @construction_company_or_department_names = construction_data.collect(&:orgname).collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
