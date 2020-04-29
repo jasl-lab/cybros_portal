@@ -4,7 +4,7 @@ module Bi
   class CompleteValuePolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? && user.admin?
+        if user.present? && (user.admin? || %w[000176].include?(user.clerk_code))
           scope.all
         else
           scope.none
@@ -14,7 +14,7 @@ module Bi
 
     def show?
       return false unless user.present?
-      user.admin?
+      user.admin? || %w[000176].include?(user.clerk_code)
     end
   end
 end
