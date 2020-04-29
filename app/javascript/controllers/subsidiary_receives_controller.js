@@ -288,9 +288,6 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
-          min: 0,
-          max: 50,
-          interval: Math.ceil(50 / 5),
           axisLabel: {
             show: true,
             interval: 'auto',
