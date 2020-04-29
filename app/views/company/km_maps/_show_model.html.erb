@@ -1,3 +1,12 @@
+<style>
+.table {
+  margin-bottom: 0;
+}
+.table td {
+  padding: 0.5rem 0;
+}
+</style>
+
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-body">
@@ -7,18 +16,21 @@
       <% else %>
         <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
       <% end %>
-
+      <hr />
       <% @project_items.each do |p| %>
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-borderless">
             <thead>
               <tr>
-                <th colspan="2" data-toggle="collapse" data-target="#projectDetail<%= p.projectitemcode -%>" aria-expanded="false" aria-controls="projectDetail<%= p.projectitemcode -%>"><%= t("company.km_maps.table.project_item_code") -%> <%= p.projectitemcode -%>
+                <td colspan="2" data-toggle="collapse" data-target="#projectDetail<%= p.projectitemcode -%>" aria-expanded="false" aria-controls="projectDetail<%= p.projectitemcode -%>"><%= p.projectitemcode -%>
                   <br />
-                  <%= t("company.km_maps.table.project_item_name")  -%> <%= p.projectitemname -%>  &gt;&gt; </th>
+                  <%= p.projectitemname -%>  &gt;&gt; </td>
               </tr>
             </thead>
-            <tbody class="collapse" id="projectDetail<%= p.projectitemcode -%>">
+          </table>
+
+          <table class="table table-bordered collapse" id="projectDetail<%= p.projectitemcode -%>">
+            <tbody>
               <tr>
                 <td>工程编号</td>
                 <td><%= p.projectcode %></td>
@@ -42,7 +54,6 @@
             </tbody>
           </table>
         </div>
-        <hr />
       <% end %>
     </div>
     <div class="modal-footer">
