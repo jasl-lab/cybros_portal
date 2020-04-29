@@ -11,18 +11,19 @@
   <div class="modal-content">
     <div class="modal-body">
       <p>工程编号：<%= @project_info.projectcode -%></p>
-      <% if @project_info.isboutiqueproject == '是' %>
-        <p>工程名称：<%= @new_map_info&.marketinfoname -%><span class="badge badge-primary">精品</span></p>
-      <% else %>
-        <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
-      <% end %>
+      <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
       <hr />
       <% @project_items.each do |p| %>
         <div class="table-responsive">
           <table class="table table-borderless">
             <thead>
               <tr>
-                <td colspan="2" data-toggle="collapse" data-target="#projectDetail<%= p.projectitemcode -%>" aria-expanded="false" aria-controls="projectDetail<%= p.projectitemcode -%>"><%= p.projectitemcode -%>
+                <td colspan="2" data-toggle="collapse" data-target="#projectDetail<%= p.projectitemcode -%>" aria-expanded="false" aria-controls="projectDetail<%= p.projectitemcode -%>">
+                <% if p.isboutiqueproject == '是' %>
+                  <%= p.projectitemcode -%> <span class="badge badge-primary">精品</span>
+                <% else %>
+                  <%= p.projectitemcode -%>
+                <% end %>
                   <br />
                   <%= p.projectitemname -%>  &gt;&gt; </td>
               </tr>
