@@ -39,7 +39,9 @@
         <div
           data-controller="group-contract-holds"
           data-action="resize@window->group-contract-holds#layout"
+          data-group-contract-holds-company_codes="<%= @company_codes.to_json -%>"
           data-group-contract-holds-company_short_names="<%= @company_short_names.to_json -%>"
+          data-group-contract-holds-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
           data-group-contract-holds-biz_retent_contract="<%= @biz_retent_contract.to_json -%>"
           data-group-contract-holds-biz_retent_no_contract="<%= @biz_retent_no_contract.to_json -%>"
           data-group-contract-holds-biz_retent_totals="<%= @biz_retent_totals.to_json -%>"

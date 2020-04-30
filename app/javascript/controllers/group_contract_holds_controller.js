@@ -8,7 +8,9 @@ export default class extends Controller {
     groupContractHoldChart = echarts.init(document.getElementById('group-contract-hold-chart'));
     groupContractHoldPerDeptChart = echarts.init(document.getElementById('group-contract-hold-per-dept-chart'));
 
+    var companyCodes = JSON.parse(this.data.get("company_codes"));
     var companyShortNames = JSON.parse(this.data.get("company_short_names"));
+    const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     var bizRetentContract = JSON.parse(this.data.get("biz_retent_contract"));
     var bizRetentNoContract = JSON.parse(this.data.get("biz_retent_no_contract"));
     var bizRetentTotals = JSON.parse(this.data.get("biz_retent_totals"));
@@ -176,25 +178,14 @@ export default class extends Controller {
     function drill_down_contract_hold_detail(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          const department_name = xAxisData[params.dataIndex];
+          const company_name = companyShortNames[params.dataIndex];
+          const company_code = companyCodes[params.dataIndex];
           const month_name = $('#month_name').val();
           const view_deptcode_sum = $('#view_deptcode_sum').val();
-          const department_code = deptCode[params.dataIndex];
-          const sent_data = { department_name, month_name, department_code, view_deptcode_sum};
-          let drill_down_url;
-          switch (params.seriesName) {
-            case '已签约的业务保有量（万元）':
-              drill_down_url = '/report/contract_hold/sign_detail_drill_down';
-              break;
-            case '未签约的业务保有量（万元）':
-              drill_down_url = '/report/contract_hold/unsign_detail_drill_down';
-              break;
-          }
-          if (drill_down_url !== undefined) {
-            $.ajax(drill_down_url, {
-              data: sent_data,
-              dataType: 'script'
-            });
+          let url;
+          url = '/report/contract_hold?view_deptcode_sum=true&org_code=' + company_code;
+          if (currentUserCompaniesShortNames.indexOf(company_name) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
+            window.location.href = url;
           }
         }
       }

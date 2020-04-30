@@ -41,7 +41,8 @@ class Report::GroupContractHoldsController < Report::BaseController
       data.where(orgcode: @orgs_options)
     end
 
-    @company_short_names = data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+    @company_codes = data.collect(&:orgcode)
+    @company_short_names = @company_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @organization_options = @all_company_short_names.zip(all_company_orgcodes)
 
     @biz_retent_contract = data.collect do |d|
@@ -73,6 +74,8 @@ class Report::GroupContractHoldsController < Report::BaseController
 
     @biz_retent_totals_sum = @biz_retent_contract.sum()
     @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @group_avg_staff.reject {|d| d == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM}.sum.to_f
+
+    @current_user_companies_short_names = current_user.user_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
   end
 
   private

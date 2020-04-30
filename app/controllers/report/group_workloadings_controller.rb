@@ -9,8 +9,6 @@ class Report::GroupWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountOrg
-    current_user_companies = current_user.user_company_names
-
     @all_month_names = policy_scope(Bi::WorkHoursCountOrg).all_month_names
     @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.first
     @end_month_name = params[:end_month_name]&.strip || @all_month_names.first
@@ -51,7 +49,7 @@ class Report::GroupWorkloadingsController < Report::BaseController
     @building_day_rate = construction_data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
 
-    @current_user_companies_short_names = current_user_companies.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+    @current_user_companies_short_names = current_user.user_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
   end
 
   def export
