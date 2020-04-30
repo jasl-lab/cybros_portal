@@ -1,0 +1,6 @@
+var selectize_ctl = $("#select-city")[0].selectize;
+selectize_ctl.clear();
+selectize_ctl.clearOptions(true);
+<% @cities.each do |u| %>
+  selectize_ctl.addOption({text: '<%= u -%>', value: '<%= u -%>'});
+<% end %>

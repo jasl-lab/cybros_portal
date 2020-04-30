@@ -11,7 +11,10 @@
         placeholder: t(".form.client_placeholder"), class: 'form-control' %>
     </div>
     <div class="col-auto my-1">
-      <%= select_tag 'city', options_for_select(Edoc2::ProjectInfo.city_options, @city), placeholder: t(".form.city"), include_blank: t(".form.city"), class: 'form-control' %>
+      <%= select_tag 'province', options_for_select(Edoc2::ProjectInfo.province_options, @province), placeholder: t(".form.province"), include_blank: t(".form.province"), class: 'form-control', id: 'select-province' %>
+    </div>
+    <div class="col-auto my-1">
+      <%= select_tag 'city', options_for_select(Edoc2::ProjectInfo.city_options(@province), @city), placeholder: t(".form.city"), include_blank: t(".form.city"), class: 'form-control', id: 'select-city' %>
     </div>
     <div class="col-auto my-1">
       <%= select_tag 'company_name', options_for_select(Edoc2::ProjectInfo.project_item_company_name, @company_name), class: 'form-control', include_blank: t(".form.company_name"), id: 'select-km-company' %>
@@ -37,7 +40,7 @@
   </div>
 <% end %>
 
-<div id="km-full-map"
+<div id="km-full-map1"
   data-controller="km-full-map"
   data-km-full-map-map_point="<%= @valid_map_point.to_json -%>">
 </div>

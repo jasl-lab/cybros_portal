@@ -12,6 +12,16 @@ export default class extends Controller {
     };
     $('#select-km-biz-category').on('change', refresh_prj_category);
 
+    function refresh_city(t) {
+      const province = t.target.value;
+      const fill_city_url = '/company/km_map/fill_city';
+      $.ajax(fill_city_url, {
+        data: { province },
+        dataType: 'script'
+      });
+    };
+    $('#select-province').on('change', refresh_city);
+
     function refresh_fill_department(t) {
       const company_name = t.target.value;
       const fill_department_url = '/company/km_map/fill_department';

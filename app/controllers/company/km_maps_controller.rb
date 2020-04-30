@@ -7,6 +7,7 @@ class Company::KmMapsController < ApplicationController
     @biz_category = params[:biz_category]&.strip
     @prj_category = params[:prj_category]&.strip
     @client = params[:client]&.strip
+    @province = params[:province]&.strip
     @city = params[:city]&.strip
     @company_name = params[:company_name]&.strip
     @department = params[:department]&.strip
@@ -20,6 +21,7 @@ class Company::KmMapsController < ApplicationController
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
     data = data.where(projectsort: @prj_category) if @prj_category.present?
     data = data.where('clientname like ?', "%#{@client}%") if @client.present?
+    data = data.where(provincename: @province) if @province.present?
     data = data.where(cityname: @city) if @city.present?
     data = data.where(projectitemcomname: @company_name) if @company_name.present?
     data = data.where(projectitemdeptname: @department) if @department.present?
@@ -59,6 +61,11 @@ class Company::KmMapsController < ApplicationController
   def fill_category
     biz_category = params[:biz_category]&.strip
     @prj_categories = Edoc2::ProjectInfo.bussiness_type_project_category_maps[biz_category.to_sym]
+  end
+
+  def fill_city
+    province = params[:province]&.strip
+    @cities = Edoc2::ProjectInfo.city_options(province)
   end
 
   def fill_progress
