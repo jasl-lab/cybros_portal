@@ -275,9 +275,9 @@ export default class extends Controller {
           }
 
           if (url.indexOf('?') > -1) {
-            url += '&company_name=' + encodeURIComponent(company_name);
+            url += '&company_name=' + encodeURIComponent(company_name) + '&view_deptcode_sum=true';
           } else {
-            url += '?company_name=' + encodeURIComponent(company_name);
+            url += '?company_name=' + encodeURIComponent(company_name) + '&view_deptcode_sum=true';
           }
           if (currentUserCompaniesShortNames.indexOf(company_name) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
             window.location.href = url;
