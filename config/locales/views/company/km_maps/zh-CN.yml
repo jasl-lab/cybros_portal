@@ -10,7 +10,7 @@ zh-CN:
           client: "客户"
           client_placeholder: "客户名称"
           province: "省"
-          city: "地区"
+          city: "市"
           company_name: "所属公司"
           department: "所属部门"
           service_stage: "方案/施工图"
