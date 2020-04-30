@@ -25,7 +25,7 @@ module Edoc2
     end
 
     def self.province_options
-      @province_options ||= order(provincename: :desc)
+      @province_options ||= order('convert(provincename using gbk) asc')
         .select(:provincename).distinct.pluck(:provincename)
     end
 
@@ -33,13 +33,13 @@ module Edoc2
       if province.blank?
         []
       else
-        where(provincename: province).order(cityname: :asc)
+        where(provincename: province).order('convert(cityname using gbk) asc')
           .select(:cityname).distinct.pluck(:cityname)
       end
     end
 
     def self.project_item_company_name
-      @project_item_company_name ||= order(projectitemcomname: :asc)
+      @project_item_company_name ||= order('convert(projectitemcomname using gbk) asc')
         .select(:projectitemcomname).distinct.pluck(:projectitemcomname).map do |long_name|
           Bi::OrgShortName.company_short_names.fetch(long_name, long_name)
         end
@@ -49,7 +49,7 @@ module Edoc2
       if company_name.blank?
         []
       else
-        where(projectitemcomname: company_name).order(projectitemdeptname: :asc)
+        where(projectitemcomname: company_name).order('convert(projectitemdeptname using gbk) asc')
         .select(:projectitemdeptname).distinct.pluck(:projectitemdeptname)
       end
     end
