@@ -17,7 +17,7 @@ class NameCardApply < ApplicationRecord
   end
 
   def self.back_color_list
-    ['四色（现样式，每色25张，100张/盒）',
+    ['四色（每色25张，100张/盒）',
      '单色：红（100张/盒）',
      '单色：黄（100张/盒）',
      '单色：深蓝（100张/盒）',
