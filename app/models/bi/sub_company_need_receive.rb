@@ -5,7 +5,7 @@ module Bi
     self.table_name = 'SUB_COMPANY_NEED_RECEIVE'
 
     def self.all_month_names
-      Bi::SubCompanyNeedReceive.order(date: :desc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
+      Bi::SubCompanyNeedReceive.order(date: :desc).select(:date).distinct.pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
     def self.last_available_date(end_of_month)
