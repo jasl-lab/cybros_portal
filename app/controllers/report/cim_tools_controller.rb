@@ -56,13 +56,15 @@ class Report::CimToolsController < Report::BaseController
       format.csv do
         render_csv_header 'CAD operation report'
         csv_res = CSV.generate do |csv|
-          csv << ['ID', 'Session', 'CMD name', 'CMD seconds', 'CMD data', 'User ID', 'User email', 'User Name', 'User title', 'Created At']
+          csv << ['ID', 'Session', 'CMD name', 'CMD seconds', 'CMD data', 'SEG name', 'SEG function', 'User ID', 'User email', 'User Name', 'User title', 'Created At']
           policy_scope(Cad::CadOperation).includes(:user).order(id: :asc).find_each do |s|
             values = []
             values << s.id
             values << s.session_id
             values << s.cmd_name
             values << s.cmd_data
+            values << s.seg_name
+            values << s.seg_function
             values << s.user_id
             values << s.user.email
             values << s.user.chinese_name
@@ -85,7 +87,7 @@ class Report::CimToolsController < Report::BaseController
         csv_res = CSV.generate do |csv|
           csv << ['ID', 'Session', 'Begin Operation', 'Operation', 'End Operation', 'IP address', 'MAC address',
             'User ID', 'User email', 'User Name', 'User company', 'User department', 'User title',
-            'CMD name', 'CMD seconds', 'CMD data', 'Created at', 'Updated at']
+            'CMD name', 'CMD seconds', 'CMD data', 'SEG name', 'SEG function', 'Created at', 'Updated at']
           policy_scope(Cad::CadSession).includes(:user).order(id: :asc).find_each do |s|
             if s.operations.blank?
               values = []
@@ -102,6 +104,8 @@ class Report::CimToolsController < Report::BaseController
               values << s.user.user_company_short_name
               values << s.user.user_department_name
               values << s.user.position_title
+              values << ''
+              values << ''
               values << ''
               values << ''
               values << ''
@@ -127,6 +131,8 @@ class Report::CimToolsController < Report::BaseController
                 values << o.cmd_name
                 values << o.cmd_seconds
                 values << o.cmd_data
+                values << o.seg_name
+                values << o.seg_function
                 values << o.created_at
                 values << o.updated_at
                 csv << values
