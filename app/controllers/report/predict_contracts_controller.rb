@@ -42,11 +42,11 @@ class Report::PredictContractsController < Report::BaseController
 
     @contract_convert = @dept_codes_as_options.collect do |dept_code|
       d = data.find { |t| t.deptcode == dept_code }
-      (d&.contractconvert || 0 / 10000.to_f).round(0)
+      ((d&.contractconvert || 0) / 10000.to_f).round(0)
     end
     @convert_real_amount = @dept_codes_as_options.collect do |dept_code|
       d = data.find { |t| t.deptcode == dept_code }
-      (d&.convertrealamount || 0 / 10000.to_f).round(0)
+      ((d&.convertrealamount || 0) / 10000.to_f).round(0)
     end
     @contract_convert_totals = @contract_convert.zip(@convert_real_amount).map { |d| d[0] + d[1] }
   end
