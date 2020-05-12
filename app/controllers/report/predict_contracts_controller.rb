@@ -56,7 +56,7 @@ class Report::PredictContractsController < Report::BaseController
     @tcod = Bi::TrackContractOpportunityDetail
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
-      .where('contractconvert > 0')
+      .where('contractamount > 0')
     render
   end
 
