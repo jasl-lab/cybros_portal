@@ -37,6 +37,9 @@
       <span>查得<%= @valid_map_point.count -%>记录</span>
       <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
     </div>
+    <div class="col-auto my-1">
+      <%= link_to '重置', company_km_map_path, class: 'btn btn-secondary' %>
+    </div>
   </div>
 <% end %>
 
