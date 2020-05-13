@@ -4,6 +4,19 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    authorize Bi::WorkHoursDayCountDept
+    @begin_date = params[:begin_date]&.strip || Time.now.beginning_of_month
+    @end_date = params[:end_date]&.strip || Time.now.end_of_day
+    beginning_of_day = Date.parse(@begin_date).beginning_of_day unless @begin_date.is_a?(Time)
+    end_of_day = Date.parse(@end_date).end_of_day unless @end_date.is_a?(Time)
+    @short_company_name = params[:company_name].presence || current_user.user_company_short_name
+    @company_short_names = policy_scope(Bi::WorkHoursDayCountDept).select(:orgcode)
+      .distinct.where(date: beginning_of_day..end_of_day).collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
+    @job_company_or_department_names = []
+  end
+
+  def export
+    authorize Bi::WorkHoursDayCountDept
   end
 
   private
