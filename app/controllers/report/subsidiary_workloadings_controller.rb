@@ -56,8 +56,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     construction_data = data.having('SUM(construction_need) > 0')
     construction_data = construction_data.where.not(deptname: %w[建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所]) if @short_company_name == '上海天华'
 
-    job_company_or_department_codes = job_data.collect(&:deptcode)
-    @job_company_or_department_names = job_company_or_department_codes.collect do |dept_code|
+    @job_company_or_department_names = job_data.collect(&:deptcode).collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
     blue_print_company_or_department_codes = blue_print_data.collect(&:deptcode)
