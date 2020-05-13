@@ -15,7 +15,13 @@
   <div class="col-lg-12"
     data-controller="subsidiary-daily-workloadings"
     data-action="resize@window->subsidiary-daily-workloadings#layout"
-    data-subsidiary-daily-workloadings-x_axis_job="<%= @job_company_or_department_names.to_json -%>">
+    data-subsidiary-daily-workloadings-x_axis_job="<%= @job_company_or_department_names.to_json -%>"
+    data-subsidiary-daily-workloadings-x_axis_blue_print="<%= @blue_print_company_or_department_names.to_json -%>"
+    data-subsidiary-daily-workloadings-x_axis_construction="<%= @construction_company_or_department_names.to_json -%>"
+    data-subsidiary-daily-workloadings-is_non_construction="<%= @is_non_construction -%>"
+    data-subsidiary-daily-workloadings-day_rate="<%= @day_rate.to_json -%>"
+    data-subsidiary-daily-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"
+    data-subsidiary-daily-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>">
     <h3 class="page-title">
       <%= t(".title", company: @company_name) %>
     </h3>
@@ -24,7 +30,7 @@
         <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
         <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".company_name") -%>：</label>
-          <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control' %>
+          <%= select_tag 'company_name', options_for_select(@company_short_names, @selected_company_code), class: 'form-control' %>
         </div>
         <div class="form-group col-md-3">
           <label class="mr-1"><%= t(".begin_date") -%>：</label>
