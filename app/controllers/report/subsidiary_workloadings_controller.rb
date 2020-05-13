@@ -27,9 +27,8 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
     @selected_company_name = params[:company_name]&.strip
 
     @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
-    non_construction_companys = %w[AICO室内 天华室内 深圳室内 天华景观 上海规划 互娱科技]
 
-    @is_non_construction = non_construction_companys.include?(@short_company_name)
+    @is_non_construction = Report::BaseController::NON_CONSTRUCTION_COMPANYS.include?(@short_company_name)
     data = policy_scope(Bi::WorkHoursCountDetailDept).where(date: beginning_of_month..end_of_month)
       .where(orgname: @company_name)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_month)
