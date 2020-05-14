@@ -9,7 +9,7 @@ class Report::RtGroupHrMonthliesController < Report::BaseController
   def show
     authorize :"Bi::RtGroupHrMonthly"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4-234fac3cfc14"
+    @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1_nobutton.cpt&ref_t=design&ref_c=1913e9dc-269a-4cca-be0c-a75c1dc89891"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
