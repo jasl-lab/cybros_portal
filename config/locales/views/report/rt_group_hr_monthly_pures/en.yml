@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    rt_group_hr_monthly_pures:
+      show:
+        title: "Realtime group HR monthly pure"
