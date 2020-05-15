@@ -17,7 +17,32 @@ class Company::KmMapsController < ApplicationController
     @available_departments = Edoc2::ProjectInfo.project_item_dept_name(@company_name)
 
     data = Edoc2::ProjectInfo.where.not(coordinate: nil)
-      .where("iscontractcode='Y' AND businesstype IN('01', '02', '03', '04') AND NOT (businesstype='03' and projectsort in('工程','采购')) AND NOT (businesstype='04' and projectsort in('工程')) OR (projectbigstage='30' AND isboutiqueproject='是')")
+      .where("(
+   (`iscontractcode` = 'Y')
+   AND (
+    `businesstype` IN ('01', '02', '03', '04')
+   )
+   AND (
+    (`businesstype` <> '03')
+    OR (
+     `projectsort` NOT IN ('工程', '采购')
+    )
+   )
+   AND (
+    (`businesstype` <> '04')
+    OR (
+     `projectsort` <> '工程'
+    )
+   )
+  )
+  OR (
+   (
+    `projectbigstage` = '30'
+   )
+   AND (
+    `isboutiqueproject` = '是'
+   )
+  )")
     data = data.where(businesstypename: @biz_category) if @biz_category.present?
     data = data.where(projectcategoryname: @prj_category) if @prj_category.present?
     data = data.where('clientname like ?', "%#{@client}%") if @client.present?
