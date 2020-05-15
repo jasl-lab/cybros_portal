@@ -2402,7 +2402,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-datatables.net-bs@^1.10.15, datatables.net-bs@^1.10.19:
+datatables.net-bs@^1.10.15, datatables.net-bs@^1.10.21:
   version "1.10.20"
   resolved "https://registry.npm.taobao.org/datatables.net-bs/download/datatables.net-bs-1.10.20.tgz#4a54a65527013aa8bb98eb7fa27d6231f7dc1bee"
   integrity sha1-SlSmVScBOqi7mOt/on1iMffcG+4=
@@ -2410,7 +2410,7 @@ datatables.net-bs@^1.10.15, datatables.net-bs@^1.10.19:
     datatables.net "1.10.20"
     jquery ">=1.7"
 
-datatables.net-buttons-bs@^1.5.6:
+datatables.net-buttons-bs@^1.6.2:
   version "1.6.2"
   resolved "https://registry.npm.taobao.org/datatables.net-buttons-bs/download/datatables.net-buttons-bs-1.6.2.tgz#36f00589db9dcaca45be7d446a4092881ede39af"
   integrity sha1-NvAFidudyspFvn1EakCSiB7eOa8=
@@ -2419,7 +2419,7 @@ datatables.net-buttons-bs@^1.5.6:
     datatables.net-buttons "1.6.2"
     jquery ">=1.7"
 
-datatables.net-buttons@1.6.2, datatables.net-buttons@^1.5.6:
+datatables.net-buttons@1.6.2, datatables.net-buttons@^1.6.2:
   version "1.6.2"
   resolved "https://registry.npm.taobao.org/datatables.net-buttons/download/datatables.net-buttons-1.6.2.tgz#491bf5a808898c468d0b3a6547e3be6883aaebcc"
   integrity sha1-SRv1qAiJjEaNCzplR+O+aIOq68w=
@@ -2427,7 +2427,7 @@ datatables.net-buttons@1.6.2, datatables.net-buttons@^1.5.6:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-responsive-bs@^2.2.3:
+datatables.net-responsive-bs@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npm.taobao.org/datatables.net-responsive-bs/download/datatables.net-responsive-bs-2.2.4.tgz#6d6fd152f3c99b381449d0646872ca9121f6d03d"
   integrity sha1-bW/RUvPJmzgUSdBkaHLKkSH20D0=
@@ -2436,7 +2436,7 @@ datatables.net-responsive-bs@^2.2.3:
     datatables.net-responsive "2.2.4"
     jquery ">=1.7"
 
-datatables.net-responsive@2.2.4, datatables.net-responsive@^2.2.3:
+datatables.net-responsive@2.2.4, datatables.net-responsive@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npm.taobao.org/datatables.net-responsive/download/datatables.net-responsive-2.2.4.tgz#abe21c9dc2fd0cb92e28e5c1d5fa2c6a5c84b3ff"
   integrity sha1-q+IcncL9DLkuKOXB1fosalyEs/8=
@@ -2444,7 +2444,7 @@ datatables.net-responsive@2.2.4, datatables.net-responsive@^2.2.3:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
-datatables.net-select-bs@^1.3.0:
+datatables.net-select-bs@^1.3.1:
   version "1.3.1"
   resolved "https://registry.npm.taobao.org/datatables.net-select-bs/download/datatables.net-select-bs-1.3.1.tgz#5bc6342f8a92810a4967665688023072ca4eb285"
   integrity sha1-W8Y0L4qSgQpJZ2ZWiAIwcspOsoU=
@@ -2453,7 +2453,7 @@ datatables.net-select-bs@^1.3.0:
     datatables.net-select "1.3.1"
     jquery ">=1.7"
 
-datatables.net-select@1.3.1, datatables.net-select@^1.3.0:
+datatables.net-select@1.3.1, datatables.net-select@^1.3.1:
   version "1.3.1"
   resolved "https://registry.npm.taobao.org/datatables.net-select/download/datatables.net-select-1.3.1.tgz#ec2c3ad7df2bc9c13c09587d0bfd0ceba52a8bff"
   integrity sha1-7Cw6198rycE8CVh9C/0M66Uqi/8=
@@ -2468,7 +2468,7 @@ datatables.net@1.10.20:
   dependencies:
     jquery ">=1.7"
 
-datatables.net@^1.10.15, datatables.net@^1.10.19:
+datatables.net@^1.10.15, datatables.net@^1.10.21:
   version "1.10.21"
   resolved "https://registry.npm.taobao.org/datatables.net/download/datatables.net-1.10.21.tgz#f1d35c8e5c3eb7f5caef39e80cd5b836a8c77103"
   integrity sha1-8dNcjlw+t/XK7znoDNW4NqjHcQM=
@@ -2691,7 +2691,7 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-echarts@^4.5.0:
+echarts@^4.8.0:
   version "4.7.0"
   resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.7.0.tgz?cache=0&sync_timestamp=1584522755461&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fecharts%2Fdownload%2Fecharts-4.7.0.tgz#5b3875a4c2f91e3929425fabab9eace7e4098b3f"
   integrity sha1-Wzh1pML5HjkpQl+rq56s5+QJiz8=
