@@ -11,14 +11,14 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end_of_day = Date.parse(@end_date).end_of_day unless @end_date.is_a?(Time)
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_code = params[:company_code].presence || current_user.user_company_orgcode
-    short_company_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
+    @short_company_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
     @company_short_names = policy_scope(Bi::WorkHoursDayCountDept).select(:orgcode)
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
         [Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode), r.orgcode]
       end
     @job_company_or_department_names = []
 
-    @is_non_construction = Report::BaseController::NON_CONSTRUCTION_COMPANYS.include?(short_company_name)
+    @is_non_construction = Report::BaseController::NON_CONSTRUCTION_COMPANYS.include?(@short_company_name)
     data = policy_scope(Bi::WorkHoursDayCountDept).where(date: beginning_of_day..end_of_day)
       .where(orgcode: @selected_company_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_day)
@@ -40,11 +40,14 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     data = data.where(orgcode: user_company_orgcode) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
     job_data = data.having('SUM(date_need) > 0')
-    job_data = job_data.where.not(deptname: %w[建筑专项技术咨询所]) if @short_company_name == '上海天华'
+    # exclude 建筑专项技术咨询所
+    job_data = job_data.where.not(deptcode: %w[00010100801]) if @short_company_name == '上海天华'
     blue_print_data = data.having('SUM(blue_print_need) > 0')
-    blue_print_data = blue_print_data.where.not(deptname: %w[公建一所 施工图综合所 建筑专项技术咨询所]) if @short_company_name == '上海天华'
+    # exclude 公建一所 施工图综合所 建筑专项技术咨询所
+    blue_print_data = blue_print_data.where.not(deptcode: %w[000101022 000101045 00010100801]) if @short_company_name == '上海天华'
     construction_data = data.having('SUM(construction_need) > 0')
-    construction_data = construction_data.where.not(deptname: %w[建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所]) if @short_company_name == '上海天华'
+    # exclude 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
+    construction_data = construction_data.where.not(deptcode: %w[000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075]) if @short_company_name == '上海天华'
 
     @job_company_or_department_names = job_data.collect(&:deptcode).collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
@@ -66,6 +69,15 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
   def export
     authorize Bi::WorkHoursDayCountDept
+  end
+
+  def day_rate_drill_down
+  end
+
+  def planning_day_rate_drill_down
+  end
+
+  def building_day_rate_drill_down
   end
 
   private

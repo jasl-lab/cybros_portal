@@ -206,24 +206,24 @@ export default class extends Controller {
               department_name = xAxisConstruction[params.dataIndex]
               break;
           }
-          const begin_month_name = $('#begin_month_name').val();
-          const end_month_name = $('#end_month_name').val();
+          const begin_date = $('#begin_date').val();
+          const end_date = $('#end_date').val();
           const sent_data = {
             company_name: companyName,
             department_name,
-            begin_month_name,
-            end_month_name,
+            begin_date,
+            end_date,
           };
           let drill_down_url;
           switch (params.seriesName) {
             case '工作填报率':
-              drill_down_url = '/report/subsidiary_workloading/day_rate_drill_down';
+              drill_down_url = '/report/subsidiary_daily_workloading/day_rate_drill_down';
               break;
             case '方案饱和度':
-              drill_down_url = '/report/subsidiary_workloading/planning_day_rate_drill_down';
+              drill_down_url = '/report/subsidiary_daily_workloading/planning_day_rate_drill_down';
               break;
             case '施工图饱和度':
-              drill_down_url = '/report/subsidiary_workloading/building_day_rate_drill_down';
+              drill_down_url = '/report/subsidiary_daily_workloading/building_day_rate_drill_down';
               break;
           }
           if (drill_down_url !== undefined) {

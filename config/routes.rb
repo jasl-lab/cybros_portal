@@ -130,6 +130,9 @@ Rails.application.routes.draw do
     resource :subsidiary_daily_workloading, only: %i[show] do
       collection do
         get :export
+        get :day_rate_drill_down
+        get :planning_day_rate_drill_down
+        get :building_day_rate_drill_down
       end
     end
     resource :yearly_subsidiary_workloading, only: %i[show]
