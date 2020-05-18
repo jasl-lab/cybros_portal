@@ -76,15 +76,23 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
   def day_rate_drill_down
     @data =
-      @data.select(:user_name, :date, :date_need, :date_real, :fill_rate)
+      @data.select(:date, :date_need, :date_real, :fill_rate)
            .where.not(date_need: nil)
     render
   end
 
   def planning_day_rate_drill_down
+    @data =
+      @data.select(:date, :blue_print_need, :blue_print_real, :blue_print_rate)
+           .where.not(blue_print_need: nil)
+    render
   end
 
   def building_day_rate_drill_down
+    @data =
+      @data.select(:date, :construction_need, :construction_real, :construction_rate)
+           .where.not(construction_need: nil)
+    render
   end
 
   private
@@ -105,8 +113,8 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
       @drill_down_subtitle = "#{begin_date.to_date} - #{end_date.to_date}"
       @data = policy_scope(Bi::WorkHoursDayCountDept).where(date: begin_date..end_date)
-        .where(orgname: short_company_code, deptcode: department_codes)
-        .order(date: :desc, user_name: :asc)
+        .where(orgcode: short_company_code, deptcode: department_codes)
+        .order(date: :desc)
     end
 
     def set_breadcrumbs

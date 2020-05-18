@@ -4,6 +4,7 @@
       <p><%= @drill_down_subtitle -%></p>
     </div>
     <div class="modal-body">
+      <%= render partial: "#{params[:action]}_table" %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
