@@ -18,7 +18,7 @@ export default class extends Controller {
     const xAxisJob = JSON.parse(this.data.get("x_axis_job"));
     const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
     const xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
-    const companyName = this.data.get("company_name");
+    const companyCode = this.data.get("company_code");
     const dayRateData = JSON.parse(this.data.get("day_rate"));
     const planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
     const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
@@ -209,7 +209,7 @@ export default class extends Controller {
           const begin_date = $('#begin_date').val();
           const end_date = $('#end_date').val();
           const sent_data = {
-            company_name: companyName,
+            company_code: companyCode,
             department_name,
             begin_date,
             end_date,

@@ -2,6 +2,9 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
+  before_action :set_drill_down_params_and_title,
+    only: %i[day_rate_drill_down planning_day_rate_drill_down building_day_rate_drill_down],
+    if: -> { request.format.js? }
 
   def show
     authorize Bi::WorkHoursDayCountDept
@@ -72,6 +75,10 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   end
 
   def day_rate_drill_down
+    @data =
+      @data.select(:user_name, :date, :date_need, :date_real, :fill_rate)
+           .where.not(date_need: nil)
+    render
   end
 
   def planning_day_rate_drill_down
@@ -81,6 +88,26 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   end
 
   private
+    def set_drill_down_params_and_title
+      authorize Bi::WorkHoursDayCountDept
+      short_company_code = params[:company_code]
+      @company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(short_company_code, short_company_code)
+      department_name = params[:department_name]
+      begin_date = Date.parse(params[:begin_date]).beginning_of_day
+      end_date = Date.parse(params[:end_date]).end_of_day
+
+      belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: department_name)
+      department_codes = if belong_deparments.exists?
+        belong_deparments.pluck(:编号).reject { |dept_name| dept_name.include?('撤销') }
+      else
+        Bi::OrgReportDeptOrder.where(组织: @company_name, 部门: department_name).pluck(:编号)
+      end
+
+      @drill_down_subtitle = "#{begin_date.to_date} - #{end_date.to_date}"
+      @data = policy_scope(Bi::WorkHoursDayCountDept).where(date: begin_date..end_date)
+        .where(orgname: short_company_code, deptcode: department_codes)
+        .order(date: :desc, user_name: :asc)
+    end
 
     def set_breadcrumbs
       @_breadcrumbs = [
