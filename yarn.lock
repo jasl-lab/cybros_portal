@@ -2402,7 +2402,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-datatables.net-bs@^1.10.15, datatables.net-bs@^1.10.21:
+datatables.net-bs@^1.10.15, datatables.net-bs@^1.10.20:
   version "1.10.20"
   resolved "https://registry.npm.taobao.org/datatables.net-bs/download/datatables.net-bs-1.10.20.tgz#4a54a65527013aa8bb98eb7fa27d6231f7dc1bee"
   integrity sha1-SlSmVScBOqi7mOt/on1iMffcG+4=
@@ -2691,7 +2691,7 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-echarts@^4.8.0:
+echarts@^4.7.0:
   version "4.7.0"
   resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.7.0.tgz?cache=0&sync_timestamp=1584522755461&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fecharts%2Fdownload%2Fecharts-4.7.0.tgz#5b3875a4c2f91e3929425fabab9eace7e4098b3f"
   integrity sha1-Wzh1pML5HjkpQl+rq56s5+QJiz8=
