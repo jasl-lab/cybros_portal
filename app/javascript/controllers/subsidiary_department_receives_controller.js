@@ -9,6 +9,7 @@ export default class extends Controller {
   connect() {
     const sumDeptNames = JSON.parse(this.data.get("sum_dept_names"));
     const inIFrame = this.data.get("in_iframe");
+    const viewDeptcodeSum = this.data.get("view_deptcode_sum") == "true";
     const companyName = this.data.get("company_name");
 
     departmentRealReceivesChart = echarts.init(document.getElementById('department-real-receives-chart'));
@@ -363,10 +364,15 @@ export default class extends Controller {
               url += '?company_name=' + encodeURIComponent(companyName) + '&department_name=' + encodeURIComponent(department_name) + '&month_name=' + encodeURIComponent(month_name);
             }
 
+            if (viewDeptcodeSum) {
+              url += '&view_deptcode_sum=true';
+            }
+
             window.location.href = url;
           } else {
             const drill_down_url = '/report/subsidiary_department_receive/real_data_drill_down';
-            const sent_data = { department_name, month_name, company_name: companyName };
+            const sent_data = { department_name, month_name,
+              company_name: companyName, view_deptcode_sum: viewDeptcodeSum };
             $.ajax(drill_down_url, {
               data: sent_data,
               dataType: 'script'

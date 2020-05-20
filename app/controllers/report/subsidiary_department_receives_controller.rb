@@ -213,6 +213,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
   def real_data_drill_down
     authorize Bi::SubCompanyRealReceiveDetail
     @company_name = params[:company_name]
+    view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @department_name = params[:department_name]
     beginning_of_year = Date.parse(params[:month_name]).beginning_of_year
     end_of_month = Date.parse(params[:month_name]).end_of_month
@@ -220,8 +221,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     company_long_name = Bi::OrgShortName.company_long_names.fetch(@company_name, @company_name)
     real_data_last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(end_of_month)
     dept_codes = Bi::OrgReportDeptOrder.dept_code_by_short_name(company_long_name, real_data_last_available_date).where(部门: @department_name).pluck(:'编号')
-    @data = Bi::SubCompanyRealReceiveDetail.where(realdate: beginning_of_year..end_of_month)
-      .where(orgname: company_long_name).where(deptcode: dept_codes)
+    data = Bi::SubCompanyRealReceiveDetail.where(realdate: beginning_of_year..end_of_month).where(orgname: company_long_name)
+    @data = if view_deptcode_sum
+      data.where(deptcode_sum: dept_codes)
+    else
+      data.where(deptcode: dept_codes)
+    end
   end
 
   private
