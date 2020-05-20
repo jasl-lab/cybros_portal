@@ -90,12 +90,12 @@ class Report::ContractSigningsController < Report::BaseController
       .order('ORG_ORDER.org_order DESC')
 
     cp_data = if @view_orgcode_sum
-      cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode_sum orgcode, org_order, ROUND(SUM(total)/10000, 2) cp_amount")
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode_sum orgcode, org_order, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRODUCTION_DEPT.orgcode_sum")
         .group(:orgcode_sum, :org_order)
         .where(orgcode_sum: @orgs_options)
     else
-      cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode, org_order, ROUND(SUM(total)/10000, 2) cp_amount")
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode, org_order, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRODUCTION_DEPT.orgcode")
         .group(:orgcode, :org_order)
         .where(orgcode: @orgs_options)

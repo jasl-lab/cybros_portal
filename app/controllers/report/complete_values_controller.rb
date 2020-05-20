@@ -24,11 +24,11 @@ class Report::CompleteValuesController < Report::BaseController
       .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum
-      data.select('orgcode_sum orgcode, org_order, SUM(total) sum_total')
+      data.select('orgcode_sum orgcode, org_order, SUM(IFNULL(total,0)) sum_total')
         .group(:orgcode_sum, :org_order)
         .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode_sum')
     else
-      data.select('orgcode, org_order, SUM(total) sum_total')
+      data.select('orgcode, org_order, SUM(IFNULL(total,0)) sum_total')
         .group(:orgcode, :org_order)
         .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE.orgcode')
     end
@@ -56,7 +56,7 @@ class Report::CompleteValuesController < Report::BaseController
     @complete_value_totals = data.collect { |d| (d.sum_total / 100_0000.0).round(0) }
     @fix_sum_complete_value_totals = ((Bi::CompleteValue.where(date: last_available_date)
       .where(month: @end_of_month.beginning_of_year..@end_of_month)
-      .select('SUM(total) sum_total').first.sum_total || 0) / 10000_0000.0).round(1)
+      .select('SUM(IFNULL(total,0)) sum_total').first.sum_total || 0) / 10000_0000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)

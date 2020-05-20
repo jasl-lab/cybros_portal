@@ -94,12 +94,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
 
     cp_data = if @view_deptcode_sum
-      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(total)/10000, 2) cp_amount")
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
     else
-      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(total)/10000, 2) cp_amount")
+      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
@@ -108,7 +108,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @cp_department_names = @all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
     @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_production_dept_date)
-      .select("ROUND(SUM(total)/10000, 2) cp_amounts").first.cp_amounts.to_f / 10000.to_f).round(2)
+      .select("ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amounts").first.cp_amounts.to_f / 10000.to_f).round(2)
 
     @cp_contract_amounts_per_staff = []
     @cp_contract_amounts.each_with_index do |contract_amount, index|

@@ -41,12 +41,12 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', last_available_date)
 
     data = if @view_deptcode_sum
-      data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(total) sum_total")
+      data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
     else
-      data.select("COMPLETE_VALUE_DEPT.deptcode, 部门排名, SUM(total) sum_total")
+      data.select("COMPLETE_VALUE_DEPT.deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
@@ -62,7 +62,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @sum_complete_value_year_totals = if orgcode == '000101' && @end_of_month.month == 12
       (policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode)
         .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
-        .select('SUM(total) sum_total').first.sum_total / 10000_0000.0).round(1)
+        .select('SUM(IFNULL(total,0)) sum_total').first.sum_total / 10000_0000.0).round(1)
     else
       (@complete_value_year_totals.sum / 10000.0).round(1)
     end

@@ -30,13 +30,13 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     real_data = if @view_deptcode_sum
       real_data.where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
-        .select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total, SUM(markettotal) markettotal")
+        .select("deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode_sum")
     else
       real_data.where(orgcode: selected_orgcode)
-        .select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(total) total, SUM(markettotal) markettotal")
+        .select("deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode")
         .group(:"ORG_REPORT_DEPT_ORDER.部门排名", :"SUB_COMPANY_REAL_RECEIVE.deptcode")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SUB_COMPANY_REAL_RECEIVE.deptcode")
@@ -74,7 +74,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     true_real_receives = true_real_meta_receives
-      .select("SUM(total) total")
+      .select("SUM(IFNULL(total,0)) total")
       .collect { |d| (d.total.to_f / 100_00.0).round(0) }
 
     @sum_real_receives = (true_real_receives.sum / 10000.0).round(1)
@@ -179,11 +179,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     complete_value_data = if @view_deptcode_sum
       Bi::CompleteValueDept.where(orgcode: ['H' + selected_orgcode, selected_orgcode])
-        .select("deptcode_sum deptcode, SUM(total) sum_total")
+        .select("deptcode_sum deptcode, SUM(IFNULL(total,0)) sum_total")
         .group(:deptcode_sum)
     else
       Bi::CompleteValueDept.where(orgcode: selected_orgcode)
-        .select("deptcode, SUM(total) sum_total")
+        .select("deptcode, SUM(IFNULL(total,0)) sum_total")
         .group(:deptcode)
     end.where(date: @real_data_last_available_date)
 

@@ -25,11 +25,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order('ORG_ORDER.org_order DESC')
 
     real_data = if @view_orgcode_sum
-      real_data.select("orgcode_sum orgcode, org_order, SUM(total) total, SUM(markettotal) markettotal")
+      real_data.select("orgcode_sum orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
         .group(:orgcode_sum, :org_order)
     else
-      real_data.select("orgcode, org_order, SUM(total) total, SUM(markettotal) markettotal")
+      real_data.select("orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
         .group(:orgcode, :org_order)
     end
@@ -108,7 +108,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     else
       Bi::CompleteValue.where(orgcode: current_user_companies)
     end.where(date: beginning_of_year..@end_of_month)
-      .select("orgcode, SUM(total) sum_total")
+      .select("orgcode, SUM(IFNULL(total,0)) sum_total")
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)

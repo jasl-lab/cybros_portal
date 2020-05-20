@@ -20,7 +20,7 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
     data = policy_scope(Bi::CompleteValue).where(orgcode: @selected_org_code)
       .where(date: last_available_date)
 
-    data = data.select("COMPLETE_VALUE.month, SUM(total) sum_total")
+    data = data.select("COMPLETE_VALUE.month, SUM(IFNULL(total,0)) sum_total")
         .group("COMPLETE_VALUE.month")
         .order("COMPLETE_VALUE.month")
 
