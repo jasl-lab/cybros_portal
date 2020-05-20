@@ -2,6 +2,8 @@
 
 class Company::KmMapsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_ie_warning, only: %i[show]
+
 
   def show
     @biz_category = params[:biz_category]&.strip
@@ -96,5 +98,13 @@ class Company::KmMapsController < ApplicationController
   def fill_progress
     service_stage = params[:service_stage]&.strip
     @project_progress = Edoc2::ProjectInfo.project_big_stage_milestones_maps[service_stage.to_sym]
+  end
+
+  private
+
+  def set_ie_warning
+    if browser.ie?
+      flash.now[:alert] = "本站点推荐在Chrome等非IE浏览器下浏览，Chrome浏览器可以在<a href='https://www.google.cn/chrome/'>https://www.google.cn/chrome/</a>下载。".html_safe
+    end
   end
 end
