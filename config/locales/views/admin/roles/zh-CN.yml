@@ -12,3 +12,12 @@ zh-CN:
           hr_report_writer: "人力资源报表修改"
           hr_group_reader: "人力资源集团报表查看"
           hr_subsidiary_reader: "人力资源子公司报表查看"
+      show:
+        title: "角色下的用户"
+        table:
+          id: "Id"
+          email: "邮箱"
+          position: "职位"
+          company: "公司"
+          clerk_code: "员工号"
+          chinese_name: "姓名"

@@ -12,3 +12,12 @@ en:
           hr_report_writer: "HR report writer"
           hr_group_reader: "HR group reader"
           hr_subsidiary_reader: "HR subsidiary reader"
+      show:
+        title: "Role users"
+        table:
+          id: "Id"
+          email: "Email"
+          position: "Position"
+          company: "Company"
+          clerk_code: "Clerk code"
+          chinese_name: "Chinese name"
