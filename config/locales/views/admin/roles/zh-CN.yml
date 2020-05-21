@@ -4,3 +4,11 @@ zh-CN:
     roles:
       index:
         title: "角色管理"
+        table:
+          id: "ID"
+          role_name: "角色"
+          hr_group_rt_reader: "人力资源集团报表实时查看"
+          hr_subsidiary_rt_reader: "人力资源子公司报表实时查看"
+          hr_report_writer: "人力资源报表修改"
+          hr_group_reader: "人力资源集团报表查看"
+          hr_subsidiary_reader: "人力资源子公司报表查看"

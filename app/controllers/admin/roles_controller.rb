@@ -7,7 +7,7 @@ class Admin::RolesController < Admin::ApplicationController
   def index
     prepare_meta_tags title: t(".title")
 
-    @roles = Role.all
+    @roles = Role.all.page(params[:page]).per(params[:per_page])
   end
 
   def show

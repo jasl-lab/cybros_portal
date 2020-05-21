@@ -4,3 +4,11 @@ en:
     roles:
       index:
         title: "Role Management"
+        table:
+          id: "ID"
+          role_name: "Role"
+          hr_group_rt_reader: "HR Group RT reader"
+          hr_subsidiary_rt_reader: "HR subsidiary RT reader"
+          hr_report_writer: "HR report writer"
+          hr_group_reader: "HR group reader"
+          hr_subsidiary_reader: "HR subsidiary reader"
