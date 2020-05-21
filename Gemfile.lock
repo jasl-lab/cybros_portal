@@ -265,7 +265,7 @@ GEM
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
-    omniauth_openid_connect (0.3.4)
+    omniauth_openid_connect (0.3.3)
       addressable (~> 2.5)
       omniauth (~> 1.9)
       openid_connect (~> 1.1)
@@ -469,7 +469,7 @@ DEPENDENCIES
   meta-tags
   minitest-ci
   mysql2
-  omniauth_openid_connect
+  omniauth_openid_connect (= 0.3.3)
   puma (~> 4.3.0)
   pundit
   rails (~> 6.0.3)
