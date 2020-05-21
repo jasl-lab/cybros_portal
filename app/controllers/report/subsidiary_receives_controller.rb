@@ -13,7 +13,8 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @all_month_names = Bi::SubCompanyRealReceive.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
-    beginning_of_year = Date.parse(@month_name).beginning_of_year
+    beginning_of_year = @end_of_month.beginning_of_year
+    beginning_of_month = @end_of_month.beginning_of_month
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
     selected_short_name = params[:company_name]&.strip
@@ -115,13 +116,32 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       h[short_name] = d.sum_total
       h
     end
+
+    real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum)
+      .where(date: beginning_of_month)
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
+    real_rate_sum = if @view_orgcode_sum
+      real_rate_sum.select("orgcode_sum orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode_sum")
+        .group(:orgcode_sum, :org_order)
+        .where(orgcode_sum: @orgs_options)
+    else
+      real_rate_sum.select("orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
+        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode")
+        .group(:orgcode, :org_order)
+        .where(orgcode: @orgs_options)
+    end
+
     @payback_rates = real_data.collect do |d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      complete_value = complete_value_hash.fetch(short_name, 100000)
-      if complete_value % 1 == 0
-        0
+      r = real_rate_sum.find { |r| r.orgcode == d.orgcode }
+      if r.present?
+        numerator = r.realamount_now + r.trans_now - r.realamount_nc - r.trans_nc
+        denominator = (r.sumvalue_change_nc - (r.realamount_nc + r.trans_nc)) * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
+        ((numerator / denominator.to_f)*100).round(1)
       else
-        ((d.total / complete_value.to_f) * 100).round(0)
+        0
       end
     end
   end

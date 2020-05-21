@@ -6,6 +6,7 @@ let subsidiaryRealReceivesStaffChart;
 let subsidiaryNeedReceivesStaffChart;
 
 export default class extends Controller {
+
   connect() {
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const inIFrame = this.data.get("in_iframe");
@@ -254,7 +255,7 @@ export default class extends Controller {
 
     const need_staff_option = {
         title: {
-          text: '一线人均应收款（财务+业务）'
+          text: '一线人均应收款（财务+业务）及本年回款率'
         },
         legend: {
             data: ['人均应收款（财务+业务）（万元）', '本年回款率'],
@@ -288,10 +289,28 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
+          min: 0,
+          max: 100,
+          interval: Math.ceil(100 / 5),
           axisLabel: {
             show: true,
             interval: 'auto',
             formatter: '{value}万'
+          }
+        },{
+          type: 'value',
+          name: '回款率',
+          position: 'right',
+          min: 0,
+          max: 200,
+          interval: Math.ceil(200 / 5),
+          axisLine: {
+            lineStyle: {
+              color: '#675BBA'
+            }
+          },
+          axisLabel: {
+            formatter: '{value}%'
           }
         }],
         series: [{
@@ -305,6 +324,22 @@ export default class extends Controller {
               show: true,
               position: 'top',
               color: '#3E3E3E'
+            }
+          }
+        },{
+          name: '本年回款率',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'circle',
+          symbolSize: 8,
+          data: paybackRatesWithColor,
+          barMaxWidth: 38,
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              distance: 20,
+              formatter: '{c}%'
             }
           }
         }]
