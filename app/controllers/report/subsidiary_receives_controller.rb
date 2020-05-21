@@ -138,7 +138,8 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       r = real_rate_sum.find { |r| r.orgcode == d.orgcode }
       if r.present?
         numerator = r.realamount_now + r.trans_now - r.realamount_nc - r.trans_nc
-        denominator = (r.sumvalue_change_nc - (r.realamount_nc + r.trans_nc)) * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
+        年初应收款 = r.sumvalue_change_nc - (r.realamount_nc + r.trans_nc)
+        denominator = (年初应收款 < 0 ? 0 : 年初应收款) * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
         ((numerator / denominator.to_f)*100).round(1)
       else
         0
@@ -148,9 +149,12 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
   def need_receives_staff_drill_down
     authorize Bi::SubCompanyRealRateSum
-      short_company_name = params[:company_name]
-      @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
-      begin_month = Date.parse(params[:month_name]).beginning_of_month
+    short_company_name = params[:company_name]
+    @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
+    company_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
+    begin_month = Date.parse(params[:month_name]).beginning_of_month
+    @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
+      .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code))).where(date: begin_month)
   end
 
   private

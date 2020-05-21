@@ -10,3 +10,12 @@ en:
         month_name: "Real receive year and month"
         org_names: "Organization names"
         confirm: "Confirm"
+        table:
+          specialty: "Specialty"
+          deptvalue: "Deptvalue"
+          sumvalue_nc: "Sum value NC"
+          sumvalue_change_nc: "Sum value change NC"
+          realamount_nc: "Realamount NC"
+          sumvalue_now: "Sum value now"
+          sumvalue_change_now: "Sum value change now"
+          realamount_now: "Real amount now"

@@ -10,3 +10,12 @@ zh-CN:
         month_name: "实收款的查询年月"
         org_names: "显示子公司"
         confirm: "确认"
+        table:
+          specialty: "Specialty"
+          deptvalue: "Deptvalue"
+          sumvalue_nc: "Sum value NC"
+          sumvalue_change_nc: "去年末累计完成产值"
+          realamount_nc: "去年末累计实收产值"
+          sumvalue_now: "Sum value now"
+          sumvalue_change_now: "累计当月完成产值"
+          realamount_now: " 累计当月实收产值"
