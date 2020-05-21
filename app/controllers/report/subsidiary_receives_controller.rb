@@ -146,6 +146,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
   end
 
+  def need_receives_staff_drill_down
+    authorize Bi::SubCompanyRealRateSum
+      short_company_name = params[:company_name]
+      @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
+      begin_month = Date.parse(params[:month_name]).beginning_of_month
+  end
+
   private
 
     def set_breadcrumbs

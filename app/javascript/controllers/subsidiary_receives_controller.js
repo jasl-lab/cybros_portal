@@ -376,7 +376,26 @@ export default class extends Controller {
       }
     }
 
+    function drill_down_need_receives_staff_on_click(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'line') {
+          const company_name = realXAxisData[params.dataIndex];
+          const month_name = $('#month_name').val();
+          const drill_down_url = '/report/subsidiary_receive/need_receives_staff_drill_down';
+          const sent_data = {
+            company_name,
+            month_name
+          };
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
+
     subsidiaryRealReceivesChart.on('click', drill_down_real_receives_on_click);
+    subsidiaryNeedReceivesStaffChart.on('click', drill_down_need_receives_staff_on_click);
     subsidiaryRealReceivesChart.setOption(real_option, false);
     subsidiaryNeedReceivesChart.setOption(need_option, false);
     subsidiaryRealReceivesStaffChart.setOption(real_staff_option, false);
