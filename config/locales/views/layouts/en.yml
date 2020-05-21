@@ -26,6 +26,7 @@ en:
         header: "Backend management"
         home: "Home"
         users: "Users"
+        roles: "Roles"
       company:
         header: "Company Home"
         knowledges: "Knowledges"

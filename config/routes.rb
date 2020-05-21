@@ -34,6 +34,8 @@ Rails.application.routes.draw do
         patch :login_as
       end
     end
+
+    resources :roles, only: %i[index show]
   end
 
   namespace :company do

@@ -13,6 +13,12 @@
           <%= t("layouts.sidebar.admin.users") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'admin/roles', html_options: {class: "nav-item"} do %>
+        <%= link_to admin_roles_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.admin.roles") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

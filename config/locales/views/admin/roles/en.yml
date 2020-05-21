@@ -1,0 +1,6 @@
+---
+en:
+  admin:
+    roles:
+      index:
+        title: "Role Management"
