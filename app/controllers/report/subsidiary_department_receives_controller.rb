@@ -12,6 +12,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @all_month_names = Bi::SubCompanyNeedReceive.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
     beginning_of_year = Date.parse(@month_name).beginning_of_year
     @real_receive_per_staff_ref = params[:real_receive_per_staff_ref] || 60
     @depts_options = params[:depts]
@@ -195,17 +196,29 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     sum_real_receives_for_payback = 0
     sum_need_receives_for_payback = 0
     total_complete_value_per_staff = 0
-    payback_rates = real_data.collect do |d|
-      dept_name = Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
-      complete_value = complete_value_hash.fetch(dept_name, 100000)
-      previous_year_need_receive = previous_year_need_receive_hash.fetch(dept_name, 100000)
-      sum_real_receives_for_payback += d.total
-      sum_need_receives_for_payback += (previous_year_need_receive.to_f + complete_value.to_f)
-      total_complete_value_per_staff += (complete_value % 1 == 0) ? 0 : complete_value
-      if complete_value % 1 == 0
-        0
+
+    real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum)
+      .where(date: beginning_of_month)
+
+    real_rate_sum = if @view_deptcode_sum
+      real_rate_sum.select("deptcode_sum deptcode, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
+        .group(:deptcode_sum)
+        .where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
+    else
+      real_rate_sum.select("deptcode, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
+        .group(:deptcode)
+        .where(orgcode: selected_orgcode)
+    end
+
+    @payback_rates = real_data.collect do |d|
+      r = real_rate_sum.find { |r| r.deptcode == d.deptcode }
+      if r.present?
+        numerator = r.realamount_now + r.trans_now - r.realamount_nc - r.trans_nc
+        年初应收款 = r.sumvalue_change_nc - (r.realamount_nc + r.trans_nc)
+        denominator = (年初应收款 < 0 ? 0 : 年初应收款) * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
+        ((numerator / denominator.to_f)*100).round(1)
       else
-        ((d.total / (previous_year_need_receive.to_f + complete_value.to_f)) * 100).round(0)
+        0
       end
     end
   end

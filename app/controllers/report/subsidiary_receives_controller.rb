@@ -134,7 +134,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
 
     @payback_rates = real_data.collect do |d|
-      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
       r = real_rate_sum.find { |r| r.orgcode == d.orgcode }
       if r.present?
         numerator = r.realamount_now + r.trans_now - r.realamount_nc - r.trans_nc
