@@ -86,7 +86,7 @@ class Report::CimToolsController < Report::BaseController
         render_csv_header 'CAD usage detail report'
         csv_res = CSV.generate do |csv|
           csv << ['ID', 'Session', 'Begin Operation', 'Operation', 'End Operation', 'IP address', 'MAC address',
-            'User ID', 'User email', 'User Name', 'User company', 'User department', 'User title',
+            'User ID', 'User email', 'User Name', 'User company', 'User department', 'User title', 'User leave date',
             'CMD name', 'CMD seconds', 'CMD data', 'SEG name', 'SEG function', 'Created at', 'Updated at']
           policy_scope(Cad::CadSession).includes(:user).order(id: :asc).find_each do |s|
             if s.operations.blank?
@@ -104,6 +104,7 @@ class Report::CimToolsController < Report::BaseController
               values << s.user.user_company_short_name
               values << s.user.user_department_name
               values << s.user.position_title
+              values << s.user.locked_at
               values << ''
               values << ''
               values << ''
