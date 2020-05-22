@@ -34,20 +34,13 @@ module Company
       prepare_meta_tags title: t('.form_title')
       add_to_breadcrumbs(t('company.official_stamp_usages.index.actions.new'), new_person_copy_of_business_license_path)
       @official_stamp_usage_apply = current_user.official_stamp_usage_applies.build
-      @official_stamp_usage_apply.employee_name = current_user.chinese_name
-      @official_stamp_usage_apply.clerk_code = current_user.clerk_code
       @official_stamp_usage_apply.application_class = '人力资源部'
-      current_user_department = current_user.departments.first
-      if current_user_department.present?
-        @official_stamp_usage_apply.belong_company_name = current_user_department.company_name
-        @official_stamp_usage_apply.belong_company_code = current_user_department.company_code
-        @official_stamp_usage_apply.belong_department_name = current_user_department.name
-        @official_stamp_usage_apply.belong_department_code = current_user_department.dept_code
-      end
+      set_6_predefined_field
     end
 
     def create
       @official_stamp_usage_apply = current_user.official_stamp_usage_applies.build(official_stamp_usage_apply_params)
+      set_6_predefined_field
       respond_to do |format|
         if @official_stamp_usage_apply.save
           format.html { redirect_to company_official_stamp_usages_path, notice: t('.success') }
@@ -125,6 +118,18 @@ module Company
     end
 
     private
+
+      def set_6_predefined_field
+        @official_stamp_usage_apply.employee_name = current_user.chinese_name
+        @official_stamp_usage_apply.clerk_code = current_user.clerk_code
+        current_user_department = current_user.departments.first
+        if current_user_department.present?
+          @official_stamp_usage_apply.belong_company_name = current_user_department.company_name
+          @official_stamp_usage_apply.belong_company_code = current_user_department.company_code
+          @official_stamp_usage_apply.belong_department_name = current_user_department.name
+          @official_stamp_usage_apply.belong_department_code = current_user_department.dept_code
+        end
+      end
 
       def set_official_stamp_usage_apply
         @official_stamp_usage_apply = policy_scope(Company::OfficialStampUsageApply).find(params[:id])
