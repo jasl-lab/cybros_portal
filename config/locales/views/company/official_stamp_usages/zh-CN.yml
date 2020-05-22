@@ -5,7 +5,7 @@ zh-CN:
       new:
         form_title: "新的行政职能盖章申请"
         form_header: "行政职能盖章申请表"
-        submit: "递交"
+        submit: "保存"
         employee_name: "员工姓名"
         clerk_code: "员工号"
         belong_company_name: "归属公司"
@@ -13,7 +13,7 @@ zh-CN:
         belong_department_name: "所属部门"
         belong_department_code: "所属部门编码"
         stamp_to_place: "盖章地点"
-        stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        stamp_to_place_hint: "崧易公章、嘉易公章只能选兆丰"
         application_class: "业务部门"
         application_class_hint: "申请盖章的部门或者申请所属业务类型的部门"
         application_subclasses: "申请盖章的原因"

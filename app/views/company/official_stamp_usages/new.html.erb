@@ -81,7 +81,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="select-application-class"><%= t('.application_class') %></label>
+        <label class="col-md-3 col-form-label" for="select-application-class">*<%= t('.application_class') %></label>
         <div class="col-md-9">
           <%= f.select :application_class, options_for_select(Company::OfficialStampUsageApply.usage_list.keys, selected = @official_stamp_usage_apply.application_class), { include_blank: false }, class: 'form-control-plaintext form-control', style: '', id: 'select-application-class',
             data: { remote: true, type: :script, url: url_for(controller: 'company/official_stamp_usages', action: 'fill_application_subclasses', format: 'js') } %>
@@ -92,7 +92,7 @@
     </div>
     <div class="col-md-6">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="select-application-subclasses"><%= t('.application_subclasses') %></label>
+        <label class="col-md-3 col-form-label" for="select-application-subclasses">*<%= t('.application_subclasses') %></label>
         <div class="col-md-9">
           <%= f.select :application_subclasses, options_for_select(Company::OfficialStampUsageApply.usage_list[:人力资源部], selected = @application_subclasses), {}, multiple: true, class: 'form-control', id: 'select-application-subclasses' %>
           <span class="help-block"><%= t('.application_subclasses_hint') %></span>

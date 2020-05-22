@@ -5,7 +5,7 @@ zh-CN:
       new:
         form_title: "新的公司营业执照副本申请"
         form_header: "公司营业执照副本申请表"
-        submit: "递交"
+        submit: "保存"
         employee_name: "员工姓名"
         clerk_code: "员工号"
         belong_company_name: "归属公司"
@@ -16,7 +16,7 @@ zh-CN:
         contract_belong_company_code: "劳动合同归属单位编码"
         contract_belong_company_hint: "三选一"
         stamp_to_place: "盖章地点"
-        stamp_to_place_hint: "崧易和嘉易只能选兆丰"
+        stamp_to_place_hint: "崧易公章、嘉易公章只能选兆丰"
         attachments: "附件"
         attachments_hint: "附件允许上传多个文件"
         stamp_comment: "用章事宜"
