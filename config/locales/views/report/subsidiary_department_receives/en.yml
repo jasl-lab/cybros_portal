@@ -11,11 +11,13 @@ en:
         real_receive_per_staff_ref: "Real receive per staff ref"
         dept_names: "Department names"
         confirm: "Confirm"
-      modal:
+      real_data_modal:
         table:
           project_name_and_code: "Project name and code"
           salescontractcode: "Sales contract code"
           salescontractname: "Sales contract name"
           real_receive: "Real receive"
           realdate: "Real date"
+        close: "Close"
+      need_receives_pay_rates_modal:
         close: "Close"

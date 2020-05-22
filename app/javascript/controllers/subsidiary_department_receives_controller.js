@@ -433,11 +433,13 @@ export default class extends Controller {
     function drill_down_need_receives_staff_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
+          const department_name = needXAxisData[params.dataIndex];
           const department_code = needXAxisCode[params.dataIndex];
           const month_name = $('#month_name').val();
           const drill_down_url = '/report/subsidiary_department_receive/need_receives_pay_rates_drill_down';
           const sent_data = {
             company_name: companyName,
+            department_name,
             department_code,
             month_name
           };

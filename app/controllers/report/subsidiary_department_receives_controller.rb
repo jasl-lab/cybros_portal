@@ -246,6 +246,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
   def need_receives_pay_rates_drill_down
     authorize Bi::SubCompanyRealRateSum
     short_company_name = params[:company_name]
+    @department_name = params[:department_name]
     department_code = params[:department_code]
     @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
     company_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
