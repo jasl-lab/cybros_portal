@@ -22,6 +22,7 @@ export default class extends Controller {
       "ajax": $('#official-stamp-usages-lists-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": normalColumns,
+      "order": [[ 4, 'desc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_official-stamp-usages-lists', JSON.stringify(data));

@@ -15,7 +15,7 @@ module Company
       @view_columns ||= {
         employee_name: { source: 'Company::OfficialStampUsageApply.employee_name', cond: :like, searchable: true, orderable: true },
         attachments: { source: nil, searchable: false, orderable: false },
-        created_at: { source: 'Personal::OfficialStampUsageApply.created_at', searchable: false, orderable: true },
+        created_at: { source: 'Company::OfficialStampUsageApply.created_at', searchable: false, orderable: true },
         task_id: { source: 'company::OfficialStampUsageApply.begin_task_id', cond: :string_eq, searchable: true, orderable: true },
         task_status: { source: 'company::OfficialStampUsageApply.status', searchable: false, orderable: true },
         belong_company_department: { source: 'company::OfficialStampUsageApply.belong_company_name', cond: :like, searchable: true, orderable: true },

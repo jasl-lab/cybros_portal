@@ -21,6 +21,7 @@ export default class extends Controller {
       "ajax": $('#copy-of-business-licenses-lists-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": normalColumns,
+      "order": [[ 4, 'desc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_copy-of-business-licenses-lists', JSON.stringify(data));

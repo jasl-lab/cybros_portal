@@ -21,6 +21,7 @@ export default class extends Controller {
       "ajax": $('#public-rental-housings-lists-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": normalColumns,
+      "order": [[ 4, 'desc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_public_rental_housings_lists', JSON.stringify(data));

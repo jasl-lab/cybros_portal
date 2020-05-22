@@ -21,6 +21,7 @@ export default class extends Controller {
       "ajax": $('#proof-of-employments-lists-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": normalColumns,
+      "order": [[ 4, 'desc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_proof_of_employments_lists', JSON.stringify(data));
