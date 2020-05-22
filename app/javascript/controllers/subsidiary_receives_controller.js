@@ -348,7 +348,7 @@ export default class extends Controller {
     function drill_down_real_receives_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          const series_company = realXAxisData[params.dataIndex];
+          const series_company = needXAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
           let url;
           if(sumOrgNames.indexOf(series_company) > -1) {

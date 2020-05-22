@@ -19,6 +19,7 @@ export default class extends Controller {
 
     departmentNeedReceivesChart = echarts.init(document.getElementById('department-need-receives-chart'));
 
+    const needXAxisCode = JSON.parse(this.data.get("need_x_axis_code"));
     const needXAxisData = JSON.parse(this.data.get("need_x_axis"));
     const needLongAccountReceives = JSON.parse(this.data.get("need_long_account_receives"));
     const needShortAccountReceives = JSON.parse(this.data.get("need_short_account_receives"));
@@ -429,7 +430,27 @@ export default class extends Controller {
       }
     }
 
+    function drill_down_need_receives_staff_on_click(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'line') {
+          const department_code = needXAxisCode[params.dataIndex];
+          const month_name = $('#month_name').val();
+          const drill_down_url = '/report/subsidiary_department_receive/need_receives_pay_rates_drill_down';
+          const sent_data = {
+            company_name: companyName,
+            department_code,
+            month_name
+          };
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
+
     departmentRealReceivesChart.on('click', drill_down_real_receives_on_click);
+    departmentNeedReceivesStaffChart.on('click', drill_down_need_receives_staff_on_click);
     departmentRealReceivesChart.setOption(real_option, false);
     departmentNeedReceivesChart.setOption(need_option, false);
     departmentRealReceivesStaffChart.setOption(real_staff_option, false);

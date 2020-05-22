@@ -114,7 +114,8 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       need_data
     end
 
-    @need_company_short_names = need_data.collect { |c| Bi::OrgReportDeptOrder.department_names(need_data_last_available_date).fetch(c.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(c.deptcode, c.deptcode)) }
+    @need_dept_codes = need_data.collect(&:deptcode)
+    @need_company_short_names = @need_dept_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(need_data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
@@ -241,6 +242,19 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       data.where(deptcode: dept_codes)
     end
   end
+
+  def need_receives_pay_rates_drill_down
+    authorize Bi::SubCompanyRealRateSum
+    short_company_name = params[:company_name]
+    department_code = params[:department_code]
+    @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
+    company_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
+    begin_month = Date.parse(params[:month_name]).beginning_of_month
+    @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
+        .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code)))
+      .where(date: begin_month, deptcode: department_code)
+  end
+
 
   private
 

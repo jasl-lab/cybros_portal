@@ -23,5 +23,9 @@ module Bi
     def need_receives_staff_drill_down?
       show?
     end
+
+    def need_receives_pay_rates_drill_down?
+      show?
+    end
   end
 end

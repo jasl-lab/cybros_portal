@@ -161,6 +161,7 @@ Rails.application.routes.draw do
     resource :subsidiary_department_receive, only: %i[show] do
       collection do
         get :real_data_drill_down
+        get :need_receives_pay_rates_drill_down
       end
     end
     resource :predict_contract, only: %i[show] do
