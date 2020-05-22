@@ -31,6 +31,7 @@ module API
       user.clerk_code = params[:clerk_code]
       user.chinese_name = params[:chinese_name]
       user.job_level = params[:job_level]
+      user.locked_at = params[:locked_at]
       user.desk_phone = params[:desk_phone]
       user.confirmed_at = Time.current
       if user.new_record?
