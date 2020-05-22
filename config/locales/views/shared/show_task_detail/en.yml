@@ -11,3 +11,5 @@ en:
         comments: "Comments"
         starttime: "Start time"
         endtime: "End time"
+      actions:
+        return: "Return"
