@@ -24,6 +24,7 @@ namespace :import_export do
       position_title = row['position_title']
       clerk_code = row['clerk_code']
       job_level = row['job_level']
+      locked_at = row['locked_at']
       chinese_name = row['chinese_name']
       desk_phone = row['desk_phone']
       combine_departments = row['combine_departments'].split(';')
@@ -32,6 +33,7 @@ namespace :import_export do
       user.position_title = position_title
       user.clerk_code = clerk_code
       user.job_level = job_level
+      user.locked_at = locked_at
       user.chinese_name = chinese_name
       user.desk_phone = desk_phone
       user.confirmed_at = Time.current
