@@ -100,3 +100,7 @@ en:
         hr_talent_pools: "HR talent pool"
       financial_management:
         header: "Financial management"
+        contract_information_form: "Contract information form"
+        project_contract_summary: "Project contract summary"
+        departmental_market_fees: "Departmental market fees"
+        bonus_distribution: "Bonus distribution"

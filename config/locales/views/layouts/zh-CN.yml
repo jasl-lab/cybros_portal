@@ -100,3 +100,7 @@ zh-CN:
         hr_talent_pools: "子公司月报-层级明细"
       financial_management:
         header: "财务所级管理"
+        contract_information_form: "合同信息表 - 商务责任"
+        project_contract_summary: "项目汇总-合同维度"
+        departmental_market_fees: "部门市场费主页面"
+        bonus_distribution: "奖金分配"
