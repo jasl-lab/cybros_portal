@@ -92,6 +92,8 @@ Rails.application.routes.draw do
 
     resource :operation, only: %i[show]
 
+    resource :financial_management, only: %i[show]
+
     resource :human_resource, only: %i[show]
 
     resource :subsidiary_human_resource, only: %i[show]

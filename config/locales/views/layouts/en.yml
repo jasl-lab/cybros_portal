@@ -17,6 +17,7 @@ en:
         report: "Report"
         operation: "Operation"
         human_resource: "Human resource"
+        financial_management: "Financial management"
       accounts:
         header: "User settings"
         profile: "Profile"
@@ -97,3 +98,5 @@ en:
         rt_group_hr_monthly_pures: "Realtime group HR monthly pure"
         rt_group_subsidiary_hr_monthlies: "Realtime group subsidiary HR monthly"
         hr_talent_pools: "HR talent pool"
+      financial_management:
+        header: "Financial management"

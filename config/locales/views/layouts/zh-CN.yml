@@ -17,6 +17,7 @@ zh-CN:
         report: "报表报告"
         operation: "天华市场运营分析"
         human_resource: "天华人力资源分析"
+        financial_management: "财务所级管理报表"
       accounts:
         header: "用户设置"
         profile: "个人信息"
@@ -97,3 +98,5 @@ zh-CN:
         rt_group_hr_monthly_pures: "实时集团数据-有撤销"
         rt_group_subsidiary_hr_monthlies: "实时子公司数据"
         hr_talent_pools: "子公司月报-层级明细"
+      financial_management:
+        header: "财务所级管理"

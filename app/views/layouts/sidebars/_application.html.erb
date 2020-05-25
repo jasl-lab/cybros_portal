@@ -37,6 +37,12 @@
           <%= t("layouts.sidebar.application.human_resource") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
+        <%= link_to report_financial_management_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-jedi"></i>
+          <%= t("layouts.sidebar.application.financial_management") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>
