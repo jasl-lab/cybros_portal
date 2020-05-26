@@ -14,6 +14,7 @@ export default class extends Controller {
 
     departmentRealReceivesChart = echarts.init(document.getElementById('department-real-receives-chart'));
 
+    const realXAxisCode = JSON.parse(this.data.get("real_x_axis_code"));
     const realXAxisData = JSON.parse(this.data.get("real_x_axis"));
     const realReceives = JSON.parse(this.data.get("real_receives"));
 
@@ -396,6 +397,7 @@ export default class extends Controller {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
           const department_name = realXAxisData[params.dataIndex];
+          const department_code = realXAxisCode[params.dataIndex];
           const month_name = $('#month_name').val();
 
           if(sumDeptNames.indexOf(department_name) > -1) {
@@ -419,7 +421,7 @@ export default class extends Controller {
             window.location.href = url;
           } else {
             const drill_down_url = '/report/subsidiary_department_receive/real_data_drill_down';
-            const sent_data = { department_name, month_name,
+            const sent_data = { department_code, department_name, month_name,
               company_name: companyName, view_deptcode_sum: viewDeptcodeSum };
             $.ajax(drill_down_url, {
               data: sent_data,
