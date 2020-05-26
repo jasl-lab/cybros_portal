@@ -9,7 +9,7 @@ class Report::ContractInformationFormsController < Report::BaseController
   def show
     authorize :"Bi::ContractInformationForm"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=FR/Finance/合同信息表+-+商务责任.cpt&ref_t=design&op=write&ref_c=16a27647-5aaf-48a6-b1fb-8496756a6a9e"
+    @redirect_url = "view/report?viewlet=FR/Finance/ContractInformationForm_CommercialResponsibility.cpt"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true

@@ -9,7 +9,7 @@ class Report::DepartmentalMarketFeesController < Report::BaseController
   def show
     authorize :"Bi::DepartmentalMarketFees"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=FR/Finance/部门市场费主页面.cpt&ref_t=design&op=view&ref_c=16a27647-5aaf-48a6-b1fb-8496756a6a9e"
+    @redirect_url = "view/report?viewlet=FR/Finance/DepartmentMarketFee.cpt"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
