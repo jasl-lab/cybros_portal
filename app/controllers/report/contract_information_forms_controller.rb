@@ -4,10 +4,16 @@ class Report::ContractInformationFormsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :prepare_encrypt_uid
 
   def show
     authorize :"Bi::ContractInformationForm"
     prepare_meta_tags title: t(".title")
+    @redirect_url = "view/report?viewlet=FR/Finance/合同信息表+-+商务责任.cpt&ref_t=design&op=write&ref_c=16a27647-5aaf-48a6-b1fb-8496756a6a9e"
+    @hide_app_footer = true
+    @hide_main_header_wrapper = true
+    @hide_scroll = true
+    render 'shared/report_show'
   end
 
   protected
