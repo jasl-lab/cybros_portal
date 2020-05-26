@@ -9,7 +9,7 @@ class Report::ProjectContractSummariesController < Report::BaseController
   def show
     authorize :"Bi::ProjectContractSummary"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=FR/Finance/ProjectSummary_ContractDimension.cpt"
+    @redirect_url = "view/report?viewlet=FR/Finance/ProjectSummary_ContractDimension.cpt&op=view"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
