@@ -15,8 +15,11 @@ export default class extends Controller {
       subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
     }
 
+    const xAxisJobCode = JSON.parse(this.data.get("x_axis_job_code"));
     const xAxisJob = JSON.parse(this.data.get("x_axis_job"));
+    const xAxisBluePrintCode = JSON.parse(this.data.get("x_axis_blue_print_code"));
     const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
+    const xAxisConstructionCode = JSON.parse(this.data.get("x_axis_construction_code"));
     const xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
     const companyCode = this.data.get("company_code");
     const dayRateData = JSON.parse(this.data.get("day_rate"));
@@ -194,23 +197,23 @@ export default class extends Controller {
     function drill_down_model_show(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
-          let department_name;
+          let department_code;
           switch (params.seriesName) {
             case '工作填报率':
-              department_name = xAxisJob[params.dataIndex]
+              department_code = xAxisJobCode[params.dataIndex]
               break;
             case '方案饱和度':
-              department_name = xAxisBluePrint[params.dataIndex]
+              department_code = xAxisBluePrintCode[params.dataIndex]
               break;
             case '施工图饱和度':
-              department_name = xAxisConstruction[params.dataIndex]
+              department_code = xAxisConstructionCode[params.dataIndex]
               break;
           }
           const begin_date = $('#begin_date').val();
           const end_date = $('#end_date').val();
           const sent_data = {
             company_code: companyCode,
-            department_name,
+            department_code,
             begin_date,
             end_date,
           };

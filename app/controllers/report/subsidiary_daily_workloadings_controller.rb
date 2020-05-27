@@ -101,20 +101,20 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       authorize Bi::WorkHoursDayCountDept
       short_company_code = params[:company_code]
       @company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(short_company_code, short_company_code)
-      department_name = params[:department_name]
+      department_code = params[:department_code]
       begin_date = Date.parse(params[:begin_date]).beginning_of_day
       end_date = Date.parse(params[:end_date]).end_of_day
 
-      belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: department_name)
+      belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门编号: department_code)
       department_codes = if belong_deparments.exists?
         belong_deparments.pluck(:编号).reject { |dept_name| dept_name.include?('撤销') }
       else
-        Bi::OrgReportDeptOrder.where(组织: @company_name, 部门: department_name).pluck(:编号)
+        department_code
       end
 
       @drill_down_subtitle = "#{begin_date.to_date} - #{end_date.to_date}"
       @data = policy_scope(Bi::WorkHoursDayCountDept).where(date: begin_date..end_date)
-        .where(orgcode: short_company_code, deptcode: department_codes)
+        .where(orgcode: short_company_code, deptcode: department_code)
         .order(date: :desc)
     end
 
