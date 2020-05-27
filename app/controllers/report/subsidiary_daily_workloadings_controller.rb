@@ -52,15 +52,16 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     # exclude 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
     construction_data = construction_data.where.not(deptcode: %w[000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075]) if @short_company_name == '上海天华'
 
-    @job_company_or_department_names = job_data.collect(&:deptcode).collect do |dept_code|
+    @job_company_or_department_codes = job_data.collect(&:deptcode)
+    @job_company_or_department_names = @job_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
-    blue_print_company_or_department_codes = blue_print_data.collect(&:deptcode)
-    @blue_print_company_or_department_names = blue_print_company_or_department_codes.collect do |dept_code|
+    @blue_print_company_or_department_codes = blue_print_data.collect(&:deptcode)
+    @blue_print_company_or_department_names = @blue_print_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
-    construction_company_or_department_codes = construction_data.collect(&:deptcode)
-    @construction_company_or_department_names = construction_company_or_department_codes.collect do |dept_code|
+    @construction_company_or_department_codes = construction_data.collect(&:deptcode)
+    @construction_company_or_department_names = @construction_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
 
