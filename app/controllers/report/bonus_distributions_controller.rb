@@ -9,7 +9,7 @@ class Report::BonusDistributionsController < Report::BaseController
   def show
     authorize :"Bi::BonusDistribution"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=FR/Finance/BonusShares.cpt&op=view"
+    @redirect_url = "view/report?viewlet=FR/Finance/BonusShares.frm&ref_t=design"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
