@@ -34,21 +34,12 @@ module Person
       prepare_meta_tags title: t('.form_title')
       add_to_breadcrumbs(t('person.copy_of_business_licenses.index.actions.new'), new_person_copy_of_business_license_path)
       @copy_of_business_license_apply = current_user.copy_of_business_license_applies.build
-      @copy_of_business_license_apply.employee_name = current_user.chinese_name
-      @copy_of_business_license_apply.clerk_code = current_user.clerk_code
-      current_user_department = current_user.departments.first
-      if current_user_department.present?
-        @copy_of_business_license_apply.belong_company_name = current_user_department.company_name
-        @copy_of_business_license_apply.belong_company_code = current_user_department.company_code
-        @copy_of_business_license_apply.belong_department_name = current_user_department.name
-        @copy_of_business_license_apply.belong_department_code = current_user_department.dept_code
-        @copy_of_business_license_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
-        @copy_of_business_license_apply.contract_belong_company_code = Bi::OrgShortName.org_code_by_long_name.fetch(@copy_of_business_license_apply.contract_belong_company, current_user_department.company_code)
-      end
+      set_8_predefined_field
     end
 
     def create
       @copy_of_business_license_apply = current_user.copy_of_business_license_applies.build(copy_of_business_license_apply_params)
+      set_8_predefined_field
       respond_to do |format|
         if @copy_of_business_license_apply.save
           format.html { redirect_to person_copy_of_business_licenses_path, notice: t('.success') }
@@ -120,6 +111,20 @@ module Person
     end
 
     private
+
+      def set_8_predefined_field
+        @copy_of_business_license_apply.employee_name = current_user.chinese_name
+        @copy_of_business_license_apply.clerk_code = current_user.clerk_code
+        current_user_department = current_user.departments.first
+        if current_user_department.present?
+          @copy_of_business_license_apply.belong_company_name = current_user_department.company_name
+          @copy_of_business_license_apply.belong_company_code = current_user_department.company_code
+          @copy_of_business_license_apply.belong_department_name = current_user_department.name
+          @copy_of_business_license_apply.belong_department_code = current_user_department.dept_code
+          @copy_of_business_license_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
+          @copy_of_business_license_apply.contract_belong_company_code = Bi::OrgShortName.org_code_by_long_name.fetch(@copy_of_business_license_apply.contract_belong_company, current_user_department.company_code)
+        end
+      end
 
       def set_copy_of_business_license_apply
         @copy_of_business_license_apply = policy_scope(Personal::CopyOfBusinessLicenseApply).find(params[:id])

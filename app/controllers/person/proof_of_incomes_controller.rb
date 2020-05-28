@@ -34,21 +34,12 @@ module Person
       prepare_meta_tags title: t('.form_title')
       add_to_breadcrumbs(t('person.proof_of_incomes.index.actions.new'), new_person_proof_of_income_path)
       @proof_of_income_apply = current_user.proof_of_income_applies.build
-      @proof_of_income_apply.employee_name = current_user.chinese_name
-      @proof_of_income_apply.clerk_code = current_user.clerk_code
-      current_user_department = current_user.departments.first
-      if current_user_department.present?
-        @proof_of_income_apply.belong_company_name = current_user_department.company_name
-        @proof_of_income_apply.belong_company_code = current_user_department.company_code
-        @proof_of_income_apply.belong_department_name = current_user_department.name
-        @proof_of_income_apply.belong_department_code = current_user_department.dept_code
-        @proof_of_income_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
-        @proof_of_income_apply.contract_belong_company_code = Bi::OrgShortName.org_code_by_long_name.fetch(@proof_of_income_apply.contract_belong_company, current_user_department.company_code)
-      end
+      set_8_predefined_field
     end
 
     def create
       @proof_of_income_apply = current_user.proof_of_income_applies.build(proof_of_income_apply_params)
+      set_8_predefined_field
       respond_to do |format|
         if @proof_of_income_apply.save
           format.html { redirect_to person_proof_of_incomes_path, notice: t('.success') }
@@ -120,6 +111,20 @@ module Person
     end
 
     private
+
+      def set_8_predefined_field
+        @proof_of_income_apply.employee_name = current_user.chinese_name
+        @proof_of_income_apply.clerk_code = current_user.clerk_code
+        current_user_department = current_user.departments.first
+        if current_user_department.present?
+          @proof_of_income_apply.belong_company_name = current_user_department.company_name
+          @proof_of_income_apply.belong_company_code = current_user_department.company_code
+          @proof_of_income_apply.belong_department_name = current_user_department.name
+          @proof_of_income_apply.belong_department_code = current_user_department.dept_code
+          @proof_of_income_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
+          @proof_of_income_apply.contract_belong_company_code = Bi::OrgShortName.org_code_by_long_name.fetch(@proof_of_income_apply.contract_belong_company, current_user_department.company_code)
+        end
+      end
 
       def set_proof_of_income_apply
         @proof_of_income_apply = policy_scope(Personal::ProofOfIncomeApply).find(params[:id])

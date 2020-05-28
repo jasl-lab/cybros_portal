@@ -34,21 +34,12 @@ module Person
       prepare_meta_tags title: t('.form_title')
       add_to_breadcrumbs(t('person.public_rental_housings.index.actions.new'), new_person_public_rental_housing_path)
       @public_rental_housing_apply = current_user.public_rental_housing_applies.build
-      @public_rental_housing_apply.employee_name = current_user.chinese_name
-      @public_rental_housing_apply.clerk_code = current_user.clerk_code
-      current_user_department = current_user.departments.first
-      if current_user_department.present?
-        @public_rental_housing_apply.belong_company_name = current_user_department.company_name
-        @public_rental_housing_apply.belong_company_code = current_user_department.company_code
-        @public_rental_housing_apply.belong_department_name = current_user_department.name
-        @public_rental_housing_apply.belong_department_code = current_user_department.dept_code
-        @public_rental_housing_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
-        @public_rental_housing_apply.contract_belong_company_code = current_user_department.company_code
-      end
+      set_8_predefined_field
     end
 
     def create
       @public_rental_housing_apply = current_user.public_rental_housing_applies.build(public_rental_housing_apply_params)
+      set_8_predefined_field
       respond_to do |format|
         if @public_rental_housing_apply.save
           format.html { redirect_to person_public_rental_housings_path, notice: t('.success') }
@@ -120,6 +111,20 @@ module Person
     end
 
     private
+
+      def set_8_predefined_field
+        @public_rental_housing_apply.employee_name = current_user.chinese_name
+        @public_rental_housing_apply.clerk_code = current_user.clerk_code
+        current_user_department = current_user.departments.first
+        if current_user_department.present?
+          @public_rental_housing_apply.belong_company_name = current_user_department.company_name
+          @public_rental_housing_apply.belong_company_code = current_user_department.company_code
+          @public_rental_housing_apply.belong_department_name = current_user_department.name
+          @public_rental_housing_apply.belong_department_code = current_user_department.dept_code
+          @public_rental_housing_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
+          @public_rental_housing_apply.contract_belong_company_code = current_user_department.company_code
+        end
+      end
 
       def set_proof_of_income_apply
         @public_rental_housing_apply = policy_scope(Personal::PublicRentalHousingApply).find(params[:id])
