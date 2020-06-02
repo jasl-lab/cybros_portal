@@ -16,7 +16,7 @@ module Bi
     end
 
     def drill_down_amount?
-      show? || user.user_company_names.include?(record.orgname)
+      show? || (user.roles.pluck(:report_company_detail_viewer).any? && user.user_company_names.include?(record.orgname) && user.user_department_names.include?(record.deptname))
     end
   end
 end
