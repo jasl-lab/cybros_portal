@@ -13,6 +13,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSignDept).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
+    raise Pundit::NotAuthorizedError if @month_name.blank?
     @end_of_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = Date.parse(@month_name).beginning_of_year
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
