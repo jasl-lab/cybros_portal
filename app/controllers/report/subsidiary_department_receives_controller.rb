@@ -219,7 +219,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         年初应收款 = r.sumvalue_change_nc - r.realamount_nc
         分母 = 年初应收款 * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
         res = (分子 / 分母.to_f)*100
-        (res> 100 ? 100 : res).round(1)
+        (res> 100 ? 100 : res).round(0)
       else
         0
       end
