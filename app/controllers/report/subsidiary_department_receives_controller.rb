@@ -250,13 +250,22 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     authorize Bi::SubCompanyRealRateSum
     short_company_name = params[:company_name]
     @department_name = params[:department_name]
-    department_code = params[:department_code]
+    department_codes = [params[:department_code].strip]
     @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
     company_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
     begin_month = Date.parse(params[:month_name]).beginning_of_month
+
+    belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门编号: department_codes)
+    department_codes = if belong_deparments.exists?
+      belong_deparments.pluck(:编号).reject { |dept_name| dept_name.include?('撤销') }
+    else
+      department_codes
+    end
+
     @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
         .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code)))
-      .where(date: begin_month, deptcode: department_code)
+      .where(date: begin_month, deptcode: department_codes)
+
     salescontractcodes = @data.collect(&:salescontractcode)
     projectitemcodes = @data.collect(&:projectitemcode)
     @sa_contracts = Bi::SaContract.where(salescontractcode: salescontractcodes)
