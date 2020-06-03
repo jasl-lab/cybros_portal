@@ -11,6 +11,7 @@ en:
         org_names: "Organization names"
         confirm: "Confirm"
         table:
+          salescontractcode: "Sales contract code"
           specialty: "Specialty"
           deptvalue: "Deptvalue"
           sumvalue_nc: "Sum value NC"

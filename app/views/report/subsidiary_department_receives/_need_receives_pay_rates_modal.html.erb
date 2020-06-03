@@ -10,6 +10,7 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
+      <th><%= t("report.subsidiary_receives.show.table.salescontractcode") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.specialty") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.deptvalue") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.sumvalue_nc") -%></th>
@@ -23,6 +24,7 @@
   <tbody>
     <% @data.each do |d| %>
       <tr>
+        <td><%= d.salescontractcode -%></td>
         <td><%= d.specialty -%></td>
         <td><%= d.deptvalue -%></td>
         <td><%= d.sumvalue_nc -%></td>
