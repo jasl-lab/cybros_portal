@@ -10,9 +10,7 @@
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th><%= t("report.subsidiary_receives.show.table.salescontractcode") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.salescontractname") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.specialty") -%></th>
+      <th><%= t("report.subsidiary_receives.show.table.salescontractcode_name_specialty") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.deptvalue") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.sumvalue_nc") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.sumvalue_change_nc") -%></th>
@@ -25,10 +23,14 @@
   <tbody>
     <% @data.each do |d| %>
       <tr>
-        <td><%= d.salescontractcode -%></td>
-        <% s = @sa_contracts.find { |m| m.salescontractcode == d.salescontractcode }  %>
-        <td><%= s&.salescontractname -%></td>
-        <td><%= d.specialty -%></td>
+        <td>
+          <%= d.salescontractcode -%>
+          <br />
+          <% s = @sa_contracts.find { |m| m.salescontractcode == d.salescontractcode }  %>
+          <%= s&.salescontractname -%>
+          <br />
+          <%= d.specialty -%>
+        </td>
         <td><%= d.deptvalue -%></td>
         <td><%= d.sumvalue_nc -%></td>
         <td><%= d.sumvalue_change_nc -%></td>
