@@ -3,9 +3,9 @@
     <div class="modal-header">
       <h5 class="modal-title" style="flex: 1"><%= @company_name -%></h5>
       <div style="flex: 1" class="text-center"><%= Array(@dept_name).to_sentence -%></div>
-      <button style="flex: 1" type="button" class="close text-right" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <a style="flex: 1" class="close text-right" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
     </div>
     <div class="modal-body">
       <%= render partial: "#{params[:action]}_table", locals: { rows: rows } %>

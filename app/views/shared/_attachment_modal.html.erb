@@ -2,9 +2,9 @@
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title"><%= attachment.filename %></h5>
-      <button type="button" class="close text-right" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <a class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
     </div>
     <div class="modal-body">
       <% if attachment.blob.content_type.starts_with?('image/') %>

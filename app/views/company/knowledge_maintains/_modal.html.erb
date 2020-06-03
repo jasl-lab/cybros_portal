@@ -2,9 +2,9 @@
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title"><%= knowledge.question -%></h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <a class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
     </div>
 <%= form_with(model: knowledge, url: company_knowledge_maintain_path(knowledge), class: 'form-horizontal') do |f| %>
     <div class="modal-body">
