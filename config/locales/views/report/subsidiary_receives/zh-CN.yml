@@ -12,6 +12,7 @@ zh-CN:
         confirm: "确认"
         table:
           salescontractcode: "合同编号"
+          salescontractname: "合同名称"
           specialty: "专业"
           deptvalue: "本部门策划产值"
           sumvalue_nc: "年初累计完成产值"

@@ -11,6 +11,7 @@
   <thead>
     <tr>
       <th><%= t("report.subsidiary_receives.show.table.salescontractcode") -%></th>
+      <th><%= t("report.subsidiary_receives.show.table.salescontractname") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.specialty") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.deptvalue") -%></th>
       <th><%= t("report.subsidiary_receives.show.table.sumvalue_nc") -%></th>
@@ -25,6 +26,8 @@
     <% @data.each do |d| %>
       <tr>
         <td><%= d.salescontractcode -%></td>
+        <% s = @sa_contracts.find { |m| m.salescontractcode == d.salescontractcode }  %>
+        <td><%= s&.salescontractname -%></td>
         <td><%= d.specialty -%></td>
         <td><%= d.deptvalue -%></td>
         <td><%= d.sumvalue_nc -%></td>
