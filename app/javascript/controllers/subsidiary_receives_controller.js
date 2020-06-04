@@ -348,6 +348,37 @@ export default class extends Controller {
     function drill_down_real_receives_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
+          const series_company = realXAxisData[params.dataIndex];
+          const month_name = $('#month_name').val();
+          let url;
+          if(sumOrgNames.indexOf(series_company) > -1) {
+            if (inIFrame == "true") {
+              url = "/report/subsidiary_receive?in_iframe=true";
+            } else {
+              url = "/report/subsidiary_receive";
+            }
+          } else {
+            if (inIFrame == "true") {
+              url = "/report/subsidiary_department_receive?in_iframe=true&view_deptcode_sum=true";
+            } else {
+              url = "/report/subsidiary_department_receive?view_deptcode_sum=true";
+            }
+          }
+
+          if (url.indexOf('?') > -1) {
+            url += '&company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          } else {
+            url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
+          }
+
+          window.location.href = url;
+        }
+      }
+    }
+
+    function drill_down_need_receives_on_click(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
           const series_company = needXAxisData[params.dataIndex];
           const month_name = $('#month_name').val();
           let url;
@@ -394,12 +425,16 @@ export default class extends Controller {
       }
     }
 
-    subsidiaryRealReceivesChart.on('click', drill_down_real_receives_on_click);
-    subsidiaryNeedReceivesStaffChart.on('click', drill_down_need_receives_staff_on_click);
     subsidiaryRealReceivesChart.setOption(real_option, false);
+    subsidiaryRealReceivesChart.on('click', drill_down_real_receives_on_click);
+
     subsidiaryNeedReceivesChart.setOption(need_option, false);
+    subsidiaryNeedReceivesChart.on('click', drill_down_need_receives_on_click);
+
     subsidiaryRealReceivesStaffChart.setOption(real_staff_option, false);
+
     subsidiaryNeedReceivesStaffChart.setOption(need_staff_option, false);
+    subsidiaryNeedReceivesStaffChart.on('click', drill_down_need_receives_staff_on_click);
 
     setTimeout(() => {
       subsidiaryRealReceivesChart.resize();
