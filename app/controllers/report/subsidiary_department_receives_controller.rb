@@ -265,12 +265,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
         .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code)))
       .where(date: begin_month, deptcode: department_codes)
-
-    salescontractcodes = @data.collect(&:salescontractcode)
-    projectitemcodes = @data.collect(&:projectitemcode)
-    @sa_contracts = Bi::SaContract.where(salescontractcode: salescontractcodes)
-    @contract_sign_details = Bi::ContractHoldSignDetail.where(projectitemcode: projectitemcodes)
-    @contract_unsign_details = Bi::ContractHoldUnsignDetail.where(projectitemcode: projectitemcodes)
   end
 
 

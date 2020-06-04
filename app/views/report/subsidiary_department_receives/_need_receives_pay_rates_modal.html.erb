@@ -33,21 +33,14 @@
         <td>
           <%= d.salescontractcode -%>
           <br />
-          <% sc = @sa_contracts.find { |m| m.salescontractcode == d.salescontractcode }  %>
-          <%= sc&.salescontractname -%>
+          <%= d.salescontractname -%>
           <br />
           <%= d.specialty -%>
         </td>
         <td>
           <%= d.projectitemcode -%>
           <br />
-          <% cs = @contract_sign_details.find { |m| m.projectitemcode == d.projectitemcode }  %>
-          <% if cs.present? %>
-            <%= cs.projectitemname -%>
-          <% else %>
-            <% cs = @contract_unsign_details.find { |m| m.projectitemcode == d.projectitemcode }  %>
-            <%= cs&.projectitemname %>
-          <% end %>
+          <%= d.projectitemname -%>
         </td>
         <td><%= d.deptvalue&.round(0) -%></td>
         <td><%= d.sumvalue_nc&.round(0) -%></td>
