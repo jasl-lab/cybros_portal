@@ -419,14 +419,6 @@ export default class extends Controller {
             }
 
             window.location.href = url;
-          } else {
-            const drill_down_url = '/report/subsidiary_department_receive/real_data_drill_down';
-            const sent_data = { department_code, department_name, month_name,
-              company_name: companyName, view_deptcode_sum: viewDeptcodeSum };
-            $.ajax(drill_down_url, {
-              data: sent_data,
-              dataType: 'script'
-            });
           }
         }
       }
@@ -453,12 +445,14 @@ export default class extends Controller {
       }
     }
 
-    departmentRealReceivesChart.on('click', drill_down_real_receives_on_click);
-    departmentNeedReceivesStaffChart.on('click', drill_down_need_receives_staff_on_click);
     departmentRealReceivesChart.setOption(real_option, false);
+    departmentRealReceivesChart.on('click', drill_down_real_receives_on_click);
+
     departmentNeedReceivesChart.setOption(need_option, false);
     departmentRealReceivesStaffChart.setOption(real_staff_option, false);
+
     departmentNeedReceivesStaffChart.setOption(need_staff_option, false);
+    departmentNeedReceivesStaffChart.on('click', drill_down_need_receives_staff_on_click);
 
     setTimeout(() => {
       departmentRealReceivesChart.resize();
