@@ -233,7 +233,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     department_codes = [params[:department_code].strip]
     @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
     company_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
-    begin_month = Date.parse(params[:month_name]).beginning_of_month
+    @begin_month = Date.parse(params[:month_name]).beginning_of_month
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门编号: department_codes)
     department_codes = if belong_deparments.exists?
@@ -244,7 +244,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
     @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
         .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code)))
-      .where(date: begin_month, deptcode: department_codes)
+      .where(date: @begin_month, deptcode: department_codes)
   end
 
 

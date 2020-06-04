@@ -20,3 +20,4 @@ zh-CN:
           sumvalue_now: "当前累计完成产值（实际）"
           sumvalue_change_now: "当前累计完成产值（处理）"
           realamount_now: "当前累计已结算产值"
+          pay_rates: "回款率"
