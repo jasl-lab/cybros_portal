@@ -19,6 +19,44 @@ class Person::NameCardsController < ApplicationController
     end
   end
 
+  def report
+    authorize NameCardApply
+
+    respond_to do |format|
+      format.csv do
+        render_csv_header 'name card applies'
+        csv_res = CSV.generate do |csv|
+          csv << ['ID', 'chinese_name', 'english_name', 'email', 'begin_task_id','back_color','thickness',
+                  'department_name', 'en_department_name', 'title', 'en_title',
+                  'mobile', 'phone_ext', 'fax_no','print_out_box_number','status','created_at']
+          policy_scope(NameCardApply).find_each do |s|
+            values = []
+            values << s.id
+            values << s.chinese_name
+            values << s.english_name
+            values << s.email
+            values << s.begin_task_id
+            values << s.back_color
+            values << s.thickness
+            values << s.department_name
+            values << s.en_department_name
+            values << s.title
+            values << s.en_title
+            values << s.mobile
+            values << s.phone_ext
+            values << s.fax_no
+            values << s.print_out_box_number
+            values << s.status
+            values << s.created_at
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
+      end
+    end
+  end
+
+
   def new
     prepare_meta_tags title: t(".form_title")
     add_to_breadcrumbs(t("person.name_cards.index.actions.new"), new_person_name_card_path)

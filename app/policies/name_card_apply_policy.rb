@@ -8,4 +8,8 @@ class NameCardApplyPolicy < ApplicationPolicy
       end
     end
   end
+
+  def report?
+    user.admin? || user.chinese_name == '丁一'
+  end
 end

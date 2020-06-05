@@ -47,6 +47,7 @@ en:
           delete: "Delete"
           start_approve: "Request approve and submit"
           look_workflow: "Look workflow process"
+          report: "Export the report"
         table:
           task_id: "Task ID"
           name: "Name in Chinese"

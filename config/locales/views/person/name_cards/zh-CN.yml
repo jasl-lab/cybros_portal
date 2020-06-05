@@ -49,6 +49,7 @@ zh-CN:
           delete: "删除"
           start_approve: "提交并发起流程"
           look_workflow: "查看流程进度"
+          report: "导出报表"
         table:
           task_id: "任务 ID"
           name: "姓名"

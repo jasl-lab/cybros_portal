@@ -3,7 +3,13 @@
     <li class="action_bar-item">
       <%= link_to t(".actions.new"), new_person_name_card_path, class: "btn text-primary" %>
     </li>
+    <% if current_user.present? && policy(NameCardApply).report? %>
+      <li class="action_bar-item">
+        <%= link_to t(".actions.report"), report_person_name_cards_path(format: :csv), class: "btn text-primary" %>
+      </li>
+    <% end %>
   </ol>
+
 <% end %>
 
 <div class="row justify-content-center">
