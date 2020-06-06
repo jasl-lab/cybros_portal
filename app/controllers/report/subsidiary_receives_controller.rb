@@ -90,16 +90,19 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @fix_need_short_account_receives = (fix_need_data.short_account_receive / 100_0000.0).round(0)
     @fix_need_should_receives = @fix_need_long_account_receives + @fix_need_short_account_receives
 
-    staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
+    staff_per_orgcode = if @end_of_month.year <= 2020 && @end_of_month.month < 5
+      Bi::StaffCount.staff_per_orgcode(@end_of_month)
+    else
+      Bi::YearAvgStaff.staff_per_orgcode_by_date_and_sum(@end_of_month, @view_deptcode_sum)
+    end
+
     @real_receives_per_staff = real_data.collect do |d|
-      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      staff_number = staff_per_company.fetch(short_name, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = staff_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       (d.total / (staff_number * 10000).to_f).round(0)
     end
     @need_should_receives_per_staff = need_data.collect do |d|
-      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      staff_number = staff_per_company.fetch(short_name, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = staff_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
