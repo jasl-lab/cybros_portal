@@ -56,7 +56,7 @@ module API
         DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
       end
 
-      user.whitelisted_jwts.create(jti: jti, aud: aud, exp: exp)
+      user.allowlisted_jwts.create(jti: jti, aud: aud, exp: exp)
       head :ok
     end
   end
