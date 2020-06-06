@@ -35,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @whitelisted_jwts.each do |jwt| %>
+        <% @allowlisted_jwts.each do |jwt| %>
           <tr>
             <td><%= jwt.user.email -%></td>
             <td>
