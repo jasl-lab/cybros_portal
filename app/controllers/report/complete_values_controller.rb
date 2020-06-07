@@ -67,7 +67,7 @@ class Report::CompleteValuesController < Report::BaseController
       Bi::YearAvgStaff.staff_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
     end
     @complete_value_totals_per_staff = data.collect do |d|
-      staff_number = staff_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = staff_per_dept_code.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       if staff_number.zero?
         0
       else
@@ -88,8 +88,14 @@ class Report::CompleteValuesController < Report::BaseController
     else
       0
     end
-    @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
-
+    @complete_value_year_totals_per_staff = data.collect do |d|
+      staff_number = staff_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      if staff_number.zero?
+        0
+      else
+        (d.sum_total / (staff_number * 10000).to_f).round(0)
+      end
+    end
     @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
     sum_of_complete_value_year_totals_per_staff = @complete_value_year_totals_per_staff.sum.to_f
     @fix_avg_complete_value_year_totals_per_staff = if @complete_value_year_totals_per_staff.present?

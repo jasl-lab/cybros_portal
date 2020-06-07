@@ -81,11 +81,15 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
 
     @complete_value_totals_per_staff = data.collect do |d|
-      staff_number = staff_per_dept_code_by_year.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
-      (d.sum_total / ((staff_number.zero? ? 1 : staff_number) * 10000).to_f).round(0)
+      staff_number = @staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      (d.sum_total / ((staff_number.zero? ? Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM : staff_number) * 10000).to_f).round(0)
     end
 
-    @complete_value_year_totals_per_staff = @complete_value_totals_per_staff.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
+    @complete_value_year_totals_per_staff = data.collect do |d|
+      staff_number = staff_per_dept_code_by_year.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      (d.sum_total / ((staff_number.zero? ? Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM : staff_number) * 10000).to_f).round(0)
+    end
+
     @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
     @total_staff_num = 0
     @all_department_codes.each do |dept_code|
