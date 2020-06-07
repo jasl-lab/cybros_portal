@@ -72,7 +72,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @staff_per_dept_code = if orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_dept_code_by_date_and_sum(orgcode, @end_of_month, @view_deptcode_sum)
+      Bi::YearAvgStaff.staff_per_dept_code_by_year_and_sum(orgcode, @end_of_month, @view_deptcode_sum)
     end
 
     @complete_value_totals_per_staff = data.collect do |d|

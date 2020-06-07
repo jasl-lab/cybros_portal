@@ -64,7 +64,7 @@ class Report::CompleteValuesController < Report::BaseController
     staff_per_orgcode = if @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::StaffCount.staff_per_orgcode(@end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
+      Bi::YearAvgStaff.staff_per_dept_code_by_year_and_sum(@end_of_month, @view_orgcode_sum)
     end
     @staff_per_company = staff_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @complete_value_totals_per_staff = data.collect do |d|
