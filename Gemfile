@@ -47,7 +47,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "config"
 
 gem "devise"
-gem "omniauth_openid_connect", '= 0.3.3'
+gem "omniauth_openid_connect"
 gem "devise_invitable"
 gem "devise-i18n"
 gem "devise-jwt"
