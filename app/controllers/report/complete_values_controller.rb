@@ -60,8 +60,9 @@ class Report::CompleteValuesController < Report::BaseController
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
-    @staff_per_company = Bi::StaffCount.staff_per_short_company_name(@end_of_month)
+
     staff_per_orgcode = Bi::StaffCount.staff_per_orgcode(@end_of_month)
+    @staff_per_company = staff_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @complete_value_totals_per_staff = data.collect do |d|
       staff_number = staff_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       if staff_number.zero?
