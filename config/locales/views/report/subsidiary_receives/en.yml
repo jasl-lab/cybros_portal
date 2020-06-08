@@ -12,7 +12,12 @@ en:
         confirm: "Confirm"
         table:
           salescontractcode_name_specialty: "Sales contract code, name and specialty"
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          specialty: "Specialty"
           projectitemcode_name: "Project item code and name"
+          projectitemcode: "Project item code"
+          projectitemname: "Project item name"
           deptvalue: "Deptvalue"
           sumvalue_nc: "Sum value NC"
           sumvalue_change_nc: "Sum value change NC"

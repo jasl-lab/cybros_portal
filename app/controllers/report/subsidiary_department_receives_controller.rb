@@ -228,11 +228,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
   def need_receives_pay_rates_drill_down
     authorize Bi::SubCompanyRealRateSum
-    short_company_name = params[:company_name]
+    @short_company_name = params[:company_name]
     @department_name = params[:department_name]
     department_codes = [params[:department_code].strip]
-    @company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
-    company_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
+    @company_name = Bi::OrgShortName.company_long_names.fetch(@short_company_name, @short_company_name)
+    company_code = Bi::OrgShortName.org_code_by_short_name.fetch(@short_company_name, @short_company_name)
     @begin_month = Date.parse(params[:month_name]).beginning_of_month
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门编号: department_codes)
@@ -245,6 +245,52 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
         .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code)))
       .where(date: @begin_month, deptcode: department_codes)
+
+    respond_to do |format|
+      format.js { render }
+      format.csv do
+        render_csv_header 'Need receives pay rates report'
+        csv_res = CSV.generate do |csv|
+          csv << [
+            t("report.subsidiary_receives.show.table.salescontractcode"),
+            t("report.subsidiary_receives.show.table.salescontractname"),
+            t("report.subsidiary_receives.show.table.specialty"),
+            t("report.subsidiary_receives.show.table.projectitemcode"),
+            t("report.subsidiary_receives.show.table.projectitemname"),
+            t("report.subsidiary_receives.show.table.deptvalue"),
+            t("report.subsidiary_receives.show.table.sumvalue_nc"),
+            t("report.subsidiary_receives.show.table.sumvalue_change_nc"),
+            t("report.subsidiary_receives.show.table.realamount_nc"),
+            t("report.subsidiary_receives.show.table.sumvalue_now"),
+            t("report.subsidiary_receives.show.table.sumvalue_change_now"),
+            t("report.subsidiary_receives.show.table.realamount_now"),
+            t("report.subsidiary_receives.show.table.pay_rates")
+          ]
+          @data.each do |d|
+            values = []
+            values << d.salescontractcode
+            values << d.salescontractname
+            values << d.specialty
+            values << d.projectitemcode
+            values << d.projectitemname
+            values << d.deptvalue&.round(0)
+            values << d.sumvalue_nc&.round(0)
+            values << d.sumvalue_change_nc&.round(0)
+            values << d.realamount_nc&.round(0)
+            values << d.sumvalue_now&.round(0)
+            values << d.sumvalue_change_now&.round(0)
+            values << d.realamount_now&.round(0)
+            values << if ((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12)).zero?
+              '100%'
+            else
+              (((d.realamount_now - d.realamount_nc)/((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12)))*100).round(0)
+            end
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
+      end
+    end
   end
 
 

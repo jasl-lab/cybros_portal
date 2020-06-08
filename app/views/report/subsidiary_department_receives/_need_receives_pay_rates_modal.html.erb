@@ -5,7 +5,7 @@
         <h5 class="modal-title"><%= @company_name -%> <%= @department_name -%> 本年回款率明细</h5>
         <p style="margin-bottom: 0;">说明：完成产值（处理）：当完成产值＜结算产值时需要处理，如结算产值-完成产值≤10%*部门策划产值，取完成产值=结算产值；如结算产值-完成产值＞10%*部门策划产值，取完成产值=结算产值/70%，即认为本项目的回款率等于平均回款率70%。</p>
       </div>
-      <a class="close">
+      <a class="close" href="<%= need_receives_pay_rates_drill_down_report_subsidiary_department_receive_path(format: 'csv', company_name: @short_company_name, department_name: @department_name, department_code: params[:department_code].strip, month_name: params[:month_name]) -%>">
         <i class="fas fa-file-export"></i>
       </a>
       <a class="close" data-dismiss="modal" aria-label="Close">
