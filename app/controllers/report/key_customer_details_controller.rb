@@ -19,7 +19,7 @@ class Report::KeyCustomerDetailsController < Report::BaseController
   protected
 
   def set_page_layout_data
-    @_sidebar_name = "report"
+    @_sidebar_name = "application"
   end
 
   def set_breadcrumbs
