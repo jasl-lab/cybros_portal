@@ -3,7 +3,8 @@
 module Bi
   class KeyCustomerDetailPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && user.chinese_name == '方子雪'
+      user.present? && (user.admin? \
+        || user.roles.pluck(:large_customer_detail_viewser).any?)
     end
   end
 end
