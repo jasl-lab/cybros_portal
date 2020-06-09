@@ -101,4 +101,19 @@ class User < ApplicationRecord
   def in_tianhua_hq?
     user_company_names.include?("上海天华建筑设计有限公司")
   end
+
+  ALL_OF_ALL = 1
+  ALL_EXCEPT_OTHER_COMPANY_DETAILS = 2
+  MY_COMPANY_ALL_DETAILS = 3
+  MY_COMPANY_EXCEPT_OTHER_DEPTS = 4
+  MY_DEPARTMENT = 5
+
+  def my_access_codes
+    主职 = Bi::HrdwStfreinstateBi.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
+    主职_access_codes = 主职.collect { |c| [ALL_OF_ALL, c.orgcode, c.deptcode_sum, c.pocname] }
+
+    兼职 = Bi::HrdwStfreinstateVirtual.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
+    兼职_access_codes = 兼职.collect { |c| [ALL_OF_ALL, c.orgcode, c.deptcode_sum, c.pocname == '内部兼职人员' ? '真兼职' : c.pocname] }
+    主职_access_codes + 兼职_access_codes
+  end
 end
