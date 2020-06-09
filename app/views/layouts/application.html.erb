@@ -8,7 +8,9 @@
   <div class="<%= params[:in_iframe].present? ? '' : 'app-body' -%>">
     <%= render_sidebar %>
     <main class="main">
-      <% unless @hide_main_header_wrapper -%>
+      <% if @hide_main_header_wrapper -%>
+          <%= render "layouts/application/notice" %>
+      <% else %>
         <div class="main-header-wrapper">
           <%= render_breadcrumbs %>
           <%= render_action_bar %>
