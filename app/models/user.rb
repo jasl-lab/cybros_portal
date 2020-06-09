@@ -110,10 +110,19 @@ class User < ApplicationRecord
 
   def my_access_codes
     主职 = Bi::HrdwStfreinstateBi.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    主职_access_codes = 主职.collect { |c| [ALL_OF_ALL, c.orgcode, c.deptcode_sum, c.pocname] }
+    主职_access_codes = 主职.collect { |c| [User.calculate_access_code(c.postname), c.orgcode, c.deptcode_sum, c.pocname] }
 
     兼职 = Bi::HrdwStfreinstateVirtual.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    兼职_access_codes = 兼职.collect { |c| [ALL_OF_ALL, c.orgcode, c.deptcode_sum, c.pocname == '内部兼职人员' ? '真兼职' : c.pocname] }
+    兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.postname), c.orgcode, c.deptcode_sum, c.pocname == '内部兼职人员' ? '真兼职' : c.pocname] }
     主职_access_codes + 兼职_access_codes
+  end
+
+  def self.calculate_access_code(postname)
+    属于集团 = postname.include?('集团')
+    if 属于集团
+      return ALL_OF_ALL
+    else
+      return MY_DEPARTMENT
+    end
   end
 end
