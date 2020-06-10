@@ -139,6 +139,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     real_total_staff_num = 0
     @real_receives_per_staff = real_data.collect do |d|
       staff_number = staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       real_total_staff_num += staff_number unless staff_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
       (d.total / (staff_number * 10000).to_f).round(0)
     end
@@ -147,6 +148,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       need_total_staff_num += staff_number unless staff_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
       should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
       total_should_receives_per_staff += should_receives_per_staff
@@ -219,7 +221,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         年初应收款 = r.sumvalue_change_nc - r.realamount_nc
         分母 = 年初应收款 * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
         res = (分子 / 分母.to_f)*100
-        (res> 100 ? 100 : res).round(0)
+        if 分母.zero?
+          '分母为0'
+        else
+          (res> 100 ? 100 : res).round(0)
+        end
       else
         0
       end
