@@ -199,7 +199,7 @@
             <% end %>
           <% end %>
         <% end %>
-      <% if current_user.present? && policy(Bi::CompleteValue).show? %>
+      <% if current_user.admin? && policy(Bi::CompleteValue).show? %>
         <%= nav_item controller: 'report/yearly_subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_yearly_subsidiary_workloading_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-stopwatch"></i>
@@ -207,7 +207,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if current_user.present? && policy(Bi::CompleteValue).show? %>
+      <% if current_user.admin? && policy(Bi::CompleteValue).show? %>
         <%= nav_item controller: 'report/yearly_subsidiary_complete_values', action: 'show', html_options: { class: "nav-item" } do %>
           <%= link_to report_yearly_subsidiary_complete_value_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-draw-polygon"></i>
