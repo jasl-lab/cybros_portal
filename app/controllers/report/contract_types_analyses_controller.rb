@@ -16,14 +16,21 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @orgs_options = params[:orgs]
 
     all_company_orgcodes = data.collect(&:businessltdcode)
-    @orgs_options = all_company_orgcodes if @orgs_options.blank?
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
-    @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    @orgs_options = all_company_orgcodes if @orgs_options.blank?
+    data.where(businessltdcode: @orgs_options)
 
     contract_price_方案 = data.where(projectstage: '前端')
     contract_price_施工图 = data.where(projectstage: '后端')
+
+    @contract_price_方案_公司 = contract_price_方案.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
+    @contract_price_方案_合同总金额 = contract_price_方案.collect(&:realamounttotal)
+
+    @contract_price_施工图_公司 = contract_price_施工图.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
+    @contract_price_施工图_合同总金额 = contract_price_施工图.collect(&:realamounttotal)
   end
 
   private
