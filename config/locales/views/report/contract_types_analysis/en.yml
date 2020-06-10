@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    contract_types_analyses:
+      show:
+        title: "Contract type analysis"
+        year_name: "Year name"
+        org_names: "ORG names"
+        confirm: "Confirm"

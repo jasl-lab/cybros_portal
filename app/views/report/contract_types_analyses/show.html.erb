@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-lg-12"
+    data-controller="contract-signings"
+    data-action="resize@window->contract-signings#layout"
+    data-contract-signings-in_iframe="<%= params[:in_iframe] -%>"
+    data-contract-signings-x_axis="<%= @company_short_names.to_json -%>"
+    data-contract-signings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
+    data-contract-signings-sum_org_names="<%= @sum_org_names.to_json -%>"
+    data-contract-signings-second_level_drill="<%= @second_level_drill -%>"
+    data-contract-signings-company_name="<%= @company_name -%>"
+    data-contract-signings-sum_contract_amounts="<%= @contract_amounts_div_100.to_json -%>"
+    data-contract-signings-sum_contract_amount_max="<%= @contract_amount_max -%>"
+    data-contract-signings-avg_period_mean="<%= @avg_period_mean.to_json -%>"
+    data-contract-signings-avg_period_mean_max="<%= @avg_period_mean_max -%>"
+    data-contract-signings-production_amounts_per_staff="<%= @production_amounts_per_staff.to_json -%>"
+    data-contract-signings-period_mean_ref="<%= @period_mean_ref -%>"
+    data-contract-signings-contract_amounts_per_staff_ref="<%= @contract_amounts_per_staff_ref -%>"
+    data-contract-signings-cp_org_names="<%= @cp_org_names.to_json -%>"
+    data-contract-signings-cp_contract_amounts="<%= @cp_contract_amounts_div_100.to_json -%>">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag report_contract_types_analysis_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".year_name") -%>：</label>
+        <%= select_tag 'year_name', options_for_select(@all_year_names, @year_name), class: 'form-control' %>
+      </div>
+      <div class="form-group mr-3">
+        <label class="mr-1"><%= t(".org_names") -%>：</label>
+          <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), {include_blank: true, multiple: true, class: 'form-control' } %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+    <% end -%>
+
+  </div>
+</div>

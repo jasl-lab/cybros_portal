@@ -6,6 +6,24 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    @all_year_names = Bi::ContractPrice.all_year_names
+    @year_name = params[:year_name]&.strip || @all_year_names.first
+
+    data = Bi::ContractPrice
+      .group(:businessltdcode)
+      .select('businessltdcode, SUM(realamounttotal) realamounttotal')
+
+    @orgs_options = params[:orgs]
+
+    all_company_orgcodes = data.collect(&:businessltdcode)
+    @orgs_options = all_company_orgcodes if @orgs_options.blank?
+    all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+
+    @orgs_options = all_company_orgcodes if @orgs_options.blank?
+    @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    contract_price_方案 = data.where(projectstage: '前端')
+    contract_price_施工图 = data.where(projectstage: '后端')
   end
 
   private
