@@ -39,7 +39,7 @@ export default class extends Controller {
               name: '访问来源',
               type: 'pie',
               radius: ['40%', '70%'],
-              avoidLabelOverlap: false,
+              avoidLabelOverlap: true,
               label: {
                   show: true
               },
@@ -51,7 +51,7 @@ export default class extends Controller {
                   }
               },
               labelLine: {
-                  show: false
+                  show: true
               },
               data: planData
           }
@@ -73,7 +73,7 @@ export default class extends Controller {
               name: '访问来源',
               type: 'pie',
               radius: ['40%', '70%'],
-              avoidLabelOverlap: false,
+              avoidLabelOverlap: true,
               label: {
                   show: true
               },
@@ -85,7 +85,7 @@ export default class extends Controller {
                   }
               },
               labelLine: {
-                  show: false
+                  show: true
               },
               data: workingDrawingData
           }
