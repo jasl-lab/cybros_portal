@@ -102,7 +102,6 @@ class User < ApplicationRecord
     user_company_names.include?("上海天华建筑设计有限公司")
   end
 
-  ALL_OF_ALL = 1
   ALL_EXCEPT_OTHER_COMPANY_DETAILS = 2
   MY_COMPANY_ALL_DETAILS = 3
   MY_COMPANY_EXCEPT_OTHER_DEPTS = 4
@@ -118,11 +117,6 @@ class User < ApplicationRecord
   end
 
   def self.calculate_access_code(postname)
-    属于集团 = postname.include?('集团')
-    if 属于集团
-      return ALL_OF_ALL
-    else
-      return MY_DEPARTMENT
-    end
+    return MY_DEPARTMENT
   end
 end
