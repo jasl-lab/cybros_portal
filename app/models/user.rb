@@ -109,34 +109,39 @@ class User < ApplicationRecord
 
   def my_access_codes
     主职 = Bi::HrdwStfreinstateBi.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    主职_access_codes = 主职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i), c.orgname, c.deptname_sum, c.pocname, c.stname, c.zjname] }
+    主职_access_codes = 主职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgname, c.deptname_sum, c.pocname, c.stname, c.zjname] }
 
     兼职 = Bi::HrdwStfreinstateVirtual.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i), c.orgname, c.deptname_sum, (c.pocname == '内部兼职人员' ? '真兼职' : c.pocname), c.stname, c.zjname] }
+    兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgname, c.deptname_sum, (c.pocname == '内部兼职人员' ? '真兼职' : c.pocname), c.stname, c.zjname] }
     主职_access_codes + 兼职_access_codes
   end
 
-  def self.calculate_access_code(stname, zjname)
-    if stname.include?('董事长') && zjname >= 18
-      return ALL_EXCEPT_OTHER_COMPANY_DETAILS
+  def self.calculate_access_code(stname, zjname, org_code)
+    access_code = if stname.include?('董事长') && zjname >= 18
+       ALL_EXCEPT_OTHER_COMPANY_DETAILS
     elsif stname.include?('副总经理') && zjname >= 16
-      return MY_COMPANY_ALL_DETAILS
+      MY_COMPANY_ALL_DETAILS
     elsif stname.include?('总经理助理') && zjname >= 15
-      return MY_COMPANY_ALL_DETAILS
+      MY_COMPANY_ALL_DETAILS
     elsif (stname.include?('市场总监') || stname.include?('市场运营总监')) && zjname >= 13
-      return MY_COMPANY_ALL_DETAILS
+      MY_COMPANY_ALL_DETAILS
     elsif stname.include?('总经理') && zjname >= 17
-      return ALL_EXCEPT_OTHER_COMPANY_DETAILS
+      ALL_EXCEPT_OTHER_COMPANY_DETAILS
     elsif (stname.include?('商务经理') || stname.include?('商务助理')) && zjname >= 11
-      return MY_COMPANY_EXCEPT_OTHER_DEPTS
+      MY_COMPANY_EXCEPT_OTHER_DEPTS
     elsif stname.include?('所长助理') && zjname >= 12
-      return MY_COMPANY_EXCEPT_OTHER_DEPTS
+      MY_COMPANY_EXCEPT_OTHER_DEPTS
     elsif stname.include?('管理副所长') && zjname >= 13
-      return MY_COMPANY_EXCEPT_OTHER_DEPTS
+      MY_COMPANY_EXCEPT_OTHER_DEPTS
     elsif stname.include?('所长') && zjname >= 14
-      return MY_COMPANY_EXCEPT_OTHER_DEPTS
+      MY_COMPANY_EXCEPT_OTHER_DEPTS
     else
+      MY_DEPARTMENT
+    end
+    if org_code == '000109' && access_code == MY_COMPANY_EXCEPT_OTHER_DEPTS
       return MY_DEPARTMENT
+    else
+      return access_code
     end
   end
 end
