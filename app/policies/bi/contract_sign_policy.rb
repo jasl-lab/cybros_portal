@@ -2,7 +2,7 @@ module Bi
   class ContractSignPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.admin?
+        if (user.admin? || user.roles.pluck(:group_report_viewer).any?)
           scope.all
         else
           scope.none
@@ -12,7 +12,7 @@ module Bi
 
     def show?
       return false unless user.present?
-      user.admin?
+      (user.admin? || user.roles.pluck(:group_report_viewer).any?)
     end
   end
 end

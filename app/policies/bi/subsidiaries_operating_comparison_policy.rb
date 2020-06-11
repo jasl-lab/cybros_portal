@@ -3,7 +3,7 @@
 module Bi
   class SubsidiariesOperatingComparisonPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && ( user.admin? || %w[蔡钦 聂琳 章静 崔立杰 柳玉进 王旭冉 王俐雯 崔瑶].include?(user.chinese_name) )
+      user.present? && ( user.admin? || user.roles.pluck(:group_report_viewer).any? )
     end
   end
 end
