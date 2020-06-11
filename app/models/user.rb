@@ -108,11 +108,13 @@ class User < ApplicationRecord
   MY_DEPARTMENT = 5
 
   def my_access_codes
-    主职 = Bi::HrdwStfreinstateBi.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    主职_access_codes = 主职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgname, c.deptname_sum, c.pocname, c.stname, c.zjname] }
+    主职 = Bi::HrdwStfreinstateBi
+      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
+    主职_access_codes = 主职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
 
-    兼职 = Bi::HrdwStfreinstateVirtual.where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgname, c.deptname_sum, (c.pocname == '内部兼职人员' ? '真兼职' : c.pocname), c.stname, c.zjname] }
+    兼职 = Bi::HrdwStfreinstateVirtual
+      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: '内部兼职人员')
+    兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
     主职_access_codes + 兼职_access_codes
   end
 
