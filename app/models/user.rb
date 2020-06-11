@@ -113,8 +113,6 @@ class User < ApplicationRecord
 
     codes = my_access_codes
 
-    return ALL_OF_ALL if codes.any? { |c| c[0] == ALL_EXCEPT_OTHER_COMPANY_DETAILS }
-
     @_can_access_org_codes = codes.collect do |c|
       if c[0] == MY_DEPARTMENT
         nil
