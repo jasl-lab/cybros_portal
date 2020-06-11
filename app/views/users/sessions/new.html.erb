@@ -12,8 +12,9 @@
         <% end %>
       </ul>
       <div class="card-body p-4">
+<% unless Rails.env.staging? %>
         <%= link_to t('.sso'), '/auth/openid_connect', class: "btn btn-block btn-primary" %>
-
+<% end %>
         <br />
 
 <% if !Rails.env.production? || (browser.safari? && browser.full_version == '13.1.1' && browser.platform.mac?) %>
