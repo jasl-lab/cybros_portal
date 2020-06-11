@@ -75,16 +75,27 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       true_real_meta_receives.where(orgcode: selected_orgcode)
     end
 
-    true_real_receives = true_real_meta_receives
-      .select("SUM(IFNULL(total,0)) total")
-      .collect { |d| (d.total.to_f / 100_00.0).round(0) }
+    sum_real_receives = if @view_deptcode_sum
+      policy_scope(Bi::SubCompanyRealReceive)
+        .where(realdate: beginning_of_year..@end_of_month)
+        .where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
+    else
+      policy_scope(Bi::SubCompanyRealReceive)
+        .where(realdate: beginning_of_year..@end_of_month)
+        .where(orgcode: selected_orgcode)
+    end.select("SUM(total) total").first.total
+    @sum_real_receives = (sum_real_receives.to_f / 100_00_00_00.0).round(1)
 
-    @sum_real_receives = (true_real_receives.sum / 10000.0).round(1)
-
-    true_real_markettotals = true_real_meta_receives
-      .select("SUM(markettotal) markettotal")
-      .collect { |d| (d.markettotal.to_f / 100_00.0).round(0) }
-    @sum_real_markettotals = true_real_markettotals.sum.round(1)
+    sum_real_markettotals = if @view_deptcode_sum
+      policy_scope(Bi::SubCompanyRealReceive)
+        .where(realdate: beginning_of_year..@end_of_month)
+        .where(orgcode_sum: ['H' + selected_orgcode, selected_orgcode])
+    else
+      policy_scope(Bi::SubCompanyRealReceive)
+        .where(realdate: beginning_of_year..@end_of_month)
+        .where(orgcode: selected_orgcode)
+    end.select("SUM(markettotal) markettotal").first.markettotal
+    @sum_real_markettotals = (sum_real_markettotals.to_f / 100_00.0).round(0)
 
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
