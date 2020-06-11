@@ -13,7 +13,7 @@ zh-CN:
           hr_group_reader: "人力资源集团报表查看"
           hr_subsidiary_reader: "人力资源子公司报表查看"
       show:
-        title: "角色下的用户"
+        title: "角色：%{role_name} 下的用户"
         table:
           id: "Id"
           email: "邮箱"

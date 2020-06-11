@@ -13,7 +13,7 @@ en:
           hr_group_reader: "HR group reader"
           hr_subsidiary_reader: "HR subsidiary reader"
       show:
-        title: "Role users"
+        title: "Role: %{role_name} users"
         table:
           id: "Id"
           email: "Email"
