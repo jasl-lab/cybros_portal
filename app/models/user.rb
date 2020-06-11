@@ -107,6 +107,22 @@ class User < ApplicationRecord
   MY_COMPANY_EXCEPT_OTHER_DEPTS = 4
   MY_DEPARTMENT = 5
 
+  def can_access_org_codes
+    return @_can_access_org_codes if @_can_access_org_codes.present?
+
+    codes = my_access_codes
+
+    return 'ALL' if codes.any? { |c| c[0] == ALL_EXCEPT_OTHER_COMPANY_DETAILS }
+
+    @_can_access_org_codes = codes.collect do |c|
+      if c[0] == MY_DEPARTMENT
+        nil
+      else
+        c[1]
+      end
+    end.reject(&:blank?).uniq
+  end
+
   def my_access_codes
     主职 = Bi::HrdwStfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
@@ -117,6 +133,8 @@ class User < ApplicationRecord
     兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
     主职_access_codes + 兼职_access_codes
   end
+
+  private
 
   def self.calculate_access_code(stname, zjname, org_code)
     access_code = if stname.include?('董事长') && zjname >= 18
