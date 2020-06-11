@@ -19,8 +19,8 @@ export default class extends Controller {
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const lastAvailableSignDeptDate = this.data.get("last_available_sign_dept_date");
     const companyName = this.data.get("company_name");
-    const sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
-    const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
+    const sumContractAmounts = JSON.parse(this.data.get("contract_amounts"));
+    const sumContractAmountMax = JSON.parse(this.data.get("contract_amount_max"));
     const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
     const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
     const periodMeanRef = this.data.get("period_mean_ref");
