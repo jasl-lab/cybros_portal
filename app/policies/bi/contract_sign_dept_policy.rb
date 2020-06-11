@@ -4,14 +4,12 @@ module Bi
   class ContractSignDeptPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
+        return scope.none unless user.present?
+        can_access_org_codes = user.can_access_org_codes
+        if user.roles.pluck(:report_view_all).any? || user.admin? || can_access_org_codes == User::ALL_OF_ALL
           scope.all
-        elsif user.present? &&
-          (user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_company_detail_viewer).any? || user.job_level.to_i >= 11)
-          allow_orgcodes = user.user_company_orgcode
-          scope.where(orgcode: allow_orgcodes).or(scope.where(orgcode_sum: allow_orgcodes))
         else
-          scope.none
+          scope.where(orgcode: can_access_org_codes).or(scope.where(orgcode_sum: can_access_org_codes))
         end
       end
     end
