@@ -102,6 +102,7 @@ class User < ApplicationRecord
     user_company_names.include?("上海天华建筑设计有限公司")
   end
 
+  ALL_OF_ALL = 1
   ALL_EXCEPT_OTHER_COMPANY_DETAILS = 2
   MY_COMPANY_ALL_DETAILS = 3
   MY_COMPANY_EXCEPT_OTHER_DEPTS = 4
@@ -112,7 +113,7 @@ class User < ApplicationRecord
 
     codes = my_access_codes
 
-    return 'ALL' if codes.any? { |c| c[0] == ALL_EXCEPT_OTHER_COMPANY_DETAILS }
+    return ALL_OF_ALL if codes.any? { |c| c[0] == ALL_EXCEPT_OTHER_COMPANY_DETAILS }
 
     @_can_access_org_codes = codes.collect do |c|
       if c[0] == MY_DEPARTMENT
