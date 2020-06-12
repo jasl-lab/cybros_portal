@@ -159,6 +159,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
   def cp_drill_down
     @company_name = params[:company_name]
+    month_name = params[:month_name]
+    beginning_of_year = Date.parse(month_name).beginning_of_year
+
     @department_name = [params[:department_name]]
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @department_name)
@@ -169,6 +172,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     last_available_sign_dept_date = Date.parse(params[:last_available_sign_dept_date])
     @data = policy_scope(Bi::ContractProductionDetail).where(date: last_available_sign_dept_date)
       .where(orgname: @company_name, deptname: @department_name)
+      .where('filingtime > ?', beginning_of_year)
       .order(filingtime: :asc)
     authorize @data.first if @data.present?
   end
