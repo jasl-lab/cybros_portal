@@ -16,6 +16,7 @@ en:
         table:
           salescontractcode: "Sales contract code"
           salescontractname: "Sales contract name"
+          filingtime: "Filing time"
           realamounttotal: "Real amount total"
           belongcompanyname: "Belong company name"
           businessdirectorname: "Business director name"
