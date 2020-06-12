@@ -16,6 +16,7 @@ export default class extends Controller {
     subsidiaryContractSigningsAvgChart = echarts.init(document.getElementById('subsidiary-contract-signings-avg-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const xAxisCode = JSON.parse(this.data.get("x_axis_code"));
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const lastAvailableSignDeptDate = this.data.get("last_available_sign_dept_date");
     const companyName = this.data.get("company_name");
@@ -285,12 +286,14 @@ export default class extends Controller {
 
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
-        const series_department = xAxisData[params.dataIndex]
+        const department_name = xAxisData[params.dataIndex];
+        const department_code = xAxisCode[params.dataIndex];
         const month_name = $('#month_name').val();
         const sent_data = {
           company_name: companyName,
-          department_name: series_department,
-          month_name: month_name };
+          department_name,
+          department_code,
+          month_name };
         let drill_down_url;
         if (params.seriesType === 'bar') {
           drill_down_url = '/report/subsidiary_contract_signing/drill_down_amount'

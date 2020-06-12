@@ -123,6 +123,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def drill_down_amount
     @company_name = params[:company_name]
     @department_name = [params[:department_name]]
+    department_code = params[:department_code]
     month_name = params[:month_name]&.strip || policy_scope(Bi::ContractSignDept).all_month_names.first
     beginning_of_year = Date.parse(month_name).beginning_of_year
     end_of_year = Date.parse(month_name).end_of_year
@@ -134,9 +135,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     last_available_date = policy_scope(Bi::ContractSignDetailAmount).last_available_date(end_of_month)
-    @data = policy_scope(Bi::ContractSignDetailAmount)
+    @data = policy_scope(Bi::ContractSignDetailAmount).where(deptname: @department_name).or(policy_scope(Bi::ContractSignDetailAmount).where(deptcode: department_code))
       .where(date: last_available_date)
-      .where(orgname: @company_name, deptname: @department_name)
+      .where(orgname: @company_name)
       .where(filingtime: beginning_of_year..end_of_year)
       .order(filingtime: :asc)
     authorize @data.first if @data.present?
