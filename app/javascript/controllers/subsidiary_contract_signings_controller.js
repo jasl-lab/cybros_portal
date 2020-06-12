@@ -15,6 +15,7 @@ export default class extends Controller {
     subsidiaryContractProductionChart = echarts.init(document.getElementById('subsidiary-contract-production-chart'));
     subsidiaryContractSigningsAvgChart = echarts.init(document.getElementById('subsidiary-contract-signings-avg-chart'));
 
+    const view_deptcode_sum = this.data.get("view_deptcode_sum") == "true";
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const xAxisCode = JSON.parse(this.data.get("x_axis_code"));
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
@@ -291,6 +292,7 @@ export default class extends Controller {
         const month_name = $('#month_name').val();
         const sent_data = {
           company_name: companyName,
+          view_deptcode_sum,
           department_name,
           department_code,
           month_name };
