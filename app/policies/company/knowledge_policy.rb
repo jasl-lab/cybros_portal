@@ -51,7 +51,7 @@ module Company
     end
 
     def destroy?
-      user.admin?
+      user.admin? || user.chinese_name.in?(%w[陈建 冯可])
     end
   end
 end
