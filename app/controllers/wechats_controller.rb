@@ -56,7 +56,7 @@ class WechatsController < ApplicationController
   end
 
   on :event, with: 'enter_agent' do |request|
-    return request.reply.success if request.session.present? && request.session.greating_time >= 1.week.ago
+    return request.reply.success if request.session.present? && request.session.greating_time.present? && request.session.greating_time >= 1.week.ago
 
     g1 = GREATING_1.sample
     g2 = GREATING_2.sample
