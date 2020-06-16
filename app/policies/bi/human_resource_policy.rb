@@ -7,12 +7,12 @@ module Bi
         ( user.roles.pluck(:hr_group_rt_reader).any? ||
           user.roles.pluck(:hr_subsidiary_rt_reader).any? ||
           user.roles.pluck(:hr_report_writer).any? ||
-            (user.my_access_codes.any? do |access_code|
+          (user.my_access_codes.any? do |access_code|
             job_level = access_code[4]
             title = access_code[3]
             job_level.to_i >= 14 && title.include?('所长')
            end
-           ) ||
+          ) ||
           (user.my_access_codes.any? do |access_code|
             job_level = access_code[4]
             title = access_code[3]
