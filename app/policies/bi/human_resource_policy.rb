@@ -10,8 +10,7 @@ module Bi
           (user.my_access_codes.any? do |access_code|
             job_level = access_code[4]
             title = access_code[3]
-            job_level.to_i >= 14 
-            && (title.include?('所长') || title.include?('创作中心总监'))
+            job_level.to_i >= 14 && (title.include?('所长') || title.include?('创作中心总监'))
            end
           ) ||
           (user.my_access_codes.any? do |access_code|
