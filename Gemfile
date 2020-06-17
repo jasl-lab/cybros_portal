@@ -48,6 +48,7 @@ gem "config"
 
 gem "devise"
 gem "omniauth_openid_connect"
+gem 'rack-oauth2', '~> 1.12.0' # required by omniauth_openid_connect->openid_connect
 gem "devise_invitable"
 gem "devise-i18n"
 gem "devise-jwt"
