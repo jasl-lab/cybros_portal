@@ -288,13 +288,13 @@ GEM
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
-    rack (2.0.9)
-    rack-oauth2 (1.12.0)
+    rack (2.2.3)
+    rack-oauth2 (1.14.0)
       activesupport
       attr_required
       httpclient
       json-jwt (>= 1.11.0)
-      rack (< 2.1)
+      rack (>= 2.1.0)
     rack-protection (2.0.8.1)
       rack
     rack-proxy (0.6.5)
@@ -472,7 +472,6 @@ DEPENDENCIES
   omniauth_openid_connect
   puma (~> 4.3.0)
   pundit
-  rack-oauth2 (~> 1.12.0)
   rails (~> 6.0.3)
   rails-i18n
   rubocop
