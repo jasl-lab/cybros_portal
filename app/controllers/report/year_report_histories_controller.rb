@@ -55,6 +55,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
       .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
       .where(orgcode: @orgs_options)
+      .where('ORGCODE NOT LIKE "H%"')
       .select('year, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
       .group(:year)
 
