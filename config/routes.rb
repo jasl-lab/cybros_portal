@@ -111,6 +111,7 @@ Rails.application.routes.draw do
     resource :rt_group_hr_monthly_pure, only: %i[show]
     resource :rt_group_subsidiary_hr_monthly, only: %i[show]
     resource :hr_talent_pool, only: %i[show]
+    resource :single_project_overview, only: %i[show]
 
     resources :yingjianke_logins, only: %i[index destroy] do
       collection do

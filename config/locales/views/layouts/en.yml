@@ -102,5 +102,6 @@ en:
         header: "Financial management"
         contract_information_form: "Contract information form"
         project_contract_summary: "Project contract summary"
+        single_project_overview: "Single project overview"
         departmental_market_fees: "Departmental market fees"
         bonus_distribution: "Bonus distribution"

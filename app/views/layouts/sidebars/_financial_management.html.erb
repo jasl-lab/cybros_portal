@@ -23,6 +23,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::SingleProjectOverviews").show? %>
+        <%= nav_item controller: 'report/single_project_overview', html_options: { class: "nav-item" } do %>
+          <%= link_to report_single_project_overview_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.financial_management.single_project_overview") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::DepartmentalMarketFees").show? %>
         <%= nav_item controller: 'report/departmental_market_fees', html_options: { class: "nav-item" } do %>
           <%= link_to report_departmental_market_fees_path, class: "nav-link" do %>
