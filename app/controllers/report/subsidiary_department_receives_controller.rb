@@ -297,10 +297,10 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
             values << d.sumvalue_now&.round(0)
             values << d.sumvalue_change_now&.round(0)
             values << d.realamount_now&.round(0)
-            values << if ((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12)).zero?
+            values << if ((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12.0)).zero?
               '100%'
             else
-              (((d.realamount_now - d.realamount_nc)/((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12)))*100).round(0)
+              (((d.realamount_now - d.realamount_nc)/((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12.0)))*100).round(0)
             end
             csv << values
           end
