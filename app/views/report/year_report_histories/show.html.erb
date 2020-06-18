@@ -108,7 +108,7 @@
                 <td><%= (d.contractamount.to_f/100.0).round(0) %></td>
                 <td><%= (d.realamount.to_f/100.0).round(0) %></td>
 
-                <% if head_count.present? %>
+                <% if head_count.present? && !head_count.avg_work_no.zero? %>
                   <td><%= (d.deptvalue.to_f/head_count.avg_work_no.to_f).round(0) %></td>
                   <td><%= (d.contractamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
                   <td><%= (d.deptvalue.to_f/head_count.avg_work_no.to_f).round(0) %></td>
