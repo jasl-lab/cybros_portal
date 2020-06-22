@@ -30,8 +30,8 @@ export default class extends Controller {
           formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
-          orient: 'vertical',
-          left: 10,
+          orient: 'horizontal',
+          top: 10,
           data: planAxis
       },
       series: [
@@ -64,8 +64,8 @@ export default class extends Controller {
           formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
-          orient: 'vertical',
-          right: 10,
+          orient: 'horizontal',
+          top: 10,
           data: workingDrawingAxis
       },
       series: [
