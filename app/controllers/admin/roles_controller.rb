@@ -7,12 +7,12 @@ class Admin::RolesController < Admin::ApplicationController
   def index
     prepare_meta_tags title: t(".title")
 
-    @roles = Role.all.page(params[:page]).per(params[:per_page])
+    @roles = Role.all
   end
 
   def show
     prepare_meta_tags title: @role.role_name
-    @users = @role.users.page(params[:page]).per(params[:per_page])
+    @users = @role.users
   end
 
   private
