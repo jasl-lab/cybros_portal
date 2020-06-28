@@ -25,6 +25,14 @@
           <%= t("layouts.sidebar.application.report") %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::OrganizationChart").show? %>
+        <%= nav_item controller: 'report/organization_chart', html_options: { class: "nav-item" } do %>
+          <%= link_to report_organization_chart_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.report.organization_charts") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <%= nav_item controller: 'report/operation', html_options: {class: "nav-item"} do %>
         <%= link_to report_operation_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-jedi"></i>

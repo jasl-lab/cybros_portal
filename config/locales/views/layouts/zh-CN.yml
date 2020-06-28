@@ -54,6 +54,7 @@ zh-CN:
         yingjianke_logins: "盈建科软件登陆情况"
         cim_tools: "天华效率工具"
         key_customer_details: "天华核心客户分析"
+        organization_charts: "天华组织架构图"
       operation:
         header: "天华市场运营分析"
         overall_operating_status: "历年经营情况总览"
