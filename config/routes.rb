@@ -35,7 +35,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :roles, only: %i[index show]
+    resources :roles, only: %i[index show] do
+      member do
+        delete :user
+      end
+    end
   end
 
   namespace :company do

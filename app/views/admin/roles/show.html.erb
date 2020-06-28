@@ -14,6 +14,7 @@
               <th><%= t(".table.company") %></th>
               <th><%= t(".table.clerk_code") %></th>
               <th><%= t(".table.chinese_name") %></th>
+              <th><%= t(".table.action") %></th>
             </tr>
           </thead>
           <tbody>
@@ -25,6 +26,7 @@
               <td><%= raw user.departments.collect(&:company_name).join('<br />') %></td>
               <td><%= user.clerk_code %></td>
               <td><%= user.chinese_name %></td>
+              <td><%= link_to t(".action.delete"), user_admin_role_path(@role, user_id: user.id), method: :delete, data: { confirm: t(".action.delete_confirm", role_name: @role.role_name, user_name: user.chinese_name) } %></td>
             </tr>
           <% end %>
           </tbody>

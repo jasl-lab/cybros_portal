@@ -21,3 +21,7 @@ en:
           company: "Company"
           clerk_code: "Clerk code"
           chinese_name: "Chinese name"
+          action: "Action"
+        action:
+          delete: "Remove"
+          delete_confirm: "Confirm remove user “%{user_name}” from role “%{role_name}”？"

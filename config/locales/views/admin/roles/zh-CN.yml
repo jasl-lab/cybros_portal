@@ -21,3 +21,7 @@ zh-CN:
           company: "公司"
           clerk_code: "员工号"
           chinese_name: "姓名"
+          action: "动作"
+        action:
+          delete: "移除"
+          delete_confirm: "确认从角色“%{role_name}”移除用户“%{user_name}”？"
