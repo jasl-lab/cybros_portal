@@ -8,11 +8,14 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   def show
     @all_year_names = Bi::ContractPrice.all_year_names
     @year_name = params[:year_name]&.strip || @all_year_names.first
+    beginning_of_year = Date.ordinal(@year_name.to_i)
+    end_of_year = beginning_of_year.end_of_year
 
     data = Bi::ContractPrice
       .group(:businessltdcode)
       .select('businessltdcode, SUM(realamounttotal) realamounttotal')
       .order('SUM(realamounttotal) DESC')
+      .where(filingtime: beginning_of_year..end_of_year)
 
     @orgs_options = params[:orgs]
 
@@ -42,16 +45,28 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_施工图_公司 = contract_price_施工图_公司[0..9].append('其他')
     @contract_price_施工图_合同总金额 = first_10_contract_price_施工图_合同总金额.append(total_contract_price_施工图_合同总金额 - first_10_contract_price_施工图_合同总金额.sum)
 
-    sum_scope = Bi::ContractPrice.select('projectstage, projecttype, SUM(realamounttotal) realamounttotal').group(:projectstage, :projecttype)
-    sum_住宅方案 = sum_scope.find { |c| c.projectstage == '前端' && c.projecttype == '土建住宅' }
-    sum_住宅施工图 = sum_scope.find { |c| c.projectstage == '后端' && c.projecttype == '土建住宅' }
-    sum_公建方案 = sum_scope.find { |c| c.projectstage == '前端' && c.projecttype == '土建公建' }
-    sum_公建施工图 = sum_scope.find { |c| c.projectstage == '后端' && c.projecttype == '土建公建' }
-    @contract_price_住宅公建 = %w[住宅方案 住宅施工图 公建方案 公建施工图]
-    @contract_price_住宅公建总金额 = [sum_住宅方案.realamounttotal, sum_住宅施工图.realamounttotal, sum_公建方案.realamounttotal, sum_公建施工图.realamounttotal]
+    @contract_price_住宅公建, @contract_price_住宅公建总金额 = 住宅公建_contract_price(beginning_of_year, end_of_year)
+
+    previous_beginning_of_year = Date.ordinal(@year_name.to_i - 1)
+    previous_end_of_year = beginning_of_year.end_of_year
+    @previous_contract_price_住宅公建, @previous_contract_price_住宅公建总金额 = 住宅公建_contract_price(previous_beginning_of_year, previous_end_of_year)
   end
 
   private
+
+    def 住宅公建_contract_price(begin_of_year, end_of_year)
+      sum_scope = Bi::ContractPrice
+        .select('projectstage, projecttype, SUM(realamounttotal) realamounttotal')
+        .group(:projectstage, :projecttype)
+        .where(filingtime: begin_of_year..end_of_year)
+      sum_住宅方案 = sum_scope.find { |c| c.projectstage == '前端' && c.projecttype == '土建住宅' }
+      sum_住宅施工图 = sum_scope.find { |c| c.projectstage == '后端' && c.projecttype == '土建住宅' }
+      sum_公建方案 = sum_scope.find { |c| c.projectstage == '前端' && c.projecttype == '土建公建' }
+      sum_公建施工图 = sum_scope.find { |c| c.projectstage == '后端' && c.projecttype == '土建公建' }
+      return %w[住宅方案 住宅施工图 公建方案 公建施工图], \
+        [sum_住宅方案.realamounttotal, sum_住宅施工图.realamounttotal, sum_公建方案.realamounttotal, sum_公建施工图.realamounttotal]
+    end
+
 
     def set_breadcrumbs
       @_breadcrumbs = [
