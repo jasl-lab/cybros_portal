@@ -5,8 +5,8 @@ module Bi
     self.table_name = 'CONTRACT_PRICE'
 
     def self.all_year_names
-      Bi::ContractPrice.order(contracttime: :desc).where('contracttime >= ?', Date.new(2016,1,1))
-        .pluck(:contracttime).collect { |d| d.year }.uniq
+      Bi::ContractPrice.order(filingtime: :desc).where('filingtime >= ?', Date.new(2016,1,1))
+        .pluck(:filingtime).collect { |d| d.year }.uniq
     end
   end
 end
