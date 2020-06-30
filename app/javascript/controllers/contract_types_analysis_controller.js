@@ -10,7 +10,7 @@ export default class extends Controller {
     contractTypesAnalysisPlanChart = echarts.init(document.getElementById('contract-types-analysis-plan-chart'));
     contractTypesAnalysisWorkingDrawingChart = echarts.init(document.getElementById('contract-types-analysis-working-drawing-chart'));
     contractTypesResidentialPublicDrawingChart = echarts.init(document.getElementById('contract-types-analysis-residential-public-chart'));
-    contractTypesResidentialPublicDrawingProviousChart = echarts.init(document.getElementById('contract-types-analysis-residential-public-chart-provious'));
+    contractTypesResidentialPublicDrawingProviousChart = echarts.init(document.getElementById('contract-types-analysis-residential-public-previous-chart'));
 
     const planAxis = JSON.parse(this.data.get("plan_axis"));
     const planAmount = JSON.parse(this.data.get("plan_amount"));
@@ -179,12 +179,12 @@ export default class extends Controller {
     contractTypesAnalysisPlanChart.setOption(plan_option, false);
     contractTypesAnalysisWorkingDrawingChart.setOption(working_drawing_option, false);
     contractTypesResidentialPublicDrawingChart.setOption(residential_public_option, false);
-    contractTypesResidentialPublicDrawingProviousChart.setOption(residential_public_option, false);
+    contractTypesResidentialPublicDrawingProviousChart.setOption(residential_public_provious_option, false);
 
     setTimeout(() => {
       contractTypesAnalysisPlanChart.resize();
       contractTypesAnalysisWorkingDrawingChart.resize();
-      contractTypesResidentialPublicDrawingChart.resize(); 
+      contractTypesResidentialPublicDrawingChart.resize();
       contractTypesResidentialPublicDrawingProviousChart.resize();
     }, 200);
   }
