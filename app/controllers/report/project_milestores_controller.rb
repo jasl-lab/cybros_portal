@@ -8,7 +8,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    @selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
+    @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first
     @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(@selected_org_code)
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_month = Date.parse(@month_name).end_of_month
@@ -37,7 +37,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   end
 
   def detail_table_drill_down
-    selected_org_code = params[:org_code]&.strip || current_user.user_company_orgcode
+    selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first
     @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(selected_org_code)
     @month_name = params[:month_name]&.strip
     end_of_month = Date.parse(@month_name).end_of_month

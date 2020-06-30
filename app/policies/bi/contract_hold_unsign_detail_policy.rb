@@ -7,7 +7,7 @@ module Bi
         if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
           scope.all
         elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.job_level.to_i >= 11)
-          scope.where(orgcode: user.user_company_orgcode)
+          scope.where(orgcode: user.can_access_org_codes)
         else
           scope.none
         end
