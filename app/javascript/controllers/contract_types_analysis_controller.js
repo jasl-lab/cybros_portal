@@ -43,14 +43,18 @@ export default class extends Controller {
     const residentialPublicProviousData = residentialPublicProviousAmount.map(mapResidentialPublicProvious2PieDoughnut);
 
     const plan_option = {
+      title: {
+        text: '标题1',
+        left: 'center',
+      },
       tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
-          orient: 'horizontal',
-          top: 10,
-          data: planAxis
+        orient: 'horizontal',
+        bottom: 20,
+        data: planAxis
       },
       series: [
           {
@@ -77,14 +81,18 @@ export default class extends Controller {
     };
 
     const working_drawing_option = {
+      title: {
+        text: '标题1',
+        left: 'center',
+      },
       tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
-          orient: 'horizontal',
-          top: 10,
-          data: workingDrawingAxis
+        orient: 'horizontal',
+        bottom: 20,
+        data: workingDrawingAxis
       },
       series: [
           {
@@ -111,13 +119,18 @@ export default class extends Controller {
     };
 
     const residential_public_option = {
+      title: {
+        text: '标题1',
+        left: 'center',
+      },
       tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
-          orient: 'horizontal',
-          data: residentialPublicAxis
+        orient: 'horizontal',
+        bottom: 20,
+        data: residentialPublicAxis
       },
       series: [
           {
@@ -144,13 +157,18 @@ export default class extends Controller {
     };
 
     const residential_public_provious_option = {
+      title: {
+        text: '标题1',
+        left: 'center',
+      },
       tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
-          orient: 'horizontal',
-          data: residentialPublicProviousAxis
+        orient: 'horizontal',
+        bottom: 20,
+        data: residentialPublicProviousAxis
       },
       series: [
           {
