@@ -8,14 +8,14 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   def show
     @all_year_names = Bi::ContractPrice.all_year_names
     @year_name = params[:year_name]&.strip || @all_year_names.first
-    beginning_of_year = Date.ordinal(@year_name.to_i)
-    end_of_year = beginning_of_year.end_of_year
+    @beginning_of_year = Date.ordinal(@year_name.to_i)
+    end_of_year = @beginning_of_year.end_of_year
 
     data = Bi::ContractPrice
       .group(:businessltdcode)
       .select('businessltdcode, SUM(realamounttotal) realamounttotal')
       .order('SUM(realamounttotal) DESC')
-      .where(filingtime: beginning_of_year..end_of_year)
+      .where(filingtime: @beginning_of_year..end_of_year)
 
     @orgs_options = params[:orgs]
 
@@ -45,11 +45,11 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_施工图_公司 = contract_price_施工图_公司[0..9].append('其他')
     @contract_price_施工图_合同总金额 = first_10_contract_price_施工图_合同总金额.append(total_contract_price_施工图_合同总金额 - first_10_contract_price_施工图_合同总金额.sum)
 
-    @contract_price_住宅公建, @contract_price_住宅公建总金额 = 住宅公建_contract_price(beginning_of_year, end_of_year)
+    @contract_price_住宅公建, @contract_price_住宅公建总金额 = 住宅公建_contract_price(@beginning_of_year, end_of_year)
 
-    previous_beginning_of_year = Date.ordinal(@year_name.to_i - 1)
-    previous_end_of_year = beginning_of_year.end_of_year
-    @previous_contract_price_住宅公建, @previous_contract_price_住宅公建总金额 = 住宅公建_contract_price(previous_beginning_of_year, previous_end_of_year)
+    @previous_beginning_of_year = Date.ordinal(@year_name.to_i - 1)
+    previous_end_of_year = @previous_beginning_of_year.end_of_year
+    @previous_contract_price_住宅公建, @previous_contract_price_住宅公建总金额 = 住宅公建_contract_price(@previous_beginning_of_year, previous_end_of_year)
   end
 
   private

@@ -12,6 +12,8 @@ export default class extends Controller {
     contractTypesResidentialPublicDrawingChart = echarts.init(document.getElementById('contract-types-analysis-residential-public-chart'));
     contractTypesResidentialPublicDrawingProviousChart = echarts.init(document.getElementById('contract-types-analysis-residential-public-previous-chart'));
 
+    const beginningOfYear = this.data.get("beginning_of_year");
+    const previousBeginningOfYear = this.data.get("previous_beginning_of_year");
     const planAxis = JSON.parse(this.data.get("plan_axis"));
     const planAmount = JSON.parse(this.data.get("plan_amount"));
     const workingDrawingAxis = JSON.parse(this.data.get("working_drawing_axis"));
@@ -44,7 +46,7 @@ export default class extends Controller {
 
     const plan_option = {
       title: {
-        text: '标题1',
+        text: '方案',
         left: 'center',
       },
       tooltip: {
@@ -82,7 +84,7 @@ export default class extends Controller {
 
     const working_drawing_option = {
       title: {
-        text: '标题1',
+        text: '施工图',
         left: 'center',
       },
       tooltip: {
@@ -120,7 +122,7 @@ export default class extends Controller {
 
     const residential_public_option = {
       title: {
-        text: '标题1',
+        text: `${beginningOfYear}土建项目各业务类型合同占比`,
         left: 'center',
       },
       tooltip: {
@@ -158,7 +160,7 @@ export default class extends Controller {
 
     const residential_public_provious_option = {
       title: {
-        text: '标题1',
+        text: `${previousBeginningOfYear}土建项目各业务类型合同占比`,
         left: 'center',
       },
       tooltip: {

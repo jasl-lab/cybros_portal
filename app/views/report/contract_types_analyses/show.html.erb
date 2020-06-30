@@ -2,6 +2,8 @@
   <div class="col-lg-12"
     data-controller="contract-types-analysis"
     data-action="resize@window->contract-types-analysis#layout"
+    data-contract-types-analysis-beginning_of_year="<%= @beginning_of_year.year -%>"
+    data-contract-types-analysis-previous_beginning_of_year="<%= @previous_beginning_of_year.year -%>"
     data-contract-types-analysis-plan_axis="<%= @contract_price_方案_公司.to_json -%>"
     data-contract-types-analysis-plan_amount="<%= @contract_price_方案_合同总金额.to_json -%>"
     data-contract-types-analysis-working_drawing_axis="<%= @contract_price_施工图_公司.to_json -%>"
