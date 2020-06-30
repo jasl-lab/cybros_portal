@@ -29,7 +29,7 @@ module Bi
 
     def self.person_by_department_in_sh(target_date, orgcode)
       lad = where(date: target_date).where("是否显示 = '1'")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SH_REFRESH_RATE.deptcode")
+        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SH_REFRESH_RATE.deptcode and ORG_REPORT_DEPT_ORDER.开始时间 <= '#{target_date.to_date}' and (ORG_REPORT_DEPT_ORDER.结束时间 >= '#{target_date.to_date}' or ORG_REPORT_DEPT_ORDER.结束时间 is null)")
         .order("ORG_REPORT_DEPT_ORDER.部门排名, SH_REFRESH_RATE.deptcode")
       lad = lad.where(orgcode: orgcode)
       h = {}
