@@ -19,7 +19,7 @@ class Report::PredictContractsController < Report::BaseController
 
     @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @select_company_short_names = policy_scope(Bi::TrackContract).available_company_names(@last_available_date)
-    @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first
+    @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
 
     data = policy_scope(Bi::TrackContract)
       .where(orgcode: @selected_org_code)
