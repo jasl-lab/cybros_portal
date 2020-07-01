@@ -2,15 +2,10 @@
   <div class="col-lg-12"
     data-controller="contract-types-analysis"
     data-action="resize@window->contract-types-analysis#layout"
-    data-contract-types-analysis-beginning_of_year="<%= @beginning_of_year.year -%>"
-    data-contract-types-analysis-previous_beginning_of_year="<%= @previous_beginning_of_year.year -%>"
     data-contract-types-analysis-plan_axis="<%= @contract_price_方案_公司.to_json -%>"
     data-contract-types-analysis-plan_amount="<%= @contract_price_方案_合同总金额.to_json -%>"
     data-contract-types-analysis-working_drawing_axis="<%= @contract_price_施工图_公司.to_json -%>"
-    data-contract-types-analysis-working_drawing_amount="<%= @contract_price_施工图_合同总金额.to_json -%>"
-    data-contract-types-analysis-residential_public_axis="<%= @contract_price_住宅公建.to_json -%>"
-    data-contract-types-analysis-residential_public_amount="<%= @contract_price_住宅公建总金额.to_json -%>"
-    data-contract-types-analysis-residential_public_provious_amount="<%= @previous_contract_price_住宅公建总金额.to_json -%>">
+    data-contract-types-analysis-working_drawing_amount="<%= @contract_price_施工图_合同总金额.to_json -%>">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -32,14 +27,6 @@
       </div>
       <div class="col-lg-6">
         <div id="contract-types-analysis-working-drawing-chart" style="width: 100%;height: 500px;">
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div id="contract-types-analysis-residential-public-chart" style="width: 100%;height: 500px;">
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div id="contract-types-analysis-residential-public-previous-chart" style="width: 100%;height: 500px;">
         </div>
       </div>
     </div>

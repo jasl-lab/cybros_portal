@@ -45,26 +45,31 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_施工图_公司 = contract_price_施工图_公司[0..9].append('其他')
     @contract_price_施工图_合同总金额 = first_10_contract_price_施工图_合同总金额.append(total_contract_price_施工图_合同总金额 - first_10_contract_price_施工图_合同总金额.sum)
 
-    @contract_price_住宅公建 = %w[住宅方案 住宅施工图 公建方案 公建施工图]
-    @contract_price_住宅公建总金额 = 住宅公建_contract_price(@beginning_of_year, end_of_year)
-
-    @previous_beginning_of_year = Date.ordinal(@year_name.to_i - 1)
-    previous_end_of_year = @previous_beginning_of_year.end_of_year
-    @previous_contract_price_住宅公建总金额 = 住宅公建_contract_price(@previous_beginning_of_year, previous_end_of_year)
+    @years, @years_sum_住宅方案, @years_sum_住宅施工图, @years_sum_公建方案, @years_sum_公建施工图 \
+      = 住宅公建_contract_price(2016, 2020, @orgs_options)
   end
 
   private
 
-    def 住宅公建_contract_price(begin_of_year, end_of_year)
+    def 住宅公建_contract_price(begin_of_year, end_of_year, orgs_options)
       sum_scope = Bi::ContractPrice
-        .select('projectstage, projecttype, SUM(realamounttotal) realamounttotal')
-        .group(:projectstage, :projecttype)
-        .where(filingtime: begin_of_year..end_of_year)
-      sum_住宅方案 = sum_scope.find { |c| c.projectstage == '前端' && c.projecttype == '土建住宅' }
-      sum_住宅施工图 = sum_scope.find { |c| c.projectstage == '后端' && c.projecttype == '土建住宅' }
-      sum_公建方案 = sum_scope.find { |c| c.projectstage == '前端' && c.projecttype == '土建公建' }
-      sum_公建施工图 = sum_scope.find { |c| c.projectstage == '后端' && c.projecttype == '土建公建' }
-      return [sum_住宅方案.realamounttotal, sum_住宅施工图.realamounttotal, sum_公建方案.realamounttotal, sum_公建施工图.realamounttotal]
+        .select('YEAR(filingtime) year_name, projectstage, projecttype, SUM(realamounttotal) realamounttotal')
+        .group('YEAR(filingtime), projectstage, projecttype')
+        .where('YEAR(filingtime) >= ?', begin_of_year)
+        .where('YEAR(filingtime) <= ?', end_of_year)
+        .where(businessltdcode: orgs_options)
+      years_name = (begin_of_year..end_of_year).to_a
+      years_sum_住宅方案 = []
+      years_sum_住宅施工图 = []
+      years_sum_公建方案 = []
+      years_sum_公建施工图 = []
+      years_name.each do |year|
+        years_sum_住宅方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建住宅' }&.realamounttotal
+        years_sum_住宅施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建住宅' }&.realamounttotal
+        years_sum_公建方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建公建' }&.realamounttotal
+        years_sum_公建施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建公建' }&.realamounttotal
+      end
+      return [years_name, years_sum_住宅方案, years_sum_住宅施工图, years_sum_公建方案, years_sum_公建施工图]
     end
 
 
