@@ -20,7 +20,6 @@ export default class extends Controller {
     const workingDrawingAmount = JSON.parse(this.data.get("working_drawing_amount"));
     const residentialPublicAxis = JSON.parse(this.data.get("residential_public_axis"));
     const residentialPublicAmount = JSON.parse(this.data.get("residential_public_amount"));
-    const residentialPublicProviousAxis = JSON.parse(this.data.get("residential_public_provious_axis"));
     const residentialPublicProviousAmount = JSON.parse(this.data.get("residential_public_provious_amount"));
 
     function mapPlan2PieDoughnut(amount, index) {
@@ -35,14 +34,10 @@ export default class extends Controller {
       return { value: amount, name: residentialPublicAxis[index] };
     }
 
-    function mapResidentialPublicProvious2PieDoughnut(amount, index) {
-      return { value: amount, name: residentialPublicProviousAxis[index] };
-    }
-
     const planData = planAmount.map(mapPlan2PieDoughnut);
     const workingDrawingData = workingDrawingAmount.map(mapWorkingDrawing2PieDoughnut);
     const residentialPublicData = residentialPublicAmount.map(mapResidentialPublic2PieDoughnut);
-    const residentialPublicProviousData = residentialPublicProviousAmount.map(mapResidentialPublicProvious2PieDoughnut);
+    const residentialPublicProviousData = residentialPublicProviousAmount.map(mapResidentialPublic2PieDoughnut);
 
     const plan_option = {
       title: {
@@ -170,7 +165,7 @@ export default class extends Controller {
       legend: {
         orient: 'horizontal',
         bottom: 20,
-        data: residentialPublicProviousAxis
+        data: residentialPublicAxis
       },
       series: [
           {
