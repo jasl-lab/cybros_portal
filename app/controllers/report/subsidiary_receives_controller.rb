@@ -101,6 +101,14 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       (d.total / (staff_number * 10000).to_f).round(0)
     end
+
+    staff_per_orgcode = Bi::YearAvgStaffAll.staff_per_orgcode_by_date_and_sum(@end_of_month, @view_deptcode_sum)
+    @real_receives_per_staff = real_data.collect do |d|
+      staff_number = staff_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
+      (d.total / (staff_number * 10000).to_f).round(0)
+    end
+
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?

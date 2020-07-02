@@ -25,7 +25,8 @@ export default class extends Controller {
 
     subsidiaryRealReceivesStaffChart = echarts.init(document.getElementById('subsidiary-real-receives-staff-chart'));
 
-    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_worker"));
+    const realReceivesPerWorker = JSON.parse(this.data.get("real_receives_per_worker"));
+    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
 
     subsidiaryNeedReceivesStaffChart = echarts.init(document.getElementById('subsidiary-need-receives-staff-chart'));
 
@@ -198,10 +199,10 @@ export default class extends Controller {
 
     const real_staff_option = {
         title: {
-          text: '一线人均实收款'
+          text: '人均实收款'
         },
         legend: {
-            data: ['人均实收款（万元）'],
+            data: ['一线人均实收款（万元）','全员人均实收款（万元）'],
             align: 'left'
         },
         grid: {
@@ -238,10 +239,25 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '人均实收款（万元）',
+          name: '一线人均实收款（万元）',
           type: 'bar',
-          data: realReceivesPerStaff,
+          stack: '实收',
+          data: realReceivesPerWorker,
           color: '#738496',
+          barMaxWidth: 38,
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              color: '#3E3E3E'
+            }
+          }
+        },{
+          name: '全员人均实收款（万元）',
+          type: 'bar',
+          stack: '实收',
+          data: realReceivesPerStaff,
+          color: '#FA9291',
           barMaxWidth: 38,
           label: {
             normal: {
