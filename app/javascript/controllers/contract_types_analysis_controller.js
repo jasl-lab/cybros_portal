@@ -107,6 +107,13 @@ export default class extends Controller {
       ]
     };
 
+    const percentFormater = p => {
+      let sum = 0;
+      for (let i = 0; i < year_category_stack_option.series.length; i++) {
+        sum += year_category_stack_option.series[i].data[p.dataIndex];
+      }
+      return `${p.data}\n${(p.data/sum * 100).toFixed(1)}%`;
+    }
     const year_category_stack_option = {
       tooltip: {
         trigger: 'axis',
@@ -135,8 +142,9 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           label: {
-              show: true,
-              position: 'insideRight'
+            show: true,
+            position: 'insideRight',
+            formatter: percentFormater
           },
           data: yearsResidentialPlanAmount
         },{
@@ -144,8 +152,9 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           label: {
-              show: true,
-              position: 'insideRight'
+            show: true,
+            position: 'insideRight',
+            formatter: percentFormater
           },
           data: yearsResidentialConstructionAmount
         },{
@@ -153,8 +162,9 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           label: {
-              show: true,
-              position: 'insideRight'
+            show: true,
+            position: 'insideRight',
+            formatter: percentFormater
           },
           data: yearsPublicPlanAmount
         },{
@@ -162,8 +172,9 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           label: {
-              show: true,
-              position: 'insideRight'
+            show: true,
+            position: 'insideRight',
+            formatter: percentFormater
           },
           data: yearsPublicConstructionAmount
         }
