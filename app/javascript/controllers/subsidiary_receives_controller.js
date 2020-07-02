@@ -25,7 +25,7 @@ export default class extends Controller {
 
     subsidiaryRealReceivesStaffChart = echarts.init(document.getElementById('subsidiary-real-receives-staff-chart'));
 
-    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
+    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_worker"));
 
     subsidiaryNeedReceivesStaffChart = echarts.init(document.getElementById('subsidiary-need-receives-staff-chart'));
 
