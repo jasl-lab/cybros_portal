@@ -286,6 +286,7 @@ Rails.application.routes.draw do
              as: :user_invitations
   end
 
+  get '/users/logout' => 'home#logout'
   get 'users', to: redirect('/users/sign_up')
   get 'auth/openid_connect/callback', to: 'openid_connect#callback'
 
