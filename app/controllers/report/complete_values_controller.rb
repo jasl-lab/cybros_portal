@@ -80,7 +80,7 @@ class Report::CompleteValuesController < Report::BaseController
     else
       Bi::YearAvgStaff.worker_per_orgcode_by_year_and_sum(@end_of_month, @view_orgcode_sum)
     end
-    @staff_per_company = worker_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+    @worker_per_company = worker_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     sum_of_complete_value_totals_per_staff = @complete_value_totals_per_staff.sum.to_f
     @fix_avg_complete_value_totals_per_staff = if @complete_value_totals_per_staff.present?

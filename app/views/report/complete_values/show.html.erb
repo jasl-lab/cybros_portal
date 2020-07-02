@@ -84,8 +84,8 @@
             <tr>
               <td>人数</td>
               <% @company_short_names&.each do |short_company_name| %>
-                <% total_staff_num += (@staff_per_company[short_company_name] || 0) %>
-                <td><%= @staff_per_company[short_company_name]&.round(0) -%></td>
+                <% total_staff_num += (@worker_per_company[short_company_name] || 0) %>
+                <td><%= @worker_per_company[short_company_name]&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
