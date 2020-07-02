@@ -28,6 +28,7 @@
     data-subsidiary-department-receives-need_short_account_receives="<%= @need_short_account_receives.to_json -%>"
     data-subsidiary-department-receives-need_should_receives="<%= @need_should_receives.to_json -%>"
     data-subsidiary-department-receives-real_receives_per_worker="<%= @real_receives_per_worker.to_json -%>"
+    data-subsidiary-department-receives-real_receives_per_staff="<%= @real_receives_per_staff.to_json -%>"
     data-subsidiary-department-receives-real_receive_per_staff_ref="<%= @real_receive_per_staff_ref -%>"
     data-subsidiary-department-receives-need_should_receives_per_staff="<%= @need_should_receives_per_staff.to_json -%>"
     data-subsidiary-department-receives-need_should_receives_per_staff_max="<%= @need_should_receives_per_staff_max -%>"
@@ -83,7 +84,7 @@
     <div class="row">
       <div class="col-lg-12 p-2">
         <h5 class="text-center">
-          至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月，人均实收款<span style="color:red"><%= @avg_of_real_receives_per_worker -%> 万元</span></span>
+          至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月，一线人均实收款<span style="color:red"><%= @avg_of_real_receives_per_worker -%> 万元</span>，全员人均实收款<span style="color:red"><%= @avg_of_real_receives_per_staff -%> 万元</span>
         </h5>
       </div>
     </div>
