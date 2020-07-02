@@ -68,16 +68,16 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
     @complete_value_year_remains = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
 
-    staff_per_dept_code_by_year = if orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
+    worker_per_dept_code_by_year = if orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_dept_code_by_year_and_sum(orgcode, @end_of_month, @view_deptcode_sum)
+      Bi::YearAvgStaff.worker_per_dept_code_by_year_and_sum(orgcode, @end_of_month, @view_deptcode_sum)
     end
 
     @staff_per_dept_code = if orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_dept_code_by_date_and_sum(orgcode, @end_of_month, @view_deptcode_sum)
+      Bi::YearAvgStaff.worker_per_dept_code_by_date_and_sum(orgcode, @end_of_month, @view_deptcode_sum)
     end
 
     @complete_value_totals_per_staff = data.collect do |d|
@@ -86,7 +86,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
 
     @complete_value_year_totals_per_staff = data.collect do |d|
-      staff_number = staff_per_dept_code_by_year.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = worker_per_dept_code_by_year.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       (d.sum_total / ((staff_number.zero? ? Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM : staff_number) * 10000).to_f).round(0)
     end
 

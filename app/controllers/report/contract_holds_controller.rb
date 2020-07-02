@@ -94,7 +94,7 @@ class Report::ContractHoldsController < Report::BaseController
     this_month_staff_data = if @selected_org_code == '000101' && end_of_month.year < 2020
       Bi::ShStaffCount.staff_per_dept_code_by_date(end_of_month)
     else
-      Bi::YearAvgStaff.staff_per_dept_code_by_date_and_sum(@selected_org_code, end_of_month, @view_deptcode_sum)
+      Bi::YearAvgStaff.worker_per_dept_code_by_date_and_sum(@selected_org_code, end_of_month, @view_deptcode_sum)
     end
 
     @dept_avg_staff = @dept_options.collect do |dept_code|
