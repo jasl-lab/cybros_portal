@@ -142,23 +142,25 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @sum_need_short_account_receives = sum_need_total
       .collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }.first
 
-    staff_per_dept_code = if selected_orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
+    worker_per_dept_code = if selected_orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
     else
       Bi::YearAvgStaff.worker_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, @view_deptcode_sum)
     end
-    real_total_staff_num = 0
+
+    real_total_worker_num = 0
     @real_receives_per_worker = real_data.collect do |d|
-      staff_number = staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = worker_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
-      real_total_staff_num += staff_number unless staff_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
+      real_total_worker_num += staff_number unless staff_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
       (d.total / (staff_number * 10000).to_f).round(0)
     end
-    @avg_of_real_receives_per_worker = (@real_receives.sum.to_f / real_total_staff_num).round(1)
+    @avg_of_real_receives_per_worker = (@real_receives.sum.to_f / real_total_worker_num).round(1)
+
     need_total_staff_num = 0
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|
-      staff_number = staff_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      staff_number = worker_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
       need_total_staff_num += staff_number unless staff_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
       should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0

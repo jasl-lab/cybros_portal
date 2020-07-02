@@ -230,7 +230,7 @@ export default class extends Controller {
           }
         },
         legend: {
-            data: ['人均实收款（万元）'],
+            data: ['一线人均实收款（万元）'],
             align: 'left'
         },
         grid: {
@@ -267,7 +267,7 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '人均实收款（万元）',
+          name: '一线人均实收款（万元）',
           type: 'bar',
           data: realReceivesPerStaffWithColor,
           color: '#738496',
