@@ -4,6 +4,13 @@
       <h3 class="page-title">
         <%= t(".title", role_name: @role.role_name) %>
       </h3>
+      <p>
+        <% @role.attributes.except('id', 'role_name','created_at', 'updated_at').each do |a| %>
+          <% next unless a.second == true %>
+          <span class="badge badge-info"><%= a.first -%></span>
+          <span class="badge badge-secondary"><%= a.second -%></span>
+        <% end %>
+      </p>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
