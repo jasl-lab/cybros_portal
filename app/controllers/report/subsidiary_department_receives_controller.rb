@@ -168,6 +168,8 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
     @avg_of_real_receives_per_staff = (@real_receives.sum.to_f / real_total_staff_num).round(1)
 
+    @real_receives_gap = @real_receives_per_worker.zip(@real_receives_per_staff).map { |d| d[0] - d[1] }
+
     need_total_staff_num = 0
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|

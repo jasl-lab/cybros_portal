@@ -29,6 +29,9 @@ export default class extends Controller {
     departmentRealReceivesStaffChart = echarts.init(document.getElementById('department-real-receives-staff-chart'));
 
     const realReceivesPerWorker = JSON.parse(this.data.get("real_receives_per_worker"));
+    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
+    const realReceivesGap = JSON.parse(this.data.get("real_receives_gap"));
+
     const realReceivePerStaffRef = this.data.get("real_receive_per_staff_ref");
 
     departmentNeedReceivesStaffChart = echarts.init(document.getElementById('department-need-receives-staff-chart'));
@@ -223,77 +226,112 @@ export default class extends Controller {
     };
 
     const real_staff_option = {
-        title: {
-          text: '一线人均实收款',
-          textStyle: {
-            fontSize: 12,
+      title: {
+        text: '人均实收款',
+        textStyle: {
+          fontSize: 12,
+        }
+      },
+      legend: {
+          data: ['一线人均实收款（万元）','全员人均实收款（万元）'],
+          align: 'left'
+      },
+      grid: {
+        left: 50,
+        right: 110,
+        top: 60,
+        bottom: 125
+      },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
           }
+        }
+      },
+      tooltip: {},
+      xAxis: {
+        data: realXAxisData,
+        silent: true,
+        axisLabel: {
+          interval: 0,
+          rotate: -40
         },
-        legend: {
-            data: ['一线人均实收款（万元）'],
-            align: 'left'
+        splitLine: {
+            show: false
+        }
+      },
+      yAxis: {
+        axisLabel: {
+          show: true,
+          interval: 'auto',
+          formatter: '{value}万'
+        }
+      },
+      series: [{
+        name: '一线人均实收款（万元）',
+        type: 'bar',
+        barWidth: '30%',
+        barGap: '-100%',
+        data: realReceivesPerWorkerWithColor,
+        itemStyle: {
+          color: '#DDDDDD'
         },
-        grid: {
-          left: 50,
-          right: 110,
-          top: 60,
-          bottom: 125
-        },
-        toolbox: {
-          feature: {
-            dataView: {},
-            saveAsImage: {
-                pixelRatio: 2
-            }
-          }
-        },
-        tooltip: {},
-        xAxis: {
-          data: realXAxisData,
-          silent: true,
-          axisLabel: {
-            interval: 0,
-            rotate: -40
-          },
-          splitLine: {
-              show: false
-          }
-        },
-        yAxis: {
-          axisLabel: {
+        barWidth: 20,
+        label: {
+          normal: {
             show: true,
-            interval: 'auto',
-            formatter: '{value}万'
+            color: '#353535',
+            position: 'top'
           }
         },
-        series: [{
-          name: '一线人均实收款（万元）',
-          type: 'bar',
-          data: realReceivesPerWorkerWithColor,
-          color: '#738496',
-          barMaxWidth: 38,
+        markLine: {
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              color: '#3E3E3E'
-            }
+            formatter: '{c}万元预警线'
           },
-          markLine: {
-            label: {
-              formatter: '{c}万元预警线'
-            },
-            lineStyle: {
-              type: 'solid',
-              width: 1
-            },
-            data: [
-              {
-                yAxis: realReceivePerStaffRef
-              }
-            ]
+          lineStyle: {
+            type: 'solid',
+            width: 1
+          },
+          data: [
+            {
+              yAxis: realReceivePerStaffRef
+            }
+          ]
+        }
+      },{
+        name: '全员人均实收款（万元）',
+        type: 'bar',
+        stack: '实收',
+        data: realReceivesPerStaff,
+        itemStyle: {
+          color: '#60A0A8'
+        },
+        barWidth: 20,
+        label: {
+          normal: {
+            show: true,
+            position: 'insideTop',
+            fontWeight: 'bold',
+            color: '#000000'
           }
-        }]
+        }
+      },{
+        name: '一线全员差额（万元）',
+        type: 'bar',
+        stack: '实收',
+        data: realReceivesGap,
+        itemStyle: {
+          color: '#DDDDDD'
+        },
+        barWidth: 20,
+        label: {
+          normal: {
+            show: false
+          }
+        }
+      }]
     };
 
     const need_staff_option = {
