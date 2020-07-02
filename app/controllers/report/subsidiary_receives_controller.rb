@@ -109,6 +109,8 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       (d.total / (staff_number * 10000).to_f).round(0)
     end
 
+    @real_receives_gap = @real_receives_per_worker.zip(@real_receives_per_staff).map { |d| d[0] - d[1] }
+
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?

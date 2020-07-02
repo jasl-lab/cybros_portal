@@ -27,6 +27,7 @@ export default class extends Controller {
 
     const realReceivesPerWorker = JSON.parse(this.data.get("real_receives_per_worker"));
     const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
+    const realReceivesGap = JSON.parse(this.data.get("real_receives_gap"));
 
     subsidiaryNeedReceivesStaffChart = echarts.init(document.getElementById('subsidiary-need-receives-staff-chart'));
 
@@ -241,15 +242,18 @@ export default class extends Controller {
         series: [{
           name: '一线人均实收款（万元）',
           type: 'bar',
-          stack: '实收',
+          barWidth: '30%',
+          barGap: '-100%',
           data: realReceivesPerWorker,
-          color: '#738496',
-          barMaxWidth: 38,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          barWidth: 20,
           label: {
             normal: {
               show: true,
-              position: 'top',
-              color: '#3E3E3E'
+              color: '#353535',
+              position: 'top'
             }
           }
         },{
@@ -257,13 +261,30 @@ export default class extends Controller {
           type: 'bar',
           stack: '实收',
           data: realReceivesPerStaff,
-          color: '#FA9291',
-          barMaxWidth: 38,
+          itemStyle: {
+            color: '#60A0A8'
+          },
+          barWidth: 20,
           label: {
             normal: {
               show: true,
-              position: 'top',
-              color: '#3E3E3E'
+              position: 'insideTop',
+              fontWeight: 'bold',
+              color: '#000000'
+            }
+          }
+        },{
+          name: '一线全员差额（万元）',
+          type: 'bar',
+          stack: '实收',
+          data: realReceivesGap,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          barWidth: 20,
+          label: {
+            normal: {
+              show: false
             }
           }
         }]
