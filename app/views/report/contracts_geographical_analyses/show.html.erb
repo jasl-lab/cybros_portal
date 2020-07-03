@@ -5,7 +5,14 @@
     data-contract-geographical-analysis-year_names="<%= @year_names.to_json -%>"
     data-contract-geographical-analysis-first_level_sum="<%= @years_sum_一线.to_json -%>"
     data-contract-geographical-analysis-second_level_sum="<%= @years_sum_二线.to_json -%>"
-    data-contract-geographical-analysis-thirdfourth_level_sum="<%= @years_sum_三四线城市.to_json -%>">
+    data-contract-geographical-analysis-thirdfourth_level_sum="<%= @years_sum_三四线城市.to_json -%>"
+    data-contract-geographical-analysis-south_west_china_sum="<%= @years_sum_西南区域.to_json -%>"
+    data-contract-geographical-analysis-east_china_sum="<%= @years_sum_华东区域.to_json -%>"
+    data-contract-geographical-analysis-south_china_sum="<%= @years_sum_华南区域.to_json -%>"
+    data-contract-geographical-analysis-centre_china_sum="<%= @years_sum_华中区域.to_json -%>"
+    data-contract-geographical-analysis-north_east_china_sum="<%= @years_sum_东北区域.to_json -%>"
+    data-contract-geographical-analysis-north_china_sum="<%= @years_sum_华北区域.to_json -%>"
+    data-contract-geographical-analysis-north_west_china_sum="<%= @years_sum_西北区域.to_json -%>">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -22,7 +29,11 @@
     <% end -%>
     <div class="row">
       <div class="col-lg-12">
-        <div id="contract-geographical-analysis-year-category-stack-chart" style="width: 100%;height: 500px;">
+        <div id="contract-geographical-analysis-year-citylevel-stack-chart" style="width: 100%;height: 500px;">
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div id="contract-geographical-analysis-year-area-stack-chart" style="width: 100%;height: 500px;">
         </div>
       </div>
     </div>

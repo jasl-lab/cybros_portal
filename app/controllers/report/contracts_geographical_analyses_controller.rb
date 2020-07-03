@@ -20,6 +20,9 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
     @years_sum_一线, @years_sum_二线, @years_sum_三四线城市 = \
       一线二线三四线_contract_price(@year_names, @orgs_options)
+
+    @years_sum_西南区域, @years_sum_华东区域, @years_sum_华南区域, @years_sum_华中区域, @years_sum_东北区域, @years_sum_华北区域, @years_sum_西北区域  = \
+      区域_contract_price(@year_names, @orgs_options)
   end
 
   private
@@ -42,6 +45,41 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
       years_sum_二线 = years_sum_二线.map { |d| (d/10000_00.0).round(2) }
       years_sum_三四线城市 = years_sum_三四线城市.map { |d| (d/10000_00.0).round(2) }
       return [years_sum_一线, years_sum_二线, years_sum_三四线城市]
+    end
+
+    def 区域_contract_price(year_names, orgs_options)
+      sum_scope = Bi::ContractPrice
+        .select('YEAR(filingtime) year_name, area, SUM(realamounttotal) realamounttotal')
+        .group('YEAR(filingtime), area')
+        .where('YEAR(filingtime) in (?)', year_names)
+        .where(businessltdcode: orgs_options)
+
+      years_sum_西南区域 = []
+      years_sum_华东区域 = []
+      years_sum_华南区域 = []
+      years_sum_华中区域 = []
+      years_sum_东北区域 = []
+      years_sum_华北区域 = []
+      years_sum_西北区域 = []
+
+      year_names.each do |year|
+        years_sum_西南区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '西南区域' }&.realamounttotal
+        years_sum_华东区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华东区域' }&.realamounttotal
+        years_sum_华南区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华南区域' }&.realamounttotal
+        years_sum_华中区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华中区域' }&.realamounttotal
+        years_sum_东北区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '东北区域' }&.realamounttotal
+        years_sum_华北区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华北区域' }&.realamounttotal
+        years_sum_西北区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '西北区域' }&.realamounttotal
+      end
+
+      years_sum_西南区域 = years_sum_西南区域.map { |d| (d/10000_00.0).round(2) }
+      years_sum_华东区域 = years_sum_华东区域.map { |d| (d/10000_00.0).round(2) }
+      years_sum_华南区域 = years_sum_华南区域.map { |d| (d/10000_00.0).round(2) }
+      years_sum_华中区域 = years_sum_华中区域.map { |d| (d/10000_00.0).round(2) }
+      years_sum_东北区域 = years_sum_东北区域.map { |d| (d/10000_00.0).round(2) }
+      years_sum_华北区域 = years_sum_华北区域.map { |d| (d/10000_00.0).round(2) }
+      years_sum_西北区域 = years_sum_西北区域.map { |d| (d/10000_00.0).round(2) }
+      return [years_sum_西南区域, years_sum_华东区域, years_sum_华南区域, years_sum_华中区域, years_sum_东北区域, years_sum_华北区域, years_sum_西北区域]
     end
 
     def set_breadcrumbs
