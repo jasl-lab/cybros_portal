@@ -3,7 +3,8 @@
 module Bi
   class ContractTypesAnalysisPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && user.admin?
+      user.present? && (user.admin?
+      )
     end
   end
 end

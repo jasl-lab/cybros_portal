@@ -24,14 +24,6 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if current_user.present? && policy(:"Bi::ContractsGeographicalAnalysis").show? && browser.ie? %>
-          <%= nav_item controller: 'report/contracts_geographical_analysis', action: 'show', html_options: { class: "nav-item" } do %>
-            <%= link_to report_contracts_geographical_analysis_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
-              <%= t("layouts.sidebar.operation.contracts_geographical_analysis") %>
-            <% end %>
-          <% end %>
-        <% end %>
         <% if current_user.present? && policy(:"Bi::CustomerAnalysis").show? && browser.ie? %>
           <%= nav_item controller: 'report/customer_analysis', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_customer_analysis_path, class: "nav-link" do %>
@@ -61,6 +53,14 @@
             <%= link_to report_contract_types_analysis_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
               <%= t("layouts.sidebar.operation.contract_types_analysis") %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(:"Bi::ContractsGeographicalAnalysis").show? %>
+          <%= nav_item controller: 'report/contracts_geographical_analysis', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_contracts_geographical_analysis_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-file-contract"></i>
+              <%= t("layouts.sidebar.operation.contracts_geographical_analysis") %>
             <% end %>
           <% end %>
         <% end %>
