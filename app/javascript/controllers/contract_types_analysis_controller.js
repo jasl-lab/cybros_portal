@@ -39,25 +39,25 @@ export default class extends Controller {
       },
       tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
+          formatter: '{a} {b}: {c} ({d}%)'
       },
       series: [
           {
-              name: '访问来源',
+              name: '前端合同额',
               type: 'pie',
               radius: ['30%', '60%'],
               avoidLabelOverlap: true,
               label: {
-                  formatter: '{b|{b}：}{c}  {per|{d}%}  ',
+                  formatter: '{b|{b}}{c} {per|{d}%}',
                   rich: {
                       b: {
-                          fontSize: 16,
-                          lineHeight: 33
+                          fontSize: 12,
+                          lineHeight: 20
                       },
                       per: {
                           color: '#eee',
                           backgroundColor: '#334455',
-                          padding: [2, 4],
+                          padding: [1, 2],
                           borderRadius: 2
                       }
                   }
@@ -65,7 +65,7 @@ export default class extends Controller {
               emphasis: {
                   label: {
                       show: true,
-                      fontSize: '22',
+                      fontSize: '16',
                       fontWeight: 'bold'
                   }
               },
@@ -85,25 +85,25 @@ export default class extends Controller {
       },
       tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
+          formatter: '{a} {b}: {c} ({d}%)'
       },
       series: [
           {
-              name: '访问来源',
+              name: '后端合同额',
               type: 'pie',
               radius: ['30%', '60%'],
               avoidLabelOverlap: true,
               label: {
-                  formatter: '{b|{b}：}{c}  {per|{d}%}  ',
+                  formatter: '{b|{b}}{c} {per|{d}%}',
                   rich: {
                       b: {
-                          fontSize: 16,
-                          lineHeight: 33
+                          fontSize: 12,
+                          lineHeight: 20
                       },
                       per: {
                           color: '#eee',
                           backgroundColor: '#334455',
-                          padding: [2, 4],
+                          padding: [1, 2],
                           borderRadius: 2
                       }
                   }
@@ -111,7 +111,7 @@ export default class extends Controller {
               emphasis: {
                   label: {
                       show: true,
-                      fontSize: '22',
+                      fontSize: '16',
                       fontWeight: 'bold'
                   }
               },
@@ -143,12 +143,14 @@ export default class extends Controller {
         }
       },
       legend: {
-        data: ['住宅前端', '住宅后端', '公建前端', '公建后端']
+        data: ['住宅前端', '住宅后端', '公建前端', '公建后端'],
+        left: 'center',
+        top: '50'
       },
       grid: {
         left: '3%',
         right: '4%',
-        bottom: '3%',
+        top: '80',
         containLabel: true
       },
       xAxis: {
