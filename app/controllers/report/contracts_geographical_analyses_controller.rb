@@ -6,6 +6,24 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    @all_year_names = Bi::ContractPrice.all_year_names
+    @year_name = params[:year_name]&.strip || @all_year_names.first
+    beginning_of_year = Date.ordinal(@year_name.to_i)
+    end_of_year = beginning_of_year.end_of_year
+
+    data = Bi::ContractPrice
+      .group(:businessltdcode)
+      .select('businessltdcode, SUM(realamounttotal) realamounttotal')
+      .order('SUM(realamounttotal) DESC')
+      .where(filingtime: beginning_of_year..end_of_year)
+
+    @orgs_options = params[:orgs]
+
+    all_company_orgcodes = data.collect(&:businessltdcode)
+    all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+
+    @organization_options = all_company_short_names.zip(all_company_orgcodes)
+    @orgs_options = all_company_orgcodes if @orgs_options.blank?
   end
 
   private

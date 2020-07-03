@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    contracts_geographical_analyses:
+      show:
+        title: "Contract geographical analysis"
+        year_name: "Year name"
+        org_names: "ORG names"
+        confirm: "Confirm"
