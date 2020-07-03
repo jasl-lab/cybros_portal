@@ -17,9 +17,32 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
+
+    @years_sum_一线, @years_sum_二线, @years_sum_三四线城市 = \
+      一线二线三四线_contract_price(@year_names, @orgs_options)
   end
 
   private
+
+    def 一线二线三四线_contract_price(year_names, orgs_options)
+      sum_scope = Bi::ContractPrice
+        .select('YEAR(filingtime) year_name, citylevel, SUM(realamounttotal) realamounttotal')
+        .group('YEAR(filingtime), citylevel')
+        .where('YEAR(filingtime) in (?)', year_names)
+        .where(businessltdcode: orgs_options)
+      years_sum_一线 = []
+      years_sum_二线 = []
+      years_sum_三四线城市 = []
+      year_names.each do |year|
+        years_sum_一线 << sum_scope.find { |c| c.year_name == year.to_i && c.citylevel == '一线' }&.realamounttotal
+        years_sum_二线 << sum_scope.find { |c| c.year_name == year.to_i && c.citylevel == '二线' }&.realamounttotal
+        years_sum_三四线城市 << sum_scope.find { |c| c.year_name == year.to_i && c.citylevel == '三四线城市' }&.realamounttotal
+      end
+      years_sum_一线 = years_sum_一线.map { |d| (d/10000_00.0).round(2) }
+      years_sum_二线 = years_sum_二线.map { |d| (d/10000_00.0).round(2) }
+      years_sum_三四线城市 = years_sum_三四线城市.map { |d| (d/10000_00.0).round(2) }
+      return [years_sum_一线, years_sum_二线, years_sum_三四线城市]
+    end
 
     def set_breadcrumbs
       @_breadcrumbs = [
