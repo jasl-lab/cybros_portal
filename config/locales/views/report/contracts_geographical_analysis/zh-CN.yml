@@ -4,6 +4,6 @@ zh-CN:
     contracts_geographical_analyses:
       show:
         title: "合同地域分析"
-        year_name: "查询年份"
+        year_names: "查询年份"
         org_names: "显示子公司"
         confirm: "确认"

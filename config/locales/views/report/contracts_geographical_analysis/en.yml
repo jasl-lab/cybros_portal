@@ -4,6 +4,6 @@ en:
     contracts_geographical_analyses:
       show:
         title: "Contract geographical analysis"
-        year_name: "Year name"
+        year_names: "Year names"
         org_names: "ORG names"
         confirm: "Confirm"
