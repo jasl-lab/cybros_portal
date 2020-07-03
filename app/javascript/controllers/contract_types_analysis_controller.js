@@ -33,17 +33,13 @@ export default class extends Controller {
 
     const plan_option = {
       title: {
-        text: '方案',
+        text: '子公司前端合同额占比',
+        subtext:'单位:百万元',
         left: 'center',
       },
       tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
-      },
-      legend: {
-        orient: 'horizontal',
-        bottom: 20,
-        data: planAxis
       },
       series: [
           {
@@ -52,7 +48,19 @@ export default class extends Controller {
               radius: ['30%', '60%'],
               avoidLabelOverlap: true,
               label: {
-                  show: true
+                  formatter: '{b|{b}：}{c}  {per|{d}%}  ',
+                  rich: {
+                      b: {
+                          fontSize: 16,
+                          lineHeight: 33
+                      },
+                      per: {
+                          color: '#eee',
+                          backgroundColor: '#334455',
+                          padding: [2, 4],
+                          borderRadius: 2
+                      }
+                  }
               },
               emphasis: {
                   label: {
@@ -71,17 +79,13 @@ export default class extends Controller {
 
     const working_drawing_option = {
       title: {
-        text: '施工图',
+        text: '子公司后端合同额占比',
+        subtext:'单位:百万元',
         left: 'center',
       },
       tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
-      },
-      legend: {
-        orient: 'horizontal',
-        bottom: 20,
-        data: workingDrawingAxis
       },
       series: [
           {
@@ -90,7 +94,19 @@ export default class extends Controller {
               radius: ['30%', '60%'],
               avoidLabelOverlap: true,
               label: {
-                  show: true
+                  formatter: '{b|{b}：}{c}  {per|{d}%}  ',
+                  rich: {
+                      b: {
+                          fontSize: 16,
+                          lineHeight: 33
+                      },
+                      per: {
+                          color: '#eee',
+                          backgroundColor: '#334455',
+                          padding: [2, 4],
+                          borderRadius: 2
+                      }
+                  }
               },
               emphasis: {
                   label: {
@@ -115,6 +131,11 @@ export default class extends Controller {
       return `${p.data}\n${(p.data/sum * 100).toFixed(1)}%`;
     }
     const year_category_stack_option = {
+      title: {
+        text: '土建项目各业务类型合同额占比情况',
+        subtext:'单位:百万元',
+        left: 'center',
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -122,7 +143,7 @@ export default class extends Controller {
         }
       },
       legend: {
-        data: ['住宅方案', '住宅施工图', '公建方案', '公建施工图']
+        data: ['住宅前端', '住宅后端', '公建前端', '公建后端']
       },
       grid: {
         left: '3%',
@@ -138,7 +159,7 @@ export default class extends Controller {
         data: yearsCategory
       },
       series: [{
-          name: '住宅方案',
+          name: '住宅前端',
           type: 'bar',
           stack: '总量',
           label: {
@@ -148,7 +169,7 @@ export default class extends Controller {
           },
           data: yearsResidentialPlanAmount
         },{
-          name: '住宅施工图',
+          name: '住宅后端',
           type: 'bar',
           stack: '总量',
           label: {
@@ -158,7 +179,7 @@ export default class extends Controller {
           },
           data: yearsResidentialConstructionAmount
         },{
-          name: '公建方案',
+          name: '公建前端',
           type: 'bar',
           stack: '总量',
           label: {
@@ -168,7 +189,7 @@ export default class extends Controller {
           },
           data: yearsPublicPlanAmount
         },{
-          name: '公建施工图',
+          name: '公建后端',
           type: 'bar',
           stack: '总量',
           label: {
