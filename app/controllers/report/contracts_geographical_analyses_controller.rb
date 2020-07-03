@@ -10,15 +10,9 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     @year_names = params[:year_names]
     @orgs_options = params[:orgs]
 
-    data = Bi::ContractPrice
-      .group(:businessltdcode)
-      .select('businessltdcode, SUM(realamounttotal) realamounttotal')
-      .order('SUM(realamounttotal) DESC')
-
     @year_names = @all_year_names if @year_names.blank?
-    data = data.where('YEAR(filingtime) in (?)', @year_names)
 
-    all_company_orgcodes = data.collect(&:businessltdcode)
+    all_company_orgcodes = Bi::ContractPrice.select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
