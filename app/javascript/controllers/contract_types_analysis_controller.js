@@ -38,66 +38,61 @@ export default class extends Controller {
         left: 'center',
       },
       tooltip: {
-          trigger: 'item',
-          formatter: '{a} {b}: {c} ({d}%)'
+        trigger: 'item',
+        formatter: '{a} {b}: {c} ({d}%)'
       },
-      series: [
-          {
-              name: '前端合同额',
-              type: 'pie',
-              radius: ['30%', '60%'],
-              avoidLabelOverlap: true,
-              label: {
-                  formatter: '{b|{b}} {c}',
-                  rich: {
-                      b: {
-                          fontSize: 12,
-                          lineHeight: 20
-                      },
-                      per: {
-                          color: '#eee',
-                          backgroundColor: '#334455',
-                          padding: [1, 2],
-                          borderRadius: 2
-                      }
-                  }
-              },
-              emphasis: {
-                  label: {
-                      show: true,
-                      fontSize: '16',
-                      fontWeight: 'bold'
-                  }
-              },
-              labelLine: {
-                  show: true
-              },
-              data: planData
-          },
-          {
-              name: '前端合同额',
-              type: 'pie',
-              radius: ['30%', '60%'],
-              avoidLabelOverlap: true,
-              label: {
-                  formatter: '{d}%',
-                  position: 'inner'
-                  }
-              },
-              emphasis: {
-                  label: {
-                      show: true,
-                      fontSize: '16',
-                      fontWeight: 'bold'
-                  }
-              },
-              labelLine: {
-                  show: true
-              },
-              data: planData
+      series: [{
+        name: '前端合同额',
+        type: 'pie',
+        radius: ['30%', '60%'],
+        avoidLabelOverlap: true,
+        label: {
+            formatter: '{b|{b}} {c}',
+            rich: {
+                b: {
+                    fontSize: 12,
+                    lineHeight: 20
+                },
+                per: {
+                    color: '#eee',
+                    backgroundColor: '#334455',
+                    padding: [1, 2],
+                    borderRadius: 2
+                }
+            }
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '16',
+            fontWeight: 'bold'
           }
-        }
-      ]
+        },
+        labelLine: {
+            show: true
+        },
+        data: planData
+      },{
+        name: '前端合同额',
+        type: 'pie',
+        radius: ['30%', '60%'],
+        avoidLabelOverlap: true,
+        label: {
+          formatter: '{d}%',
+          position: 'inner'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '16',
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: true
+        },
+        data: planData
+      }]
     };
 
     const working_drawing_option = {
@@ -110,63 +105,59 @@ export default class extends Controller {
           trigger: 'item',
           formatter: '{a} {b}: {c} ({d}%)'
       },
-      series: [
-          {
-              name: '后端合同额',
-              type: 'pie',
-              radius: ['30%', '60%'],
-              avoidLabelOverlap: true,
-              label: {
-                  formatter: '{b|{b}} {c}',
-                  rich: {
-                      b: {
-                          fontSize: 12,
-                          lineHeight: 20
-                      },
-                      per: {
-                          color: '#eee',
-                          backgroundColor: '#334455',
-                          padding: [1, 2],
-                          borderRadius: 2
-                      }
-                  }
-              },
-              emphasis: {
-                  label: {
-                      show: true,
-                      fontSize: '16',
-                      fontWeight: 'bold'
-                  }
-              },
-              labelLine: {
-                  show: true
-              },
-              data: workingDrawingData
-          },
-          {
-              name: '后端合同额',
-              type: 'pie',
-              radius: ['30%', '60%'],
-              avoidLabelOverlap: true,
-              label: {
-                  formatter: '{d}%',
-                  position: 'inner'
-              },
-              emphasis: {
-                  label: {
-                      show: true,
-                      fontSize: '16',
-                      fontWeight: 'bold'
-                  }
-              },
-              labelLine: {
-                  show: true
-              },
-              data: workingDrawingData
-          }
-        
-        ]
-      };
+      series: [{
+        name: '后端合同额',
+        type: 'pie',
+        radius: ['30%', '60%'],
+        avoidLabelOverlap: true,
+        label: {
+            formatter: '{b|{b}} {c}',
+            rich: {
+                b: {
+                    fontSize: 12,
+                    lineHeight: 20
+                },
+                per: {
+                    color: '#eee',
+                    backgroundColor: '#334455',
+                    padding: [1, 2],
+                    borderRadius: 2
+                }
+            }
+        },
+        emphasis: {
+            label: {
+                show: true,
+                fontSize: '16',
+                fontWeight: 'bold'
+            }
+        },
+        labelLine: {
+            show: true
+        },
+        data: workingDrawingData
+      },{
+        name: '后端合同额',
+        type: 'pie',
+        radius: ['30%', '60%'],
+        avoidLabelOverlap: true,
+        label: {
+            formatter: '{d}%',
+            position: 'inner'
+        },
+        emphasis: {
+            label: {
+                show: true,
+                fontSize: '16',
+                fontWeight: 'bold'
+            }
+        },
+        labelLine: {
+            show: true
+        },
+        data: workingDrawingData
+      }]
+    };
 
     const percentFormater = p => {
       let sum = 0;
