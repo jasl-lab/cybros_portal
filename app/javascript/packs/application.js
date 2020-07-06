@@ -29,6 +29,7 @@ require("@rails/actiontext")
 import "turbolinks/coreui";
 
 import echarts from 'echarts'
+require("echarts/map/js/china")
 window.echarts = echarts;
 
 import "controllers";
