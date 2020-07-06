@@ -48,7 +48,7 @@ export default class extends Controller {
               radius: ['30%', '60%'],
               avoidLabelOverlap: true,
               label: {
-                  formatter: '{b|{b}}{c} {per|{d}%}',
+                  formatter: '{b|{b}} {c}',
                   rich: {
                       b: {
                           fontSize: 12,
@@ -73,7 +73,30 @@ export default class extends Controller {
                   show: true
               },
               data: planData
+          },
+          {
+              name: '前端合同额',
+              type: 'pie',
+              radius: ['30%', '60%'],
+              avoidLabelOverlap: true,
+              label: {
+                  formatter: '{d}%',
+                  position: 'inner'
+                  }
+              },
+              emphasis: {
+                  label: {
+                      show: true,
+                      fontSize: '16',
+                      fontWeight: 'bold'
+                  }
+              },
+              labelLine: {
+                  show: true
+              },
+              data: planData
           }
+        }
       ]
     };
 
@@ -94,7 +117,7 @@ export default class extends Controller {
               radius: ['30%', '60%'],
               avoidLabelOverlap: true,
               label: {
-                  formatter: '{b|{b}}{c} {per|{d}%}',
+                  formatter: '{b|{b}} {c}',
                   rich: {
                       b: {
                           fontSize: 12,
@@ -119,9 +142,31 @@ export default class extends Controller {
                   show: true
               },
               data: workingDrawingData
+          },
+          {
+              name: '后端合同额',
+              type: 'pie',
+              radius: ['30%', '60%'],
+              avoidLabelOverlap: true,
+              label: {
+                  formatter: '{d}%',
+                  position: 'inner'
+              },
+              emphasis: {
+                  label: {
+                      show: true,
+                      fontSize: '16',
+                      fontWeight: 'bold'
+                  }
+              },
+              labelLine: {
+                  show: true
+              },
+              data: workingDrawingData
           }
-      ]
-    };
+        
+        ]
+      };
 
     const percentFormater = p => {
       let sum = 0;
