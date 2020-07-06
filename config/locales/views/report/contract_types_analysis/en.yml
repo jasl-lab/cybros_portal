@@ -4,6 +4,6 @@ en:
     contract_types_analyses:
       show:
         title: "Contract type analysis"
-        year_name: "Year name"
+        month_name: "Month name"
         org_names: "ORG names"
         confirm: "Confirm"

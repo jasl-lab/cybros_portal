@@ -6,16 +6,16 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_year_names = Bi::ContractPrice.all_year_names
-    @year_name = params[:year_name]&.strip || @all_year_names.first
-    @beginning_of_year = Date.ordinal(@year_name.to_i)
-    end_of_year = @beginning_of_year.end_of_year
+    @all_month_names = Bi::ContractPrice.all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.first
+    end_of_year_month = Date.parse(@month_name)
+    @beginning_of_year = end_of_year_month.beginning_of_year
 
     data = Bi::ContractPrice
       .group(:businessltdcode)
       .select('businessltdcode, SUM(realamounttotal) realamounttotal')
       .order('SUM(realamounttotal) DESC')
-      .where(filingtime: @beginning_of_year..end_of_year)
+      .where(filingtime: @beginning_of_year..end_of_year_month)
 
     @orgs_options = params[:orgs]
 
