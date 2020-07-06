@@ -29,6 +29,7 @@ export default class extends Controller {
     }
 
     const planData = planAmount.map(mapPlan2PieDoughnut);
+
     const workingDrawingData = workingDrawingAmount.map(mapWorkingDrawing2PieDoughnut);
 
     const plan_option = {
@@ -159,13 +160,14 @@ export default class extends Controller {
       }]
     };
 
-    const percentFormater = p => {
+    function percentFormater(p) {
       let sum = 0;
       for (let i = 0; i < year_category_stack_option.series.length; i++) {
         sum += year_category_stack_option.series[i].data[p.dataIndex];
       }
       return `${p.data}\n${(p.data/sum * 100).toFixed(1)}%`;
     }
+
     const year_category_stack_option = {
       title: {
         text: '土建项目各业务类型合同额占比情况',
