@@ -23,6 +23,8 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
     @years_sum_西南区域, @years_sum_华东区域, @years_sum_华南区域, @years_sum_华中区域, @years_sum_东北区域, @years_sum_华北区域, @years_sum_西北区域  = \
       区域_contract_price(@year_names, @orgs_options)
+
+    @years_sum_省市 = 省市_contract_price(@year_names, @orgs_options)
   end
 
   private
@@ -80,6 +82,61 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
       years_sum_华北区域 = years_sum_华北区域.map { |d| (d/10000_00.0).round(2) }
       years_sum_西北区域 = years_sum_西北区域.map { |d| (d/10000_00.0).round(2) }
       return [years_sum_西南区域, years_sum_华东区域, years_sum_华南区域, years_sum_华中区域, years_sum_东北区域, years_sum_华北区域, years_sum_西北区域]
+    end
+
+    def 省市_contract_price(year_names, orgs_options)
+      sum_scope = Bi::ContractPrice
+        .select('provincename, SUM(realamounttotal) realamounttotal')
+        .group('provincename')
+        .where('YEAR(filingtime) in (?)', year_names)
+        .where(businessltdcode: orgs_options)
+
+      sum_台湾 = sum_scope.find { |c| c.provincename == '台湾省' }&.realamounttotal
+      sum_河北 = sum_scope.find { |c| c.provincename == '河北省' }&.realamounttotal
+      sum_山西 = sum_scope.find { |c| c.provincename == '山西省' }&.realamounttotal
+      sum_内蒙古 = sum_scope.find { |c| c.provincename == '内蒙古自治区' }&.realamounttotal
+      sum_辽宁 = sum_scope.find { |c| c.provincename == '辽宁省' }&.realamounttotal
+      sum_吉林 = sum_scope.find { |c| c.provincename == '吉林省' }&.realamounttotal
+      sum_黑龙江 = sum_scope.find { |c| c.provincename == '黑龙江省' }&.realamounttotal
+
+      sum_江苏 = sum_scope.find { |c| c.provincename == '江苏省' }&.realamounttotal
+      sum_浙江 = sum_scope.find { |c| c.provincename == '浙江省' }&.realamounttotal
+      sum_安徽 = sum_scope.find { |c| c.provincename == '安徽省' }&.realamounttotal
+      sum_福建 = sum_scope.find { |c| c.provincename == '福建省' }&.realamounttotal
+      sum_江西 = sum_scope.find { |c| c.provincename == '江西省' }&.realamounttotal
+      sum_山东 = sum_scope.find { |c| c.provincename == '山东省' }&.realamounttotal
+      sum_河南 = sum_scope.find { |c| c.provincename == '河南省' }&.realamounttotal
+
+      sum_湖北 = sum_scope.find { |c| c.provincename == '湖北省' }&.realamounttotal
+      sum_湖南 = sum_scope.find { |c| c.provincename == '湖南省' }&.realamounttotal
+      sum_广东 = sum_scope.find { |c| c.provincename == '广东省' }&.realamounttotal
+      sum_广西 = sum_scope.find { |c| c.provincename == '广西壮族自治区' }&.realamounttotal
+      sum_海南 = sum_scope.find { |c| c.provincename == '海南省' }&.realamounttotal
+      sum_四川 = sum_scope.find { |c| c.provincename == '四川省' }&.realamounttotal
+      sum_贵州 = sum_scope.find { |c| c.provincename == '贵州省' }&.realamounttotal
+
+      sum_云南 = sum_scope.find { |c| c.provincename == '云南省' }&.realamounttotal
+      sum_西藏 = sum_scope.find { |c| c.provincename == '西藏自治区' }&.realamounttotal
+      sum_陕西 = sum_scope.find { |c| c.provincename == '陕西省' }&.realamounttotal
+      sum_甘肃 = sum_scope.find { |c| c.provincename == '甘肃省' }&.realamounttotal
+      sum_青海 = sum_scope.find { |c| c.provincename == '青海省' }&.realamounttotal
+      sum_宁夏 = sum_scope.find { |c| c.provincename == '宁夏回族自治区' }&.realamounttotal
+      sum_新疆 = sum_scope.find { |c| c.provincename == '新疆维吾尔自治区' }&.realamounttotal
+
+      sum_北京 = sum_scope.find { |c| c.provincename == '北京市' }&.realamounttotal
+      sum_天津 = sum_scope.find { |c| c.provincename == '天津市' }&.realamounttotal
+      sum_上海 = sum_scope.find { |c| c.provincename == '上海市' }&.realamounttotal
+      sum_重庆 = sum_scope.find { |c| c.provincename == '重庆市' }&.realamounttotal
+      sum_香港 = sum_scope.find { |c| c.provincename == '香港特别行政区' }&.realamounttotal
+      sum_澳门 = sum_scope.find { |c| c.provincename == '澳门特别行政区' }&.realamounttotal
+
+      # There is no place to drawing c.provincename == '其他' and '海外'
+
+      return [sum_台湾, sum_河北, sum_山西, sum_内蒙古, sum_辽宁, sum_吉林, sum_黑龙江,
+              sum_江苏, sum_浙江, sum_安徽, sum_福建, sum_江西, sum_山东, sum_河南,
+              sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
+              sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
+              sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门]
     end
 
     def set_breadcrumbs
