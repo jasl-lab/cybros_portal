@@ -132,11 +132,12 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
       # There is no place to drawing c.provincename == '其他' and '海外'
 
-      return [sum_台湾, sum_河北, sum_山西, sum_内蒙古, sum_辽宁, sum_吉林, sum_黑龙江,
-              sum_江苏, sum_浙江, sum_安徽, sum_福建, sum_江西, sum_山东, sum_河南,
-              sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
-              sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
-              sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门]
+      sum_省市 = [ sum_台湾, sum_河北, sum_山西, sum_内蒙古, sum_辽宁, sum_吉林, sum_黑龙江,
+                  sum_江苏, sum_浙江, sum_安徽, sum_福建, sum_江西, sum_山东, sum_河南,
+                  sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
+                  sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
+                  sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
+      sum_省市.map { |d| d.nil? ? nil : (d/10000_00.0).round(2) }
     end
 
     def set_breadcrumbs
