@@ -112,8 +112,8 @@ export default class extends Controller {
 
     const map_option = {
       title: {
-        text: 'China Provice Data Show',
-        subtext: 'Data from 52pojie by para',
+        text: '全国合同额 省份分布',
+        subtext: '单位：百万元',
         sublink: '',
         left: 'right'
       },
