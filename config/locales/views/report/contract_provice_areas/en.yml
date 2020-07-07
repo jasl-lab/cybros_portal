@@ -7,3 +7,7 @@ en:
         year_name: "Year name"
         org_names: "ORG names"
         confirm: "Confirm"
+        table:
+          provice: "Provice"
+          scale: "Scale"
+          previous_scale: "Previous scale"

@@ -18,7 +18,30 @@
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-6">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t(".table.provice") %></th>
+                <th><%= t(".table.scale") %></th>
+                <th><%= t(".table.previous_scale") %></th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @sum_scope.each do |r| %>
+              <tr>
+                <td><%= r.provincename -%></td>
+                <td><%= r.scale&.round(0) -%></td>
+                <% previous_r = @sum_previous_scope.find {|pr| pr.provincename == r.provincename } %>
+                <td><%= previous_r&.scale&.round(0) -%></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-6">
         <div id="contract-provice-area-china-chart" style="width: 100%;height: 800px;">
         </div>
       </div>

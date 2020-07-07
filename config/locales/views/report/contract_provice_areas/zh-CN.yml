@@ -7,3 +7,7 @@ zh-CN:
         year_name: "查询年份"
         org_names: "显示子公司"
         confirm: "确认"
+        table:
+          provice: "省/直辖市"
+          scale: "新开工面积(元/平方)"
+          previous_scale: "去年新开工面积(元/平方)"

@@ -18,7 +18,12 @@ class Report::ContractProviceAreasController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
 
-    @year_sum_省市 = 省市_contract_price(@year_name, @orgs_options)
+    @sum_scope, @year_sum_省市 = 省市_contract_price(@year_name, @orgs_options)
+    @sum_previous_scope = Bi::ContractPrice
+      .select('provincename, SUM(scale) scale')
+      .group('provincename')
+      .where('YEAR(filingtime) in (?)', @year_name.to_i - 1)
+      .where(businessltdcode: @orgs_options)
   end
 
   private
@@ -71,6 +76,7 @@ class Report::ContractProviceAreasController < Report::BaseController
 
       # There is no place to drawing c.provincename == '其他' and '海外'
 
+      return sum_scope, \
       [ sum_台湾, sum_河北, sum_山西, sum_内蒙古, sum_辽宁, sum_吉林, sum_黑龙江,
         sum_江苏, sum_浙江, sum_安徽, sum_福建, sum_江西, sum_山东, sum_河南,
         sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
