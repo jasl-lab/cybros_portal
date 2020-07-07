@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    contract_provice_areas:
+      show:
+        title: "Contract provice building area analysis"
+        year_name: "Year name"
+        org_names: "ORG names"
+        confirm: "Confirm"
