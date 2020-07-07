@@ -3,7 +3,7 @@
 module Bi
   class ContractProviceAreaPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && ( user.admin?
+      user.present? && ( user.admin? || user.chinese_name.in?(%w(王旭冉 王俐雯))
       )
     end
   end
