@@ -34,7 +34,7 @@ export default class extends Controller {
         min: 1,
         max: 20400000,
         inRange: {
-          color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+          color: ['#F2F2F2', '#DFF0FA', '#9ED3EF','#9ED3EF','#17628A','#092838']
         },
         text:['High','Low'],           // 文本，默认为数值文本
         calculable: true
