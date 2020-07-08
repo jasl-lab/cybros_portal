@@ -20,9 +20,9 @@ class Report::ContractProviceAreasController < Report::BaseController
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
-    @sum_scope = filter_contract_price_scope(@year_name, @orgs_options)
+    @sum_scope = filter_contract_price_scope(@year_name, @orgs_options, @cateogries_4)
     @year_sum_省市 = 省市_contract_price(@sum_scope)
-    @sum_previous_scope = filter_contract_price_scope(@year_name.to_i - 1, @orgs_options)
+    @sum_previous_scope = filter_contract_price_scope(@year_name.to_i - 1, @orgs_options, @cateogries_4)
   end
 
   private
@@ -77,9 +77,50 @@ class Report::ContractProviceAreasController < Report::BaseController
         sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
     end
 
-    def filter_contract_price_scope(year_name, orgs_options)
-      Bi::ContractPrice
-        .select('provincename, SUM(scale) scale')
+    def filter_contract_price_scope(year_name, orgs_options, cateogries_4)
+      sum_scope = Bi::ContractPrice
+      sum_scope = case cateogries_4
+      when %w[住宅方案]
+        sum_scope.where(projectstage: '前端', projecttype: '土建住宅')
+      when %w[住宅施工图]
+        sum_scope.where(projectstage: '后端', projecttype: '土建住宅')
+      when %w[公建方案]
+        sum_scope.where(projectstage: '前端', projecttype: '土建公建')
+      when %w[公建施工图]
+        sum_scope.where(projectstage: '后端', projecttype: '土建公建')
+      when %w[住宅方案 住宅施工图]
+        sum_scope.where(projectstage: ['前端','后端'], projecttype: '土建住宅')
+      when %w[住宅方案 公建方案]
+        sum_scope.where(projectstage: '前端', projecttype: ['土建住宅','土建公建'])
+      when %w[住宅方案 公建施工图]
+        sum_scope.where(projectstage: '前端', projecttype: '土建住宅') \
+          .or(sum_scope.where(projectstage: '后端', projecttype: '土建公建'))
+      when %w[住宅施工图 公建方案]
+        sum_scope.where(projectstage: '后端', projecttype: '土建住宅') \
+          .or(sum_scope.where(projectstage: '前端', projecttype: '土建公建'))
+      when %w[住宅施工图 公建施工图]
+        sum_scope.where(projectstage: '后端', projecttype: ['土建住宅','土建公建'])
+      when %w[公建方案 公建施工图]
+        sum_scope.where(projectstage: ['前端','后端'], projecttype: '土建公建')
+      when %w[住宅方案 住宅施工图 公建方案]
+        sum_scope.where(projectstage: ['前端','后端'], projecttype: '土建住宅') \
+          .or(sum_scope.where(projectstage: '前端', projecttype: '土建公建'))
+      when %w[住宅方案 公建方案 公建施工图]
+        sum_scope.where(projectstage: '前端', projecttype: '土建住宅') \
+          .or(sum_scope.where(projectstage: ['前端','后端'], projecttype: '土建公建'))
+      when %w[住宅施工图 公建方案 公建施工图]
+        sum_scope.where(projectstage: '后端', projecttype: '土建住宅') \
+          .or(sum_scope.where(projectstage: ['前端','后端'], projecttype: '土建公建'))
+      when %w[住宅方案 住宅施工图 公建施工图]
+        sum_scope.where(projectstage: ['前端','后端'], projecttype: '土建住宅') \
+          .or(sum_scope.where(projectstage: '后端', projecttype: '土建公建'))
+      when %w[住宅方案 住宅施工图 公建方案 公建施工图]
+        sum_scope.where(projectstage: ['前端','后端'], projecttype: ['土建住宅','土建公建'])
+      else
+        raise "No such combine!"
+      end
+
+      sum_scope.select('provincename, SUM(scale) scale')
         .group('provincename')
         .where('YEAR(filingtime) in (?)', year_name)
         .where(businessltdcode: orgs_options)
