@@ -6,13 +6,13 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_year_names = Bi::ContractPrice.all_year_names
+    @all_year_names = policy_scope(Bi::ContractPrice).all_year_names
     @year_names = params[:year_names]
     @orgs_options = params[:orgs]
 
     @year_names = @all_year_names if @year_names.blank?
 
-    all_company_orgcodes = Bi::ContractPrice.select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
+    all_company_orgcodes = policy_scope(Bi::ContractPrice).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
@@ -30,7 +30,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
   private
 
     def 一线二线三四线_contract_price(year_names, orgs_options)
-      sum_scope = Bi::ContractPrice
+      sum_scope = policy_scope(Bi::ContractPrice)
         .select('YEAR(filingtime) year_name, citylevel, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), citylevel')
         .where('YEAR(filingtime) in (?)', year_names)
@@ -50,7 +50,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     end
 
     def 区域_contract_price(year_names, orgs_options)
-      sum_scope = Bi::ContractPrice
+      sum_scope = policy_scope(Bi::ContractPrice)
         .select('YEAR(filingtime) year_name, area, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
@@ -85,7 +85,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     end
 
     def 省市_contract_price(year_names, orgs_options)
-      sum_scope = Bi::ContractPrice
+      sum_scope = policy_scope(Bi::ContractPrice)
         .select('provincename, SUM(realamounttotal) realamounttotal')
         .group('provincename')
         .where('YEAR(filingtime) in (?)', year_names)

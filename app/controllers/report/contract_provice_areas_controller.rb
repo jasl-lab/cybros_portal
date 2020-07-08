@@ -6,14 +6,14 @@ class Report::ContractProviceAreasController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_year_names = Bi::ContractPrice.all_year_names
+    @all_year_names = policy_scope(Bi::ContractPrice).all_year_names
     @year_name = params[:year_name]
     @orgs_options = params[:orgs]
     @cateogries_4 = params[:cateogries_4]
 
     @year_name = @all_year_names.first if @year_name.blank?
 
-    all_company_orgcodes = Bi::ContractPrice.select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_name).pluck(:businessltdcode)
+    all_company_orgcodes = policy_scope(Bi::ContractPrice).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_name).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
@@ -78,7 +78,7 @@ class Report::ContractProviceAreasController < Report::BaseController
     end
 
     def filter_contract_price_scope(year_name, orgs_options, cateogries_4)
-      sum_scope = Bi::ContractPrice
+      sum_scope = policy_scope(Bi::ContractPrice)
       sum_scope = case cateogries_4
       when %w[住宅方案]
         sum_scope.where(projectstage: '前端', projecttype: '土建住宅')
