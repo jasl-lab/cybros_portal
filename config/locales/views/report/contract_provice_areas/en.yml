@@ -5,6 +5,7 @@ en:
       show:
         title: "Contract provice building area analysis"
         year_name: "Year name"
+        cateogries_4: "Cateogries 4"
         org_names: "ORG names"
         confirm: "Confirm"
         table:

@@ -9,6 +9,7 @@ class Report::ContractProviceAreasController < Report::BaseController
     @all_year_names = Bi::ContractPrice.all_year_names
     @year_name = params[:year_name]
     @orgs_options = params[:orgs]
+    @cateogries_4 = params[:cateogries_4]
 
     @year_name = @all_year_names.first if @year_name.blank?
 
@@ -17,24 +18,16 @@ class Report::ContractProviceAreasController < Report::BaseController
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
+    @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
-    @sum_scope, @year_sum_省市 = 省市_contract_price(@year_name, @orgs_options)
-    @sum_previous_scope = Bi::ContractPrice
-      .select('provincename, SUM(scale) scale')
-      .group('provincename')
-      .where('YEAR(filingtime) in (?)', @year_name.to_i - 1)
-      .where(businessltdcode: @orgs_options)
+    @sum_scope = filter_contract_price_scope(@year_name, @orgs_options)
+    @year_sum_省市 = 省市_contract_price(@sum_scope)
+    @sum_previous_scope = filter_contract_price_scope(@year_name.to_i - 1, @orgs_options)
   end
 
   private
 
-    def 省市_contract_price(year_name, orgs_options)
-      sum_scope = Bi::ContractPrice
-        .select('provincename, SUM(scale) scale')
-        .group('provincename')
-        .where('YEAR(filingtime) in (?)', year_name)
-        .where(businessltdcode: orgs_options)
-
+    def 省市_contract_price(sum_scope)
       sum_台湾 = sum_scope.find { |c| c.provincename == '台湾省' }&.scale
       sum_河北 = sum_scope.find { |c| c.provincename == '河北省' }&.scale
       sum_山西 = sum_scope.find { |c| c.provincename == '山西省' }&.scale
@@ -76,12 +69,20 @@ class Report::ContractProviceAreasController < Report::BaseController
 
       # There is no place to drawing c.provincename == '其他' and '海外'
 
-      return sum_scope, \
+      return \
       [ sum_台湾, sum_河北, sum_山西, sum_内蒙古, sum_辽宁, sum_吉林, sum_黑龙江,
         sum_江苏, sum_浙江, sum_安徽, sum_福建, sum_江西, sum_山东, sum_河南,
         sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
         sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
         sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
+    end
+
+    def filter_contract_price_scope(year_name, orgs_options)
+      Bi::ContractPrice
+        .select('provincename, SUM(scale) scale')
+        .group('provincename')
+        .where('YEAR(filingtime) in (?)', year_name)
+        .where(businessltdcode: orgs_options)
     end
 
     def set_breadcrumbs
