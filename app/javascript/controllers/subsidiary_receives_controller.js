@@ -407,8 +407,7 @@ export default class extends Controller {
           } else {
             url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
           }
-
-          window.location.href = url;
+          Turbolinks.visit(url);
         }
       }
     }
@@ -438,8 +437,7 @@ export default class extends Controller {
           } else {
             url += '?company_name=' + encodeURIComponent(series_company) + '&month_name=' + encodeURIComponent(month_name);
           }
-
-          window.location.href = url;
+          Turbolinks.visit(url);
         }
       }
     }

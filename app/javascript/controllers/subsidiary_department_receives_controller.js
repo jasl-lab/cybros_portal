@@ -456,7 +456,7 @@ export default class extends Controller {
               url += '&view_deptcode_sum=true';
             }
 
-            window.location.href = url;
+            Turbolinks.visit(url);
           }
         }
       }

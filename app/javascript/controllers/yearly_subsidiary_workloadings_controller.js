@@ -224,7 +224,7 @@ var option3 = {
           let month_name = xAxisData[params.dataIndex]
           url += '?company_name=' + encodeURIComponent(selectedCompanyName);
           url += '&begin_month_name=' + encodeURIComponent(month_name) + '&end_month_name=' + encodeURIComponent(month_name);
-          window.location.href = url;
+          Turbolinks.visit(url);
         }
       }
     }

@@ -219,7 +219,7 @@ export default class extends Controller {
           }
 
           if (inIFrame != "true") {
-            window.location.href = url;
+            Turbolinks.visit(url);
           }
         }
       }

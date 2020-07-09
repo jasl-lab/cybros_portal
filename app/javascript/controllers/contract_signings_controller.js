@@ -319,7 +319,7 @@ export default class extends Controller {
             url += '?company_name=' + encodeURIComponent(series_company);
           }
           if (currentUserCompaniesShortNames.indexOf(series_company) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
-            window.location.href = url;
+            Turbolinks.visit(url);
           }
         }
       }
