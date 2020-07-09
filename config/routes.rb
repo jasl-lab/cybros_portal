@@ -78,6 +78,7 @@ Rails.application.routes.draw do
         get :detail
       end
     end
+    resource :zhaofeng_map, only: %i[show]
     resource :km_map, only: %i[show] do
       collection do
         get :fill_department
