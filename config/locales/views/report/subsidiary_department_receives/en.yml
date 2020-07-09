@@ -6,7 +6,7 @@ en:
         actions:
           view_deptcode_sum: "View department in sum"
           view_deptcode: "View department in detail"
-        title: "Subsidiary department receives"
+        title: "Subsidiary department receives - %{company}"
         month_name: "Real receive year and month"
         real_receive_per_staff_ref: "Real receive per staff ref"
         dept_names: "Department names"

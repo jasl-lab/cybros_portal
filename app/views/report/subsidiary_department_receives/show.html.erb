@@ -35,7 +35,7 @@
     data-subsidiary-department-receives-need_should_receives_per_staff_max="<%= @need_should_receives_per_staff_max -%>"
     data-subsidiary-department-receives-payback_rates="<%= @payback_rates.to_json -%>">
     <h3 class="page-title">
-      <%= t(".title") %>
+      <%= t(".title", company: @selected_short_name) %>
     </h3>
     <%= form_tag report_subsidiary_department_receive_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>

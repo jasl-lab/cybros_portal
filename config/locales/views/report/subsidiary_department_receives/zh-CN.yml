@@ -6,7 +6,7 @@ zh-CN:
         actions:
           view_deptcode_sum: "显示汇总部门"
           view_deptcode: "显示明细部门"
-        title: "部门收款情况"
+        title: "%{company}部门收款情况"
         month_name: "实收款的查询年月"
         real_receive_per_staff_ref: "人均实收款预警"
         dept_names: "部门名称"
