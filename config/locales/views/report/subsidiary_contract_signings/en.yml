@@ -20,6 +20,7 @@ en:
           realamounttotal: "Real amount total"
           belongcompanyname: "Belong company name"
           businessdirectorname: "Business director name"
+        close: "Close"
       date_modal:
         table:
           salescontractcode: "Sales contract code"
@@ -27,6 +28,7 @@ en:
           date1: "Signing days"
           firstpartyname: "First client name"
           businessdirectorname: "Business director name"
+        close: "Close"
       cp_modal:
         table:
           salescontractcode: "Sales contract code"
@@ -37,3 +39,4 @@ en:
           marketbouns: "Market bonus"
           clientbouns: "Client maintain"
           total: "Production total"
+        close: "Close"

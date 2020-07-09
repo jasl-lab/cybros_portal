@@ -21,6 +21,7 @@ zh-CN:
           realamounttotal: "签约合同额"
           belongcompanyname: "甲方"
           businessdirectorname: "商务负责人"
+        close: "关闭"
       date_modal:
         table:
           salescontractcode: "合同编号"
@@ -28,6 +29,7 @@ zh-CN:
           date1: "签约天数"
           firstpartyname: "甲方集团"
           businessdirectorname: "商务负责人"
+        close: "关闭"
       cp_modal:
         table:
           salescontractcode: "合同编号"
@@ -38,3 +40,4 @@ zh-CN:
           marketbouns: "市场费"
           clientbouns: "客户维护费"
           total: "生产合同总计"
+        close: "关闭"
