@@ -34,9 +34,10 @@
     data-subsidiary-department-receives-need_should_receives_per_staff="<%= @need_should_receives_per_staff.to_json -%>"
     data-subsidiary-department-receives-need_should_receives_per_staff_max="<%= @need_should_receives_per_staff_max -%>"
     data-subsidiary-department-receives-payback_rates="<%= @payback_rates.to_json -%>">
-    <h3 class="page-title">
-      <%= t(".title", company: @selected_short_name) %>
-    </h3>
+    <h4 class="page-title">
+      <%= select_tag 'company_name', options_for_select(@available_short_company_names, @selected_short_name), class: 'form-control2 form-control', onchange: "window.location = '#{url_for(action: 'show', controller: 'subsidiary_department_receives', view_deptcode_sum: true)}&company_name='+ this.value", style: "display: inline;" -%>
+      <%= t(".title") %>
+    </h4>
     <%= form_tag report_subsidiary_department_receive_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
       <%= hidden_field_tag :company_name, @selected_short_name %>
