@@ -27,9 +27,11 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th><%= t(".table.provice") %></th>
-                <th><%= t(".table.scale") %></th>
-                <th><%= t(".table.previous_scale") %></th>
+                <th><%= t(".table.province") %></th>
+                <th><%= t(".table.new_area") %></th>
+                <th><%= t(".table.new_area_rate", category: @cateogries_4.to_sentence) %></th>
+                <th><%= t(".table.previous_new_area_rate") %></th>
+                <th><%= t(".table.previous_new_area") %></th>
               </tr>
             </thead>
             <tbody>
@@ -37,6 +39,8 @@
               <tr>
                 <td><%= r.province -%></td>
                 <td><%= r.new_area&.round(0) -%></td>
+                <td></td>
+                <td></td>
                 <% previous_r = @sum_previous_scope.find {|pr| pr.province == r.province } %>
                 <td><%= previous_r&.new_area&.round(0) -%></td>
               </tr>
