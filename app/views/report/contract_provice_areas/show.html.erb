@@ -8,8 +8,8 @@
     </h3>
     <%= form_tag report_contract_provice_area_path, method: :get, class: 'form-inline' do -%>
       <div class="form-group">
-        <label class="mr-1"><%= t(".year_name") -%>：</label>
-        <%= select_tag 'year_name', options_for_select(@all_year_names, @year_name), { class: 'form-control' } %>
+        <label class="mr-1"><%= t(".month_name") -%>：</label>
+        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), { class: 'form-control' } %>
       </div>
       <div class="form-group mr-3">
         <label class="mr-1"><%= t(".cateogries_4") -%>：</label>

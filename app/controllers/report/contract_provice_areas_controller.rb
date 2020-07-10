@@ -6,23 +6,29 @@ class Report::ContractProviceAreasController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_year_names = policy_scope(Bi::ContractPrice).all_year_names
-    @year_name = params[:year_name]
+    @all_month_names = policy_scope(Bi::ContractPrice).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.first
+    end_of_year_month = Date.parse(@month_name).end_of_month
+    @beginning_of_year = end_of_year_month.beginning_of_year
+
     @orgs_options = params[:orgs]
     @cateogries_4 = params[:cateogries_4]
 
-    @year_name = @all_year_names.first if @year_name.blank?
-
-    all_company_orgcodes = policy_scope(Bi::ContractPrice).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_name).pluck(:businessltdcode)
+    all_company_orgcodes = policy_scope(Bi::ContractPrice)
+      .select(:businessltdcode).distinct
+      .where(filingtime: @beginning_of_year..end_of_year_month).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
-    @sum_scope = filter_contract_price_scope(@year_name, @orgs_options, @cateogries_4)
+    @sum_scope = filter_contract_price_scope(@beginning_of_year, end_of_year_month, @orgs_options, @cateogries_4)
     @year_sum_省市 = 省市_contract_price(@sum_scope)
-    @sum_previous_scope = filter_contract_price_scope(@year_name.to_i - 1, @orgs_options, @cateogries_4)
+    @sum_previous_scope = filter_contract_price_scope(
+      Date.civil(@beginning_of_year.year - 1).beginning_of_year,
+      Date.civil(end_of_year_month.year - 1).end_of_year,
+      @orgs_options, @cateogries_4)
   end
 
   private
@@ -77,7 +83,7 @@ class Report::ContractProviceAreasController < Report::BaseController
         sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
     end
 
-    def filter_contract_price_scope(year_name, orgs_options, cateogries_4)
+    def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, cateogries_4)
       sum_scope = policy_scope(Bi::ContractPrice)
       sum_scope = case cateogries_4
       when %w[住宅方案]
@@ -122,8 +128,8 @@ class Report::ContractProviceAreasController < Report::BaseController
 
       sum_scope.select('provincename, SUM(scale) scale')
         .group('provincename')
-        .where('YEAR(filingtime) in (?)', year_name)
         .where(businessltdcode: orgs_options)
+        .where(filingtime: beginning_of_year..end_of_year)
     end
 
     def set_breadcrumbs

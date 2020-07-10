@@ -4,7 +4,7 @@ en:
     contract_provice_areas:
       show:
         title: "Contract provice building area analysis"
-        year_name: "Year name"
+        month_name: "Month name"
         cateogries_4: "Cateogries 4"
         org_names: "ORG names"
         confirm: "Confirm"

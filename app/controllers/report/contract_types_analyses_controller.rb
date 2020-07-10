@@ -8,7 +8,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   def show
     @all_month_names = policy_scope(Bi::ContractPrice).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
-    end_of_year_month = Date.parse(@month_name)
+    end_of_year_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = end_of_year_month.beginning_of_year
 
     data = policy_scope(Bi::ContractPrice)

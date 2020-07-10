@@ -4,7 +4,7 @@ zh-CN:
     contract_provice_areas:
       show:
         title: "省市开工面积分析"
-        year_name: "查询年份"
+        month_name: "查询年月"
         cateogries_4: "4大类别"
         org_names: "显示子公司"
         confirm: "确认"
