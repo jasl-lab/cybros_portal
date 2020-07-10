@@ -17,11 +17,11 @@ module Bi
     end
 
     def show?
-      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?
+      user.present? && (user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?)
     end
 
     def index?
-      user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?
+      user.present? && (user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?)
     end
 
     def allow_download?

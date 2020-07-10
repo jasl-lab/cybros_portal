@@ -23,7 +23,7 @@ module Company
     end
 
     def drill_down?
-      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
+      user.present? && (user.roles.pluck(:knowledge_maintainer).any? || user.admin?)
     end
 
     def new?
@@ -31,7 +31,7 @@ module Company
     end
 
     def create?
-      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
+      user.present? && (user.roles.pluck(:knowledge_maintainer).any? || user.admin?)
     end
 
     def edit?
@@ -47,11 +47,11 @@ module Company
     end
 
     def update?
-      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
+      user.present? && (user.roles.pluck(:knowledge_maintainer).any? || user.admin?)
     end
 
     def destroy?
-      user.admin? || user.chinese_name.in?(%w[陈建 冯可])
+      user.present? && (user.admin? || user.chinese_name.in?(%w[陈建 冯可]))
     end
   end
 end

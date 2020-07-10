@@ -15,7 +15,7 @@ module Company
     end
 
     def create?
-      user.roles.pluck(:knowledge_maintainer).any? || user.admin?
+      user.present? && (user.roles.pluck(:knowledge_maintainer).any? || user.admin?)
     end
 
     def update?
