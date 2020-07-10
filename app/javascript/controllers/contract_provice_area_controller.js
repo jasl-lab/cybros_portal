@@ -15,7 +15,7 @@ export default class extends Controller {
     const map_option = {
       title: {
         text: '全国开工面积 省份分布',
-        subtext: '单位：元/平米',
+        subtext: '单位：元/万平米',
         sublink: '',
         left: 'right'
       },
