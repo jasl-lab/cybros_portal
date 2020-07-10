@@ -9,29 +9,82 @@ class Report::ContractProviceAreasController < Report::BaseController
     @all_month_names = policy_scope(Bi::ContractPrice).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_year_month = Date.parse(@month_name).end_of_month
-    @beginning_of_year = end_of_year_month.beginning_of_year
+    beginning_of_year = end_of_year_month.beginning_of_year
 
     @orgs_options = params[:orgs]
     @cateogries_4 = params[:cateogries_4]
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice)
       .select(:businessltdcode).distinct
-      .where(filingtime: @beginning_of_year..end_of_year_month).pluck(:businessltdcode)
+      .where(filingtime: beginning_of_year..end_of_year_month).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
-    @sum_scope = filter_contract_price_scope(@beginning_of_year, end_of_year_month, @orgs_options, @cateogries_4)
-    @year_sum_省市 = 省市_contract_price(@sum_scope)
+    @sum_scope = filter_contract_price_scope(beginning_of_year, end_of_year_month, @orgs_options, @cateogries_4)
+    @year_sum_省市 = province_new_area(beginning_of_year, end_of_year_month)
     @sum_previous_scope = filter_contract_price_scope(
-      Date.civil(@beginning_of_year.year - 1).beginning_of_year,
+      Date.civil(beginning_of_year.year - 1).beginning_of_year,
       Date.civil(end_of_year_month.year - 1).end_of_year,
       @orgs_options, @cateogries_4)
   end
 
   private
+
+    def province_new_area(beginning_of_year, end_of_year)
+      sum_scope = policy_scope(Bi::ProvinceNewArea).select('province, SUM(new_area) new_area')
+        .group('province')
+        .where(year: beginning_of_year.year)
+
+      sum_台湾 = sum_scope.find { |c| c.province == '台湾省' }&.new_area
+      sum_河北 = sum_scope.find { |c| c.province == '河北省' }&.new_area
+      sum_山西 = sum_scope.find { |c| c.province == '山西省' }&.new_area
+      sum_内蒙古 = sum_scope.find { |c| c.province == '内蒙古自治区' }&.new_area
+      sum_辽宁 = sum_scope.find { |c| c.province == '辽宁省' }&.new_area
+      sum_吉林 = sum_scope.find { |c| c.province == '吉林省' }&.new_area
+      sum_黑龙江 = sum_scope.find { |c| c.province == '黑龙江省' }&.new_area
+
+      sum_江苏 = sum_scope.find { |c| c.province == '江苏省' }&.new_area
+      sum_浙江 = sum_scope.find { |c| c.province == '浙江省' }&.new_area
+      sum_安徽 = sum_scope.find { |c| c.province == '安徽省' }&.new_area
+      sum_福建 = sum_scope.find { |c| c.province == '福建省' }&.new_area
+      sum_江西 = sum_scope.find { |c| c.province == '江西省' }&.new_area
+      sum_山东 = sum_scope.find { |c| c.province == '山东省' }&.new_area
+      sum_河南 = sum_scope.find { |c| c.province == '河南省' }&.new_area
+
+      sum_湖北 = sum_scope.find { |c| c.province == '湖北省' }&.new_area
+      sum_湖南 = sum_scope.find { |c| c.province == '湖南省' }&.new_area
+      sum_广东 = sum_scope.find { |c| c.province == '广东省' }&.new_area
+      sum_广西 = sum_scope.find { |c| c.province == '广西壮族自治区' }&.new_area
+      sum_海南 = sum_scope.find { |c| c.province == '海南省' }&.new_area
+      sum_四川 = sum_scope.find { |c| c.province == '四川省' }&.new_area
+      sum_贵州 = sum_scope.find { |c| c.province == '贵州省' }&.new_area
+
+      sum_云南 = sum_scope.find { |c| c.province == '云南省' }&.new_area
+      sum_西藏 = sum_scope.find { |c| c.province == '西藏自治区' }&.new_area
+      sum_陕西 = sum_scope.find { |c| c.province == '陕西省' }&.new_area
+      sum_甘肃 = sum_scope.find { |c| c.province == '甘肃省' }&.new_area
+      sum_青海 = sum_scope.find { |c| c.province == '青海省' }&.new_area
+      sum_宁夏 = sum_scope.find { |c| c.province == '宁夏回族自治区' }&.new_area
+      sum_新疆 = sum_scope.find { |c| c.province == '新疆维吾尔自治区' }&.new_area
+
+      sum_北京 = sum_scope.find { |c| c.province == '北京市' }&.new_area
+      sum_天津 = sum_scope.find { |c| c.province == '天津市' }&.new_area
+      sum_上海 = sum_scope.find { |c| c.province == '上海市' }&.new_area
+      sum_重庆 = sum_scope.find { |c| c.province == '重庆市' }&.new_area
+      sum_香港 = sum_scope.find { |c| c.province == '香港特别行政区' }&.new_area
+      sum_澳门 = sum_scope.find { |c| c.province == '澳门特别行政区' }&.new_area
+
+      # There is no place to drawing c.province == '其他' and '海外'
+
+      return [ sum_台湾, sum_河北, sum_山西, sum_内蒙古, sum_辽宁, sum_吉林, sum_黑龙江,
+               sum_江苏, sum_浙江, sum_安徽, sum_福建, sum_江西, sum_山东, sum_河南,
+               sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
+               sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
+               sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
+    end
 
     def 省市_contract_price(sum_scope)
       sum_台湾 = sum_scope.find { |c| c.provincename == '台湾省' }&.scale
