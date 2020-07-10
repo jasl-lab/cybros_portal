@@ -39,8 +39,10 @@
               <tr>
                 <td><%= r.province -%></td>
                 <td><%= r.new_area&.round(0) -%></td>
-                <td></td>
-                <td></td>
+                <% cp_r = @sum_cp.find { |pr| pr.provincename == r.province } %>
+                <td><%= ((cp_r&.scale.to_f / r.new_area)*0.01).round(2) %> %</td>
+                <% cp_pr = @sum_previous_cp.find { |pr| pr.provincename == r.province } %>
+                <td><%= ((cp_pr&.scale.to_f / r.new_area)*0.01).round(2) %> %</td>
                 <% previous_r = @sum_previous_scope.find {|pr| pr.province == r.province } %>
                 <td><%= previous_r&.new_area&.round(0) -%></td>
               </tr>

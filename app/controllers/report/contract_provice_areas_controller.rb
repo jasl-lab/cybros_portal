@@ -23,8 +23,13 @@ class Report::ContractProviceAreasController < Report::BaseController
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
+    @sum_cp = filter_contract_price_scope(beginning_of_year, end_of_year_month, @orgs_options, @cateogries_4)
     @sum_scope = filter_province_new_area_scope(beginning_of_year, end_of_year_month)
     @year_sum_省市 = province_new_area(@sum_scope)
+    @sum_previous_cp = filter_contract_price_scope(
+      Date.civil(beginning_of_year.year - 1).beginning_of_year,
+      Date.civil(end_of_year_month.year - 1).end_of_year,
+      @orgs_options, @cateogries_4)
     @sum_previous_scope = filter_province_new_area_scope(
       Date.civil(beginning_of_year.year - 1).beginning_of_year,
       Date.civil(end_of_year_month.year - 1).end_of_year)
