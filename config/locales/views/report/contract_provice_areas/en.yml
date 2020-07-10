@@ -3,12 +3,12 @@ en:
   report:
     contract_provice_areas:
       show:
-        title: "Contract provice building area analysis"
+        title: "Contract province building area analysis"
         month_name: "Month name"
         cateogries_4: "Cateogries 4"
         org_names: "ORG names"
         confirm: "Confirm"
         table:
-          provice: "Provice"
+          province: "Province"
           scale: "Scale"
           previous_scale: "Previous scale"

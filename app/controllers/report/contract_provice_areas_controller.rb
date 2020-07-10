@@ -23,21 +23,21 @@ class Report::ContractProviceAreasController < Report::BaseController
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
-    @sum_scope = filter_contract_price_scope(beginning_of_year, end_of_year_month, @orgs_options, @cateogries_4)
-    @year_sum_省市 = province_new_area(beginning_of_year, end_of_year_month)
-    @sum_previous_scope = filter_contract_price_scope(
+    @sum_scope = filter_province_new_area_scope(beginning_of_year, end_of_year_month)
+    @year_sum_省市 = province_new_area(@sum_scope)
+    @sum_previous_scope = filter_province_new_area_scope(
       Date.civil(beginning_of_year.year - 1).beginning_of_year,
-      Date.civil(end_of_year_month.year - 1).end_of_year,
-      @orgs_options, @cateogries_4)
+      Date.civil(end_of_year_month.year - 1).end_of_year)
   end
 
   private
-
-    def province_new_area(beginning_of_year, end_of_year)
-      sum_scope = policy_scope(Bi::ProvinceNewArea).select('province, SUM(new_area) new_area')
+    def filter_province_new_area_scope(beginning_of_year, end_of_year)
+      policy_scope(Bi::ProvinceNewArea).select('province, SUM(new_area) new_area')
         .group('province')
         .where(date: beginning_of_year..end_of_year)
+    end
 
+    def province_new_area(sum_scope)
       sum_台湾 = sum_scope.find { |c| c.province == '台湾省' }&.new_area
       sum_河北 = sum_scope.find { |c| c.province == '河北省' }&.new_area
       sum_山西 = sum_scope.find { |c| c.province == '山西省' }&.new_area

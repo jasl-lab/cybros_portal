@@ -35,10 +35,10 @@
             <tbody>
             <% @sum_scope.each do |r| %>
               <tr>
-                <td><%= r.provincename -%></td>
-                <td><%= r.scale&.round(0) -%></td>
-                <% previous_r = @sum_previous_scope.find {|pr| pr.provincename == r.provincename } %>
-                <td><%= previous_r&.scale&.round(0) -%></td>
+                <td><%= r.province -%></td>
+                <td><%= r.new_area&.round(0) -%></td>
+                <% previous_r = @sum_previous_scope.find {|pr| pr.province == r.province } %>
+                <td><%= previous_r&.new_area&.round(0) -%></td>
               </tr>
             <% end %>
             </tbody>
