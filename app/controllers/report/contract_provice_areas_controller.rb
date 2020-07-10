@@ -36,7 +36,7 @@ class Report::ContractProviceAreasController < Report::BaseController
     def province_new_area(beginning_of_year, end_of_year)
       sum_scope = policy_scope(Bi::ProvinceNewArea).select('province, SUM(new_area) new_area')
         .group('province')
-        .where(year: beginning_of_year.year)
+        .where(date: beginning_of_year..end_of_year)
 
       sum_台湾 = sum_scope.find { |c| c.province == '台湾省' }&.new_area
       sum_河北 = sum_scope.find { |c| c.province == '河北省' }&.new_area
