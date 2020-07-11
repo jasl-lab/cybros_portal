@@ -78,7 +78,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    aes_key_wrap (1.0.1)
+    aes_key_wrap (1.1.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
     ajax-datatables-rails (1.2.0)
@@ -142,9 +142,9 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.9.1)
       devise (>= 4.7.1)
-    devise-jwt (0.7.0)
+    devise-jwt (0.8.0)
       devise (~> 4.0)
-      warden-jwt_auth (~> 0.4)
+      warden-jwt_auth (~> 0.5)
     devise_invitable (2.0.2)
       actionmailer (>= 5.0)
       devise (>= 4.6)
@@ -152,9 +152,10 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     dry-auto_inject (0.7.0)
       dry-container (>= 0.3.4)
-    dry-configurable (0.9.0)
+    dry-configurable (0.11.6)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4, >= 0.4.7)
+      dry-equalizer (~> 0.2)
     dry-container (0.7.2)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1, >= 0.1.3)
@@ -406,9 +407,9 @@ GEM
       public_suffix
     warden (1.2.8)
       rack (>= 2.0.6)
-    warden-jwt_auth (0.4.2)
+    warden-jwt_auth (0.5.0)
       dry-auto_inject (~> 0.6)
-      dry-configurable (~> 0.9, < 0.11)
+      dry-configurable (~> 0.9)
       jwt (~> 2.1)
       warden (~> 1.2)
     web-console (4.0.3)
@@ -483,7 +484,6 @@ DEPENDENCIES
   tiny_tds
   turbolinks (~> 5)
   tzinfo-data
-  warden-jwt_auth (~> 0.4.2)
   web-console
   webdrivers
   webpacker (~> 5.1)
