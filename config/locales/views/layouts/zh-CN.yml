@@ -65,6 +65,7 @@ zh-CN:
         contract_provice_area: "省市开工面积分析"
         customer_analysis: "客户分析"
         group_workloading: "工作填报率及饱和度"
+        group_daily_workloading: "每日填报率及饱和度"
         subsidiary_workloading: "子公司工时填报情况"
         subsidiary_daily_workloading: "子公司每日工作饱和度"
         company_subsidiary_workloading: "所级工作饱和度"

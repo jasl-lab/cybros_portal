@@ -1,16 +1,14 @@
 ---
 zh-CN:
   report:
-    group_workloadings:
+    group_daily_workloadings:
       show:
         actions:
           view_orgcode_sum: "显示汇总组织"
           view_orgcode: "显示明细部门"
-        title: "集团工作填报率及饱和度分析"
+        title: "集团每日工作填报率及饱和度分析"
         day_rate_ref: "填报预警"
         planning_day_rate_ref: "方案预警"
         building_day_rate_ref: "施工预警"
-        begin_month_name: "开始月份"
-        end_month_name: "截止月份"
         confirm: "确认"
         export: "导出数据"

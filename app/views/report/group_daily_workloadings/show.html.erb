@@ -1,0 +1,30 @@
+<%- content_for :action_bar do %>
+  <ol>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.view_orgcode_sum'), report_group_daily_workloading_path(month_name: @month_name, view_orgcode_sum: true), class: 'btn text-primary' %>
+    </li>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.view_orgcode'), report_group_daily_workloading_path(month_name: @month_name), class: 'btn text-primary' %>
+    </li>
+  </ol>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12"
+    data-controller="group-daily-workloadings"
+    data-action="resize@window->group-daily-workloadings#layout"
+    data-group-daily-workloadings-x_axis_job="<%= @job_company_or_department_names.to_json -%>"
+    data-group-daily-workloadings-x_axis_blue_print="<%= @blue_print_company_or_department_names.to_json -%>"
+    data-group-daily-workloadings-x_axis_construction="<%= @construction_company_or_department_names.to_json -%>"
+    data-group-daily-workloadings-current_user_companies_short_names="<%= @current_user_companies_short_names.to_json -%>"
+    data-group-daily-workloadings-day_rate="<%= @day_rate.to_json -%>"
+    data-group-daily-workloadings-day_rate_ref="<%= @day_rate_ref -%>"
+    data-group-daily-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"
+    data-group-daily-workloadings-planning_day_rate_ref="<%= @planning_day_rate_ref -%>"
+    data-group-daily-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>"
+    data-group-daily-workloadings-building_day_rate_ref="<%= @building_day_rate_ref -%>">
+    <h3 class="page-title">
+      <%= t(".title", company: @company_name) %>
+    </h3>
+  </div>
+</div>
