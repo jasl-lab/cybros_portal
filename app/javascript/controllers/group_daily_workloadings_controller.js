@@ -10,6 +10,8 @@ export default class extends Controller {
     groupDailyWorkloadingsPlanningDayChart = echarts.init(document.getElementById('group-daily-workloadings-planning-day-chart'));
     groupDailyWorkloadingsBuildingDayChart = echarts.init(document.getElementById('group-daily-workloadings-building-day-chart'));
 
+    const beginDate = this.data.get("begin_date");
+    const endDate = this.data.get("end_date");
     const xAxisJob = JSON.parse(this.data.get("x_axis_job"));
     const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
     const xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
@@ -265,9 +267,9 @@ export default class extends Controller {
               break;
           }
 
-          let url = '/report/subsidiary_workloading';
+          let url = '/report/subsidiary_daily_workloading';
 
-          url += '?company_name=' + encodeURIComponent(company_name) + '&view_deptcode_sum=true';
+          url += '?company_name=' + encodeURIComponent(company_name) + '&begin_date=' + beginDate + '&end_date='+ endDate + '&view_deptcode_sum=true';
 
           if (currentUserCompaniesShortNames.indexOf(company_name) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
             Turbolinks.visit(url);

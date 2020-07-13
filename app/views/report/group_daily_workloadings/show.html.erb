@@ -13,6 +13,8 @@
   <div class="col-lg-12"
     data-controller="group-daily-workloadings"
     data-action="resize@window->group-daily-workloadings#layout"
+    data-group-daily-workloadings-begin_date="<%= @begin_date -%>"
+    data-group-daily-workloadings-end_date="<%= @end_date -%>"
     data-group-daily-workloadings-x_axis_job="<%= @job_company_or_department_names.to_json -%>"
     data-group-daily-workloadings-x_axis_blue_print="<%= @blue_print_company_or_department_names.to_json -%>"
     data-group-daily-workloadings-x_axis_construction="<%= @construction_company_or_department_names.to_json -%>"

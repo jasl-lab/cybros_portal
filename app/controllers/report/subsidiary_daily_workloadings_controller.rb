@@ -14,7 +14,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end_of_day = Date.parse(@end_date).end_of_day unless @end_date.is_a?(Time)
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_code = params[:company_code].presence || current_user.can_access_org_codes.first || current_user.user_company_orgcode
-    @short_company_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
+    @short_company_name = if params[:company_name].present?
+      @selected_company_code = Bi::OrgShortName.org_code_by_short_name.fetch(params[:company_name], params[:company_name])
+      params[:company_name]
+    else
+      Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
+    end
+
     @company_short_names = policy_scope(Bi::WorkHoursDayCountDept).select(:orgcode)
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
         [Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode), r.orgcode]
