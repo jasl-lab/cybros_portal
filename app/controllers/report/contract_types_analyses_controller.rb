@@ -37,7 +37,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
 
     @contract_price_方案_公司 = contract_price_方案_公司[0..9].append('其他')
     @contract_price_方案_合同总金额 = first_10_contract_price_方案_合同总金额.append(total_contract_price_方案_合同总金额 - first_10_contract_price_方案_合同总金额.sum)
-    @contract_price_方案_合同总金额 = @contract_price_方案_合同总金额.map { |d| (d/10000_00.0).round(2) }
+    @contract_price_方案_合同总金额 = @contract_price_方案_合同总金额.map { |d| (d/10000_00.0).round(0) }
 
 
     contract_price_施工图_公司 = contract_price_施工图.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
@@ -46,7 +46,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     first_10_contract_price_施工图_合同总金额 = contract_price_施工图_合同总金额[0..9]
     @contract_price_施工图_公司 = contract_price_施工图_公司[0..9].append('其他')
     @contract_price_施工图_合同总金额 = first_10_contract_price_施工图_合同总金额.append(total_contract_price_施工图_合同总金额 - first_10_contract_price_施工图_合同总金额.sum)
-    @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d/10000_00.0).round(2) }
+    @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d/10000_00.0).round(0) }
 
     @years_category, @years_sum_住宅方案, @years_sum_住宅施工图, @years_sum_公建方案, @years_sum_公建施工图 \
       = 住宅公建_contract_price(2016, 2020, @orgs_options)
@@ -72,10 +72,10 @@ class Report::ContractTypesAnalysesController < Report::BaseController
         years_sum_公建方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建公建' }&.realamounttotal
         years_sum_公建施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建公建' }&.realamounttotal
       end
-      years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(2) }
-      years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(2) }
-      years_sum_公建方案 = years_sum_公建方案.map { |d| (d/10000_00.0).round(2) }
-      years_sum_公建施工图 = years_sum_公建施工图.map { |d| (d/10000_00.0).round(2) }
+      years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(0) }
+      years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(0) }
+      years_sum_公建方案 = years_sum_公建方案.map { |d| (d/10000_00.0).round(0) }
+      years_sum_公建施工图 = years_sum_公建施工图.map { |d| (d/10000_00.0).round(0) }
       return [years_name, years_sum_住宅方案, years_sum_住宅施工图, years_sum_公建方案, years_sum_公建施工图]
     end
 

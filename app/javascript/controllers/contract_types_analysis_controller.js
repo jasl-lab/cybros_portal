@@ -32,6 +32,10 @@ export default class extends Controller {
 
     const workingDrawingData = workingDrawingAmount.map(mapWorkingDrawing2PieDoughnut);
 
+    function piePercentFormater(p) {
+      return `${p.percent.toFixed(1)}%`;
+    }
+
     const plan_option = {
       title: {
         text: '子公司前端合同额占比',
@@ -79,7 +83,7 @@ export default class extends Controller {
         radius: ['30%', '60%'],
         avoidLabelOverlap: true,
         label: {
-          formatter: '{d}%',
+          formatter: piePercentFormater,
           position: 'inner'
         },
         emphasis: {
@@ -143,7 +147,7 @@ export default class extends Controller {
         radius: ['30%', '60%'],
         avoidLabelOverlap: true,
         label: {
-            formatter: '{d}%',
+            formatter: piePercentFormater,
             position: 'inner'
         },
         emphasis: {
@@ -160,7 +164,7 @@ export default class extends Controller {
       }]
     };
 
-    function percentFormater(p) {
+    function stackPercentFormater(p) {
       let sum = 0;
       for (let i = 0; i < year_category_stack_option.series.length; i++) {
         sum += year_category_stack_option.series[i].data[p.dataIndex];
@@ -170,7 +174,7 @@ export default class extends Controller {
 
     const year_category_stack_option = {
       title: {
-        text: '土建项目各业务类型合同额占比情况',
+        text: '历年土建项目各业务类型合同额占比',
         subtext:'单位:百万元',
         left: 'center',
       },
@@ -205,7 +209,7 @@ export default class extends Controller {
           label: {
             show: true,
             position: 'insideRight',
-            formatter: percentFormater
+            formatter: stackPercentFormater
           },
           data: yearsResidentialPlanAmount
         },{
@@ -215,7 +219,7 @@ export default class extends Controller {
           label: {
             show: true,
             position: 'insideRight',
-            formatter: percentFormater
+            formatter: stackPercentFormater
           },
           data: yearsResidentialConstructionAmount
         },{
@@ -225,7 +229,7 @@ export default class extends Controller {
           label: {
             show: true,
             position: 'insideRight',
-            formatter: percentFormater
+            formatter: stackPercentFormater
           },
           data: yearsPublicPlanAmount
         },{
@@ -235,7 +239,7 @@ export default class extends Controller {
           label: {
             show: true,
             position: 'insideRight',
-            formatter: percentFormater
+            formatter: stackPercentFormater
           },
           data: yearsPublicConstructionAmount
         }
