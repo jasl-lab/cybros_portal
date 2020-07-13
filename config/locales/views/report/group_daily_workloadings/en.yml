@@ -10,5 +10,7 @@ en:
         day_rate_ref: "Date rate ref"
         planning_day_rate_ref: "Planning date rate ref"
         building_day_rate_ref: "Building date rate ref"
+        begin_date: "Beginning of the date"
+        end_date: "End of the date"
         confirm: "Confirm"
         export: "Export data"

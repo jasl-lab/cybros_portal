@@ -4,12 +4,12 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    authorize Bi::WorkHoursDayCountDept
+    authorize Bi::WorkHoursDayCountOrg
     @begin_date = params[:begin_date]&.strip || Time.now.beginning_of_month
     @end_date = params[:end_date]&.strip || Time.now.end_of_day
     beginning_of_day = Date.parse(@begin_date).beginning_of_day unless @begin_date.is_a?(Time)
     end_of_day = Date.parse(@end_date).end_of_day unless @end_date.is_a?(Time)
-    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
+    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
   end
 

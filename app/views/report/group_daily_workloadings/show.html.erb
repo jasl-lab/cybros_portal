@@ -24,7 +24,47 @@
     data-group-daily-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>"
     data-group-daily-workloadings-building_day_rate_ref="<%= @building_day_rate_ref -%>">
     <h3 class="page-title">
-      <%= t(".title", company: @company_name) %>
+      <%= t(".title") %>
     </h3>
+    <%= form_tag report_group_daily_workloading_path, method: :get do -%>
+      <div class="form-row">
+        <%= hidden_field_tag :view_orgcode_sum, params[:view_orgcode_sum] -%>
+        <div class="form-group col-md-3">
+          <label class="mr-1"><%= t(".day_rate_ref") -%>：</label>
+          <%= text_field_tag 'day_rate_ref', @day_rate_ref, class: 'form-control form-control2' %>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="mr-1"><%= t(".planning_day_rate_ref") -%>：</label>
+          <%= text_field_tag 'planning_day_rate_ref', @planning_day_rate_ref, class: 'form-control form-control2' %>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="mr-1"><%= t(".building_day_rate_ref") -%>：</label>
+          <%= text_field_tag 'building_day_rate_ref', @building_day_rate_ref, class: 'form-control form-control2' %>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label class="mr-1"><%= t(".begin_date") -%>：</label>
+          <%= text_field_tag 'begin_date', @begin_date.to_date, class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="mr-1"><%= t(".end_date") -%>：</label>
+          <%= text_field_tag 'end_date', @end_date.to_date, class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="mr-1">&nbsp;</label>
+          <div class="form-control form-button">
+            <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
+            <%= link_to t('.export'), export_report_subsidiary_workloading_path(format: :csv), class: 'btn' %>
+          </div>
+        </div>
+      </div>
+    <% end -%>
+    <div id="group-daily-workloadings-chart1" style="width: 100%;height: 350px;"></div>
+    <p class="text-lg-center">点击工作填报率可以查看公司明细。（仅本人公司）</p>
+    <div id="group-daily-workloadings-chart2" style="width: 100%;height: 350px;"></div>
+    <p class="text-lg-center">点击方案饱和度可以查看公司明细。（仅本人公司）</p>
+    <div id="group-daily-workloadings-chart3" style="width: 100%;height: 350px;"></div>
+    <p class="text-lg-center">点击施工图饱和度可以查看公司明细。（仅本人公司）</p>
   </div>
 </div>

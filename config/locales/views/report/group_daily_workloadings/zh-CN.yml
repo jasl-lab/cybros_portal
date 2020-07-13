@@ -10,5 +10,7 @@ zh-CN:
         day_rate_ref: "填报预警"
         planning_day_rate_ref: "方案预警"
         building_day_rate_ref: "施工预警"
+        begin_date: "开始日期"
+        end_date: "截止日期"
         confirm: "确认"
         export: "导出数据"
