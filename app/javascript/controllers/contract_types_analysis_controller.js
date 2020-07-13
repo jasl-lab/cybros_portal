@@ -14,11 +14,18 @@ export default class extends Controller {
     const planAmount = JSON.parse(this.data.get("plan_amount"));
     const workingDrawingAxis = JSON.parse(this.data.get("working_drawing_axis"));
     const workingDrawingAmount = JSON.parse(this.data.get("working_drawing_amount"));
+
     const yearsCategory = JSON.parse(this.data.get("years_category"));
     const yearsResidentialPlanAmount = JSON.parse(this.data.get("years_residential_plan"));
     const yearsResidentialConstructionAmount = JSON.parse(this.data.get("years_residential_construction"));
     const yearsPublicPlanAmount = JSON.parse(this.data.get("years_public_plan"));
     const yearsPublicConstructionAmount = JSON.parse(this.data.get("years_public_construction"));
+
+    function yearsCategorySum(res_value, index) {
+      return res_value + yearsResidentialConstructionAmount[index] + yearsPublicPlanAmount[index] + yearsPublicConstructionAmount[index];
+    }
+
+    const yearsCategoryTotals = yearsResidentialPlanAmount.map(yearsCategorySum);
 
     function mapPlan2PieDoughnut(amount, index) {
       return { value: amount, name: planAxis[index] };
@@ -203,6 +210,20 @@ export default class extends Controller {
         data: yearsCategory
       },
       series: [{
+          name: '四项合计',
+          type: 'bar',
+          barGap: '-100%',
+          data: yearsCategoryTotals,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'right'
+            }
+          }
+        },{
           name: '住宅前端',
           type: 'bar',
           stack: '总量',
