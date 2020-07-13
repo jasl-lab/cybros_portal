@@ -1,17 +1,7 @@
 ---
 zh-CN:
   report:
-    subsidiary_daily_workloadings:
-      show:
-        actions:
-          view_deptcode_sum: "显示汇总部门"
-          view_deptcode: "显示明细部门"
-        title: "%{company} 每日工作填报率及饱和度分析"
-        begin_date: "开始日期"
-        end_date: "截止日期"
-        company_name: "公司名"
-        confirm: "确认"
-        export: "导出数据"
+    subsidiary_daily_workloading:
       table:
         departmentname: "部门"
         user_name: "填写用户"
@@ -25,3 +15,16 @@ zh-CN:
         construction_need: "施工图需填工时"
         construction_real: "施工图实填工时"
         construction_rate: "施工饱和度"
+    subsidiary_daily_workloadings:
+      show:
+        actions:
+          view_deptcode_sum: "显示汇总部门"
+          view_deptcode: "显示明细部门"
+        title: "%{company} 每日工作填报率及饱和度分析"
+        begin_date: "开始日期"
+        end_date: "截止日期"
+        company_name: "公司名"
+        confirm: "确认"
+        export: "导出数据"
+      modal:
+        close: "关闭"

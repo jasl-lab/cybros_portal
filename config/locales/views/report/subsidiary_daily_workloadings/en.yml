@@ -1,17 +1,7 @@
 ---
 en:
   report:
-    subsidiary_daily_workloadings:
-      show:
-        actions:
-          view_deptcode_sum: "View department in sum"
-          view_deptcode: "View department in detail"
-        title: "%{company} daily work rate and saturation analysis"
-        begin_date: "Beginning of the date"
-        end_date: "End of the date"
-        company_name: "Company name"
-        confirm: "Confirm"
-        export: "Export data"
+    subsidiary_daily_workloading:
       table:
         departmentname: "Department"
         user_name: "User name"
@@ -25,3 +15,16 @@ en:
         construction_need: "Construction need"
         construction_real: "Construction real"
         construction_rate: "Construction rate"
+    subsidiary_daily_workloadings:
+      show:
+        actions:
+          view_deptcode_sum: "View department in sum"
+          view_deptcode: "View department in detail"
+        title: "%{company} daily work rate and saturation analysis"
+        begin_date: "Beginning of the date"
+        end_date: "End of the date"
+        company_name: "Company name"
+        confirm: "Confirm"
+        export: "Export data"
+      modal:
+        close: "Close"
