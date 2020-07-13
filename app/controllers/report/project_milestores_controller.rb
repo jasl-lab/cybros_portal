@@ -11,6 +11,7 @@ class Report::ProjectMilestoresController < Report::BaseController
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
     @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(@selected_org_code)
     @month_name = params[:month_name]&.strip || @all_month_names.first
+    raise Pundit::NotAuthorizedError if @month_name.nil?
     end_of_month = Date.parse(@month_name).end_of_month
     @target_date = policy_scope(Bi::ShRefreshRate).where('date <= ?', end_of_month).order(date: :desc).first.date
 
