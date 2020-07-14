@@ -63,7 +63,11 @@ class Report::GroupContractHoldsController < Report::BaseController
 
     @biz_retent_totals = @biz_retent_contract.zip(@biz_retent_no_contract).map { |d| d[0] + d[1] }
 
-    this_month_staff_data = Bi::StaffCount.staff_per_orgcode(@end_of_month)
+    this_month_staff_data = if @end_of_month.year <= 2020 && @end_of_month.month < 5
+      Bi::StaffCount.staff_per_orgcode(@end_of_month)
+    else
+      Bi::YearAvgStaff.worker_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
+    end
 
     @group_avg_staff = @orgs_options.collect do |org_code|
       this_month_staff_data[org_code] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
