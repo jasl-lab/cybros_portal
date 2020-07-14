@@ -27,6 +27,21 @@ export default class extends Controller {
     const northChinaYears = JSON.parse(this.data.get("north_china_years"));
     const northWestChinaYears = JSON.parse(this.data.get("north_west_china_years"));
 
+    function buildAreaBarSeries(year, index) {
+      const series = [southWestChinaYears[index], eastChinaYears[index],southChinaYears[index],centreChinaYears[index],northEastChinaYears[index],northChinaYears[index],northWestChinaYears[index]]
+      return {
+          name: year,
+          type: 'bar',
+          barGap: 0,
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: series
+        };
+    }
+    const areaBarSeries = yearCategory.reverse().map(buildAreaBarSeries);
+
     const provinceSum = JSON.parse(this.data.get("province_sum"));
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
@@ -152,7 +167,7 @@ export default class extends Controller {
         }
       },
       legend: {
-        data: yearCategory
+        data: yearCategory.reverse()
       },
       grid: {
         left: '3%',
@@ -168,65 +183,7 @@ export default class extends Controller {
       yAxis: {
         type: 'value'
       },
-      series: [{
-          name: '西南区域',
-          type: 'bar',
-          barGap: 0,
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: southWestChinaYears
-        },{
-          name: '华东区域',
-          type: 'bar',
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: eastChinaYears
-        },{
-          name: '华南区域',
-          type: 'bar',
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: southChinaYears
-        },{
-          name: '华中区域',
-          type: 'bar',
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: centreChinaYears
-        },{
-          name: '东北区域',
-          type: 'bar',
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: northEastChinaYears
-        },{
-          name: '华北区域',
-          type: 'bar',
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: northChinaYears
-        },{
-          name: '西北区域',
-          type: 'bar',
-          label: {
-            show: true,
-            position: 'insideTop'
-          },
-          data: northWestChinaYears
-        }
-      ]
+      series: areaBarSeries
     };
 
     const year_area_stack_option = {
