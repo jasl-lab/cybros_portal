@@ -137,7 +137,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
                   sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
                   sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
                   sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
-      sum_省市.map { |d| d.nil? ? nil : (d/10000_00.0).round(2) }
+      sum_省市.map { |d| d.nil? ? nil : (d/10000_00.0).round(1) }
     end
 
     def set_breadcrumbs
