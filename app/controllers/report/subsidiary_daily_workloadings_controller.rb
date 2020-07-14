@@ -57,32 +57,34 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end
 
     data = data.where(orgcode: user_company_orgcode) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-    job_data = data.having('SUM(date_need) > 0')
-    # exclude 建筑专项技术咨询所
-    job_data = job_data.where.not(deptcode: %w[00010100801]) if @short_company_name == '上海天华'
-    blue_print_data = data.having('SUM(blue_print_need) > 0')
-    # exclude 公建一所 施工图综合所 建筑专项技术咨询所
-    blue_print_data = blue_print_data.where.not(deptcode: %w[000101022 000101045 00010100801]) if @short_company_name == '上海天华'
-    construction_data = data.having('SUM(construction_need) > 0')
-    # exclude 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
-    construction_data = construction_data.where.not(deptcode: %w[000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075]) if @short_company_name == '上海天华'
 
-    @job_company_or_department_codes = job_data.collect(&:deptcode)
+    @job_company_or_department_codes = data.filter_map do |d|
+      # exclude 建筑专项技术咨询所
+      d.deptcode if d.date_need.to_f > 0 and !(%w[00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
+    end
     @job_company_or_department_names = @job_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
-    @blue_print_company_or_department_codes = blue_print_data.collect(&:deptcode)
+
+    @blue_print_company_or_department_codes = data.filter_map do |d|
+      # exclude 公建一所 施工图综合所 建筑专项技术咨询所
+      d.deptcode if d.blue_print_need.to_f > 0 and !(%w[000101022 000101045 00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
+    end
     @blue_print_company_or_department_names = @blue_print_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
-    @construction_company_or_department_codes = construction_data.collect(&:deptcode)
+
+    @construction_company_or_department_codes = data.filter_map do |d|
+      # exclude 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
+      d.deptcode if d.construction_need.to_f > 0 and !(%w[000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode) and @short_company_name == '上海天华')
+    end
     @construction_company_or_department_names = @construction_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
 
-    @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
-    @planning_day_rate = blue_print_data.collect { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 }
-    @building_day_rate = construction_data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
+    @day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @job_company_or_department_codes.include?(d.deptcode) }
+    @planning_day_rate = data.filter_map { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 if @blue_print_company_or_department_codes.include?(d.deptcode) }
+    @building_day_rate = data.filter_map { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 if @construction_company_or_department_codes.include?(d.deptcode) }
 
   end
 
