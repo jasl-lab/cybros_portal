@@ -4,25 +4,29 @@ import { mapProvinceSum2MapData } from "../echart-helper";
 
 let contractGeographicalAnalysisChinaChart;
 let contractGeographicalAnalysisYearCitylevelStackChart;
+let contractGeographicalAnalysisAreaBarChart;
 let contractGeographicalAnalysisYearAreaStackChart;
 
 export default class extends Controller {
   connect() {
     contractGeographicalAnalysisChinaChart = echarts.init(document.getElementById('contract-geographical-analysis-china-chart'));
     contractGeographicalAnalysisYearCitylevelStackChart = echarts.init(document.getElementById('contract-geographical-analysis-year-citylevel-stack-chart'));
+    contractGeographicalAnalysisAreaBarChart = echarts.init(document.getElementById('contract-geographical-analysis-area-bar-chart'));
     contractGeographicalAnalysisYearAreaStackChart = echarts.init(document.getElementById('contract-geographical-analysis-year-area-stack-chart'));
 
     const yearCategory = JSON.parse(this.data.get("year_names"));
     const yearsFirstLevelSum = JSON.parse(this.data.get("first_level_sum"));
     const yearsSecondLevelSum = JSON.parse(this.data.get("second_level_sum"));
     const yearsThirdFourthLevelSum = JSON.parse(this.data.get("thirdfourth_level_sum"));
-    const yearsSouthWestChinaSum = JSON.parse(this.data.get("south_west_china_sum"));
-    const yearsEastChinaSum = JSON.parse(this.data.get("east_china_sum"));
-    const yearsSouthChinaSum = JSON.parse(this.data.get("south_china_sum"));
-    const yearsCentreChinaSum = JSON.parse(this.data.get("centre_china_sum"));
-    const yearsNorthEastChinaSum = JSON.parse(this.data.get("north_east_china_sum"));
-    const yearsNorthChinaSum = JSON.parse(this.data.get("north_china_sum"));
-    const yearsNorthWestChinaSum = JSON.parse(this.data.get("north_west_china_sum"));
+
+    const southWestChinaYears = JSON.parse(this.data.get("south_west_china_years"));
+    const eastChinaYears = JSON.parse(this.data.get("east_china_years"));
+    const southChinaYears = JSON.parse(this.data.get("south_china_years"));
+    const centreChinaYears = JSON.parse(this.data.get("centre_china_years"));
+    const northEastChinaYears = JSON.parse(this.data.get("north_east_china_years"));
+    const northChinaYears = JSON.parse(this.data.get("north_china_years"));
+    const northWestChinaYears = JSON.parse(this.data.get("north_west_china_years"));
+
     const provinceSum = JSON.parse(this.data.get("province_sum"));
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
@@ -140,6 +144,91 @@ export default class extends Controller {
       ]
     };
 
+    const area_bar_option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      legend: {
+        data: yearCategory
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        axisTick: { show: false },
+        data: ['西南区域', '华东区域', '华南区域', '华中区域', '东北区域', '华北区域', '西北区域']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+          name: '西南区域',
+          type: 'bar',
+          barGap: 0,
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: southWestChinaYears
+        },{
+          name: '华东区域',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: eastChinaYears
+        },{
+          name: '华南区域',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: southChinaYears
+        },{
+          name: '华中区域',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: centreChinaYears
+        },{
+          name: '东北区域',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: northEastChinaYears
+        },{
+          name: '华北区域',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: northChinaYears
+        },{
+          name: '西北区域',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop'
+          },
+          data: northWestChinaYears
+        }
+      ]
+    };
+
     const year_area_stack_option = {
       tooltip: {
         trigger: 'axis',
@@ -156,13 +245,13 @@ export default class extends Controller {
         bottom: '3%',
         containLabel: true
       },
-      xAxis: {
+      xAxis: [{
         type: 'value'
-      },
-      yAxis: {
+      }],
+      yAxis: [{
         type: 'category',
         data: yearCategory
-      },
+      }],
       series: [{
           name: '西南区域',
           type: 'bar',
@@ -172,7 +261,7 @@ export default class extends Controller {
             position: 'insideTop',
             formatter: percentFormater
           },
-          data: yearsSouthWestChinaSum
+          data: southWestChinaYears
         },{
           name: '华东区域',
           type: 'bar',
@@ -182,7 +271,7 @@ export default class extends Controller {
             position: 'insideBottom',
             formatter: percentFormater
           },
-          data: yearsEastChinaSum
+          data: eastChinaYears
         },{
           name: '华南区域',
           type: 'bar',
@@ -192,7 +281,7 @@ export default class extends Controller {
             position: 'insideTop',
             formatter: percentFormater
           },
-          data: yearsSouthChinaSum
+          data: southChinaYears
         },{
           name: '华中区域',
           type: 'bar',
@@ -202,7 +291,7 @@ export default class extends Controller {
             position: 'insideBottom',
             formatter: percentFormater
           },
-          data: yearsCentreChinaSum
+          data: centreChinaYears
         },{
           name: '东北区域',
           type: 'bar',
@@ -212,7 +301,7 @@ export default class extends Controller {
             position: 'insideTop',
             formatter: percentFormater
           },
-          data: yearsNorthEastChinaSum
+          data: northEastChinaYears
         },{
           name: '华北区域',
           type: 'bar',
@@ -222,7 +311,7 @@ export default class extends Controller {
             position: 'insideBottom',
             formatter: percentFormater
           },
-          data: yearsNorthChinaSum
+          data: northChinaYears
         },{
           name: '西北区域',
           type: 'bar',
@@ -232,18 +321,20 @@ export default class extends Controller {
             position: 'insideTop',
             formatter: percentFormater
           },
-          data: yearsNorthWestChinaSum
+          data: northWestChinaYears
         }
       ]
     };
 
     contractGeographicalAnalysisChinaChart.setOption(map_option, false);
     contractGeographicalAnalysisYearCitylevelStackChart.setOption(year_city_level_stack_option, false);
+    contractGeographicalAnalysisAreaBarChart.setOption(area_bar_option, false);
     contractGeographicalAnalysisYearAreaStackChart.setOption(year_area_stack_option, false);
 
     setTimeout(() => {
       contractGeographicalAnalysisChinaChart.resize();
       contractGeographicalAnalysisYearCitylevelStackChart.resize();
+      contractGeographicalAnalysisAreaBarChart.resize();
       contractGeographicalAnalysisYearAreaStackChart.resize();
     }, 200);
   }
@@ -251,12 +342,14 @@ export default class extends Controller {
   layout() {
     contractGeographicalAnalysisChinaChart.resize();
     contractGeographicalAnalysisYearCitylevelStackChart.resize();
+    contractGeographicalAnalysisAreaBarChart.resize();
     contractGeographicalAnalysisYearAreaStackChart.resize();
   }
 
   disconnect() {
     contractGeographicalAnalysisChinaChart.dispose();
     contractGeographicalAnalysisYearCitylevelStackChart.dispose();
+    contractGeographicalAnalysisAreaBarChart.dispose();
     contractGeographicalAnalysisYearAreaStackChart.dispose();
   }
 }

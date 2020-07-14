@@ -21,8 +21,6 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     @years_sum_一线, @years_sum_二线, @years_sum_非一二线 = \
       一线二线非一二线_contract_price(@year_names, @orgs_options)
 
-    @years_sum_西南区域, @years_sum_华东区域, @years_sum_华南区域, \
-    @years_sum_华中区域, @years_sum_东北区域, @years_sum_华北区域, @years_sum_西北区域, \
     @西南区域_sum_years, @华东区域_sum_years, @华南区域_sum_years, \
     @华中区域_sum_years, @东北区域_sum_years, @华北区域_sum_years, @西北区域_sum_years = 区域_contract_price(@year_names, @orgs_options)
 
@@ -57,33 +55,6 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
         .where(businessltdcode: orgs_options)
-        .order('YEAR(filingtime)')
-
-      years_sum_西南区域 = []
-      years_sum_华东区域 = []
-      years_sum_华南区域 = []
-      years_sum_华中区域 = []
-      years_sum_东北区域 = []
-      years_sum_华北区域 = []
-      years_sum_西北区域 = []
-
-      year_names.each do |year|
-        years_sum_西南区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '西南区域' }&.realamounttotal
-        years_sum_华东区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华东区域' }&.realamounttotal
-        years_sum_华南区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华南区域' }&.realamounttotal
-        years_sum_华中区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华中区域' }&.realamounttotal
-        years_sum_东北区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '东北区域' }&.realamounttotal
-        years_sum_华北区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '华北区域' }&.realamounttotal
-        years_sum_西北区域 << sum_scope.find { |c| c.year_name == year.to_i && c.area == '西北区域' }&.realamounttotal
-      end
-
-      years_sum_西南区域 = years_sum_西南区域.map { |d| (d/10000_00.0).round(2) }
-      years_sum_华东区域 = years_sum_华东区域.map { |d| (d/10000_00.0).round(2) }
-      years_sum_华南区域 = years_sum_华南区域.map { |d| (d/10000_00.0).round(2) }
-      years_sum_华中区域 = years_sum_华中区域.map { |d| (d/10000_00.0).round(2) }
-      years_sum_东北区域 = years_sum_东北区域.map { |d| (d/10000_00.0).round(2) }
-      years_sum_华北区域 = years_sum_华北区域.map { |d| (d/10000_00.0).round(2) }
-      years_sum_西北区域 = years_sum_西北区域.map { |d| (d/10000_00.0).round(2) }
 
       西南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西南区域' }
       华东区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华东区域' }
@@ -93,9 +64,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
       华北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华北区域' }
       西北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西北区域' }
 
-      return [years_sum_西南区域, years_sum_华东区域, years_sum_华南区域, \
-        years_sum_华中区域, years_sum_东北区域, years_sum_华北区域, years_sum_西北区域, \
-        西南区域_sum_years, 华东区域_sum_years, 华南区域_sum_years, \
+      return [西南区域_sum_years, 华东区域_sum_years, 华南区域_sum_years, \
         华中区域_sum_years, 东北区域_sum_years, 华北区域_sum_years, 西北区域_sum_years]
     end
 
