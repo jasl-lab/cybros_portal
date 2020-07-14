@@ -19,6 +19,10 @@ export default class extends Controller {
         sublink: '',
         left: 'right'
       },
+      grid: {
+        left: '0',
+        right: '0'
+      },
       tooltip: {
         trigger: 'item',
         showDelay: 0,

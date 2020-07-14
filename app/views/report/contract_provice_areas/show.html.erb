@@ -26,7 +26,7 @@
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-6" style="padding-right: 0">
         <h5 class="text-center">分省市新开工面积与占有率对比情况</h5>
         <p class="text-center text-muted">今年数据范围（<%= @beginning_of_year.to_date -%> - <%= @end_of_year_month.to_date -%>），去年为全年，单位：元/万平方</p>
         <div class="table-responsive">
@@ -57,8 +57,8 @@
           </table>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div id="contract-provice-area-china-chart" style="width: 100%;height: 800px;">
+      <div class="col-sm-6" style="padding-left: 0">
+        <div id="contract-provice-area-china-chart" style="width: 100%;height: 600px;">
         </div>
       </div>
     </div>
