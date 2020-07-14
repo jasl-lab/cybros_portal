@@ -8,8 +8,8 @@ class Report::ContractProviceAreasController < Report::BaseController
   def show
     @all_month_names = policy_scope(Bi::ContractPrice).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
-    end_of_year_month = Date.parse(@month_name).end_of_month
-    beginning_of_year = end_of_year_month.beginning_of_year
+    @end_of_year_month = Date.parse(@month_name).end_of_month
+    @beginning_of_year = @end_of_year_month.beginning_of_year
 
     @orgs_options = params[:orgs]
     @project_type = params[:project_type].presence || '全部'
@@ -17,22 +17,22 @@ class Report::ContractProviceAreasController < Report::BaseController
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice)
       .select(:businessltdcode).distinct
-      .where(filingtime: beginning_of_year..end_of_year_month).pluck(:businessltdcode)
+      .where(filingtime: @beginning_of_year..@end_of_year_month).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
 
-    @sum_cp = filter_contract_price_scope(beginning_of_year, end_of_year_month, @orgs_options, @project_type, @service_phase)
-    @sum_scope = filter_province_new_area_scope(beginning_of_year, end_of_year_month)
+    @sum_cp = filter_contract_price_scope(@beginning_of_year, @end_of_year_month, @orgs_options, @project_type, @service_phase)
+    @sum_scope = filter_province_new_area_scope(@beginning_of_year, @end_of_year_month)
     @year_sum_省市 = province_new_area(@sum_scope)
     @sum_previous_cp = filter_contract_price_scope(
-      Date.civil(beginning_of_year.year - 1).beginning_of_year,
-      Date.civil(end_of_year_month.year - 1).end_of_year,
+      Date.civil(@beginning_of_year.year - 1).beginning_of_year,
+      Date.civil(@end_of_year_month.year - 1).end_of_year,
       @orgs_options, @project_type, @service_phase)
     @sum_previous_scope = filter_province_new_area_scope(
-      Date.civil(beginning_of_year.year - 1).beginning_of_year,
-      Date.civil(end_of_year_month.year - 1).end_of_year)
+      Date.civil(@beginning_of_year.year - 1).beginning_of_year,
+      Date.civil(@end_of_year_month.year - 1).end_of_year)
   end
 
   private
