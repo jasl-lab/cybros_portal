@@ -12,8 +12,12 @@
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), { class: 'form-control' } %>
       </div>
       <div class="form-group mr-3">
-        <label class="mr-1"><%= t(".cateogries_4") -%>：</label>
-        <%= select_tag 'cateogries_4', options_for_select(Bi::ContractPrice.住宅方案公建施工图_cateogries_4, @cateogries_4), { multiple: true, class: 'form-control' } %>
+        <label class="mr-1"><%= t(".project_type") -%>：</label>
+        <%= select_tag 'project_type', options_for_select(%w[全部 住宅 公建], @project_type), { class: 'form-control' } %>
+      </div>
+      <div class="form-group mr-3">
+        <label class="mr-1"><%= t(".service_phase") -%>：</label>
+        <%= select_tag 'service_phase', options_for_select(%w[全部 前端 后端], @service_phase), { class: 'form-control' } %>
       </div>
       <div class="form-group">
         <label class="mr-1"><%= t(".org_names") -%>：</label>
@@ -30,7 +34,7 @@
               <tr>
                 <th><%= t(".table.province") %></th>
                 <th><%= t(".table.new_area") %></th>
-                <th><%= t(".table.new_area_rate", category: @cateogries_4.to_sentence) %></th>
+                <th><%= t(".table.new_area_rate") %></th>
                 <th><%= t(".table.previous_new_area_rate") %></th>
                 <th><%= t(".table.previous_new_area") %></th>
               </tr>

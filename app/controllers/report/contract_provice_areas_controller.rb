@@ -12,7 +12,8 @@ class Report::ContractProviceAreasController < Report::BaseController
     beginning_of_year = end_of_year_month.beginning_of_year
 
     @orgs_options = params[:orgs]
-    @cateogries_4 = params[:cateogries_4]
+    @project_type = params[:project_type].presence || '全部'
+    @service_phase = params[:service_phase].presence || '全部'
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice)
       .select(:businessltdcode).distinct
@@ -21,15 +22,14 @@ class Report::ContractProviceAreasController < Report::BaseController
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
-    @cateogries_4 = Bi::ContractPrice.住宅方案公建施工图_cateogries_4 if @cateogries_4.blank?
 
-    @sum_cp = filter_contract_price_scope(beginning_of_year, end_of_year_month, @orgs_options, @cateogries_4)
+    @sum_cp = filter_contract_price_scope(beginning_of_year, end_of_year_month, @orgs_options, @project_type, @service_phase)
     @sum_scope = filter_province_new_area_scope(beginning_of_year, end_of_year_month)
     @year_sum_省市 = province_new_area(@sum_scope)
     @sum_previous_cp = filter_contract_price_scope(
       Date.civil(beginning_of_year.year - 1).beginning_of_year,
       Date.civil(end_of_year_month.year - 1).end_of_year,
-      @orgs_options, @cateogries_4)
+      @orgs_options, @project_type, @service_phase)
     @sum_previous_scope = filter_province_new_area_scope(
       Date.civil(beginning_of_year.year - 1).beginning_of_year,
       Date.civil(end_of_year_month.year - 1).end_of_year)
@@ -92,8 +92,38 @@ class Report::ContractProviceAreasController < Report::BaseController
                sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
     end
 
-    def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, cateogries_4)
+    def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, project_type, service_phase)
       sum_scope = policy_scope(Bi::ContractPrice)
+      cateogries_4 = case project_type
+      when '全部'
+        case service_phase
+        when '全部'
+          %w[住宅方案 住宅施工图 公建方案 公建施工图]
+        when '前端'
+          %w[住宅方案 公建方案]
+        when '后端'
+          %w[住宅施工图 公建施工图]
+        end
+      when '住宅'
+        case service_phase
+        when '全部'
+          %w[住宅方案 住宅施工图]
+        when '前端'
+          %w[住宅方案]
+        when '后端'
+          %w[住宅施工图]
+        end
+      when '公建'
+        case service_phase
+        when '全部'
+          %w[公建方案 公建施工图]
+        when '前端'
+          %w[公建方案]
+        when '后端'
+          %w[公建施工图]
+        end
+      end
+
       sum_scope = case cateogries_4
       when %w[住宅方案]
         sum_scope.where(projectstage: '前端', projecttype: '土建住宅')

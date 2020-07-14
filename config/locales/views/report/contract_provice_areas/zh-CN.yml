@@ -5,12 +5,13 @@ zh-CN:
       show:
         title: "全国市场占有率"
         month_name: "查询年月"
-        cateogries_4: "4大类别"
+        project_type: "项目类型"
+        service_phase: "服务阶段"
         org_names: "显示子公司"
         confirm: "确认"
         table:
           province: "省/直辖市"
           new_area: "新开工面积(元/万平方)"
-          new_area_rate: "%{category}占有率"
+          new_area_rate: "今年占有率"
           previous_new_area_rate: "去年占有率"
           previous_new_area: "去年新开工面积(元/万平方)"
