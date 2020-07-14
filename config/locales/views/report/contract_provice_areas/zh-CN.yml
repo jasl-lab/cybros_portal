@@ -3,7 +3,7 @@ zh-CN:
   report:
     contract_provice_areas:
       show:
-        title: "省市开工面积分析"
+        title: "全国市场占有率"
         month_name: "查询年月"
         cateogries_4: "4大类别"
         org_names: "显示子公司"

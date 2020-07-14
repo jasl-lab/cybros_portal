@@ -40,6 +40,7 @@ class Report::ContractProviceAreasController < Report::BaseController
       policy_scope(Bi::ProvinceNewArea).select('province, SUM(new_area) new_area')
         .group('province')
         .where(date: beginning_of_year..end_of_year)
+        .order('SUM(new_area) DESC')
     end
 
     def province_new_area(sum_scope)
