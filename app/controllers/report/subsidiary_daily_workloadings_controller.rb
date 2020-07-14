@@ -8,10 +8,19 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursDayCountDept
-    @begin_date = params[:begin_date]&.strip || Time.now.beginning_of_month
-    @end_date = params[:end_date]&.strip || Time.now.end_of_day
-    beginning_of_day = Date.parse(@begin_date).beginning_of_day unless @begin_date.is_a?(Time)
-    end_of_day = Date.parse(@end_date).end_of_day unless @end_date.is_a?(Time)
+    last_available_date = policy_scope(Bi::WorkHoursDayCountDept).last_available_date
+    @begin_date = params[:begin_date]&.strip || last_available_date.beginning_of_month
+    @end_date = params[:end_date]&.strip || last_available_date.end_of_day
+    beginning_of_day = if @begin_date.is_a?(Time)
+      @begin_date.beginning_of_day
+    else
+      Date.parse(@begin_date).beginning_of_day
+    end
+    end_of_day = if @end_date.is_a?(Time)
+      @end_date.end_of_day
+    else
+      Date.parse(@end_date).end_of_day
+    end
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_code = params[:company_code].presence || current_user.can_access_org_codes.first || current_user.user_company_orgcode
     @short_company_name = if params[:company_name].present?
