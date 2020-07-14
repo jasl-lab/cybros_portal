@@ -92,7 +92,7 @@ export default class extends Controller {
         }
       },
       legend: {
-        data: ['一线', '二线', '三四线']
+        data: ['一线', '二线', '非一二线']
       },
       grid: {
         left: '3%',
@@ -128,7 +128,7 @@ export default class extends Controller {
           },
           data: yearsSecondLevelSum
         },{
-          name: '三四线',
+          name: '非一二线',
           type: 'bar',
           stack: '总量',
           label: {
