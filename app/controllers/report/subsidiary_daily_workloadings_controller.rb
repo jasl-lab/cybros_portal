@@ -113,6 +113,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   end
 
   private
+
     def set_drill_down_params_and_title
       authorize Bi::WorkHoursDayCountDept
       short_company_code = params[:company_code]

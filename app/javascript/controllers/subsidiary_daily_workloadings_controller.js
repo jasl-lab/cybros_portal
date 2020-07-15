@@ -197,11 +197,12 @@ export default class extends Controller {
 
     function drill_down_model_show(x_name, x_code) {
       function drill_down(params) {
+        const begin_date = $('#subsidiary-daily-workloading-begin-date').val();
+        const end_date = $('#subsidiary-daily-workloading-end-date').val();
+
         if (params.componentType === 'xAxis') {
           const deptIndex = x_name.indexOf(params.value);
           const department_code = x_code[deptIndex];
-          const begin_date = $('#begin_date').val();
-          const end_date = $('#end_date').val();
           const sent_data = {
             company_code: companyCode,
             view_deptcode_sum,
@@ -215,10 +216,8 @@ export default class extends Controller {
             dataType: 'script'
           });
         } else if (params.componentType === 'series' && params.componentSubType === 'line') {
-          const company_code = $('#subsidiary-daily-workloading-company-code').val();
+          const company_code = companyCode;
           const department_code = x_code[params.dataIndex];
-          const begin_date = $('#subsidiary-daily-workloading-begin-date').val();
-          const end_date = $('#subsidiary-daily-workloading-end-date').val();
           const url = `/report/subsidiary_people_workloading?company_code=${company_code}&dept_code=${department_code}&begin_date=${begin_date}&end_date=${end_date}`;
           Turbolinks.visit(url);
         }
