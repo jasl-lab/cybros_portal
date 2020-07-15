@@ -65,6 +65,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::HrStaffInAndOut").show? %>
+        <%= nav_item controller: 'report/hr_staff_in_and_out', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_sy_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hr_staff_in_and_outs") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <li class="nav-title">子公司数据</li>
       <% if policy(:"Bi::RtGroupSubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>
