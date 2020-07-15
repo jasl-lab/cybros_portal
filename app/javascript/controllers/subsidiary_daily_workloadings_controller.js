@@ -47,8 +47,8 @@ export default class extends Controller {
         },
         tooltip: {},
         xAxis: {
+          triggerEvent: true,
           data: xAxisJob,
-          silent: true,
           axisLabel: {
             interval: 0,
             rotate: -40
@@ -103,8 +103,8 @@ export default class extends Controller {
         },
         tooltip: {},
         xAxis: {
+          triggerEvent: true,
           data: xAxisBluePrint,
-          silent: true,
           axisLabel: {
             interval: 0,
             rotate: -40
@@ -159,8 +159,8 @@ export default class extends Controller {
         },
         tooltip: {},
         xAxis: {
+          triggerEvent: true,
           data: xAxisConstruction,
-          silent: true,
           axisLabel: {
             interval: 0,
             rotate: -40
@@ -195,21 +195,11 @@ export default class extends Controller {
         }]
     };
 
-    function drill_down_model_show(params) {
-      if (params.componentType === 'series') {
-        if (params.seriesType === 'line') {
-          let department_code;
-          switch (params.seriesName) {
-            case '工作填报率':
-              department_code = xAxisJobCode[params.dataIndex]
-              break;
-            case '方案饱和度':
-              department_code = xAxisBluePrintCode[params.dataIndex]
-              break;
-            case '施工图饱和度':
-              department_code = xAxisConstructionCode[params.dataIndex]
-              break;
-          }
+    function drill_down_model_show(x_name, x_code) {
+      function drill_down(params) {
+        if (params.componentType === 'xAxis') {
+          const deptIndex = x_name.indexOf(params.value);
+          const department_code = x_code[deptIndex];
           const begin_date = $('#begin_date').val();
           const end_date = $('#end_date').val();
           const sent_data = {
@@ -219,38 +209,26 @@ export default class extends Controller {
             begin_date,
             end_date,
           };
-          let drill_down_url;
-          switch (params.seriesName) {
-            case '工作填报率':
-              drill_down_url = '/report/subsidiary_daily_workloading/day_rate_drill_down';
-              break;
-            case '方案饱和度':
-              drill_down_url = '/report/subsidiary_daily_workloading/planning_day_rate_drill_down';
-              break;
-            case '施工图饱和度':
-              drill_down_url = '/report/subsidiary_daily_workloading/building_day_rate_drill_down';
-              break;
-          }
-          if (drill_down_url !== undefined) {
-            $.ajax(drill_down_url, {
-              data: sent_data,
-              dataType: 'script'
-            });
-          }
+          const drill_down_url = '/report/subsidiary_daily_workloading/day_rate_drill_down';
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
         }
       }
+      return drill_down;
     }
 
 
     console.log('isNonConstruction', isNonConstruction);
 
     subsidiaryWorkloadingsJobDayChart.setOption(option1, false);
-    subsidiaryWorkloadingsJobDayChart.on('click', drill_down_model_show);
+    subsidiaryWorkloadingsJobDayChart.on('click', drill_down_model_show(xAxisJob, xAxisJobCode));
     if(!isNonConstruction) {
       subsidiaryWorkloadingsPlanningDayChart.setOption(option2, false);
-      subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show);
+      subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show(xAxisBluePrint, xAxisBluePrintCode));
       subsidiaryWorkloadingsBuildingDayChart.setOption(option3, false);
-      subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show);
+      subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show(xAxisConstruction, xAxisConstructionCode));
     }
     setTimeout(() => {
       subsidiaryWorkloadingsJobDayChart.resize();
