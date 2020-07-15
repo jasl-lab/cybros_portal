@@ -189,6 +189,14 @@
             <% end %>
           <% end %>
         <% end %>
+        <% if current_user.present? && current_user.admin? %>
+          <%= nav_item controller: 'report/subsidiary_people_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_subsidiary_people_workloading_path(company_name: current_user.user_company_short_name, view_deptcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-stopwatch"></i>
+              <%= t("layouts.sidebar.operation.company_subsidiary_people_workloading") %>
+            <% end %>
+          <% end %>
+        <% end %>
         <% if current_user.present? && policy(Bi::ShRefreshRate).show? %>
           <%= nav_item controller: 'report/project_milestores', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_project_milestore_path, class: "nav-link" do %>

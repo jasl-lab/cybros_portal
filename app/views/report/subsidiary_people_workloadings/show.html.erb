@@ -1,0 +1,24 @@
+<%- content_for :action_bar do %>
+  <ol>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.view_deptcode_sum'),
+          report_subsidiary_people_workloading_path(company_name: @selected_company_name, month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+    </li>
+    <li class="action_bar-item">
+      <%= link_to t('.actions.view_deptcode'),
+          report_subsidiary_people_workloading_path(company_name: @selected_company_name, month_name: @month_name), class: 'btn text-primary' %>
+    </li>
+  </ol>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12"
+    data-controller="subsidiary-people-workloadings"
+    data-action="resize@window->subsidiary-people-workloadings#layout"
+    data-subsidiary-people-workloadings-company_code="<%= @selected_company_code -%>"
+    data-subsidiary-people-workloadings-view_deptcode_sum="<%= @view_deptcode_sum -%>">
+    <h3 class="page-title">
+      <%= t(".title", company: @short_company_name) %>
+    </h3>
+  </div>
+</div>

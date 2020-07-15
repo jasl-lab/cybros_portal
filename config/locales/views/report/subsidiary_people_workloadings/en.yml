@@ -1,0 +1,16 @@
+---
+en:
+  report:
+    subsidiary_people_workloadings:
+      show:
+        actions:
+          view_deptcode_sum: "View department in sum"
+          view_deptcode: "View department in detail"
+        title: "%{company} people work rate and saturation analysis"
+        begin_date: "Beginning of the date"
+        end_date: "End of the date"
+        company_name: "Company name"
+        confirm: "Confirm"
+        export: "Export data"
+      modal:
+        close: "Close"
