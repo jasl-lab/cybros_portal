@@ -118,6 +118,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       authorize Bi::WorkHoursDayCountDept
       short_company_code = params[:company_code]
       @company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(short_company_code, short_company_code)
+      view_deptcode_sum = params[:view_deptcode_sum] == "true"
       department_code = params[:department_code]
       begin_date = Date.parse(params[:begin_date]).beginning_of_day
       end_date = Date.parse(params[:end_date]).end_of_day
@@ -130,9 +131,14 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       end
 
       @drill_down_subtitle = "#{begin_date.to_date} - #{end_date.to_date}"
-      @data = policy_scope(Bi::WorkHoursDayCountDept).where(date: begin_date..end_date)
-        .where(orgcode: short_company_code, deptcode: department_code)
+      data = policy_scope(Bi::WorkHoursDayCountDept).where(date: begin_date..end_date)
+        .where(orgcode: short_company_code)
         .order(date: :desc)
+      @data = if view_deptcode_sum
+        data.where(deptcode_sum: department_code)
+      else
+        data.where(deptcode: department_code)
+      end
     end
 
     def set_breadcrumbs
