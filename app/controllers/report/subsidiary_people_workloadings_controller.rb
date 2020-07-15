@@ -31,12 +31,24 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
         [Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode), r.orgcode]
       end
-    @dept_short_names = policy_scope(Bi::WorkHoursCountCombine).select(:deptcode)
+
+    dept_short_names = policy_scope(Bi::WorkHoursCountCombine)
       .distinct.where(date: beginning_of_day..end_of_day).where(orgcode: @selected_company_code)
-      .collect do |r|
-        [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode]
-      end
+    @dept_short_names = if @view_deptcode_sum
+      dept_short_names.select('deptcode_sum deptcode')
+    else
+      dept_short_names.select(:deptcode)
+    end.collect { |r| [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode] }
     @selected_dept_code = params[:dept_code].presence || @dept_short_names.first.second
+
+    data = policy_scope(Bi::WorkHoursCountCombine)
+      .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
+      .order(:date, :ncworkno)
+    @data = if @view_deptcode_sum
+      data.where(deptcode_sum: @selected_dept_code)
+    else
+      data.where(deptcode: @selected_dept_code)
+    end
   end
 
   private

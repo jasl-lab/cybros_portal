@@ -2,11 +2,11 @@
   <ol>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode_sum'),
-          report_subsidiary_people_workloading_path(company_name: @selected_company_name, month_name: @month_name, view_deptcode_sum: true), class: 'btn text-primary' %>
+          report_subsidiary_people_workloading_path(company_code: @selected_company_code, begin_date: @begin_date.to_date, end_date: @end_date.to_date, view_deptcode_sum: true), class: 'btn text-primary' %>
     </li>
     <li class="action_bar-item">
       <%= link_to t('.actions.view_deptcode'),
-          report_subsidiary_people_workloading_path(company_name: @selected_company_name, month_name: @month_name), class: 'btn text-primary' %>
+          report_subsidiary_people_workloading_path(company_code: @selected_company_code, begin_date: @begin_date.to_date, end_date: @end_date.to_date), class: 'btn text-primary' %>
     </li>
   </ol>
 <% end %>
@@ -47,5 +47,35 @@
         </div>
       </div>
     <% end -%>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th><%= t(".table.date") %></th>
+          <th><%= t(".table.userid") %></th>
+          <th><%= t(".table.ncworkno") %></th>
+          <th><%= t(".table.username") %></th>
+          <th><%= t(".table.prjno") %></th>
+          <th><%= t(".table.realhours") %></th>
+          <th><%= t(".table.needhours") %></th>
+          <th><%= t(".table.profession") %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @data.each do |d| %>
+          <tr>
+            <td><%= d.date -%></td>
+            <td><%= d.userid -%></td>
+            <td><%= d.ncworkno -%></td>
+            <td><%= d.username -%></td>
+            <td><%= d.prjno -%></td>
+            <td><%= d.realhours -%></td>
+            <td><%= d.needhours -%></td>
+            <td><%= d.profession -%></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

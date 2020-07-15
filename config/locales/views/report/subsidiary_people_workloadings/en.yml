@@ -13,5 +13,14 @@ en:
         end_date: "End of the date"
         confirm: "Confirm"
         export: "Export data"
+        table:
+          date: "Date"
+          userid: "User ID"
+          ncworkno: "NC work no"
+          username: "User name"
+          prjno: "Prj no"
+          realhours: "Real hours"
+          needhours: "Need hours"
+          profession: "Profession"
       modal:
         close: "Close"
