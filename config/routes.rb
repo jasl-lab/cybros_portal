@@ -151,7 +151,11 @@ Rails.application.routes.draw do
         get :building_day_rate_drill_down
       end
     end
-    resource :subsidiary_people_workloading, only: %i[show]
+    resource :subsidiary_people_workloading, only: %i[show] do
+      collection do
+        get :fill_dept_short_names
+      end
+    end
     resource :yearly_subsidiary_workloading, only: %i[show]
     resource :contract_signing, only: %i[show]
     resource :subsidiary_contract_signing, only: %i[show] do

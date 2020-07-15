@@ -51,6 +51,20 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     end
   end
 
+  def fill_dept_short_names
+    view_deptcode_sum = params[:view_deptcode_sum] == 'true'
+    beginning_of_day = Date.parse(params[:begin_date]).beginning_of_day
+    end_of_day = Date.parse(params[:end_date]).end_of_day
+
+    dept_short_names = policy_scope(Bi::WorkHoursCountCombine)
+      .distinct.where(date: beginning_of_day..end_of_day).where(orgcode: params[:company_code])
+    @dept_short_names = if view_deptcode_sum
+      dept_short_names.select('deptcode_sum deptcode')
+    else
+      dept_short_names.select(:deptcode)
+    end.collect { |r| [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode] }
+  end
+
   private
 
     def set_breadcrumbs
