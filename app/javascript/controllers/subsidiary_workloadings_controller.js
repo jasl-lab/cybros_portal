@@ -303,9 +303,6 @@ export default class extends Controller {
       }
     }
 
-
-    console.log('isNonConstruction', isNonConstruction);
-
     subsidiaryWorkloadingsChart1.setOption(option1, false);
     subsidiaryWorkloadingsChart1.on('click', drill_down_model_show);
     if(!isNonConstruction) {
