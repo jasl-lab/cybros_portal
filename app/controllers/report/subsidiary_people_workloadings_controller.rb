@@ -4,19 +4,19 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    authorize Bi::WorkHoursDayCountDept
-    last_available_date = policy_scope(Bi::WorkHoursDayCountDept).last_available_date
+    authorize Bi::WorkHoursCountCombine
+    last_available_date = policy_scope(Bi::WorkHoursCountCombine).last_available_date
     @begin_date = params[:begin_date]&.strip || last_available_date.beginning_of_month
     @end_date = params[:end_date]&.strip || last_available_date.end_of_day
-    beginning_of_day = if @begin_date.is_a?(Time)
-      @begin_date.beginning_of_day
-    else
+    beginning_of_day = if @begin_date.is_a?(String)
       Date.parse(@begin_date).beginning_of_day
-    end
-    end_of_day = if @end_date.is_a?(Time)
-      @end_date.end_of_day
     else
+      @begin_date.beginning_of_day
+    end
+    end_of_day = if @end_date.is_a?(String)
       Date.parse(@end_date).end_of_day
+    else
+      @end_date.end_of_day
     end
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_code = params[:company_code].presence || current_user.can_access_org_codes.first || current_user.user_company_orgcode
@@ -27,10 +27,16 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
     end
 
-    @company_short_names = policy_scope(Bi::WorkHoursDayCountDept).select(:orgcode)
+    @company_short_names = policy_scope(Bi::WorkHoursCountCombine).select(:orgcode)
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
         [Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode), r.orgcode]
       end
+    @dept_short_names = policy_scope(Bi::WorkHoursCountCombine).select(:deptcode)
+      .distinct.where(date: beginning_of_day..end_of_day).where(orgcode: @selected_company_code)
+      .collect do |r|
+        [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode]
+      end
+    @selected_dept_code = params[:dept_code].presence || @dept_short_names.first.second
   end
 
   private

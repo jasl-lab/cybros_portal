@@ -7,15 +7,15 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
     authorize Bi::WorkHoursDayCountOrg
     @begin_date = params[:begin_date]&.strip || Time.now.beginning_of_month
     @end_date = params[:end_date]&.strip || Time.now.end_of_day
-    beginning_of_day = if @begin_date.is_a?(Time)
-      @begin_date.beginning_of_day
-    else
+    beginning_of_day = if @begin_date.is_a?(String)
       Date.parse(@begin_date).beginning_of_day
-    end
-    end_of_day = if @end_date.is_a?(Time)
-      @end_date.end_of_day
     else
+      @begin_date.beginning_of_day
+    end
+    end_of_day = if @end_date.is_a?(String)
       Date.parse(@end_date).end_of_day
+    else
+      @end_date.end_of_day
     end
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
