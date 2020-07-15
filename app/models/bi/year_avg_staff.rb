@@ -16,6 +16,19 @@ module Bi
       where('f_month = ?', available_date)
     end
 
+    def self.worker_per_short_company_name_by_date_and_sum(end_of_month, view_sum)
+      d1 = available_data_at_month(end_of_month)
+      d2 = if view_sum
+        d1.select('orgcode_sum orgcode, SUM(date_x) sum_x, MAX(date_y) max_y').group(:orgcode_sum)
+      else
+        d1.select('orgcode, SUM(date_x) sum_x, MAX(date_y) max_y').group(:orgcode)
+      end
+      d2.reduce({}) do |h, s|
+        h[Bi::OrgShortName.company_short_names_by_orgcode.fetch(s.orgcode, s.orgcode)] = (s.sum_x / s.max_y.to_f)
+        h
+      end
+    end
+
     def self.worker_per_orgcode_by_date_and_sum(end_of_month, view_sum)
       d1 = available_data_at_month(end_of_month)
       d2 = if view_sum

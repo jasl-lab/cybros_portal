@@ -106,11 +106,11 @@ class Report::ContractSigningsController < Report::BaseController
     @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
 
     @staff_per_company = if @end_of_month.year <= 2020 && @end_of_month.month < 5
-      Bi::StaffCount.staff_per_orgcode(@end_of_month)
+      Bi::StaffCount.staff_per_short_company_name(@end_of_month)
     else
-      Bi::YearAvgStaff.worker_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
+      Bi::YearAvgStaff.worker_per_short_company_name_by_date_and_sum(@end_of_month, @view_orgcode_sum)
     end
-    
+
     @production_amounts_per_staff = []
     @cp_contract_amounts.each_with_index do |contract_amount, index|
       company_name = @cp_org_names[index]
