@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Report::HrStaffInAndOutController < Report::BaseController
+class Report::HrStaffInAndOutsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
@@ -9,7 +9,7 @@ class Report::HrStaffInAndOutController < Report::BaseController
   def show
     authorize :"Bi::HrStaffInAndOut"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?op=write&ref_c=7c332fd4-ca53-4731-8200-9147e584be33&viewlet=HR/SY_staff_in_out.frm&ref_t=design"
+    @redirect_url = "view/report?op=write&viewlet=HR/SY_staff_in_out.frm&ref_t=design"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
