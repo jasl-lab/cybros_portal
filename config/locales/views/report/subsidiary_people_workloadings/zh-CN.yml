@@ -14,13 +14,10 @@ zh-CN:
         confirm: "确认"
         export: "导出数据"
         table:
-          date: "日期"
-          userid: "用户 ID"
           ncworkno: "NC 工号"
           username: "姓名"
-          prjno: "项目号"
-          realhours: "实际用时"
-          needhours: "估计用时"
+          realhours: "实填工时"
+          needhours: "应填工时"
           profession: "专业"
       modal:
         close: "关闭"

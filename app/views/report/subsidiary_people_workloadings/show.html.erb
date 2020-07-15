@@ -52,11 +52,8 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th><%= t(".table.date") %></th>
-          <th><%= t(".table.userid") %></th>
           <th><%= t(".table.ncworkno") %></th>
           <th><%= t(".table.username") %></th>
-          <th><%= t(".table.prjno") %></th>
           <th><%= t(".table.realhours") %></th>
           <th><%= t(".table.needhours") %></th>
           <th><%= t(".table.profession") %></th>
@@ -65,11 +62,8 @@
         <tbody>
         <% @data.each do |d| %>
           <tr>
-            <td><%= d.date -%></td>
-            <td><%= d.userid -%></td>
             <td><%= d.ncworkno -%></td>
             <td><%= d.username -%></td>
-            <td><%= d.prjno -%></td>
             <td><%= d.realhours -%></td>
             <td><%= d.needhours -%></td>
             <td><%= d.profession -%></td>

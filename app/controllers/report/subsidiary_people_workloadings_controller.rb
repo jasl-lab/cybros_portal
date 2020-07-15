@@ -42,8 +42,10 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     @selected_dept_code = params[:dept_code].presence || @dept_short_names.first.second
 
     data = policy_scope(Bi::WorkHoursCountCombine)
+      .select('ncworkno, username, profession, SUM(realhours) realhours, SUM(needhours) needhours')
       .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
-      .order(:date, :ncworkno)
+      .order(:ncworkno, :username, :profession)
+      .group(:ncworkno, :username, :profession)
     @data = if @view_deptcode_sum
       data.where(deptcode_sum: @selected_dept_code)
     else
