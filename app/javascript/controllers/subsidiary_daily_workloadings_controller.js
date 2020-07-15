@@ -1,18 +1,18 @@
 import { Controller } from "stimulus"
 
-let subsidiaryWorkloadingsChart1;
-let subsidiaryWorkloadingsChart2;
-let subsidiaryWorkloadingsChart3;
+let subsidiaryWorkloadingsJobDayChart;
+let subsidiaryWorkloadingsPlanningDayChart;
+let subsidiaryWorkloadingsBuildingDayChart;
 let isNonConstruction;
 
 export default class extends Controller {
   connect() {
     isNonConstruction = this.data.get("is_non_construction") == 'true';
-    subsidiaryWorkloadingsChart1 = echarts.init(document.getElementById('subsidiary-workloadings-chart1'));
+    subsidiaryWorkloadingsJobDayChart = echarts.init(document.getElementById('subsidiary-workloadings-job-day-chart'));
 
     if (!isNonConstruction) {
-      subsidiaryWorkloadingsChart2 = echarts.init(document.getElementById('subsidiary-workloadings-chart2'));
-      subsidiaryWorkloadingsChart3 = echarts.init(document.getElementById('subsidiary-workloadings-chart3'));
+      subsidiaryWorkloadingsPlanningDayChart = echarts.init(document.getElementById('subsidiary-workloadings-planning-day-chart'));
+      subsidiaryWorkloadingsBuildingDayChart = echarts.init(document.getElementById('subsidiary-workloadings-building-day-chart'));
     }
 
     const xAxisJobCode = JSON.parse(this.data.get("x_axis_job_code"));
@@ -242,36 +242,36 @@ export default class extends Controller {
 
     console.log('isNonConstruction', isNonConstruction);
 
-    subsidiaryWorkloadingsChart1.setOption(option1, false);
-    subsidiaryWorkloadingsChart1.on('click', drill_down_model_show);
+    subsidiaryWorkloadingsJobDayChart.setOption(option1, false);
+    subsidiaryWorkloadingsJobDayChart.on('click', drill_down_model_show);
     if(!isNonConstruction) {
-      subsidiaryWorkloadingsChart2.setOption(option2, false);
-      subsidiaryWorkloadingsChart2.on('click', drill_down_model_show);
-      subsidiaryWorkloadingsChart3.setOption(option3, false);
-      subsidiaryWorkloadingsChart3.on('click', drill_down_model_show);
+      subsidiaryWorkloadingsPlanningDayChart.setOption(option2, false);
+      subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show);
+      subsidiaryWorkloadingsBuildingDayChart.setOption(option3, false);
+      subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show);
     }
     setTimeout(() => {
-      subsidiaryWorkloadingsChart1.resize();
+      subsidiaryWorkloadingsJobDayChart.resize();
       if(!isNonConstruction) {
-        subsidiaryWorkloadingsChart2.resize();
-        subsidiaryWorkloadingsChart3.resize();
+        subsidiaryWorkloadingsPlanningDayChart.resize();
+        subsidiaryWorkloadingsBuildingDayChart.resize();
       }
     }, 200);
   }
 
   layout() {
-    subsidiaryWorkloadingsChart1.resize();
+    subsidiaryWorkloadingsJobDayChart.resize();
     if(!isNonConstruction) {
-      subsidiaryWorkloadingsChart2.resize();
-      subsidiaryWorkloadingsChart3.resize();
+      subsidiaryWorkloadingsPlanningDayChart.resize();
+      subsidiaryWorkloadingsBuildingDayChart.resize();
     }
   }
 
   disconnect() {
-    subsidiaryWorkloadingsChart1.dispose();
+    subsidiaryWorkloadingsJobDayChart.dispose();
     if(!isNonConstruction) {
-      subsidiaryWorkloadingsChart2.dispose();
-      subsidiaryWorkloadingsChart3.dispose();
+      subsidiaryWorkloadingsPlanningDayChart.dispose();
+      subsidiaryWorkloadingsBuildingDayChart.dispose();
     }
   }
 }

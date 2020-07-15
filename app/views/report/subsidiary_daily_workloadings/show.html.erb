@@ -54,12 +54,12 @@
       </div>
     <% end -%>
 
-    <div id="subsidiary-workloadings-chart1" style="width: 100%;height: 350px;"></div>
+    <div id="subsidiary-workloadings-job-day-chart" style="width: 100%;height: 350px;"></div>
     <p class="text-lg-center">点击工作填报率可以查看部门明细。<%= "（仅本人公司）" if @short_company_name.blank?-%></p>
     <% if !@is_non_construction %>
-      <div id="subsidiary-workloadings-chart2" style="width: 100%;height: 350px;"></div>
+      <div id="subsidiary-workloadings-planning-day-chart" style="width: 100%;height: 350px;"></div>
       <p class="text-lg-center">点击方案饱和度可以查看部门明细。<%= "（仅本人公司）" if @short_company_name.blank?-%></p>
-      <div id="subsidiary-workloadings-chart3" style="width: 100%;height: 350px;"></div>
+      <div id="subsidiary-workloadings-building-day-chart" style="width: 100%;height: 350px;"></div>
       <p class="text-lg-center">点击施工图饱和度可以查看部门明细。<%= "（仅本人公司）" if @short_company_name.blank?-%></p>
     <% end %>
   </div>
