@@ -34,7 +34,6 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
         [Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode), r.orgcode]
       end
-    @job_company_or_department_names = []
 
     @is_non_construction = Report::BaseController::NON_CONSTRUCTION_COMPANYS.include?(@short_company_name)
     data = policy_scope(Bi::WorkHoursDayCountDept).where(date: beginning_of_day..end_of_day)
