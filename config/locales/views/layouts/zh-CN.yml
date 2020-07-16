@@ -69,6 +69,7 @@ zh-CN:
         subsidiary_workloading: "子公司工时填报情况"
         subsidiary_daily_workloading: "子公司每日工作饱和度"
         subsidiary_people_workloading: "子公司每日人员工作饱和度"
+        people_workloading: "人员工作饱和度"
         company_subsidiary_workloading: "所级工作饱和度"
         company_subsidiary_daily_workloading: "所级每日工作饱和度"
         company_subsidiary_people_workloading: "所级每日人员饱和度"
