@@ -37,9 +37,12 @@
 
         <% events.each do |event| %>
           <div>
-            项目：<%= event.prjno %>
+            项目：
             <br />
-            实填：<%= event.realhours %>
+            <p style="font-size: 9pt"><%= event.prjno %></p>
+            实填：
+            <br />
+            <%= event.realhours %>
           </div>
         <% end %>
       <% end %>
