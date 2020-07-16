@@ -25,16 +25,24 @@
         </div>
       </div>
     <% end -%>
-    <%= month_calendar attribute: :date, events: @data do |date, events| %>
-      <%= date.day %>
-
-      <% events.each do |event| %>
-        <div>
-          项目：<%= event.prjno %>
-          <br />
-          实填：<%= event.realhours %>
-        </div>
-      <% end %>
-    <% end %>
   </div>
+</div>
+<div class="row">
+  <% @months.each do |m| %>
+    <% data = policy_scope(Bi::WorkHoursCountCombine).where(date: m.first..(m.last-1.day), ncworkno: @ncworkno) %>
+    <div class="col-lg-12 col-xl-6">
+      <h5><%= m.first.to_s(:month_and_year) %></h5>
+      <%= month_calendar attribute: :date, start_date: m.first, end_date: (m.last-1.day), events: data do |date, events| %>
+        <%= date.day %>
+
+        <% events.each do |event| %>
+          <div>
+            项目：<%= event.prjno %>
+            <br />
+            实填：<%= event.realhours %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
