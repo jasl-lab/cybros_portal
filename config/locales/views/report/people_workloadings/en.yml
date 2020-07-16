@@ -4,6 +4,7 @@ en:
     people_workloadings:
       show:
         title: "People workloading saturation analysis"
+        ncworkno: "NC work no"
         begin_date: "Beginning of the date"
         end_date: "End of the date"
         confirm: "Confirm"

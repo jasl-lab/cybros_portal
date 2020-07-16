@@ -6,7 +6,7 @@ module Bi
     self.inheritance_column = 'column_type_is_not_type'
 
     def self.last_available_date
-      order(date: :desc).first.date
+      select(:date).order(date: :desc).first.date
     end
   end
 end

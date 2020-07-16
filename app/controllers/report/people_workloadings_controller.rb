@@ -5,19 +5,24 @@ class Report::PeopleWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountCombine
+    @ncworkno = params[:ncworkno] || current_user.clerk_code
     last_available_date = policy_scope(Bi::WorkHoursCountCombine).last_available_date
     @begin_date = params[:begin_date]&.strip || last_available_date.beginning_of_month
     @end_date = params[:end_date]&.strip || last_available_date.end_of_day
+
     beginning_of_day = if @begin_date.is_a?(String)
       Date.parse(@begin_date).beginning_of_day
     else
       @begin_date.beginning_of_day
     end
+
     end_of_day = if @end_date.is_a?(String)
       Date.parse(@end_date).end_of_day
     else
       @end_date.end_of_day
     end
+
+
   end
 
   private
