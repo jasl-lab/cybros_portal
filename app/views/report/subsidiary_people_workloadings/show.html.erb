@@ -62,7 +62,7 @@
         <tbody>
         <% @data.each do |d| %>
           <tr>
-            <td><%= d.ncworkno -%></td>
+            <td><%= link_to d.ncworkno, report_people_workloading_path(ncworkno: d.ncworkno, begin_date: @begin_date.to_date, end_date: @end_date.to_date) -%></td>
             <td><%= d.username -%></td>
             <td><%= d.realhours -%></td>
             <td><%= d.needhours -%></td>
