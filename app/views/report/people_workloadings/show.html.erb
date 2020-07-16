@@ -25,5 +25,16 @@
         </div>
       </div>
     <% end -%>
+    <%= month_calendar attribute: :date, events: @data do |date, events| %>
+      <%= date.day %>
+
+      <% events.each do |event| %>
+        <div>
+          项目：<%= event.prjno %>
+          <br />
+          实填：<%= event.realhours %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

@@ -97,6 +97,7 @@ module CybrosCore
     # config.i18n.default_locale = "zh-CN"
     config.time_zone = "Asia/Shanghai"
     config.i18n.default_locale = "zh-CN"
+    config.beginning_of_week = :sunday # for simple_calendar
   end
 end
 

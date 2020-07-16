@@ -22,7 +22,8 @@ class Report::PeopleWorkloadingsController < Report::BaseController
       @end_date.end_of_day
     end
 
-
+    @data = policy_scope(Bi::WorkHoursCountCombine)
+      .where(date: beginning_of_day..end_of_day, ncworkno: @ncworkno)
   end
 
   private
