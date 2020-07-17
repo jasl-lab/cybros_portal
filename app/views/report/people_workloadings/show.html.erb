@@ -39,7 +39,11 @@
           <div>
             项目：
             <br />
-            <p style="font-size: 9pt"><%= event.prjno %></p>
+            <% projects = event.summary.split(',') %>
+            <% projects.each do |project| %>
+              <p style="font-size: 9pt" class="mb-0"><%= project.split(':').first %></p>
+              <p class="mb-0"><%= project.split(':').second %></p>
+            <% end %>
             实填：
             <br />
             <%= event.realhours %>
