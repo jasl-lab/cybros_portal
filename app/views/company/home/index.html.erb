@@ -1,5 +1,15 @@
 <div class="row">
   <div class="col-sm-12 col-xl-6">
+    <div class="card" data-controller="company-hot-loader">
+      <img class="card-img-top" src="" alt="Card image cap" id="company-hots-img">
+      <div class="card-body">
+        <h5 class="card-title" id="company-hots-title"></h5>
+        <p class="card-text" id="company-hots-text"></p>
+        <a href="" target="_blank" class="btn btn-primary" id="company-hots-link">进一步查看</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-xl-6">
     <div class="card" data-controller="company-news-loader">
       <div class="card-header">
         <i class="fa fa-align-justify"></i><%= t('.news') -%>
