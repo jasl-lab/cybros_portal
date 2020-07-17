@@ -107,8 +107,8 @@ zh-CN:
         hr_staff_in_and_outs: "人力资源入离职图"
       financial_management:
         header: "财务所级管理"
-        contract_information_form: "合同信息表 - 商务责任"
-        project_contract_summary: "项目汇总-合同维度"
-        single_project_overview: "单项目概览"
-        departmental_market_fees: "部门市场费主页面"
-        bonus_distribution: "实时产值"
+        contract_information_form: "合同管理表（商务）"
+        project_contract_summary: "项目管理（生产）"
+        single_project_overview: "项目查询表"
+        departmental_market_fees: "市场费管理表"
+        bonus_distribution: "产值汇总表"
