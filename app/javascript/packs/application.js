@@ -12,6 +12,7 @@ import "@stimulus/polyfills";
 
 import JQuery from 'jquery';
 window.$ = window.JQuery = JQuery;
+require("node-json2html/json2html.js")
 
 import "bootstrap";
 import "@coreui/coreui";

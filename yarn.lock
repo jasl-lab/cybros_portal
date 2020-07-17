@@ -4732,6 +4732,11 @@ node-gyp@^3.8.0:
     tar "^2.0.0"
     which "1"
 
+node-json2html@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/node-json2html/download/node-json2html-1.4.0.tgz#4240ec6294cdaba1c3bc0016125b3114110fd649"
+  integrity sha1-QkDsYpTNq6HDvAAWElsxFBEP1kk=
+
 node-libs-browser@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/node-libs-browser/download/node-libs-browser-2.2.1.tgz#b64f513d18338625f90346d27b0d235e631f6425"
