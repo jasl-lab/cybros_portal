@@ -56,6 +56,8 @@
           <th><%= t(".table.username") %></th>
           <th><%= t(".table.realhours") %></th>
           <th><%= t(".table.needhours") %></th>
+          <th><%= t(".table.fillrate") %></th>
+          <th><%= t(".table.busyrate") %></th>
           <th><%= t(".table.profession") %></th>
         </tr>
         </thead>
@@ -64,8 +66,13 @@
           <tr>
             <td><%= link_to d.ncworkno, report_people_workloading_path(ncworkno: d.ncworkno, begin_date: @begin_date.to_date, end_date: @end_date.to_date) -%></td>
             <td><%= d.username -%></td>
-            <td><%= d.realhours -%></td>
+            <% total_hour = d.type1.to_f + d.type2.to_f + d.type4.to_f  %>
+            <td><%= total_hour -%></td>
             <td><%= d.needhours -%></td>
+            <% numerator = @fill_rate_numerator[d.userid] %>
+            <% denominator = @fill_rate_denominator[d.userid] %>
+            <td><%= (numerator.to_f * 100 / denominator).round(1) -%>%</td>
+            <td><%= ((d.type1.to_f * 100) / d.needhours.to_f).round(1) -%>%</td>
             <td><%= d.profession -%></td>
           </tr>
         <% end %>

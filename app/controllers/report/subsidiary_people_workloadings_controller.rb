@@ -42,14 +42,42 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     @selected_dept_code = params[:dept_code].presence || @dept_short_names.first.second
 
     data = policy_scope(Bi::WorkHoursCountCombine)
-      .select('ncworkno, username, profession, SUM(realhours) realhours, SUM(needhours) needhours')
+      .select('userid, ncworkno, username, profession, SUM(type1) type1, SUM(type2) type2, SUM(type4) type4, SUM(needhours) needhours')
       .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
-      .order(:ncworkno, :username, :profession)
-      .group(:ncworkno, :username, :profession)
+      .order(:userid, :ncworkno, :username, :profession)
+      .group(:userid, :ncworkno, :username, :profession)
     @data = if @view_deptcode_sum
       data.where(deptcode_sum: @selected_dept_code)
     else
       data.where(deptcode: @selected_dept_code)
+    end
+
+    fill_rate_numerator = policy_scope(Bi::WorkHoursCountCombine)
+      .select('userid, COUNT(*) realhours_count')
+      .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
+      .where('type1 > 0 OR type2 > 0 OR type4 > 0 ')
+      .group(:userid)
+    @fill_rate_numerator = if @view_deptcode_sum
+      fill_rate_numerator.where(deptcode_sum: @selected_dept_code)
+    else
+      fill_rate_numerator.where(deptcode: @selected_dept_code)
+    end.reduce({}) do |h, s|
+      h[s.userid] = s.realhours_count
+      h
+    end
+
+    fill_rate_denominator = policy_scope(Bi::WorkHoursCountCombine)
+      .select('userid, COUNT(needhours) needhours_count')
+      .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
+      .where('needhours > 0')
+      .group(:userid)
+    @fill_rate_denominator = if @view_deptcode_sum
+      fill_rate_denominator.where(deptcode_sum: @selected_dept_code)
+    else
+      fill_rate_denominator.where(deptcode: @selected_dept_code)
+    end.reduce({}) do |h, s|
+      h[s.userid] = s.needhours_count
+      h
     end
   end
 

@@ -18,6 +18,8 @@ en:
           username: "User name"
           realhours: "Real hours"
           needhours: "Need hours"
+          fillrate: "Fill rate"
+          busyrate: "Busy rate"
           profession: "Profession"
       modal:
         close: "Close"

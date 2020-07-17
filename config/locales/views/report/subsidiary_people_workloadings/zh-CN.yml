@@ -18,6 +18,8 @@ zh-CN:
           username: "姓名"
           realhours: "实填工时"
           needhours: "应填工时"
+          fillrate: "填报率"
+          busyrate: "饱和度"
           profession: "专业"
       modal:
         close: "关闭"
