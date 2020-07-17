@@ -110,7 +110,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       { text: t('layouts.sidebar.operation.subsidiary_daily_workloading'),
         link: report_subsidiary_daily_workloading_path },
       { text: t('layouts.sidebar.operation.subsidiary_people_workloading'),
-        link: report_subsidiary_people_workloading_path }
+        link: report_subsidiary_people_workloading_path(view_deptcode_sum: true) }
       ]
     end
 
