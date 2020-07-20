@@ -17,7 +17,7 @@ gem "mysql2"
 
 gem 'tiny_tds', '~> 2.1.3.pre'
 # bundle config local.activerecord-sqlserver-adapter /Users/guochunzhong/git/oss/activerecord-sqlserver-adapter/
-gem 'activerecord-sqlserver-adapter', git: 'git@github.com:rails-sqlserver/activerecord-sqlserver-adapter.git', branch: 'master'
+gem 'activerecord-sqlserver-adapter', git: 'https://github.com/rails-sqlserver/activerecord-sqlserver-adapter', branch: 'master'
 
 gem "sidekiq", "~> 5.2.7"
 
