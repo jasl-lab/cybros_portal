@@ -105,6 +105,7 @@ zh-CN:
         rt_group_subsidiary_hr_monthlies: "实时子公司数据"
         hr_talent_pools: "子公司月报-层级明细"
         hr_staff_in_and_outs: "人力资源入离职图"
+        hr_core_staff_in_and_outs: "核心人员入离职名单"
       financial_management:
         header: "财务所级管理"
         contract_information_form: "合同管理表（商务）"

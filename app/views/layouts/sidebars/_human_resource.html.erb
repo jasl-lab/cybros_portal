@@ -65,6 +65,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::HrCoreStaffInAndOut").show? %>
+        <%= nav_item controller: 'report/hr_core_staff_in_and_out', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_core_staff_in_and_out_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hr_core_staff_in_and_outs") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::HrStaffInAndOut").show? %>
         <%= nav_item controller: 'report/hr_staff_in_and_out', html_options: { class: "nav-item" } do %>
           <%= link_to report_hr_staff_in_and_out_path, class: "nav-link" do %>
