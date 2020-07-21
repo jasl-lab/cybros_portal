@@ -42,7 +42,7 @@ class Report::CompleteValuesController < Report::BaseController
 
     if @selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
-      h_orgs_options = Bi::CompleteValue.where(orgcode_sum: ['H' + selected_sum_h_code, selected_sum_h_code]).pluck(:orgcode).uniq
+      h_orgs_options = Bi::CompleteValue.where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_sum_h_code], selected_sum_h_code]).pluck(:orgcode).uniq
       @orgs_options = h_orgs_options.collect { |h| 'H'+h } + h_orgs_options
     end
 
