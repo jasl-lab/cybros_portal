@@ -111,7 +111,7 @@ class User < ApplicationRecord
   def can_access_org_codes
     return @_can_access_org_codes if @_can_access_org_codes.present?
 
-    codes = my_access_codes
+    codes = operation_access_codes
 
     @_can_access_org_codes = codes.collect do |c|
       if c[0] == MY_DEPARTMENT
@@ -123,24 +123,24 @@ class User < ApplicationRecord
   end
 
   def position_titles
-    my_access_codes.collect { |c| c[3] }
+    operation_access_codes.collect { |c| c[3] }
   end
 
-  def my_access_codes
+  def operation_access_codes
     return @_my_access_codes if @_my_access_codes.present?
     主职 = Bi::HrdwStfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    主职_access_codes = 主职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
+    主职_access_codes = 主职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
 
     兼职 = Bi::HrdwStfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: '内部兼职人员')
-    兼职_access_codes = 兼职.collect { |c| [User.calculate_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
+    兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
     @_my_access_codes = 主职_access_codes + 兼职_access_codes
   end
 
   private
 
-  def self.calculate_access_code(stname, zjname, org_code, chinese_name)
+  def self.calculate_operation_access_code(stname, zjname, org_code, chinese_name)
     access_code = if stname.include?('董事长') && zjname >= 18
        ALL_EXCEPT_OTHER_COMPANY_DETAILS
     elsif stname.include?('副总经理') && zjname >= 16
