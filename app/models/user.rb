@@ -127,7 +127,7 @@ class User < ApplicationRecord
   end
 
   def operation_access_codes
-    return @_my_access_codes if @_my_access_codes.present?
+    return @_operation_access_codes if @_operation_access_codes.present?
     主职 = Bi::HrdwStfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
@@ -135,7 +135,7 @@ class User < ApplicationRecord
     兼职 = Bi::HrdwStfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: '内部兼职人员')
     兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
-    @_my_access_codes = 主职_access_codes + 兼职_access_codes
+    @_operation_access_codes = 主职_access_codes + 兼职_access_codes
   end
 
   private
