@@ -122,6 +122,10 @@ class User < ApplicationRecord
     end.reject(&:blank?).uniq
   end
 
+  def position_titles
+    my_access_codes.collect { |c| c[3] }
+  end
+
   def my_access_codes
     return @_my_access_codes if @_my_access_codes.present?
     主职 = Bi::HrdwStfreinstateBi
