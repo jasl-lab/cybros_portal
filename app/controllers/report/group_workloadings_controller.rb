@@ -8,7 +8,7 @@ class Report::GroupWorkloadingsController < Report::BaseController
   after_action :verify_authorized
 
   def show
-    authorize Bi::WorkHoursCountOrg
+    authorize :"Bi::GroupWorkloading"
     @all_month_names = policy_scope(Bi::WorkHoursCountOrg).all_month_names
     @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.first
     @end_month_name = params[:end_month_name]&.strip || @all_month_names.first

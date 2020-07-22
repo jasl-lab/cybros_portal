@@ -92,10 +92,12 @@
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>
           <ul class="nav-dropdown-items">
-            <%= nav_item controller: 'report/group_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
-              <%= link_to report_group_workloading_path, class: "nav-link" do %>
-                <i class="nav-icon fas fa-stopwatch"></i>
-                <%= t("layouts.sidebar.operation.group_workloading") %>
+            <% if current_user.present? && policy(:"Bi::GroupWorkloading").show? %>
+              <%= nav_item controller: 'report/group_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
+                <%= link_to report_group_workloading_path, class: "nav-link" do %>
+                  <i class="nav-icon fas fa-stopwatch"></i>
+                  <%= t("layouts.sidebar.operation.group_workloading") %>
+                <% end %>
               <% end %>
             <% end %>
             <%= nav_item controller: 'report/group_daily_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
