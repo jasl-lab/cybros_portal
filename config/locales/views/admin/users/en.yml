@@ -49,6 +49,7 @@ en:
         job_level: "Job level"
         created_at: "Created at"
         current_sign_in_at: "Current sign in at"
+        user_roles: "User roles"
         status: "Status"
       new:
         title: "New User"

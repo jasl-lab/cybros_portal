@@ -128,6 +128,21 @@
             <%= time_tag @user.current_sign_in_at %>
           <% end %>
         </dd>
+
+        <dt class="col-sm-3">
+          <%= t(".user_roles") %>
+        </dt>
+        <dd class="col-sm-9">
+          <% @user.roles.each do |role| %>
+            <p><strong><%= link_to role.role_name, admin_role_path(id: role.id) -%></strong>
+              <% role.attributes.except('id', 'role_name','created_at', 'updated_at').each do |a| %>
+                <% next unless a.second == true %>
+                <span class="badge badge-info"><%= a.first -%></span>
+                <span class="badge badge-secondary"><%= a.second -%></span>
+              <% end %>
+            </p>
+          <% end %>
+        </dd>
       </dl>
     </div>
   </div>
