@@ -49,8 +49,8 @@ zh-CN:
         job_level: "职级"
         created_at: "创建于"
         current_sign_in_at: "最后登录"
-        user_roles: "用户手工赋予的角色"
-        operation_access_codes: "用户在市场运营的权限访问码"
+        user_roles: "手工赋予的角色"
+        operation_access_codes: "在市场运营的权限等级"
         table:
           access_code: "访问码"
           org_code: "公司编码"
