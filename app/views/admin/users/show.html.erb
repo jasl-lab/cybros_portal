@@ -176,6 +176,36 @@
               <% end %>
             </tbody>
           </table>
+          <%= form_with model: @user.manual_operation_access_codes.build, url: admin_user_manual_operation_access_codes_path(user_id: @user.id), local: false do |f| %>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.access_code') -%>：</label>
+                <%= f.text_field :code, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.org_code') -%>：</label>
+                <%= f.text_field :org_code, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.dept_code') -%>：</label>
+                <%= f.text_field :dept_code, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.title') -%>：</label>
+                <%= f.text_field :title, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.job_level') -%>：</label>
+                <%= f.text_field :job_level, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1">&nbsp;</label>
+                <div class="form-control form-button">
+                  <%= f.submit '添加', class: "btn btn-primary" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </dd>
       </dl>
     </div>
