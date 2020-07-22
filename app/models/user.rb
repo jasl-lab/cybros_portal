@@ -76,15 +76,19 @@ class User < ApplicationRecord
   end
 
   def user_company_names
-    @belongs_to_company_names ||= departments.collect(&:company_name)
+    @belongs_to_company_names ||= user_company_orgcodes.collect { |c| Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c) }
   end
 
   def user_company_short_names
-    @user_company_short_names ||= user_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
+    @user_company_short_names ||= user_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end
 
   def user_company_short_name
     user_company_short_names.first
+  end
+
+  def user_company_orgcodes
+    @user_company_orgcodes ||= (operation_access_codes.collect { |c| c[1] } + departments.collect(&:company_code)).uniq
   end
 
   def user_company_orgcode

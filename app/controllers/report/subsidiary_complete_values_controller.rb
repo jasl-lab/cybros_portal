@@ -22,7 +22,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       @selected_company_name = params[:company_name]&.strip || current_company
     else
       all_company_names = current_user_companies
-      @selected_company_name = current_company
+      @selected_company_name = params[:company_name]&.strip || current_company
     end
     @all_short_company_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
