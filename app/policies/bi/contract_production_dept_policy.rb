@@ -10,7 +10,7 @@ module Bi
           scope.all
         elsif user.roles.pluck(:report_viewer).any? \
           || user.roles.pluck(:report_company_detail_viewer).any? \
-          || user.job_level.to_i >= 11
+          || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS }
           scope.where(orgcode: can_access_org_codes).or(scope.where(orgcode_sum: can_access_org_codes))
         else
           scope.none

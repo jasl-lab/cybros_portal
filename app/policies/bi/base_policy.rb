@@ -6,7 +6,7 @@ module Bi
       return false unless user.present?
       user.roles.pluck(:report_viewer).any? \
       || user.roles.pluck(:report_view_all).any? \
-      || user.job_level.to_i >= 11 || user.admin?
+      || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS } || user.admin?
     end
 
     def export?

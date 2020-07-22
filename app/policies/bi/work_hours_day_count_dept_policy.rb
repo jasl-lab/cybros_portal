@@ -4,7 +4,7 @@ module Bi
       def resolve
         if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
           scope.all
-        elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.job_level.to_i >= 11)
+        elsif user.present? && (user.roles.pluck(:report_viewer).any? || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS })
           scope.where(orgname: user.departments.pluck(:company_name))
         else
           scope.none
@@ -14,7 +14,7 @@ module Bi
 
     def show?
       return false unless user.present?
-      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.job_level.to_i >= 11 || user.admin?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS } || user.admin?
     end
 
     def export?
