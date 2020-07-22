@@ -143,6 +143,34 @@
             </p>
           <% end %>
         </dd>
+        <hr />
+        <dt class="col-sm-3">
+          <%= t(".operation_access_codes") %>
+        </dt>
+        <dd class="col-sm-9">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('.table.access_code') -%></th>
+                <th><%= t('.table.org_code') -%></th>
+                <th><%= t('.table.dept_code') -%></th>
+                <th><%= t('.table.title') -%></th>
+                <th><%= t('.table.job_level') -%></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.operation_access_codes.each do |code| %>
+                <tr>
+                  <td><%= code.first -%></td>
+                  <td><%= code.second -%></td>
+                  <td><%= code.third -%></td>
+                  <td><%= code.fourth -%></td>
+                  <td><%= code.fifth -%></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </dd>
       </dl>
     </div>
   </div>

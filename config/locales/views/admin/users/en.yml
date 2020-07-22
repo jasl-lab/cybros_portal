@@ -50,6 +50,13 @@ en:
         created_at: "Created at"
         current_sign_in_at: "Current sign in at"
         user_roles: "User roles"
+        operation_access_codes: "Operation access codes"
+        table:
+          access_code: "Access code"
+          org_code: "ORG code"
+          dept_code: "Dept code"
+          title: "Title"
+          job_level: "Job level"
         status: "Status"
       new:
         title: "New User"
