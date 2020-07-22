@@ -156,6 +156,7 @@
                 <th><%= t('.table.dept_code') -%></th>
                 <th><%= t('.table.title') -%></th>
                 <th><%= t('.table.job_level') -%></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -166,6 +167,11 @@
                   <td><%= code.third -%></td>
                   <td><%= code.fourth -%></td>
                   <td><%= code.fifth -%></td>
+                  <td>
+                    <% if code[5].present? %>
+                      <%= link_to '移除', admin_user_manual_operation_access_code_path(id: code[5], user_id: @user.id), method: :delete %>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>

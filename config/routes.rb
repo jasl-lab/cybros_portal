@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     root to: 'home#index'
 
     resources :users, except: %i[destroy] do
+      resources :manual_operation_access_codes, only: %i[destroy]
       member do
         patch :lock
         patch :unlock
