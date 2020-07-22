@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_28_022752) do
+ActiveRecord::Schema.define(version: 2020_07_22_065044) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -149,6 +149,18 @@ ActiveRecord::Schema.define(version: 2020_06_28_022752) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "category_3"
     t.boolean "shanghai_only", default: false
+  end
+
+  create_table "manual_operation_access_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "code"
+    t.string "org_code"
+    t.string "dept_code"
+    t.string "title"
+    t.integer "job_level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_manual_operation_access_codes_on_user_id"
   end
 
   create_table "name_card_applies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -384,6 +396,7 @@ ActiveRecord::Schema.define(version: 2020_06_28_022752) do
   add_foreign_key "direct_question_answers", "direct_questions"
   add_foreign_key "direct_question_answers", "knowledges"
   add_foreign_key "knowledge_likes", "users"
+  add_foreign_key "manual_operation_access_codes", "users"
   add_foreign_key "name_card_applies", "users"
   add_foreign_key "proof_of_income_applies", "users"
   add_foreign_key "public_rental_housing_applies", "users"

@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_many :role_users, dependent: :destroy
   has_many :roles, through: :role_users
+  has_many :manual_operation_access_codes, dependent: :destroy
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
   has_many :copy_of_business_license_applies, class_name: 'Personal::CopyOfBusinessLicenseApply', dependent: :restrict_with_error
@@ -135,7 +136,9 @@ class User < ApplicationRecord
     兼职 = Bi::HrdwStfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: '内部兼职人员')
     兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname] }
-    @_operation_access_codes = 主职_access_codes + 兼职_access_codes
+
+    手工_access_codes = manual_operation_access_codes.collect { |m| [m.code, m.org_code, m.dept_code, m.title, m.job_level] }
+    @_operation_access_codes = 主职_access_codes + 兼职_access_codes + 手工_access_codes
   end
 
   private
@@ -158,8 +161,6 @@ class User < ApplicationRecord
     elsif stname.include?('管理副所长') && zjname >= 13
       MY_COMPANY_EXCEPT_OTHER_DEPTS
     elsif stname.include?('所长') && zjname >= 14
-      MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif chinese_name == '臧晓磊'
       MY_COMPANY_EXCEPT_OTHER_DEPTS
     else
       MY_DEPARTMENT
