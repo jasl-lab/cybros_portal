@@ -114,10 +114,10 @@ zh-CN:
         single_project_overview: "项目查询表"
         departmental_market_fees: "市场费管理表"
         bonus_distribution: "产值汇总表"
-      account_report: 
+      account_report:
         header: "财务中心运营报表"
-        account_business_target_org: "集团营业目标完成情况表"
-        account_business_target_dept: "子公司营业目标完成情况表"
-        account_operation_summary_org: "集团经营情况汇总表"
-        account_operation_summary_dept: "子公司经营情况汇总表"
+        account_business_target_org: "集团营业目标完成情况"
+        account_business_target_dept: "公司营业目标完成情况"
+        account_operation_summary_org: "集团经营情况汇总"
+        account_operation_summary_dept: "公司经营情况汇总"
 
