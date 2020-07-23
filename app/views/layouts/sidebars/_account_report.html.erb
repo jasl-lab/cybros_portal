@@ -1,0 +1,20 @@
+<div class="sidebar" data-controller="coreui-sidebar">
+  <div class="sidebar-header">
+    <%= link_to report_account_report_path, class: "nav-link" do %>
+      <i class="fas fa-jedi"></i>
+      <%= t("layouts.sidebar.account_report.header") %>
+    <% end %>
+  </div>
+  <nav class="sidebar-nav">
+    <ul class="nav">
+<!--       <% if policy(:"Bi::ContractInformationForm").show? %>
+        <%= nav_item controller: 'report/contract_information_form', html_options: { class: "nav-item" } do %>
+          <%= link_to report_contract_information_form_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.financial_management.contract_information_form") %>
+          <% end %>
+        <% end %>
+      <% end %> -->
+    </ul>
+  </nav>
+</div>

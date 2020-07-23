@@ -18,6 +18,7 @@ zh-CN:
         operation: "天华市场运营分析"
         human_resource: "天华人力资源分析"
         financial_management: "财务所级管理报表"
+        account_report: "财务中心运营报表"
       accounts:
         header: "用户设置"
         profile: "个人信息"
@@ -113,3 +114,5 @@ zh-CN:
         single_project_overview: "项目查询表"
         departmental_market_fees: "市场费管理表"
         bonus_distribution: "产值汇总表"
+      account_report: 
+        header: "财务中心运营报表"

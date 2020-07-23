@@ -18,6 +18,7 @@ en:
         operation: "Operation"
         human_resource: "Human resource"
         financial_management: "Financial management"
+        account_report: "Account report"
       accounts:
         header: "User settings"
         profile: "Profile"
@@ -113,3 +114,6 @@ en:
         single_project_overview: "Single project overview"
         departmental_market_fees: "Departmental market fees"
         bonus_distribution: "Bonus distribution"
+      account_report:
+        header: "Account report"
+
