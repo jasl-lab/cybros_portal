@@ -7,14 +7,38 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-<!--       <% if policy(:"Bi::ContractInformationForm").show? %>
-        <%= nav_item controller: 'report/contract_information_form', html_options: { class: "nav-item" } do %>
-          <%= link_to report_contract_information_form_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.financial_management.contract_information_form") %>
+      <% if policy(:"Bi::AccountBusinessTargetOrg").show? %>
+          <%= nav_item controller: 'report/account_business_target_org', html_options: { class: "nav-item" } do %>
+            <%= link_to report_account_business_target_org_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-user-alt"></i>
+              <%= t("layouts.sidebar.account_report.account_business_target_org") %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %> -->
+      <% if policy(:"Bi::AccountBusinessTargetDept").show? %>
+        <%= nav_item controller: 'report/account_business_target_dept', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_business_target_dept_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_business_target_dept") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::AccountOperationSummaryOrg").show? %>
+        <%= nav_item controller: 'report/account_operation_summary_org', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_operation_summary_org_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_operation_summary_org") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::AccountOperationSummaryDept").show? %>
+        <%= nav_item controller: 'report/account_operation_summary_dept', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_operation_summary_dept_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_operation_summary_dept") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
 </div>
