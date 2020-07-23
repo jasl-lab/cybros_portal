@@ -9,7 +9,9 @@ module Bi
     end
 
     def self.all_org_long_names(end_of_date)
-      where(date: end_of_date).select(:orgname).distinct.pluck(:orgname)
+      where(date: end_of_date).select(:orgname)
+        .where.not(orgname: '上海天华嘉易建筑设计有限公司')
+        .distinct.pluck(:orgname)
     end
   end
 end
