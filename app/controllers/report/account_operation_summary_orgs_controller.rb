@@ -9,7 +9,7 @@ class Report::AccountOperationSummaryOrgsController < Report::BaseController
   def show
     authorize :"Bi::AccountOperationSummaryOrg"
     prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?op=write&viewlet=Finance/SummaryOfOperation_JiTuan.cpt&ref_t=design"
+    @redirect_url = "view/report?op=write&viewlet=FR/Finance/SummaryOfOperation_JiTuan.cpt&ref_t=design"
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
