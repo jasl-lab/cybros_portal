@@ -28,8 +28,7 @@ export default class extends Controller {
 
     departmentRealReceivesStaffChart = echarts.init(document.getElementById('department-real-receives-staff-chart'));
 
-    const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
-
+    const realReceivesPerWorker = JSON.parse(this.data.get("real_receives_per_worker"));
     const realReceivePerStaffRef = this.data.get("real_receive_per_staff_ref");
 
     departmentNeedReceivesStaffChart = echarts.init(document.getElementById('department-need-receives-staff-chart'));
@@ -39,7 +38,7 @@ export default class extends Controller {
 
     const paybackRates = JSON.parse(this.data.get("payback_rates"));
 
-    function realReceivePerStaffRefColor(amount) {
+    function realReceivePerWorkerRefColor(amount) {
       let color;
 
       if(amount <= realReceivePerStaffRef) {
@@ -51,7 +50,7 @@ export default class extends Controller {
       return { value: amount, itemStyle: { color: color }}
     }
 
-    const realReceivesPerStaffWithColor = realReceivesPerStaff.map(realReceivePerStaffRefColor);
+    const realReceivesPerWorkerWithColor = realReceivesPerWorker.map(realReceivePerWorkerRefColor);
 
     function differentColor(amount) {
       let color;
@@ -231,7 +230,7 @@ export default class extends Controller {
         }
       },
       legend: {
-          data: ['全员人均实收款（万元）'],
+          data: ['一线人均实收款（万元）'],
           align: 'left'
       },
       grid: {
@@ -268,9 +267,9 @@ export default class extends Controller {
         }
       },
       series: [{
-        name: '全员人均实收款（万元）',
+        name: '一线人均实收款（万元）',
         type: 'bar',
-        data: realReceivesPerStaffWithColor,
+        data: realReceivesPerWorkerWithColor,
         barWidth: 20,
         label: {
           normal: {
