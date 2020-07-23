@@ -28,9 +28,7 @@ export default class extends Controller {
 
     departmentRealReceivesStaffChart = echarts.init(document.getElementById('department-real-receives-staff-chart'));
 
-    const realReceivesPerWorker = JSON.parse(this.data.get("real_receives_per_worker"));
     const realReceivesPerStaff = JSON.parse(this.data.get("real_receives_per_staff"));
-    const realReceivesGap = JSON.parse(this.data.get("real_receives_gap"));
 
     const realReceivePerStaffRef = this.data.get("real_receive_per_staff_ref");
 
@@ -41,7 +39,7 @@ export default class extends Controller {
 
     const paybackRates = JSON.parse(this.data.get("payback_rates"));
 
-    function realReceivePerWorkerRefColor(amount) {
+    function realReceivePerStaffRefColor(amount) {
       let color;
 
       if(amount <= realReceivePerStaffRef) {
@@ -53,7 +51,7 @@ export default class extends Controller {
       return { value: amount, itemStyle: { color: color }}
     }
 
-    const realReceivesPerWorkerWithColor = realReceivesPerWorker.map(realReceivePerWorkerRefColor);
+    const realReceivesPerStaffWithColor = realReceivesPerStaff.map(realReceivePerStaffRefColor);
 
     function differentColor(amount) {
       let color;
@@ -233,7 +231,7 @@ export default class extends Controller {
         }
       },
       legend: {
-          data: ['一线人均实收款（万元）','全员人均实收款（万元）'],
+          data: ['全员人均实收款（万元）'],
           align: 'left'
       },
       grid: {
@@ -270,20 +268,16 @@ export default class extends Controller {
         }
       },
       series: [{
-        name: '一线人均实收款（万元）',
+        name: '全员人均实收款（万元）',
         type: 'bar',
-        barWidth: '30%',
-        barGap: '-100%',
-        data: realReceivesPerWorkerWithColor,
-        itemStyle: {
-          color: '#DDDDDD'
-        },
+        data: realReceivesPerStaffWithColor,
         barWidth: 20,
         label: {
           normal: {
             show: true,
-            color: '#353535',
-            position: 'top'
+            position: 'insideTop',
+            fontWeight: 'bold',
+            color: '#000000'
           }
         },
         markLine: {
@@ -299,37 +293,6 @@ export default class extends Controller {
               yAxis: realReceivePerStaffRef
             }
           ]
-        }
-      },{
-        name: '全员人均实收款（万元）',
-        type: 'bar',
-        stack: '实收',
-        data: realReceivesPerStaff,
-        itemStyle: {
-          color: '#60A0A8'
-        },
-        barWidth: 20,
-        label: {
-          normal: {
-            show: true,
-            position: 'insideTop',
-            fontWeight: 'bold',
-            color: '#000000'
-          }
-        }
-      },{
-        name: '一线全员差额（万元）',
-        type: 'bar',
-        stack: '实收',
-        data: realReceivesGap,
-        itemStyle: {
-          color: '#DDDDDD'
-        },
-        barWidth: 20,
-        label: {
-          normal: {
-            show: false
-          }
         }
       }]
     };
