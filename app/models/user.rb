@@ -147,24 +147,24 @@ class User < ApplicationRecord
 
   private
 
-  def self.calculate_operation_access_code(stname, zjname, org_code, chinese_name)
-    access_code = if stname.include?('董事长') && zjname >= 18
+  def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
+    access_code = if 基准岗位.include?('董事长') && job_level >= 18
        ALL_EXCEPT_OTHER_COMPANY_DETAILS
-    elsif stname.include?('副总经理') && zjname >= 16
+    elsif 基准岗位.include?('副总经理') && job_level >= 16
       MY_COMPANY_ALL_DETAILS
-    elsif stname.include?('总经理助理') && zjname >= 15
+    elsif 基准岗位.include?('总经理助理') && job_level >= 15
       MY_COMPANY_ALL_DETAILS
-    elsif (stname.include?('市场总监') || stname.include?('市场运营总监')) && zjname >= 13
+    elsif (基准岗位.include?('市场总监') || 基准岗位.include?('市场运营总监') || 基准岗位 == '财务部经理') && job_level >= 13
       MY_COMPANY_ALL_DETAILS
-    elsif stname.include?('总经理') && zjname >= 17
+    elsif 基准岗位.include?('总经理') && job_level >= 17
       ALL_EXCEPT_OTHER_COMPANY_DETAILS
-    elsif (stname.include?('商务经理') || stname.include?('商务助理')) && zjname >= 11
+    elsif (基准岗位.include?('商务经理') || 基准岗位.include?('商务助理')) && job_level >= 11
       MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif stname.include?('所长助理') && zjname >= 12
+    elsif 基准岗位.include?('所长助理') && job_level >= 12
       MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif stname.include?('管理副所长') && zjname >= 13
+    elsif 基准岗位.include?('管理副所长') && job_level >= 13
       MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif stname.include?('所长') && zjname >= 14
+    elsif 基准岗位.include?('所长') && job_level >= 14
       MY_COMPANY_EXCEPT_OTHER_DEPTS
     else
       MY_DEPARTMENT
