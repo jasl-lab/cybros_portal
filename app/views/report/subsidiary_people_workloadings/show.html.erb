@@ -71,7 +71,12 @@
             <td><%= d.needhours -%></td>
             <% numerator = @fill_rate_numerator[d.userid] %>
             <% denominator = @fill_rate_denominator[d.userid] %>
-            <td><%= (numerator.to_f * 100 / denominator).round(1) if denominator.present? -%>%</td>
+            <% if denominator.present? %>
+              <% fill_rate = (numerator.to_f * 100 / denominator).round(1) %>
+              <td><%= (fill_rate > 100) ? 100 : fill_rate -%>%</td>
+            <% else %>
+              <td>N/A</td>
+            <% end %>
             <td><%= ((d.type1.to_f * 100) / d.needhours.to_f).round(1) -%>%</td>
             <td><%= d.profession -%></td>
           </tr>
