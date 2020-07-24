@@ -55,16 +55,20 @@
           <% end %>
         <% end %>
       <% end %>
-      <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
-        <%= link_to report_financial_management_path, class: "nav-link" do %>
-          <i class="nav-icon fas fa-jedi"></i>
-          <%= t("layouts.sidebar.application.financial_management") %>
+      <% if policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverview").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show? %>
+        <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
+          <%= link_to report_financial_management_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-jedi"></i>
+            <%= t("layouts.sidebar.application.financial_management") %>
+          <% end %>
         <% end %>
       <% end %>
-      <%= nav_item controller: 'report/account_report', html_options: {class: "nav-item"} do %>
-        <%= link_to report_account_report_path, class: "nav-link" do %>
-          <i class="nav-icon fas fa-jedi"></i>
-          <%= t("layouts.sidebar.application.account_report") %>
+      <% if policy(:"Bi::AccountBusinessTargetOrg").show? || policy(:"Bi::AccountBusinessTargetDept").show? || policy(:"Bi::AccountOperationSummaryOrg").show? || policy(:"Bi::AccountOperationSummaryDept").show? %>
+        <%= nav_item controller: 'report/account_report', html_options: {class: "nav-item"} do %>
+          <%= link_to report_account_report_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-jedi"></i>
+            <%= t("layouts.sidebar.application.account_report") %>
+          <% end %>
         <% end %>
       <% end %>
     </ul>
