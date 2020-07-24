@@ -55,7 +55,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverview").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show? %>
+      <% if policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show? %>
         <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
           <%= link_to report_financial_management_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-jedi"></i>
