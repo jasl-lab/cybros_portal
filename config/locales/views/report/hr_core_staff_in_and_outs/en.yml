@@ -1,6 +1,6 @@
 ---
 en:
   report:
-    account_operation_summary_orgs:
+    hr_core_staff_in_and_outs:
       show:
         title: "Hr core staff in and out"

@@ -1,6 +1,6 @@
 ---
 zh-CN:
   report:
-    account_operation_summary_orgs:
+    hr_staff_in_and_outs:
       show:
         title: "人力资源入离职图"

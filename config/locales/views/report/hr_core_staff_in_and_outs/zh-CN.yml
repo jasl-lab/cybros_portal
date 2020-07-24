@@ -1,6 +1,6 @@
 ---
 zh-CN:
   report:
-    account_operation_summary_orgs:
+    hr_core_staff_in_and_outs:
       show:
         title: "核心人员入离职名单"
