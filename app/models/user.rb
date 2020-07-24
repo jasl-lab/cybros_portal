@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :role_users, dependent: :destroy
   has_many :roles, through: :role_users
   has_many :manual_operation_access_codes, dependent: :destroy
+  has_many :manual_hr_access_codes, dependent: :destroy
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
   has_many :copy_of_business_license_applies, class_name: 'Personal::CopyOfBusinessLicenseApply', dependent: :restrict_with_error

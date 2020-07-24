@@ -5,7 +5,7 @@ class Admin::ManualOperationAccessCodesController < Admin::ApplicationController
 
   def create
     @user.manual_operation_access_codes.create(manual_operation_access_code_params)
-    redirect_to admin_user_path(id: @user.id), notice: '市场运营的权限访问码已删除。'
+    redirect_to admin_user_path(id: @user.id), notice: '市场运营的权限访问码已新建。'
   end
 
   def destroy

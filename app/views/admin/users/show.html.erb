@@ -207,6 +207,56 @@
             </div>
           <% end %>
         </dd>
+        <hr />
+        <dt class="col-sm-3">
+          <%= t(".hr_access_codes") %>
+        </dt>
+        <dd class="col-sm-9">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('.table.hr_rolename') -%></th>
+                <th><%= t('.table.org_code') -%></th>
+                <th><%= t('.table.dept_code') -%></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.manual_hr_access_codes.each do |ac| %>
+                <tr>
+                  <td><%= ac.hr_rolename -%></td>
+                  <td><%= ac.org_code -%></td>
+                  <td><%= ac.dept_code -%></td>
+                  <td>
+                    <%= link_to '移除', admin_user_manual_hr_access_code_path(id: ac.id, user_id: @user.id), method: :delete %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= form_with model: @user.manual_hr_access_codes.build, url: admin_user_manual_hr_access_codes_path(user_id: @user.id), local: false do |f| %>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.hr_rolename') -%>：</label>
+                <%= f.text_field :hr_rolename, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.org_code') -%>：</label>
+                <%= f.text_field :org_code, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1"><%= t('.table.dept_code') -%>：</label>
+                <%= f.text_field :dept_code, class: 'form-control form-control2' %>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="mr-1">&nbsp;</label>
+                <div class="form-control form-button">
+                  <%= f.submit '添加', class: "btn btn-primary" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </dd>
       </dl>
     </div>
   </div>

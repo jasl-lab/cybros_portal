@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     resources :users, except: %i[destroy] do
       resources :manual_operation_access_codes, only: %i[destroy create]
+      resources :manual_hr_access_codes, only: %i[destroy create]
       member do
         patch :lock
         patch :unlock
