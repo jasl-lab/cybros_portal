@@ -200,7 +200,7 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input-back_color"><%= t('.back_color') %></label>
         <div class="col-md-9">
-          <%= f.select :back_color, NameCardApply.back_color_list, {}, id: 'text-input-back_color', class: 'form-control-plaintext form-control',
+          <%= f.select :back_color, NameCardApply.back_color_list, {}, id: 'select-input-back_color', class: 'form-control-plaintext form-control',
             data: { remote: true, type: :script, url: url_for(controller: 'name_cards', action: 'change_image', format: 'js')} %>
           <%= f.error_message :back_color, tag: :span, class: "help-block error-message" %>
           <div id="name-card-back-image">

@@ -86,6 +86,11 @@ class Admin::UsersController < Admin::ApplicationController
     redirect_to root_path
   end
 
+  def operation_org_code_change
+    org_code = params[:manual_operation_access_code][:org_code]
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).pluck(:"部门", :"编号")
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
