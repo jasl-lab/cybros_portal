@@ -163,8 +163,8 @@
               <% @user.operation_access_codes.each do |code| %>
                 <tr>
                   <td><%= code.first -%></td>
-                  <td><%= code.second -%></td>
-                  <td><%= code.third -%></td>
+                  <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.second, code.second) -%></td>
+                  <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.third, code.third) -%></td>
                   <td><%= code.fourth -%></td>
                   <td><%= code.fifth -%></td>
                   <td>
