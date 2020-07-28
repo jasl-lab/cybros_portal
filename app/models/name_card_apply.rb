@@ -12,8 +12,8 @@ class NameCardApply < ApplicationRecord
   validates :mobile, length: { is: 11 }
 
   def self.thickness_list
-    ['270g （与老版名片厚度类似）',
-     '400g （现名片厚度）']
+    ['400g （现名片厚度）',
+     '270g （与老版名片厚度类似）']
   end
 
   def self.back_color_list
