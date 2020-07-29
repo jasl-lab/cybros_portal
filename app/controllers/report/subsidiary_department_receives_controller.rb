@@ -9,7 +9,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
   def show
     authorize Bi::SubCompanyRealReceive
-    @all_month_names = Bi::SubCompanyNeedReceive.all_month_names
+    @all_month_names = policy_scope(Bi::SubCompanyNeedReceive).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
@@ -255,7 +255,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       end
     end
     total_payback_res = (payback_rates_总分子 / payback_rates_总分母.to_f)*100
-    @total_payback_rates= (total_payback_res > 100 ? 100 : total_payback_res).round(0)
+    @total_payback_rates= if total_payback_res.nan?
+      0
+    else
+      (total_payback_res > 100 ? 100 : total_payback_res).round(0)
+    end
   end
 
   def need_receives_pay_rates_drill_down
