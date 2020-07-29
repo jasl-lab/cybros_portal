@@ -51,7 +51,8 @@ gem "omniauth_openid_connect"
 gem "devise_invitable"
 gem "devise-i18n"
 gem "devise-jwt"
-gem "pundit"
+# bundle config local.pundit /Users/guochunzhong/git/oss/pundit/
+gem "pundit", git: 'https://github.com/thape-cn/pundit', branch: :master
 
 gem "meta-tags"
 

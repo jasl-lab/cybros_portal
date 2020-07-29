@@ -20,7 +20,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     selected_short_name = params[:company_name]&.strip
 
     current_user_companies = current_user.user_company_names
-    real_data = policy_scope(Bi::SubCompanyRealReceive)
+    real_data = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
       .where(realdate: beginning_of_year..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
@@ -55,14 +55,14 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     @real_company_short_names = real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
     @real_receives = real_data.collect { |d| ((d.total + d.markettotal) / 100_0000.0).round(0) }
-    @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
+    @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive, :group_resolve).where(realdate: beginning_of_year..@end_of_month)
       .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
-    @fix_sum_market_totals = (policy_scope(Bi::SubCompanyRealReceive).where(realdate: beginning_of_year..@end_of_month)
+    @fix_sum_market_totals = (policy_scope(Bi::SubCompanyRealReceive, :group_resolve).where(realdate: beginning_of_year..@end_of_month)
       .select("SUM(markettotal) fix_sum_markettotals").first.fix_sum_markettotals / 10000.0).round(1)
 
-    need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
+    need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).last_available_date(@end_of_month)
 
-    need_data = policy_scope(Bi::SubCompanyNeedReceive)
+    need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
       .where(date: need_data_last_available_date)
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
@@ -84,7 +84,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
 
-    fix_need_data = policy_scope(Bi::SubCompanyNeedReceive).where(date: need_data_last_available_date)
+    fix_need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).where(date: need_data_last_available_date)
       .select("SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive").first
     @fix_need_long_account_receives = (fix_need_data.long_account_receive / 100_0000.0).round(0)
     @fix_need_short_account_receives = (fix_need_data.short_account_receive / 100_0000.0).round(0)
@@ -130,7 +130,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       h
     end
 
-    real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum)
+    real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum, :group_resolve)
       .where(date: beginning_of_month)
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
