@@ -4,10 +4,16 @@ class Report::FinancialManagementsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :prepare_encrypt_uid
 
   def show
     authorize :"Bi::FinancialManagement"
     prepare_meta_tags title: t(".title")
+    @redirect_url = "view/report?viewlet=FR/Finance/DeptAll.frm&ref_t=design"
+    @hide_app_footer = true
+    @hide_main_header_wrapper = true
+    @hide_scroll = true
+    render 'shared/report_show'
   end
 
   protected
