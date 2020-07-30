@@ -3,18 +3,21 @@ import { Controller } from "stimulus"
 let groupDailyWorkloadingsDayChart;
 let groupDailyWorkloadingsPlanningDayChart;
 let groupDailyWorkloadingsBuildingDayChart;
+let groupDailyWorkloadingsNonConstructionDayChart;
 
 export default class extends Controller {
   connect() {
     groupDailyWorkloadingsDayChart = echarts.init(document.getElementById('group-daily-workloadings-day-chart'));
     groupDailyWorkloadingsPlanningDayChart = echarts.init(document.getElementById('group-daily-workloadings-planning-day-chart'));
     groupDailyWorkloadingsBuildingDayChart = echarts.init(document.getElementById('group-daily-workloadings-building-day-chart'));
+    groupDailyWorkloadingsNonConstructionDayChart = echarts.init(document.getElementById('group-daily-workloadings-non-construction-day-chart'));
 
     const beginDate = this.data.get("begin_date");
     const endDate = this.data.get("end_date");
     const xAxisJob = JSON.parse(this.data.get("x_axis_job"));
     const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
     const xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
+    const xAxisNonConstruction = JSON.parse(this.data.get("x_axis_non_construction"));
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const dayRateData = JSON.parse(this.data.get("day_rate"));
     const dayRateDataRef = this.data.get("day_rate_ref");
@@ -22,6 +25,7 @@ export default class extends Controller {
     const planningDayRateDataRef = this.data.get("planning_day_rate_ref");
     const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
     const buildingDayRateDataRef = this.data.get("building_day_rate_ref");
+    const nonConstructionDayRateData = JSON.parse(this.data.get("non_construction_day_rate"));
 
     const day_option = {
         title: {
@@ -251,6 +255,61 @@ export default class extends Controller {
         }]
     };
 
+    const non_construction_option = {
+        title: {
+          text: '非建筑类工作填报率'
+        },
+        grid: {
+          left: 50,
+          right: 110,
+          top: 60,
+          bottom: 60
+        },
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+              pixelRatio: 2
+            }
+          }
+        },
+        tooltip: {},
+        xAxis: {
+          data: xAxisNonConstruction,
+          silent: true,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+            show: false
+          }
+        },
+        yAxis: {
+          axisLabel: {
+            show: true,
+            interval: 'auto',
+            formatter: '{value} %'
+          }
+        },
+        series: [{
+          name: '工作填报率',
+          type: 'line',
+          symbol: 'triangle',
+          data: nonConstructionDayRateData,
+          itemStyle: {
+            color: '#738496'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        }]
+    };
+
     function drill_down_subsidiary(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
@@ -284,10 +343,13 @@ export default class extends Controller {
     groupDailyWorkloadingsPlanningDayChart.on('click', drill_down_subsidiary);
     groupDailyWorkloadingsBuildingDayChart.setOption(building_day_option, false);
     groupDailyWorkloadingsBuildingDayChart.on('click', drill_down_subsidiary);
+    groupDailyWorkloadingsNonConstructionDayChart.setOption(non_construction_option, false);
+    groupDailyWorkloadingsNonConstructionDayChart.on('click', drill_down_subsidiary);
     setTimeout(() => {
       groupDailyWorkloadingsDayChart.resize();
       groupDailyWorkloadingsPlanningDayChart.resize();
       groupDailyWorkloadingsBuildingDayChart.resize();
+      groupDailyWorkloadingsNonConstructionDayChart.resize();
     }, 200);
   }
 
@@ -295,11 +357,13 @@ export default class extends Controller {
     groupDailyWorkloadingsDayChart.resize();
     groupDailyWorkloadingsPlanningDayChart.resize();
     groupDailyWorkloadingsBuildingDayChart.resize();
+    groupDailyWorkloadingsNonConstructionDayChart.resize();
   }
 
   disconnect() {
     groupDailyWorkloadingsDayChart.dispose();
     groupDailyWorkloadingsPlanningDayChart.dispose();
     groupDailyWorkloadingsBuildingDayChart.dispose();
+    groupDailyWorkloadingsNonConstructionDayChart.dispose();
   }
 }

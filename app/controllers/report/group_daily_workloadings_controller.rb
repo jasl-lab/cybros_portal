@@ -19,6 +19,9 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
     end
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
+    non_construction_company_codes = Report::BaseController::NON_CONSTRUCTION_COMPANYS
+      .collect { |sn| Bi::OrgShortName.org_code_by_short_name.fetch(sn, sn) }
+
     data = policy_scope(Bi::WorkHoursDayCountOrg)
       .where(date: beginning_of_day..end_of_day)
       .where('ORG_ORDER.org_order is not null')
@@ -37,11 +40,13 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
     end
 
     job_data = data.having("SUM(date_need) > 0")
-    blue_print_data = data.having("SUM(blue_print_need)")
-    construction_data = data.having("SUM(construction_need) > 0")
+    blue_print_data = data.having("SUM(blue_print_need)").where.not(orgcode: non_construction_company_codes)
+    construction_data = data.having("SUM(construction_need) > 0").where.not(orgcode: non_construction_company_codes)
+    non_construction_data = data.having("SUM(construction_need) > 0").where(orgcode: non_construction_company_codes)
     @job_company_or_department_names = job_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @blue_print_company_or_department_names = blue_print_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @construction_company_or_department_names = construction_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+    @non_construction_company_or_department_names = non_construction_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @day_rate = job_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
     @day_rate_ref = params[:day_rate_ref] || 95
@@ -51,6 +56,8 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
 
     @building_day_rate = construction_data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
+
+    @non_construction_day_rate = non_construction_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
 
     @current_user_companies_short_names = current_user.user_company_short_names +
       current_user.can_access_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
