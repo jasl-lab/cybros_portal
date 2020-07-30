@@ -7,15 +7,15 @@ class Report::GroupContractHoldsController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    @all_month_names = policy_scope(Bi::ContractHold).all_month_names
+    @all_month_names = policy_scope(Bi::ContractHold, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_month = Date.parse(@month_name).end_of_month
-    @last_available_date = policy_scope(Bi::ContractHold).where("date <= ?", end_of_month).order(date: :desc).first.date
-    @company_short_names = policy_scope(Bi::ContractHold).available_company_names(@last_available_date)
+    @last_available_date = policy_scope(Bi::ContractHold, :group_resolve).where("date <= ?", end_of_month).order(date: :desc).first.date
+    @company_short_names = policy_scope(Bi::ContractHold, :group_resolve).available_company_names(@last_available_date)
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
-    data = policy_scope(Bi::ContractHold)
+    data = policy_scope(Bi::ContractHold, :group_resolve)
       .where(date: @last_available_date)
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
