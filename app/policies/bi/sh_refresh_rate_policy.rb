@@ -4,7 +4,11 @@ module Bi
   class ShRefreshRatePolicy < BasePolicy
     class Scope < Scope
       def resolve
-        scope.all
+        if user.present? && (user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS } || user.admin?)
+          scope.all
+        else
+          scope.where('date >= ?', 1.month.ago)
+        end
       end
     end
 
