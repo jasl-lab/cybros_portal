@@ -12,5 +12,9 @@ module Bi
         end
       end
     end
+
+    def show?
+      true
+    end
   end
 end

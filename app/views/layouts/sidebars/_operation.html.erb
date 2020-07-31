@@ -132,7 +132,7 @@
         </li>
       <% end %>
       <li class="nav-title">子公司所级签约情况</li>
-        <% if current_user.present? %>
+        <% if current_user.present? && policy(Bi::ContractSignDept).show? %>
           <%= nav_item controller: 'report/subsidiary_contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiary_contract_signing_path(view_deptcode_sum: true, company_name: current_user.user_company_short_name), class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
@@ -182,7 +182,7 @@
           <% end %>
         <% end %>
       <li class="nav-title">子公司所级运营情况</li>
-        <% if current_user.present? %>
+        <% if current_user.present? && policy(Bi::WorkHoursCountDetailDept).show? %>
           <%= nav_item controller: 'report/subsidiary_workloadings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiary_workloading_path(company_name: current_user.user_company_short_name, view_deptcode_sum: true), class: "nav-link" do %>
               <i class="nav-icon fas fa-stopwatch"></i>

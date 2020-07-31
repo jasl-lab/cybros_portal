@@ -11,7 +11,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
   after_action :verify_authorized
 
   def show
-    authorize Bi::WorkHoursCountOrg
+    authorize Bi::WorkHoursCountDetailDept
     current_user_companies = current_user.user_company_names
 
     @all_month_names = Bi::WorkHoursCountOrg.all_month_names
