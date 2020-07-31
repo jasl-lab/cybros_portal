@@ -118,6 +118,7 @@ export default class extends Controller {
           itemStyle: {
             color: '#738496'
           },
+          barMaxWidth: 38,
           label: {
             normal: {
               show: true,
@@ -270,7 +271,7 @@ export default class extends Controller {
         name: '一线人均实收款（万元）',
         type: 'bar',
         data: realReceivesPerWorkerWithColor,
-        barWidth: 20,
+        barMaxWidth: 38,
         label: {
           normal: {
             show: true,
