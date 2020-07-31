@@ -55,8 +55,6 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
         .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode')
     end
 
-    data = data.where(orgcode: user_company_orgcode) unless current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-
     @job_company_or_department_codes = data.filter_map do |d|
       # exclude 建筑专项技术咨询所
       d.deptcode if d.date_need.to_f > 0 and !(%w[00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
