@@ -128,6 +128,16 @@ class User < ApplicationRecord
     end.reject(&:blank?).uniq
   end
 
+  def can_access_dept_codes
+    return @_can_access_dept_codes if @_can_access_dept_codes.present?
+
+    codes = operation_access_codes
+
+    @_can_access_dept_codes = codes.collect do |c|
+      c[2]
+    end.reject(&:blank?).uniq
+  end
+
   def position_titles
     operation_access_codes.collect { |c| c[3] }
   end

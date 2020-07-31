@@ -9,8 +9,10 @@ module Bi
           || user.operation_access_codes.any? { |c| c[0] <= User::ALL_EXCEPT_OTHER_COMPANY_DETAILS })
           scope.all
         elsif user.present? && (user.roles.pluck(:report_viewer).any? \
-          || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS })
+          || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_ALL_DETAILS })
           scope.where(orgcode: user.can_access_org_codes)
+        elsif user.present? && (user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS })
+          scope.where(orgcode: user.can_access_org_codes, deptcode: user.can_access_dept_codes)
         else
           scope.none
         end
