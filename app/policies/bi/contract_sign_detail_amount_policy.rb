@@ -6,7 +6,7 @@ module Bi
           scope.all
         elsif user.present? && (user.roles.pluck(:report_viewer).any? \
           || user.roles.pluck(:report_company_detail_viewer).any? \
-          || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS })
+          || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_ALL_DETAILS })
           allow_orgcodes = user.can_access_org_codes
           scope.where(orgcode: allow_orgcodes).or(scope.where(orgcode_sum: allow_orgcodes))
         elsif user.present? && (user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS })
