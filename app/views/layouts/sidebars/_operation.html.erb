@@ -10,7 +10,7 @@
     <% if current_user.present? && (policy(:"Bi::GroupWorkloading").show? \
       || policy(Bi::WorkHoursDayCountOrg).show? \
       || policy(Bi::CompleteValue).show? \
-      || policy(Bi::ContractHold).show? ) %>
+      || policy(Bi::ContractHold).group_show? ) %>
       <li class="nav-title">整体总览</li>
         <% if current_user.present? && policy(:"Bi::OverallOperatingStatuses").show? && browser.ie? %>
           <%= nav_item controller: 'report/overall_operating_status', action: 'show', html_options: { class: "nav-item" } do %>
@@ -120,7 +120,7 @@
                 <% end %>
               <% end %>
             <% end %>
-            <% if current_user.present? && policy(Bi::ContractHold).show? %>
+            <% if current_user.present? && policy(Bi::ContractHold).group_show? %>
               <%= nav_item controller: 'report/group_contract_holds', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_group_contract_hold_path(view_orgcode_sum: true), class: "nav-link" do %>
                   <i class="nav-icon fas fa-draw-polygon"></i>
