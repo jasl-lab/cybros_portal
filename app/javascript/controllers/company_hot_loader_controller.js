@@ -6,7 +6,7 @@ export default class extends Controller {
   }
 
   load() {
-    $.ajax('https://portal.thape.com.cn/api/v1/hots?page=1', {
+    $.ajax('https://portal.thape.com.cn/api/v1/hots?h=true&page=1', {
       dataType: 'json'
     }).done(function(response) {
       const data = response.data[0];
