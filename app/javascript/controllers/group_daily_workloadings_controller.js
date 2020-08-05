@@ -257,7 +257,7 @@ export default class extends Controller {
 
     const non_construction_option = {
         title: {
-          text: '非建筑类填报率'
+          text: '非建筑类饱和度'
         },
         grid: {
           left: 50,
