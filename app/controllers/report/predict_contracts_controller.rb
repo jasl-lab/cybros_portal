@@ -13,6 +13,7 @@ class Report::PredictContractsController < Report::BaseController
   def show
     @all_month_names = policy_scope(Bi::TrackContract).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
+    raise Pundit::NotAuthorizedError if @month_name.nil?
     end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
     @dept_codes_as_options = params[:depts]
