@@ -29,12 +29,12 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
 
     data = if @view_orgcode_sum
       data
-        .select("orgcode_sum orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .select("orgcode_sum orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_DAY_COUNT_ORG.orgcode_sum")
         .group(:orgcode_sum, :org_order)
     else
       data
-        .select("orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need")
+        .select("orgcode, org_order, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = WORK_HOURS_DAY_COUNT_ORG.orgcode")
         .group(:orgcode, :org_order)
     end
@@ -42,7 +42,7 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
     job_data = data.having("SUM(date_need) > 0")
     blue_print_data = data.having("SUM(blue_print_need)").where.not(orgcode: non_construction_company_codes)
     construction_data = data.having("SUM(construction_need) > 0").where.not(orgcode: non_construction_company_codes)
-    non_construction_data = data.having("SUM(construction_need) > 0").where(orgcode: non_construction_company_codes)
+    non_construction_data = data.having("SUM(others_need) > 0").where(orgcode: non_construction_company_codes)
     @job_company_or_department_names = job_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @blue_print_company_or_department_names = blue_print_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @construction_company_or_department_names = construction_data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
