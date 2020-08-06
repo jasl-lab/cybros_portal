@@ -9,7 +9,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
   def show
     authorize Bi::SubCompanyRealReceive
-    @all_month_names = policy_scope(Bi::SubCompanyNeedReceive).all_month_names
+    @all_month_names = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
@@ -23,15 +23,15 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     selected_company_long_name = Bi::OrgShortName.company_long_names.fetch(@selected_short_name, @selected_short_name)
     selected_department_name = params[:department_name]&.strip
 
-    available_company_orgcodes = policy_scope(Bi::SubCompanyRealReceive)
+    available_company_orgcodes = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
         .where(realdate: beginning_of_year..@end_of_month)
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
         .where('ORG_ORDER.org_order is not null')
         .order('ORG_ORDER.org_order DESC').pluck(:orgcode).uniq
     @available_short_company_names = available_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
-    @real_data_last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
-    real_data = policy_scope(Bi::SubCompanyRealReceive)
+    @real_data_last_available_date = policy_scope(Bi::CompleteValueDept, :group_resolve).last_available_date(@end_of_month)
+    real_data = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
       .where(realdate: beginning_of_year..@end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @real_data_last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @real_data_last_available_date)
@@ -70,7 +70,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @real_department_short_codes = real_data.collect(&:deptcode)
     @real_department_short_names = @real_department_short_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
     @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
-    true_real_meta_receives = policy_scope(Bi::SubCompanyRealReceive)
+    true_real_meta_receives = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
       .where(realdate: beginning_of_year..@end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @real_data_last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @real_data_last_available_date)
@@ -83,22 +83,22 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     sum_real_receives = if @view_deptcode_sum
-      policy_scope(Bi::SubCompanyRealReceive)
+      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
         .where(realdate: beginning_of_year..@end_of_month)
         .where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
     else
-      policy_scope(Bi::SubCompanyRealReceive)
+      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
         .where(realdate: beginning_of_year..@end_of_month)
         .where(orgcode: selected_orgcode)
     end.select("SUM(total) total").first.total
     @sum_real_receives = (sum_real_receives.to_f / 100_00_00_00.0).round(1)
 
     sum_real_markettotals = if @view_deptcode_sum
-      policy_scope(Bi::SubCompanyRealReceive)
+      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
         .where(realdate: beginning_of_year..@end_of_month)
         .where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
     else
-      policy_scope(Bi::SubCompanyRealReceive)
+      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
         .where(realdate: beginning_of_year..@end_of_month)
         .where(orgcode: selected_orgcode)
     end.select("SUM(markettotal) markettotal").first.markettotal
@@ -106,7 +106,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
-    need_data = policy_scope(Bi::SubCompanyNeedReceive)
+    need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
       .where(date: need_data_last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", need_data_last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", need_data_last_available_date)
@@ -139,7 +139,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
 
-    sum_need_total = policy_scope(Bi::SubCompanyNeedReceive)
+    sum_need_total = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
       .select("SUM(account_need_receive) account_need_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
       .where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
     @sum_need_should_receives = sum_need_total
@@ -221,7 +221,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     sum_need_receives_for_payback = 0
     total_complete_value_per_staff = 0
 
-    real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum)
+    real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum, :group_resolve)
       .where(date: beginning_of_month)
 
     real_rate_sum = if @view_deptcode_sum
@@ -278,8 +278,8 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       department_codes
     end
 
-    @data = (Bi::SubCompanyRealRate.where(orgcode: company_code)
-        .or(Bi::SubCompanyRealRate.where(orgcode_sum: company_code)))
+    @data = (policy_scope(Bi::SubCompanyRealRate).where(orgcode: company_code)
+        .or(policy_scope(Bi::SubCompanyRealRate).where(orgcode_sum: company_code)))
       .where(date: @begin_month, deptcode: department_codes)
 
     respond_to do |format|
