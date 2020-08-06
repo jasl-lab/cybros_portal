@@ -58,6 +58,7 @@
           <th><%= t(".table.needhours") %></th>
           <th><%= t(".table.fillrate") %></th>
           <th><%= t(".table.busyrate") %></th>
+          <th><%= t(".table.lunch_day_num") %></th>
           <th><%= t(".table.profession") %></th>
         </tr>
         </thead>
@@ -78,6 +79,7 @@
               <td>N/A</td>
             <% end %>
             <td><%= ((d.type1.to_f * 100) / d.needhours.to_f).round(1) -%>%</td>
+            <td><%= @lunch_work_count[d.userid].to_i + @lunch_non_work_count[d.userid].to_i -%></td>
             <td><%= d.profession -%></td>
           </tr>
         <% end %>

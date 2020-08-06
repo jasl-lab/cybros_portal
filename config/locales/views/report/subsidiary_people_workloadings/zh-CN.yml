@@ -20,6 +20,7 @@ zh-CN:
           needhours: "应填工时"
           fillrate: "填报率"
           busyrate: "饱和度"
+          lunch_day_num: "可发放餐补次数"
           profession: "专业"
       modal:
         close: "关闭"
