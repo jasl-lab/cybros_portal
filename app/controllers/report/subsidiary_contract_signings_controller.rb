@@ -88,8 +88,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       (contract_period.sum / contract_count.sum).round(0)
     end
 
-    @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept).last_available_date(@end_of_month)
-    cp_data = policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_production_dept_date)
+    @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept, :group_resolve).last_available_date(@end_of_month)
+    cp_data = policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_production_dept_date)
       .where(orgcode: org_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
@@ -108,7 +108,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = @all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
-    @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_production_dept_date)
+    @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_production_dept_date)
       .select("ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amounts").first.cp_amounts.to_f / 10000.to_f).round(2)
 
     @cp_contract_amounts_per_staff = []
