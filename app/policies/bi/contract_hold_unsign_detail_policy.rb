@@ -23,7 +23,11 @@ module Bi
     end
 
     def export_unsign_detail?
-      show?
+      return false unless user.present?
+      user.roles.pluck(:report_viewer).any? \
+      || user.roles.pluck(:report_view_all).any? \
+      || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_ALL_DETAILS } \
+      || user.admin?
     end
   end
 end
