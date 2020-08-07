@@ -4,3 +4,4 @@ document.addEventListener("turbolinks:load", function() {
     xhr.setRequestHeader('JWT-AUD', 'cybros');
   });
 });
+
