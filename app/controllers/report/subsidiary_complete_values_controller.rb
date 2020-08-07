@@ -29,13 +29,13 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     orgcode = Bi::OrgShortName.org_code_by_long_name.fetch(@selected_company_name, @selected_company_name)
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
     Rails.logger.debug "orgcode: #{orgcode}"
-    @all_month_names = policy_scope(Bi::CompleteValueDept).all_month_names
+    @all_month_names = policy_scope(Bi::CompleteValueDept, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
-    last_available_date = policy_scope(Bi::CompleteValueDept).last_available_date(@end_of_month)
-    data = policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode).or(policy_scope(Bi::CompleteValueDept).where(orgcode_sum: orgcode))
+    last_available_date = policy_scope(Bi::CompleteValueDept, :group_resolve).last_available_date(@end_of_month)
+    data = policy_scope(Bi::CompleteValueDept, :group_resolve).where(orgcode: orgcode).or(policy_scope(Bi::CompleteValueDept).where(orgcode_sum: orgcode))
       .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', last_available_date)
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', last_available_date)
@@ -60,7 +60,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @sum_complete_value_totals = (@complete_value_totals.sum / 10000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @sum_complete_value_year_totals = if orgcode == '000101' && @end_of_month.month == 12
-      (policy_scope(Bi::CompleteValueDept).where(orgcode: orgcode)
+      (policy_scope(Bi::CompleteValueDept, :group_resolve).where(orgcode: orgcode)
         .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
         .select('SUM(IFNULL(total,0)) sum_total').first.sum_total / 10000_0000.0).round(1)
     else
