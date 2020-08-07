@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/thape-cn/pundit
-  revision: e75a0bb12fe0b4b5c178f948d41b8c78567f48d4
+  revision: e2288c25af565838020c0d4364c392dd0fc380e0
   branch: master
   specs:
     pundit (2.1.0)

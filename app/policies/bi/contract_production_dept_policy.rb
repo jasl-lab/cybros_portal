@@ -6,7 +6,7 @@ module Bi
       def resolve
         return scope.none unless user.present?
         can_access_org_codes = user.can_access_org_codes.append(user.user_company_orgcode)
-        if user.roles.pluck(:report_view_all).any? || user.admin? || can_access_org_codes == User::ALL_OF_ALL
+        if user.roles.pluck(:report_view_all).any? || user.admin?
           scope.all
         elsif user.roles.pluck(:report_viewer).any? \
           || user.roles.pluck(:report_company_detail_viewer).any? \

@@ -11,7 +11,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     authorize Bi::ContractSign if @short_company_name.blank?
 
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
-    @all_month_names = policy_scope(Bi::ContractSignDept).all_month_names
+    @all_month_names = policy_scope(Bi::ContractSignDept, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     raise Pundit::NotAuthorizedError if @month_name.blank?
     @end_of_month = Date.parse(@month_name).end_of_month
@@ -33,8 +33,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       current_user_companies.first
     end
 
-    @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(@end_of_month)
-    @company_short_names = policy_scope(Bi::ContractSignDept).where(date: @last_available_sign_dept_date)
+    @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept, :group_resolve).last_available_date(@end_of_month)
+    @company_short_names = policy_scope(Bi::ContractSignDept, :group_resolve).where(date: @last_available_sign_dept_date)
       .where('ORG_ORDER.org_order is not null')
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN_DEPT.orgcode')
       .order("ORG_ORDER.org_order DESC")
@@ -43,7 +43,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
 
-    data = policy_scope(Bi::ContractSignDept).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_sign_dept_date)
+    data = policy_scope(Bi::ContractSignDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_sign_dept_date)
       .where(orgcode: org_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
@@ -77,7 +77,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       mean.nan? ? 0 : mean.round(0)
     end
     @avg_period_mean_max = @avg_period_mean.max&.round(-1)
-    @sum_contract_amounts = (policy_scope(Bi::ContractSignDept).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_sign_dept_date)
+    @sum_contract_amounts = (policy_scope(Bi::ContractSignDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_sign_dept_date)
       .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first&.sum_contract_amounts.to_f / 10000.to_f).round(2)
 
     contract_period = data.collect { |d| d.sum_contract_period.to_f }
