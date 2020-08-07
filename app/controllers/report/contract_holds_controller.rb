@@ -10,17 +10,17 @@ class Report::ContractHoldsController < Report::BaseController
   end
 
   def show
-    @all_month_names = policy_scope(Bi::ContractHold).all_month_names
+    @all_month_names = policy_scope(Bi::ContractHold, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_month = Date.parse(@month_name).end_of_month
-    @last_available_date = policy_scope(Bi::ContractHold).where('date <= ?', end_of_month).order(date: :desc).first.date
+    @last_available_date = policy_scope(Bi::ContractHold, :group_resolve).where('date <= ?', end_of_month).order(date: :desc).first.date
     @dept_options = params[:depts].presence
-    @company_short_names = policy_scope(Bi::ContractHold).available_company_names(@last_available_date)
+    @company_short_names = policy_scope(Bi::ContractHold, :group_resolve).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
 
-    data = policy_scope(Bi::ContractHold)
+    data = policy_scope(Bi::ContractHold, :group_resolve)
       .where(date: @last_available_date).where(orgcode: @selected_org_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
       .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @last_available_date)
@@ -39,7 +39,7 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum
-      data_sum = policy_scope(Bi::ContractHold)
+      data_sum = policy_scope(Bi::ContractHold, :group_resolve)
         .where(date: @last_available_date).where(orgcode: @selected_org_code)
         .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
         .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
