@@ -1,7 +1,9 @@
+function user_sign_in(event, settings) {
+  const xhr = event.detail[0];
+  xhr.setRequestHeader('JWT-AUD', 'cybros');
+}
+
 document.addEventListener("turbolinks:load", function() {
-  $("#user-sign-in").on("ajax:beforeSend", function(event, settings) {
-    const xhr = event.detail[0];
-    xhr.setRequestHeader('JWT-AUD', 'cybros');
-  });
+  document.getElementById("user-sign-in").addEventListener("ajax:beforeSend", user_sign_in);
 });
 
