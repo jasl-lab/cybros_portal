@@ -36,6 +36,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       end
 
     @is_non_construction = Report::BaseController::NON_CONSTRUCTION_COMPANYS.include?(@short_company_name)
+
     data = policy_scope(Bi::WorkHoursDayCountDept).where(date: beginning_of_day..end_of_day)
       .where(orgcode: @selected_company_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_day)
@@ -43,13 +44,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     data = if @view_deptcode_sum
       data
-        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
+        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
         .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
     else
       data
-        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need')
+        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode')
         .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode')
@@ -65,7 +66,8 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     @blue_print_company_or_department_codes = data.filter_map do |d|
       # exclude 公建一所 施工图综合所 建筑专项技术咨询所
-      d.deptcode if d.blue_print_need.to_f > 0 and !(%w[000101022 000101045 00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
+      d.deptcode if d.blue_print_need.to_f > 0 \
+        && !(%w[000101022 000101045 00010100801].include?(d.deptcode) && @short_company_name == '上海天华')
     end
     @blue_print_company_or_department_names = @blue_print_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
@@ -79,10 +81,17 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
 
+    @non_construction_company_or_department_codes = data.filter_map do |d|
+      d.deptcode if d.others_need.to_f > 0
+    end
+    @non_construction_company_or_department_names = @non_construction_company_or_department_codes.collect do |dept_code|
+      Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
+    end
+
     @day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @job_company_or_department_codes.include?(d.deptcode) }
     @planning_day_rate = data.filter_map { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 if @blue_print_company_or_department_codes.include?(d.deptcode) }
     @building_day_rate = data.filter_map { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 if @construction_company_or_department_codes.include?(d.deptcode) }
-
+    @non_construction_day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @non_construction_company_or_department_codes.include?(d.deptcode) }
   end
 
   def export

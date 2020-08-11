@@ -3,6 +3,7 @@ import { Controller } from "stimulus"
 let subsidiaryWorkloadingsJobDayChart;
 let subsidiaryWorkloadingsPlanningDayChart;
 let subsidiaryWorkloadingsBuildingDayChart;
+let subsidiaryWorkloadingsNonConstructionDayChart;
 let isNonConstruction;
 
 export default class extends Controller {
@@ -13,6 +14,8 @@ export default class extends Controller {
     if (!isNonConstruction) {
       subsidiaryWorkloadingsPlanningDayChart = echarts.init(document.getElementById('subsidiary-workloadings-planning-day-chart'));
       subsidiaryWorkloadingsBuildingDayChart = echarts.init(document.getElementById('subsidiary-workloadings-building-day-chart'));
+    } else {
+      subsidiaryWorkloadingsNonConstructionDayChart = echarts.init(document.getElementById('subsidiary-workloadings-non-construction-day-chart'));
     }
 
     const xAxisJobCode = JSON.parse(this.data.get("x_axis_job_code"));
@@ -21,11 +24,14 @@ export default class extends Controller {
     const xAxisBluePrint = JSON.parse(this.data.get("x_axis_blue_print"));
     const xAxisConstructionCode = JSON.parse(this.data.get("x_axis_construction_code"));
     const xAxisConstruction = JSON.parse(this.data.get("x_axis_construction"));
+    const xAxisNonConstructionCode = JSON.parse(this.data.get("x_axis_non_construction_code"));
+    const xAxisNonConstruction = JSON.parse(this.data.get("x_axis_non_construction"));
     const view_deptcode_sum = this.data.get("view_deptcode_sum") == "true";
     const companyCode = this.data.get("company_code");
     const dayRateData = JSON.parse(this.data.get("day_rate"));
     const planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
     const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
+    const nonConstructionDayRateData = JSON.parse(this.data.get("non_construction_day_rate"));
 
     const option1 = {
         title: {
@@ -195,6 +201,62 @@ export default class extends Controller {
         }]
     };
 
+    const option4 = {
+        title: {
+          text: '非建筑类饱和度'
+        },
+        grid: {
+          left: 50,
+          right: 110,
+          top: 60,
+          bottom: 125
+        },
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
+          }
+        },
+        tooltip: {},
+        xAxis: {
+          triggerEvent: true,
+          data: xAxisNonConstruction,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+              show: false
+          }
+        },
+        yAxis: {
+          axisLabel: {
+            show: true,
+            interval: 'auto',
+            formatter: '{value} %'
+          }
+        },
+        series: [{
+          name: '非建筑类饱和度',
+          type: 'line',
+          symbol: 'square',
+          symbolSize:  10,
+          data: nonConstructionDayRateData,
+          itemStyle: {
+            color: '#6AB0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        }]
+    };
+
     function drill_down_model_show(x_name, x_code) {
       function drill_down(params) {
         const begin_date = $('#subsidiary-daily-workloading-begin-date').val();
@@ -232,12 +294,17 @@ export default class extends Controller {
       subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show(xAxisBluePrint, xAxisBluePrintCode));
       subsidiaryWorkloadingsBuildingDayChart.setOption(option3, false);
       subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show(xAxisConstruction, xAxisConstructionCode));
+    } else {
+      subsidiaryWorkloadingsNonConstructionDayChart.setOption(option4, false);
+      subsidiaryWorkloadingsNonConstructionDayChart.on('click', drill_down_model_show(xAxisNonConstruction, xAxisNonConstructionCode));
     }
     setTimeout(() => {
       subsidiaryWorkloadingsJobDayChart.resize();
       if(!isNonConstruction) {
         subsidiaryWorkloadingsPlanningDayChart.resize();
         subsidiaryWorkloadingsBuildingDayChart.resize();
+      } else {
+        subsidiaryWorkloadingsNonConstructionDayChart.resize();
       }
     }, 200);
   }
@@ -247,6 +314,8 @@ export default class extends Controller {
     if(!isNonConstruction) {
       subsidiaryWorkloadingsPlanningDayChart.resize();
       subsidiaryWorkloadingsBuildingDayChart.resize();
+    } else {
+      subsidiaryWorkloadingsNonConstructionDayChart.resize();
     }
   }
 
@@ -255,6 +324,8 @@ export default class extends Controller {
     if(!isNonConstruction) {
       subsidiaryWorkloadingsPlanningDayChart.dispose();
       subsidiaryWorkloadingsBuildingDayChart.dispose();
+    } else {
+      subsidiaryWorkloadingsNonConstructionDayChart.dispose();
     }
   }
 }
