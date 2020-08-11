@@ -10,5 +10,12 @@ module Bi
         h
       end
     end
+
+    def self.mapping2deptname
+      @_mapping2deptcode ||= PkCodeName.all.reduce({}) do |h, s|
+        h[s.deptname] = s.deptcode
+        h
+      end
+    end
   end
 end

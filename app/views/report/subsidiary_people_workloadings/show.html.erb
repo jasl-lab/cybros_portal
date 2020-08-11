@@ -63,6 +63,7 @@
         </tr>
         </thead>
         <tbody>
+        <% total_lunch_count = 0 -%>
         <% @data.each do |d| %>
           <tr>
             <td><%= link_to d.ncworkno, report_people_workloading_path(ncworkno: d.ncworkno, begin_date: @begin_date.to_date, end_date: @end_date.to_date) -%></td>
@@ -79,12 +80,15 @@
               <td>N/A</td>
             <% end %>
             <td><%= ((d.type1.to_f * 100) / d.needhours.to_f).round(1) -%>%</td>
-            <td><%= @lunch_work_count[d.userid].to_i + @lunch_non_work_count[d.userid].to_i -%></td>
+            <% person_lunch = @lunch_work_count[d.userid].to_i + @lunch_non_work_count[d.userid].to_i %>
+            <% total_lunch_count += person_lunch %>
+            <td><%= person_lunch -%></td>
             <td><%= d.profession -%></td>
           </tr>
         <% end %>
         </tbody>
       </table>
     </div>
+    <h6><%= @selected_dept_name -%>自<%= @begin_date.to_date -%>到<%= @end_date.to_date -%>，总共餐补：<%= total_lunch_count -%> 次</h6>
   </div>
 </div>

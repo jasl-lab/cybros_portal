@@ -40,6 +40,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       dept_short_names.select(:deptcode)
     end.collect { |r| [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode] }
     @selected_dept_code = params[:dept_code].presence || @dept_short_names.first.second
+    @selected_dept_name = Bi::PkCodeName.mapping2deptname.fetch(@selected_dept_code, @selected_dept_code)
 
     data = policy_scope(Bi::WorkHoursCountCombine)
       .select('userid, ncworkno, username, profession, SUM(type1) type1, SUM(type2) type2, SUM(type4) type4, SUM(needhours) needhours')
