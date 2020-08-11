@@ -2,7 +2,9 @@ module Bi
   class ContractSignDetailAmountPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin?)
+        if user.present? && (user.roles.pluck(:report_view_all).any? \
+          || user.operation_access_codes.any? { |c| c[0] <= User::ALL_OF_ALL } \
+          || user.admin?)
           scope.all
         elsif user.present? && (user.roles.pluck(:report_viewer).any? \
           || user.roles.pluck(:report_company_detail_viewer).any? \
