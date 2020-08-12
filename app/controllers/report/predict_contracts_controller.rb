@@ -11,18 +11,18 @@ class Report::PredictContractsController < Report::BaseController
   end
 
   def show
-    @all_month_names = policy_scope(Bi::TrackContract).all_month_names
+    @all_month_names = policy_scope(Bi::TrackContract, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     raise Pundit::NotAuthorizedError if @month_name.nil?
     end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
     @dept_codes_as_options = params[:depts]
 
-    @last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
-    @select_company_short_names = policy_scope(Bi::TrackContract).available_company_names(@last_available_date)
+    @last_available_date = policy_scope(Bi::TrackContract, :group_resolve).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
+    @select_company_short_names = policy_scope(Bi::TrackContract, :group_resolve).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
 
-    data = policy_scope(Bi::TrackContract)
+    data = policy_scope(Bi::TrackContract, :group_resolve)
       .where(orgcode: @selected_org_code)
       .where(date: @last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
@@ -54,7 +54,7 @@ class Report::PredictContractsController < Report::BaseController
 
   def opportunity_detail_drill_down
     dept_code = params[:department_code].strip
-    @tcod = Bi::TrackContractOpportunityDetail
+    @tcod = policy_scope(Bi::TrackContractOpportunityDetail)
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
       .where('contractamount > 0')
@@ -63,7 +63,7 @@ class Report::PredictContractsController < Report::BaseController
 
   def signing_detail_drill_down
     dept_code = params[:department_code].strip
-    @tcsd = Bi::TrackContractSigningDetail
+    @tcsd = policy_scope(Bi::TrackContractSigningDetail)
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
       .where("convertrealamount > 0")
