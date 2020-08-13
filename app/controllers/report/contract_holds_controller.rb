@@ -104,7 +104,7 @@ class Report::ContractHoldsController < Report::BaseController
       (d[0] / d[1]).to_f.round(0) rescue 0
     end
 
-    @biz_retent_totals_sum = @biz_retent_contract.sum()
+    @biz_retent_totals_sum = @biz_retent_totals.sum()
     @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.reject {|d| d == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM}.sum.to_f
   end
 
