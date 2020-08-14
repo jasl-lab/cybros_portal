@@ -7,6 +7,14 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
+      <% if policy(:"Bi::DeptHomepage").show? %>
+        <%= nav_item controller: 'report/dept_homepage', html_options: { class: "nav-item" } do %>
+          <%= link_to report_dept_homepage_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.financial_management.dept_homepage") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::ContractInformationForm").show? %>
         <%= nav_item controller: 'report/contract_information_form', html_options: { class: "nav-item" } do %>
           <%= link_to report_contract_information_form_path, class: "nav-link" do %>

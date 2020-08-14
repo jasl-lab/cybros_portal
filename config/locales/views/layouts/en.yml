@@ -109,6 +109,7 @@ en:
         hr_core_staff_in_and_outs: "HR core in and out"
       financial_management:
         header: "Financial management"
+        dept_homepage: "Homepage"
         contract_information_form: "Contract information form"
         project_contract_summary: "Project contract summary"
         single_project_overview: "Single project overview"

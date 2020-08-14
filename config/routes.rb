@@ -104,6 +104,7 @@ Rails.application.routes.draw do
     resource :operation, only: %i[show]
 
     resource :financial_management, only: %i[show]
+    resource :dept_homepage, only: %i[show]
     resource :contract_information_form, only: %i[show]
     resource :project_contract_summary, only: %i[show]
     resource :departmental_market_fees, only: %i[show]
