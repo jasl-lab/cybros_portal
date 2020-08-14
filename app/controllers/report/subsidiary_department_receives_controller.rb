@@ -140,14 +140,14 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
 
     sum_need_total = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
-      .select("SUM(account_need_receive) account_need_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
+      .select("SUM(account_need_receive) account_need_receive, SUM(account_longbill) long_account_receive, SUM(busi_unsign_receive)+SUM(busi_sign_receive) business_receive")
       .where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
     @sum_need_should_receives = sum_need_total
       .collect { |d| ((d.account_need_receive || 0) / 100_00.0).round(0) }.first
     @sum_need_long_account_receives = sum_need_total
       .collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }.first
     @sum_need_short_account_receives = sum_need_total
-      .collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }.first
+      .collect { |d| ((d.business_receive || 0) / 100_00.0).round(0) }.first
 
     worker_per_dept_code = if selected_orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::ShStaffCount.staff_per_dept_code_by_date(@end_of_month)
