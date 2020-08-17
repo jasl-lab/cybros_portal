@@ -32,15 +32,14 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     contract_price_全过程 = data.where(projectstage: '全过程')
 
     contract_price_方案_公司 = contract_price_方案.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
-    contract_price_全过程_公司 = contract_price_全过程.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
     contract_price_方案_合同总金额 = contract_price_方案.collect(&:discounttotal)
     contract_price_全过程_合同总金额 = contract_price_全过程.collect(&:discounttotal)
-    total_contract_price_方案_合同总金额 = (contract_price_方案_合同总金额 + contract_price_全过程_合同总金额).sum
-    first_10_contract_price_方案_合同总金额 = contract_price_方案_合同总金额[0..9]
+    total_contract_price_方案_合同总金额 = contract_price_方案_合同总金额.sum + contract_price_全过程_合同总金额.sum
 
     @contract_price_方案_公司 = contract_price_方案_公司[0..9].append('其他')
+    first_10_contract_price_方案_合同总金额 = contract_price_方案_合同总金额[0..9]
     @contract_price_方案_合同总金额 = first_10_contract_price_方案_合同总金额.append(total_contract_price_方案_合同总金额 - first_10_contract_price_方案_合同总金额.sum)
-    @contract_price_方案_合同总金额 = @contract_price_方案_合同总金额.map { |d| (d/10000_00.0).round(0) }
+    @contract_price_方案_合同总金额 = @contract_price_方案_合同总金额.map { |d| (d / 10000_00.0).round(0) }
 
 
     contract_price_施工图_公司 = contract_price_施工图.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
