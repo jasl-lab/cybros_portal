@@ -45,6 +45,9 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     if selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(selected_short_name, selected_short_name)
       @orgs_options = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
+      if @orgs_options.blank?
+        @orgs_options = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode_sum: 'H'+selected_sum_h_code).pluck(:orgcode)
+      end
     end
 
     real_data = if @view_orgcode_sum
