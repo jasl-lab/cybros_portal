@@ -48,7 +48,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d/10000_00.0).round(0) }
 
     @years_category, @years_sum_住宅方案, @years_sum_住宅施工图, @years_sum_公建方案, @years_sum_公建施工图 \
-      = 住宅公建_contract_price(time.now.year-2, time.now.year, @orgs_options)
+      = 住宅公建_contract_price(Time.now.year-2, Time.now.year, @orgs_options)
   end
 
   private
@@ -66,10 +66,10 @@ class Report::ContractTypesAnalysesController < Report::BaseController
       years_sum_公建方案 = []
       years_sum_公建施工图 = []
       years_name.each do |year|
-        years_sum_住宅方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建住宅' }&.discounttotal
-        years_sum_住宅施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建住宅' }&.discounttotal
-        years_sum_公建方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建公建' }&.discounttotal
-        years_sum_公建施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建公建' }&.discounttotal
+        years_sum_住宅方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建住宅' }&.parttotal
+        years_sum_住宅施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建住宅' }&.parttotal
+        years_sum_公建方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建公建' }&.parttotal
+        years_sum_公建施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建公建' }&.parttotal
       end
       years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(0) }
       years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(0) }
