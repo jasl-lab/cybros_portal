@@ -6,7 +6,6 @@ class Report::AccountReportsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def show
-    authorize :"Bi::AccountReport"
     prepare_meta_tags title: t(".title")
   end
 
