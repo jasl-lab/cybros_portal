@@ -6,7 +6,7 @@ class Report::ContractProviceAreasController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_month_names = policy_scope(Bi::ContractPrice).all_month_names
+    @all_month_names = policy_scope(Bi::ContractPrice, :overview_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_year_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = @end_of_year_month.beginning_of_year
@@ -15,7 +15,7 @@ class Report::ContractProviceAreasController < Report::BaseController
     @project_type = params[:project_type].presence || '全部'
     @service_phase = params[:service_phase].presence || '全部'
 
-    all_company_orgcodes = policy_scope(Bi::ContractPrice)
+    all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve)
       .select(:businessltdcode).distinct
       .where(filingtime: @beginning_of_year..@end_of_year_month).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
@@ -93,7 +93,7 @@ class Report::ContractProviceAreasController < Report::BaseController
     end
 
     def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, project_type, service_phase)
-      sum_scope = policy_scope(Bi::ContractPrice)
+      sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
       cateogries_4 = case project_type
       when '全部'
         case service_phase
