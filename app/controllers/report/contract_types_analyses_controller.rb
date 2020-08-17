@@ -13,8 +13,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
 
     data = policy_scope(Bi::ContractPrice, :overview_resolve)
       .group(:businessltdcode)
-      .select('businessltdcode, SUM(discounttotal) discounttotal')
-      .order('SUM(discounttotal) DESC')
+      .select('businessltdcode, SUM(frontpart) frontpart, SUM(rearpart) rearpart')
       .where(filingtime: @beginning_of_year..end_of_year_month)
 
     @orgs_options = params[:orgs]
@@ -27,8 +26,8 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     data.where(businessltdcode: @orgs_options)
 
-    contract_price_方案 = data.where(projectstage: ['前端', '全过程'])
-    contract_price_施工图 = data.where(projectstage: ['后端', '全过程'])
+    contract_price_方案 = data.where(projectstage: ['前端', '全过程']).order('SUM(frontpart) DESC')
+    contract_price_施工图 = data.where(projectstage: ['后端', '全过程']).order('SUM(rearpart) DESC')
 
     contract_price_方案_公司 = contract_price_方案.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
     contract_price_方案_合同总金额 = contract_price_方案.collect(&:frontpart)
