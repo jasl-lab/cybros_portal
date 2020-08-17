@@ -6,13 +6,13 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_year_names = policy_scope(Bi::ContractPrice).all_year_names
+    @all_year_names = policy_scope(Bi::ContractPrice, :overview_resolve).all_year_names
     @year_names = params[:year_names]
     @orgs_options = params[:orgs]
 
     @year_names = @all_year_names - [2017, 2016] if @year_names.blank?
 
-    all_company_orgcodes = policy_scope(Bi::ContractPrice).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
+    all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
@@ -30,7 +30,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
   private
 
     def 一线二线非一二线_contract_price(year_names, orgs_options)
-      sum_scope = policy_scope(Bi::ContractPrice)
+      sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
         .select('YEAR(filingtime) year_name, citylevel, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), citylevel')
         .where('YEAR(filingtime) in (?)', year_names)
@@ -52,7 +52,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     end
 
     def 区域_contract_price(year_names, orgs_options)
-      sum_scope = policy_scope(Bi::ContractPrice)
+      sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
         .select('YEAR(filingtime) year_name, area, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
@@ -72,7 +72,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     end
 
     def 省市_contract_price(year_names, orgs_options)
-      sum_scope = policy_scope(Bi::ContractPrice)
+      sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
         .select('provincename, SUM(realamounttotal) realamounttotal')
         .group('provincename')
         .where('YEAR(filingtime) in (?)', year_names)
@@ -124,7 +124,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
                   sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
                   sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
                   sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
-      sum_省市.map { |d| d.nil? ? nil : (d/10000_00.0).round(1) }
+      sum_省市.map { |d| d.nil? ? nil : (d / 10000_00.0).round(1) }
     end
 
     def set_breadcrumbs
