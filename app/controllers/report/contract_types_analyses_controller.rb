@@ -55,7 +55,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
 
     def 住宅公建_contract_price(begin_of_year, end_of_year, orgs_options)
       sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
-        .select('YEAR(filingtime) year_name, projectstage, projecttype, SUM(parttotal) parttotal')
+        .select('YEAR(filingtime) year_name, projectstage, projecttype, SUM(frontpart) frontpart, SUM(rearpart) rearpart')
         .group('YEAR(filingtime), projectstage, projecttype')
         .where('YEAR(filingtime) >= ?', begin_of_year)
         .where('YEAR(filingtime) <= ?', end_of_year)
@@ -66,10 +66,10 @@ class Report::ContractTypesAnalysesController < Report::BaseController
       years_sum_公建方案 = []
       years_sum_公建施工图 = []
       years_name.each do |year|
-        years_sum_住宅方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建住宅' }&.parttotal
-        years_sum_住宅施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建住宅' }&.parttotal
-        years_sum_公建方案 << sum_scope.find { |c| c.year_name == year && c.projectstage == '前端' && c.projecttype == '土建公建' }&.parttotal
-        years_sum_公建施工图 << sum_scope.find { |c| c.year_name == year && c.projectstage == '后端' && c.projecttype == '土建公建' }&.parttotal
+        years_sum_住宅方案 << sum_scope.find { |c| c.year_name == year && (c.projectstage == '前端' || c.projectstage == '全过程') && c.projecttype == '土建住宅' }&.frontpart
+        years_sum_住宅施工图 << sum_scope.find { |c| c.year_name == year && (c.projectstage == '后端' || c.projectstage == '全过程') && c.projecttype == '土建住宅' }&.rearpart
+        years_sum_公建方案 << sum_scope.find { |c| c.year_name == year && (c.projectstage == '前端' || c.projectstage == '全过程') && c.projecttype == '土建公建' }&.frontpart
+        years_sum_公建施工图 << sum_scope.find { |c| c.year_name == year && (c.projectstage == '后端' || c.projectstage == '全过程') && c.projecttype == '土建公建' }&.rearpart
       end
       years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(0) }
       years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(0) }
