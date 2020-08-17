@@ -23,7 +23,9 @@ module Bi
 
       def group_resolve
         return scope.none unless user.present?
-        if user.roles.pluck(:report_view_all).any? || user.admin?
+        if user.roles.pluck(:report_view_all).any? \
+          || user.operation_access_codes.any? { |c| c[0] <= User::ALL_EXCEPT_OTHER_COMPANY_DETAILS } \
+          || user.admin?
           scope.all
         elsif user.roles.pluck(:report_viewer).any? \
           || user.roles.pluck(:report_company_detail_viewer).any? \

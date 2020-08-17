@@ -82,8 +82,8 @@ class Report::ContractSigningsController < Report::BaseController
     one_sum_contract_amount_count = df.one_sum_contract_amount_count
     @sum_avg_period_mean = (one_sum_contract_period / one_sum_contract_amount_count).round(0)
 
-    last_available_date = policy_scope(Bi::ContractProductionDept).where(filingtime: @beginning_of_year..@end_of_month).last_available_date(@end_of_month)
-    cp_data = policy_scope(Bi::ContractProductionDept)
+    last_available_date = policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).last_available_date(@end_of_month)
+    cp_data = policy_scope(Bi::ContractProductionDept, :group_resolve)
       .where(filingtime: @beginning_of_year..@end_of_month)
       .where(date: last_available_date)
       .where('ORG_ORDER.org_order is not null')
