@@ -1,6 +1,6 @@
 ---
 en:
   report:
-    financial_managements:
+    account_reports:
       show:
         title: "Account report"
