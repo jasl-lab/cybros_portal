@@ -7,14 +7,30 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if policy(:"Bi::AccountBusinessTargetOrg").show? %>
-          <%= nav_item controller: 'report/account_business_target_org', html_options: { class: "nav-item" } do %>
-            <%= link_to report_account_business_target_org_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-user-alt"></i>
-              <%= t("layouts.sidebar.account_report.account_business_target_org") %>
-            <% end %>
+      <% if policy(:"Bi::AccountOrgYearFill").show? %>
+        <%= nav_item controller: 'report/account_org_year_fill', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_org_year_fill_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_org_year_fill") %>
           <% end %>
         <% end %>
+      <% end %>
+      <% if policy(:"Bi::AccountOrgMonthFill").show? %>
+        <%= nav_item controller: 'report/account_org_month_fill', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_org_month_fill_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_org_month_fill") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::AccountBusinessTargetOrg").show? %>
+        <%= nav_item controller: 'report/account_business_target_org', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_business_target_org_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_business_target_org") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::AccountBusinessTargetDept").show? %>
         <%= nav_item controller: 'report/account_business_target_dept', html_options: { class: "nav-item" } do %>
           <%= link_to report_account_business_target_dept_path, class: "nav-link" do %>

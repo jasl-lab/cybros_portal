@@ -117,6 +117,8 @@ en:
         bonus_distribution: "Bonus distribution"
       account_report:
         header: "Account report"
+        account_org_year_fill: "Organization year fill"
+        account_org_month_fill: "Organization month fill"
         account_business_target_org: "Organization business target"
         account_business_target_dept: "Company business target"
         account_operation_summary_org: "Organization operation summary"

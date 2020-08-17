@@ -128,6 +128,8 @@ Rails.application.routes.draw do
     resource :hr_staff_in_and_out, only: %i[show]
 
     resource :account_report, only: %i[show]
+    resource :account_org_year_fill, only: %i[show]
+    resource :account_org_month_fill, only: %i[show]
     resource :account_business_target_org, only: %i[show]
     resource :account_business_target_dept, only: %i[show]
     resource :account_operation_summary_org, only: %i[show]
