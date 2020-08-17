@@ -27,8 +27,8 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     data.where(businessltdcode: @orgs_options)
 
-    contract_price_方案 = data.where(["projectstage = ? or projectstage = ?",'前端','全过程'])
-    contract_price_施工图 = data.where(["projectstage = ? or projectstage = ?",'后端','全过程'])
+    contract_price_方案 = data.where(projectstage: ['前端', '全过程'])
+    contract_price_施工图 = data.where(projectstage: ['后端', '全过程'])
 
     contract_price_方案_公司 = contract_price_方案.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
     contract_price_方案_合同总金额 = contract_price_方案.collect(&:frontpart)
