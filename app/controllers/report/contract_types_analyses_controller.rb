@@ -6,12 +6,12 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @all_month_names = policy_scope(Bi::ContractPrice).all_month_names
+    @all_month_names = policy_scope(Bi::ContractPrice, :overview_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_year_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = end_of_year_month.beginning_of_year
 
-    data = policy_scope(Bi::ContractPrice)
+    data = policy_scope(Bi::ContractPrice, :overview_resolve)
       .group(:businessltdcode)
       .select('businessltdcode, SUM(discounttotal) discounttotal')
       .order('SUM(discounttotal) DESC')
@@ -57,7 +57,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   private
 
     def 住宅公建_contract_price(begin_of_year, end_of_year, orgs_options)
-      sum_scope = policy_scope(Bi::ContractPrice)
+      sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
         .select('YEAR(filingtime) year_name, projectstage, projecttype, SUM(discounttotal) discounttotal')
         .group('YEAR(filingtime), projectstage, projecttype')
         .where('YEAR(filingtime) >= ?', begin_of_year)

@@ -8,6 +8,10 @@ module Bi
           scope.none
         end
       end
+
+      def overview_resolve
+        scope.all
+      end
     end
   end
 end
