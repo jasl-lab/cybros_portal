@@ -2,7 +2,7 @@
 
 module Bi
   class ContractPrice < BiLocalTimeRecord
-    self.table_name = 'CONTRACT_PRICE'
+    self.table_name = 'V_CONTRACT_PRICE'
 
     def self.all_year_names
       Bi::ContractPrice.order(filingtime: :desc).where('filingtime >= ?', Date.new(2016,1,1))
