@@ -280,7 +280,12 @@ export default class extends Controller {
         } else if (params.componentType === 'series' && params.componentSubType === 'line') {
           const company_code = companyCode;
           const department_code = x_code[params.dataIndex];
-          const url = `/report/subsidiary_people_workloading?company_code=${company_code}&dept_code=${department_code}&begin_date=${begin_date}&end_date=${end_date}`;
+          let url
+          if (view_deptcode_sum) {
+            url = `/report/subsidiary_people_workloading?view_deptcode_sum=true&company_code=${company_code}&dept_code=${department_code}&begin_date=${begin_date}&end_date=${end_date}`;
+          } else {
+            url = `/report/subsidiary_people_workloading?company_code=${company_code}&dept_code=${department_code}&begin_date=${begin_date}&end_date=${end_date}`;
+          }
           Turbolinks.visit(url);
         }
       }
