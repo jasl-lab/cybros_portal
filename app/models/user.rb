@@ -167,6 +167,8 @@ class User < ApplicationRecord
       MY_COMPANY_ALL_DETAILS
     elsif (基准岗位.include?('市场总监') || 基准岗位.include?('市场运营总监') || 基准岗位 == '财务部经理') && job_level >= 13
       MY_COMPANY_ALL_DETAILS
+    elsif 基准岗位.include?('经营核算主管') && job_level >= 8
+      MY_COMPANY_ALL_DETAILS
     elsif 基准岗位.include?('总经理') && job_level >= 17
       ALL_EXCEPT_OTHER_COMPANY_DETAILS
     elsif (基准岗位.include?('商务经理') || 基准岗位.include?('商务助理')) && job_level >= 11
