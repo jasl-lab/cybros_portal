@@ -115,6 +115,9 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     render
   end
 
+  def export
+  end
+
   private
 
     def set_drill_down_params_and_title
