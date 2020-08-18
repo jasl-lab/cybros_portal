@@ -151,11 +151,7 @@ Rails.application.routes.draw do
       end
     end
     resource :group_workloading, only: %i[show]
-    resource :group_daily_workloading, only: %i[show] do
-      collection do
-        get :export
-      end
-    end
+    resource :group_daily_workloading, only: %i[show]
     resource :subsidiary_workloading, only: %i[show] do
       collection do
         get :export

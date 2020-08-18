@@ -63,9 +63,6 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
       current_user.can_access_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
   end
 
-  def export
-  end
-
   private
 
     def set_breadcrumbs
