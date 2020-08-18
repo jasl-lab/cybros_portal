@@ -110,6 +110,37 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       h[s.userid] = s.needhours_count
       h
     end
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        render_csv_header 'subsidiary people workloading'
+        csv_res = CSV.generate do |csv|
+          csv << ['NC 工号', '姓名', '实填工时', '应填工时', '填报率', '饱和度', '可发放餐补次数', '专业']
+          @data.each do |d|
+            values = []
+            values << d.ncworkno
+            values << d.username
+            values << d.type1.to_f + d.type2.to_f + d.type4.to_f
+            values << d.needhours
+            numerator = @fill_rate_numerator[d.userid]
+            denominator = @fill_rate_denominator[d.userid]
+            fr = if denominator.present?
+              fill_rate = (numerator.to_f * 100 / denominator).round(1)
+              (fill_rate > 100) ? 100 : fill_rate
+            else
+              'N/A'
+            end
+            values << fr
+            values << ((d.type1.to_f * 100) / d.needhours.to_f).round(1)
+            values << @lunch_work_count[d.userid].to_i + @lunch_non_work_count[d.userid].to_i
+            values << d.profession
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
+      end
+    end
   end
 
   def fill_dept_short_names
