@@ -84,14 +84,18 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
   def export
     authorize Bi::WorkHoursCountDetailDept
 
+    @begin_month_name = params[:begin_month_name]&.strip
+    @end_month_name = params[:end_month_name]&.strip
+    beginning_of_month = Date.parse(@begin_month_name).beginning_of_month
+    end_of_month = Date.parse(@end_month_name).end_of_month
+
     respond_to do |format|
       format.csv do
         render_csv_header 'Subsidiary Workloadings'
         csv_res = CSV.generate do |csv|
-          csv << ['ID', '日期', '公司', '天数需填', '天数实填', '方案需填', '方案实填', '施工图需填', '施工图实填']
-          policy_scope(Bi::WorkHoursCountDetailDept).order(id: :asc).find_each do |s|
+          csv << ['日期', '公司', '天数需填', '天数实填', '方案需填', '方案实填', '施工图需填', '施工图实填']
+          policy_scope(Bi::WorkHoursCountDetailDept).order(date: :asc).where(date: beginning_of_month..end_of_month).each do |s|
             values = []
-            values << s.id
             values << s.date
             values << s.orgname
             values << s.date_need
