@@ -155,31 +155,23 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       Bi::YearAvgStaff.worker_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, @view_deptcode_sum)
     end
 
-    real_total_worker_num = 0
     @real_receives_per_worker = real_data.collect do |d|
       worker_number = worker_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       worker_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if worker_number.zero?
-      real_total_worker_num += worker_number unless worker_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
       (d.total / (worker_number * 10000).to_f).round(0)
     end
-    @avg_of_real_receives_per_worker = (@real_receives.sum.to_f / real_total_worker_num).round(1)
+    @avg_of_real_receives_per_worker = (@real_receives.sum.to_f / worker_per_dept_code.values.sum).round(1)
 
-    need_total_staff_num = 0
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = worker_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
-      need_total_staff_num += staff_number unless staff_number.to_i == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
       should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
       total_should_receives_per_staff += should_receives_per_staff
       (should_receives_per_staff / staff_number.to_f).round(0)
     end
     @need_should_receives_per_staff_max = @need_should_receives_per_staff.max&.round(-1) || 1
-    @avg_of_need_should_receives_per_staff = if need_total_staff_num.zero?
-      0
-    else
-      (total_should_receives_per_staff / need_total_staff_num).round(1)
-    end
+    @avg_of_need_should_receives_per_staff = (total_should_receives_per_staff / worker_per_dept_code.values.sum).round(1)
 
     previous_year_need_receive_data = policy_scope(Bi::SubCompanyNeedReceive)
       .where(date: (@end_of_month.beginning_of_year - 1.day))
