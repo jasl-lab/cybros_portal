@@ -25,6 +25,5 @@ zh-CN:
         end_date: "截止日期"
         company_name: "公司名"
         confirm: "确认"
-        export: "导出数据"
       modal:
         close: "关闭"

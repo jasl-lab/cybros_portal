@@ -25,6 +25,5 @@ en:
         end_date: "End of the date"
         company_name: "Company name"
         confirm: "Confirm"
-        export: "Export data"
       modal:
         close: "Close"

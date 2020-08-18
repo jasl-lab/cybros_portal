@@ -94,10 +94,6 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     @non_construction_day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @non_construction_company_or_department_codes.include?(d.deptcode) }
   end
 
-  def export
-    authorize Bi::WorkHoursDayCountDept
-  end
-
   def day_rate_drill_down
     @data =
       @data.select(:date, :date_need, :date_real, :fill_rate)
