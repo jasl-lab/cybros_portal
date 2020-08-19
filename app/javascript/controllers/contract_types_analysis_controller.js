@@ -22,7 +22,7 @@ export default class extends Controller {
     const yearsPublicConstructionAmount = JSON.parse(this.data.get("years_public_construction"));
 
     function yearsCategorySum(res_value, index) {
-      return res_value + yearsResidentialConstructionAmount[index] + yearsPublicPlanAmount[index] + yearsPublicConstructionAmount[index];
+      return parseInt(res_value + yearsResidentialConstructionAmount[index] + yearsPublicPlanAmount[index] + yearsPublicConstructionAmount[index]);
     }
 
     const yearsCategoryTotals = yearsResidentialPlanAmount.map(yearsCategorySum);
