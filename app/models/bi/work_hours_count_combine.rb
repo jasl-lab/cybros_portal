@@ -42,5 +42,35 @@ module Bi
 
       return lunch_work_count, lunch_non_work_count
     end
+
+    def self.fill_rate_hash(company_code, dept_code, beginning_of_day, end_of_day, view_deptcode_sum)
+      fill_rate_numerator = select('userid, COUNT(*) realhours_count')
+        .where(date: beginning_of_day..end_of_day, orgcode: company_code)
+        .where('type1 > 0 OR type2 > 0 OR type4 > 0 ')
+        .group(:userid)
+      fill_rate_numerator = if view_deptcode_sum
+        fill_rate_numerator.where(deptcode_sum: dept_code)
+      else
+        fill_rate_numerator.where(deptcode: dept_code)
+      end.reduce({}) do |h, s|
+        h[s.userid] = s.realhours_count
+        h
+      end
+
+      fill_rate_denominator = select('userid, COUNT(needhours) needhours_count')
+        .where(date: beginning_of_day..end_of_day, orgcode: company_code)
+        .where('needhours > 0')
+        .group(:userid)
+      fill_rate_denominator = if view_deptcode_sum
+        fill_rate_denominator.where(deptcode_sum: dept_code)
+      else
+        fill_rate_denominator.where(deptcode: dept_code)
+      end.reduce({}) do |h, s|
+        h[s.userid] = s.needhours_count
+        h
+      end
+
+      return fill_rate_numerator, fill_rate_denominator
+    end
   end
 end
