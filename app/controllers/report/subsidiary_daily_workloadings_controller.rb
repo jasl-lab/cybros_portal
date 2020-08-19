@@ -116,6 +116,46 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   end
 
   def export
+    beginning_of_day = Date.parse(params[:begin_date]).beginning_of_day
+    end_of_day = Date.parse(params[:end_date]).end_of_day
+    company_code = params[:company_code]
+    view_deptcode_sum = params[:view_deptcode_sum] == 'true'
+
+    data = policy_scope(Bi::WorkHoursCountCombine)
+      .select('userid, ncworkno, username, profession, SUM(type1) type1, SUM(type2) type2, SUM(type4) type4, SUM(needhours) needhours')
+      .where(date: beginning_of_day..end_of_day, orgcode: company_code)
+      .order(:userid, :ncworkno, :username, :profession)
+      .group(:userid, :ncworkno, :username, :profession)
+
+    lunch_work_count, lunch_non_work_count = policy_scope(Bi::WorkHoursCountCombine).lunch_count_hash(company_code, beginning_of_day, end_of_day)
+
+    fill_rate_numerator, fill_rate_denominator = policy_scope(Bi::WorkHoursCountCombine).fill_rate_hash(company_code, nil, beginning_of_day, end_of_day, view_deptcode_sum)
+
+    render_csv_header 'subsidiary people workloading'
+    csv_res = CSV.generate do |csv|
+      csv << ['NC 工号', '姓名', '实填工时', '应填工时', '填报率', '饱和度', '可发放餐补次数', '专业']
+      data.each do |d|
+        values = []
+        values << d.ncworkno
+        values << d.username
+        values << d.type1.to_f + d.type2.to_f + d.type4.to_f
+        values << d.needhours
+        numerator = fill_rate_numerator[d.userid]
+        denominator = fill_rate_denominator[d.userid]
+        fr = if denominator.present?
+          fill_rate = (numerator.to_f * 100 / denominator).round(1)
+          (fill_rate > 100) ? 100 : fill_rate
+        else
+          'N/A'
+        end
+        values << fr
+        values << ((d.type1.to_f * 100) / d.needhours.to_f).round(1)
+        values << lunch_work_count[d.userid].to_i + lunch_non_work_count[d.userid].to_i
+        values << d.profession
+        csv << values
+      end
+    end
+    send_data "\xEF\xBB\xBF#{csv_res}"
   end
 
   private

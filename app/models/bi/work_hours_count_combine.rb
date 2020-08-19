@@ -48,10 +48,12 @@ module Bi
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
         .where('type1 > 0 OR type2 > 0 OR type4 > 0 ')
         .group(:userid)
-      fill_rate_numerator = if view_deptcode_sum
+      fill_rate_numerator = if view_deptcode_sum && dept_code
         fill_rate_numerator.where(deptcode_sum: dept_code)
-      else
+      elsif dept_code
         fill_rate_numerator.where(deptcode: dept_code)
+      else
+        fill_rate_numerator
       end.reduce({}) do |h, s|
         h[s.userid] = s.realhours_count
         h
@@ -61,10 +63,12 @@ module Bi
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
         .where('needhours > 0')
         .group(:userid)
-      fill_rate_denominator = if view_deptcode_sum
+      fill_rate_denominator = if view_deptcode_sum && dept_code
         fill_rate_denominator.where(deptcode_sum: dept_code)
-      else
+      elsif dept_code
         fill_rate_denominator.where(deptcode: dept_code)
+      else
+        fill_rate_denominator
       end.reduce({}) do |h, s|
         h[s.userid] = s.needhours_count
         h
