@@ -26,8 +26,8 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     data.where(businessltdcode: @orgs_options)
 
-    contract_price_方案 = data.where(projectstage: ['前端', '全过程']).order('SUM(frontpart) DESC')
-    contract_price_施工图 = data.where(projectstage: ['后端', '全过程']).order('SUM(rearpart) DESC')
+    contract_price_方案 = data.where(projectstage: ['前端', '全过程'], projecttype: ['土建住宅', '土建公建']).order('SUM(frontpart) DESC')
+    contract_price_施工图 = data.where(projectstage: ['后端', '全过程'], projecttype: ['土建住宅', '土建公建']).order('SUM(rearpart) DESC')
 
     contract_price_方案_公司 = contract_price_方案.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
     contract_price_方案_合同总金额 = contract_price_方案.collect(&:frontpart)
@@ -36,8 +36,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_方案_公司 = contract_price_方案_公司[0..9].append('其他')
     first_10_contract_price_方案_合同总金额 = contract_price_方案_合同总金额[0..9]
     @contract_price_方案_合同总金额 = first_10_contract_price_方案_合同总金额.append(total_contract_price_方案_合同总金额 - first_10_contract_price_方案_合同总金额.sum)
-    @contract_price_方案_合同总金额 = @contract_price_方案_合同总金额.map { |d| (d / 10000_00.0).round(1) }
-
+    @contract_price_方案_合同总金额 = @contract_price_方案_合同总金额.map { |d| (d / 10000_00.0).round(2) }
 
     contract_price_施工图_公司 = contract_price_施工图.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.businessltdcode, c.businessltdcode) }
     contract_price_施工图_合同总金额 = contract_price_施工图.collect(&:rearpart)
@@ -45,7 +44,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     first_10_contract_price_施工图_合同总金额 = contract_price_施工图_合同总金额[0..9]
     @contract_price_施工图_公司 = contract_price_施工图_公司[0..9].append('其他')
     @contract_price_施工图_合同总金额 = first_10_contract_price_施工图_合同总金额.append(total_contract_price_施工图_合同总金额 - first_10_contract_price_施工图_合同总金额.sum)
-    @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d / 10000_00.0).round(1) }
+    @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d / 10000_00.0).round(2) }
 
     @years_category, @years_sum_住宅方案, @years_sum_住宅施工图, @years_sum_公建方案, @years_sum_公建施工图 \
       = 住宅公建_contract_price(Time.now.year-2, Time.now.year, @orgs_options)
@@ -86,10 +85,10 @@ class Report::ContractTypesAnalysesController < Report::BaseController
         years_sum_公建施工图 << years_sum_公建施工图_后端.to_f + years_sum_公建施工图_全过程.to_f
         # Rails.logger.debug "years_sum_公建施工图: #{year}, #{years_sum_公建施工图}"
       end
-      years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(1) }
-      years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(1) }
-      years_sum_公建方案 = years_sum_公建方案.map { |d| (d/10000_00.0).round(1) }
-      years_sum_公建施工图 = years_sum_公建施工图.map { |d| (d/10000_00.0).round(1) }
+      years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(2) }
+      years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(2) }
+      years_sum_公建方案 = years_sum_公建方案.map { |d| (d/10000_00.0).round(2) }
+      years_sum_公建施工图 = years_sum_公建施工图.map { |d| (d/10000_00.0).round(2) }
       return [years_name, years_sum_住宅方案, years_sum_住宅施工图, years_sum_公建方案, years_sum_公建施工图]
     end
 
