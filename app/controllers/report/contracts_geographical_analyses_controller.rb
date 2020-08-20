@@ -57,7 +57,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
         .where(businessltdcode: orgs_options)
-        .order('YEAR(filingtime) ASC') # should revert order of @year_names
+        .order('YEAR(filingtime) ASC') # should revert order of @year_names in JS also.
 
       西南区域_sum_years = sum_scope.filter_map  { |c| (c.subtotal/10000_00.0).round(2) if c.area == '西南区域' }
       华东区域_sum_years = sum_scope.filter_map  { |c| (c.subtotal/10000_00.0).round(2) if c.area == '华东区域' }

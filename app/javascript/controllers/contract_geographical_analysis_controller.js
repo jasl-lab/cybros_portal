@@ -207,7 +207,7 @@ export default class extends Controller {
       }],
       yAxis: [{
         type: 'category',
-        data: yearCategory
+        data: yearCategory.reverse()
       }],
       series: [{
           name: '西南区域',
