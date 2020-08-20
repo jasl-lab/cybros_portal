@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include DeviseFailsafe
+  include Devise::JWT::RevocationStrategies::Allowlist
+
   # Include default devise modules. Others available are:
   # :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -40,9 +43,6 @@ class User < ApplicationRecord
   def admin?
     email.in? Settings.admin.emails
   end
-
-  include DeviseFailsafe
-  include Devise::JWT::RevocationStrategies::Allowlist
 
   def self.find_for_jwt_authentication(sub)
     find_by(email: sub)
