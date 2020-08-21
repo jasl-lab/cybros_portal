@@ -46,7 +46,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     data = data.where(dept: @depts_options)
 
     data_checkdate = data.collect(&:checkdate).uniq
-    first_row_checkdate_display = data_checkdate.collect { |d| d.to_s(:month_and_year) }.unshift('Cash flow')
+    first_row_checkdate_display = data_checkdate.collect { |d| d.to_s(:month_and_year) }.unshift('cash_flow')
 
     rest_rows = data.collect(&:deptcode).uniq.collect do |dept_code|
       dept_row = [department_names[dept_code]]
