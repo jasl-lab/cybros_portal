@@ -26,27 +26,37 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
 
     selected_orgcode = Bi::OrgShortName.org_code_by_short_name.fetch(@selected_short_name, @selected_short_name)
 
-    @data_last_available_date = policy_scope(Bi::DeptMoneyFlow).last_available_date(@end_of_month)
+    data_last_available_date = policy_scope(Bi::DeptMoneyFlow).last_available_date(@end_of_month)
     data = policy_scope(Bi::DeptMoneyFlow)
       .where(checkdate: beginning_of_year..@end_of_month)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
-      .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @data_last_available_date)
-      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @data_last_available_date)
+      .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', data_last_available_date)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', data_last_available_date)
       .where(comp: selected_orgcode)
       .select('OCDW.V_TH_DEPTMONEYFLOW.dept deptcode, OCDW.V_TH_DEPTMONEYFLOW.checkdate, IFNULL(OCDW.V_TH_DEPTMONEYFLOW.openingmoney,0) openingmoney')
       .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = OCDW.V_TH_DEPTMONEYFLOW.dept')
       .order('ORG_REPORT_DEPT_ORDER.部门排名, OCDW.V_TH_DEPTMONEYFLOW.dept, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
 
     only_have_data_depts = data.collect(&:deptcode)
-    department_short_names = only_have_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(@data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    department_short_names = only_have_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
     @depts_options = only_have_data_depts if @depts_options.blank?
     @department_options = department_short_names.zip(only_have_data_depts)
 
+    department_names = Bi::OrgReportDeptOrder.department_names(data_last_available_date)
     data = data.where(dept: @depts_options)
 
-    @department_short_codes = data.collect(&:deptcode)
-    @department_short_names = @department_short_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(@data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
-    @opening_money = data.collect { |d| (d.openingmoney / 100_00.0).round(0) }
+    data_checkdate = data.collect(&:checkdate).uniq
+    first_row_checkdate_display = data_checkdate.collect { |d| d.to_s(:month_and_year) }.unshift('Cash flow')
+
+    rest_rows = data.collect(&:deptcode).uniq.collect do |dept_code|
+      dept_row = [department_names[dept_code]]
+      data_checkdate.each do |date|
+        d = data.find { |r| r.checkdate == date && r.deptcode == dept_code }
+        dept_row << (d.present? ? d.openingmoney : nil)
+      end
+      dept_row
+    end
+    @chart_data = rest_rows.unshift(first_row_checkdate_display)
   end
 
   protected
