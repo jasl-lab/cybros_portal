@@ -120,6 +120,8 @@ en:
         header: "Account report"
         account_org_year_fill: "Organization year fill"
         account_org_month_fill: "Organization month fill"
+        account_dept_year_fill: "Subcompany year fill"
+        account_dept_month_fill: "Subcompany month fill"
         account_business_target_org: "Organization business target"
         account_business_target_dept: "Company business target"
         account_operation_summary_org: "Organization operation summary"

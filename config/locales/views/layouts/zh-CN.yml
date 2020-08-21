@@ -120,6 +120,8 @@ zh-CN:
         header: "财务中心运营报表"
         account_org_year_fill: "集团年度数据填报"
         account_org_month_fill: "集团月度数据填报"
+        account_dept_year_fill: "子公司年度数据填报"
+        account_dept_month_fill: "子公司月度数据填报"        
         account_business_target_org: "集团营业目标完成情况"
         account_business_target_dept: "公司营业目标完成情况"
         account_operation_summary_org: "集团经营情况汇总"
