@@ -85,6 +85,7 @@ en:
         subsidiary_receive: "Subsidiary receive"
         design_cash_flow: "Design cash flow"
         subsidiary_department_receive: "Subsidiary department receive"
+        subsidiary_design_cash_flow: "Subsidiary design cash flow"
         predict_contract: "Predict contract amount"
         project_milestore: "%{company} Project milestore"
         group_contract_hold: "Group business retent contract"

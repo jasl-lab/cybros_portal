@@ -132,7 +132,7 @@ Rails.application.routes.draw do
     resource :account_org_year_fill, only: %i[show]
     resource :account_org_month_fill, only: %i[show]
     resource :account_dept_year_fill, only: %i[show]
-    resource :account_dept_month_fill, only: %i[show]    
+    resource :account_dept_month_fill, only: %i[show]
     resource :account_business_target_org, only: %i[show]
     resource :account_business_target_dept, only: %i[show]
     resource :account_operation_summary_org, only: %i[show]
@@ -198,6 +198,7 @@ Rails.application.routes.draw do
       end
     end
     resource :design_cash_flow, only: %i[show]
+    resource :subsidiary_design_cash_flow, only: %i[show]
     resource :subsidiary_department_receive, only: %i[show] do
       collection do
         get :real_data_drill_down

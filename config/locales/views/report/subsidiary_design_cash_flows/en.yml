@@ -1,0 +1,11 @@
+---
+en:
+  report:
+    subsidiary_design_cash_flows:
+      show:
+        actions:
+          view_deptcode_sum: "View organization in sum"
+          view_deptcode: "View organization in detail"
+        title: "subsidiary design cash flow"
+        month_name: "Design cash flow year and month"
+        confirm: "Confirm"
