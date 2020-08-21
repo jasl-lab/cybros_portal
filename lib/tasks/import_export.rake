@@ -16,6 +16,21 @@ namespace :import_export do
     end
   end
 
+  desc 'Filling CSV file to manual_hr_access_codes'
+  task :manual_hr_access_codes, [:csv_file] => [:environment] do |task, args|
+    csv_file_path = args[:csv_file]
+    CSV.foreach(csv_file_path, headers: true) do |row|
+      next if row['email'].blank?
+
+      user = User.find_by email: row['email']
+      if user.present?
+        user.manual_hr_access_codes.create(hr_rolename: row['role'], org_code: row['orgcode'], dept_code: row['deptcode_sum'])
+      else
+        puts "email: #{row['email']} not existing"
+      end
+    end
+  end
+
   desc 'Create not existing user from CSV exported from oauth2id'
   task :create_new_user, [:csv_file] => [:environment] do |task, args|
     csv_file_path = args[:csv_file]
