@@ -197,6 +197,7 @@ Rails.application.routes.draw do
         get :need_receives_staff_drill_down
       end
     end
+    resource :design_cash_flow, only: %i[show]
     resource :subsidiary_department_receive, only: %i[show] do
       collection do
         get :real_data_drill_down

@@ -83,6 +83,7 @@ en:
         complete_value: "Complete value"
         subsidiary_complete_value: "Complete value"
         subsidiary_receive: "Subsidiary receive"
+        design_cash_flow: "Design cash flow"
         subsidiary_department_receive: "Subsidiary department receive"
         predict_contract: "Predict contract amount"
         project_milestore: "%{company} Project milestore"

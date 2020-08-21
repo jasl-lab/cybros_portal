@@ -92,6 +92,14 @@
             <% end %>
           <% end %>
         <% end %>
+        <% if current_user.present? && policy(Bi::DeptMoneyFlow).show? %>
+          <%= nav_item controller: 'report/design_cash_flows', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_design_cash_flow_path(view_orgcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-cash-register"></i>
+              <%= t("layouts.sidebar.operation.design_cash_flow") %>
+            <% end %>
+          <% end %>
+        <% end %>
         <li class="nav-item nav-dropdown <%= %w[report/group_workloadings report/group_daily_workloadings report/complete_values report/group_contract_holds].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>

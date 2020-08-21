@@ -1,0 +1,12 @@
+---
+en:
+  report:
+    design_cash_flows:
+      show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
+        title: "Design cash flow"
+        month_name: "Design cash flow year and month"
+        org_names: "Organization names"
+        confirm: "Confirm"

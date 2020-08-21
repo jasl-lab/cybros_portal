@@ -84,6 +84,7 @@ zh-CN:
         subsidiary_complete_value: "所级完成产值"
         subsidiary_receive: "子公司收款情况"
         subsidiary_department_receive: "本年累计收款"
+        design_cash_flow: "设计现金流"
         predict_contract: "跟踪合同额"
         project_milestore: "项目进度填报情况"
         group_contract_hold: "业务保有量"

@@ -8,6 +8,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
   after_action :verify_authorized
 
   def show
+    prepare_meta_tags title: t(".title")
     authorize Bi::SubCompanyRealReceive
     authorize Bi::SubCompanyNeedReceive
     @all_month_names = Bi::SubCompanyRealReceive.all_month_names
@@ -19,7 +20,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
     selected_short_name = params[:company_name]&.strip
 
-    current_user_companies = current_user.user_company_names
     real_data = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
       .where(realdate: beginning_of_year..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
@@ -123,7 +123,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     complete_value_data = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       Bi::CompleteValue.all
     else
-      Bi::CompleteValue.where(orgcode: current_user_companies)
+      Bi::CompleteValue.where(orgcode: current_user.user_company_names)
     end.where(date: beginning_of_year..@end_of_month)
       .select("orgcode, SUM(IFNULL(total,0)) sum_total")
       .group(:orgcode)
