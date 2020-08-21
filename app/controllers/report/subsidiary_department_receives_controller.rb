@@ -57,7 +57,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @sum_dept_names = @department_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
 
     if selected_department_name.present?
-      @depts_options = Bi::OrgReportDeptOrder.dept_code_by_short_name(selected_company_long_name, @real_data_last_available_date).where(上级部门: selected_department_name).pluck(:'编号')
+      @depts_options = Bi::OrgReportDeptOrder.dept_code_by_long_name(selected_company_long_name, @real_data_last_available_date).where(上级部门: selected_department_name).pluck(:'编号')
     end
 
     real_data = if @view_deptcode_sum
