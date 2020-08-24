@@ -7,18 +7,7 @@ module Bi
         ( user.roles.pluck(:hr_group_rt_reader).any? ||
           user.roles.pluck(:hr_subsidiary_rt_reader).any? ||
           user.roles.pluck(:hr_report_writer).any? ||
-          (user.operation_access_codes.any? do |access_code|
-            job_level = access_code[4]
-            title = access_code[3]
-            job_level.to_i >= 14 && (title.include?('所长') || title.include?('创作中心总监'))
-           end
-          ) ||
-          (user.operation_access_codes.any? do |access_code|
-            job_level = access_code[4]
-            title = access_code[3]
-            job_level.to_i >= 13 && title.include?('管理副所长')
-           end
-           ) ||
+          user.roles.pluck(:role_name).any? { |r| r == 'HR_所级管理者' } ||
           user.admin?)
     end
   end
