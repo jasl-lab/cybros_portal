@@ -21,4 +21,17 @@ namespace :role do
       end
     end
   end
+
+  desc 'Create role for having HR access code users'
+  task create_role_access: :environment do
+    ManualHrAccessCode.all.find_each do |ac|
+      r = Role.find_by role_name: ac.hr_rolename
+      if r.present?
+        next r.users.where(id: ac.user_id).exists?
+        r.role_users.create(user_id: ac.user_id)
+      else
+        puts "ManualHrAccessCode id: #{ac.id}, hr_rolename: #{ac.hr_rolename} not existing."
+      end
+    end
+  end
 end
