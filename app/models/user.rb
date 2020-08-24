@@ -149,7 +149,7 @@ class User < ApplicationRecord
     主职_access_codes = 主职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
     兼职 = Bi::HrdwStfreinstateVirtual
-      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: '内部兼职人员')
+      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员','其他人员'])
     兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
     手工_access_codes = manual_operation_access_codes.collect { |m| [m.code, m.org_code, m.dept_code, m.title, m.job_level, m.id] }
