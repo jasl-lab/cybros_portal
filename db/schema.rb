@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_103515) do
+ActiveRecord::Schema.define(version: 2020_08_24_025735) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2020_07_24_103515) do
     t.string "hr_rolename"
     t.string "org_code"
     t.string "dept_code"
-    t.boolean "allow_list"
+    t.boolean "auto_generated_role", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_manual_hr_access_codes_on_user_id"

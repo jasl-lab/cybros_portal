@@ -156,6 +156,19 @@ class User < ApplicationRecord
     @_operation_access_codes = 主职_access_codes + 兼职_access_codes + 手工_access_codes
   end
 
+  def hr_access_codes
+    return @_hr_access_codes if @_hr_access_codes.present?
+    主职 = Bi::HrdwStfreinstateBi
+      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
+    主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
+
+    兼职 = Bi::HrdwStfreinstateVirtual
+      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
+    兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
+
+    @_hr_access_codes = 主职_access_codes + 兼职_access_codes
+  end
+
   private
 
   def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
