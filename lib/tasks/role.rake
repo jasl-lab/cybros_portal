@@ -27,8 +27,8 @@ namespace :role do
     ManualHrAccessCode.all.find_each do |ac|
       r = Role.find_by role_name: ac.hr_rolename
       if r.present?
-        next r.users.where(id: ac.user_id).exists?
-        r.role_users.create(user_id: ac.user_id)
+        next if r.users.where(id: ac.user_id).exists?
+        r.role_users.create(user_id: ac.user_id, auto_generated: true)
       else
         puts "ManualHrAccessCode id: #{ac.id}, hr_rolename: #{ac.hr_rolename} not existing."
       end
