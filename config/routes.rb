@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :manual_hr_access_codes, only: %i[destroy create]
       collection do
         get :operation_org_code_change
+        get :hr_org_code_change
       end
       member do
         patch :lock

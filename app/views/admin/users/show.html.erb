@@ -242,11 +242,11 @@
               </div>
               <div class="form-group col-md-3">
                 <label class="mr-1"><%= t('.table.org_code') -%>：</label>
-                <%= f.text_field :org_code, class: 'form-control form-control2' %>
+                <%= f.select :org_code, @org_codes, { include_blank: false }, class: 'form-control-plaintext form-control', data: { remote: true, type: :script, url: url_for(controller: 'admin/users', action: 'hr_org_code_change', format: 'js')} %>
               </div>
               <div class="form-group col-md-3">
                 <label class="mr-1"><%= t('.table.dept_code') -%>：</label>
-                <%= f.text_field :dept_code, class: 'form-control form-control2' %>
+                <%= f.select :dept_code, [], { include_blank: true }, id: 'select-hr-dept-codes', class: 'form-control' %>
               </div>
               <div class="form-group col-md-2">
                 <label class="mr-1">&nbsp;</label>
