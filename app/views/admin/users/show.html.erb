@@ -218,6 +218,7 @@
                 <th><%= t('.table.hr_rolename') -%></th>
                 <th><%= t('.table.org_code') -%></th>
                 <th><%= t('.table.dept_code') -%></th>
+                <th><%= t('.table.auto_generated_role') -%></th>
                 <th></th>
               </tr>
             </thead>
@@ -227,6 +228,11 @@
                   <td><%= ac.hr_rolename -%></td>
                   <td><%= ac.org_code -%></td>
                   <td><%= ac.dept_code -%></td>
+                  <td>
+                    <% if ac.auto_generated_role %>
+                      <span class="badge badge-info"><%= ac.auto_generated_role -%></span>
+                    <% end %>
+                  </td>
                   <td>
                     <%= link_to '移除', admin_user_manual_hr_access_code_path(id: ac.id, user_id: @user.id), method: :delete %>
                   </td>

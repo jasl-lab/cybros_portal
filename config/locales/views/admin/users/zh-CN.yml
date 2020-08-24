@@ -59,6 +59,7 @@ zh-CN:
           title: "称谓"
           job_level: "职级"
           hr_rolename: "HR角色名字"
+          auto_generated_role: "自动生成"
         status: "状态"
       new:
         title: "新建用户"

@@ -59,6 +59,7 @@ en:
           title: "Title"
           job_level: "Job level"
           hr_rolename: "HR role name"
+          auto_generated_role: "Auto generated"
         status: "Status"
       new:
         title: "New User"
