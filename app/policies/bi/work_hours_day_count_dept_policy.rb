@@ -2,7 +2,8 @@ module Bi
   class WorkHoursDayCountDeptPolicy < BasePolicy
     class Scope < Scope
       def resolve
-        if user.present? && (user.roles.pluck(:report_view_all).any? || user.admin? || user.chinese_name.in?(%w(李俭 亢梦婕)))
+        if user.present? && (user.roles.pluck(:report_view_all).any? \
+          || user.admin?)
           scope.all
         elsif user.present? && (user.roles.pluck(:report_viewer).any? \
           || user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS })
