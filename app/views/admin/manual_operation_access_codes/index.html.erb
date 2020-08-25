@@ -20,8 +20,8 @@
           <% @code_1.each do |code| %>
             <tr>
               <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
-              <td><%= code.org_code %></td>
-              <td><%= code.dept_code %></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.org_code, code.org_code) %></td>
+              <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.dept_code, code.dept_code) %></td>
               <td><%= code.title %></td>
               <td><%= code.job_level %></td>
             </tr>
@@ -45,8 +45,8 @@
           <% @code_2.each do |code| %>
             <tr>
               <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
-              <td><%= code.org_code %></td>
-              <td><%= code.dept_code %></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.org_code, code.org_code) %></td>
+              <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.dept_code, code.dept_code) %></td>
               <td><%= code.title %></td>
               <td><%= code.job_level %></td>
             </tr>
@@ -70,8 +70,8 @@
           <% @code_3.each do |code| %>
             <tr>
               <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
-              <td><%= code.org_code %></td>
-              <td><%= code.dept_code %></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.org_code, code.org_code) %></td>
+              <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.dept_code, code.dept_code) %></td>
               <td><%= code.title %></td>
               <td><%= code.job_level %></td>
             </tr>
@@ -95,8 +95,8 @@
           <% @code_4.each do |code| %>
             <tr>
               <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
-              <td><%= code.org_code %></td>
-              <td><%= code.dept_code %></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.org_code, code.org_code) %></td>
+              <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.dept_code, code.dept_code) %></td>
               <td><%= code.title %></td>
               <td><%= code.job_level %></td>
             </tr>
@@ -120,8 +120,8 @@
           <% @code_5.each do |code| %>
             <tr>
               <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
-              <td><%= code.org_code %></td>
-              <td><%= code.dept_code %></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.org_code, code.org_code) %></td>
+              <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.dept_code, code.dept_code) %></td>
               <td><%= code.title %></td>
               <td><%= code.job_level %></td>
             </tr>
