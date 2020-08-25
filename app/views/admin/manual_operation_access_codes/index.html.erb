@@ -14,6 +14,7 @@
             <th><%= t(".table.dept_code") %></th>
             <th><%= t(".table.title") %></th>
             <th><%= t(".table.job_level") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -24,6 +25,9 @@
               <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.dept_code, code.dept_code) %></td>
               <td><%= code.title %></td>
               <td><%= code.job_level %></td>
+              <td>
+                <%= link_to '移除', admin_manual_operation_access_code_path(id: code.id), method: :delete %>
+              </td>
             </tr>
           <% end %>
           </tbody>
@@ -39,6 +43,7 @@
             <th><%= t(".table.dept_code") %></th>
             <th><%= t(".table.title") %></th>
             <th><%= t(".table.job_level") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -64,6 +69,7 @@
             <th><%= t(".table.dept_code") %></th>
             <th><%= t(".table.title") %></th>
             <th><%= t(".table.job_level") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -89,6 +95,7 @@
             <th><%= t(".table.dept_code") %></th>
             <th><%= t(".table.title") %></th>
             <th><%= t(".table.job_level") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -114,6 +121,7 @@
             <th><%= t(".table.dept_code") %></th>
             <th><%= t(".table.title") %></th>
             <th><%= t(".table.job_level") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
