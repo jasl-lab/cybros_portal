@@ -16,7 +16,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def show
     prepare_meta_tags title: @user.email
-    @org_codes = Bi::OrgShortName.org_code_by_short_name.to_a.reject { |e| e.first.blank? }
+    @org_codes = Bi::OrgShortName.org_options
   end
 
   def new

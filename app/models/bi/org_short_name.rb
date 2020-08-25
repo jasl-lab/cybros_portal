@@ -46,6 +46,14 @@ module Bi
       end
     end
 
+    def self.org_options
+      joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = ORG_SHORTNAME.code')
+      .where('ORG_ORDER.org_order is not null')
+      .where('ORG_SHORTNAME.shortname is not null')
+      .order('ORG_ORDER.org_order DESC')
+      .collect { |o| [o.shortname, o.code] }
+    end
+
     def self.available_unit
       where(isbusinessunit: 'Y').where('PK_ORG IS NOT NULL')
     end
