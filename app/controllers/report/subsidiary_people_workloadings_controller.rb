@@ -27,11 +27,6 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
     end
 
-    @company_short_names = policy_scope(Bi::WorkHoursCountCombine).select(:orgcode)
-      .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
-        [Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode), r.orgcode]
-      end
-
     dept_short_names = policy_scope(Bi::WorkHoursCountCombine)
       .distinct.where(date: beginning_of_day..end_of_day).where(orgcode: @selected_company_code)
     @dept_short_names = if @view_deptcode_sum
