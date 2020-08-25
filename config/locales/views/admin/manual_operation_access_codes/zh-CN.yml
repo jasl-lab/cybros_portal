@@ -1,0 +1,12 @@
+---
+zh-CN:
+  admin:
+    manual_operation_access_codes:
+      index:
+        title: "市场运营手工访问码列表"
+        table:
+          chinese_name: "姓名"
+          org_code: "公司编号"
+          dept_code: "部门编号"
+          title: "职位"
+          job_level: "职级"

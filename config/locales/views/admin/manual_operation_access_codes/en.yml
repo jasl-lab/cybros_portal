@@ -1,0 +1,12 @@
+---
+en:
+  admin:
+    manual_operation_access_codes:
+      index:
+        title: "Manual operation access codes"
+        table:
+          chinese_name: "Chinese name"
+          org_code: "ORG code"
+          dept_code: "DEPT code"
+          title: "Title"
+          job_level: "Job level"

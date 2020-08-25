@@ -1,0 +1,134 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="container">
+      <h3 class="page-title">
+        <%= t(".title") %>
+      </h3>
+      <h4>1: User::ALL_OF_ALL</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.chinese_name") %></th>
+            <th><%= t(".table.org_code") %></th>
+            <th><%= t(".table.dept_code") %></th>
+            <th><%= t(".table.title") %></th>
+            <th><%= t(".table.job_level") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @code_1.each do |code| %>
+            <tr>
+              <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
+              <td><%= code.org_code %></td>
+              <td><%= code.dept_code %></td>
+              <td><%= code.title %></td>
+              <td><%= code.job_level %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <h4>2: User::ALL_EXCEPT_OTHER_COMPANY_DETAILS</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.chinese_name") %></th>
+            <th><%= t(".table.org_code") %></th>
+            <th><%= t(".table.dept_code") %></th>
+            <th><%= t(".table.title") %></th>
+            <th><%= t(".table.job_level") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @code_2.each do |code| %>
+            <tr>
+              <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
+              <td><%= code.org_code %></td>
+              <td><%= code.dept_code %></td>
+              <td><%= code.title %></td>
+              <td><%= code.job_level %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <h4>3: User::MY_COMPANY_ALL_DETAILS</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.chinese_name") %></th>
+            <th><%= t(".table.org_code") %></th>
+            <th><%= t(".table.dept_code") %></th>
+            <th><%= t(".table.title") %></th>
+            <th><%= t(".table.job_level") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @code_3.each do |code| %>
+            <tr>
+              <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
+              <td><%= code.org_code %></td>
+              <td><%= code.dept_code %></td>
+              <td><%= code.title %></td>
+              <td><%= code.job_level %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <h4>4: User::MY_COMPANY_EXCEPT_OTHER_DEPTS</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.chinese_name") %></th>
+            <th><%= t(".table.org_code") %></th>
+            <th><%= t(".table.dept_code") %></th>
+            <th><%= t(".table.title") %></th>
+            <th><%= t(".table.job_level") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @code_4.each do |code| %>
+            <tr>
+              <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
+              <td><%= code.org_code %></td>
+              <td><%= code.dept_code %></td>
+              <td><%= code.title %></td>
+              <td><%= code.job_level %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <h4>5: User::MY_DEPARTMENT</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th><%= t(".table.chinese_name") %></th>
+            <th><%= t(".table.org_code") %></th>
+            <th><%= t(".table.dept_code") %></th>
+            <th><%= t(".table.title") %></th>
+            <th><%= t(".table.job_level") %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @code_5.each do |code| %>
+            <tr>
+              <td><%= link_to code.user.chinese_name, admin_user_path(id: code.user.id) -%></td>
+              <td><%= code.org_code %></td>
+              <td><%= code.dept_code %></td>
+              <td><%= code.title %></td>
+              <td><%= code.job_level %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

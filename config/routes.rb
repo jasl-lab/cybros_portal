@@ -46,6 +46,8 @@ Rails.application.routes.draw do
         delete :user
       end
     end
+
+    resources :manual_operation_access_codes, only: %i[index]
   end
 
   namespace :company do

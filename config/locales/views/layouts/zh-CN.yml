@@ -29,6 +29,7 @@ zh-CN:
         home: "总览"
         users: "用户"
         roles: "角色"
+        manual_operation_access_codes: "市场运营手工访问码"
       company:
         header: "公司首页"
         knowledges: "智能问答知识库"

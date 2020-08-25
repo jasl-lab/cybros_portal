@@ -29,6 +29,7 @@ en:
         home: "Home"
         users: "Users"
         roles: "Roles"
+        manual_operation_access_codes: "Manual OP access code"
       company:
         header: "Company Home"
         knowledges: "Knowledges"
