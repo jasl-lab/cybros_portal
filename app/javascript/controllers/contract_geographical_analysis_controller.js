@@ -107,6 +107,14 @@ export default class extends Controller {
           type: 'shadow'
         }
       },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
+          }
+        }
+      },
       legend: {
         data: ['一线', '二线', '非一二线']
       },
@@ -162,6 +170,14 @@ export default class extends Controller {
         trigger: 'axis',
         axisPointer: {
           type: 'shadow'
+        }
+      },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
+          }
         }
       },
       legend: {
