@@ -35,7 +35,8 @@ export default class extends Controller {
             show: true,
             position: 'insideTop'
           },
-          data: series
+          data: series,
+          barMaxWidth: 20
         };
     }
     const areaBarSeries = yearCategory.reverse().map(buildAreaBarSeries);
@@ -101,6 +102,10 @@ export default class extends Controller {
     };
 
     const year_city_level_stack_option = {
+      title: {
+        text: '合同额 按城市类型',
+        left: 'center'
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -116,7 +121,9 @@ export default class extends Controller {
         }
       },
       legend: {
-        data: ['一线', '二线', '非一二线']
+        data: ['一线', '二线', '非一二线'],
+        left: 'center',
+        top: '33'
       },
       grid: {
         left: '3%',
@@ -125,47 +132,52 @@ export default class extends Controller {
         containLabel: true
       },
       xAxis: {
-        type: 'value'
-      },
-      yAxis: {
         type: 'category',
         data: yearCategory
+      },
+      yAxis: {
+        type: 'value',
+        name: '亿元',
       },
       series: [{
           name: '一线',
           type: 'bar',
-          stack: '总量',
           label: {
             show: true,
             position: 'insideTop',
             formatter: percentFormater
           },
-          data: yearsFirstLevelSum
+          data: yearsFirstLevelSum,
+          barMaxWidth: 38
         },{
           name: '二线',
           type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideBottom',
-            formatter: percentFormater
-          },
-          data: yearsSecondLevelSum
-        },{
-          name: '非一二线',
-          type: 'bar',
-          stack: '总量',
           label: {
             show: true,
             position: 'insideTop',
             formatter: percentFormater
           },
-          data: yearsThirdFourthLevelSum
+          data: yearsSecondLevelSum,
+          barMaxWidth: 38
+        },{
+          name: '非一二线',
+          type: 'bar',
+          label: {
+            show: true,
+            position: 'insideTop',
+            formatter: percentFormater
+          },
+          data: yearsThirdFourthLevelSum,
+          barMaxWidth: 38
         }
       ]
     };
 
     const area_bar_option = {
+      title: {
+        text: '合同额 按区域',
+        left: 'center'
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -181,7 +193,9 @@ export default class extends Controller {
         }
       },
       legend: {
-        data: yearCategory.reverse()
+        data: yearCategory.reverse(),
+        left: 'center',
+        top: '33'
       },
       grid: {
         left: '3%',
@@ -195,7 +209,8 @@ export default class extends Controller {
         data: ['西南区域', '华东区域', '华南区域', '华中区域', '东北区域', '华北区域', '西北区域']
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        name: '亿元',
       },
       series: areaBarSeries
     };
