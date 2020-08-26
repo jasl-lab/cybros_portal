@@ -49,6 +49,14 @@ export default class extends Controller {
         subtext:'单位:百万元',
         left: 'center',
       },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
+          }
+        }
+      },
       tooltip: {
         trigger: 'item',
         formatter: '{a} {b}: {c} ({d}%)'
@@ -112,6 +120,14 @@ export default class extends Controller {
         text: '子公司后端合同额占比',
         subtext:'单位:百万元',
         left: 'center',
+      },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
+          }
+        }
       },
       tooltip: {
           trigger: 'item',
@@ -201,6 +217,14 @@ export default class extends Controller {
         right: '4%',
         top: '80',
         containLabel: true
+      },
+      toolbox: {
+        feature: {
+          dataView: {},
+          saveAsImage: {
+              pixelRatio: 2
+          }
+        }
       },
       xAxis: {
         type: 'value'
