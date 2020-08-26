@@ -6,6 +6,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    prepare_meta_tags title: t(".title")
     @all_year_names = policy_scope(Bi::ContractPrice, :overview_resolve).all_year_names
     @year_names = params[:year_names]
     @orgs_options = params[:orgs]

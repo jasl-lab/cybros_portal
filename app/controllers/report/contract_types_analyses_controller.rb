@@ -6,6 +6,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    prepare_meta_tags title: t(".title")
     @all_month_names = policy_scope(Bi::ContractPrice, :overview_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_year_month = Date.parse(@month_name).end_of_month

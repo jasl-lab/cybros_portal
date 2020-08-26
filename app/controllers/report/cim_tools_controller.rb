@@ -6,6 +6,7 @@ class Report::CimToolsController < Report::BaseController
 
   def index
     authorize Cad::CadSession
+    prepare_meta_tags title: t(".title")
 
     respond_to do |format|
       format.html

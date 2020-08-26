@@ -9,6 +9,7 @@ class Report::GroupWorkloadingsController < Report::BaseController
 
   def show
     authorize :"Bi::GroupWorkloading"
+    prepare_meta_tags title: t(".title")
     @all_month_names = policy_scope(Bi::WorkHoursCountOrg).all_month_names
     @begin_month_name = params[:begin_month_name]&.strip || @all_month_names.first
     @end_month_name = params[:end_month_name]&.strip || @all_month_names.first

@@ -7,6 +7,7 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
 
   def show
     authorize Bi::CompleteValue
+    prepare_meta_tags title: t(".title")
     all_orgcodes = policy_scope(Bi::CompleteValue).distinct.pluck(:orgcode)
     all_company_names = all_orgcodes.collect do |c|
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c)

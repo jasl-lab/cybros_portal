@@ -7,6 +7,7 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountOrg
+    prepare_meta_tags title: t(".title")
     @all_company_names = policy_scope(Bi::WorkHoursCountOrg).distinct.pluck(:orgname)
 
 

@@ -8,6 +8,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
+    prepare_meta_tags title: t(".title")
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
     @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(@selected_org_code)
     @month_name = params[:month_name]&.strip || @all_month_names.first

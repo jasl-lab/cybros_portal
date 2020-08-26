@@ -9,6 +9,7 @@ class Report::ContractSigningsController < Report::BaseController
 
   def show
     authorize Bi::ContractSign
+    prepare_meta_tags title: t(".title")
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSign).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first

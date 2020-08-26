@@ -6,6 +6,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    prepare_meta_tags title: t(".title")
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names

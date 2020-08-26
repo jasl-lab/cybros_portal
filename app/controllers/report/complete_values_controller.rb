@@ -9,6 +9,7 @@ class Report::CompleteValuesController < Report::BaseController
 
   def show
     authorize Bi::CompleteValue
+    prepare_meta_tags title: t(".title")
     @all_month_names = policy_scope(Bi::CompleteValue).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month

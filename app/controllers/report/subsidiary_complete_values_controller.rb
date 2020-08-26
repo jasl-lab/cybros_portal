@@ -8,6 +8,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
   def show
     authorize Bi::CompleteValueDept
+    prepare_meta_tags title: t(".title")
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
     if current_user.roles.pluck(:report_view_all).any? || current_user.admin?

@@ -9,6 +9,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
 
   def show
     authorize Bi::SubCompanyRealReceive
+    prepare_meta_tags title: t(".title")
     @all_month_names = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month

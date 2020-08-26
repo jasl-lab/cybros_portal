@@ -12,6 +12,7 @@ class Report::SubsidiaryWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountDetailDept
+    prepare_meta_tags title: t(".title")
     current_user_companies = current_user.user_company_names
 
     @all_month_names = Bi::WorkHoursCountDetailDept.all_month_names

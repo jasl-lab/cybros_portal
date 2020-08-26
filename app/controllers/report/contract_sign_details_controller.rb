@@ -7,6 +7,7 @@ class Report::ContractSignDetailsController < Report::BaseController
 
   def show
     authorize Bi::ContractSignDetailDate
+    prepare_meta_tags title: t(".title")
     @all_month_names = policy_scope(Bi::ContractSignDetailDate).all_month_names
     @month_name = params[:month_name]&.strip
     if @month_name.present?

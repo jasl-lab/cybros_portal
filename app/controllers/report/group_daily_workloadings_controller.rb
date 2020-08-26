@@ -5,6 +5,7 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursDayCountOrg
+    prepare_meta_tags title: t(".title")
     @begin_date = params[:begin_date]&.strip || Time.now.beginning_of_month
     @end_date = params[:end_date]&.strip || Time.now.end_of_day
     beginning_of_day = if @begin_date.is_a?(String)
