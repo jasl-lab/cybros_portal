@@ -29,11 +29,14 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     end
 
     dept_short_names = policy_scope(Bi::WorkHoursCountCombine)
-      .distinct.where(date: beginning_of_day..end_of_day).where(orgcode: @selected_company_code)
+      .distinct.where(date: beginning_of_day..end_of_day,)
+      .where(orgcode: @selected_company_code)
+      .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_COMBINE.deptcode_sum')
+      .order('ORG_REPORT_DEPT_ORDER.部门排名')
     @dept_short_names = if @view_deptcode_sum
-      dept_short_names.select('deptcode_sum deptcode')
+      dept_short_names.select('deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名')
     else
-      dept_short_names.select(:deptcode)
+      dept_short_names.select('deptcode, ORG_REPORT_DEPT_ORDER.部门排名')
     end.collect { |r| [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode] }
     @selected_dept_code = params[:dept_code].presence || @dept_short_names.first.second
     @selected_dept_name = Bi::PkCodeName.mapping2deptname.fetch(@selected_dept_code, @selected_dept_code)
@@ -91,11 +94,14 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     end_of_day = Date.parse(params[:end_date]).end_of_day
 
     dept_short_names = policy_scope(Bi::WorkHoursCountCombine)
-      .distinct.where(date: beginning_of_day..end_of_day).where(orgcode: params[:company_code])
+      .distinct.where(date: beginning_of_day..end_of_day)
+      .where(orgcode: params[:company_code])
+      .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_COMBINE.deptcode_sum')
+      .order('ORG_REPORT_DEPT_ORDER.部门排名')
     @dept_short_names = if view_deptcode_sum
-      dept_short_names.select('deptcode_sum deptcode')
+      dept_short_names.select('deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名')
     else
-      dept_short_names.select(:deptcode)
+      dept_short_names.select('deptcode, ORG_REPORT_DEPT_ORDER.部门排名')
     end.collect { |r| [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode] }
   end
 
