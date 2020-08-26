@@ -25,7 +25,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
-    data.where(businessltdcode: @orgs_options)
+    data = data.where(businessltdcode: @orgs_options)
 
     contract_price_方案 = data.where(projectstage: ['前端', '全过程'], projecttype: ['土建住宅', '土建公建']).order('SUM(frontpart) DESC')
     contract_price_施工图 = data.where(projectstage: ['后端', '全过程'], projecttype: ['土建住宅', '土建公建']).order('SUM(rearpart) DESC')
