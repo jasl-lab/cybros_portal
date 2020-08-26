@@ -5,14 +5,12 @@ import { mapProvinceSum2MapData } from "../echart-helper";
 let contractGeographicalAnalysisChinaChart;
 let contractGeographicalAnalysisYearCitylevelStackChart;
 let contractGeographicalAnalysisAreaBarChart;
-let contractGeographicalAnalysisYearAreaStackChart;
 
 export default class extends Controller {
   connect() {
     contractGeographicalAnalysisChinaChart = echarts.init(document.getElementById('contract-geographical-analysis-china-chart'));
     contractGeographicalAnalysisYearCitylevelStackChart = echarts.init(document.getElementById('contract-geographical-analysis-year-citylevel-stack-chart'));
     contractGeographicalAnalysisAreaBarChart = echarts.init(document.getElementById('contract-geographical-analysis-area-bar-chart'));
-    contractGeographicalAnalysisYearAreaStackChart = echarts.init(document.getElementById('contract-geographical-analysis-year-area-stack-chart'));
 
     const yearCategory = JSON.parse(this.data.get("year_names"));
     const yearsFirstLevelSum = JSON.parse(this.data.get("first_level_sum"));
@@ -186,113 +184,14 @@ export default class extends Controller {
       series: areaBarSeries
     };
 
-    const year_area_stack_option = {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      legend: {
-        data: ['西南区域', '华东区域', '华南区域', '华中区域', '东北区域', '华北区域', '西北区域']
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: [{
-        type: 'value'
-      }],
-      yAxis: [{
-        type: 'category',
-        data: yearCategory.reverse()
-      }],
-      series: [{
-          name: '西南区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideTop',
-            formatter: percentFormater
-          },
-          data: southWestChinaYears
-        },{
-          name: '华东区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideBottom',
-            formatter: percentFormater
-          },
-          data: eastChinaYears
-        },{
-          name: '华南区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideTop',
-            formatter: percentFormater
-          },
-          data: southChinaYears
-        },{
-          name: '华中区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideBottom',
-            formatter: percentFormater
-          },
-          data: centreChinaYears
-        },{
-          name: '东北区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideTop',
-            formatter: percentFormater
-          },
-          data: northEastChinaYears
-        },{
-          name: '华北区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideBottom',
-            formatter: percentFormater
-          },
-          data: northChinaYears
-        },{
-          name: '西北区域',
-          type: 'bar',
-          stack: '总量',
-          label: {
-            show: true,
-            position: 'insideTop',
-            formatter: percentFormater
-          },
-          data: northWestChinaYears
-        }
-      ]
-    };
-
     contractGeographicalAnalysisChinaChart.setOption(map_option, false);
     contractGeographicalAnalysisYearCitylevelStackChart.setOption(year_city_level_stack_option, false);
     contractGeographicalAnalysisAreaBarChart.setOption(area_bar_option, false);
-    contractGeographicalAnalysisYearAreaStackChart.setOption(year_area_stack_option, false);
 
     setTimeout(() => {
       contractGeographicalAnalysisChinaChart.resize();
       contractGeographicalAnalysisYearCitylevelStackChart.resize();
       contractGeographicalAnalysisAreaBarChart.resize();
-      contractGeographicalAnalysisYearAreaStackChart.resize();
     }, 200);
   }
 
@@ -300,13 +199,11 @@ export default class extends Controller {
     contractGeographicalAnalysisChinaChart.resize();
     contractGeographicalAnalysisYearCitylevelStackChart.resize();
     contractGeographicalAnalysisAreaBarChart.resize();
-    contractGeographicalAnalysisYearAreaStackChart.resize();
   }
 
   disconnect() {
     contractGeographicalAnalysisChinaChart.dispose();
     contractGeographicalAnalysisYearCitylevelStackChart.dispose();
     contractGeographicalAnalysisAreaBarChart.dispose();
-    contractGeographicalAnalysisYearAreaStackChart.dispose();
   }
 }
