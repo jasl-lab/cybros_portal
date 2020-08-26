@@ -188,11 +188,13 @@ export default class extends Controller {
     };
 
     function stackPercentFormater(p) {
+      const dataIndex = p.dataIndex
       let sum = 0;
-      for (let i = 0; i < year_category_stack_option.series.length; i++) {
-        sum += year_category_stack_option.series[i].data[p.dataIndex];
-      }
-      return `${p.data}\n${(p.data/sum * 100).toFixed(1)}%`;
+      sum += year_category_stack_option.series[1].data[dataIndex];
+      sum += year_category_stack_option.series[2].data[dataIndex];
+      sum += year_category_stack_option.series[3].data[dataIndex];
+      sum += year_category_stack_option.series[4].data[dataIndex];
+      return `${p.data}\n${(p.data / sum * 100.0).toFixed(1)}%`;
     }
 
     const year_category_stack_option = {
