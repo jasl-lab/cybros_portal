@@ -23,6 +23,22 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::AccountDeptYearFill").show? %>
+        <%= nav_item controller: 'report/account_dept_year_fill', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_dept_year_fill_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_dept_year_fill") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Bi::AccountDeptMonthFill").show? %>
+        <%= nav_item controller: 'report/account_dept_month_fill', html_options: { class: "nav-item" } do %>
+          <%= link_to report_account_dept_month_fill_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_dept_month_fill") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::AccountBusinessTargetOrg").show? %>
         <%= nav_item controller: 'report/account_business_target_org', html_options: { class: "nav-item" } do %>
           <%= link_to report_account_business_target_org_path, class: "nav-link" do %>
