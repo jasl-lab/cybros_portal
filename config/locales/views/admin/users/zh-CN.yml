@@ -52,6 +52,7 @@ zh-CN:
         user_roles: "手工赋予的角色"
         operation_access_codes: "在市场运营的权限等级"
         hr_access_codes: "HR帆软报表角色的访问权限"
+        cw_access_codes: "财务帆软报表角色的访问权限"
         table:
           access_code: "访问码"
           org_code: "公司编码"
@@ -59,6 +60,7 @@ zh-CN:
           title: "称谓"
           job_level: "职级"
           hr_rolename: "HR角色名字"
+          cw_rolename: "财务角色名字"
           auto_generated_role: "自动生成"
         status: "状态"
       new:
