@@ -134,7 +134,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     render_csv_header 'subsidiary people workloading'
     csv_res = CSV.generate do |csv|
-      csv << ['NC 工号', '姓名', '实填工时', '应填工时', '填报率', '饱和度', '可发放餐补次数', '专业']
+      csv << ['NC 工号', '姓名', '实填工时', '应填工时', '填报率', '饱和度', '可发放加班餐补次数', '专业']
       data.each do |d|
         values = []
         values << d.ncworkno
