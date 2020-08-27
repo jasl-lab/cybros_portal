@@ -68,7 +68,7 @@ namespace :role do
         next if r.users.where(id: cw.user_id).exists?
         r.role_users.create(user_id: cw.user_id, auto_generated: true)
       else
-        puts "ManualCwAccessCode id: #{ac.id}, cw_rolename: #{ac.cw_rolename} not existing."
+        puts "ManualCwAccessCode id: #{cw.id}, cw_rolename: #{cw.cw_rolename} not existing."
       end
     end
   end
