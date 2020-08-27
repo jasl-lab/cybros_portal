@@ -114,30 +114,7 @@ export default class extends Controller {
       },
       toolbox: {
         feature: {
-          dataView: {
-            show: true,
-            readOnly: true,
-            optionToContent: function(opt) {
-                var axisData = opt.xAxis[0].data;
-                var series = opt.series;
-                var table = '<table class="table table-striped table-bordered"><tbody><tr>'
-                    + '<td>时间</td>'
-                    + '<td>' + series[0].name + '</td>'
-                    + '<td>' + series[1].name + '</td>'
-                    + '<td>' + series[2].name + '</td>'
-                    + '</tr>';
-                for (var i = 0, l = axisData.length; i < l; i++) {
-                    table += '<tr>'
-                        + '<td>' + axisData[i] + '</td>'
-                        + '<td>' + series[0].data[i] + '</td>'
-                        + '<td>' + series[1].data[i] + '</td>'
-                        + '<td>' + series[2].data[i] + '</td>'
-                        + '</tr>';
-                }
-                table += '</tbody></table>';
-                return table;
-            }
-          },
+          dataView: {},
           saveAsImage: {
               pixelRatio: 2
           }
@@ -209,30 +186,7 @@ export default class extends Controller {
       },
       toolbox: {
         feature: {
-          dataView: {
-            show: true,
-            readOnly: true,
-            optionToContent: function(opt) {
-                var axisData = opt.xAxis[0].data;
-                var series = opt.series;
-                var table = '<table class="table table-striped table-bordered"><tbody><tr>'
-                    + '<td>区域</td>'
-                    + '<td>' + series[0].name + '</td>'
-                    + '<td>' + series[1].name + '</td>'
-                    + '<td>' + series[2].name + '</td>'
-                    + '</tr>';
-                for (var i = 0, l = axisData.length; i < l; i++) {
-                    table += '<tr>'
-                        + '<td>' + axisData[i] + '</td>'
-                        + '<td>' + series[0].data[i] + '</td>'
-                        + '<td>' + series[1].data[i] + '</td>'
-                        + '<td>' + series[2].data[i] + '</td>'
-                        + '</tr>';
-                }
-                table += '</tbody></table>';
-                return table;
-            }
-          },
+          dataView: {},
           saveAsImage: {
               pixelRatio: 2
           }
