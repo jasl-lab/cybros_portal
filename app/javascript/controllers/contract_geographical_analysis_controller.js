@@ -137,7 +137,7 @@ export default class extends Controller {
       },
       yAxis: {
         type: 'value',
-        name: '亿元',
+        name: '百万元',
       },
       series: [{
           name: '一线',
@@ -210,7 +210,7 @@ export default class extends Controller {
       },
       yAxis: {
         type: 'value',
-        name: '亿元',
+        name: '百万元',
       },
       series: areaBarSeries
     };
