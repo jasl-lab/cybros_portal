@@ -12,7 +12,6 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = @end_of_month.beginning_of_year
     @depts_options = params[:depts]
-    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
 
@@ -29,11 +28,20 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     data_last_available_date = policy_scope(Bi::DeptMoneyFlow).last_available_date(@end_of_month)
     data = policy_scope(Bi::DeptMoneyFlow)
       .where(checkdate: beginning_of_year..@end_of_month)
+      .where(comp: selected_orgcode)
+
+    data_org = data
+      .select('OCDW.V_TH_DEPTMONEYFLOW.checkdate, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.openingmoney,0)) openingmoney')
+      .group('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+      .order('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+    @org_checkdate = data_org.collect { |d| d.checkdate.month }
+    @org_openingmoney = data_org.collect(&:openingmoney)
+
+    data = data
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
       .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', data_last_available_date)
-      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', data_last_available_date)
-      .where(comp: selected_orgcode)
       .select('OCDW.V_TH_DEPTMONEYFLOW.dept deptcode, OCDW.V_TH_DEPTMONEYFLOW.checkdate, IFNULL(OCDW.V_TH_DEPTMONEYFLOW.openingmoney,0) openingmoney')
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', data_last_available_date)
       .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = OCDW.V_TH_DEPTMONEYFLOW.dept')
       .order('ORG_REPORT_DEPT_ORDER.部门排名, OCDW.V_TH_DEPTMONEYFLOW.dept, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
 
@@ -42,27 +50,19 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     @depts_options = only_have_data_depts if @depts_options.blank?
     @department_options = department_short_names.zip(only_have_data_depts)
 
-    department_names = Bi::OrgReportDeptOrder.department_names(data_last_available_date)
-    data = data.where(dept: @depts_options)
-
-    data_checkdate = data.collect(&:checkdate).uniq
-    first_row_checkdate_display = data_checkdate.collect { |d| d.to_s(:month_and_year) }.unshift('cash_flow')
-
-    rest_rows = data.collect(&:deptcode).uniq.collect do |dept_code|
-      dept_row = [department_names[dept_code]]
-      data_checkdate.each do |date|
-        d = data.find { |r| r.checkdate == date && r.deptcode == dept_code }
-        dept_row << (d.present? ? d.openingmoney : nil)
-      end
-      dept_row
+    data_dept = data.where(dept: @depts_options)
+    data_deptcode = data_dept.collect(&:deptcode).uniq
+    @dept_openingmoney = []
+    data_deptcode.collect do |dept_code|
+      @dept_openingmoney << data_dept.filter_map { |d| d.openingmoney if d.deptcode == dept_code }
     end
-    @chart_data = rest_rows.unshift(first_row_checkdate_display)
+    @dept_short_names = data_deptcode.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
   end
 
   protected
 
   def set_page_layout_data
-    @_sidebar_name = "operation"
+    @_sidebar_name = 'operation'
   end
 
   def set_breadcrumbs
