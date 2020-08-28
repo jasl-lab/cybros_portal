@@ -31,11 +31,13 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
       .where(comp: selected_orgcode)
 
     data_org = data
-      .select('OCDW.V_TH_DEPTMONEYFLOW.checkdate, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney,0)) endmoney')
+      .select('OCDW.V_TH_DEPTMONEYFLOW.checkdate, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney,0)) endmoney, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.nexthrpaymoney,0)) nexthrpaymoney')
       .group('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
       .order('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
     @org_checkdate = data_org.collect { |d| d.checkdate.month }
     @org_endmoney = data_org.collect(&:endmoney)
+    org_nexthrpaymoney = data_org.collect(&:nexthrpaymoney)
+    @org_rate = @org_endmoney.map.with_index { |x, i| (x / org_nexthrpaymoney[i].to_f).round(2) }
 
     data = data
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
