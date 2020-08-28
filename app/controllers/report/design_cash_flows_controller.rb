@@ -19,7 +19,7 @@ class Report::DesignCashFlowsController < Report::BaseController
 
     current_user_companies = current_user.user_company_names
     data = policy_scope(Bi::DeptMoneyFlow)
-      .select("OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, OCDW.V_TH_DEPTMONEYFLOW.openingmoney, OCDW.V_TH_DEPTMONEYFLOW.checkdate")
+      .select("OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, OCDW.V_TH_DEPTMONEYFLOW.endmoney, OCDW.V_TH_DEPTMONEYFLOW.checkdate")
       .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = OCDW.V_TH_DEPTMONEYFLOW.comp")
       .where(checkdate: beginning_of_year..@end_of_month)
       .where('ORG_ORDER.org_order is not null')

@@ -9,8 +9,8 @@ export default class extends Controller {
     subsidiaryDesignCashFlowChart = echarts.init(document.getElementById('subsidiary-design-cash-flow-chart'));
 
     const orgCheckdate = JSON.parse(this.data.get("org_checkdate"));
-    const orgOpeningMoney = JSON.parse(this.data.get("org_openingmoney"));
-    const deptOpeningMoney = JSON.parse(this.data.get("dept_openingmoney"));
+    const orgMoney = JSON.parse(this.data.get("org_endmoney"));
+    const deptMoney = JSON.parse(this.data.get("dept_endmoney"));
     const deptShortNames = JSON.parse(this.data.get("dept_short_names"));
 
     function buildSeries(v, index) {
@@ -22,7 +22,7 @@ export default class extends Controller {
       };
     }
 
-    const seriesData = deptOpeningMoney.map(buildSeries);
+    const seriesData = deptMoney.map(buildSeries);
 
     const company_options = {
       tooltip: {
@@ -54,7 +54,7 @@ export default class extends Controller {
       },
       series: {
         type: 'line',
-        data: orgOpeningMoney
+        data: orgMoney
       }
     };
 

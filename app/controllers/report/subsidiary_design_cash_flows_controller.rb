@@ -31,16 +31,16 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
       .where(comp: selected_orgcode)
 
     data_org = data
-      .select('OCDW.V_TH_DEPTMONEYFLOW.checkdate, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.openingmoney,0)) openingmoney')
+      .select('OCDW.V_TH_DEPTMONEYFLOW.checkdate, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney,0)) endmoney')
       .group('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
       .order('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
     @org_checkdate = data_org.collect { |d| d.checkdate.month }
-    @org_openingmoney = data_org.collect(&:openingmoney)
+    @org_endmoney = data_org.collect(&:endmoney)
 
     data = data
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
       .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', data_last_available_date)
-      .select('OCDW.V_TH_DEPTMONEYFLOW.dept deptcode, OCDW.V_TH_DEPTMONEYFLOW.checkdate, IFNULL(OCDW.V_TH_DEPTMONEYFLOW.openingmoney,0) openingmoney')
+      .select('OCDW.V_TH_DEPTMONEYFLOW.dept deptcode, OCDW.V_TH_DEPTMONEYFLOW.checkdate, IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney,0) endmoney')
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', data_last_available_date)
       .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = OCDW.V_TH_DEPTMONEYFLOW.dept')
       .order('ORG_REPORT_DEPT_ORDER.部门排名, OCDW.V_TH_DEPTMONEYFLOW.dept, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
@@ -52,9 +52,9 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
 
     data_dept = data.where(dept: @depts_options)
     data_deptcode = data_dept.collect(&:deptcode).uniq
-    @dept_openingmoney = []
+    @dept_endmoney = []
     data_deptcode.collect do |dept_code|
-      @dept_openingmoney << data_dept.filter_map { |d| d.openingmoney if d.deptcode == dept_code }
+      @dept_endmoney << data_dept.filter_map { |d| d.endmoney if d.deptcode == dept_code }
     end
     @dept_short_names = data_deptcode.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
   end
