@@ -169,6 +169,7 @@ class Report::ContractProviceAreasController < Report::BaseController
       sum_scope.select('provincename, SUM(scale) scale')
         .group('provincename')
         .where(businessltdcode: orgs_options)
+        .where('scale > 0')
         .where(filingtime: beginning_of_year..end_of_year)
     end
 
