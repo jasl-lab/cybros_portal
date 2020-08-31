@@ -6,7 +6,7 @@ export default class extends Controller {
   }
 
   load() {
-    $.ajax('https://portal.thape.com.cn/api/v1/index/notices?page=1&type=list', {
+    $.ajax('/api/v1/index/notices?page=1&type=list', {
       dataType: 'json'
     }).done(function(response) {
       const template = {'<>':'li','class':'list-group-item','html':'<a href="${url}" target="_blank">${title}</a>'};
