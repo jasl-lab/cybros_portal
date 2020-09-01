@@ -35,7 +35,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('YEAR(filingtime) year_name, citylevel, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), citylevel')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options)
+        .where(businessltdcode: orgs_options, contractstatusname:['合同完成','已归档'])
         .order('YEAR(filingtime) DESC') # should same order of @year_names
 
       years_sum_一线 = []

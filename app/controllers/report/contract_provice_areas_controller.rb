@@ -97,7 +97,10 @@ class Report::ContractProviceAreasController < Report::BaseController
       cp = Bi::ContractPrice.where("stagename like '%深化方案%'").or(Bi::ContractPrice.where("stagename like '%施工图设计%'")).or(Bi::ContractPrice.where("stagename like '%全过程%'"))
       cp = cp.where(contractstatusname: ['已归档', '合同完成'],
         projectbigstagename: ['前端','后端','全过程'],
-        projectgenername: ['公建','住宅'])
+        projectgenername: ['公建','住宅'],
+        unitsname: '元/平米',
+        contractpropertyname: '主合同',
+        operationgenrename: '土建')
       sum_scope = policy_scope(cp, :overview_resolve)
       cateogries_4 = case project_type
       when '全部'
@@ -131,41 +134,41 @@ class Report::ContractProviceAreasController < Report::BaseController
 
       sum_scope = case cateogries_4
       when %w[住宅方案]
-        sum_scope.where(projectstage: ['前端','全过程'], projecttype: '土建住宅')
+        sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: '住宅')
       when %w[住宅施工图]
-        sum_scope.where(projectstage: ['后端','全过程'], projecttype: '土建住宅')
+        sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: '住宅')
       when %w[公建方案]
-        sum_scope.where(projectstage: ['前端','全过程'], projecttype: '土建公建')
+        sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: '公建')
       when %w[公建施工图]
-        sum_scope.where(projectstage: ['后端','全过程'], projecttype: '土建公建')
+        sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: '公建')
       when %w[住宅方案 住宅施工图]
-        sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: '土建住宅')
+        sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: '住宅')
       when %w[住宅方案 公建方案]
-        sum_scope.where(projectstage: ['前端','全过程'], projecttype: ['土建住宅','土建公建'])
+        sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: ['住宅','公建'])
       when %w[住宅方案 公建施工图]
-        sum_scope.where(projectstage: ['前端','全过程'], projecttype: '土建住宅') \
-          .or(sum_scope.where(projectstage: ['后端','全过程'], projecttype: '土建公建'))
+        sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: '住宅') \
+          .or(sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: '公建'))
       when %w[住宅施工图 公建方案]
-        sum_scope.where(projectstage: ['后端','全过程'], projecttype: '土建住宅') \
-          .or(sum_scope.where(projectstage: ['前端','全过程'], projecttype: '土建公建'))
+        sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: '住宅') \
+          .or(sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: '公建'))
       when %w[住宅施工图 公建施工图]
-        sum_scope.where(projectstage: ['后端','全过程'], projecttype: ['土建住宅','土建公建'])
+        sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: ['住宅','公建'])
       when %w[公建方案 公建施工图]
-        sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: '土建公建')
+        sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: '公建')
       when %w[住宅方案 住宅施工图 公建方案]
-        sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: '土建住宅') \
-          .or(sum_scope.where(projectstage: ['前端','全过程'], projecttype: '土建公建'))
+        sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: '住宅') \
+          .or(sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: '公建'))
       when %w[住宅方案 公建方案 公建施工图]
-        sum_scope.where(projectstage: ['前端','全过程'], projecttype: '土建住宅') \
-          .or(sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: '土建公建'))
+        sum_scope.where(projectbigstagename: ['前端','全过程'], projectgenername: '住宅') \
+          .or(sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: '公建'))
       when %w[住宅施工图 公建方案 公建施工图]
-        sum_scope.where(projectstage: ['后端','全过程'], projecttype: '土建住宅') \
-          .or(sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: '土建公建'))
+        sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: '住宅') \
+          .or(sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: '公建'))
       when %w[住宅方案 住宅施工图 公建施工图]
-        sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: '土建住宅') \
-          .or(sum_scope.where(projectstage: ['后端','全过程'], projecttype: '土建公建'))
+        sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: '住宅') \
+          .or(sum_scope.where(projectbigstagename: ['后端','全过程'], projectgenername: '公建'))
       when %w[住宅方案 住宅施工图 公建方案 公建施工图]
-        sum_scope.where(projectstage: ['前端','后端','全过程'], projecttype: ['土建住宅','土建公建'])
+        sum_scope.where(projectbigstagename: ['前端','后端','全过程'], projectgenername: ['住宅','公建'])
       else
         raise "No such combine!"
       end
