@@ -94,7 +94,11 @@ class Report::ContractProviceAreasController < Report::BaseController
     end
 
     def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, project_type, service_phase)
-      sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
+      cp = Bi::ContractPrice.where("stagename like '%深化方案%'").or(Bi::ContractPrice.where("stagename like '%施工图设计%'")).or(Bi::ContractPrice.where("stagename like '%全过程%'"))
+      cp = cp.where(contractstatusname: ['已归档', '合同完成'],
+        projectbigstagename: ['前端','后端','全过程'],
+        projectgenername: ['公建','住宅'])
+      sum_scope = policy_scope(cp, :overview_resolve)
       cateogries_4 = case project_type
       when '全部'
         case service_phase
