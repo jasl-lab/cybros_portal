@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   protected
 
   def set_page_layout_data
-    prepare_meta_tags title: t("home.show.title")
+    prepare_meta_tags title: t("home.index.title")
     @_sidebar_name = "application"
   end
 end
