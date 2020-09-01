@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_one :knowledge_like, class_name: "Company::KnowledgeLike"
   has_many :cad_sessions, class_name: "Cad::CadSession", dependent: :destroy
   has_many :cad_operations, class_name: "Cad::CadOperation", dependent: :destroy
+  has_many :report_view_histories
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)

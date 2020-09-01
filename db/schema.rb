@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_055521) do
+ActiveRecord::Schema.define(version: 2020_09_01_044639) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -324,6 +324,14 @@ ActiveRecord::Schema.define(version: 2020_08_27_055521) do
     t.index ["user_id"], name: "index_public_rental_housing_applies_on_user_id"
   end
 
+  create_table "report_view_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "controller_name"
+    t.string "action_name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["user_id"], name: "index_report_view_histories_on_user_id"
+  end
+
   create_table "role_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "role_id", null: false
     t.bigint "user_id", null: false
@@ -424,4 +432,5 @@ ActiveRecord::Schema.define(version: 2020_08_27_055521) do
   add_foreign_key "name_card_applies", "users"
   add_foreign_key "proof_of_income_applies", "users"
   add_foreign_key "public_rental_housing_applies", "users"
+  add_foreign_key "report_view_histories", "users"
 end
