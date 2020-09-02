@@ -2,7 +2,7 @@
   <div class="col-lg-12"
     data-controller="contract-geographical-analysis"
     data-action="resize@window->contract-geographical-analysis#layout"
-    data-contract-geographical-analysis-year_names="<%= @year_names.to_json -%>"
+    data-contract-geographical-analysis-year_names="<%= @year_names.reverse.to_json -%>"
     data-contract-geographical-analysis-first_level_sum="<%= @years_sum_一线.to_json -%>"
     data-contract-geographical-analysis-second_level_sum="<%= @years_sum_二线.to_json -%>"
     data-contract-geographical-analysis-thirdfourth_level_sum="<%= @years_sum_非一二线.to_json -%>"
