@@ -42,9 +42,9 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
       years_sum_二线 = []
       years_sum_非一二线 = []
       year_names.each do |year|
-        years_sum_一线 << sum_scope.find { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '一线' }&.realamounttotal
-        years_sum_二线 << sum_scope.find { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '二线' }&.realamounttotal
-        years_sum_非一二线 << sum_scope.find { |c| c.year_name == year.to_i && (Bi::ContractPrice.all_city_levels[c.cityname] == '非一二线' || Bi::ContractPrice.all_city_levels[c.cityname] == '三四线城市') }&.realamounttotal
+        years_sum_一线 << sum_scope.find_all { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '一线' }.sum(&:realamounttotal)
+        years_sum_二线 << sum_scope.find_all { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '二线' }.sum(&:realamounttotal)
+        years_sum_非一二线 << sum_scope.find_all { |c| c.year_name == year.to_i && (Bi::ContractPrice.all_city_levels[c.cityname] == '非一二线' || Bi::ContractPrice.all_city_levels[c.cityname] == '三四线城市') }.sum(&:realamounttotal)
       end
       years_sum_一线 = years_sum_一线.map { |d| (d/10000_00.0).round(2) }
       years_sum_二线 = years_sum_二线.map { |d| (d/10000_00.0).round(2) }
