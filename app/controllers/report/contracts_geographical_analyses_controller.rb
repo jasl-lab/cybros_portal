@@ -57,7 +57,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('YEAR(filingtime) year_name, area, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options)
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
         .order('YEAR(filingtime) DESC') # should revert order of @year_names in JS also.
 
       西南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西南区域' }
@@ -77,7 +77,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('provincename, SUM(realamounttotal) realamounttotal')
         .group('provincename')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options)
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
 
       sum_台湾 = sum_scope.find { |c| c.provincename == '台湾省' }&.realamounttotal
       sum_河北 = sum_scope.find { |c| c.provincename == '河北省' }&.realamounttotal
