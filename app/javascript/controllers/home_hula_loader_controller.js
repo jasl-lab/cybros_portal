@@ -17,6 +17,8 @@ export default class extends Controller {
       const news_html = json2html.transform(data,template);
 
       $("#home-hula-container").html(news_html);
+    }).fail(function() {
+      $("#home-hula-title").hide();
     });
   }
 }
