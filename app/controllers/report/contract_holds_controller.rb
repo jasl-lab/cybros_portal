@@ -20,7 +20,7 @@ class Report::ContractHoldsController < Report::BaseController
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
     @view_deptcode_sum = params[:view_deptcode_sum] == "true"
     @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
-
+    @selected_org_code = @selected_org_code[1..] if @selected_org_code.start_with?('H')
     data = policy_scope(Bi::ContractHold, :group_resolve)
       .where(date: @last_available_date).where(orgcode: @selected_org_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'")
