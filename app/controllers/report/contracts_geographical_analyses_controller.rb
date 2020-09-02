@@ -32,19 +32,19 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
     def 一线二线非一二线_contract_price(year_names, orgs_options)
       sum_scope = policy_scope(Bi::CrmSacontract, :overview_resolve)
-        .select('YEAR(filingtime) year_name, citylevel, SUM(realamounttotal) realamounttotal')
-        .group('YEAR(filingtime), citylevel')
+        .select('YEAR(filingtime) year_name, cityname, SUM(realamounttotal) realamounttotal')
+        .group('YEAR(filingtime), cityname')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options, contractstatusname:['合同完成','已归档'])
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
         .order('YEAR(filingtime) DESC') # should same order of @year_names
 
       years_sum_一线 = []
       years_sum_二线 = []
       years_sum_非一二线 = []
       year_names.each do |year|
-        years_sum_一线 << sum_scope.find { |c| c.year_name == year.to_i && c.citylevel == '一线' }&.realamounttotal
-        years_sum_二线 << sum_scope.find { |c| c.year_name == year.to_i && c.citylevel == '二线' }&.realamounttotal
-        years_sum_非一二线 << sum_scope.find { |c| c.year_name == year.to_i && (c.citylevel == '非一二线' || c.citylevel == '三四线城市') }&.realamounttotal
+        years_sum_一线 << sum_scope.find { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '一线' }&.realamounttotal
+        years_sum_二线 << sum_scope.find { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '二线' }&.realamounttotal
+        years_sum_非一二线 << sum_scope.find { |c| c.year_name == year.to_i && (Bi::ContractPrice.all_city_levels[c.cityname] == '非一二线' || Bi::ContractPrice.all_city_levels[c.cityname] == '三四线城市') }&.realamounttotal
       end
       years_sum_一线 = years_sum_一线.map { |d| (d/10000_00.0).round(2) }
       years_sum_二线 = years_sum_二线.map { |d| (d/10000_00.0).round(2) }

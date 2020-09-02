@@ -2,7 +2,7 @@
 
 module Bi
   class CrmSacontract < BiLocalTimeRecord
-    self.table_name = 'VIEW_TH_RP_CRM_SACONTRACT'
+    self.table_name = 'V_TH_RP_CRM_SACONTRACT'
 
     def self.all_year_names
       Bi::CrmSacontract.order(filingtime: :desc).where('filingtime >= ?', Date.new(2018,1,1))
