@@ -77,7 +77,8 @@ class Company::ContractsMapsController < ApplicationController
   end
 
   def project
-    @sas = Bi::SaContract.where(projectcode: params[:project_code])
+    @project_items = Edoc2::ProjectInfo.where(projectcode: params[:project_code])
+    @new_map_info = Bi::NewMapInfo.find_by(id: params[:project_code])
   end
 
   protected

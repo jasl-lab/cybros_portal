@@ -13,61 +13,7 @@
       <p>工程编号：<%= @project_info.projectcode -%></p>
       <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
       <hr />
-      <% @project_items.each do |p| %>
-        <div class="table-responsive">
-          <table class="table table-borderless">
-            <thead>
-              <tr>
-                <td colspan="2" data-toggle="collapse" data-target="#projectDetail<%= p.projectitemcode -%>" aria-expanded="false" aria-controls="projectDetail<%= p.projectitemcode -%>">
-                <% if p.isboutiqueproject == '是' %>
-                  <%= link_to p.projectitemcode, "http://edoc.thape.com.cn:8022/wcm/tianhua/projectdetails?projectitemcode=#{p.projectitemcode}", target: "_blank" -%> <span class="badge" style="background-color: orange; color: white; border-radius: 3px;">精</span>
-                <% else %>
-                  <%= p.projectitemcode -%>
-                <% end %>
-                  <br />
-                  <%= p.projectitemname -%>  &gt;&gt; </td>
-              </tr>
-            </thead>
-          </table>
-
-          <table class="table table-bordered collapse" id="projectDetail<%= p.projectitemcode -%>">
-            <tbody>
-              <tr>
-                <td>客户名称</td>
-                <td><%= p.clientname %></td>
-              </tr>
-              <tr>
-                <td>所属部门</td>
-                <td><%= p.projectitemdeptname %></td>
-              </tr>
-              <tr>
-                <td>业务类型</td>
-                <td><%= p.businesstypename %></td>
-              </tr>
-              <tr>
-                <td>项目类型</td>
-                <td><%= p.projectcategoryname %></td>
-              </tr>
-              <tr>
-                <td>项目进展</td>
-                <td><%= p.milestonesname %></td>
-              </tr>
-              <tr>
-                <td>主创/设总</td>
-                <td><%= p.projectpaname %></td>
-              </tr>
-              <tr>
-                <td>设计完成时间</td>
-                <td><%= p.designenddate %></td>
-              </tr>
-              <tr>
-                <td>设计完成地区</td>
-                <td><%= p.projectaddress %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      <% end %>
+      <%= render partial: "company/contracts_maps/project_items", locals: { project_items: @project_items } %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
