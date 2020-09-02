@@ -133,7 +133,8 @@ window.initFullMap = function () {
             <td>${project_items}</td>
           </tr>
           <tr>
-            <td colspan="2" id="contract-tab" data-project-code="${props.project_code}">点击查询合同明细</td>
+            <td id="contract-tab-detail" data-project-code="${props.project_code}">点击查询合同明细</td>
+            <td id="contract-tab-project" data-project-code="${props.project_code}">项目明细</td>
           </tr>
         </tbody>
       </table>
@@ -142,12 +143,21 @@ window.initFullMap = function () {
     infoWindow.dom.children[0].style["line-height"] = "1";
     infoWindow.dom.children[0].style["padding"] = "unset";
     infoWindow.setContent(content);
-    $('#contract-tab').on('click', function(e) {
+    $('#contract-tab-detail').on('click', function(e) {
       const project_code = $(event.target).data("project-code");
       $.ajax({
         type: 'GET',
         dataType: 'script',
         url: '/company/contracts_map/detail.js',
+        data: { project_code }
+      });
+    });
+    $('#contract-tab-project').on('click', function(e) {
+      const project_code = $(event.target).data("project-code");
+      $.ajax({
+        type: 'GET',
+        dataType: 'script',
+        url: '/company/contracts_map/project.js',
         data: { project_code }
       });
     });

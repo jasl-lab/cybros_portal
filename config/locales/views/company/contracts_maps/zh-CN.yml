@@ -17,3 +17,6 @@ zh-CN:
       detail:
         title: "%{project_id}合同明细"
         close: "关闭"
+      project:
+        title: "%{project_id}项目明细"
+        close: "关闭"

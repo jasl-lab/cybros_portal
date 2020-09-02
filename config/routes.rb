@@ -86,6 +86,7 @@ Rails.application.routes.draw do
     resource :contracts_map, only: %i[show] do
       collection do
         get :detail
+        get :project
       end
     end
     resource :zhaofeng_map, only: %i[show]

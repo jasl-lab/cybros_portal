@@ -76,6 +76,10 @@ class Company::ContractsMapsController < ApplicationController
     @sas = Bi::SaContract.where(projectcode: params[:project_code])
   end
 
+  def project
+    @sas = Bi::SaContract.where(projectcode: params[:project_code])
+  end
+
   protected
 
     def set_page_layout_data

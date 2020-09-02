@@ -17,3 +17,6 @@ en:
       detail:
         title: "%{project_id} contract detail"
         close: "Close"
+      project:
+        title: "%{project_id} project detail"
+        close: "Close"
