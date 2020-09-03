@@ -12,6 +12,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = @end_of_month.beginning_of_year
     @depts_options = params[:depts]
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
 
@@ -46,6 +47,12 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', data_last_available_date)
       .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = OCDW.V_TH_DEPTMONEYFLOW.dept')
       .order('ORG_REPORT_DEPT_ORDER.部门排名, OCDW.V_TH_DEPTMONEYFLOW.dept, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+
+    data = if @view_deptcode_sum
+      data.where('ORG_REPORT_DEPT_ORDER.上级部门编号 IS NULL')
+    else
+      data
+    end
 
     only_have_data_depts = data.collect(&:deptcode)
     department_short_names = only_have_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
