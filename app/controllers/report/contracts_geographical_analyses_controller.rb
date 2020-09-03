@@ -13,7 +13,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
     @year_names = @all_year_names - [2017, 2016] if @year_names.blank?
 
-    @year_names = @year_names.sort.reverse!
+    @year_names = @year_names.sort
 
     all_company_orgcodes = policy_scope(Bi::CrmSacontract, :overview_resolve).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
@@ -37,8 +37,8 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('YEAR(filingtime) year_name, cityname, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), cityname')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
-        .order('YEAR(filingtime) DESC') # should same order of @year_names
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成', '已归档'])
+        .order('YEAR(filingtime)') # should same order of @year_names
 
       years_sum_一线 = []
       years_sum_二线 = []
@@ -60,7 +60,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
         .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
-        .order('YEAR(filingtime) DESC') # should revert order of @year_names in JS also.
+        .order('YEAR(filingtime)')
 
       西南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西南区域' }
       华东区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华东区域' }

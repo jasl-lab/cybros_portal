@@ -12,7 +12,7 @@ export default class extends Controller {
     contractGeographicalAnalysisYearCitylevelStackChart = echarts.init(document.getElementById('contract-geographical-analysis-year-citylevel-stack-chart'));
     contractGeographicalAnalysisAreaBarChart = echarts.init(document.getElementById('contract-geographical-analysis-area-bar-chart'));
 
-    const yearCategory = JSON.parse(this.data.get("year_names")).reverse();
+    const yearCategory = JSON.parse(this.data.get("year_names"));
     const yearsFirstLevelSum = JSON.parse(this.data.get("first_level_sum"));
     const yearsSecondLevelSum = JSON.parse(this.data.get("second_level_sum"));
     const yearsThirdFourthLevelSum = JSON.parse(this.data.get("thirdfourth_level_sum"));
@@ -39,7 +39,7 @@ export default class extends Controller {
           barMaxWidth: 20
         };
     }
-    const areaBarSeries = yearCategory.map(buildAreaBarSeries);
+    const areaBarSeries = yearCategory.reverse().map(buildAreaBarSeries);
 
     const provinceSum = JSON.parse(this.data.get("province_sum"));
 
@@ -95,7 +95,7 @@ export default class extends Controller {
         mapType: 'china',
         roam: false,
         itemStyle:{
-            emphasis:{label:{show:true}}
+          emphasis:{ label: { show:true } }
         },
         data: map_data
       }],
@@ -116,7 +116,7 @@ export default class extends Controller {
         feature: {
           dataView: {},
           saveAsImage: {
-              pixelRatio: 2
+            pixelRatio: 2
           }
         }
       },
@@ -133,7 +133,7 @@ export default class extends Controller {
       },
       xAxis: {
         type: 'category',
-        data: yearCategory
+        data: yearCategory,
       },
       yAxis: {
         type: 'value',
