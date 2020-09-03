@@ -13,6 +13,8 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
 
     @year_names = @all_year_names - [2017, 2016] if @year_names.blank?
 
+    @year_names = @year_names.sort.reverse!
+
     all_company_orgcodes = policy_scope(Bi::CrmSacontract, :overview_resolve).select(:businessltdcode).distinct.where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode)
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
