@@ -4,3 +4,5 @@ zh-CN:
     hrdw_stfreinstate_bi_saves:
       show:
         title: "人力月数据归档"
+        stfreinstate_archive: "STFREINSTATE_BI 归档"
+        stfturnover_archive: "STFTURNOVER_BI 归档"

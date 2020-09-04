@@ -9,8 +9,16 @@
   <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
     <div class="card">
       <div class="card-body">
-        <p class="card-text">数据</p>
-        <%= link_to t('.stfreinstate_archive'), stfreinstate_archive_report_hrdw_stfreinstate_bi_save_path, method: :post, class: 'btn btn-primary' -%>
+        <p class="card-text"><%= @archive_month.to_s(:month_and_year) -%>数据：<%= @stfreinstatebimonth_exist ? '存在' : '尚缺' -%></p>
+        <%= link_to t('.stfreinstate_archive'), stfreinstate_archive_report_hrdw_stfreinstate_bi_save_path, method: :post, class: 'btn btn-primary', data: { confirm: '确认归档？' } -%>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text"><%= @archive_month.to_s(:month_and_year) -%>数据：<%= @stfturnoverbimonth_exist ? '存在' : '尚缺' -%></p>
+        <%= link_to t('.stfturnover_archive'), stfturnover_archive_report_hrdw_stfreinstate_bi_save_path, method: :post, class: 'btn btn-primary', data: { confirm: '确认归档？' } -%>
       </div>
     </div>
   </div>

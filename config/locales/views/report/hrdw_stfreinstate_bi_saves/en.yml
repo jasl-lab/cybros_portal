@@ -4,3 +4,5 @@ en:
     hrdw_stfreinstate_bi_saves:
       show:
         title: "HR month data archiving"
+        stfreinstate_archive: "STFREINSTATE_BI archive"
+        stfturnover_archive: "STFTURNOVER_BI archive"
