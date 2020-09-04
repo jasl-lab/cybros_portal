@@ -146,7 +146,7 @@ class User < ApplicationRecord
 
   def operation_access_codes
     return @_operation_access_codes if @_operation_access_codes.present?
-    主职 = Bi::HrdwStfreinstateBi
+    主职 = Hrdw::StfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
@@ -160,7 +160,7 @@ class User < ApplicationRecord
 
   def hr_access_codes
     return @_hr_access_codes if @_hr_access_codes.present?
-    主职 = Bi::HrdwStfreinstateBi
+    主职 = Hrdw::StfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
 
@@ -173,7 +173,7 @@ class User < ApplicationRecord
 
   def cw_access_codes
     return @_cw_access_codes if @_cw_access_codes.present?
-    主职 = Bi::HrdwStfreinstateBi
+    主职 = Hrdw::StfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
 
