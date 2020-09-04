@@ -150,7 +150,7 @@ class User < ApplicationRecord
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
-    兼职 = Bi::HrdwStfreinstateVirtual
+    兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员','其他人员'])
     兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
@@ -164,7 +164,7 @@ class User < ApplicationRecord
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
 
-    兼职 = Bi::HrdwStfreinstateVirtual
+    兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
     兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
 
@@ -177,7 +177,7 @@ class User < ApplicationRecord
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
     主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
 
-    兼职 = Bi::HrdwStfreinstateVirtual
+    兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
     兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
 
