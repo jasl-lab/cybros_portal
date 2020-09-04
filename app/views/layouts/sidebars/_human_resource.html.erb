@@ -16,6 +16,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::HrdwStfreinstateBiSave").show? %>
+        <%= nav_item controller: 'report/hrdw_stfreinstate_bi_save', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hrdw_stfreinstate_bi_save_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hrdw_stfreinstate_bi_saves") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <li class="nav-title">集团数据</li>
       <% if policy(:"Bi::RtGroupHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_hr_monthly', html_options: { class: "nav-item" } do %>
