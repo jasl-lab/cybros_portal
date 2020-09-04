@@ -122,7 +122,10 @@ Rails.application.routes.draw do
     resource :hr_sy, only: %i[show]
     resource :subsidiary_hr_sy, only: %i[show]
     resource :hr_monthly_report_data_entry, only: %i[show]
-    resource :hrdw_stfreinstate_bi_save, only: %i[show]
+    resource :hrdw_stfreinstate_bi_save, only: %i[show] do
+      post :stfreinstate_archive
+      post :stfturnover_archive
+    end
     resource :group_hr_monthly, only: %i[show]
     resource :group_hr_monthly_pure, only: %i[show]
     resource :group_subsidiary_hr_monthly, only: %i[show]

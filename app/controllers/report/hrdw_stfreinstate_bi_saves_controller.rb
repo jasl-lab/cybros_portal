@@ -9,6 +9,13 @@ class Report::HrdwStfreinstateBiSavesController < Report::BaseController
     prepare_meta_tags title: t(".title")
   end
 
+  def stfreinstate_archive
+  end
+
+  def stfturnover_archive
+  end
+
+
   protected
 
   def set_page_layout_data
