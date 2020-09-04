@@ -37,7 +37,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('YEAR(filingtime) year_name, cityname, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), cityname')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成', '已归档'])
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成', '已归档'], contractcategorycnname: '经营合同')
         .order('YEAR(filingtime)') # should same order of @year_names
 
       years_sum_一线 = []
@@ -59,7 +59,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('YEAR(filingtime) year_name, area, SUM(realamounttotal) realamounttotal')
         .group('YEAR(filingtime), area')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'], contractcategorycnname: '经营合同')
         .order('YEAR(filingtime)')
 
       西南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西南区域' }
