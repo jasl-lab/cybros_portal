@@ -79,7 +79,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .select('provincename, SUM(realamounttotal) realamounttotal')
         .group('provincename')
         .where('YEAR(filingtime) in (?)', year_names)
-        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'])
+        .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'], contractcategorycnname: '经营合同')
 
       sum_台湾 = sum_scope.find { |c| c.provincename == '台湾省' }&.realamounttotal
       sum_河北 = sum_scope.find { |c| c.provincename == '河北省' }&.realamounttotal
