@@ -50,6 +50,13 @@
             </div>
           <% end %>
         <% end %>
+<% else %>
+  <script type="text/javascript">
+    function go_openid_connect() {
+      Turbolinks.visit('/auth/openid_connect');
+    }
+    document.addEventListener("turbolinks:load", go_openid_connect);
+  </script>
 <% end %>
       </div>
     </div>
