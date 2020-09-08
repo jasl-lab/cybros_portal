@@ -13,6 +13,19 @@ export default class extends Controller {
     const orgCheckdate = JSON.parse(this.data.get("org_checkdate"));
     const orgMoney = JSON.parse(this.data.get("org_endmoney"));
     const orgRate = JSON.parse(this.data.get("org_rate"));
+
+    function rejectInvalidRate(v) {
+      if (v < 0) {
+        return 0;
+      } else if (v > 20) {
+        return 20;
+      } else {
+        return v;
+      }
+    }
+
+    const orgRateValid = orgRate.map(rejectInvalidRate);
+
     const deptMoney = JSON.parse(this.data.get("dept_endmoney"));
     const deptShortNames = JSON.parse(this.data.get("dept_short_names"));
 
@@ -95,7 +108,7 @@ export default class extends Controller {
       },
       series: {
         type: 'bar',
-        data: orgRate,
+        data: orgRateValid,
         barWidth: 20,
         color: '#7E91A5'
       }
