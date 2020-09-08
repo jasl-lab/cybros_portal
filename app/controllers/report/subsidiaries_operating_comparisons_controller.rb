@@ -16,7 +16,11 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @year_names = @year_options - [2017, 2016] if @year_names.blank?
     data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i)
 
-    all_company_orgcodes = data.pluck(:orgcode).uniq - ['000103', '000149', '000150', '000130', '00012801','000119','H000109','H000123']
+    all_company_orgcodes = data
+      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
+      .pluck(:orgcode).uniq - ['000103', '000149', '000150', '000130', '00012801','000119','H000109','H000123']
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @orgs_options = all_company_orgcodes if @orgs_options.blank? # hide 天华节能
