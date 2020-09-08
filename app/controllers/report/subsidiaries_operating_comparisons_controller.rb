@@ -21,18 +21,25 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
-      .pluck(:orgcode).uniq - ['000103', '000149', '000150', '000130', '00012801','000119','H000109','H000123']
+      .collect { |y| @view_orgcode_sum ? y.orgcode_sum : y.orgcode }.uniq - ['000103', '000149', '000150', '000130', '00012801','000119','H000109','H000123']
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @orgs_options = all_company_orgcodes if @orgs_options.blank? # hide 天华节能
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
-    data = data
-      .select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
-      .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
-      .where(orgcode: @orgs_options)
-      .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
-      .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
+    data = if @view_orgcode_sum
+      data.select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode_sum orgcode, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
+        .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode_sum')
+        .where(orgcode_sum: @orgs_options)
+        .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode_sum')
+        .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode_sum')
+    else
+      data.select('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
+        .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
+        .where(orgcode: @orgs_options)
+        .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
+        .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
+    end
     show_org_codes = data.collect(&:orgcode)
 
     most_recent_year = @year_names.first
@@ -40,23 +47,40 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     end_of_month = Time.new(most_recent_year, most_recent_month, 1).end_of_month
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
 
-    most_recent_data = policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
-      .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
-      .where(orgcode: @orgs_options)
-      .select('orgcode, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
-      .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
-      .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
+    most_recent_data = if @view_orgcode_sum
+      policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
+        .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode_sum')
+        .where(orgcode_sum: @orgs_options)
+        .select('orgcode_sum, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
+        .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode_sum')
+        .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode_sum')
+    else
+      policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
+        .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode')
+        .where(orgcode: @orgs_options)
+        .select('orgcode, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
+        .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
+        .order('ORG_ORDER.org_order DESC, YEAR_REPORT_HISTORY.orgcode')
+    end
 
     @most_recent_avg_work_no = most_recent_data.collect { |d| d.avg_work_no.round(0) }
     @most_recent_avg_staff_no = most_recent_data.collect { |d| d.avg_staff_no.round(0) }
     rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
 
-    @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
+    head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
       .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: most_recent_month))
-      .where(orgcode: @orgs_options)
-      .select('orgcode, year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
-      .group('orgcode, year')
-      .order('orgcode, year')
+
+    @head_count_data = if @view_orgcode_sum
+      head_count_data.where(orgcode_sum: @orgs_options)
+        .select('orgcode_sum orgcode, year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+        .group('orgcode_sum, year')
+        .order('orgcode_sum, year')
+    else
+      head_count_data.where(orgcode: @orgs_options)
+        .select('orgcode, year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+        .group('orgcode, year')
+        .order('orgcode, year')
+    end
 
     @years_dept_values = {}
     @missing_org_code_in_year = {}
