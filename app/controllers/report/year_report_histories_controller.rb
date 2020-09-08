@@ -26,17 +26,23 @@ class Report::YearReportHistoriesController < Report::BaseController
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
-      .collect(&:orgcode) - ['000103', '000149', '000150', '000130', '00012801','000119']
+      .collect { |y| @view_orgcode_sum ? y.orgcode_sum : y.orgcode } - ['000103', '000149', '000150', '000130', '00012801','000119']
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
 
-    @data = data.where(orgcode: @orgs_options)
-      .select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
-      .group(:year)
-    last_month_data = last_month_data.where(orgcode: @orgs_options)
-      .select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
+    @data = if @view_orgcode_sum
+      data.where(orgcode_sum: @orgs_options)
+    else
+      data.where(orgcode: @orgs_options)
+    end.select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
+       .group(:year)
+    last_month_data = if @view_orgcode_sum
+      last_month_data.where(orgcode_sum: @orgs_options)
+    else
+      last_month_data.where(orgcode: @orgs_options)
+    end.select('year, SUM(IFNULL(realamount,0)) realamount, SUM(IFNULL(contractamount,0)) contractamount, SUM(IFNULL(deptvalue,0)) deptvalue')
       .group(:year)
 
     @years = @data.collect(&:year)
@@ -58,11 +64,14 @@ class Report::YearReportHistoriesController < Report::BaseController
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
 
     rest_years = @year_names.filter { |y| y != Time.now.year.to_s }
-    @head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
+    head_count_data = policy_scope(Bi::YearReportHistory).where(year: rest_years, month: @month_name.to_i)
       .or(policy_scope(Bi::YearReportHistory).where(year: Time.now.year, month: (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)))
-      .where(orgcode: @orgs_options)
-      .where('ORGCODE NOT LIKE "H%"')
-      .select('year, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
+
+    @head_count_data = if @view_orgcode_sum
+      head_count_data.where(orgcode_sum: @orgs_options)
+    else
+      head_count_data.where(orgcode: @orgs_options)
+    end.select('year, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
       .group(:year)
 
     @work_head_count = @data.collect do |d|
