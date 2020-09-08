@@ -25,6 +25,16 @@
       <%= select_tag 'company_name', options_for_select(@available_short_company_names, @selected_short_name), class: 'form-control2 form-control', onchange: "Turbolinks.visit('#{url_for(action: 'show', controller: 'subsidiary_design_cash_flows')}?company_name='+ this.value + '&view_deptcode_sum=#{@view_deptcode_sum}');", style: "display: inline;" -%>
       <%= t(".title") %>
     </h4>
+    <div class="row mb-3">
+      <div class="col-sm-12">
+        <h2 class="text-center">2020年 1-<%= @org_checkdate.last -%>月，<%= @selected_short_name -%>设计现金流变化图</h2>
+        <h4>2020年 1-<%= @org_checkdate.last -%>月，<%= @selected_short_name -%>整体设计现金流情况</h4>
+      </div>
+      <div class="col-sm-12">
+        <div id="company-design-cash-flow-chart" style="width: 100%;height: 250px;">
+        </div>
+      </div>
+    </div>
     <%= form_tag report_subsidiary_design_cash_flow_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag :company_name, @selected_short_name %>
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
@@ -34,15 +44,7 @@
       </div>
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
-    <div class="row">
-      <div class="col-sm-12">
-        <h2 class="text-center">2020年 1-<%= @org_checkdate.last -%>月，<%= @selected_short_name -%>设计现金流变化图</h2>
-        <h4>2020年 1-<%= @org_checkdate.last -%>月，<%= @selected_short_name -%>整体设计现金流情况</h4>
-      </div>
-      <div class="col-sm-12">
-        <div id="company-design-cash-flow-chart" style="width: 100%;height: 250px;">
-        </div>
-      </div>
+    <div class="row mt-1">
       <div class="col-sm-12">
         <h4>2020年 1-<%= @org_checkdate.last -%>月，<%= @selected_short_name -%>建筑所（三年以上）设计现金流情况</h4>
       </div>
