@@ -5,6 +5,7 @@
       <%= t("layouts.sidebar.operation.header") %>
     <% end %>
   </div>
+<% cache current_user do %>
   <nav class="sidebar-nav">
     <ul class="nav">
     <% if current_user.present? && (policy(:"Bi::GroupWorkloading").show? \
@@ -264,5 +265,6 @@
       <% end %>
     </ul>
   </nav>
+<% end %>
   <button class="sidebar-minimizer" type="button"></button>
 </div>
