@@ -5,12 +5,14 @@ class Admin::ManualHrAccessCodesController < Admin::ApplicationController
 
   def create
     @user.manual_hr_access_codes.create(manual_hr_access_code_params)
+    @user.touch
     redirect_to admin_user_path(id: @user.id), notice: 'HR的自定义角色权限已新建。'
   end
 
   def destroy
     mhac = @user.manual_hr_access_codes.find_by!(id: params[:id])
     mhac.destroy
+    @user.touch
     redirect_to admin_user_path(id: @user.id), notice: 'HR的自定义角色权限已删除。'
   end
 

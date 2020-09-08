@@ -12,6 +12,7 @@ class Admin::ManualOperationAccessCodesController < Admin::ApplicationController
   def create
     user = User.find(params[:user_id])
     user.manual_operation_access_codes.create(manual_operation_access_code_params)
+    @user.touch
     redirect_to admin_user_path(id: user.id), notice: '市场运营的权限访问码已新建。'
   end
 
@@ -25,6 +26,7 @@ class Admin::ManualOperationAccessCodesController < Admin::ApplicationController
     moac = user.manual_operation_access_codes.find_by!(id: params[:id])
     moac.destroy
 
+    @user.touch
     if params[:user_id].present?
       redirect_to admin_user_path(id: user.id), notice: '市场运营的权限访问码已删除。'
     else

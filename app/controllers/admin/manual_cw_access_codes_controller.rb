@@ -5,12 +5,14 @@ class Admin::ManualCwAccessCodesController < Admin::ApplicationController
 
   def create
     @user.manual_cw_access_codes.create(manual_cw_access_code_params)
+    @user.touch
     redirect_to admin_user_path(id: @user.id), notice: '财务的自定义角色权限已新建。'
   end
 
   def destroy
     mcac = @user.manual_cw_access_codes.find_by!(id: params[:id])
     mcac.destroy
+    @user.touch
     redirect_to admin_user_path(id: @user.id), notice: '财务的自定义角色权限已删除。'
   end
 
