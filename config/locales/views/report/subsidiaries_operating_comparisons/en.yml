@@ -3,6 +3,9 @@ en:
   report:
     subsidiaries_operating_comparisons:
       show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
         title: "Operating conditions of subsidiaries comparison"
         year_names: "Query year"
         month_name: "Query month"

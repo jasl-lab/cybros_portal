@@ -3,6 +3,9 @@ zh-CN:
   report:
     subsidiaries_operating_comparisons:
       show:
+        actions:
+          view_orgcode_sum: "显示汇总组织"
+          view_orgcode: "显示明细部门"
         title: " 子公司经营情况对比"
         year_names: "查询年"
         month_name: "查询月"
