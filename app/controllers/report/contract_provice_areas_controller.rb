@@ -17,8 +17,10 @@ class Report::ContractProviceAreasController < Report::BaseController
     @service_phase = params[:service_phase].presence || '全部'
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve)
-      .select(:businessltdcode).distinct
-      .where(filingtime: @beginning_of_year..@end_of_month).pluck(:businessltdcode)
+      .select(:businessltdcode, :"ORG_ORDER.org_order")
+      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRICE.businessltdcode')
+      .order('ORG_ORDER.org_order DESC')
+      .where(filingtime: @beginning_of_year..@end_of_month).pluck(:businessltdcode).uniq
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
