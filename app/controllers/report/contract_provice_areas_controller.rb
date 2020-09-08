@@ -6,15 +6,14 @@ class Report::ContractProviceAreasController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(Bi::ProvinceNewArea).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = @end_of_month.beginning_of_year
 
     @orgs_options = params[:orgs]
-    @project_type = params[:project_type].presence || '全部'
-    @service_phase = params[:service_phase].presence || '全部'
+    @service_phase = params[:service_phase].presence || '前端'
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve)
       .select(:businessltdcode, :"ORG_ORDER.org_order")
@@ -26,13 +25,13 @@ class Report::ContractProviceAreasController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
 
-    @sum_cp = filter_contract_price_scope(@beginning_of_year, @end_of_month, @orgs_options, @project_type, @service_phase)
+    @sum_cp = filter_contract_price_scope(@beginning_of_year, @end_of_month, @orgs_options, @service_phase)
     @sum_scope = filter_province_new_area_scope(@end_of_month)
     @year_sum_省市 = province_new_area(@sum_scope)
     @sum_previous_cp = filter_contract_price_scope(
       Date.civil(@beginning_of_year.year - 1).beginning_of_year,
       Date.civil(@end_of_month.year - 1).end_of_year,
-      @orgs_options, @project_type, @service_phase)
+      @orgs_options, @service_phase)
     @sum_previous_scope = filter_province_new_area_scope(Date.civil(@end_of_month.year - 1).end_of_year)
   end
 
@@ -94,7 +93,7 @@ class Report::ContractProviceAreasController < Report::BaseController
                sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
     end
 
-    def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, project_type, service_phase)
+    def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, service_phase)
       cp = Bi::ContractPrice.where("stagename like '%深化方案%'").or(Bi::ContractPrice.where("stagename like '%施工图设计%'")).or(Bi::ContractPrice.where("stagename like '%全过程%'"))
       cp = cp.where(contractstatusname: ['已归档', '合同完成'],
         projectbigstagename: ['前端','后端','全过程'],
@@ -103,34 +102,11 @@ class Report::ContractProviceAreasController < Report::BaseController
         contractpropertyname: '主合同',
         operationgenrename: '土建')
       sum_scope = policy_scope(cp, :overview_resolve)
-      cateogries_4 = case project_type
-      when '全部'
-        case service_phase
-        when '全部'
-          %w[住宅方案 住宅施工图 公建方案 公建施工图]
-        when '前端'
-          %w[住宅方案 公建方案]
-        when '后端'
-          %w[住宅施工图 公建施工图]
-        end
-      when '住宅'
-        case service_phase
-        when '全部'
-          %w[住宅方案 住宅施工图]
-        when '前端'
-          %w[住宅方案]
-        when '后端'
-          %w[住宅施工图]
-        end
-      when '公建'
-        case service_phase
-        when '全部'
-          %w[公建方案 公建施工图]
-        when '前端'
-          %w[公建方案]
-        when '后端'
-          %w[公建施工图]
-        end
+      cateogries_4 = case service_phase
+      when '前端'
+        %w[住宅方案 公建方案]
+      when '后端'
+        %w[住宅施工图 公建施工图]
       end
 
       sum_scope = case cateogries_4
