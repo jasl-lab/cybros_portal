@@ -37,7 +37,7 @@
           <% end %>
         <% end %>
         <% if current_user.present? && policy(Bi::YearReportHistory).show? %>
-          <%= nav_item controller: 'report/year_report_history', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= nav_item controller: 'report/year_report_histories', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_year_report_history_path(view_orgcode_sum: true), class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
               <%= t("layouts.sidebar.operation.year_report_history") %>
@@ -45,7 +45,7 @@
           <% end %>
         <% end %>
         <% if current_user.present? && policy(Bi::YearReportHistory).show? %>
-          <%= nav_item controller: 'report/subsidiaries_operating_comparison', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= nav_item controller: 'report/subsidiaries_operating_comparisons', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiaries_operating_comparison_path(view_orgcode_sum: true), class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
               <%= t("layouts.sidebar.operation.subsidiaries_operating_comparison") %>
@@ -53,7 +53,7 @@
           <% end %>
         <% end %>
         <% if current_user.present? && policy(:"Bi::ContractTypesAnalysis").show? %>
-          <%= nav_item controller: 'report/contract_types_analysis', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= nav_item controller: 'report/contract_types_analyses', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_types_analysis_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
               <%= t("layouts.sidebar.operation.contract_types_analysis") %>
@@ -61,7 +61,7 @@
           <% end %>
         <% end %>
         <% if current_user.present? && policy(:"Bi::ContractsGeographicalAnalysis").show? %>
-          <%= nav_item controller: 'report/contracts_geographical_analysis', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= nav_item controller: 'report/contracts_geographical_analyses', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contracts_geographical_analysis_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
               <%= t("layouts.sidebar.operation.contracts_geographical_analysis") %>
@@ -69,7 +69,7 @@
           <% end %>
         <% end %>
         <% if current_user.present? && policy(:"Bi::ContractProviceArea").show? %>
-          <%= nav_item controller: 'report/contract_provice_area', action: 'show', html_options: { class: "nav-item" } do %>
+          <%= nav_item controller: 'report/contract_provice_areas', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_provice_area_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
               <%= t("layouts.sidebar.operation.contract_provice_area") %>
