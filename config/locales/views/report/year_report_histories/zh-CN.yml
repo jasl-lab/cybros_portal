@@ -3,6 +3,9 @@ zh-CN:
   report:
     year_report_histories:
       show:
+        actions:
+          view_orgcode_sum: "显示汇总组织"
+          view_orgcode: "显示明细部门"
         title: "创意板块整体经营状况"
         year_names: "查询年"
         month_name: "查询月"

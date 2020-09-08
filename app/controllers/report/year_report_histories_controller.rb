@@ -6,12 +6,13 @@ class Report::YearReportHistoriesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
     @month_name = params[:month_name]&.strip || Time.now.month
     @orgs_options = params[:orgs]
+    @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
 
     @year_names = @year_options if @year_names.blank?
     data = policy_scope(Bi::YearReportHistory).where(year: @year_names, month: 1..@month_name.to_i).order(:year)

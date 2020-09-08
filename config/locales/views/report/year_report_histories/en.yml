@@ -3,6 +3,9 @@ en:
   report:
     year_report_histories:
       show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
         title: "Complete value"
         year_names: "Query year"
         month_name: "Query month"
