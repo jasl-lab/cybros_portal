@@ -16,6 +16,7 @@ zh-CN:
         person: "个人事务"
         report: "报表报告"
         operation: "天华市场运营分析"
+        operation_entry: "天华市场运营填报"
         human_resource: "天华人力资源分析"
         financial_management: "财务所级管理报表"
         account_report: "财务中心运营报表"
@@ -94,6 +95,8 @@ zh-CN:
         contract_sign_detail: "已归档合同签约明细"
         subsidiary_need_receive_sign_detail: "业务应收（已签约）"
         subsidiary_need_receive_unsign_detail: "业务应收（未签约）"
+      operation_entry:
+        header: "天华市场运营填报"
       human_resource:
         header: "人力资源"
         human_resources_monthlies: "人力资源月报"

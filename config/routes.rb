@@ -305,6 +305,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :operation_entry do
+    root to: 'home#index'
+  end
+
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',

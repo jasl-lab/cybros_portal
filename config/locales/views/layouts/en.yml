@@ -16,6 +16,7 @@ en:
         person: "Person"
         report: "Report"
         operation: "Operation"
+        operation_entry: "Opeartion entry"
         human_resource: "Human resource"
         financial_management: "Financial management"
         account_report: "Account report"
@@ -94,6 +95,8 @@ en:
         contract_sign_detail: "Archiving contract signing cycle"
         subsidiary_need_receive_sign_detail: "Subsidiary need receive sign detail"
         subsidiary_need_receive_unsign_detail: "Subsidiary need receive unsign detail"
+      operation_entry:
+        header: "Operation entry home"
       human_resource:
         header: "Human resource"
         subsidiary_human_resources: "Subsidiary human resources"
