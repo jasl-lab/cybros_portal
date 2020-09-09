@@ -4,7 +4,8 @@ module Bi
   class HrMonthlyReportDataEntryPolicy < Struct.new(:user, :dashboard)
     def show?
       user.present? &&
-        (user.roles.pluck(:hr_report_writer).any? || user.admin?)
+        (user.roles.pluck(:hr_report_writer).any? ||
+         user.admin?)
     end
   end
 end
