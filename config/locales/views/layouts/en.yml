@@ -97,6 +97,8 @@ en:
         subsidiary_need_receive_unsign_detail: "Subsidiary need receive unsign detail"
       operation_entry:
         header: "Operation entry home"
+        cost_structure_entries: "Cost structure entry"
+        cash_flow_dept_entries: "Cashflow department entry"
       human_resource:
         header: "Human resource"
         subsidiary_human_resources: "Subsidiary human resources"

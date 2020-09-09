@@ -97,6 +97,8 @@ zh-CN:
         subsidiary_need_receive_unsign_detail: "业务应收（未签约）"
       operation_entry:
         header: "天华市场运营填报"
+        cost_structure_entries: "成本结构填报"
+        cash_flow_dept_entries: "现金流信息填报"
       human_resource:
         header: "人力资源"
         human_resources_monthlies: "人力资源月报"

@@ -307,6 +307,9 @@ Rails.application.routes.draw do
 
   namespace :operation_entry do
     root to: 'home#index'
+
+    resource :cost_structure_entry, only: %i[show]
+    resource :cash_flow_dept_entry, only: %i[show]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {
