@@ -6,6 +6,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def show
+    authorize Bi::DeptMoneyFlow
     prepare_meta_tags title: t('.title')
     @all_month_names = Bi::DeptMoneyFlow.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
