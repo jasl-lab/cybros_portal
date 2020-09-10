@@ -19,7 +19,12 @@ class Report::ContractTypesAnalysesController < Report::BaseController
 
     @orgs_options = params[:orgs]
 
-    all_company_orgcodes = data.collect(&:businessltdcode)
+    all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve)
+      .select('businessltdcode')
+      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRICE.businessltdcode')
+      .where('ORG_ORDER.org_order is not null')
+      .order('ORG_ORDER.org_order DESC')
+      .collect(&:businessltdcode).uniq
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
