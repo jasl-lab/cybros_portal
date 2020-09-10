@@ -60,12 +60,12 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     @department_options = department_short_names.zip(only_have_data_depts)
 
     data_dept = data.where(dept: @depts_options)
-    data_deptcode = data_dept.collect(&:deptcode).uniq
+    @data_deptcodes = data_dept.collect(&:deptcode).uniq
     @dept_endmoney = []
-    data_deptcode.collect do |dept_code|
+    @data_deptcodes.collect do |dept_code|
       @dept_endmoney << data_dept.filter_map { |d| d.endmoney if d.deptcode == dept_code }
     end
-    @dept_short_names = data_deptcode.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    @dept_short_names = @data_deptcodes.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
   end
 
   protected
