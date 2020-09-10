@@ -13,11 +13,8 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @beginning_of_year = end_of_year_month.beginning_of_year
 
     data = policy_scope(Bi::ContractPrice, :overview_resolve)
-      .group('ORG_ORDER.org_order, CONTRACT_PRICE.businessltdcode')
+      .group(:businessltdcode)
       .select('businessltdcode, SUM(frontpart) frontpart, SUM(rearpart) rearpart')
-      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRICE.businessltdcode')
-      .where('ORG_ORDER.org_order is not null')
-      .order('ORG_ORDER.org_order DESC')
       .where(filingtime: @beginning_of_year..end_of_year_month)
 
     @orgs_options = params[:orgs]
