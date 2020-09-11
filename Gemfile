@@ -24,7 +24,7 @@ gem "sidekiq", "~> 5.2.7"
 # Use Puma as the app server
 gem "puma", "~> 4.3.0"
 # Use development version of Webpacker
-gem "webpacker", "~> 5.1"
+gem "webpacker", "~> 5.2"
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
