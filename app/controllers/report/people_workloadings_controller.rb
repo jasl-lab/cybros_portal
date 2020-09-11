@@ -47,8 +47,6 @@ class Report::PeopleWorkloadingsController < Report::BaseController
         link: root_path },
       { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t('layouts.sidebar.operation.subsidiary_workloading'),
-        link: report_subsidiary_workloading_path },
       { text: t('layouts.sidebar.operation.subsidiary_daily_workloading'),
         link: report_subsidiary_daily_workloading_path },
       { text: t('layouts.sidebar.operation.subsidiary_people_workloading'),

@@ -220,7 +220,7 @@ var option3 = {
     function drill_down_on_click(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'line') {
-          let url = '/report/subsidiary_workloading';
+          let url = '/report/subsidiary_daily_workloading';
           let month_name = xAxisData[params.dataIndex]
           url += '?company_name=' + encodeURIComponent(selectedCompanyName);
           url += '&begin_month_name=' + encodeURIComponent(month_name) + '&end_month_name=' + encodeURIComponent(month_name);
