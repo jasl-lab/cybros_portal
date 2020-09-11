@@ -7,5 +7,7 @@ zh-CN:
           view_deptcode_sum: "显示汇总组织"
           view_deptcode: "显示明细部门"
         title: "子公司现金流情况"
-        month_name: "实收款的查询年月"
+        dept_names: "部门"
+        found_time: "成立时间"
+        biz_type: "业务类型"
         confirm: "确认"

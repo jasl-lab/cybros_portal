@@ -7,5 +7,7 @@ en:
           view_deptcode_sum: "View organization in sum"
           view_deptcode: "View organization in detail"
         title: "subsidiary design cash flow"
-        month_name: "Design cash flow year and month"
+        dept_names: "Department"
+        found_time: "Found time"
+        biz_type: "Biz type"
         confirm: "Confirm"

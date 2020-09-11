@@ -9,12 +9,12 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     authorize Bi::DeptMoneyFlow
     prepare_meta_tags title: t('.title')
     @all_month_names = Bi::DeptMoneyFlow.all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.first
-    @end_of_month = Date.parse(@month_name).end_of_month
+    @end_of_month = Date.parse(@all_month_names.first).end_of_month
     beginning_of_year = @end_of_month.beginning_of_year
     @depts_options = params[:depts]
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
-
+    @found_time = params[:found_time].presence
+    @biz_type = params[:biz_type].presence
     @selected_short_name = params[:company_name]&.strip || current_user.user_company_short_name
 
     available_company_orgcodes = policy_scope(Bi::DeptMoneyFlow)
@@ -56,6 +56,24 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     end
 
     only_have_data_depts = data.collect(&:deptcode)
+    only_have_data_depts = case @found_time
+    when '三年以上'
+      Bi::CwCashflowFillHeader.where('createdate <= ?', 3.years.ago)
+        .where(deptcode: only_have_data_depts).pluck(:deptcode)
+    when '三年以内'
+      Bi::CwCashflowFillHeader.where('createdate > ?', 3.years.ago)
+        .where(deptcode: only_have_data_depts).pluck(:deptcode)
+    else
+      only_have_data_depts
+    end
+
+    only_have_data_depts = if @biz_type.present?
+      Bi::CwCashflowFillHeader.where(deptbusitype: @biz_type)
+        .where(deptcode: only_have_data_depts).pluck(:deptbusitype)
+    else
+      only_have_data_depts
+    end
+
     department_short_names = only_have_data_depts.collect { |d| Bi::OrgReportDeptOrder.department_names(data_last_available_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
     @depts_options = only_have_data_depts if @depts_options.blank?
     @department_options = department_short_names.zip(only_have_data_depts)
