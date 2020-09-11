@@ -1,0 +1,6 @@
+---
+zh-CN:
+  report:
+    hr_year_dismisses:
+      show:
+        title: "一年滚动累计离职率"

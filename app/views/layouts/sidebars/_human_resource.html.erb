@@ -81,6 +81,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::HrYearDismiss").show? %>
+        <%= nav_item controller: 'report/hr_year_dismisses', html_options: { class: "nav-item" } do %>
+          <%= link_to report_hr_year_dismiss_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.human_resource.hr_year_dismisses") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <li class="nav-title">子公司数据</li>
       <% if policy(:"Bi::RtGroupSubsidiaryHrMonthly").show? %>
         <%= nav_item controller: 'report/rt_group_subsidiary_hr_monthly', html_options: { class: "nav-item" } do %>

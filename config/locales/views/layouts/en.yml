@@ -114,6 +114,7 @@ en:
         rt_group_subsidiary_hr_monthlies: "Realtime group subsidiary HR monthly"
         hr_talent_pools: "HR talent pool"
         hr_staff_in_and_outs: "HR in and out"
+        hr_year_dismisses: "One-year rolling cumulative turnover rate"
         hr_core_staff_in_and_outs: "HR core in and out"
       financial_management:
         header: "Financial management"

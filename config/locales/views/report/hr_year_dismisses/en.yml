@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    hr_year_dismisses:
+      show:
+        title: "One-year rolling cumulative turnover rate"
