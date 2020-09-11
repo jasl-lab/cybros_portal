@@ -64,7 +64,7 @@ export default class extends Controller {
       xAxis: {
         type: 'category',
         silent: true,
-        boundaryGap: false,
+        boundaryGap: true,
         data: orgCheckdate,
         axisLabel: {
           formatter: '{value}月'
