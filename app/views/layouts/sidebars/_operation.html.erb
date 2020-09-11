@@ -100,18 +100,10 @@
             <% end %>
           <% end %>
         <% end %>
-        <li class="nav-item nav-dropdown <%= %w[report/group_workloadings report/group_daily_workloadings report/complete_values report/group_contract_holds].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
+        <li class="nav-item nav-dropdown <%= %w[report/group_daily_workloadings report/complete_values report/group_contract_holds].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>
           <ul class="nav-dropdown-items">
-            <% if current_user.present? && current_user.admin? %>
-              <%= nav_item controller: 'report/group_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
-                <%= link_to report_group_workloading_path, class: "nav-link" do %>
-                  <i class="nav-icon fas fa-stopwatch"></i>
-                  <%= t("layouts.sidebar.operation.group_workloading") %>
-                <% end %>
-              <% end %>
-            <% end %>
             <% if current_user.present? && policy(Bi::WorkHoursDayCountOrg).show? %>
               <%= nav_item controller: 'report/group_daily_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_group_daily_workloading_path, class: "nav-link" do %>

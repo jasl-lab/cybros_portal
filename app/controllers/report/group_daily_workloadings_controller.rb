@@ -72,8 +72,6 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
         link: root_path },
       { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t('layouts.sidebar.operation.group_workloading'),
-        link: report_group_workloading_path(view_orgcode_sum: true) },
       { text: t('layouts.sidebar.operation.group_daily_workloading'),
         link: report_group_daily_workloading_path(view_orgcode_sum: true) }
       ]

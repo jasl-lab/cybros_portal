@@ -162,7 +162,6 @@ Rails.application.routes.draw do
         get :report_all
       end
     end
-    resource :group_workloading, only: %i[show]
     resource :group_daily_workloading, only: %i[show]
     resource :subsidiary_workloading, only: %i[show] do
       collection do
