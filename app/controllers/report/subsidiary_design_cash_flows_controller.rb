@@ -69,7 +69,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
 
     only_have_data_depts = if @biz_type.present?
       Bi::CwCashflowFillHeader.where(deptbusitype: @biz_type)
-        .where(deptcode: only_have_data_depts).pluck(:deptbusitype)
+        .where(deptcode: only_have_data_depts).pluck(:deptcode)
     else
       only_have_data_depts
     end
