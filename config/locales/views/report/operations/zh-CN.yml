@@ -3,4 +3,6 @@ zh-CN:
   report:
     operations:
       show:
-        title: "天华管理驾驶舱"
+        title: "天华管理驾驶舱（数据未填，仅UI）"
+        current_headcount: "现有人数"
+        average_headcount: "平均人数"
