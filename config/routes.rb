@@ -142,6 +142,7 @@ Rails.application.routes.draw do
     resource :account_report, only: %i[show]
     resource :account_org_year_fill, only: %i[show]
     resource :account_org_month_fill, only: %i[show]
+    resource :account_interior_fill, only: %i[show]
     resource :account_dept_year_fill, only: %i[show]
     resource :account_dept_month_fill, only: %i[show]
     resource :account_business_target_org, only: %i[show]
