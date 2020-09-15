@@ -54,8 +54,8 @@ class CompanyContractDatatable < ApplicationDatatable
     rr = rr.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
     rr = rr.where("projecttype LIKE ?", "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
     if @query_text.present?
-      rr = rr.where("developercompanyname LIKE ? OR marketinfoname LIKE ? OR ID LIKE ?",
-        "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
+      rr = rr.where("developercompanyname LIKE ? OR marketinfoname LIKE ? OR projectframename like ? OR ID LIKE ?",
+        "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
     end
     rr
   end
