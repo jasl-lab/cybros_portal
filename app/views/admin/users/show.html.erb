@@ -187,9 +187,9 @@
                 <% next unless a.second == true %>
                 <span class="badge badge-info"><%= a.first -%></span>
                 <span class="badge badge-secondary"><%= a.second -%></span>
-                <% if role_user.auto_generated %>
-                  <span class="badge badge-alert">自动生成</span>
-                <% end %>
+              <% end %>
+              <% if role_user.auto_generated %>
+                <span class="badge badge-alert">自动生成</span>
               <% end %>
             </p>
           <% end %>
