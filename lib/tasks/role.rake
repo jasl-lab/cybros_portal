@@ -14,7 +14,7 @@ namespace :role do
         zjname = hr_access_code[3]
         next if stname.nil? || zjname.nil?
 
-        if (stname.include?('总经理') || stname.include?('董事长')) && zjname >= 17
+        if (stname == '总经理' || stname == '董事长') && zjname >= 17
           user.manual_hr_access_codes.create(hr_rolename: 'HR_子公司总经理、董事长', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)
         elsif stname.include?('所长') && zjname >= 14
           user.manual_hr_access_codes.create(hr_rolename: 'HR_所级管理者', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)
