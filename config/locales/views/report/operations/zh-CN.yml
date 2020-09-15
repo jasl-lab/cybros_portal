@@ -6,3 +6,5 @@ zh-CN:
         title: "天华管理驾驶舱（数据未填，仅UI）"
         current_headcount: "现有人数"
         average_headcount: "平均人数"
+        contract_signings_amount: "生产合同额"
+        receive_amount: "实收款"

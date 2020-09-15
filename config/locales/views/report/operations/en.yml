@@ -6,3 +6,5 @@ en:
         title: "Tianhua Management Cockpit"
         current_headcount: "Current headcount"
         average_headcount: "Average headcount"
+        contract_signings_amount: "contract signings amount"
+        receive_amount: "Receive amount"
