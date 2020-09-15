@@ -119,8 +119,8 @@ zh-CN:
       financial_management:
         header: "财务所级管理"
         dept_homepage: "部门概览"
-        contract_information_form: "合同管理表（商务）"
-        project_contract_summary: "项目管理（生产）"
+        contract_information_form: "合同管理表"
+        project_contract_summary: "项目管理表"
         single_project_overview: "项目查询表"
         departmental_market_fees: "市场费管理表"
         bonus_distribution: "产值汇总表"
