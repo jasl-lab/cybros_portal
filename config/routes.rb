@@ -139,17 +139,6 @@ Rails.application.routes.draw do
     resource :hr_core_staff_in_and_out, only: %i[show]
     resource :hr_staff_in_and_out, only: %i[show]
 
-    resource :account_report, only: %i[show]
-    resource :account_org_year_fill, only: %i[show]
-    resource :account_org_month_fill, only: %i[show]
-    resource :account_interior_fill, only: %i[show]
-    resource :account_dept_year_fill, only: %i[show]
-    resource :account_dept_month_fill, only: %i[show]
-    resource :account_business_target_org, only: %i[show]
-    resource :account_business_target_dept, only: %i[show]
-    resource :account_operation_summary_org, only: %i[show]
-    resource :account_operation_summary_dept, only: %i[show]
-
     resources :yingjianke_logins, only: %i[index destroy] do
       collection do
         get :export
@@ -303,6 +292,19 @@ Rails.application.routes.draw do
 
     resource :cost_structure_entry, only: %i[show]
     resource :cash_flow_dept_entry, only: %i[show]
+  end
+
+  namespace :account do
+    resource :report, only: %i[show]
+    resource :org_year_fill, only: %i[show]
+    resource :org_month_fill, only: %i[show]
+    resource :interior_fill, only: %i[show]
+    resource :dept_year_fill, only: %i[show]
+    resource :dept_month_fill, only: %i[show]
+    resource :business_target_org, only: %i[show]
+    resource :business_target_dept, only: %i[show]
+    resource :operation_summary_org, only: %i[show]
+    resource :operation_summary_dept, only: %i[show]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

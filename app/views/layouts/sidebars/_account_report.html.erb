@@ -1,79 +1,79 @@
 <div class="sidebar" data-controller="coreui-sidebar">
   <div class="sidebar-header">
-    <%= link_to report_account_report_path, class: "nav-link" do %>
+    <%= link_to account_report_path, class: "nav-link" do %>
       <i class="fas fa-jedi"></i>
       <%= t("layouts.sidebar.account_report.header") %>
     <% end %>
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if policy(:"Bi::AccountOrgYearFill").show? %>
-        <%= nav_item controller: 'report/account_org_year_fill', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_org_year_fill_path, class: "nav-link" do %>
+      <% if policy(:"Account::OrgYearFill").show? %>
+        <%= nav_item controller: 'account/org_year_fills', html_options: { class: "nav-item" } do %>
+          <%= link_to account_org_year_fill_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_org_year_fill") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountOrgMonthFill").show? %>
-        <%= nav_item controller: 'report/account_org_month_fill', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_org_month_fill_path, class: "nav-link" do %>
+      <% if policy(:"Account::OrgMonthFill").show? %>
+        <%= nav_item controller: 'account/org_month_fills', html_options: { class: "nav-item" } do %>
+          <%= link_to account_org_month_fill_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_org_month_fill") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountInteriorFill").show? %>
-        <%= nav_item controller: 'report/account_interior_fill', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_interior_fill_path, class: "nav-link" do %>
+      <% if policy(:"Account::InteriorFill").show? %>
+        <%= nav_item controller: 'account/interior_fills', html_options: { class: "nav-item" } do %>
+          <%= link_to account_interior_fill_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_interior_fill") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountDeptYearFill").show? %>
-        <%= nav_item controller: 'report/account_dept_year_fill', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_dept_year_fill_path, class: "nav-link" do %>
+      <% if policy(:"Account::DeptYearFill").show? %>
+        <%= nav_item controller: 'account/dept_year_fills', html_options: { class: "nav-item" } do %>
+          <%= link_to account_dept_year_fill_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_dept_year_fill") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountDeptMonthFill").show? %>
-        <%= nav_item controller: 'report/account_dept_month_fill', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_dept_month_fill_path, class: "nav-link" do %>
+      <% if policy(:"Account::DeptMonthFill").show? %>
+        <%= nav_item controller: 'account/dept_month_fills', html_options: { class: "nav-item" } do %>
+          <%= link_to account_dept_month_fill_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_dept_month_fill") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountBusinessTargetOrg").show? %>
-        <%= nav_item controller: 'report/account_business_target_org', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_business_target_org_path, class: "nav-link" do %>
+      <% if policy(:"Account::BusinessTargetOrg").show? %>
+        <%= nav_item controller: 'account/business_target_orgs', html_options: { class: "nav-item" } do %>
+          <%= link_to account_business_target_org_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_org") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountBusinessTargetDept").show? %>
-        <%= nav_item controller: 'report/account_business_target_dept', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_business_target_dept_path, class: "nav-link" do %>
+      <% if policy(:"Account::BusinessTargetDept").show? %>
+        <%= nav_item controller: 'account/business_target_depts', html_options: { class: "nav-item" } do %>
+          <%= link_to account_business_target_dept_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_dept") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountOperationSummaryOrg").show? %>
-        <%= nav_item controller: 'report/account_operation_summary_org', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_operation_summary_org_path, class: "nav-link" do %>
+      <% if policy(:"Account::OperationSummaryOrg").show? %>
+        <%= nav_item controller: 'account/operation_summary_orgs', html_options: { class: "nav-item" } do %>
+          <%= link_to account_operation_summary_org_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_operation_summary_org") %>
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountOperationSummaryDept").show? %>
-        <%= nav_item controller: 'report/account_operation_summary_dept', html_options: { class: "nav-item" } do %>
-          <%= link_to report_account_operation_summary_dept_path, class: "nav-link" do %>
+      <% if policy(:"Account::OperationSummaryDept").show? %>
+        <%= nav_item controller: 'account/operation_summary_depts', html_options: { class: "nav-item" } do %>
+          <%= link_to account_operation_summary_dept_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-user-alt"></i>
             <%= t("layouts.sidebar.account_report.account_operation_summary_dept") %>
           <% end %>

@@ -69,9 +69,9 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::AccountBusinessTargetOrg").show? || policy(:"Bi::AccountBusinessTargetDept").show? || policy(:"Bi::AccountOperationSummaryOrg").show? || policy(:"Bi::AccountOperationSummaryDept").show? %>
-        <%= nav_item controller: 'report/account_report', html_options: {class: "nav-item"} do %>
-          <%= link_to report_account_report_path, class: "nav-link" do %>
+      <% if policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? %>
+        <%= nav_item controller: 'account/reports', html_options: {class: "nav-item"} do %>
+          <%= link_to account_report_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-jedi"></i>
             <%= t("layouts.sidebar.application.account_report") %>
           <% end %>

@@ -1,0 +1,6 @@
+---
+en:
+  account:
+    org_month_fills:
+      show:
+        title: "Account org month fill"

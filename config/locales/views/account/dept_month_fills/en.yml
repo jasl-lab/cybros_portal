@@ -1,0 +1,6 @@
+---
+en:
+  account:
+    dept_month_fills:
+      show:
+        title: "Account dept month fill"
