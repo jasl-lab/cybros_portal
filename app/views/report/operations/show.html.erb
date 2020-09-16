@@ -42,13 +42,16 @@
           data-controller="dashboard--contract-signings-amount"
           data-action="resize@window->dashboard--contract-signings-amount#layout">
           <h6 class="text-center"><%= t(".contract_signings_amount") %></h6>
-          <div id="contract-signings-amount-dashboard" style="width: 100%;height: 350px;"></div>
+          <div id="contract-signings-amount-dashboard" style="width: 100%;height: 250px;"></div>
         </div>
       </div>
       <div class="col-md-3 px-0">
-          <div class="border rounded bg-gray-100 my-1 mx-1">
-            <h6 class="text-center"><%= t(".receive_amount") %></h6>
-          </div>
+        <div class="border rounded bg-gray-100 my-1 mx-1"
+          data-controller="dashboard--receive-amount"
+          data-action="resize@window->dashboard--receive-amount#layout">
+          <h6 class="text-center"><%= t(".receive_amount") %></h6>
+          <div id="receive-amount-dashboard" style="width: 100%;height: 250px;"></div>
+        </div>
       </div>
       <div class="col-md-3 px-0">
           <div class="border rounded bg-gray-100 my-1 mx-1">
