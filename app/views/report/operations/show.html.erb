@@ -79,7 +79,7 @@
           <h5 class="text-center">本月营业额：25,822 <span class="h6">万元</span></h5>
         </div>
       </div>
-      <%# 公司级现金流、设计现金流 %>
+      <%# 公司级现金流、设计现金流、大客户合同占比 %>
       <div class="col-md-4 px-0">
         <div class="border rounded bg-gray-100 my-1 mx-1 px-1 py-2">
           <h6 class="text-center"><%= t(".company_level_cash_flow") %></h6>
@@ -126,6 +126,12 @@
               <h3 class="text-center">-0.9<span class="h6">月</span></h3>
             </div>
           </div>
+        </div>
+        <div class="border rounded bg-gray-100 my-2 mx-1 px-1 py-2"
+          data-controller="dashboard--major-customer-contracts"
+          data-action="resize@window->dashboard--major-customer-contracts#layout">
+          <h6 class="text-center"><%= t(".major_customer_contracts") %></h6>
+          <div id="major-customer-contracts-dashboard" style="width: 100%;height: 150px;"></div>
         </div>
       </div>
       <%# 净利润、净利润率 %>
