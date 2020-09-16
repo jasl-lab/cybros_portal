@@ -6,6 +6,7 @@ export default class extends Controller {
   connect() {
     contractSigningsAmountDashboard = echarts.init(document.getElementById('contract-signings-amount-dashboard'));
 
+    // https://gallery.echartsjs.com/editor.html?c=xrQ8h-yf47
     const highlight = '#1e87f0';
 
     const demoData = [{
