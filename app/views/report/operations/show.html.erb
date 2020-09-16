@@ -48,7 +48,7 @@
         </div>
         <div class="my-1 mx-0 px-0 row">
             <div class="col-sm-12 col-md-6 px-0">
-              <div class="border rounded bg-gray-100 my-1 mr-1">
+              <div class="border rounded bg-gray-100 p-1 my-1 mr-1">
                 <h6 class="text-center"><u><%= t(".complete_value") %></u></h6>
                 <h3 class="text-right pr-2">102,000 <span class="h6">万元</span></h3>
                 <h6 class="text-right pr-2">全员人均&nbsp;&nbsp;&nbsp;17 万元</h6>
@@ -56,7 +56,7 @@
               </div>
             </div>
             <div class="col-sm-12 col-md-6 pl-0 pr-1">
-              <div class="border rounded bg-gray-100 my-1 ml-1">
+              <div class="border rounded bg-gray-100 p-1 my-1 ml-1">
                 <h6 class="text-center"><u><%= t(".halfyear_business_holdings") %></u></h6>
                 <h3 class="text-right pr-2">300,160<span class="h6">万元</span></h3>
                 <h6 class="text-right pr-2">全员人均&nbsp;&nbsp;&nbsp;55 万元</h6>
@@ -134,7 +134,7 @@
           <div id="major-customer-contracts-dashboard" style="width: 100%;height: 150px;"></div>
         </div>
       </div>
-      <%# 净利润、净利润率 %>
+      <%# 净利润、净利润率、签约 TOP 5 %>
       <div class="col-md-2 px-0">
         <div class="border rounded bg-gray-100 my-1 ml-1 p-1">
           <h6 class="text-center"><%= t(".net_profit") %></h6>
@@ -145,6 +145,43 @@
           <h6 class="text-center"><%= t(".net_profit_rate") %></h6>
           <h3 class="text-center">16<span class="h6">%</span></h3>
           <h6 class="text-center">(去年同期值：18%）</h6>
+        </div>
+        <div class="border rounded bg-gray-100 my-2 ml-1 p-1">
+          <h6 class="text-center"><%= t(".sign_top_5") %></h6>
+          <table class="table mt-3">
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>万科集团</td>
+                <td>10,523 <small>万</small></td>
+                <td>⬄</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>华润置地</td>
+                <td>7,293 <small>万</small></td>
+                <td>⇣</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>苏宁置地</td>
+                <td>6,411 <small>万</small></td>
+                <td>⇣</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>宝龙控股</td>
+                <td>4,606 <small>万</small></td>
+                <td>⬄</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>世贸集团</td>
+                <td>3,909 <small>万</small></td>
+                <td>⇡</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
