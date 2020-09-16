@@ -4,8 +4,7 @@ module Bi
   class HrdwStfreinstateBiSavePolicy < Struct.new(:user, :dashboard)
     def show?
       user.present? &&
-        ((user.roles.pluck(:role_name).any? { |r| r == 'HR_填报人' }) ||
-          user.admin?)
+        (user.chinese_name.in?(%w(曾嵘 叶馨 过纯中))
     end
   end
 end
