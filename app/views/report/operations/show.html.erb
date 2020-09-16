@@ -38,7 +38,7 @@
   <div class="col-md-12 mt-2">
     <div class="row">
       <div class="col-md-3 px-0">
-        <div class="border rounded bg-gray-100 my-1 mr-1"
+        <div class="border rounded bg-gray-100 my-1 mr-1 p-1"
           data-controller="dashboard--contract-signings-amount"
           data-action="resize@window->dashboard--contract-signings-amount#layout">
           <h6 class="text-center"><%= t(".contract_signings_amount") %></h6>
@@ -46,19 +46,62 @@
         </div>
       </div>
       <div class="col-md-3 px-0">
-        <div class="border rounded bg-gray-100 my-1 mx-1"
+        <div class="border rounded bg-gray-100 my-1 mx-1 p-1"
           data-controller="dashboard--receive-amount"
           data-action="resize@window->dashboard--receive-amount#layout">
           <h6 class="text-center"><%= t(".receive_amount") %></h6>
           <div id="receive-amount-dashboard" style="width: 100%;height: 250px;"></div>
         </div>
       </div>
-      <div class="col-md-3 px-0">
-          <div class="border rounded bg-gray-100 my-1 mx-1">
-            <h6 class="text-center"><%= t(".company_level_cash_flow") %></h6>
+      <div class="col-md-4 px-0">
+        <div class="border rounded bg-gray-100 my-1 mx-1 px-1 py-2">
+          <h6 class="text-center"><%= t(".company_level_cash_flow") %></h6>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <h6 class="text-center">银行存款余额</h6>
+              <h3 class="text-center">49,532</h3>
+            </div>
+            <div class="col-md-1">
+              <h1>/</h1>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-center">当月生产成本</h6>
+              <h3 class="text-center">15,910 <span class="h6">万元</span></h3>
+            </div>
+            <div class="col-md-1">
+              <h1>=</h1>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-center">可维持月数</h6>
+              <h3 class="text-center">3.1<span class="h6">月</span></h3>
+            </div>
           </div>
+        </div>
+        <div class="border rounded bg-gray-100 my-1 mx-1 px-1 py-2">
+          <h6 class="text-center"><%= t(".design_cash_flow") %></h6>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <h6 class="text-center">设计现金流</h6>
+              <h3 class="text-center">-5,416</h3>
+            </div>
+            <div class="col-md-1">
+              <h1>/</h1>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-center">当月人力成本成本</h6>
+              <h3 class="text-center">5,939 <span class="h6">万元</span></h3>
+            </div>
+            <div class="col-md-1">
+              <h1>=</h1>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-center">可维持月数</h6>
+              <h3 class="text-center">-0.9<span class="h6">月</span></h3>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-3 px-0">
+      <div class="col-md-2 px-0">
           <div class="border rounded bg-gray-100 my-1 ml-1">
             <h6 class="text-center"><%= t(".net_profit") %></h6>
           </div>
