@@ -6,6 +6,7 @@
   </div>
 </div>
 <div class="row">
+  <%# 人数 %>
   <div class="col-md-12">
     <div class="row border rounded bg-gray-100">
       <div class="col-md-2 pl-0 pr-1 py-2">
@@ -37,6 +38,7 @@
   </div>
   <div class="col-md-12 mt-2">
     <div class="row">
+      <%# 生产合同额、完成产值、半年业务保有量 %>
       <div class="col-md-3 px-0">
         <div class="border rounded bg-gray-100 my-1 mr-1 p-1"
           data-controller="dashboard--contract-signings-amount"
@@ -63,6 +65,7 @@
             </div>
         </div>
       </div>
+      <%# 实收款、营业额 %>
       <div class="col-md-3 px-0">
         <div class="border rounded bg-gray-100 my-1 mx-1 p-1"
           data-controller="dashboard--receive-amount"
@@ -76,6 +79,7 @@
           <h5 class="text-center">本月营业额：25,822 <span class="h6">万元</span></h5>
         </div>
       </div>
+      <%# 公司级现金流、设计现金流 %>
       <div class="col-md-4 px-0">
         <div class="border rounded bg-gray-100 my-1 mx-1 px-1 py-2">
           <h6 class="text-center"><%= t(".company_level_cash_flow") %></h6>
@@ -124,6 +128,7 @@
           </div>
         </div>
       </div>
+      <%# 净利润、净利润率 %>
       <div class="col-md-2 px-0">
         <div class="border rounded bg-gray-100 my-1 ml-1 p-1">
           <h6 class="text-center"><%= t(".net_profit") %></h6>
