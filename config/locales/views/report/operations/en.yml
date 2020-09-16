@@ -8,3 +8,6 @@ en:
         average_headcount: "Average headcount"
         contract_signings_amount: "contract signings amount"
         receive_amount: "Receive amount"
+        company_level_cash_flow: "Company-level cash flow"
+        design_cash_flow: "Design cash flow"
+        net_profit: "Net profit"

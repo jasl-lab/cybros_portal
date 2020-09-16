@@ -8,3 +8,6 @@ zh-CN:
         average_headcount: "平均人数"
         contract_signings_amount: "生产合同额"
         receive_amount: "实收款"
+        company_level_cash_flow: "公司级现金流"
+        design_cash_flow: "设计现金流"
+        net_profit: "净利润"
