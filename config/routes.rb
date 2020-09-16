@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     resource :contract_information_form, only: %i[show]
     resource :project_contract_summary, only: %i[show]
     resource :departmental_market_fees, only: %i[show]
+    resource :org_market_fees, only: %i[show]
     resource :bonus_distribution, only: %i[show]
 
     resource :human_resource, only: %i[show]

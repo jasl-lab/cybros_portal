@@ -123,6 +123,7 @@ zh-CN:
         project_contract_summary: "项目管理表"
         single_project_overview: "项目查询表"
         departmental_market_fees: "市场费管理表"
+        org_market_fees: "公司市场费管理表"
         bonus_distribution: "产值汇总表"
       account_report:
         header: "财务中心运营报表"

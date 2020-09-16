@@ -47,6 +47,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Bi::OrgMarketFees").show? %>
+        <%= nav_item controller: 'report/org_market_fees', html_options: { class: "nav-item" } do %>
+          <%= link_to report_org_market_fees_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.financial_management.org_market_fees") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::BonusDistribution").show? %>
         <%= nav_item controller: 'report/bonus_distribution', html_options: { class: "nav-item" } do %>
           <%= link_to report_bonus_distribution_path, class: "nav-link" do %>
