@@ -31,7 +31,7 @@ namespace :role do
       r = Role.find_by role_name: ac.hr_rolename
       if r.present?
         next if r.users.where(id: ac.user_id).exists?
-        r.role_users.create(user_id: ac.user_id, auto_generated: true)
+        r.role_users.create(user_id: ac.user_id, auto_generated: ac.auto_generated_role)
       else
         puts "ManualHrAccessCode id: #{ac.id}, hr_rolename: #{ac.hr_rolename} not existing."
       end
@@ -69,7 +69,7 @@ namespace :role do
       r = Role.find_by role_name: cw.cw_rolename
       if r.present?
         next if r.users.where(id: cw.user_id).exists?
-        r.role_users.create(user_id: cw.user_id, auto_generated: true)
+        r.role_users.create(user_id: cw.user_id, auto_generated: cw.auto_generated_role)
       else
         puts "ManualCwAccessCode id: #{cw.id}, cw_rolename: #{cw.cw_rolename} not existing."
       end
