@@ -15,7 +15,7 @@
         <% if current_user.present? && policy(:"Bi::OverallOperatingStatuses").show? && browser.ie? %>
           <%= nav_item controller: 'report/overall_operating_status', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_overall_operating_status_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <%= t("layouts.sidebar.operation.overall_operating_status") %>
             <% end %>
           <% end %>
@@ -39,7 +39,7 @@
         <% if current_user.present? && policy(Bi::YearReportHistory).show? %>
           <%= nav_item controller: 'report/year_report_histories', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_year_report_history_path(view_orgcode_sum: true), class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <%= t("layouts.sidebar.operation.year_report_history") %>
             <% end %>
           <% end %>
@@ -47,7 +47,7 @@
         <% if current_user.present? && policy(Bi::YearReportHistory).show? %>
           <%= nav_item controller: 'report/subsidiaries_operating_comparisons', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiaries_operating_comparison_path(view_orgcode_sum: true), class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-network-wired"></i>
               <%= t("layouts.sidebar.operation.subsidiaries_operating_comparison") %>
             <% end %>
           <% end %>
@@ -55,7 +55,7 @@
         <% if current_user.present? && policy(:"Bi::ContractTypesAnalysis").show? %>
           <%= nav_item controller: 'report/contract_types_analyses', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_types_analysis_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-sitemap"></i>
               <%= t("layouts.sidebar.operation.contract_types_analysis") %>
             <% end %>
           <% end %>
@@ -63,7 +63,7 @@
         <% if current_user.present? && policy(:"Bi::ContractsGeographicalAnalysis").show? %>
           <%= nav_item controller: 'report/contracts_geographical_analyses', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contracts_geographical_analysis_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-globe"></i>
               <%= t("layouts.sidebar.operation.contracts_geographical_analysis") %>
             <% end %>
           <% end %>
@@ -71,7 +71,7 @@
         <% if current_user.present? && policy(:"Bi::ContractProviceArea").show? %>
           <%= nav_item controller: 'report/contract_provice_areas', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_provice_area_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-truck-pickup"></i>
               <%= t("layouts.sidebar.operation.contract_provice_area") %>
             <% end %>
           <% end %>
@@ -79,7 +79,7 @@
         <% if current_user.present? && policy(Bi::ContractSign).show? %>
           <%= nav_item controller: 'report/contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_contract_signing_path(view_orgcode_sum: true), class: "nav-link" do %>
-              <i class="nav-icon fas fa-file-contract"></i>
+              <i class="nav-icon fas fa-database"></i>
               <%= t("layouts.sidebar.operation.contract_signing") %>
             <% end %>
           <% end %>
@@ -95,7 +95,7 @@
         <% if current_user.present? && policy(Bi::DeptMoneyFlow).show? %>
           <%= nav_item controller: 'report/design_cash_flows', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_design_cash_flow_path(view_orgcode_sum: true), class: "nav-link" do %>
-              <i class="nav-icon fas fa-cash-register"></i>
+              <i class="nav-icon fas fa-yen-sign"></i>
               <%= t("layouts.sidebar.operation.design_cash_flow") %>
             <% end %>
           <% end %>
@@ -107,7 +107,7 @@
             <% if current_user.present? && policy(Bi::WorkHoursDayCountOrg).show? %>
               <%= nav_item controller: 'report/group_daily_workloadings', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_group_daily_workloading_path, class: "nav-link" do %>
-                  <i class="nav-icon fas fa-stopwatch"></i>
+                  <i class="nav-icon fas fa-school"></i>
                   <%= t("layouts.sidebar.operation.group_daily_workloading") %>
                 <% end %>
               <% end %>
@@ -115,7 +115,7 @@
             <% if current_user.present? && policy(Bi::CompleteValue).show? %>
               <%= nav_item controller: 'report/complete_values', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_complete_value_path(view_orgcode_sum: true), class: "nav-link" do %>
-                  <i class="nav-icon fas fa-draw-polygon"></i>
+                  <i class="nav-icon fas fa-pen-nib"></i>
                   <%= t("layouts.sidebar.operation.complete_value") %>
                 <% end %>
               <% end %>
@@ -123,7 +123,7 @@
             <% if current_user.present? && policy(Bi::ContractHold).group_show? %>
               <%= nav_item controller: 'report/group_contract_holds', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
                 <%= link_to report_group_contract_hold_path(view_orgcode_sum: true), class: "nav-link" do %>
-                  <i class="nav-icon fas fa-draw-polygon"></i>
+                  <i class="nav-icon fas fa-hand-holding-water"></i>
                   <%= t("layouts.sidebar.operation.group_contract_hold") %>
                 <% end %>
               <% end %>
@@ -160,7 +160,7 @@
         <% if current_user.present? && policy(Bi::SubCompanyRealReceive).show? %>
           <%= nav_item controller: 'report/subsidiary_department_receives', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiary_department_receive_path(view_deptcode_sum: true), class: "nav-link" do %>
-              <i class="nav-icon fas fa-yen-sign"></i>
+              <i class="nav-icon fas fa-money-check"></i>
               <%= t("layouts.sidebar.operation.subsidiary_department_receive", company: '') %>
             <% end %>
           <% end %>
@@ -176,7 +176,7 @@
         <% if current_user.present? && policy(Bi::SubCompanyNeedReceiveSignDetail).show? %>
           <%= nav_item controller: 'report/subsidiary_need_receive_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiary_need_receive_sign_detail_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-list-alt"></i>
+              <i class="nav-icon fas fa-list-ol"></i>
               <%= t("layouts.sidebar.operation.subsidiary_need_receive_sign_detail", company: current_user.user_company_short_name) %>
             <% end %>
           <% end %>
