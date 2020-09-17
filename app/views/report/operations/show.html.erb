@@ -71,7 +71,7 @@
           <div id="project-type-saturation-dashboard" style="width: 100%;height: 160px;"></div>
         </div>
       </div>
-      <%# 实收款、营业额 %>
+      <%# 实收款、营业额、应收账款 %>
       <div class="col-md-3 px-0">
         <div class="border rounded bg-gray-100 my-1 mx-1 p-1"
           data-controller="dashboard--receive-amount"
@@ -83,6 +83,62 @@
           <h6 class="text-center"><%= t(".turnover") %></h6>
           <h1 class="text-center">117, 674 <span class="h6">万元</span></h1>
           <h5 class="text-center">本月营业额：25,822 <span class="h6">万元</span></h5>
+        </div>
+        <div class="border rounded bg-gray-100 my-2 mx-1 p-1">
+          <h6 class="text-center"><%= t(".accounts_receivable") %></h6>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <h6 class="text-right">总额</h6>
+              <h3 class="text-right">114,700 <span class="h6">万元</span></h3>
+            </div>
+            <div class="col-md-1">
+              <h1>/</h1>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-left">全员人均</h6>
+              <h3 class="text-left">20 <span class="h6">万元</span></h3>
+            </div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-md-7">
+              <h6 class="text-left">财务应收（不含票据抵房）</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">40,128 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">帐龄 4～12 个月财务应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">10,128 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">帐龄 >1 年财务应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">22,733 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">票据应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">16,733 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">抵房应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">5,733 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
         </div>
       </div>
       <%# 公司级现金流、设计现金流、大客户合同占比 %>
