@@ -12,6 +12,12 @@ export default class extends Controller {
     const orgMoney = JSON.parse(this.data.get("org_endmoney"));
     const orgRate = JSON.parse(this.data.get("org_rate"));
 
+    const min_OrgMoney = Math.min(...orgMoney);
+    const max_OrgMoney = Math.max(...orgMoney);
+
+    const min10_OrgMoney = Math.floor(min_OrgMoney / 10) * 10;
+    const max10_OrgMoney = Math.ceil(max_OrgMoney / 10) * 10;
+
     function rejectInvalidRate(v) {
       if (v < 0) {
         return 0;
@@ -23,6 +29,13 @@ export default class extends Controller {
     }
 
     const orgRateValid = orgRate.map(rejectInvalidRate);
+
+    const min_orgRateValid = Math.min(...orgRateValid);
+    const max_orgRateValid = Math.max(...orgRateValid);
+
+    const min10_orgRateValid = Math.floor(min_orgRateValid / 10) * 10;
+    const max10_orgRateValid = Math.ceil(max_orgRateValid / 10) * 10;
+
 
     const deptMoney = JSON.parse(this.data.get("dept_endmoney"));
     const deptShortNames = JSON.parse(this.data.get("dept_short_names"));
@@ -74,9 +87,9 @@ export default class extends Controller {
           type: 'value',
           name: '万元',
           position: 'left',
-          min: 0,
-          max: 5000,
-          interval: 1000,
+          min: min10_OrgMoney,
+          max: max10_OrgMoney,
+          interval: (max10_OrgMoney - min10_OrgMoney) / 5,
           axisLabel: {
             formatter: '{value}万'
           }
@@ -84,9 +97,9 @@ export default class extends Controller {
           type: 'value',
           name: '折算月份',
           position: 'right',
-          min: 0,
-          max: 20,
-          interval: 4,
+          min: min10_orgRateValid,
+          max: max10_orgRateValid,
+          interval: (max10_orgRateValid - min10_orgRateValid) / 5,
           axisLine: {
             lineStyle: {
               color: '#675BBA'
