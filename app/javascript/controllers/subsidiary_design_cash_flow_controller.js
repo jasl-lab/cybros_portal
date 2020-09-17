@@ -160,7 +160,6 @@ export default class extends Controller {
       },
       xAxis: {
         type: 'category',
-        boundaryGap: false,
         data: orgCheckdate,
         axisLabel: {
           formatter: '{value}月'
