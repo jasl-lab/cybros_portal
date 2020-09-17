@@ -61,7 +61,7 @@ export default class extends Controller {
                     }
                 },
                 hoverAnimation: false,
-                center: [index * 32 + 17 +'%', '50%'],
+                center: [index * 32 + 17 +'%', '35%'],
                 data: [{
                     value: item.value,
                     label: {
