@@ -19,3 +19,5 @@ en:
         sign_top_5: "Sign TOP 5"
         project_type_saturation: "Project type saturation"
         accounts_receivable: "Accounts receivable"
+        newly_signed_key_projects: "Newly signed group key projects"
+        receive_top_5: "Receive TOP 5"
