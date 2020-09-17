@@ -35,7 +35,7 @@ export default class extends Controller {
       },
       visualMap: {
         left: 'right',
-        min: Math.max(...provinceSum)*0.05,
+        min: Math.min(...provinceSum)*0.05,
         max: Math.max(...provinceSum),
         inRange: {
           color: ['#F2F2F2', '#DFF0FA', '#9ED3EF','#9ED3EF','#17628A','#092838']
