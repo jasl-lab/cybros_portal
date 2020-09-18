@@ -94,13 +94,15 @@ class Report::ContractProviceAreasController < Report::BaseController
     end
 
     def filter_contract_price_scope(beginning_of_year, end_of_year, orgs_options, service_phase)
+      # Debug SELECT salescontractcode, salescontractname, buildinggenrename, scale
       cp = Bi::ContractPrice.where("stagename like '%深化方案%'").or(Bi::ContractPrice.where("stagename like '%施工图设计%'")).or(Bi::ContractPrice.where("stagename like '%全过程%'"))
       cp = cp.where(contractstatusname: ['已归档', '合同完成'],
-        projectbigstagename: ['前端','后端','全过程'],
-        projectgenername: ['公建','住宅'],
-        unitsname: '元/平米',
-        contractpropertyname: '主合同',
-        operationgenrename: '土建')
+                    projectbigstagename: ['前端', '后端', '全过程'],
+                    projectgenername: ['公建', '住宅'],
+                    unitsname: '元/平米',
+                    contractpropertyname: '主合同',
+                    operationgenrename: '土建')
+        .where.not(buildinggenrename: '地下车库（非人防）')
       sum_scope = policy_scope(cp, :overview_resolve)
       cateogries_4 = case service_phase
       when '前端'
