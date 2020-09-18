@@ -15,11 +15,9 @@ export default class extends Controller {
     };
 
     const fontColor = "#1e87f0";
-    const seriesName = "";
     const noramlSize = 12;
     const state = "";
     const center = ["50%", "70%"];
-    const wqradius = "100%";
     const nqradius = "90%";
     const kdradius = "90%";
 
@@ -147,87 +145,86 @@ export default class extends Controller {
                   }
               },
               detail: {
-                  show: true,
-                  offsetCenter: [0, "40%"],
-                  formatter: function(v) {
-                      var str = '';
-                      switch (v) {
-                          case 0:
-                              str = '0%';
-                              break;
-                          case 1:
-                              str = '30%';
-                              break;
+                show: true,
+                offsetCenter: [0, "40%"],
+                formatter: function(v) {
+                    var str = '';
+                    switch (v) {
+                        case 0:
+                            str = '0%';
+                            break;
+                        case 1:
+                            str = '30%';
+                            break;
 
-                          case 2:
-                              str = '60%';
-                              break;
+                        case 2:
+                            str = '60%';
+                            break;
 
-                          case 3:
-                              str = '90%';
-                              break;
+                        case 3:
+                            str = '90%';
+                            break;
 
-                          case 4:
-                              str = '100%';
-                              break;
+                        case 4:
+                            str = '100%';
+                            break;
 
-                          case 5:
-                              str = '竣工';
-                              break;
-                      }
-                      return [
-                          "{value|" + (str) + "} ",
-                          "{company|" + state + "}"
-                      ].join("\n");
-                  },
-                  rich: {
-                      value: {
-                          fontSize: 25,
-                          lineHeight: 10,
-                          color: "#1e87f0",
-                          fontWeight: "700"
-                      },
-                      company: {
-                          fontSize: 16,
-                          lineHeight: 20,
-                          color: "#1e87f0"
-                      }
-                  }
-              },
-              data: [datas.value]
-          },
-          {
-              name: "内层盘",
-              type: "gauge",
-              z: 6,
-              radius: nqradius,
-              startAngle: 180,
-              endAngle: 0,
-              center: center,
-              axisLine: {
-                  lineStyle: {
-                      color: nqColor,
-                      width: 25,
-                      opacity: 0.9
-                  }
-              },
-              splitNumber: 5,
-              min: 0,
-              max: 5,
-              axisTick: {
-                  show: false
-              },
+                        case 5:
+                            str = '竣工';
+                            break;
+                    }
+                    return [
+                        "{value|" + (str) + "} ",
+                        "{company|" + state + "}"
+                    ].join("\n");
+                },
+                rich: {
+                    value: {
+                        fontSize: 25,
+                        lineHeight: 10,
+                        color: "#1e87f0",
+                        fontWeight: "700"
+                    },
+                    company: {
+                        fontSize: 16,
+                        lineHeight: 20,
+                        color: "#1e87f0"
+                    }
+                }
+            },
+            data: [datas.value]
+          },{
+            name: "内层盘",
+            type: "gauge",
+            z: 6,
+            radius: nqradius,
+            startAngle: 180,
+            endAngle: 0,
+            center: center,
+            axisLine: {
+                lineStyle: {
+                    color: nqColor,
+                    width: 25,
+                    opacity: 0.9
+                }
+            },
+            splitNumber: 5,
+            min: 0,
+            max: 5,
+            axisTick: {
+                show: false
+            },
 
-              axisLabel: {
-                  show: false
-              },
-              pointer: {
-                  show: false
-              },
+            axisLabel: {
+                show: false
+            },
+            pointer: {
+                show: false
+            },
 
-              detail: {
-                  show: 0
-              }
+            detail: {
+                show: 0
+            }
           }
       ]
     };
