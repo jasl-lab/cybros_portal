@@ -8,7 +8,7 @@ export default class extends Controller {
 
     // https://gallery.echartsjs.com/editor.html?c=x8yhvtqDCC
     const datas = {
-      value: 4,
+      value: 3,
       title: "实收款",
       type: 1,
       radiusType: 1
@@ -17,7 +17,7 @@ export default class extends Controller {
     const fontColor = "#1e87f0";
     const noramlSize = 12;
     const state = "";
-    const center = ["50%", "70%"];
+    const center = ["50%", "60%"];
     const nqradius = "90%";
     const kdradius = "90%";
 
@@ -31,7 +31,7 @@ export default class extends Controller {
       title: {
           show: true,
           x: "center",
-          bottom: "2%",
+          bottom: "6%",
           text: datas.title,
           textStyle: {
               fontWeight: "700",
@@ -136,8 +136,8 @@ export default class extends Controller {
               max: 5,
               pointer: {
                   show: true,
-                  width: 10,
-                  length: "60%"
+                  width: 8,
+                  length: "50%"
               },
               itemStyle: {
                   normal: {
