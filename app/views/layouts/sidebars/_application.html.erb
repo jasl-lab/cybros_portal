@@ -71,7 +71,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? %>
+      <% if policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? || policy(:"Account::OrgYearFill").show? %>
         <%= nav_item controller: 'account/reports', html_options: {class: "nav-item"} do %>
           <%= link_to account_report_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-jedi"></i>
