@@ -5,7 +5,7 @@ module Bi
     def show?
       user.present? &&
         (user.chinese_name.in?(%w(郭颖杰 余慧 陆文娟 周聪睿 蒋磊 吴悠 毕赢 孙涛 陈一恺)) ||
-         user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_财务分析部管理员  CW_子公司高管1 CW_子公司高管2]) } ||
+         user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_财务分析部管理员 CW_子公司高管1 CW_子公司高管2]) } ||
          user.admin?)
     end
   end
