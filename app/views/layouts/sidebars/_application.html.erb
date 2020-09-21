@@ -39,10 +39,12 @@
           <%= t("layouts.sidebar.application.operation") %>
         <% end %>
       <% end %>
-      <%= nav_item controller: 'operation_entry/operation_entry', html_options: {class: "nav-item"} do %>
-        <%= link_to operation_entry_root_path, class: "nav-link" do %>
-          <i class="nav-icon fas fa-pen-square"></i>
-          <%= t("layouts.sidebar.application.operation_entry") %>
+      <% if policy(:"OperationEntry::CostStructureEntry").show? || policy(:"OperationEntry::CashFlowDeptEntry").show? %>
+        <%= nav_item controller: 'operation_entry/operation_entry', html_options: {class: "nav-item"} do %>
+          <%= link_to operation_entry_root_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-pen-square"></i>
+            <%= t("layouts.sidebar.application.operation_entry") %>
+          <% end %>
         <% end %>
       <% end %>
       <% if policy(:"Bi::KeyCustomerDetail").show? %>
