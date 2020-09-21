@@ -174,22 +174,22 @@ export default class extends Controller {
                             break;
                     }
                     return [
-                        "{value|" + (str) + "} ",
+                        "\n{value|" + (str) + "} ",
                         "{company|" + state + "}"
                     ].join("\n");
                 },
                 rich: {
-                    value: {
-                        fontSize: 25,
-                        lineHeight: 10,
-                        color: "#1e87f0",
-                        fontWeight: "700"
-                    },
-                    company: {
-                        fontSize: 16,
-                        lineHeight: 20,
-                        color: "#1e87f0"
-                    }
+                  value: {
+                    fontSize: 25,
+                    lineHeight: 20,
+                    color: "#1e87f0",
+                    fontWeight: "700"
+                  },
+                  company: {
+                    fontSize: 16,
+                    lineHeight: 30,
+                    color: "#1e87f0"
+                  }
                 }
             },
             data: [datas.value]
