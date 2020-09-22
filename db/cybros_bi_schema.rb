@@ -462,9 +462,11 @@ ActiveRecord::Schema.define(version: 2020_09_21_074807) do
   end
 
   create_table "PREDICT_MONEY_RECEIVE_ORG", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.text "orgcode"
-    t.text "orgname"
-    t.text "f_month"
+    t.string "orgcode_sum", limit: 45
+    t.string "orgcode", limit: 45
+    t.string "orgname_sum", limit: 200
+    t.string "orgname", limit: 200
+    t.string "f_month", limit: 45
     t.float "nextmonthmoney", limit: 53
     t.bigint "settlemoney"
     t.bigint "sixmonthmoney"
@@ -962,6 +964,45 @@ ActiveRecord::Schema.define(version: 2020_09_21_074807) do
     t.text "clientsshort"
     t.text "iscontract"
     t.datetime "realcontractdate"
+  end
+
+  create_table "V_TH_DEPTMONEYFLOW_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "comp", limit: 50
+    t.string "dept", limit: 50
+    t.date "checkdate"
+    t.float "endmoney", limit: 53
+    t.datetime "refresh_date"
+  end
+
+  create_table "V_TH_DEPTMONEYFLOW_ORG", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "comp", limit: 50
+    t.date "checkdate"
+    t.float "endmoney", limit: 53
+    t.datetime "refresh_date"
+  end
+
+  create_table "V_TH_DEPTMONEYFLOW_SAVE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.text "compid"
+    t.text "comp"
+    t.text "compname"
+    t.text "deptid"
+    t.text "dept"
+    t.text "deptname"
+    t.datetime "checkdate"
+    t.float "openingmoney", limit: 53
+    t.float "nextbonusamount", limit: 53
+    t.float "nextamount", limit: 53
+    t.float "covertmoney", limit: 53
+    t.float "nexthrpaymoney", limit: 53
+    t.float "nextdeptprocost", limit: 53
+    t.float "nextdeptcost", limit: 53
+    t.float "changemoney", limit: 53
+    t.float "allocationmoney", limit: 53
+    t.float "deptmoney", limit: 53
+    t.float "allowancemoney", limit: 53
+    t.float "allowancesetmoney", limit: 53
+    t.float "endmoney", limit: 53
+    t.datetime "refresh_date"
   end
 
   create_table "V_TH_NEWMAPINFO", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
