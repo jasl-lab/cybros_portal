@@ -45,14 +45,14 @@ class Report::ContractSignDetailsController < Report::BaseController
   def hide
     authorize Bi::ContractSignDetailDate
     contract_code = params[:contract_code]
-    Bi::ContractSignDetailDate.where(salescontractcode: contract_code).update_all(need_hide: true)
+    policy_scope(Bi::ContractSignDetailDate).where(salescontractcode: contract_code).update_all(need_hide: true)
     redirect_to report_contract_sign_detail_path
   end
 
   def un_hide
     authorize Bi::ContractSignDetailDate
     contract_code = params[:contract_code]
-    Bi::ContractSignDetailDate.where(salescontractcode: contract_code).update_all(need_hide: nil)
+    policy_scope(Bi::ContractSignDetailDate).where(salescontractcode: contract_code).update_all(need_hide: nil)
     redirect_to report_contract_sign_detail_path(show_hide_item: true)
   end
 
