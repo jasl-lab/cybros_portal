@@ -18,7 +18,6 @@ export default class extends Controller {
     const view_deptcode_sum = this.data.get("view_deptcode_sum") == "true";
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const xAxisCode = JSON.parse(this.data.get("x_axis_code"));
-    const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const lastAvailableSignDeptDate = this.data.get("last_available_sign_dept_date");
     const companyName = this.data.get("company_name");
     const sumContractAmounts = JSON.parse(this.data.get("contract_amounts"));
