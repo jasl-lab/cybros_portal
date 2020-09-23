@@ -8,6 +8,8 @@ module Bi
 
     class Scope < Scope
       def resolve
+        return scope.none unless user.present?
+
         if user.admin? || user.position_title.in?(ALLOW_SHOW_TITLES) || user.roles.pluck(:project_map_viewer).any?
           scope.all
         else

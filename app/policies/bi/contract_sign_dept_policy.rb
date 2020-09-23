@@ -5,6 +5,7 @@ module Bi
     class Scope < Scope
       def resolve
         return scope.none unless user.present?
+
         can_access_org_codes = user.can_access_org_codes.append(user.user_company_orgcode)
         can_access_dept_codes = user.can_access_dept_codes
         if user.roles.pluck(:report_view_all).any? || user.admin?
