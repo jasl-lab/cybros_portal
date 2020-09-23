@@ -9,7 +9,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def show
     @short_company_name = params[:company_name]
     authorize Bi::ContractSign if @short_company_name.blank?
-    prepare_meta_tags title: t(‘.title’)
+    prepare_meta_tags title: t('.title')
 
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSignDept, :group_resolve).all_month_names
