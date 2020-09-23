@@ -11,6 +11,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     authorize Bi::SubCompanyRealReceive
     prepare_meta_tags title: t(".title")
     @all_month_names = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).all_month_names
+    @all_month_names = policy_scope(Bi::SubCompanyRealReceive, :group_resolve).all_month_names if @all_month_names.blank?
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = Date.parse(@month_name).beginning_of_month
