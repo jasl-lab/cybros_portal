@@ -52,7 +52,7 @@ namespace :role do
 
         if (stname.include?('总经理') || stname.include?('董事长') || stname.include?('总建筑师')) && zjname >= 17
           user.manual_cw_access_codes.create(cw_rolename: 'CW_子公司高管1', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)
-        elsif (stname.include?('副总经理') || stname.include?('总经理助理')) && zjname >= 15
+        elsif (stname == '副总经理' || stname == '总经理助理' || stname == '市场运营总监' || stname == 'Marketing & Operation Director 市场运营总监') && zjname >= 15
           user.manual_cw_access_codes.create(cw_rolename: 'CW_子公司高管2', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)
         elsif (stname.include?('管理副所长') && zjname >= 13) || (stname.include?('所长') && zjname >= 14) || (stname.include?('所长助理') && zjname >= 12)
           user.manual_cw_access_codes.create(cw_rolename: 'CW_所级管理者1', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)
