@@ -11,7 +11,7 @@ class Report::PredictContractsController < Report::BaseController
   end
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(Bi::TrackContract, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     raise Pundit::NotAuthorizedError if @month_name.nil?

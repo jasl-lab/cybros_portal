@@ -7,7 +7,8 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
 
   def show
     authorize Bi::SubCompanyNeedReceiveSignDetail
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
+
     @all_month_names = policy_scope(Bi::SubCompanyNeedReceiveSignDetail).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_date = policy_scope(Bi::SubCompanyNeedReceiveSignDetail)
@@ -19,7 +20,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     @total_sign_receive_great_than = params[:total_sign_receive_great_than] || 200
     @over_amount_great_than = params[:over_amount_great_than] || 1
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
-    @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
+    @show_hide_item = params[:show_hide_item] == 'true' && @can_hide_item
 
     respond_to do |format|
       format.html
