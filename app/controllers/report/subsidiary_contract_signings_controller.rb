@@ -17,7 +17,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     raise Pundit::NotAuthorizedError if @month_name.blank?
     @end_of_month = Date.parse(@month_name).end_of_month
     @beginning_of_year = Date.parse(@month_name).beginning_of_year
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @period_mean_ref = params[:period_mean_ref] || 100
     @cp_contract_amounts_per_staff_ref = if @manual_set_staff_ref
       params[:contract_amounts_per_staff_ref]
@@ -169,6 +169,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     month_name = params[:month_name]
     beginning_of_year = Date.parse(month_name).beginning_of_year
     end_of_year = Date.parse(month_name).end_of_year
+    view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
     @department_name = [params[:department_name]]
 
@@ -178,10 +179,14 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     last_available_sign_dept_date = Date.parse(params[:last_available_sign_dept_date])
-    @data = policy_scope(Bi::ContractProductionDetail).where(date: last_available_sign_dept_date)
-      .where(orgname: @company_name, deptname: @department_name)
+    data = policy_scope(Bi::ContractProductionDetail).where(date: last_available_sign_dept_date)
       .where(filingtime: beginning_of_year..end_of_year)
       .order(filingtime: :asc)
+    @data = if view_deptcode_sum
+      data.where(orgname_sum: @company_name, deptname_sum: @department_name)
+    else
+      data.where(orgname: @company_name, deptname: @department_name)
+    end
     authorize @data.first if @data.present?
   end
 

@@ -320,7 +320,8 @@ export default class extends Controller {
         const sent_data = {
           company_name: companyName,
           department_name: series_department,
-          month_name: month_name,
+          month_name,
+          view_deptcode_sum,
           last_available_sign_dept_date: lastAvailableSignDeptDate };
         let drill_down_url;
         if (params.seriesType === 'bar') {
