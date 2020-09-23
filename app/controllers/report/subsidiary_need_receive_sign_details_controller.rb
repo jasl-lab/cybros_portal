@@ -11,6 +11,10 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
 
     @all_month_names = policy_scope(Bi::SubCompanyNeedReceiveSignDetail).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
+    if @month_name.blank?
+      flash[:alert] = I18n.t('not_data_authorized')
+      raise Pundit::NotAuthorizedError
+    end
     @end_of_date = policy_scope(Bi::SubCompanyNeedReceiveSignDetail)
       .where(date: Date.parse(@month_name).beginning_of_month..Date.parse(@month_name).end_of_month).order(date: :desc).pluck(:date).first
     all_org_long_names = policy_scope(Bi::SubCompanyNeedReceiveSignDetail).all_org_long_names(@end_of_date)

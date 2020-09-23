@@ -15,7 +15,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @all_month_names = policy_scope(Bi::ContractSignDept, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     if @month_name.blank?
-      flash[:alert] = '没有您有权限可以查看的任何数据。'
+      flash[:alert] = I18n.t('not_data_authorized')
       raise Pundit::NotAuthorizedError
     end
     @end_of_month = Date.parse(@month_name).end_of_month

@@ -34,3 +34,4 @@ en:
     'true': "Yes"
     'false': "No"
   not_authorized: "You are not authorized to perform this action."
+  not_data_authorized: "There is no data that you have permission to view."
