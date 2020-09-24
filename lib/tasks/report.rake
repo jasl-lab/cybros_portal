@@ -9,7 +9,7 @@ namespace :report do
       space_name = t.controller_name.split('/').first
       controller = t.controller_name.split('/').last
       action = t.action_name
-      chinese_report_name = I18n.t("#{space_name}.#{controller}.#{action}.title")
+      chinese_report_name = I18n.t("#{space_name}.#{controller}.#{action}.title", company: '子公司')
       if chinese_report_name.start_with? 'translation missing:'
         puts t.controller_name
       else
