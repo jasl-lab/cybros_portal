@@ -3,9 +3,9 @@
 class Report::HomeController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
-  def index
+  def show
     prepare_meta_tags title: t(".title")
   end
 

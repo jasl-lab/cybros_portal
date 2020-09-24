@@ -102,7 +102,7 @@ Rails.application.routes.draw do
   end
 
   namespace :report do
-    root to: 'home#index'
+    root to: 'home#show'
 
     resource :key_customer_detail, only: %i[show]
     resource :organization_chart, only: %i[show]
