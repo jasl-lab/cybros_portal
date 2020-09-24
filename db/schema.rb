@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_044639) do
+ActiveRecord::Schema.define(version: 2020_09_24_022110) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -322,6 +322,13 @@ ActiveRecord::Schema.define(version: 2020_09_01_044639) do
     t.string "contract_belong_company_code"
     t.string "status"
     t.index ["user_id"], name: "index_public_rental_housing_applies_on_user_id"
+  end
+
+  create_table "report_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "controller_name"
+    t.string "report_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "report_view_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class ReportName < ApplicationRecord
+end
