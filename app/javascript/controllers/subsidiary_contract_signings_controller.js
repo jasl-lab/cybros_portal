@@ -84,7 +84,7 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
-          name: '本年累计签约合同额（万元）',
+          name: '商务合同额（万元）',
           position: 'left',
           min: 0,
           max: sumContractAmountMax,
@@ -138,7 +138,7 @@ export default class extends Controller {
             ]
           }
         },{
-          name: '本年累计签约合同额',
+          name: '商务合同额',
           type: 'bar',
           data: sumContractAmounts,
           color: '#738496',
