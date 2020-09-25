@@ -11,8 +11,7 @@ zh-CN:
         show_hide_item: "显示隐藏项目"
         confirm: "确认"
         table:
-          org_name: "商务责任公司"
-          dept_name: "商务责任部门"
+          org_dept_name: "商务责任公司与部门"
           business_director_name: "商务责任人"
           first_party_name: "甲方集团"
           sales_contract_code_name: "合同编号及名称"

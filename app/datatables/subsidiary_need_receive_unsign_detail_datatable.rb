@@ -18,8 +18,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.orgname", searchable: false, orderable: true },
-      dept_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
+      org_dept_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
       project_manager_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectmanagername", cond: :string_eq, searchable: true, orderable: true },
       project_item_code_name: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.projectitemname", cond: :like, searchable: true, orderable: true },
       created_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.createddate", cond: :string_eq, searchable: true, orderable: true },
@@ -34,8 +33,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
-      { org_name: Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname),
-        dept_name: r.deptname,
+      { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         project_manager_name: r.projectmanagername,
         project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}<br />#{r.projectstatus}".html_safe,
         created_date: r.createddate.to_date,

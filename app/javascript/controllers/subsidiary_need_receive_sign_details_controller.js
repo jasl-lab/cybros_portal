@@ -5,8 +5,7 @@ export default class extends Controller {
     const canHideItem = this.data.get("can_hide_item") == "true";
 
     const normalColumns = [
-      {"data": "org_name"},
-      {"data": "dept_name"},
+      {"data": "org_dept_name"},
       {"data": "business_director_name"},
       {"data": "first_party_name"},
       {"data": "sales_contract_code_name"},

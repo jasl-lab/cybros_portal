@@ -38,8 +38,7 @@
           data-source="<%= report_subsidiary_need_receive_unsign_detail_path(format: :json, org_name: @org_name, unsign_receive_great_than: @unsign_receive_great_than, days_to_min_timecard_fill_great_than: @days_to_min_timecard_fill_great_than, month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
           <thead>
             <tr>
-              <th style="width: 60px"><%= t(".table.org_name") -%></th>
-              <th><%= t(".table.dept_name") -%></th>
+              <th style="width: 60px"><%= t(".table.org_dept_name") -%></th>
               <th><%= t(".table.project_manager_name") -%></th>
               <th style="width: 280px"><%= t(".table.project_item_code_name_status") -%></th>
               <th style="width: 60px"><%= t(".table.created_date") -%></th>

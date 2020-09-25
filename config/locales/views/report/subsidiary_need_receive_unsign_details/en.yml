@@ -11,8 +11,7 @@ en:
         show_hide_item: "Show hide item"
         confirm: "Confirm"
         table:
-          org_name: "Org name"
-          dept_name: "Dept name"
+          org_dept_name: "Org & Dept name"
           project_manager_name: "Project manager name"
           project_item_code_name_status: "Project item code name & status"
           created_date: "Created date"
