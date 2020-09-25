@@ -45,7 +45,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: "text-center"),
-        comment_on_sales_contract_code: '',
+        comment_on_sales_contract_code: render(partial: 'report/subsidiary_need_receive_sign_details/comment'),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
                       else
