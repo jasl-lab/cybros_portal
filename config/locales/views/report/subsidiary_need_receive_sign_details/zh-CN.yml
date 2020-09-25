@@ -21,4 +21,5 @@ zh-CN:
           sign_receive: "合同业务应收（万元）"
           acc_need_receive: "合同财务应收款（万元）"
           over_amount: "账龄3个月以上业务应收款（万元）"
+          comment_on_sales_contract_code: "针对项目编号的备注"
           admin_action: "管理员操作"

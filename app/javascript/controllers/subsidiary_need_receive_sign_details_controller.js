@@ -14,7 +14,8 @@ export default class extends Controller {
       {"data": "contract_time"},
       {"data": "acc_need_receive"},
       {"data": "sign_receive"},
-      {"data": "over_amount"}
+      {"data": "over_amount"},
+      {"data": "comment_on_sales_contract_code"},
     ];
 
     const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
