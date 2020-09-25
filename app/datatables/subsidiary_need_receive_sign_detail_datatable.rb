@@ -35,6 +35,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
+      coc = Bi::CommentOnSalesContractCode.find_or_initialize_by(sales_contract_code: r.salescontractcode, record_month: @end_of_date)
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         business_director_name: r.businessdirectorname,
         first_party_name: r.firstpartyname,
@@ -45,7 +46,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: "text-center"),
-        comment_on_sales_contract_code: render(partial: 'report/subsidiary_need_receive_sign_details/comment'),
+        comment_on_sales_contract_code: render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc }),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
                       else
