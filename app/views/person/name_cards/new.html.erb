@@ -76,7 +76,7 @@
           <% if @name_card_title_fill_hint.present? %>
             <span class="help-block"><%= @name_card_title_fill_hint %></span>
           <% else %>
-            <span class="help-block"><%= t('.title_fill_hint') %></span>
+            <span class="help-block"><%= t('.title_fill_hint').html_safe %></span>
           <% end %>
           <%= f.error_message :title, tag: :span, class: "help-block error-message" %>
         </div>
