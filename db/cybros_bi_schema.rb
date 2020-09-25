@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_21_074807) do
+ActiveRecord::Schema.define(version: 2020_09_25_085324) do
 
   create_table "ACCOUNT_RECEIVE_SAVEDATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.text "kporg"
@@ -1423,6 +1423,14 @@ ActiveRecord::Schema.define(version: 2020_09_21_074807) do
     t.float "realamount", limit: 53
     t.float "avg_work_no", limit: 53
     t.float "avg_staff_no", limit: 53
+  end
+
+  create_table "comment_on_sales_contract_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "sales_contract_code", null: false
+    t.string "comment", null: false
+    t.date "record_month", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "crm_opportunity", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
