@@ -34,8 +34,14 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
   end
 
   def data
+    comment_end_of_date = @end_of_date.end_of_month
+    sales_contract_codes = records.collect(&:salescontractcode)
+    coc_records = Bi::CommentOnSalesContractCode.where(sales_contract_code: sales_contract_codes, record_month: comment_end_of_date)
     records.map do |r|
-      coc = Bi::CommentOnSalesContractCode.find_or_initialize_by(sales_contract_code: r.salescontractcode, record_month: @end_of_date)
+      coc = coc_records.find { |c| c.sales_contract_code == r.salescontractcode && c.record_month == comment_end_of_date }
+      if coc.blank?
+        coc = Bi::CommentOnSalesContractCode.new(sales_contract_code: r.salescontractcode, record_month: comment_end_of_date)
+      end
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         business_director_name: r.businessdirectorname,
         first_party_name: r.firstpartyname,
