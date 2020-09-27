@@ -15,10 +15,9 @@ export default class extends Controller {
       {"data": "acc_need_receive"},
       {"data": "sign_receive"},
       {"data": "over_amount"},
-      {"data": "comment_on_sales_contract_code"},
     ];
 
-    const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
+    const adminColumns = normalColumns.concat([{"data": "comment_on_sales_contract_code"}, {"data": "admin_action", bSortable: false}]);
 
     $('#subsidiary-need-receive-sign-details-datatable').dataTable({
       "processing": true,

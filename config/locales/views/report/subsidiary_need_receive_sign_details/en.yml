@@ -22,5 +22,5 @@ en:
           sign_receive: "Sign receive"
           acc_need_receive: "Account need receive"
           over_amount: "Over amount"
-          comment_on_sales_contract_code: "Remarks for sales contract code"
+          comment_on_sales_contract_code: "Remarks"
           admin_action: "Admin action"
