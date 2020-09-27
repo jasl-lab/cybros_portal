@@ -645,8 +645,9 @@ ActiveRecord::Schema.define(version: 2020_09_25_085324) do
     t.float "collectionamount"
     t.float "accneedreceive"
     t.datetime "collectiondate"
-    t.date "date"
+    t.date "date", null: false
     t.integer "need_hide", limit: 1
+    t.index ["date"], name: "idx_sub_company_need_receive_sign_detail_date"
   end
 
   create_table "SUB_COMPANY_NEED_RECEIVE_UNSIGN_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

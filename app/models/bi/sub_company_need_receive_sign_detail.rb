@@ -5,7 +5,7 @@ module Bi
     self.table_name = 'SUB_COMPANY_NEED_RECEIVE_SIGN_DETAIL'
 
     def self.all_month_names
-      order(date: :desc).pluck(:date).collect { |d| d.to_s(:month_and_year) }.uniq
+      @all_month_names ||= order(date: :desc).distinct.pluck(:date).collect { |d| d.to_s(:month_and_year) }
     end
 
     def self.all_org_long_names(end_of_date)
