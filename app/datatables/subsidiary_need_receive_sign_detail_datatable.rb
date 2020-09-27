@@ -35,12 +35,20 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def data
     comment_end_of_date = @end_of_date.end_of_month
+    comment_previous_end_of_date = (@end_of_date - 1.month).end_of_month
     sales_contract_codes = records.collect(&:salescontractcode)
     coc_records = Bi::CommentOnSalesContractCode.where(sales_contract_code: sales_contract_codes, record_month: comment_end_of_date)
+    coc_previous_records = Bi::CommentOnSalesContractCode.where(sales_contract_code: sales_contract_codes, record_month: comment_previous_end_of_date)
     records.map do |r|
       coc = coc_records.find { |c| c.sales_contract_code == r.salescontractcode && c.record_month == comment_end_of_date }
-      if coc.blank?
-        coc = Bi::CommentOnSalesContractCode.new(sales_contract_code: r.salescontractcode, record_month: comment_end_of_date)
+      prev_coc = coc_previous_records.find { |c| c.sales_contract_code == r.salescontractcode && c.record_month == comment_previous_end_of_date }
+      coc = if coc.present?
+        coc
+      elsif prev_coc.present?
+        prev_coc.record_month = comment_end_of_date
+        prev_coc
+      else
+        Bi::CommentOnSalesContractCode.new(sales_contract_code: r.salescontractcode, record_month: comment_end_of_date)
       end
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         business_director_name: r.businessdirectorname,
