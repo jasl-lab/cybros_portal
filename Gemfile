@@ -63,7 +63,7 @@ gem "kaminari"
 gem "simple_calendar"
 
 # bundle config local.wechat /Users/guochunzhong/git/oss/wechat/
-gem 'wechat', git: 'https://github.com/Eric-Guo/wechat', branch: :master
+gem 'wechat', git: 'https://github.com/Eric-Guo/wechat', branch: :main
 
 gem 'jieba-rb'
 gem 'similar_text'
