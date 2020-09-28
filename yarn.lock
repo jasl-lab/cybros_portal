@@ -2373,7 +2373,7 @@ css-select-base-adapter@^0.1.1:
 
 css-select@^2.0.0:
   version "2.1.0"
-  resolved "https://registry.npm.taobao.org/css-select/download/css-select-2.1.0.tgz?cache=0&sync_timestamp=1600902772374&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcss-select%2Fdownload%2Fcss-select-2.1.0.tgz#6a34653356635934a81baca68d0255432105dbef"
+  resolved "https://registry.npm.taobao.org/css-select/download/css-select-2.1.0.tgz?cache=0&sync_timestamp=1601260138007&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcss-select%2Fdownload%2Fcss-select-2.1.0.tgz#6a34653356635934a81baca68d0255432105dbef"
   integrity sha1-ajRlM1ZjWTSoG6ymjQJVQyEF2+8=
   dependencies:
     boolbase "^1.0.0"
@@ -2779,7 +2779,7 @@ domelementtype@^2.0.1:
 
 domutils@^1.7.0:
   version "1.7.0"
-  resolved "https://registry.npm.taobao.org/domutils/download/domutils-1.7.0.tgz?cache=0&sync_timestamp=1600894729447&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdomutils%2Fdownload%2Fdomutils-1.7.0.tgz#56ea341e834e06e6748af7a1cb25da67ea9f8c2a"
+  resolved "https://registry.npm.taobao.org/domutils/download/domutils-1.7.0.tgz?cache=0&sync_timestamp=1601261424848&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdomutils%2Fdownload%2Fdomutils-1.7.0.tgz#56ea341e834e06e6748af7a1cb25da67ea9f8c2a"
   integrity sha1-Vuo0HoNOBuZ0ivehyyXaZ+qfjCo=
   dependencies:
     dom-serializer "0"
@@ -5819,9 +5819,9 @@ postcss-lab-function@^2.0.1:
     postcss-values-parser "^2.0.0"
 
 postcss-load-config@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/postcss-load-config/download/postcss-load-config-2.1.1.tgz?cache=0&sync_timestamp=1600379979645&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-load-config%2Fdownload%2Fpostcss-load-config-2.1.1.tgz#0a684bb8beb05e55baf922f7ab44c3edb17cf78e"
-  integrity sha1-CmhLuL6wXlW6+SL3q0TD7bF8944=
+  version "2.1.2"
+  resolved "https://registry.npm.taobao.org/postcss-load-config/download/postcss-load-config-2.1.2.tgz#c5ea504f2c4aef33c7359a34de3573772ad7502a"
+  integrity sha1-xepQTyxK7zPHNZo03jVzdyrXUCo=
   dependencies:
     cosmiconfig "^5.0.0"
     import-cwd "^2.0.0"
@@ -6051,7 +6051,7 @@ postcss-overflow-shorthand@^2.0.0:
 
 postcss-page-break@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/postcss-page-break/download/postcss-page-break-2.0.0.tgz#add52d0e0a528cabe6afee8b46e2abb277df46bf"
+  resolved "https://registry.npm.taobao.org/postcss-page-break/download/postcss-page-break-2.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-page-break%2Fdownload%2Fpostcss-page-break-2.0.0.tgz#add52d0e0a528cabe6afee8b46e2abb277df46bf"
   integrity sha1-rdUtDgpSjKvmr+6LRuKrsnffRr8=
   dependencies:
     postcss "^7.0.2"
@@ -6144,7 +6144,7 @@ postcss-replace-overflow-wrap@^3.0.0:
 
 postcss-safe-parser@^4.0.2:
   version "4.0.2"
-  resolved "https://registry.npm.taobao.org/postcss-safe-parser/download/postcss-safe-parser-4.0.2.tgz?cache=0&sync_timestamp=1600300223854&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-safe-parser%2Fdownload%2Fpostcss-safe-parser-4.0.2.tgz#a6d4e48f0f37d9f7c11b2a581bf00f8ba4870b96"
+  resolved "https://registry.npm.taobao.org/postcss-safe-parser/download/postcss-safe-parser-4.0.2.tgz?cache=0&sync_timestamp=1601169653720&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-safe-parser%2Fdownload%2Fpostcss-safe-parser-4.0.2.tgz#a6d4e48f0f37d9f7c11b2a581bf00f8ba4870b96"
   integrity sha1-ptTkjw832ffBGypYG/APi6SHC5Y=
   dependencies:
     postcss "^7.0.26"
@@ -6362,7 +6362,7 @@ qs@~6.5.2:
 
 query-string@^4.1.0:
   version "4.3.4"
-  resolved "https://registry.npm.taobao.org/query-string/download/query-string-4.3.4.tgz?cache=0&sync_timestamp=1600009550845&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fquery-string%2Fdownload%2Fquery-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
+  resolved "https://registry.npm.taobao.org/query-string/download/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
   integrity sha1-u7aTucqRXCMlFbIosaArYJBD2+s=
   dependencies:
     object-assign "^4.1.0"
