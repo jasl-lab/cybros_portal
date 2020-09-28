@@ -14,13 +14,13 @@ class Report::DesignCashFlowsController < Report::BaseController
     @orgs_options = params[:orgs]
 
     orgs_data = policy_scope(Bi::DeptMoneyFlow)
-      .select('OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, OCDW.V_TH_DEPTMONEYFLOW.endmoney, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+      .select('OCDW.V_TH_DEPTMONEYFLOW.comp')
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = OCDW.V_TH_DEPTMONEYFLOW.comp')
       .where(checkdate: beginning_of_month..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
 
-    only_have_data_orgs = orgs_data.collect(&:orgcode).uniq
+    only_have_data_orgs = orgs_data.pluck(:comp).uniq
     real_company_short_names = only_have_data_orgs.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @orgs_options = only_have_data_orgs if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(only_have_data_orgs)
