@@ -26,7 +26,7 @@ class Report::DesignCashFlowsController < Report::BaseController
     @organization_options = real_company_short_names.zip(only_have_data_orgs)
 
     data = policy_scope(Bi::DeptMoneyFlow)
-      .select('OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, ORG_ORDER.org_order, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney, 0)) endmoney')
+      .select('OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, ORG_ORDER.org_order, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney, 0)) endmoney, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.nexthrpaymoney,0)) nexthrpaymoney')
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = OCDW.V_TH_DEPTMONEYFLOW.comp')
       .where(checkdate: beginning_of_month..@end_of_month)
       .where(comp: @orgs_options)
@@ -35,8 +35,9 @@ class Report::DesignCashFlowsController < Report::BaseController
       .order('ORG_ORDER.org_order DESC')
 
     @org_names = data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
-    @end_money = data.collect(&:endmoney)
-
+    @org_endmoney = data.collect(&:endmoney)
+    org_nexthrpaymoney = data.collect(&:nexthrpaymoney)
+    @org_rate = @org_endmoney.map.with_index { |x, i| (x / org_nexthrpaymoney[i].to_f).round(2) }
   end
 
   protected

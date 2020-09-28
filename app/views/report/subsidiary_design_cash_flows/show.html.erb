@@ -19,8 +19,7 @@
     data-subsidiary-design-cash-flow-org_endmoney="<%= @org_endmoney.to_json -%>"
     data-subsidiary-design-cash-flow-org_rate="<%= @org_rate.to_json -%>"
     data-subsidiary-design-cash-flow-dept_endmoney="<%= @dept_endmoney.to_json -%>"
-    data-subsidiary-design-cash-flow-dept_short_names="<%= @dept_short_names.to_json -%>"
-    >
+    data-subsidiary-design-cash-flow-dept_short_names="<%= @dept_short_names.to_json -%>">
     <h4 class="page-title">
       <%= select_tag 'company_name', options_for_select(@available_short_company_names, @selected_short_name), class: 'form-control2 form-control', onchange: "Turbolinks.visit('#{url_for(action: 'show', controller: 'subsidiary_design_cash_flows')}?company_name='+ this.value + '&view_deptcode_sum=#{@view_deptcode_sum}');", style: "display: inline;" -%>
       <%= t(".title") %>
