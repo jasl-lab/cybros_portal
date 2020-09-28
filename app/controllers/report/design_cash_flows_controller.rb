@@ -11,21 +11,18 @@ class Report::DesignCashFlowsController < Report::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_year = @end_of_month.beginning_of_year
-    beginning_of_month = @end_of_month.beginning_of_month
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == "true"
 
-    selected_short_name = params[:company_name]&.strip
 
-    current_user_companies = current_user.user_company_names
     data = policy_scope(Bi::DeptMoneyFlow)
-      .select("OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, OCDW.V_TH_DEPTMONEYFLOW.endmoney, OCDW.V_TH_DEPTMONEYFLOW.checkdate")
-      .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = OCDW.V_TH_DEPTMONEYFLOW.comp")
+      .select('OCDW.V_TH_DEPTMONEYFLOW.comp orgcode, OCDW.V_TH_DEPTMONEYFLOW.endmoney, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = OCDW.V_TH_DEPTMONEYFLOW.comp')
       .where(checkdate: beginning_of_year..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
       .order('ORG_ORDER.org_order DESC')
 
-    only_have_data_orgs = data.collect(&:orgcode)
+    only_have_data_orgs = data.collect(&:orgcode).uniq
     real_company_short_names = only_have_data_orgs.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @orgs_options = only_have_data_orgs if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(only_have_data_orgs)
