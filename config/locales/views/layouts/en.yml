@@ -139,4 +139,4 @@ en:
         account_operation_summary_dept: "Company operation summary"
       cost_split:
         header: "Cost split"
-
+        human_resources: "Staff cost allocation settings"

@@ -1,0 +1,6 @@
+---
+zh-CN:
+  cost_split:
+    human_resources:
+      index:
+        title: "人员成本分摊设置"

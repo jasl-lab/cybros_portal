@@ -139,3 +139,4 @@ zh-CN:
         account_operation_summary_dept: "公司经营情况汇总（测试中）"
       cost_split:
         header: "集团费用分摊"
+        human_resources: "人员成本分摊设置"
