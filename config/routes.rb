@@ -290,7 +290,7 @@ Rails.application.routes.draw do
   end
 
   namespace :operation_entry do
-    root to: 'home#index'
+    root to: 'home#show'
 
     resource :cost_structure_entry, only: %i[show]
     resource :cash_flow_dept_entry, only: %i[show]
@@ -309,6 +309,9 @@ Rails.application.routes.draw do
     resource :operation_summary_dept, only: %i[show]
   end
 
+  namespace :cost_split do
+    root to: 'home#show'
+  end
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',

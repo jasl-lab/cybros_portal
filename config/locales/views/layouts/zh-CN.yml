@@ -20,6 +20,7 @@ zh-CN:
         human_resource: "天华人力资源分析"
         financial_management: "财务所级管理报表"
         account_report: "财务中心运营报表"
+        cost_split: "集团费用分摊"
       accounts:
         header: "用户设置"
         profile: "个人信息"
@@ -136,4 +137,5 @@ zh-CN:
         account_business_target_dept: "公司营业目标完成情况（测试中）"
         account_operation_summary_org: "集团经营情况汇总（测试中）"
         account_operation_summary_dept: "公司经营情况汇总（测试中）"
-
+      cost_split:
+        header: "集团费用分摊"

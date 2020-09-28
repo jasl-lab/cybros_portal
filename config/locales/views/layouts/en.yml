@@ -20,6 +20,7 @@ en:
         human_resource: "Human resource"
         financial_management: "Financial management"
         account_report: "Account report"
+        cost_split: "Group cost split"
       accounts:
         header: "User settings"
         profile: "Profile"
@@ -136,4 +137,6 @@ en:
         account_business_target_dept: "Company business target"
         account_operation_summary_org: "Organization operation summary"
         account_operation_summary_dept: "Company operation summary"
+      cost_split:
+        header: "Cost split"
 

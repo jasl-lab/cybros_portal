@@ -79,6 +79,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"CostSplit::Home").show? %>
+        <%= nav_item controller: 'cost_split/home', html_options: {class: "nav-item"} do %>
+          <%= link_to cost_split_root_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-balance-scale"></i>
+            <%= t("layouts.sidebar.application.cost_split") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

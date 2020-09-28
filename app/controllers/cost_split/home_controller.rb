@@ -1,4 +1,6 @@
-class OperationEntry::HomeController < ApplicationController
+# frozen_string_literal: true
+
+class CostSplit::HomeController < CostSplit::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
 
@@ -9,6 +11,6 @@ class OperationEntry::HomeController < ApplicationController
   protected
 
     def set_page_layout_data
-      @_sidebar_name = 'operation_entry'
+      @_sidebar_name = 'cost_split'
     end
 end
