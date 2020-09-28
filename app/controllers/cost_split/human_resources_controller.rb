@@ -3,8 +3,8 @@
 class CostSplit::HumanResourcesController < CostSplit::BaseController
   def index
     prepare_meta_tags title: t('.title')
-    @all_company_names = []
-    @company_name = nil
+    @all_company_names = Bi::OrgOrder.all_company_names
+    @company_name = current_user.user_company_names.first
     @dept_options = []
     @depts = []
   end
