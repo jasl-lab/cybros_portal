@@ -4,3 +4,6 @@ en:
     human_resources:
       index:
         title: "Cost split for human resources"
+        company_name: "Company name"
+        dept_name: "Department name"
+        confirm: "Search"

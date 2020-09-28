@@ -4,3 +4,6 @@ zh-CN:
     human_resources:
       index:
         title: "人员成本分摊设置"
+        company_name: "公司名字"
+        dept_name: "部门名称"
+        confirm: "搜索"

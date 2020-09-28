@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag cost_split_human_resources_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group">
+        <label class="mr-1"><%= t(".company_name") -%>：</label>
+        <%= select_tag 'company_name', options_for_select(@all_company_names, @company_name), class: 'form-control' %>
+      </div>
+      <div class="form-group mr-3">
+        <label class="mr-1"><%= t(".dept_name") -%>：</label>
+          <%= select_tag 'depts', options_for_select(@dept_options, @depts), { include_blank: true, multiple: true, class: 'form-control' } %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+    <% end -%>
+  </div>
+</div>
