@@ -28,6 +28,9 @@ export default class extends Controller {
       "columns": (canHideItem ? adminColumns : normalColumns),
       "order": [[ 8, 'desc' ]],
       stateSave: true,
+      drawCallback: function () {
+          $('button[data-toggle="popover"]').popover({ "html": true });
+        },
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_subsidiary-need-receive-sign-details', JSON.stringify(data));
         },

@@ -87,4 +87,5 @@ document.addEventListener("turbolinks:load", function() {
   });
 
   $("select[class='form-control'][class!='selectized']").selectize();
+  $('button[data-toggle="popover"]').popover();
 });

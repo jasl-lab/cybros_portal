@@ -8,5 +8,10 @@
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-sm btn-primary"  data-disable-with="保存中">保存</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+      title="备注历史"
+      data-content="<%= coc_history.join('<br />') -%>">
+      <span class="fas fa-history"></span>
+    </button>
   </div>
 <% end %>

@@ -5,6 +5,7 @@ class ApplicationDatatable < AjaxDatatablesRails::ActiveRecord
 
   def_delegator :@view, :link_to
   def_delegator :@view, :render
+  def_delegator :@view, :sanitize
 
   def initialize(params, opts = {})
     @view = opts[:view_context]

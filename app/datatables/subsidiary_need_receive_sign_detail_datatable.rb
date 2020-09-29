@@ -39,6 +39,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     sales_contract_codes = records.collect(&:salescontractcode)
     coc_records = Bi::CommentOnSalesContractCode.where(sales_contract_code: sales_contract_codes, record_month: comment_end_of_date)
     coc_previous_records = Bi::CommentOnSalesContractCode.where(sales_contract_code: sales_contract_codes, record_month: comment_previous_end_of_date)
+    coc_histories = Bi::CommentOnSalesContractCode.where(sales_contract_code: sales_contract_codes)
     records.map do |r|
       coc = coc_records.find { |c| c.sales_contract_code == r.salescontractcode && c.record_month == comment_end_of_date }
       prev_coc = coc_previous_records.find { |c| c.sales_contract_code == r.salescontractcode && c.record_month == comment_previous_end_of_date }
@@ -50,6 +51,9 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       else
         Bi::CommentOnSalesContractCode.new(sales_contract_code: r.salescontractcode, record_month: comment_end_of_date)
       end
+      coc_history = coc_histories.find_all { |c| c.sales_contract_code == r.salescontractcode }.collect do |c|
+        "#{c.record_month}: #{sanitize c.comment}"
+      end
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         business_director_name: r.businessdirectorname,
         first_party_name: r.firstpartyname,
@@ -60,7 +64,8 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: "text-center"),
-        comment_on_sales_contract_code: render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc }),
+        comment_on_sales_contract_code:
+          render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc, coc_history: coc_history }),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
                       else
