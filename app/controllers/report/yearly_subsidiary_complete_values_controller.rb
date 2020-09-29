@@ -7,7 +7,6 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
 
   def show
     authorize Bi::CompleteValue
-    prepare_meta_tags title: t(".title")
     all_orgcodes = policy_scope(Bi::CompleteValue).distinct.pluck(:orgcode)
     all_company_names = all_orgcodes.collect do |c|
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c)
@@ -36,6 +35,7 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
       current_company = current_user.user_company_names.first
       @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
       @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
+      prepare_meta_tags title: t(".title", company: @selected_company_short_name)
       @_breadcrumbs = [
       { text: t("layouts.sidebar.application.header"),
         link: root_path },

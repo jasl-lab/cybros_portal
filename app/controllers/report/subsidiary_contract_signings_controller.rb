@@ -9,7 +9,6 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
   def show
     @short_company_name = params[:company_name]
     authorize Bi::ContractSign if @short_company_name.blank?
-    prepare_meta_tags title: t('.title')
 
     @manual_set_staff_ref = params[:manual_set_staff_ref]&.presence
     @all_month_names = policy_scope(Bi::ContractSignDept, :group_resolve).all_month_names
@@ -35,6 +34,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     else
       current_user_companies.first
     end
+    prepare_meta_tags title: t('.title', company: @company_name)
 
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept, :group_resolve).last_available_date(@end_of_month)
     @company_short_names = policy_scope(Bi::ContractSignDept, :group_resolve).where(date: @last_available_sign_dept_date)

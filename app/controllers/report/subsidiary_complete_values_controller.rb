@@ -8,7 +8,6 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
   def show
     authorize Bi::CompleteValueDept
-    prepare_meta_tags title: t(".title")
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
     if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
@@ -27,6 +26,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
     @all_short_company_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
+    prepare_meta_tags title: t(".title", company: @selected_company_name)
     orgcode = Bi::OrgShortName.org_code_by_long_name.fetch(@selected_company_name, @selected_company_name)
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
     Rails.logger.debug "orgcode: #{orgcode}"

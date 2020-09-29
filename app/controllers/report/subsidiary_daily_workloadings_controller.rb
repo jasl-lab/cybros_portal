@@ -8,7 +8,6 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursDayCountDept
-    prepare_meta_tags title: t(".title")
     last_available_date = policy_scope(Bi::WorkHoursDayCountDept).last_available_date
     @begin_date = params[:begin_date]&.strip || last_available_date.beginning_of_month
     @end_date = params[:end_date]&.strip || last_available_date.end_of_day
@@ -30,6 +29,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     else
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
     end
+    prepare_meta_tags title: t(".title", company: @short_company_name)
 
     @company_short_names = policy_scope(Bi::WorkHoursDayCountDept).select(:orgcode)
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|

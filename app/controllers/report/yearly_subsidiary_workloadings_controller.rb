@@ -7,7 +7,6 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountOrg
-    prepare_meta_tags title: t(".title")
     @all_company_names = policy_scope(Bi::WorkHoursCountOrg).distinct.pluck(:orgname)
 
 
@@ -22,6 +21,7 @@ class Report::YearlySubsidiaryWorkloadingsController < Report::BaseController
     @planning_day_rate_ref = params[:planning_day_rate_ref] || 95
     @building_day_rate = data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(2) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
+    prepare_meta_tags title: t(".title", company: @selected_company_name)
   end
 
   private

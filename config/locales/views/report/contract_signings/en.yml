@@ -6,7 +6,7 @@ en:
         actions:
           view_orgcode_sum: "View organization in sum"
           view_orgcode: "View organization in detail"
-        title: "%{company} Signing situation analysis"
+        title: "Signing situation analysis"
         month_name: "Query year and month"
         period_mean_ref: "Period mean ref"
         contract_amounts_per_staff_ref: "Contract amounts per staff ref"
