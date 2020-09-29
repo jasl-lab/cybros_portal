@@ -34,6 +34,13 @@
         <h5 class="text-left">预计X月入职人数&nbsp;<span class="text-warning">11</span> <span class="h6">人</span></h5>
         <h5 class="text-left">离职率&nbsp;&nbsp;<span class="text-success">16</span> <span class="h6">%</span></h5>
       </div>
+      <div class="position-absolute" style="top: 0;right: 0;">
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="left"
+          title="集团人数"
+          data-content="集团人数帮助说明">
+          <span class="fas fa-info-circle"></span>
+        </button>
+      </div>
     </div>
   </div>
   <div class="col-md-12 mt-2">
@@ -69,6 +76,13 @@
           data-action="resize@window->dashboard--project-type-saturation#layout">
           <h6 class="text-center"><%= t(".project_type_saturation") %></h6>
           <div id="project-type-saturation-dashboard" style="width: 100%;height: 160px;"></div>
+        </div>
+        <div class="position-absolute" style="top: 0.25rem;right: 0.25rem;">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+            title="生产合同额"
+            data-content="生产合同额帮助说明">
+            <span class="fas fa-info-circle"></span>
+          </button>
         </div>
       </div>
       <%# 实收款、营业额、应收账款 %>
@@ -140,6 +154,13 @@
             </div>
           </div>
         </div>
+        <div class="position-absolute" style="top: 0.25rem;right: 0.25rem;">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+            title="实收款"
+            data-content="实收款帮助说明">
+            <span class="fas fa-info-circle"></span>
+          </button>
+        </div>
       </div>
       <%# 公司级现金流、设计现金流、大客户合同占比、新签集团重点项目 %>
       <div class="col-md-4 px-0">
@@ -164,6 +185,13 @@
               <h6 class="text-center">可维持月数</h6>
               <h3 class="text-center">3.1<span class="h6">月</span></h3>
             </div>
+          </div>
+          <div class="position-absolute" style="top: 0.25rem;right: 0.25rem;">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+              title="公司级现金流"
+              data-content="公司级现金流帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
           </div>
         </div>
         <div class="border rounded bg-gray-100 my-2 mx-1 px-1 py-2">
@@ -244,6 +272,13 @@
           <h6 class="text-center"><%= t(".net_profit") %></h6>
           <h3 class="text-center">16,590 <span class="h6">万元</span></h3>
           <h6 class="text-center">(去年同期值：12,773 万元）</h6>
+          <div class="position-absolute" style="top: 0.25rem;right: 0;">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+              title="净利润"
+              data-content="净利润帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
         </div>
         <div class="border rounded bg-gray-100 my-2 ml-1 p-1">
           <h6 class="text-center"><%= t(".net_profit_rate") %></h6>
