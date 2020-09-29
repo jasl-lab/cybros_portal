@@ -9,9 +9,11 @@ module Bi
     end
 
     def show?
-      user.present? && (user.admin? \
+      return false unless user.present?
+
+      user.admin? \
         || user.operation_access_codes.any? { |c| c[0] <= User::ALL_EXCEPT_OTHER_COMPANY_DETAILS } \
-        || user.roles.pluck(:group_report_viewer).any?)
+        || user.roles.pluck(:group_report_viewer).any?
     end
   end
 end
