@@ -1,0 +1,426 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-title text-center">
+      <%= t(".title") %>
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <%# 人数 %>
+  <div class="col-md-12">
+    <div class="row border rounded bg-gray-100">
+      <div class="col-md-2 pl-0 pr-1 py-2">
+        <h6 class="text-center"><%= t(".current_headcount") %></h6>
+        <h3 class="text-center mb-0"><i class="fa fa-user text-primary h4"></i>&nbsp;&nbsp;<span class="text-warning">543</span> <span class="h6">人</span></h3>
+        <p class="text-center text-success mb-0"> -7 %</p>
+      </div>
+      <div class="col-md-2 px-1 py-2">
+        <h6 class="text-center"><%= t(".average_headcount") %></h6>
+        <h3 class="text-center mb-0"><i class="fa fa-user text-primary h4"></i>&nbsp;&nbsp;<span class="text-warning">646</span> <span class="h6">人</span></h3>
+      </div>
+      <div class="col-md-1 mt-1 px-1 py-2">
+        <h5 class="text-right text-warning">外招：</h5>
+        <h5 class="text-right text-success">离职：</h5>
+      </div>
+      <div class="col-md-2 mt-1 px-1 py-2">
+        <h5 class="text-left">本月外招人数&nbsp;&nbsp;<span class="text-warning">11</span> <span class="h6">人</span></h5>
+        <h5 class="text-left">本月离职人数&nbsp;&nbsp;<span class="text-success">25</span> <span class="h6">人</span></h5>
+      </div>
+      <div class="col-md-2 mt-1 px-1 py-2">
+        <h5 class="text-left">累计外招人数&nbsp;&nbsp;<span class="text-warning">13</span> <span class="h6">人</span></h5>
+        <h5 class="text-left">累计离职人数&nbsp;&nbsp;<span class="text-success">38</span> <span class="h6">人</span></h5>
+      </div>
+      <div class="col-md-2 mt-1 pr-0 pl-1 py-2">
+        <h5 class="text-left">预计X月入职人数&nbsp;<span class="text-warning">11</span> <span class="h6">人</span></h5>
+        <h5 class="text-left">离职率&nbsp;&nbsp;<span class="text-success">16</span> <span class="h6">%</span></h5>
+      </div>
+      <div class="position-absolute" style="top: 0; right: 0;">
+        <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="left"
+          data-content="集团人数帮助说明">
+          <span class="fas fa-info-circle"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-2">
+    <div class="row">
+      <%# 生产合同额、完成产值、半年业务保有量、项目类型饱和度 %>
+      <div class="col-md-3 px-0">
+        <div class="position-relative border rounded bg-gray-100 my-1 mr-1 p-1"
+          data-controller="dashboard--contract-signings-amount"
+          data-action="resize@window->dashboard--contract-signings-amount#layout">
+          <h6 class="text-center mt-1"><%= t(".contract_signings_amount") %></h6>
+          <div id="contract-signings-amount-dashboard" style="width: 100%;height: 250px;"></div>
+          <div class="position-absolute" style="top: 0;right: 0">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="生产合同额帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="my-1 mx-0 px-0 row">
+          <div class="position-relative col-sm-12 col-md-6 px-0">
+            <div class="border rounded bg-gray-100 p-1 my-1 mr-1">
+              <h6 class="text-center"><u><%= t(".complete_value") %></u></h6>
+              <h3 class="text-right pr-2">102,000 <span class="h6">万元</span></h3>
+              <h6 class="text-right pr-2">全员人均&nbsp;&nbsp;&nbsp;17 万元</h6>
+              <h6 class="text-right pr-2">一线人均&nbsp;&nbsp;&nbsp;21 万元</h6>
+            </div>
+            <div class="position-absolute" style="top: 0.25rem;right: 0.1rem;">
+              <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+                data-content="完成产值帮助说明">
+                <span class="fas fa-info-circle"></span>
+              </button>
+            </div>
+          </div>
+          <div class="position-relative col-sm-12 col-md-6 pl-0 pr-1">
+            <div class="border rounded bg-gray-100 p-1 my-1 ml-1">
+              <h6 class="text-center"><u><%= t(".halfyear_business_holdings") %></u></h6>
+              <h3 class="text-right pr-2">300,160<span class="h6">万元</span></h3>
+              <h6 class="text-right pr-2">全员人均&nbsp;&nbsp;&nbsp;55 万元</h6>
+              <h6 class="text-right pr-2">一线人均&nbsp;&nbsp;&nbsp;62 万元</h6>
+            </div>
+            <div class="position-absolute" style="top: 0.25rem;right: 0.1rem;">
+              <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+                data-content="半年业务保有量帮助说明">
+                <span class="fas fa-info-circle"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-1 mr-1 p-1"
+          data-controller="dashboard--project-type-saturation"
+          data-action="resize@window->dashboard--project-type-saturation#layout">
+          <h6 class="text-center mt-1"><%= t(".project_type_saturation") %></h6>
+          <div id="project-type-saturation-dashboard" style="width: 100%;height: 160px;"></div>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="项目类型饱和度帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <%# 实收款、营业额、应收账款 %>
+      <div class="col-md-3 px-0">
+        <div class="position-relative border rounded bg-gray-100 my-1 mx-1 p-1"
+          data-controller="dashboard--receive-amount"
+          data-action="resize@window->dashboard--receive-amount#layout">
+          <h6 class="text-center mt-1"><%= t(".receive_amount") %></h6>
+          <div id="receive-amount-dashboard" style="width: 100%;height: 200px;"></div>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="实收款帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 mx-1 p-1">
+          <h6 class="text-center mt-1"><%= t(".turnover") %></h6>
+          <h1 class="text-center">117, 674 <span class="h6">万元</span></h1>
+          <h5 class="text-center">本月营业额：25,822 <span class="h6">万元</span></h5>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="营业额帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 mx-1 p-1">
+          <h6 class="text-center mt-1"><%= t(".accounts_receivable") %></h6>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <h6 class="text-right">总额</h6>
+              <h3 class="text-right">114,700 <span class="h6">万元</span></h3>
+            </div>
+            <div class="col-md-1">
+              <h1>/</h1>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-left">全员人均</h6>
+              <h3 class="text-left">20 <span class="h6">万元</span></h3>
+            </div>
+          </div>
+          <div class="row mt-1">
+            <div class="col-md-7">
+              <h6 class="text-left">财务应收（不含票据抵房）</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">40,128 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">帐龄 4～12 个月财务应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">10,128 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">帐龄 >1 年财务应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">22,733 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">票据应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">16,733 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <h6 class="text-left">抵房应收</h6>
+            </div>
+            <div class="col-md-5">
+              <h6 class="text-right">5,733 <span class="font-xs">万元</span></h6>
+            </div>
+          </div>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="应收账款帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <%# 公司级现金流、设计现金流、大客户合同占比、新签集团重点项目 %>
+      <div class="col-md-4 px-0">
+        <div class="position-relative border rounded bg-gray-100 my-1 mx-1 px-1 py-2">
+          <h6 class="text-center"><%= t(".company_level_cash_flow") %></h6>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <h6 class="text-center">银行存款余额</h6>
+              <h3 class="text-center">49,532</h3>
+            </div>
+            <div class="col-md-1">
+              <h1>/</h1>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-center">当月生产成本</h6>
+              <h3 class="text-center">15,910 <span class="h6">万元</span></h3>
+            </div>
+            <div class="col-md-1">
+              <h1>=</h1>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-center">可维持月数</h6>
+              <h3 class="text-center">3.1<span class="h6">月</span></h3>
+            </div>
+          </div>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="公司级现金流帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 mx-1 px-1 py-2">
+          <h6 class="text-center"><%= t(".design_cash_flow") %></h6>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <h6 class="text-center">设计现金流</h6>
+              <h3 class="text-center">-5,416</h3>
+            </div>
+            <div class="col-md-1">
+              <h1>/</h1>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-center">当月人力成本成本</h6>
+              <h3 class="text-center">5,939 <span class="h6">万元</span></h3>
+            </div>
+            <div class="col-md-1">
+              <h1>=</h1>
+            </div>
+            <div class="col-md-3">
+              <h6 class="text-center">可维持月数</h6>
+              <h3 class="text-center">-0.9<span class="h6">月</span></h3>
+            </div>
+          </div>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="设计现金流帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 mx-1 px-1 py-2"
+          data-controller="dashboard--major-customer-contracts"
+          data-action="resize@window->dashboard--major-customer-contracts#layout">
+          <h6 class="text-center"><%= t(".major_customer_contracts") %></h6>
+          <div id="major-customer-contracts-dashboard" style="width: 100%;height: 150px;"></div>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="大客户合同占比帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 mx-1 px-1 py-2">
+          <h6 class="text-center"><%= t(".newly_signed_key_projects") %></h6>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <th>祥生地产蝶恋花项目</th>
+                <td>办公-方案</td>
+                <td>公建二所</td>
+                <td>862万元</td>
+                <td>2020/5/24</td>
+              </tr>
+              <tr>
+                <th>华夏幸福武汉长江中心</th>
+                <td>商业-方案</td>
+                <td>建筑四所</td>
+                <td>778万元</td>
+                <td>2020/5/24</td>
+              </tr>
+              <tr>
+                <th>绿地陪陵高铁新城五星级酒店</th>
+                <td>酒店-施工图</td>
+                <td>重庆天华</td>
+                <td>925万元</td>
+                <td>2020/5/24</td>
+              </tr>
+              <tr>
+                <th>华夏幸福重庆三街口</th>
+                <td>超高层-方案</td>
+                <td>建筑一A所</td>
+                <td>1460万元</td>
+                <td>2020/5/24</td>
+              </tr>
+              <tr>
+                <th>徐州苏宁广场</th>
+                <td>商业-施工图</td>
+                <td>武汉天华</td>
+                <td>647万元</td>
+                <td>2020/5/24</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="新签集团重点项目帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <%# 净利润、净利润率、签约 TOP 5、实收 TOP 5 %>
+      <div class="col-md-2 px-0">
+        <div class="position-relative border rounded bg-gray-100 my-1 ml-1 p-1">
+          <h6 class="text-center mt-1"><%= t(".net_profit") %></h6>
+          <h3 class="text-center">16,590 <span class="h6">万元</span></h3>
+          <h6 class="text-center">(去年同期值：12,773 万元）</h6>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="净利润帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 ml-1 p-1">
+          <h6 class="text-center mt-1"><%= t(".net_profit_rate") %></h6>
+          <h3 class="text-center">16<span class="h6">%</span></h3>
+          <h6 class="text-center">(去年同期值：18%）</h6>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="净利润率帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 ml-1 p-1">
+          <h6 class="text-center mt-1"><%= t(".sign_top_5") %></h6>
+          <table class="table mt-3">
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>万科集团</td>
+                <td>10,523 <small>万</small></td>
+                <td>⬄</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>华润置地</td>
+                <td>7,293 <small>万</small></td>
+                <td>⇣</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>苏宁置地</td>
+                <td>6,411 <small>万</small></td>
+                <td>⇣</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>宝龙控股</td>
+                <td>4,606 <small>万</small></td>
+                <td>⬄</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>世贸集团</td>
+                <td>3,909 <small>万</small></td>
+                <td>⇡</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="签约 TOP 5 帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+        <div class="position-relative border rounded bg-gray-100 my-2 ml-1 p-1">
+          <h6 class="text-center mt-1"><%= t(".receive_top_5") %></h6>
+          <table class="table mt-3">
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>万科集团</td>
+                <td>4,596 <small>万</small></td>
+                <td>⬄</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>龙湖集团</td>
+                <td>3,628 <small>万</small></td>
+                <td>⇣</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>华润地产</td>
+                <td>3,333 <small>万</small></td>
+                <td>⇣</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>融创集团</td>
+                <td>3,162 <small>万</small></td>
+                <td>⬄</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>世贸集团</td>
+                <td>3,063 <small>万</small></td>
+                <td>⇡</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="position-absolute" style="top: 0;right: 0;">
+            <button type="button" class="btn btn-sm" data-toggle="popover" data-placement="bottom"
+              data-content="实收 TOP 5 帮助说明">
+              <span class="fas fa-info-circle"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
