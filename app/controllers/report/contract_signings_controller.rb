@@ -107,8 +107,7 @@ class Report::ContractSigningsController < Report::BaseController
     @cp_contract_amounts_div_100 = cp_data.collect { |d| (d.cp_amount / 100.0).round(0) }
     @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
 
-    plan_month = @end_of_month.to_s(:short_month)
-    plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(plan_month)
+    plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
     plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
     @cp_plan_contract_amounts_gap = plan_contract_amounts.zip(@cp_contract_amounts_div_100).map do |d|
       gap = d[0] - d[1]
