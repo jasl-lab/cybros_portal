@@ -2,6 +2,8 @@
 en:
   report:
     operations:
+      show:
+        title: "Tianhua Management Cockpit"
       dashboard:
         title: "Tianhua Management Cockpit"
         current_headcount: "Current headcount"
