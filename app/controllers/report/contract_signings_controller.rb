@@ -108,11 +108,7 @@ class Report::ContractSigningsController < Report::BaseController
     @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
 
     plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
-    plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
-    @cp_plan_contract_amounts_gap = plan_contract_amounts.zip(@cp_contract_amounts_div_100).map do |d|
-      gap = d[0] - d[1]
-      gap < 0 ? 0 : gap
-    end
+    @cp_plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
 
     @staff_per_company = if @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::StaffCount.staff_per_short_company_name(@end_of_month)

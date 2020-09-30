@@ -27,7 +27,7 @@ export default class extends Controller {
     const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
     const cpOrgNames = JSON.parse(this.data.get("cp_org_names"));
     const cpContractAmounts = JSON.parse(this.data.get("cp_contract_amounts"));
-    const cp_PlanContractAmountsGap = JSON.parse(this.data.get("cp_plan_contract_amounts_gap"));
+    const cp_PlanContractAmounts = JSON.parse(this.data.get("cp_plan_contract_amounts"));
 
     let myOwnCompanyIndex = [];
     for (let index = 0; index < xAxisData.length; ++index) {
@@ -172,7 +172,7 @@ export default class extends Controller {
 
     const cp_option = {
         legend: {
-            data: ['本年累计生产合同额','本年计划生产合同差额'],
+            data: ['本年累计生产合同额','本年计划生产合同额'],
             align: 'left'
         },
         tooltip: {
@@ -201,7 +201,6 @@ export default class extends Controller {
           axisLabel: {
             interval: 0,
             rotate: -40,
-            margin: 20
           },
           splitLine: {
               show: false
@@ -225,14 +224,14 @@ export default class extends Controller {
           label: {
             normal: {
               show: true,
-              position: 'bottom'
+              position: 'top'
             }
           }
         },{
-          name: '本年计划生产合同差额',
-          type: 'bar',
+          name: '本年计划生产合同额',
+          type: 'scatter',
           stack: '生产合同',
-          data: cp_PlanContractAmountsGap,
+          data: cp_PlanContractAmounts,
           color: '#738496',
           barWidth: 20,
           label: {
