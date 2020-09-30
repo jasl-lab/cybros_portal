@@ -19,7 +19,6 @@ export default class extends Controller {
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
-    const planContractAmountsGap = JSON.parse(this.data.get("plan_contract_amounts_gap"));
     const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
     const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
     const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
@@ -28,6 +27,7 @@ export default class extends Controller {
     const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
     const cpOrgNames = JSON.parse(this.data.get("cp_org_names"));
     const cpContractAmounts = JSON.parse(this.data.get("cp_contract_amounts"));
+    const cp_PlanContractAmountsGap = JSON.parse(this.data.get("cp_plan_contract_amounts_gap"));
 
     let myOwnCompanyIndex = [];
     for (let index = 0; index < xAxisData.length; ++index) {
@@ -40,7 +40,7 @@ export default class extends Controller {
       let color;
 
       if (myOwnCompanyIndex.indexOf(index) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
-        color = '#A1D189';
+        color = '#334B5C';
       } else {
         color = '#8EA1B5';
       }
@@ -66,7 +66,7 @@ export default class extends Controller {
 
     const option = {
         legend: {
-            data: ['签约周期','本年累计合同额','本年计划合同差额'],
+            data: ['签约周期','本年累计合同额'],
             align: 'left'
         },
         tooltip: {
@@ -158,9 +158,8 @@ export default class extends Controller {
         },{
           name: '本年累计合同额',
           type: 'bar',
-          stack: '应收',
           data: sumContractAmountsWithColor,
-          color: '#A1D189',
+          color: '#334B5C',
           barWidth: 20,
           label: {
             normal: {
@@ -168,24 +167,12 @@ export default class extends Controller {
               position: 'top'
             }
           }
-        },{
-          name: '本年计划合同差额',
-          type: 'bar',
-          stack: '应收',
-          data: planContractAmountsGap,
-          color: '#738496',
-          barWidth: 20,
-          label: {
-            normal: {
-              show: false
-            }
-          }
         }]
     };
 
     const cp_option = {
         legend: {
-            data: ['本年累计生产合同额'],
+            data: ['本年累计生产合同额','本年计划生产合同差额'],
             align: 'left'
         },
         tooltip: {
@@ -213,7 +200,8 @@ export default class extends Controller {
           silent: true,
           axisLabel: {
             interval: 0,
-            rotate: -40
+            rotate: -40,
+            margin: 20
           },
           splitLine: {
               show: false
@@ -230,8 +218,22 @@ export default class extends Controller {
         series: [{
           name: '本年累计生产合同额',
           type: 'bar',
+          stack: '生产合同',
           data: cpContractAmounts,
-          color: '#7E91A5',
+          color: '#334B5C',
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              position: 'bottom'
+            }
+          }
+        },{
+          name: '本年计划生产合同差额',
+          type: 'bar',
+          stack: '生产合同',
+          data: cp_PlanContractAmountsGap,
+          color: '#738496',
           barWidth: 20,
           label: {
             normal: {

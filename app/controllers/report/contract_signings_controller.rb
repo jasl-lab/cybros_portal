@@ -69,11 +69,6 @@ class Report::ContractSigningsController < Report::BaseController
     @contract_amounts_div_100 = data.collect { |d| d.sum_contract_amount.nil? ? 0 : (d.sum_contract_amount / 100.0).round(0) }
     @contract_amount_max = @contract_amounts_div_100.max&.round(-1)
 
-    plan_month = @end_of_month.to_s(:short_month)
-    plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(plan_month)
-    plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
-    @plan_contract_amounts_gap = plan_contract_amounts.zip(@contract_amounts_div_100).map { |d| d[0] - d[1] }
-
     @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
@@ -111,6 +106,14 @@ class Report::ContractSigningsController < Report::BaseController
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
     @cp_contract_amounts_div_100 = cp_data.collect { |d| (d.cp_amount / 100.0).round(0) }
     @sum_cp_contract_amounts = (@cp_contract_amounts.sum / 10000.to_f).round(2)
+
+    plan_month = @end_of_month.to_s(:short_month)
+    plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(plan_month)
+    plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
+    @cp_plan_contract_amounts_gap = plan_contract_amounts.zip(@cp_contract_amounts_div_100).map do |d|
+      gap = d[0] - d[1]
+      gap < 0 ? 0 : gap
+    end
 
     @staff_per_company = if @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::StaffCount.staff_per_short_company_name(@end_of_month)
