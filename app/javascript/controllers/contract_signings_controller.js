@@ -19,6 +19,7 @@ export default class extends Controller {
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
     const sumContractAmounts = JSON.parse(this.data.get("sum_contract_amounts"));
+    const planContractAmountsGap = JSON.parse(this.data.get("plan_contract_amounts_gap"));
     const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
     const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
     const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
@@ -39,7 +40,7 @@ export default class extends Controller {
       let color;
 
       if (myOwnCompanyIndex.indexOf(index) > -1 || currentUserCompaniesShortNames.indexOf('上海天华') > -1) {
-        color = '#738496';
+        color = '#A1D189';
       } else {
         color = '#8EA1B5';
       }
@@ -65,7 +66,7 @@ export default class extends Controller {
 
     const option = {
         legend: {
-            data: ['签约周期','本年累计合同额'],
+            data: ['签约周期','本年累计合同额','本年计划合同差额'],
             align: 'left'
         },
         tooltip: {
@@ -101,7 +102,7 @@ export default class extends Controller {
         },
         yAxis: [{
           type: 'value',
-          name: '本年累计合同额（百万元）',
+          name: '本年合同额（百万元）',
           position: 'left',
           min: 0,
           max: sumContractAmountMax,
@@ -157,13 +158,26 @@ export default class extends Controller {
         },{
           name: '本年累计合同额',
           type: 'bar',
+          stack: '应收',
           data: sumContractAmountsWithColor,
-          color: '#7E91A5',
+          color: '#A1D189',
           barWidth: 20,
           label: {
             normal: {
               show: true,
               position: 'top'
+            }
+          }
+        },{
+          name: '本年计划合同差额',
+          type: 'bar',
+          stack: '应收',
+          data: planContractAmountsGap,
+          color: '#738496',
+          barWidth: 20,
+          label: {
+            normal: {
+              show: false
             }
           }
         }]

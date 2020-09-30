@@ -62,11 +62,17 @@ class Report::ContractSigningsController < Report::BaseController
       data.where(orgcode: @orgs_options)
     end
 
-    @company_short_names = data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
+    company_codes = data.collect(&:orgcode)
+    @company_short_names = company_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount&.round(0) }
     @contract_amounts_div_100 = data.collect { |d| d.sum_contract_amount.nil? ? 0 : (d.sum_contract_amount / 100.0).round(0) }
     @contract_amount_max = @contract_amounts_div_100.max&.round(-1)
+
+    plan_month = @end_of_month.to_s(:short_month)
+    plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(plan_month)
+    plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
+    @plan_contract_amounts_gap = plan_contract_amounts.zip(@contract_amounts_div_100).map { |d| d[0] - d[1] }
 
     @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
