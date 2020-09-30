@@ -1,1 +1,3 @@
-<%= render 'dashboard' %>
+<% if policy(:"Bi::Dashboard").show? %>
+  <%= render 'dashboard' %>
+<% end %>
