@@ -5,8 +5,8 @@ class CostSplit::HumanResourcesController < CostSplit::BaseController
     prepare_meta_tags title: t('.title')
     @all_company_names = Bi::OrgOrder.all_company_names
     @company_name = current_user.user_company_names.first
-    @dept_options = []
-    @depts = []
+    @dept_options = Department.where(company_name: @company_name).pluck(:name, :dept_code)
+    @depts = current_user.departments.collect(&:dept_code)
   end
 
   protected
