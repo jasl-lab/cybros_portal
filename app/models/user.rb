@@ -32,6 +32,7 @@ class User < ApplicationRecord
   has_many :cad_sessions, class_name: "Cad::CadSession", dependent: :destroy
   has_many :cad_operations, class_name: "Cad::CadOperation", dependent: :destroy
   has_many :report_view_histories
+  has_many :user_split_cost_settings
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)

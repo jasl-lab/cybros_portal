@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_24_065858) do
+ActiveRecord::Schema.define(version: 2020_10_09_080232) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -368,6 +368,22 @@ ActiveRecord::Schema.define(version: 2020_09_24_065858) do
     t.boolean "org_viewer", default: false
   end
 
+  create_table "user_split_cost_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.integer "group_rate", null: false
+    t.integer "shanghai_area", null: false
+    t.integer "shanghai_hq", null: false
+    t.bigint "user_id", null: false
+    t.integer "version", null: false
+    t.date "start_date", null: false
+    t.date "end_date"
+    t.string "org_code", null: false
+    t.string "dept_code", null: false
+    t.string "position_title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_split_cost_settings_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -438,4 +454,5 @@ ActiveRecord::Schema.define(version: 2020_09_24_065858) do
   add_foreign_key "proof_of_income_applies", "users"
   add_foreign_key "public_rental_housing_applies", "users"
   add_foreign_key "report_view_histories", "users"
+  add_foreign_key "user_split_cost_settings", "users"
 end
