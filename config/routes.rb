@@ -313,7 +313,11 @@ Rails.application.routes.draw do
   namespace :cost_split do
     root to: 'home#show'
 
-    resources :human_resources, only: %i[index]
+    resources :human_resources, only: %i[index] do
+      collection do
+        get :change_company
+      end
+    end
   end
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: 'users/confirmations',

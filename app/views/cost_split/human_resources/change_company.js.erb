@@ -1,0 +1,6 @@
+var selectize_ctl = $("#hr-depts-select")[0].selectize;
+selectize_ctl.clear();
+selectize_ctl.clearOptions(true);
+<% @dept_options.each do |d| %>
+  selectize_ctl.addOption({text: '<%= d.first -%>', value: '<%= d.second -%>'});
+<% end %>

@@ -9,6 +9,11 @@ class CostSplit::HumanResourcesController < CostSplit::BaseController
     @depts = current_user.departments.collect(&:dept_code)
   end
 
+  def change_company
+    company_name = params[:company_name]
+    @dept_options = Department.where(company_name: company_name).pluck(:name, :dept_code)
+  end
+
   protected
 
     def set_breadcrumbs
