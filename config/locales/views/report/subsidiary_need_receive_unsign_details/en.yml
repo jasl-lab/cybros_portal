@@ -20,4 +20,5 @@ en:
           f_date: "First date"
           min_timecard_fill: "Min timecard fill"
           days_to_min_timecard_fill: "Days to min timecard fill"
+          comment_on_project_item_code: "Remarks"
           admin_action: "Admin action"

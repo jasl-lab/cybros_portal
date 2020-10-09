@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_25_085324) do
+ActiveRecord::Schema.define(version: 2020_10_09_011647) do
 
   create_table "ACCOUNT_RECEIVE_SAVEDATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.text "kporg"
@@ -461,16 +461,16 @@ ActiveRecord::Schema.define(version: 2020_09_25_085324) do
     t.datetime "refresh_date"
   end
 
-  create_table "PREDICT_MONEY_RECEIVE_ORG", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PREDICT_MONEY_RECEIVE_ORG", primary_key: ["orgcode", "f_month", "refresh_date"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
-    t.string "orgcode", limit: 45
+    t.string "orgcode", limit: 45, null: false
     t.string "orgname_sum", limit: 200
     t.string "orgname", limit: 200
-    t.string "f_month", limit: 45
+    t.string "f_month", limit: 45, null: false
     t.float "nextmonthmoney", limit: 53
     t.bigint "settlemoney"
     t.bigint "sixmonthmoney"
-    t.datetime "refresh_date"
+    t.datetime "refresh_date", null: false
   end
 
   create_table "PROVINCE_NEW_AREA", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -975,10 +975,10 @@ ActiveRecord::Schema.define(version: 2020_09_25_085324) do
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_ORG", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.string "comp", limit: 50
-    t.date "checkdate"
-    t.float "endmoney", limit: 53
+  create_table "V_TH_DEPTMONEYFLOW_ORG", primary_key: ["comp", "checkdate"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "comp", limit: 50, null: false
+    t.date "checkdate", null: false
+    t.float "endmoney"
     t.datetime "refresh_date"
   end
 
@@ -1424,6 +1424,14 @@ ActiveRecord::Schema.define(version: 2020_09_25_085324) do
     t.float "realamount", limit: 53
     t.float "avg_work_no", limit: 53
     t.float "avg_staff_no", limit: 53
+  end
+
+  create_table "comment_on_project_item_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "project_item_code"
+    t.string "comment"
+    t.date "record_month"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comment_on_sales_contract_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

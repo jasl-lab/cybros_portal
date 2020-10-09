@@ -1,0 +1,17 @@
+<%# Must end as json as it's called from json %>
+<%= form_with model: cop, url: report_comment_on_project_item_codes_path, method: :post, format: :js, class: 'form-inline' do |f| %>
+  <%= f.hidden_field :project_item_code %>
+  <%= f.hidden_field :record_month %>
+  <div class="form-group">
+    <label class="sr-only">备注</label>
+    <%= f.text_area :comment, rows: 2, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-sm btn-primary"  data-disable-with="保存中">保存</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+      title="备注历史"
+      data-content="<%= cop_history.join('<br />') -%>">
+      <span class="fas fa-history"></span>
+    </button>
+  </div>
+<% end %>

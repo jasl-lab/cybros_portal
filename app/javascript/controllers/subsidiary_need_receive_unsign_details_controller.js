@@ -16,7 +16,7 @@ export default class extends Controller {
       {"data": "days_to_min_timecard_fill"}
     ];
 
-    const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
+    const adminColumns = normalColumns.concat([{"data": "comment_on_project_item_code"}, {"data": "admin_action", bSortable: false}]);
 
     $('#subsidiary-need-receive-unsign-details-datatable').dataTable({
       "processing": true,
@@ -27,6 +27,9 @@ export default class extends Controller {
       "columns": (canHideItem ? adminColumns : normalColumns),
       "order": [[ 5, 'desc' ]],
       stateSave: true,
+      drawCallback: function () {
+          $('button[data-toggle="popover"]').popover({ "html": true });
+        },
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_subsidiary-need-receive-unsign-details', JSON.stringify(data));
         },

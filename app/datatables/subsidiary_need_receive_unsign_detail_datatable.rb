@@ -27,12 +27,32 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       f_date: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.fdate", orderable: true },
       min_timecard_fill: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.mintimecardfill", orderable: true },
       days_to_min_timecard_fill: { source: "Bi::SubCompanyNeedReceiveUnsignDetail.days_to_mintimecardfill", orderable: true },
+      comment_on_project_item_code: { source: nil, searchable: false, orderable: false },
       admin_action: { source: nil, searchable: false, orderable: false }
     }
   end
 
   def data
+    comment_end_of_date = @end_of_date.end_of_month
+    comment_previous_end_of_date = (@end_of_date - 1.month).end_of_month
+    project_item_codes = records.collect(&:projectitemcode)
+    cop_records = Bi::CommentOnProjectItemCode.where(project_item_code: project_item_codes, record_month: comment_end_of_date)
+    cop_previous_records = Bi::CommentOnProjectItemCode.where(project_item_code: project_item_codes, record_month: comment_previous_end_of_date)
+    cop_histories = Bi::CommentOnProjectItemCode.where(project_item_code: project_item_codes)
     records.map do |r|
+      cop = cop_records.find { |c| c.project_item_code == r.projectitemcode && c.record_month == comment_end_of_date }
+      prev_cop = cop_previous_records.find { |c| c.project_item_code == r.projectitemcode && c.record_month == comment_previous_end_of_date }
+      cop = if cop.present?
+        cop
+      elsif prev_cop.present?
+        prev_cop.record_month = comment_end_of_date
+        prev_cop
+      else
+        Bi::CommentOnProjectItemCode.new(project_item_code: r.projectitemcode, record_month: comment_end_of_date)
+      end
+      cop_history = cop_histories.find_all { |c| c.project_item_code == r.projectitemcode }.collect do |c|
+        "#{c.record_month}: #{sanitize c.comment}"
+      end
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         project_manager_name: r.projectmanagername,
         project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}<br />#{r.projectstatus}".html_safe,
@@ -42,6 +62,8 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
         f_date: r.fdate,
         min_timecard_fill: r.mintimecardfill,
         days_to_min_timecard_fill: tag.div(r.days_to_mintimecardfill, class: "text-center"),
+        comment_on_project_item_code:
+          render(partial: 'report/subsidiary_need_receive_unsign_details/comment', locals: { cop: cop, cop_history: cop_history }),
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_unsign_detail_path(project_item_code: r.projectitemcode), method: :patch)
                       else

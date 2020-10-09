@@ -232,6 +232,7 @@ Rails.application.routes.draw do
       end
     end
     resource :comment_on_sales_contract_code, only: %i[create]
+    resource :comment_on_project_item_codes, only: %i[create]
     resource :subsidiary_need_receive_sign_detail, only: %i[show] do
       member do
         patch :hide
