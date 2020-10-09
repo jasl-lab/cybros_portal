@@ -42,15 +42,23 @@ class Report::ProjectMilestoresController < Report::BaseController
   end
 
   def detail_table_drill_down
-    selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
-    @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(selected_org_code)
+    @drill_down_subtitle = t(".subtitle")
+
     @month_name = params[:month_name]&.strip
     end_of_month = Date.parse(@month_name).end_of_month
-    beginning_of_month = Date.parse(@month_name).beginning_of_month
 
-    @drill_down_subtitle = t(".subtitle")
+    start_date = Date.today < end_of_month ? Date.today : end_of_month
+
     work_no = params[:work_no].strip
-    scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no).where(date: beginning_of_month..end_of_month)
+
+    scope_of_drill_down = nil
+
+    loop do
+      scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no).where(date: start_date)
+      break if scope_of_drill_down.present?
+      start_date -= 1.day
+    end
+
     project_item_codes = scope_of_drill_down.pluck(:projectitemcode).uniq
     @name = Bi::ShRefreshRateDetail.find_by(projectpacode: work_no).projectpaname
     @rows = project_item_codes.collect do |project_item_code|
