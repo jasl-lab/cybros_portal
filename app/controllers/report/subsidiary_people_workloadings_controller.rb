@@ -42,7 +42,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     @selected_dept_name = Bi::PkCodeName.mapping2deptname.fetch(@selected_dept_code, @selected_dept_code)
 
     data = policy_scope(Bi::WorkHoursCountCombine)
-      .select('userid, ncworkno, username, profession, SUM(type1) type1, SUM(type2) type2, SUM(type4) type4, SUM(needhours) needhours')
+      .select('userid, ncworkno, username, profession, SUM(IFNULL(type1,0)) type1, SUM(IFNULL(type2,0)) type2, SUM(IFNULL(type4,0)) type4, SUM(IFNULL(needhours,0)) needhours')
       .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
       .order(:userid, :ncworkno, :username, :profession)
       .group(:userid, :ncworkno, :username, :profession)
