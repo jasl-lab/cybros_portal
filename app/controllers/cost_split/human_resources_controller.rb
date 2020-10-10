@@ -6,7 +6,13 @@ class CostSplit::HumanResourcesController < CostSplit::BaseController
     @all_company_names = Bi::OrgOrder.all_company_names
     @company_name = current_user.user_company_names.first
     @dept_options = Department.where(company_name: @company_name).pluck(:name, :dept_code)
-    @depts = current_user.departments.collect(&:dept_code)
+    @depts = if params[:depts].present?
+      params[:depts]
+    else
+      current_user.departments.collect(&:dept_code)
+    end
+
+    @users = User.includes(:departments).where(departments: {dept_code: @depts})
   end
 
   def change_company

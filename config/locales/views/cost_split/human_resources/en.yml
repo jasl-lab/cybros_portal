@@ -7,3 +7,12 @@ en:
         company_name: "Company name"
         dept_name: "Department name"
         confirm: "Search"
+        table:
+          clerk_code: "Clerk code"
+          chinese_name: "Chinese name"
+          position_title: "Position title"
+          split_type: "Split type"
+          split_rate: "Split rate"
+          split_base_number: "Split base number"
+          split_companies: "Split companies"
+          version: "版本"

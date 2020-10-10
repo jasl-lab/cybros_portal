@@ -7,3 +7,12 @@ zh-CN:
         company_name: "公司名字"
         dept_name: "部门名称"
         confirm: "搜索"
+        table:
+          clerk_code: "工号"
+          chinese_name: "姓名"
+          position_title: "岗位"
+          split_type: "分摊性质"
+          split_rate: "分摊比例"
+          split_base_number: "分摊基数"
+          split_companies: "分摊包含公司"
+          version: "版本"

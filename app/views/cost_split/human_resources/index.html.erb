@@ -14,5 +14,40 @@
       </div>
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <table class="table table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th><%= t(".table.clerk_code") -%></th>
+              <th><%= t(".table.chinese_name") -%></th>
+              <th><%= t(".table.position_title") -%></th>
+              <th><%= t(".table.split_type") -%></th>
+              <th><%= t(".table.split_rate") -%></th>
+              <th><%= t(".table.split_base_number") -%></th>
+              <th><%= t(".table.split_companies") -%></th>
+              <th><%= t(".table.version") -%></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.clerk_code -%></td>
+                <td><%= user.chinese_name -%></td>
+                <td><%= user.position_title -%></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>action</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
