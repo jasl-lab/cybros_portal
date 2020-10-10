@@ -32,7 +32,6 @@ class Report::PredictContractsController < Report::BaseController
       .where(date: @last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
-      .having("contractconvert > 0 OR convertrealamount > 0")
 
     data = if @view_deptcode_sum
       data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
