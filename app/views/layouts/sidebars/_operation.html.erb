@@ -150,7 +150,7 @@
         <% end %>
         <% if current_user.present? && policy(Bi::TrackContract).show? %>
           <%= nav_item controller: 'report/predict_contracts', action: 'show', html_options: { class: "nav-item" } do %>
-            <%= link_to report_predict_contract_path, class: "nav-link" do %>
+            <%= link_to report_predict_contract_path(view_deptcode_sum: true), class: "nav-link" do %>
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <%= t("layouts.sidebar.operation.predict_contract", company: current_user.user_company_short_name) %>
             <% end %>

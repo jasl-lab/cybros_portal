@@ -3,6 +3,9 @@ zh-CN:
   report:
     predict_contracts:
       show:
+        actions:
+          view_orgcode_sum: "显示汇总组织"
+          view_orgcode: "显示明细部门"
         title: "跟踪合同额"
         table:
           opportunitycode: "商机编号"

@@ -24,6 +24,7 @@ class Report::PredictContractsController < Report::BaseController
 
     @last_available_date = policy_scope(Bi::TrackContract, :group_resolve).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @select_company_short_names = policy_scope(Bi::TrackContract, :group_resolve).available_company_names(@last_available_date)
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
 
     data = policy_scope(Bi::TrackContract, :group_resolve)
@@ -31,11 +32,19 @@ class Report::PredictContractsController < Report::BaseController
       .where(date: @last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
       .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
-      .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode")
-      .select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
-      .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
-      .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
       .having("contractconvert > 0 OR convertrealamount > 0")
+
+    data = if @view_deptcode_sum
+      data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum")
+        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode_sum")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum")
+    else
+      data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
+        .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
+        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode")
+        .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
+    end
 
     @dept_codes_as_options = data.collect(&:deptcode) if @dept_codes_as_options.blank?
     data = data.where(deptcode: @dept_codes_as_options)
