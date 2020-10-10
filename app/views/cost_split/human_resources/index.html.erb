@@ -15,7 +15,7 @@
       <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
     <% end -%>
 
-    <div class="row">
+    <div class="row mt-2">
       <div class="col-lg-12">
         <table class="table table-bordered table-responsive">
           <thead>
@@ -33,7 +33,9 @@
           </thead>
           <tbody>
             <% @users.each do |user| %>
-              <%= render partial: 'user_split_cost_settting_form', locals: { user: user } -%>
+              <tr id="user-split-cost-setting-<%= user.id -%>">
+                <%= render partial: 'user_split_cost_settting_form', locals: { user: user } -%>
+              </tr>
             <% end %>
           </tbody>
         </table>

@@ -12,7 +12,8 @@ class CostSplit::HumanResourcesController < CostSplit::BaseController
       current_user.departments.collect(&:dept_code)
     end
 
-    @users = User.includes(:departments).where(departments: {dept_code: @depts})
+    @users = User.includes(:departments).where(departments: { dept_code: @depts })
+      .select(:id, :clerk_code, :chinese_name, :position_title, :company_code, :dept_code, :position_title)
   end
 
   def change_company
