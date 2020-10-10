@@ -47,7 +47,11 @@ class Report::PredictContractsController < Report::BaseController
     end
 
     @dept_codes_as_options = data.collect(&:deptcode) if @dept_codes_as_options.blank?
-    data = data.where(deptcode: @dept_codes_as_options)
+    data = if @view_deptcode_sum
+      data.where(deptcode_sum: @dept_codes_as_options)
+    else
+      data.where(deptcode: @dept_codes_as_options)
+    end
 
     @dept_names = @dept_codes_as_options.collect do |c|
       Bi::PkCodeName.mapping2deptcode.fetch(c, c)
