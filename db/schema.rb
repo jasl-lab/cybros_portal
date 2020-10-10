@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_080232) do
+ActiveRecord::Schema.define(version: 2020_10_10_013046) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -381,6 +381,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_080232) do
     t.string "position_title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "confirmed", default: false, null: false
     t.index ["user_id"], name: "index_user_split_cost_settings_on_user_id"
   end
 

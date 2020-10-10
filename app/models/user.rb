@@ -185,6 +185,12 @@ class User < ApplicationRecord
     @_cw_access_codes = 主职_access_codes + 兼职_access_codes
   end
 
+  def current_user_split_cost_setting
+    user_split_cost_settings.find_by(end_date: nil, confirmed: false) \
+      || user_split_cost_settings.find_by(end_date: nil, confirmed: true) \
+      || user_split_cost_settings.build
+  end
+
   private
 
   def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
