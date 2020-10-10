@@ -75,8 +75,8 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end
 
     @construction_company_or_department_codes = data.filter_map do |d|
-      # exclude 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
-      d.deptcode if d.construction_need.to_f > 0 and !(%w[000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode) and @short_company_name == '上海天华')
+      # exclude 集团创作研究中心 建筑二所（总） 建筑八所 建筑专项技术咨询所 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
+      d.deptcode if d.construction_need.to_f > 0 and !(%w[000101194 000101150 000101018 00010100801 000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode) and @short_company_name == '上海天华')
     end
     @construction_company_or_department_names = @construction_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
