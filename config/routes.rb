@@ -318,6 +318,7 @@ Rails.application.routes.draw do
         get :change_company
       end
     end
+    resources :user_split_cost_settings, only: %i[create update]
   end
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: 'users/confirmations',

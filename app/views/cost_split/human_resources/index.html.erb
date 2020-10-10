@@ -33,30 +33,41 @@
           </thead>
           <tbody>
             <% @users.each do |user| %>
-              <% scs = user.current_user_split_cost_setting %>
-              <tr>
-                <td rowspan="3"><%= user.clerk_code -%></td>
-                <td rowspan="3"><%= user.chinese_name -%></td>
-                <td rowspan="3"><%= user.position_title -%></td>
-                <td>集团性</td>
-                <td><%= scs.group_rate -%></td>
-                <td>人数</td>
-                <td>集团所有公司列表，多选</td>
-                <td rowspan="3"><%= scs.version -%></td>
-                <td rowspan="3">action</td>
-              </tr>
-              <tr>
-                <td>上海区域</td>
-                <td><%= scs.shanghai_area -%></td>
-                <td>人数</td>
-                <td>上海地区公司+有上海办事处的公司列表，多选</td>
-              </tr>
-              <tr>
-                <td>上海天华</td>
-                <td><%= scs.shanghai_hq -%></td>
-                <td>人数</td>
-                <td>上海天华</td>
-              </tr>
+              <%
+                scs = user.current_user_split_cost_setting
+                if scs.persisted?
+                  form_url = cost_split_user_split_cost_setting_path(scs)
+                  buttom_text = t('.form.submit_save')
+                else
+                  form_url = cost_split_user_split_cost_settings_path
+                  buttom_text = t('.form.submit_new')
+                end
+              %>
+              <%= form_with model: scs, url: form_url do |f| %>
+                <tr>
+                  <td rowspan="3"><%= user.clerk_code -%></td>
+                  <td rowspan="3"><%= user.chinese_name -%></td>
+                  <td rowspan="3"><%= user.position_title -%></td>
+                  <td>集团性</td>
+                  <td><%= scs.group_rate -%></td>
+                  <td>人数</td>
+                  <td>集团所有公司列表，多选</td>
+                  <td rowspan="3"><%= scs.version -%></td>
+                  <td rowspan="3"><%= f.submit buttom_text, class: "btn btn-primary" -%></td>
+                </tr>
+                <tr>
+                  <td>上海区域</td>
+                  <td><%= scs.shanghai_area -%></td>
+                  <td>人数</td>
+                  <td>上海地区公司+有上海办事处的公司列表，多选</td>
+                </tr>
+                <tr>
+                  <td>上海天华</td>
+                  <td><%= scs.shanghai_hq -%></td>
+                  <td>人数</td>
+                  <td>上海天华</td>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>

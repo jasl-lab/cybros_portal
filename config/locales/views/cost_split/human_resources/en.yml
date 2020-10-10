@@ -15,4 +15,7 @@ en:
           split_rate: "Split rate"
           split_base_number: "Split base number"
           split_companies: "Split companies"
-          version: "版本"
+          version: "version"
+        form:
+          submit_save: "Save"
+          submit_new: "Create"
