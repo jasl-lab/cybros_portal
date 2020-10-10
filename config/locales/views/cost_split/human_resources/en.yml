@@ -16,6 +16,6 @@ en:
           split_base_number: "Split base number"
           split_companies: "Split companies"
           version: "version"
-        form:
-          submit_save: "Save"
-          submit_new: "Create"
+      user_split_cost_settting_form:
+        submit_save: "Save"
+        submit_new: "Create"
