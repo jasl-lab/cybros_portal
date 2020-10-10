@@ -10,36 +10,29 @@
 %>
 <tr id="user-split-cost-setting-<%= user.id -%>">
   <%= form_with model: scs, url: form_url do |f| %>
+    <%= f.hidden_field :user_id  %>
     <td><%= user.clerk_code -%></td>
     <td><%= user.chinese_name -%></td>
     <td><%= user.position_title -%></td>
-    <td>
-      集团性
-      <br />
-      上海区域
-      <br />
-      上海天华
+    <td class="py-0">
+      <p class="mt-2">集团性</p>
+      <p class="mt-2">上海区域</p>
+      <p class="mt-3">上海天华</p>
     </td>
-    <td>
-      <%= scs.group_rate -%>
-      <br />
-      <%= scs.shanghai_area -%>
-      <br />
-      <%= scs.shanghai_hq -%>
+    <td class="py-0">
+      <%= f.text_field :group_rate, class: 'form-control' -%>
+      <%= f.text_field :shanghai_area, class: 'form-control mt-1' -%>
+      <%= f.text_field :shanghai_hq, class: 'form-control mt-1' -%>
     </td>
-    <td>
-      人数
-      <br />
-      人数
-      <br />
-      人数
+    <td class="py-0">
+      <p class="mt-2">人数</p>
+      <p class="mt-2">人数</p>
+      <p class="mt-3">人数</p>
     </td>
-    <td>
-      集团所有公司列表，多选
-      <br />
-      上海地区公司+有上海办事处的公司列表，多选
-      <br />
-      上海天华
+    <td class="py-0">
+      <p class="mt-2">集团所有公司列表，多选</p>
+      <p class="mt-2">上海地区公司+有上海办事处的公司列表，多选</p>
+      <p class="mt-3">上海天华</p>
     </td>
     <td><%= scs.version -%></td>
     <td><%= f.submit buttom_text, class: "btn btn-primary" -%></td>
