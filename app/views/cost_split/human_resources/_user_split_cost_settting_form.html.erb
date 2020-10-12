@@ -1,8 +1,8 @@
 <%
-  scs = user.current_user_split_cost_setting
-  scs.org_code = user.company_code
-  scs.dept_code = user.dept_code
-  scs.position_title = user.position_title
+  scs ||= user.current_user_split_cost_setting
+  scs.org_code ||= user.company_code
+  scs.dept_code ||= user.dept_code
+  scs.position_title ||= user.position_title
 
   if scs.persisted?
     form_url = cost_split_user_split_cost_setting_path(scs)
@@ -20,22 +20,22 @@
   <td><%= user.clerk_code -%></td>
   <td><%= user.chinese_name -%></td>
   <td><%= user.position_title -%></td>
-  <td class="py-0">
+  <td class="pt-1 pb-1">
     <p class="mt-2">集团性</p>
     <p class="mt-2">上海区域</p>
     <p class="mt-3">上海天华</p>
   </td>
-  <td class="py-0">
+  <td class="pt-1 pb-1">
     <%= f.text_field :group_rate, class: 'form-control' -%>
     <%= f.text_field :shanghai_area, class: 'form-control mt-1' -%>
     <%= f.text_field :shanghai_hq, class: 'form-control mt-1' -%>
   </td>
-  <td class="py-0">
+  <td class="pt-1 pb-1">
     <p class="mt-2">人数</p>
     <p class="mt-2">人数</p>
     <p class="mt-3">人数</p>
   </td>
-  <td class="py-0">
+  <td class="pt-1 pb-1">
     <p class="mt-2">集团所有公司列表，多选</p>
     <p class="mt-2">上海地区公司+有上海办事处的公司列表，多选</p>
     <p class="mt-3">上海天华</p>
