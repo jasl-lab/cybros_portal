@@ -18,7 +18,7 @@ zh-CN:
           predict_amount: "预计合同额"
           unsign_receive: "业务应收（未签约）（万元）"
           f_date: "开始投入人力时间"
-          min_timecard_fill: "累计项目人力成本到达2万元的时间"
+          min_timecard_fill: "累计项目人力成本到达2万元的时间及备注"
           days_to_min_timecard_fill: "人力成本达2万日期距本月底的天数"
           comment_on_project_item_code: "备注"
           admin_action: "管理员操作"
