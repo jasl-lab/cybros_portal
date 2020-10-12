@@ -7,7 +7,7 @@ export default class extends Controller {
     const normalColumns = [
       {"data": "org_dept_name"},
       {"data": "business_director_name"},
-      {"data": "first_party_name"},
+      {"data": "first_party_name_and_comment"},
       {"data": "sales_contract_code_name"},
       {"data": "amount_total"},
       {"data": "contract_property_name"},

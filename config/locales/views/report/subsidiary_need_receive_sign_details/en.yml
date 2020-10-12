@@ -14,7 +14,7 @@ en:
         table:
           org_dept_name: "Org & Dept name"
           business_director_name: "Business director name"
-          first_party_name: "First party name"
+          first_party_name_and_comment: "First party name and comment"
           sales_contract_code_name: "Sales contract code name"
           amount_total: "Amount total"
           contract_property_name: "Contract property name"

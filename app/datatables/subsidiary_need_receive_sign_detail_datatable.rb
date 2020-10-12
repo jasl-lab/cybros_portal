@@ -20,7 +20,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     @view_columns ||= {
       org_dept_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
       business_director_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
-      first_party_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.firstpartyname", cond: :like, searchable: true, orderable: true },
+      first_party_name_and_comment: { source: "Bi::SubCompanyNeedReceiveSignDetail.firstpartyname", cond: :like, searchable: true, orderable: true },
       sales_contract_code_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.salescontractname", cond: :like, searchable: true, orderable: true },
       amount_total: { source: "Bi::SubCompanyNeedReceiveSignDetail.amounttotal", cond: :gteq, searchable: true, orderable: true },
       contract_property_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname", orderable: true },
@@ -56,7 +56,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       end
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         business_director_name: r.businessdirectorname,
-        first_party_name: r.firstpartyname,
+        first_party_name_and_comment: "#{r.firstpartyname}<br /><i>#{coc.comment}</i>".html_safe,
         sales_contract_code_name:  "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
         amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: "text-center"),
         contract_property_name: r.contractpropertyname,
