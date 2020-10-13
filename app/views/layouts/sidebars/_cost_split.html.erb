@@ -9,7 +9,7 @@
     <ul class="nav">
       <% if policy(:"CostSplit::HumanResource").index? %>
         <%= nav_item controller: 'cost_split/human_resources', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_human_resources_path, class: "nav-link" do %>
+          <%= link_to cost_split_human_resources_path, class: "nav-link", data: { turbolinks: false } do %>
             <i class="nav-icon fas fa-pen"></i>
             <%= t("layouts.sidebar.cost_split.human_resources") %>
           <% end %>
