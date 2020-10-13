@@ -13,10 +13,10 @@
   end
 %>
 <%= form_with model: scs, url: form_url do |f| %>
-  <%= f.hidden_field :user_id %>
-  <%= f.hidden_field :org_code %>
-  <%= f.hidden_field :dept_code %>
-  <%= f.hidden_field :position_title %>
+  <%= f.hidden_field :user_id, id: nil %>
+  <%= f.hidden_field :org_code, id: nil %>
+  <%= f.hidden_field :dept_code, id: nil %>
+  <%= f.hidden_field :position_title, id: nil %>
   <td><%= user.clerk_code -%></td>
   <td><%= user.chinese_name -%></td>
   <td><%= user.position_title -%></td>
@@ -26,9 +26,9 @@
     <p class="mt-3">上海天华</p>
   </td>
   <td class="pt-1 pb-1">
-    <%= f.text_field :group_rate, class: 'form-control' -%>
-    <%= f.text_field :shanghai_area, class: 'form-control mt-1' -%>
-    <%= f.text_field :shanghai_hq, class: 'form-control mt-1' -%>
+    <%= f.text_field :group_rate, class: 'form-control', id: nil -%>
+    <%= f.text_field :shanghai_area, class: 'form-control mt-1', id: nil -%>
+    <%= f.text_field :shanghai_hq, class: 'form-control mt-1', id: nil -%>
   </td>
   <td class="pt-1 pb-1">
     <p class="mt-2">人数</p>
