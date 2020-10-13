@@ -150,7 +150,6 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           data: thisMonthDeptAmount,
-          barMaxWidth: 90,
           itemStyle: {
             color: '#DDDDDD'
           },
@@ -367,7 +366,6 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           data: thisMonthContractAmount,
-          barMaxWidth: 90,
           itemStyle: {
             color: '#DDDDDD'
           },
@@ -584,7 +582,6 @@ export default class extends Controller {
           type: 'bar',
           stack: '总量',
           data: thisMonthRealAmount,
-          barMaxWidth: 90,
           itemStyle: {
             color: '#DDDDDD'
           },
