@@ -4,12 +4,10 @@
   scs.dept_code ||= user.dept_code
   scs.position_title ||= user.position_title
 
-  if scs.persisted?
-    form_url = cost_split_user_split_cost_setting_path(scs)
-    buttom_text = t('.submit_save');
+  form_url = if scs.persisted?
+    cost_split_user_split_cost_setting_path(scs)
   else
-    form_url = cost_split_user_split_cost_settings_path
-    buttom_text = t('.submit_new')
+    cost_split_user_split_cost_settings_path
   end
 %>
 <%= form_with model: scs, url: form_url do |f| %>
@@ -45,8 +43,20 @@
   </td>
   <td><%= scs.version -%></td>
   <td>
-    <% if show_submit_button  %>
-      <%= f.submit(buttom_text, class: "btn btn-primary") -%>
+    <% if scs.new_record? %>
+      <% if show_submit_button %>
+        <%= f.submit(t('.submit_new'), class: "btn btn-primary") -%>
+      <% else %>
+        <%= link_to '重填', cost_split_human_resources_path, class: "btn btn-secondary", data: { turbolinks: false } %>
+      <% end %>
+    <% elsif show_submit_button && !scs.confirmed %>
+      <%= f.submit(t('.submit_save'), class: "btn btn-primary") -%>
+    <% elsif scs.errors.present? %>
+      <%= link_to '重填', cost_split_human_resources_path, class: "btn btn-secondary", data: { turbolinks: false } %>
+    <% elsif !scs.confirmed %>
+      <%= link_to '确认', confirm_cost_split_user_split_cost_setting_path(scs), method: :patch, remote: true, class: "btn btn-success" %>
+    <% else %>
+      <%= link_to '升版', version_up_cost_split_user_split_cost_setting_path(scs), method: :patch, remote: true, class: "btn btn-danger" %>
     <% end %>
   </td>
 <% end %>

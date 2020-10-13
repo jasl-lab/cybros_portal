@@ -1,0 +1,1 @@
+$("#user-split-cost-setting-<%= @user.id -%>").html('<%= j render(partial: "cost_split/human_resources/user_split_cost_setting_form", locals: { user: @user, scs: @scs, show_submit_button: false }) -%>');
