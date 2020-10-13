@@ -5,17 +5,14 @@
   scs.position_title ||= user.position_title
 
   if scs.persisted?
-    form_url = cost_split_user_split_cost_setting_path(scs, format: 'js')
+    form_url = cost_split_user_split_cost_setting_path(scs)
     buttom_text = t('.submit_save');
   else
-    form_url = cost_split_user_split_cost_settings_path(format: 'js')
+    form_url = cost_split_user_split_cost_settings_path
     buttom_text = t('.submit_new')
   end
 %>
-<%= form_with model: scs, url: form_url, format: 'js',
-  data: { controller: 'cost-split--user-setting-form', 
-          action: 'submit->cost-split--user-setting-form#submit_form',
-          target: 'cost-split--user-setting-form.form' } do |f| %>
+<%= form_with model: scs, url: form_url do |f| %>
   <%= f.hidden_field :user_id, id: nil %>
   <%= f.hidden_field :org_code, id: nil %>
   <%= f.hidden_field :dept_code, id: nil %>
@@ -44,5 +41,9 @@
     <p class="mt-3">上海天华</p>
   </td>
   <td><%= scs.version -%></td>
-  <td><%= f.submit buttom_text, class: "btn btn-primary" -%></td>
+  <td>
+    <% if show_submit_button  %>
+      <%= f.submit(buttom_text, class: "btn btn-primary") -%>
+    <% end %>
+  </td>
 <% end %>
