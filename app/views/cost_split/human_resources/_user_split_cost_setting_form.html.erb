@@ -26,9 +26,12 @@
     <p class="mt-3">上海天华</p>
   </td>
   <td class="pt-1 pb-1">
-    <%= f.text_field :group_rate, class: 'form-control', id: nil -%>
-    <%= f.text_field :shanghai_area, class: 'form-control mt-1', id: nil -%>
-    <%= f.text_field :shanghai_hq, class: 'form-control mt-1', id: nil -%>
+      <%= f.text_field :group_rate, class: 'form-control', class_for_error: "is-invalid", id: nil -%>
+      <%= f.error_message :group_rate, class: "invalid-feedback" %>
+      <%= f.text_field :shanghai_area, class: 'form-control mt-1', class_for_error: "is-invalid", id: nil -%>
+      <%= f.error_message :shanghai_area, class: "invalid-feedback" %>
+      <%= f.text_field :shanghai_hq, class: 'form-control mt-1', class_for_error: "is-invalid", id: nil -%>
+      <%= f.error_message :shanghai_hq, class: "invalid-feedback" %>
   </td>
   <td class="pt-1 pb-1">
     <p class="mt-2">人数</p>

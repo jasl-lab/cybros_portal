@@ -19,3 +19,6 @@ zh-CN:
       user_split_cost_setting_form:
         submit_save: "保存"
         submit_new: "新建"
+        errors:
+          rate_not_reach_to_100: "比例总和相加没有到达100%"
+          empty_text: ""
