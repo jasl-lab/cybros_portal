@@ -10,8 +10,9 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   end
 
   def update
-    @scs = UserSplitCostSetting.find (params[:id])
+    @scs = UserSplitCostSetting.find(params[:id])
     @user = @scs.user
+    @scs.update(scs_params)
   end
 
   private
