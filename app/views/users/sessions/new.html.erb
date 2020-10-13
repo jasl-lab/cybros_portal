@@ -17,7 +17,6 @@
 <% end %>
         <br />
 
-<% if !Rails.env.production? || (browser.safari? && browser.full_version == '14.0' && browser.platform.mac?) %>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), id: "user-sign-in") do |f| %>
           <div class="form-group">
             <%= f.label :email %>
@@ -50,14 +49,6 @@
             </div>
           <% end %>
         <% end %>
-<% else %>
-  <script type="text/javascript">
-    function go_openid_connect() {
-      Turbolinks.visit('/auth/openid_connect');
-    }
-    document.addEventListener("turbolinks:load", go_openid_connect);
-  </script>
-<% end %>
       </div>
     </div>
   </div>
