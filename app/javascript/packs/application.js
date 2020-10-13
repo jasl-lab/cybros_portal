@@ -20,7 +20,10 @@ import "selectize/dist/js/selectize";
 
 import "stylesheets/application";
 
-require("@rails/ujs").start()
+window.Rails = require("@rails/ujs");
+
+window.Rails.start();
+
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
