@@ -293,7 +293,7 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '工作填报率',
+          name: '非建筑类饱和度',
           type: 'line',
           symbol: 'triangle',
           symbolSize: 12,
