@@ -296,6 +296,7 @@ export default class extends Controller {
           name: '工作填报率',
           type: 'line',
           symbol: 'triangle',
+          symbolSize: 12,
           data: nonConstructionDayRateData,
           itemStyle: {
             color: '#738496'
@@ -323,6 +324,9 @@ export default class extends Controller {
               break;
             case '施工图饱和度':
               company_name = xAxisConstruction[params.dataIndex]
+              break;
+            case '非建筑类饱和度':
+              company_name = xAxisNonConstruction[params.dataIndex]
               break;
           }
 
