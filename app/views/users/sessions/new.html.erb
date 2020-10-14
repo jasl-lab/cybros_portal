@@ -11,11 +11,17 @@
           </li>
         <% end %>
       </ul>
-      <div class="card-body p-4">
 <% unless Rails.env.staging? %>
+      <div class="card-body p-4">
+        <h6 class="card-title text-center">员工请通过SSO一键登录</h6>
+
         <%= link_to t('.sso'), '/auth/openid_connect', class: "btn btn-block btn-primary" %>
+      </div>
 <% end %>
-        <br />
+    <div>
+    <div class="card mt-8 border-0">
+      <div class="card-body p-4">
+        <h6 class="card-title text-center">供应商可以通过邮件登录</h6>
 
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), id: "user-sign-in") do |f| %>
           <div class="form-group">
