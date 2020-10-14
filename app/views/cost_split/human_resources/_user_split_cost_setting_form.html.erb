@@ -51,6 +51,7 @@
       <% end %>
     <% elsif show_submit_button && !scs.confirmed %>
       <%= f.submit(t('.submit_save'), class: "btn btn-primary") -%>
+      <%= link_to '确认', confirm_cost_split_user_split_cost_setting_path(scs), method: :patch, remote: true, class: "btn btn-success" %>
     <% elsif scs.errors.present? %>
       <%= link_to '重填', cost_split_human_resources_path, class: "btn btn-secondary", data: { turbolinks: false } %>
     <% elsif !scs.confirmed %>
