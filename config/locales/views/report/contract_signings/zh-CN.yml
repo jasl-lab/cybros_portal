@@ -6,7 +6,7 @@ zh-CN:
         actions:
           view_orgcode_sum: "显示汇总组织"
           view_orgcode: "显示明细部门"
-        title: "本年累计合同额及签约周期"
+        title: "集团本年累计合同额及签约周期"
         month_name: "查询年月"
         period_mean_ref: "签约周期预警"
         contract_amounts_per_staff_ref: "人均合同额预警"
