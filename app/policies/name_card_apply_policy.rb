@@ -1,7 +1,7 @@
 class NameCardApplyPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.admin? || user.chinese_name == '吴婷'
+      if user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[管理名片]) }
         scope.all
       else
         scope.where(user_id: user.id)
@@ -10,6 +10,6 @@ class NameCardApplyPolicy < ApplicationPolicy
   end
 
   def report?
-    user.admin? || user.chinese_name == '吴婷'
+    user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[管理名片]) }
   end
 end
