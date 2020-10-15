@@ -2,6 +2,7 @@
 
 class NameCardApply < ApplicationRecord
   belongs_to :user
+  has_one_attached :printed_name_card
 
   auto_strip_attributes :title, :english_name
 
@@ -10,6 +11,7 @@ class NameCardApply < ApplicationRecord
   validates :thickness, :back_color, presence: true, on: :create
   validate :title_exclude_from_black_title, if: Proc.new { Current.user.present? }
   validates :mobile, length: { is: 11 }
+  validate :printed_name_card_validation, on: :update
 
   def self.thickness_list
     ['400g',
@@ -35,6 +37,17 @@ class NameCardApply < ApplicationRecord
     def title_exclude_from_black_title
       if title.in?(NameCardBlackTitle.where(original_title: Current.user.position_title).pluck(:required_title))
         errors.add(:title, :title_is_blocked)
+      end
+    end
+
+    def printed_name_card_validation
+      if printed_name_card.attached?
+        if printed_name_card.blob.byte_size > 4096.kilobytes
+          printed_name_card.purge
+          errors[:printed_name_card] << '上传名片图片不能超过4M'
+        end
+      elsif status == '同意'
+        errors[:printed_name_card] << '必须上传名片'
       end
     end
 end

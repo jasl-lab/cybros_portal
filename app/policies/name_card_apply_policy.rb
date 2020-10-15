@@ -12,4 +12,8 @@ class NameCardApplyPolicy < ApplicationPolicy
   def report?
     user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[管理名片]) }
   end
+
+  def upload?
+    user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[管理名片]) }
+  end
 end

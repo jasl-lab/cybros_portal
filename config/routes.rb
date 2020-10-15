@@ -252,9 +252,10 @@ Rails.application.routes.draw do
   namespace :person do
     root to: 'home#index'
 
-    resources :name_cards, only: %i[index new create show destroy] do
+    resources :name_cards, except: %i[:update] do
       member do
         patch :start_approve
+        patch :upload_name_card
       end
       collection do
         get :change_image

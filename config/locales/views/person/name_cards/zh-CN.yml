@@ -55,6 +55,7 @@ zh-CN:
           start_approve: "提交并发起流程"
           look_workflow: "查看流程进度"
           only_see_approved: "仅看同意"
+          upload: "上传名片"
           report: "导出报表"
         table:
           task_id: "任务 ID"

@@ -2,11 +2,13 @@
 
 class NameCardApplyDatatable < ApplicationDatatable
   def_delegator :@view, :person_name_card_path
+  def_delegator :@view, :edit_person_name_card_path
   def_delegator :@view, :start_approve_person_name_card_path
 
   def initialize(params, opts = {})
     @name_card_applies = opts[:name_card_applies]
     @only_see_approved = opts[:only_see_approved]
+    @current_user = opts[:current_user]
     super
   end
 
@@ -31,11 +33,16 @@ class NameCardApplyDatatable < ApplicationDatatable
 
   def data
     records.map do |r|
+      r_chinese_name = if Pundit.policy!(@current_user, r).upload?
+        "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.upload"), edit_person_name_card_path(id: r.id), remote: true)}".html_safe
+      else
+        r.chinese_name
+      end
       r_delete = link_to I18n.t("person.name_cards.index.actions.delete"), person_name_card_path(r),
         method: :delete, data: { confirm: "你确定要删除吗？" }
       r_start_approve = link_to I18n.t("person.name_cards.index.actions.start_approve"), start_approve_person_name_card_path(r),
         class: "btn btn-primary", method: :patch, data: { disable_with: "处理中" }
-      { name: r.chinese_name,
+      { name: r_chinese_name,
         english_name: r.english_name,
         email: r.email,
         task_id: (r.begin_task_id.present? ? link_to(I18n.t("person.name_cards.index.actions.look_workflow"), person_name_card_path(id: r.id, begin_task_id: r.begin_task_id)) : ""),

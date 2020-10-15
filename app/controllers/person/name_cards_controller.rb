@@ -3,7 +3,7 @@ class Person::NameCardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index new show], if: -> { request.format.html? }
-  before_action :set_name_card_apply, only: %i[destroy start_approve show]
+  before_action :set_name_card_apply, only: %i[destroy start_approve edit show]
 
   def index
     @only_see_approved = params[:only_see_approved] == 'true'
@@ -16,6 +16,7 @@ class Person::NameCardsController < ApplicationController
         render json: NameCardApplyDatatable.new(params,
           name_card_applies: name_card_applies,
           only_see_approved: @only_see_approved,
+          current_user: current_user,
           view_context: view_context)
       end
     end
@@ -91,6 +92,9 @@ class Person::NameCardsController < ApplicationController
       format.html { redirect_to person_name_cards_path, notice: t('.success') }
       format.json { head :no_content }
     end
+  end
+
+  def edit
   end
 
   def show

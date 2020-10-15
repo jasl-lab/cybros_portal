@@ -48,6 +48,7 @@ en:
           start_approve: "Request approve and submit"
           look_workflow: "Look workflow process"
           only_see_approved: "Only see approved"
+          upload: "Upload name card"
           report: "Export the report"
         table:
           task_id: "Task ID"
