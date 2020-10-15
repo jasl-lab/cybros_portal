@@ -6,6 +6,7 @@ class NameCardApplyDatatable < ApplicationDatatable
 
   def initialize(params, opts = {})
     @name_card_applies = opts[:name_card_applies]
+    @only_see_approved = opts[:only_see_approved]
     super
   end
 
@@ -53,6 +54,10 @@ class NameCardApplyDatatable < ApplicationDatatable
   end
 
   def get_raw_records
-    @name_card_applies
+    if @only_see_approved
+      @name_card_applies.where(status: '同意')
+    else
+      @name_card_applies
+    end
   end
 end

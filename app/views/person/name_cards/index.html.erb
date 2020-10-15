@@ -3,7 +3,10 @@
     <li class="action_bar-item">
       <%= link_to t(".actions.new"), new_person_name_card_path, class: "btn text-primary" %>
     </li>
-    <% if current_user.present? && policy(NameCardApply).report? %>
+    <% if policy(NameCardApply).report? %>
+      <li class="action_bar-item">
+        <%= link_to t(".actions.only_see_approved"), person_name_cards_path(only_see_approved: true), class: "btn text-primary" %>
+      </li>
       <li class="action_bar-item">
         <%= link_to t(".actions.report"), report_person_name_cards_path(format: :csv), class: "btn text-primary" %>
       </li>
@@ -21,7 +24,7 @@
       <div class="col-lg-12" data-controller="name-cards-lists">
         <table id="name-cards-lists-datatable"
           class="table table-hover table-bordered table-responsive"
-          data-source="<%= person_name_cards_path(format: :json) %>">
+          data-source="<%= person_name_cards_path(only_see_approved: @only_see_approved,format: :json) %>">
           <thead>
             <tr>
               <th><%= t(".table.name") -%></th>
