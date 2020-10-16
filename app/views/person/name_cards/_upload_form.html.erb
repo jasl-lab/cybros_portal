@@ -1,15 +1,19 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title"><%= name_card_apply.chinese_name %></h5>
-      <a class="close" data-dismiss="modal" aria-label="Close">
-        <i class="fas fa-window-close"></i>
-      </a>
-    </div>
-    <div class="modal-body">
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
-    </div>
+    <%= form_with model: name_card_apply, url: upload_name_card_person_name_card_path(name_card_apply) do |f| %>
+      <div class="modal-header">
+        <h5 class="modal-title"><%= name_card_apply.chinese_name %></h5>
+        <a class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-window-close"></i>
+        </a>
+      </div>
+      <div class="modal-body">
+        <%= f.file_field :printed_name_card %>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit class: 'btn btn-primary' %>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
+      </div>
+    <% end %>
   </div>
 </div

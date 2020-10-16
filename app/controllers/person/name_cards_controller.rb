@@ -3,7 +3,7 @@ class Person::NameCardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index new show], if: -> { request.format.html? }
-  before_action :set_name_card_apply, only: %i[destroy start_approve edit show]
+  before_action :set_name_card_apply, only: %i[destroy start_approve edit show upload_name_card]
 
   def index
     @only_see_approved = params[:only_see_approved] == 'true'
@@ -161,6 +161,10 @@ class Person::NameCardsController < ApplicationController
   def change_image
     select_back_color = params[:name_card_apply][:back_color]
     @color_index = NameCardApply.back_color_list.index(select_back_color)
+  end
+
+  def upload_name_card
+
   end
 
   protected
