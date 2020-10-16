@@ -120,8 +120,8 @@ Rails.application.routes.draw do
     resource :human_resource, only: %i[show]
 
     resource :subsidiary_human_resource, only: %i[show]
-    resource :hr_sy, only: %i[show]
-    resource :subsidiary_hr_sy, only: %i[show]
+    resource :hr_cjld, only: %i[show]
+    resource :subsidiary_hr_cjld, only: %i[show]
     resource :hr_monthly_report_data_entry, only: %i[show]
     resource :hrdw_stfreinstate_bi_save, only: %i[show] do
       post :stfreinstate_archive

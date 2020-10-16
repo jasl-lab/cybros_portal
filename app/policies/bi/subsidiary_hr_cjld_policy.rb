@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class SubsidiaryHrSyPolicy < Struct.new(:user, :dashboard)
+  class SubsidiaryHrCjldPolicy < Struct.new(:user, :dashboard)
     def show?
       user.present? &&
         (user.roles.pluck(:hr_subsidiary_reader).any? ||
