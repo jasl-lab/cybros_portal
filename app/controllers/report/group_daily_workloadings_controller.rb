@@ -58,7 +58,7 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
     @building_day_rate = construction_data.collect { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 }
     @building_day_rate_ref = params[:building_day_rate_ref] || 80
 
-    @non_construction_day_rate = non_construction_data.collect { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 }
+    @non_construction_day_rate = non_construction_data.collect { |d| ((d.other_real / d.other_need.to_f) * 100).round(0) rescue 0 }
 
     @current_user_companies_short_names = current_user.user_company_short_names +
       current_user.can_access_org_codes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
