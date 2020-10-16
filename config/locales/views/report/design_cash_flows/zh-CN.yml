@@ -6,7 +6,7 @@ zh-CN:
         actions:
           view_orgcode_sum: "显示汇总组织"
           view_orgcode: "显示明细部门"
-        title: "子公司现金流情况"
+        title: "集团级子公司现金流情况"
         month_name: "实收款的查询年月"
         org_names: "显示子公司"
         confirm: "确认"
