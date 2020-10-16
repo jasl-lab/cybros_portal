@@ -55,7 +55,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Bi::HrMonthlyReportDataEntry").show? || policy(:"Bi::RtGroupHrMonthly").show? || policy(:"Bi::RtGroupHrMonthlyPure").show? || policy(:"Bi::GroupHrMonthly").show? || policy(:"Bi::GroupHrMonthlyPure").show? || policy(:"Bi::HrSy").show? || policy(:"Bi::RtGroupSubsidiaryHrMonthly").show? || policy(:"Bi::GroupSubsidiaryHrMonthly").show? || policy(:"Bi::SubsidiaryHrSy").show? || policy(:"Bi::HrTalentPool").show? || policy(:"Bi::SubsidiaryHumanResource").show? %>
+      <% if policy(:"Bi::HrMonthlyReportDataEntry").show? || policy(:"Bi::RtGroupHrMonthly").show? || policy(:"Bi::RtGroupHrMonthlyPure").show? || policy(:"Bi::GroupHrMonthly").show? || policy(:"Bi::GroupHrMonthlyPure").show? || policy(:"Bi::HrCjld").show? || policy(:"Bi::RtGroupSubsidiaryHrMonthly").show? || policy(:"Bi::GroupSubsidiaryHrMonthly").show? || policy(:"Bi::SubsidiaryHrCjld").show? || policy(:"Bi::HrTalentPool").show? || policy(:"Bi::SubsidiaryHumanResource").show? %>
         <%= nav_item controller: 'report/human_resource', html_options: {class: "nav-item"} do %>
           <%= link_to report_human_resource_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-jedi"></i>
