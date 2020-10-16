@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class NameCardApplyDatatable < ApplicationDatatable
+  def_delegator :@view, :image_tag
   def_delegator :@view, :person_name_card_path
   def_delegator :@view, :edit_person_name_card_path
   def_delegator :@view, :start_approve_person_name_card_path
@@ -34,7 +35,12 @@ class NameCardApplyDatatable < ApplicationDatatable
   def data
     records.map do |r|
       r_chinese_name = if Pundit.policy!(@current_user, r).upload?
-        "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.upload"), edit_person_name_card_path(id: r.id), remote: true)}".html_safe
+        if r.printed_name_card.attached?
+          "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.upload"), edit_person_name_card_path(id: r.id), remote: true)}
+          <br />#{image_tag r.printed_name_card, width: '100px' }".html_safe
+        else
+          "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.upload"), edit_person_name_card_path(id: r.id), remote: true)}".html_safe
+        end
       else
         r.chinese_name
       end

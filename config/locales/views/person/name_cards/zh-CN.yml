@@ -47,6 +47,8 @@ zh-CN:
         success: "您的名片申请成功发起流程！"
         failed: "名片申请发起流程失败，BPM返回：%{message}"
         repeated_approve_request: "名片申请发起流程已经发起。"
+      upload_form:
+        submit: "上传名片"
       index:
         title: "名片申请历史清单"
         actions:

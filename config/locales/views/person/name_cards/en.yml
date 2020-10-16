@@ -40,6 +40,8 @@ en:
         success: "Your name card apply now in approve process!"
         failed: "Name card apply initiation process failed, BPM returned：%{message}"
         repeated_approve_request: "Name card apply process is already initialized."
+      upload_form:
+        submit: "Upload the printed name card"
       index:
         title: "Name card apply history list"
         actions:

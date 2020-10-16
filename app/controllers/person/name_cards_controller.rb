@@ -164,7 +164,7 @@ class Person::NameCardsController < ApplicationController
   end
 
   def upload_name_card
-
+    @name_card_apply.update(printed_name_card: params[:name_card_apply][:printed_name_card])
   end
 
   protected
