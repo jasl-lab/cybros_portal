@@ -61,7 +61,9 @@ class NameCardApplyDatatable < ApplicationDatatable
         fax_no: r.fax_no,
         print_out_box_number: r.print_out_box_number,
         status: r.status,
-        item_action: "#{r_delete}#{r_start_approve}".html_safe
+        item_action: if @current_user.email.end_with?('@thape.com.cn')
+            "#{r_delete}#{r_start_approve}".html_safe
+          end
       }
     end
   end
