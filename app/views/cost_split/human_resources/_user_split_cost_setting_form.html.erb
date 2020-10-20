@@ -43,7 +43,7 @@
   <td class="pt-1 pb-1">
     <p class="mt-2"><%= f.select :user_split_cost_group_rate_companies_codes, Bi::OrgOrder.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control' -%></p>
     <p class="mt-2"><%= f.select :user_split_cost_shanghai_area_rate_companies_codes, Bi::OrgOrder.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control' -%></p>
-    <p class="mt-3">上海天华</p>
+    <p class="mt-3"><%= f.select :user_split_cost_shanghai_hq_rate_companies_codes, Bi::OrgOrder.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control' -%></p>
   </td>
   <td><%= scs.version -%></td>
   <td>

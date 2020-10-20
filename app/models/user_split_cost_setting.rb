@@ -57,4 +57,24 @@ class UserSplitCostSetting < ApplicationRecord
       end
     end
   end
+
+  def user_split_cost_shanghai_hq_rate_companies_codes
+    @_user_split_cost_shanghai_hq_rate_companies_codes ||= user_split_cost_shanghai_hq_rate_companies.pluck(:company_code)
+  end
+
+  def user_split_cost_shanghai_hq_rate_companies_codes=(values)
+    select_values = values.reject(&:blank?)
+    if new_record?
+      (select_values - user_split_cost_shanghai_hq_rate_companies_codes).each do |new_company_code|
+        user_split_cost_shanghai_hq_rate_companies.build(company_code: new_company_code)
+      end
+    else
+      (user_split_cost_shanghai_hq_rate_companies_codes - select_values).each do |to_destroy_company_code|
+        user_split_cost_shanghai_hq_rate_companies.find_by(company_code: to_destroy_company_code).destroy
+      end
+      (select_values - user_split_cost_shanghai_hq_rate_companies_codes).each do |to_add_company_code|
+        user_split_cost_shanghai_hq_rate_companies.create(company_code: to_add_company_code)
+      end
+    end
+  end
 end
