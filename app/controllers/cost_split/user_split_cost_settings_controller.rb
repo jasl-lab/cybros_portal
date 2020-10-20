@@ -29,7 +29,8 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
     def scs_params
       params.fetch(:user_split_cost_setting, {})
         .permit(:user_id, :org_code, :dept_code, :position_title,
-          :group_rate, :shanghai_area, :shanghai_hq, :group_rate_base, :shanghai_area_base, :shanghai_hq_base, :version)
+          :group_rate, :shanghai_area, :shanghai_hq, :group_rate_base, :shanghai_area_base, :shanghai_hq_base, 
+          :version, user_split_cost_group_rate_companies_codes: [])
     end
 
     def set_user_and_split_cost_setting
