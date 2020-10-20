@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_19_082347) do
+ActiveRecord::Schema.define(version: 2020_10_20_025016) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -368,6 +368,14 @@ ActiveRecord::Schema.define(version: 2020_10_19_082347) do
     t.boolean "org_viewer", default: false
   end
 
+  create_table "user_split_cost_group_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_split_cost_setting_id"
+    t.string "company_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_split_cost_setting_id"], name: "idx_split_cost_group_rate_on_setting_id"
+  end
+
   create_table "user_split_cost_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.integer "group_rate", null: false
     t.integer "shanghai_area", null: false
@@ -386,6 +394,22 @@ ActiveRecord::Schema.define(version: 2020_10_19_082347) do
     t.string "shanghai_area_base"
     t.string "shanghai_hq_base"
     t.index ["user_id"], name: "index_user_split_cost_settings_on_user_id"
+  end
+
+  create_table "user_split_cost_shanghai_area_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_split_cost_setting_id"
+    t.string "company_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_split_cost_setting_id"], name: "idx_split_cost_shanghai_area_rate_on_setting_id"
+  end
+
+  create_table "user_split_cost_shanghai_hq_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_split_cost_setting_id"
+    t.string "company_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_split_cost_setting_id"], name: "idx_split_cost_shanghai_hq_rate_on_setting_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
