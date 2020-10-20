@@ -32,9 +32,9 @@
       <%= f.error_message :shanghai_hq, class: "invalid-feedback" %>
   </td>
   <td class="pt-1 pb-1">
-    <p class="mt-2">人数</p>
-    <p class="mt-2">人数</p>
-    <p class="mt-3">人数</p>
+    <p class="mt-0 mb-1"><%= f.select :group_rate_base, UserSplitCostSetting::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
+    <p class="mt-0 mb-1"><%= f.select :shanghai_area_base, UserSplitCostSetting::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
+    <p class="mt-0 mb-1"><%= f.select :shanghai_hq_base, UserSplitCostSetting::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
   </td>
   <td class="pt-1 pb-1">
     <p class="mt-2">集团所有公司列表，多选</p>
