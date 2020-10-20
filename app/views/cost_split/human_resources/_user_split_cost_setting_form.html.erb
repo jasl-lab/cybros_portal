@@ -15,9 +15,13 @@
   <%= f.hidden_field :org_code, id: nil %>
   <%= f.hidden_field :dept_code, id: nil %>
   <%= f.hidden_field :position_title, id: nil %>
-  <td><%= user.clerk_code -%></td>
-  <td><%= user.chinese_name -%></td>
-  <td><%= user.position_title -%></td>
+  <td>
+    <%= user.clerk_code -%>
+    <br />
+    <%= user.chinese_name -%>
+    <br />
+    <%= user.position_title -%>
+  </td>
   <td class="pt-1 pb-1">
     <p class="mt-2">集团性</p>
     <p class="mt-2">上海区域</p>

@@ -8,9 +8,7 @@ zh-CN:
         dept_name: "部门名称"
         confirm: "搜索"
         table:
-          clerk_code: "工号"
-          chinese_name: "姓名"
-          position_title: "岗位"
+          clerk_people: "人员"
           split_type: "分摊性质"
           split_rate: "分摊比例"
           split_base_number: "分摊基数"
