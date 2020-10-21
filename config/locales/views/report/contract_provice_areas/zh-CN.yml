@@ -10,8 +10,8 @@ zh-CN:
         org_names: "显示子公司"
         confirm: "确认"
         table:
-          province: "省/直辖市"
-          new_area: "新开工面积"
-          new_area_rate: "今年占有率"
-          previous_new_area_rate: "去年占有率"
-          previous_new_area: "去年新开工面积"
+          province: "地区"
+          new_area: "新开工面积（万㎡）"
+          new_area_rate: "%{title}占有率"
+          previous_new_area_rate: "上一年同期占有率"
+          previous_new_area: "去年新开工面积（万㎡）"

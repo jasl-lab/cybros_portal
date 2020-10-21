@@ -24,14 +24,13 @@
     <div class="row">
       <div class="col-sm-6" style="padding-right: 0">
         <h5 class="text-center">分省市新开工面积与占有率对比情况</h5>
-        <p class="text-center text-muted">今年数据范围（<%= @beginning_of_year.to_date -%> - <%= @end_of_month.to_date -%>），去年为全年，单位：元/万平方</p>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
                 <th><%= t(".table.province") %></th>
                 <th><%= t(".table.new_area") %></th>
-                <th><%= t(".table.new_area_rate") %></th>
+                <th><%= t(".table.new_area_rate", title: "#{@beginning_of_year.year}年#{@beginning_of_year.month}-#{@end_of_month.month}月#{@service_phase}") %></th>
                 <th><%= t(".table.previous_new_area_rate") %></th>
                 <th><%= t(".table.previous_new_area") %></th>
               </tr>
