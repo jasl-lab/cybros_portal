@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_20_025016) do
+ActiveRecord::Schema.define(version: 2020_10_21_014614) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -366,6 +366,21 @@ ActiveRecord::Schema.define(version: 2020_10_20_025016) do
     t.boolean "large_customer_detail_viewser"
     t.boolean "group_report_viewer", default: false
     t.boolean "org_viewer", default: false
+  end
+
+  create_table "split_cost_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.integer "group_rate"
+    t.integer "shanghai_area"
+    t.integer "shanghai_hq"
+    t.integer "version"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "confirmed"
+    t.string "group_rate_base"
+    t.string "shanghai_area_base"
+    t.string "shanghai_hq_base"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "user_split_cost_group_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

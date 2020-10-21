@@ -4,7 +4,7 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   before_action :set_user_and_split_cost_setting, except: :create
 
   def create
-    @scs = UserSplitCostSetting.new(scs_params)
+    @scs = SplitCost::UserSplitCostSetting.new(scs_params)
     @user = @scs.user
     @scs.start_date ||= Date.today
     @scs.version = @user.user_split_cost_settings.count
@@ -27,7 +27,7 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   private
 
     def scs_params
-      params.fetch(:user_split_cost_setting, {})
+      params.fetch(:split_cost_user_split_cost_setting, {})
         .permit(:user_id, :org_code, :dept_code, :position_title,
           :group_rate, :shanghai_area, :shanghai_hq, 
           :group_rate_base, :shanghai_area_base, :shanghai_hq_base, 
@@ -38,7 +38,7 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
     end
 
     def set_user_and_split_cost_setting
-      @scs = UserSplitCostSetting.find(params[:id])
+      @scs = SplitCost::UserSplitCostSetting.find(params[:id])
       @user = @scs.user
     end
 end

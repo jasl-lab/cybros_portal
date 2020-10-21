@@ -391,7 +391,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   create_table "ORG_ORDER", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.text "org_name"
     t.float "org_order", limit: 53
-    t.text "org_code"
+    t.string "org_code", limit: 45
+    t.string "org_shortname", limit: 45
   end
 
   create_table "ORG_REPORT_DEPT_ORDER", primary_key: "index", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
