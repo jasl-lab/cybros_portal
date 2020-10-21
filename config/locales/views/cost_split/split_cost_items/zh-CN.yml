@@ -4,3 +4,9 @@ zh-CN:
     split_cost_items:
       index:
         title: "资产及费用预算分摊规则设置"
+        search: "搜索"
+        table:
+          split_cost_item_no: "分摊项目编号"
+          split_cost_item_name: "分摊项目名称"
+          split_cost_item_category: "分摊项目分类"
+          version: "版本"

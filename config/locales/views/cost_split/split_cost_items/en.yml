@@ -4,3 +4,9 @@ en:
     split_cost_items:
       index:
         title: "Cost split for human resources"
+        search: "Search"
+        table:
+          split_cost_item_no: "Split cost item No"
+          split_cost_item_name: "Split cost item name"
+          split_cost_item_category: "Split cost item category"
+          version: "Version"

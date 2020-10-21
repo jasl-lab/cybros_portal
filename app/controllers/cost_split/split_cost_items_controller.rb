@@ -3,6 +3,7 @@
 class CostSplit::SplitCostItemsController < CostSplit::BaseController
   def index
     prepare_meta_tags title: t('.title')
+    @split_cost_items = SplitCost::SplitCostItem.all
   end
 
   protected
