@@ -92,7 +92,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     @day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @job_company_or_department_codes.include?(d.deptcode) }
     @planning_day_rate = data.filter_map { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 if @blue_print_company_or_department_codes.include?(d.deptcode) }
     @building_day_rate = data.filter_map { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 if @construction_company_or_department_codes.include?(d.deptcode) }
-    @non_construction_day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @non_construction_company_or_department_codes.include?(d.deptcode) }
+    @non_construction_day_rate = data.filter_map { |d| ((d.others_real / d.others_need.to_f) * 100).round(0) rescue 0 if @non_construction_company_or_department_codes.include?(d.deptcode) }
   end
 
   def day_rate_drill_down
