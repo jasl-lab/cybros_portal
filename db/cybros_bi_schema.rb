@@ -533,8 +533,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["id"], name: "id_UNIQUE", unique: true
   end
 
-  create_table "REFRESH_RECORD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.text "program"
+  create_table "REFRESH_RECORD", primary_key: "program", id: :string, limit: 100, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.datetime "refresh_date"
     t.integer "isinuse", limit: 1, default: 1
     t.integer "checkdate", default: 1
