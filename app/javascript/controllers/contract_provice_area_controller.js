@@ -12,6 +12,30 @@ export default class extends Controller {
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
 
+    const mapFeatures = echarts.getMap('china').geoJson.features;
+
+    let geoCoordMap = {};
+    mapFeatures.forEach(function(v) {
+      // 地区名称
+      var name = v.properties.name;
+      // 地区经纬度
+      geoCoordMap[name] = v.properties.cp;
+    });
+
+    function convertData(data) {
+      var res = [];
+      for (var i = 0; i < data.length; i++) {
+          var geoCoord = geoCoordMap[data[i].name];
+          if (geoCoord) {
+              res.push({
+                  name: data[i].name,
+                  value: geoCoord.concat(data[i].value),
+              });
+          }
+      }
+      return res;
+    }
+
     const map_option = {
       title: {
         text: '全国开工面积 省份分布',
@@ -25,7 +49,7 @@ export default class extends Controller {
       },
       tooltip: {
         trigger: 'item',
-        showDelay: 0,
+        showDelay: 30,
         transitionDuration: 0.2,
         formatter: function (params) {
           var value = (params.value + '').split('.');
@@ -34,13 +58,14 @@ export default class extends Controller {
         }
       },
       visualMap: {
+        show: true,
         left: 'right',
         min: Math.min(...provinceSum)*0.05,
         max: Math.max(...provinceSum),
         inRange: {
-          color: ['#F2F2F2', '#DFF0FA', '#9ED3EF','#9ED3EF','#17628A','#092838']
+          color: ['#04387b', '#467bc0'] // 蓝绿
         },
-        text:['High','Low'],           // 文本，默认为数值文本
+        seriesIndex: [1],
         calculable: true
       },
       toolbox: {
@@ -54,15 +79,113 @@ export default class extends Controller {
           saveAsImage: {}
         }
       },
+      geo: {
+          show: true,
+          map: 'china',
+          label: {
+              normal: {
+                  show: false
+              },
+              emphasis: {
+                  show: false,
+              }
+          },
+          roam: false,
+          itemStyle: {
+              normal: {
+                  areaColor: '#023677',
+                  borderColor: '#1180c7',
+              },
+              emphasis: {
+                  areaColor: '#4499d0',
+              }
+          }
+      },
       series: [{
-        type: 'map',
-        mapType: 'china',
-        roam: false,
-        itemStyle:{
-            emphasis:{label:{show:true}}
+        name: '散点',
+        type: 'scatter',
+        coordinateSystem: 'geo',
+        data: convertData(map_data),
+        symbolSize: function(val) {
+            return val[2] / 1000;
         },
-        data: map_data
-      }],
+        label: {
+            normal: {
+                formatter: '{b}',
+                position: 'right',
+                show: true
+            },
+            emphasis: {
+                show: true
+            }
+        },
+        itemStyle: {
+            normal: {
+                color: '#fff'
+            }
+        }
+      },{
+          type: 'map',
+          map: 'china',
+          geoIndex: 0,
+          aspectScale: 0.75, //长宽比
+          showLegendSymbol: false, // 存在legend时显示
+          label: {
+            normal: {
+              show: true
+            },
+            emphasis: {
+              show: false
+            }
+          },
+          roam: true,
+          itemStyle: {
+            normal: {
+              areaColor: '#031525',
+              borderColor: '#3B5077',
+            },
+            emphasis: {
+              areaColor: '#2B91B7'
+            }
+          },
+          animation: false,
+          data: map_data
+        },
+        {
+          name: '点',
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          zlevel: 6,
+        },
+        {
+          name: 'Top 10',
+          type: 'effectScatter',
+          coordinateSystem: 'geo',
+          data: convertData(map_data.sort(function(a, b) {
+              return b.value - a.value;
+          }).slice(0, 10)),
+          symbolSize: function(val) {
+              return val[2] / 1000;
+          },
+          showEffectOn: 'render',
+          rippleEffect: {
+              brushType: 'stroke'
+          },
+          hoverAnimation: true,
+          label: {
+            normal: {
+              show: false
+            }
+          },
+          itemStyle: {
+            normal: {
+              color: 'yellow',
+              shadowBlur: 10,
+              shadowColor: 'yellow'
+            }
+          },
+          zlevel: 1
+        }],
     };
 
     contractProviceAreaChinaChart.setOption(map_option, false);
