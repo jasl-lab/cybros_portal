@@ -140,3 +140,4 @@ zh-CN:
       cost_split:
         header: "集团费用分摊"
         human_resources: "人员成本分摊设置"
+        split_cost_items: "资产及费用分摊设置"

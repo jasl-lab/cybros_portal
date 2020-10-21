@@ -1,0 +1,6 @@
+---
+zh-CN:
+  cost_split:
+    split_cost_items:
+      index:
+        title: "资产及费用预算分摊规则设置"
