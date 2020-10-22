@@ -14,6 +14,13 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
 
   def destroy
     @split_cost_item = SplitCost::SplitCostItem.find(params[:id])
+    @split_cost_item.destroy
+    redirect_to cost_split_split_cost_items_path, notice: t('.success')
+  end
+
+  def update
+    @split_cost_item = SplitCost::SplitCostItem.find(params[:id])
+    @split_cost_item.update(split_cost_item_params)
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 

@@ -15,3 +15,7 @@ en:
         success: "Create cost split item successed."
       destroy:
         success: "Cost split item removed."
+      update:
+        success: "Cost split item updated."
+      split_cost_item:
+        submit_save: "Save"

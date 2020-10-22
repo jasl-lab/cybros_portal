@@ -325,7 +325,7 @@ Rails.application.routes.draw do
         patch :version_up
       end
     end
-    resources :split_cost_items, except: %i[show new]
+    resources :split_cost_items, except: %i[show new edit]
   end
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: 'users/confirmations',

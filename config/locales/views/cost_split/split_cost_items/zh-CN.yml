@@ -15,3 +15,7 @@ zh-CN:
         success: "分摊项目已新建"
       destroy:
         success: "分摊项目已删除"
+      update:
+        success: "分摊项目已更新"
+      split_cost_item:
+        submit_save: "保存"
