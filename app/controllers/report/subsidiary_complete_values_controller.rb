@@ -104,16 +104,16 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
     month_name = params[:month_name]&.strip
     end_of_month = Date.parse(month_name).end_of_month
-    beginning_of_month = Date.parse(month_name).beginning_of_month
 
     belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门: @dept_name)
     if belong_deparments.exists?
       @dept_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
-    last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @rows = policy_scope(Bi::CompleteValueDetail)
-      .where(orgname: @company_name, deptname: @dept_name, date: last_available_date)
+      .select('contractcode, salescontractname, projectcode, projectname, confirmdate, SUM(IFNULL(sumamount,0)) sumamount')
+      .group('contractcode, salescontractname, projectcode, projectname, confirmdate')
+      .where(orgname: @company_name, deptname: @dept_name)
       .where(confirmdate: end_of_month.beginning_of_year..end_of_month)
       .where('sumamount > 0')
     render

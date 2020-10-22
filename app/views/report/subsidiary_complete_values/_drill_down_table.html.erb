@@ -18,7 +18,7 @@
           <%= r.projectcode -%><br />
           <%= r.projectname -%>
         </td>
-        <td><%= r.sumamount -%></td>
+        <td><%= r.sumamount.round(2) -%></td>
         <td><%= r.confirmdate -%></td>
       </tr>
     <% end %>
