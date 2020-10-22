@@ -8,9 +8,13 @@ zh-CN:
         new: "新建"
         table:
           split_cost_item_no_and_name: "分摊项目编号与名称"
+          split_cost_item_no: "分摊项目编号"
+          split_cost_item_name: "分摊项目名称"
           split_cost_item_category: "分摊项目分类"
           split_type: "分摊性质"
           split_rate: "分摊比例"
+          split_base_number: "分摊基数"
+          split_companies: "分摊包含公司"
           version: "版本"
       create:
         success: "分摊项目已新建"

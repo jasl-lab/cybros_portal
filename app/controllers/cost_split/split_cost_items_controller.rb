@@ -43,6 +43,7 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
     def split_cost_item_params
       params.fetch(:split_cost_split_cost_item, {})
         .permit(:split_cost_item_no, :split_cost_item_name, :split_cost_item_category,
-          :group_rate, :shanghai_area, :shanghai_hq)
+          :group_rate, :shanghai_area, :shanghai_hq,
+          :group_rate_base, :shanghai_area_base, :shanghai_hq_base)
     end
 end

@@ -5,8 +5,8 @@
     </h3>
     <%= form_tag cost_split_split_cost_items_path, method: :get, class: 'form-inline' do -%>
       <div class="form-group mr-3">
-        <label class="mr-1"><%= t(".table.split_cost_item_no") -%>：</label>
-        <%= text_field_tag :split_cost_item_no, @split_cost_item_no, class: 'form-control' -%>
+        <label class="mr-1"><%= t(".table.split_cost_item_no_and_name") -%>：</label>
+        <%= text_field_tag :split_cost_item_no, @split_cost_item_no_and_name, class: 'form-control' -%>
       </div>
       <div><%= submit_tag t(".search"), class: 'btn btn-primary' %></div>
     <% end -%>
@@ -18,8 +18,10 @@
             <tr>
               <th><%= t(".table.split_cost_item_no_and_name") -%></th>
               <th><%= t(".table.split_cost_item_category") -%></th>
-              <th><%= t(".table.split_type") -%></th>
-              <th><%= t(".table.split_rate") -%></th>
+              <th width="80px"><%= t(".table.split_type") -%></th>
+              <th width="80px"><%= t(".table.split_rate") -%></th>
+              <th><%= t(".table.split_base_number") -%></th>
+              <th><%= t(".table.split_companies") -%></th>
               <th><%= t(".table.version") -%></th>
               <th></th>
             </tr>
