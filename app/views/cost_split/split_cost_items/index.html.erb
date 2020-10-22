@@ -24,6 +24,15 @@
             </tr>
           </thead>
           <tbody>
+            <% @split_cost_items.each do |split_cost_item| %>
+              <tr>
+                <td><%= split_cost_item.split_cost_item_no -%></td>
+                <td><%= split_cost_item.split_cost_item_name -%></td>
+                <td><%= split_cost_item.split_cost_item_category -%></td>
+                <td><%= split_cost_item.version -%></td>
+                <td></td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
       </div>
