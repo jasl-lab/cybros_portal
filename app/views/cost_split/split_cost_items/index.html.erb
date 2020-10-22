@@ -30,7 +30,11 @@
                 <td><%= split_cost_item.split_cost_item_name -%></td>
                 <td><%= split_cost_item.split_cost_item_category -%></td>
                 <td><%= split_cost_item.version -%></td>
-                <td></td>
+                <td>
+                  <%= link_to cost_split_split_cost_item_path(split_cost_item), method: :delete, data: { confirm: '确认删除？' } do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>

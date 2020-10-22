@@ -13,3 +13,5 @@ en:
           version: "Version"
       create:
         success: "Create cost split item successed."
+      destroy:
+        success: "Cost split item removed."

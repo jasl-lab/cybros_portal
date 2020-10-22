@@ -12,6 +12,11 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 
+  def destroy
+    @split_cost_item = SplitCost::SplitCostItem.find(params[:id])
+    redirect_to cost_split_split_cost_items_path, notice: t('.success')
+  end
+
   protected
 
     def set_breadcrumbs

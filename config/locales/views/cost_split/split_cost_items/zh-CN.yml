@@ -13,3 +13,5 @@ zh-CN:
           version: "版本"
       create:
         success: "分摊项目已新建"
+      destroy:
+        success: "分摊项目已删除"
