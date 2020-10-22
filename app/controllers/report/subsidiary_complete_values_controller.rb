@@ -114,6 +114,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @rows = policy_scope(Bi::CompleteValueDetail)
       .where(orgname: @company_name, deptname: @dept_name, date: last_available_date)
+      .where(confirmdate: end_of_month.beginning_of_year..end_of_month)
       .where('sumamount > 0')
     render
   end
