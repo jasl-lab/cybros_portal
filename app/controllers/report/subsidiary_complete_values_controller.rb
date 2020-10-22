@@ -114,7 +114,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     last_available_date = policy_scope(Bi::TrackContract).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
     @rows = policy_scope(Bi::CompleteValueDetail)
       .where(orgname: @company_name, deptname: @dept_name, date: last_available_date)
-      .where("sumamount > 0")
+      .where('sumamount > 0')
     render
   end
 
@@ -122,18 +122,18 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.complete_value"),
+      { text: t('layouts.sidebar.operation.complete_value'),
         link: report_complete_value_path(view_orgcode_sum: true) },
-      { text: t("layouts.sidebar.operation.subsidiary_complete_value"),
+      { text: t('layouts.sidebar.operation.subsidiary_complete_value'),
         link: report_subsidiary_complete_value_path(view_deptcode_sum: true) }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end
