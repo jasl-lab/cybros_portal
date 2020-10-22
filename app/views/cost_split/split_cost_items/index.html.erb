@@ -16,9 +16,10 @@
         <table class="table table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t(".table.split_cost_item_no") -%></th>
-              <th><%= t(".table.split_cost_item_name") -%></th>
+              <th><%= t(".table.split_cost_item_no_and_name") -%></th>
               <th><%= t(".table.split_cost_item_category") -%></th>
+              <th><%= t(".table.split_type") -%></th>
+              <th><%= t(".table.split_rate") -%></th>
               <th><%= t(".table.version") -%></th>
               <th></th>
             </tr>
@@ -47,7 +48,7 @@
           </div>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".table.split_cost_item_category") -%>：</label>
-            <%= f.text_field :split_cost_item_category, class: 'form-control' -%>
+            <%= f.select :split_cost_item_category, SplitCost::SplitCostItem::CATEGORY, {}, class: 'form-control-plaintext form-control' -%>
           </div>
           <div><%= submit_tag t(".new"), class: 'btn btn-secondary' %></div>
         <% end %>

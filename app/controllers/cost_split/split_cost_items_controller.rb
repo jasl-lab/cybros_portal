@@ -8,7 +8,9 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
   end
 
   def create
-    SplitCost::SplitCostItem.create(split_cost_item_params)
+    split_cost_item = SplitCost::SplitCostItem.new(split_cost_item_params)
+    split_cost_item.version ||= 0
+    split_cost_item.save
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 
@@ -40,6 +42,7 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
 
     def split_cost_item_params
       params.fetch(:split_cost_split_cost_item, {})
-        .permit(:split_cost_item_no, :split_cost_item_name, :split_cost_item_category)
+        .permit(:split_cost_item_no, :split_cost_item_name, :split_cost_item_category,
+          :group_rate, :shanghai_area, :shanghai_hq)
     end
 end

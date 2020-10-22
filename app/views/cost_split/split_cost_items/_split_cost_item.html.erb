@@ -1,7 +1,22 @@
 <%= form_with model: split_cost_item, url: cost_split_split_cost_item_path(split_cost_item), class: 'form-inline' do |f| %>
-  <td><%= f.text_field :split_cost_item_no, class: 'form-control' -%></td>
-  <td><%= f.text_field :split_cost_item_name, class: 'form-control' -%></td>
+  <td>
+    <%= f.text_field :split_cost_item_no, class: 'form-control' -%>
+    <%= f.text_field :split_cost_item_name, class: 'form-control' -%>
+  </td>
   <td><%= f.select :split_cost_item_category, SplitCost::SplitCostItem::CATEGORY, {}, class: 'form-control-plaintext form-control' -%></td>
+  <td class="pt-1 pb-1">
+    <p class="mt-2">集团性</p>
+    <p class="mt-2">上海区域</p>
+    <p class="mt-3">上海天华</p>
+  </td>
+  <td class="pt-1 pb-1">
+      <%= f.text_field :group_rate, class: 'form-control', class_for_error: "is-invalid", id: nil -%>
+      <%= f.error_message :group_rate, class: "invalid-feedback" %>
+      <%= f.text_field :shanghai_area, class: 'form-control mt-1', class_for_error: "is-invalid", id: nil -%>
+      <%= f.error_message :shanghai_area, class: "invalid-feedback" %>
+      <%= f.text_field :shanghai_hq, class: 'form-control mt-1', class_for_error: "is-invalid", id: nil -%>
+      <%= f.error_message :shanghai_hq, class: "invalid-feedback" %>
+  </td>
   <td><%= split_cost_item.version -%></td>
   <td>
     <%= f.submit(t('.submit_save'), class: "btn btn-primary") -%>

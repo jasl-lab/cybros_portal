@@ -7,9 +7,10 @@ en:
         search: "Search"
         new: "New"
         table:
-          split_cost_item_no: "Split cost item No"
-          split_cost_item_name: "Split cost item name"
+          split_cost_item_no_and_name: "Split cost item No and Name"
           split_cost_item_category: "Split cost item category"
+          split_type: "Split type"
+          split_rate: "Split rate"
           version: "Version"
       create:
         success: "Create cost split item successed."
