@@ -3,3 +3,12 @@ common: &defaults
 
 production:
   <<: *defaults
+
+staging:
+  <<: *defaults
+
+development:
+  monitor: false
+
+test:
+  monitor: false
