@@ -167,6 +167,28 @@ class Person::NameCardsController < ApplicationController
     @name_card_apply.update(printed_name_card: params[:name_card_apply][:printed_name_card])
   end
 
+  def download_name_card
+    clerk_code = params[:clerk_code]
+    user = User.find_by clerk_code: clerk_code
+    return head :not_found unless user.present? && user.id == current_user.id
+
+    certain_name_card_apply = NameCardApply.find_by id: params[:name_card_apply_id]
+    if certain_name_card_apply.present? && certain_name_card_apply.printed_name_card.attached?
+      return redirect_to rails_blob_path(certain_name_card_apply.printed_name_card)
+    end
+
+    user.name_card_applies.where(status: '同意').order(updated_at: :desc).each do |name_card_apply|
+      if name_card_apply.printed_name_card.attached?
+        return redirect_to rails_blob_path(name_card_apply.printed_name_card)
+      end
+    end
+    if user.name_card_applies.count > 0
+      redirect_to person_name_cards_path, notice: t('.no_printed_name_card')
+    else
+      redirect_to new_person_name_card_path, notice: t('.no_name_card')
+    end
+  end
+
   protected
 
   def name_card_apply_params

@@ -51,6 +51,7 @@ en:
           look_workflow: "Look workflow process"
           only_see_approved: "Only see approved"
           upload: "Upload name card"
+          download: "Download name card"
           report: "Export the report"
         table:
           task_id: "Task ID"
@@ -67,3 +68,6 @@ en:
           mobile: "Mobile"
           print_out_box_number: "Print out box number"
           status: "Status"
+      download_name_card:
+        no_printed_name_card: "No printed name card upload yet."
+        no_name_card: "Need apply new name card first."

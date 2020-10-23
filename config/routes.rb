@@ -260,6 +260,7 @@ Rails.application.routes.draw do
       collection do
         get :change_image
         get :report
+        get :download_name_card
       end
     end
     resources :name_card_black_titles, only: %i[index create]

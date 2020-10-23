@@ -58,6 +58,7 @@ zh-CN:
           look_workflow: "查看流程进度"
           only_see_approved: "仅看同意"
           upload: "上传名片"
+          download: "下载电子版名片"
           report: "导出报表"
         table:
           task_id: "任务 ID"
@@ -74,3 +75,6 @@ zh-CN:
           mobile: "手机"
           print_out_box_number: "印刷盒数"
           status: "状态"
+      download_name_card:
+        no_printed_name_card: "印制的名片尚未上传。"
+        no_name_card: "您从来没有申请过名片，请先申请一张名片。"

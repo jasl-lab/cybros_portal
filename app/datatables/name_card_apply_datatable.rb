@@ -5,6 +5,7 @@ class NameCardApplyDatatable < ApplicationDatatable
   def_delegator :@view, :person_name_card_path
   def_delegator :@view, :edit_person_name_card_path
   def_delegator :@view, :start_approve_person_name_card_path
+  def_delegator :@view, :download_name_card_person_name_cards_path
 
   def initialize(params, opts = {})
     @name_card_applies = opts[:name_card_applies]
@@ -42,7 +43,11 @@ class NameCardApplyDatatable < ApplicationDatatable
           "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.upload"), edit_person_name_card_path(id: r.id), remote: true)}".html_safe
         end
       else
-        r.chinese_name
+        if r.user.id == @current_user.id
+          "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.download"), download_name_card_person_name_cards_path(clerk_code: r.user.clerk_code, name_card_apply_id: r.id))}".html_safe
+        else
+          r.chinese_name
+        end
       end
       r_delete = link_to I18n.t("person.name_cards.index.actions.delete"), person_name_card_path(r),
         method: :delete, data: { confirm: "你确定要删除吗？" }
