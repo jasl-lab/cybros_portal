@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_075900) do
+ActiveRecord::Schema.define(version: 2020_10_23_005409) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -366,6 +366,30 @@ ActiveRecord::Schema.define(version: 2020_10_21_075900) do
     t.boolean "large_customer_detail_viewser"
     t.boolean "group_report_viewer", default: false
     t.boolean "org_viewer", default: false
+  end
+
+  create_table "split_cost_item_group_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "split_cost_item_id"
+    t.string "company_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["split_cost_item_id"], name: "idx_split_cost_group_rate_on_companies_id"
+  end
+
+  create_table "split_cost_item_shanghai_area_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "split_cost_item_id"
+    t.string "company_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["split_cost_item_id"], name: "idx_split_cost_shanghai_area_rate_on_companies_id"
+  end
+
+  create_table "split_cost_item_shanghai_hq_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "split_cost_item_id"
+    t.string "company_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["split_cost_item_id"], name: "idx_split_cost_shanghai_hq_rate_on_companies_id"
   end
 
   create_table "split_cost_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
