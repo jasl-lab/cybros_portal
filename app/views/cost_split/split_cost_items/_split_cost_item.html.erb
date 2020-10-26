@@ -4,7 +4,11 @@
     <br />
     <%= f.text_field :split_cost_item_name, class: 'form-control' -%>
   </td>
-  <td><%= f.select :split_cost_item_category, SplitCost::SplitCostItem::CATEGORY, {}, class: 'form-control-plaintext form-control' -%></td>
+  <td>
+    <%= f.select :split_cost_item_category, SplitCost::SplitCostItem::CATEGORY, {}, class: 'form-control-plaintext form-control' -%>
+    <br />
+    <%= split_cost_item.start_date -%> ~ <%= split_cost_item.end_date -%>
+  </td>
   <td class="pt-1 pb-1">
     <p class="mt-2">集团性</p>
     <p class="mt-2">上海区域</p>
@@ -30,10 +34,16 @@
   </td>
   <td><%= split_cost_item.version -%></td>
   <td>
-    <%= f.submit(t('.submit_save'), class: "btn btn-primary") -%>
-    <br />
-    <%= link_to cost_split_split_cost_item_path(split_cost_item), method: :delete, data: { confirm: '确认删除？' } do %>
-      <i class="fa fa-trash"></i>
+    <% if !split_cost_item.confirmed %>
+      <%= f.submit(t('.submit_save'), class: "btn btn-primary") -%>
+      <br />
+      <%= link_to '确认', confirm_cost_split_split_cost_item_path(split_cost_item), method: :patch, remote: true, class: "btn btn-success" %>
+      <br />
+      <%= link_to cost_split_split_cost_item_path(split_cost_item), method: :delete, data: { confirm: '确认删除？' } do %>
+        <i class="fa fa-trash"></i>
+      <% end %>
+    <% else %>
+      <%= link_to '升版', version_up_cost_split_split_cost_item_path(split_cost_item), method: :patch, remote: true, class: "btn btn-danger" %>
     <% end %>
   </td>
 <% end %>

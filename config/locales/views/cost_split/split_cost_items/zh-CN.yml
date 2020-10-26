@@ -22,5 +22,9 @@ zh-CN:
         success: "分摊项目已删除"
       update:
         success: "分摊项目已更新"
+      confirm:
+        success: "分摊项目已确认"
+      version_up:
+        success: "分摊项目已升版"
       split_cost_item:
         submit_save: "保存"

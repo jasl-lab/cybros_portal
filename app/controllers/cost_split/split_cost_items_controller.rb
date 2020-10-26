@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CostSplit::SplitCostItemsController < CostSplit::BaseController
+  before_action :set_split_cost_item, except: %i[create index]
+
   def index
     prepare_meta_tags title: t('.title')
     @split_cost_items = SplitCost::SplitCostItem.all
@@ -10,19 +12,28 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
   def create
     split_cost_item = SplitCost::SplitCostItem.new(split_cost_item_params)
     split_cost_item.version ||= 0
+    split_cost_item.start_date ||= Date.today
     split_cost_item.save
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 
   def destroy
-    @split_cost_item = SplitCost::SplitCostItem.find(params[:id])
     @split_cost_item.destroy
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 
   def update
-    @split_cost_item = SplitCost::SplitCostItem.find(params[:id])
     @split_cost_item.update(split_cost_item_params)
+    redirect_to cost_split_split_cost_items_path, notice: t('.success')
+  end
+
+  def confirm
+    @split_cost_item.update(confirmed: true)
+    redirect_to cost_split_split_cost_items_path, notice: t('.success')
+  end
+
+  def version_up
+    @split_cost_item.update(end_date: Date.today)
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 
@@ -39,6 +50,10 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
     end
 
   private
+
+    def set_split_cost_item
+      @split_cost_item = SplitCost::SplitCostItem.find(params[:id])
+    end
 
     def split_cost_item_params
       params.fetch(:split_cost_split_cost_item, {})

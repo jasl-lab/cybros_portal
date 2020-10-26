@@ -22,5 +22,9 @@ en:
         success: "Cost split item removed."
       update:
         success: "Cost split item updated."
+      confirm:
+        success: "Cost split item confirmed."
+      version_up:
+        success: "Cost split item version uped."
       split_cost_item:
         submit_save: "Save"
