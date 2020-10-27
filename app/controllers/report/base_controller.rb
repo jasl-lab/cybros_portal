@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Report::BaseController < ApplicationController
-  NON_CONSTRUCTION_COMPANYS = %w[AICO室内 上海室内 深圳室内 天华景观 上海规划 互娱科技 武汉室内]
+  NON_CONSTRUCTION_COMPANYS = %w[AICO室内 易术家 上海室内 深圳室内 天华景观 上海规划 互娱科技 武汉室内]
   after_action :record_user_view_history, if: -> { current_user.present? }
 
   def cors_set_access_control_headers
