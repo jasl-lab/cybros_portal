@@ -100,6 +100,10 @@ window.initFullMap = function () {
   });
   infoWindow.close();// 初始关闭信息窗关闭
 
+  full_map.on("click", function () {
+    infoWindow.close();
+  })
+
   marker.on("click", function (evt) {
     infoWindow.open();
     infoWindow.setPosition(evt.geometry.position);
