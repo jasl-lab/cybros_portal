@@ -16,7 +16,7 @@ class Company::ContractsMapsController < ApplicationController
     @show_empty = params[:show_empty].presence
 
     @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates_with_color_hint
-    @tracestate = params[:tracestate].presence || '所有'
+    @tracestate = params[:tracestate].presence || %w[跟踪中 跟踪成功]
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
     @project_item_genre_name = params[:project_item_genre_name].presence
@@ -26,7 +26,7 @@ class Company::ContractsMapsController < ApplicationController
     @need_locate_to_china = @city == '所有' && @tracestate == '所有' && @client.nil? && @query_text.nil?
 
     map_infos = policy_scope(Bi::NewMapInfo).where.not(coordinate: nil).includes(:project_items)
-    map_infos = map_infos.where(tracestate: @tracestate) unless @tracestate == '所有'
+    map_infos = map_infos.where(tracestate: @tracestate)
     map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
     map_infos = map_infos.where('company LIKE ?', "%#{@city}%") unless @city == '所有'
     map_infos = map_infos.where('projecttype LIKE ?', "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
