@@ -203,7 +203,7 @@ export default class extends Controller {
 
     const option4 = {
         title: {
-          text: '非建筑类饱和度'
+          text: '规划/景观/室内/VR饱和度'
         },
         grid: {
           left: 50,
@@ -239,7 +239,7 @@ export default class extends Controller {
           }
         },
         series: [{
-          name: '非建筑类饱和度',
+          name: '规划/景观/室内/VR饱和度',
           type: 'line',
           symbol: 'square',
           symbolSize:  10,
