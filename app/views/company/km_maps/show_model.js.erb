@@ -1,2 +1,2 @@
-$("#km-maps-modal").html('<%= j render(partial: "show_model", locals: { project_info: @project_info }) -%>');
+$("#km-maps-modal").html('<%= j render(partial: "show_model", locals: { project_info: @project_info, project_items: @project_items, new_map_info: @new_map_info }) -%>');
 $("#km-maps-modal").modal('show');

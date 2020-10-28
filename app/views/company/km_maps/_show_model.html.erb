@@ -10,10 +10,10 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-body">
-      <p>工程编号：<%= @project_info.projectcode -%></p>
-      <p>工程名称：<%= @new_map_info&.marketinfoname -%></p>
+      <p>工程编号：<%= project_info.projectcode -%></p>
+      <p>工程名称：<%= new_map_info&.marketinfoname -%></p>
       <hr />
-      <%= render partial: "company/contracts_maps/project_items", locals: { project_items: @project_items } %>
+      <%= render partial: "company/contracts_maps/project_items", locals: { project_items: project_items } %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
