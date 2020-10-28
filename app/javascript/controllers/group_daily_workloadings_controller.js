@@ -325,7 +325,7 @@ export default class extends Controller {
             case '施工图饱和度':
               company_name = xAxisConstruction[params.dataIndex]
               break;
-            case '非建筑类饱和度':
+            case '规划/景观/室内/VR饱和度':
               company_name = xAxisNonConstruction[params.dataIndex]
               break;
           }
