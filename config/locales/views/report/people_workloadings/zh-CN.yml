@@ -3,7 +3,7 @@ zh-CN:
   report:
     people_workloadings:
       show:
-        title: "人员工作饱和度"
+        title: "员工工作饱和度"
         ncworkno: "NC 工号"
         begin_date: "开始日期"
         end_date: "截止日期"
