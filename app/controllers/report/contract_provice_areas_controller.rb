@@ -25,9 +25,17 @@ class Report::ContractProviceAreasController < Report::BaseController
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     @orgs_options = all_company_orgcodes if @orgs_options.blank?
 
-    @sum_cp = filter_contract_price_scope(@beginning_of_year, @end_of_month, @orgs_options, @service_phase)
+    sum_cp = filter_contract_price_scope(@beginning_of_year, @end_of_month, @orgs_options, @service_phase)
     @sum_scope = filter_province_new_area_scope(@end_of_month)
+
+    @new_area_rates = @sum_scope.collect do |r|
+      cp_r = sum_cp.find { |pr| pr.provincename == r.province }
+      new_area_rate = ((cp_r&.scale.to_f / r.new_area) * 0.01).round(2)
+      { province: r.province, new_area_rate: new_area_rate }
+    end
+
     @year_sum_省市 = province_new_area(@sum_scope)
+
     @sum_previous_cp = filter_contract_price_scope(
       Date.civil(@beginning_of_year.year - 1).beginning_of_year,
       (@end_of_month - 1.year),
