@@ -36,11 +36,19 @@ class Report::ContractProviceAreasController < Report::BaseController
 
     @year_sum_省市 = province_new_area(@sum_scope)
 
-    @sum_previous_cp = filter_contract_price_scope(
+    sum_previous_cp = filter_contract_price_scope(
       Date.civil(@beginning_of_year.year - 1).beginning_of_year,
       (@end_of_month - 1.year),
       @orgs_options, @service_phase)
     @sum_previous_scope = filter_province_new_area_scope((@end_of_month - 1.year))
+
+    @previous_new_area_rates = @sum_scope.collect do |r|
+      cp_pr = sum_previous_cp.find { |pr| pr.provincename == r.province }
+      previous_r = @sum_previous_scope.find {|pr| pr.province == r.province }
+      previous_new_area_rate = ((cp_pr&.scale.to_f / previous_r&.new_area)*0.01).round(2)
+
+      { province: r.province, previous_new_area_rate: previous_new_area_rate }
+    end
   end
 
   private
