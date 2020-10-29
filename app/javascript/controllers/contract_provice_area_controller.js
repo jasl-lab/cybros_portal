@@ -21,21 +21,24 @@ export default class extends Controller {
       // 地区经纬度
       geoCoordMap[name] = v.properties.cp;
     });
-
     function convertData(data) {
       var res = [];
       for (var i = 0; i < data.length; i++) {
-          var geoCoord = geoCoordMap[data[i].name];
-          if (geoCoord) {
-              res.push({
-                  name: data[i].name,
-                  value: geoCoord.concat(data[i].value),
-              });
-          }
+        var geoCoord = geoCoordMap[data[i].name];
+        if (geoCoord) {
+          console.log(data[i]);
+          console.log(geoCoord);
+          res.push({
+            name: data[i].name,
+            value: geoCoord.concat(data[i].value)
+          });
+        }
       }
       return res;
     }
 
+    const scatter_data = convertData(map_data);
+    console.log(scatter_data);
     const map_option = {
       title: [{
         text: '全国开工面积 省份分布',
@@ -78,7 +81,6 @@ export default class extends Controller {
       },
       toolbox: {
         show: true,
-        //orient: 'vertical',
         left: 'left',
         top: 'top',
         feature: {
@@ -113,24 +115,27 @@ export default class extends Controller {
         name: '散点',
         type: 'scatter',
         coordinateSystem: 'geo',
-        data: convertData(map_data),
-        symbolSize: function(val) {
-            return val[2] / 1000;
-        },
+        data: scatter_data,
+        symbolSize: 10,
         label: {
-            normal: {
-                formatter: '{b}',
-                position: 'right',
-                show: true
-            },
-            emphasis: {
-                show: true
-            }
+          normal: {
+            formatter: '{b}',
+            position: 'right',
+            color: 'black',
+            show: true
+          },
+          emphasis: {
+            color: 'red',
+            show: true
+          }
         },
         itemStyle: {
-            normal: {
-                color: '#fff'
-            }
+          normal: {
+              color: '#fff'
+          }
+        },
+        tooltip: {
+          formatter: function ( p ) { return p.seriesName + ': ' + p.value[2]; }
         }
       },{
           type: 'map',
@@ -158,41 +163,6 @@ export default class extends Controller {
           },
           animation: false,
           data: map_data
-        },
-        {
-          name: '点',
-          type: 'scatter',
-          coordinateSystem: 'geo',
-          zlevel: 6,
-        },
-        {
-          name: 'Top 10',
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          data: convertData(map_data.sort(function(a, b) {
-              return b.value - a.value;
-          }).slice(0, 10)),
-          symbolSize: function(val) {
-              return val[2] / 1000;
-          },
-          showEffectOn: 'render',
-          rippleEffect: {
-              brushType: 'stroke'
-          },
-          hoverAnimation: true,
-          label: {
-            normal: {
-              show: false
-            }
-          },
-          itemStyle: {
-            normal: {
-              color: 'yellow',
-              shadowBlur: 10,
-              shadowColor: 'yellow'
-            }
-          },
-          zlevel: 1
         }],
     };
 
