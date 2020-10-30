@@ -74,6 +74,9 @@ class Company::ContractsMapsController < ApplicationController
 
   def detail
     @sas = Bi::SaContract.where(projectcode: params[:project_code])
+    if @sas.blank?
+      @project_opportunities = Bi::SaProjectOpportunity.where(projectcode: params[:project_code])
+    end
   end
 
   def project

@@ -137,7 +137,7 @@ window.initFullMap = function () {
             <td>${project_items}</td>
           </tr>
           <tr>
-            <td id="contract-tab-detail" data-project-code="${props.project_code}">点击查询合同明细</td>
+            <td id="contract-tab-detail" data-project-code="${props.project_code}">查询商机/合同明细</td>
             <td id="contract-tab-project" data-project-code="${props.project_code}">项目明细</td>
           </tr>
         </tbody>

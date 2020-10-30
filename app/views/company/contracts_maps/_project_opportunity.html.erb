@@ -1,0 +1,109 @@
+<h6>商机信息</h6>
+<% project_opportunities.each do |o| %>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th>栏位</th>
+      <th>值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>商机编号</th>
+      <td><%= o.opportunitycode -%></td>
+    </tr>
+    <tr>
+      <th>商机名称</th>
+      <td><%= o.opportunityname -%></td>
+    </tr>
+    <tr>
+      <th>商机跟踪状态</th>
+      <td><%= o.opportunitystatus -%></td>
+    </tr>
+    <tr>
+      <th>跟踪分配时间</th>
+      <td><%= o.traceassigndate -%></td>
+    </tr>
+    <tr>
+      <th>客户名称</th>
+      <td><%= o.clientsname -%></td>
+    </tr>
+    <tr>
+      <th>集团名称</th>
+      <td><%= o.belongcompanyname -%></td>
+    </tr>
+    <tr>
+      <th>预计合同额（元）</th>
+      <td><%= o.contractamount -%></td>
+    </tr>
+    <tr>
+      <th>商务责任公司</th>
+      <td><%= o.businessdirectororgname -%></td>
+    </tr>
+    <tr>
+      <th>商务责任部门</th>
+      <td><%= o.businessdirectordeptname -%></td>
+    </tr>
+    <tr>
+      <th>商务负责人</th>
+      <td><%= o.businessdirectorname -%></td>
+    </tr>
+    <tr>
+      <th>线索提供人</th>
+      <td><%= o.clueprovidename -%></td>
+    </tr>
+    <tr>
+      <th>规模类型</th>
+      <td><%= o.areatype -%></td>
+    </tr>
+    <tr>
+      <th>规模（㎡）</th>
+      <td><%= o.area -%></td>
+    </tr>
+    <tr>
+      <th>主业务类型</th>
+      <td><%= o.mainbusinesstypename -%></td>
+    </tr>
+    <tr>
+      <th>项目类型</th>
+      <td><%= o.projecttype -%></td>
+    </tr>
+    <tr>
+      <th>预计合同服务大阶段</th>
+      <td><%= o.projectbigstage -%></td>
+    </tr>
+    <tr>
+      <th>预计合同服务小阶段</th>
+      <td><%= o.servicestage -%></td>
+    </tr>
+    <tr>
+      <th>合作接洽方式</th>
+      <td><%= o.coworkapproachname -%></td>
+    </tr>
+    <tr>
+      <th>是否为拿地方案</th>
+      <td><%= o.isplan -%></td>
+    </tr>
+    <tr>
+      <th>计划签约时间</th>
+      <td><%= o.contractdate -%></td>
+    </tr>
+    <tr>
+      <th>成功率</th>
+      <td><%= o.successrate -%></td>
+    </tr>
+    <tr>
+      <th>折算合同额</th>
+      <td><%= o.contractconvert -%></td>
+    </tr>
+    <tr>
+      <th>跟踪完成时间</th>
+      <td><%= o.finishdate -%></td>
+    </tr>
+    <tr>
+      <th>跟踪失败原因</th>
+      <td><%= o.refusereason -%></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>

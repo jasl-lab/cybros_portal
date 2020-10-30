@@ -6,7 +6,11 @@
       </h5>
     </div>
     <div class="modal-body">
-      <%= render partial: "company/contracts/table", locals: { sas: @sas } %>
+      <% if @sas.present? %>
+        <%= render partial: "company/contracts/table", locals: { sas: @sas } %>
+      <% else %>
+        <%= render partial: "project_opportunity", locals: { project_opportunities: @project_opportunities } %>
+      <% end %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
