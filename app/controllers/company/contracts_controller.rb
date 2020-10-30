@@ -38,6 +38,9 @@ class Company::ContractsController < ApplicationController
 
   def show
     @sas = Bi::SaContract.where(projectcode: params[:id])
+    if @sas.blank?
+      @project_opportunities = Bi::SaProjectOpportunity.where(projectcode: params[:id])
+    end
   end
 
   protected
