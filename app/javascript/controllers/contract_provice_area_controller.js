@@ -118,7 +118,7 @@ export default class extends Controller {
         min: Math.min(...provinceSum)*0.05,
         max: Math.max(...provinceSum),
         inRange: {
-          color: ['#04387b', '#467bc0'] // 蓝绿
+          color: ['#fffef9', '#009ad6']
         },
         seriesIndex: [1],
         calculable: true
