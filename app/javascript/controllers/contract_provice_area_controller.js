@@ -9,18 +9,22 @@ export default class extends Controller {
     contractProviceAreaChinaChart = echarts.init(document.getElementById('contract-provice-area-china-chart'));
 
     const provinceSum = JSON.parse(this.data.get("province_sum"));
+    const yearRateSum = JSON.parse(this.data.get("year_rate_sum"));
+    const previousYearRateSum = JSON.parse(this.data.get("previous_year_rate_sum"));
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
 
     const mapFeatures = echarts.getMap('china').geoJson.features;
 
     let geoCoordMap = {};
+
     mapFeatures.forEach(function(v) {
       // 地区名称
       var name = v.properties.name;
       // 地区经纬度
       geoCoordMap[name] = v.properties.cp;
     });
+
     function convertData(data) {
       var res = [];
       for (var i = 0; i < data.length; i++) {
@@ -30,7 +34,7 @@ export default class extends Controller {
           console.log(geoCoord);
           res.push({
             name: data[i].name,
-            value: geoCoord.concat(data[i].value)
+            value: geoCoord.concat([yearRateSum[i], previousYearRateSum[i]])
           });
         }
       }
@@ -84,7 +88,7 @@ export default class extends Controller {
         left: 'left',
         top: 'top',
         feature: {
-          dataView: {readOnly: false},
+          dataView: { readOnly: false },
           restore: {},
           saveAsImage: {}
         }
@@ -112,7 +116,7 @@ export default class extends Controller {
           }
       },
       series: [{
-        name: '散点',
+        name: '占有率',
         type: 'scatter',
         coordinateSystem: 'geo',
         data: scatter_data,
@@ -135,7 +139,9 @@ export default class extends Controller {
           }
         },
         tooltip: {
-          formatter: function ( p ) { return p.seriesName + ': ' + p.value[2]; }
+          formatter: function ( p ) { 
+            return `${p.seriesName}：${p.value[2]}%\n上年同期：${p.value[3]}%`;
+          },
         }
       },{
           type: 'map',

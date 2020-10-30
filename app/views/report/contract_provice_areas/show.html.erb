@@ -44,7 +44,7 @@
                 <td><%= r.new_area&.round(0) -%></td>
                 <% new_area_rate = @new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:new_area_rate, '-') %>
                 <td><%= new_area_rate.nan? ? '-' : "#{new_area_rate} %" -%></td>
-                <% previous_new_area_rate = @previous_new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:previous_new_area_rate, '-') %>
+                <% previous_new_area_rate = @previous_new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:new_area_rate, '-') %>
                 <td><%= previous_new_area_rate.nan? ? '-' : "#{previous_new_area_rate} %" -%></td>
                 <% previous_r = @sum_previous_scope.find {|pr| pr.province == r.province } %>
                 <td><%= previous_r&.new_area&.round(0) -%></td>
