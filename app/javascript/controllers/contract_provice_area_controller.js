@@ -57,6 +57,46 @@ export default class extends Controller {
         },
         right: '2%',
         top: '90%'
+      },{
+        text: '市场占有率（%）',
+        textStyle: {
+          color: '#2D3E53',
+          fontSize: 12
+        },
+        right: '68%',
+        top: '70%'
+      },{
+        text: '>= 10% ●',
+        textStyle: {
+          color: '#441704',
+          fontSize: 12
+        },
+        right: '72%',
+        top: '73%'
+      },{
+        text: '>= 5% ●',
+        textStyle: {
+          color: '#C14107',
+          fontSize: 12
+        },
+        right: '73%',
+        top: '76%'
+      },{
+        text: '>= 3% ●',
+        textStyle: {
+          color: '#F87235',
+          fontSize: 12
+        },
+        right: '73%',
+        top: '79%'
+      },{
+        text: '>= 1% ●',
+        textStyle: {
+          color: '#F87235',
+          fontSize: 12
+        },
+        right: '73%',
+        top: '82%'
       }],
       grid: {
         left: '0',
