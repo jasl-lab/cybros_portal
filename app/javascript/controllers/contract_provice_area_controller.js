@@ -135,12 +135,25 @@ export default class extends Controller {
         },
         itemStyle: {
           normal: {
-              color: '#fff'
+            color: function(p) {
+              var rate = p.value[2];
+              if (rate >= 10) {
+                return '#441704';
+              } else if (rate >= 5) {
+                return '#C14107';
+              } else if (rate >= 3) {
+                return '#F87235';
+              } else if (rate >= 1) {
+                return '#F87235';
+              } else {
+                return '#FFFFFF';
+              }
+            }
           }
         },
         tooltip: {
           formatter: function ( p ) { 
-            return `${p.seriesName}：${p.value[2]}%\n上年同期：${p.value[3]}%`;
+            return `${p.seriesName}：${p.value[2]}%<br />上年同期：${p.value[3]}%`;
           },
         }
       },{
