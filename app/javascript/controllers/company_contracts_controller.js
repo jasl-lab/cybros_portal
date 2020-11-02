@@ -5,7 +5,7 @@ export default class extends Controller {
     const normalColumns = [
       {"data": "project_no_and_name"},
       {"data": "project_type_and_main_dept_name"},
-      {"data": "scale_area"}
+      {"data": "total_sales_contract_amount"}
     ];
 
     $('#company-contracts-datatable').dataTable({

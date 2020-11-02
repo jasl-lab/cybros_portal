@@ -20,7 +20,7 @@ class CompanyContractDatatable < ApplicationDatatable
     @view_columns ||= {
       project_no_and_name: { source: "Bi::NewMapInfo.id", orderable: true },
       project_type_and_main_dept_name: { source: "Bi::NewMapInfo.maindeptnamedet", orderable: true },
-      scale_area: { source: "Bi::NewMapInfo.scalearea", orderable: true }
+      total_sales_contract_amount: { source: nil, searchable: false, orderable: false }
     }
   end
 
@@ -41,7 +41,7 @@ class CompanyContractDatatable < ApplicationDatatable
                                          else
                                            r.maindeptnamedet
                                          end,
-        scale_area: r.scalearea }
+        total_sales_contract_amount: r.scalearea }
     end
   end
 
