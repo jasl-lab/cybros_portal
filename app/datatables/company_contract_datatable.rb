@@ -25,12 +25,14 @@ class CompanyContractDatatable < ApplicationDatatable
   end
 
   def data
+    project_codes = records.collect(&:id)
+    sa_contracts = Bi::SaContract.where(projectcode: project_codes).select(:projectcode, :amounttotal)
     records.map do |r|
       project_items_array = r.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
 
       project_items = project_items_array.group_by(&:first).transform_values { |a| a.collect(&:second) }.to_a
 
-
+      sa_contract_sum = sa_contracts.find_all { |c| c.projectcode.to_s == r.id.to_s }.sum(&:amounttotal)
       project_type_and_main_dept_name = project_items.map do |p|
         "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
       end.join("<br />")
@@ -41,7 +43,7 @@ class CompanyContractDatatable < ApplicationDatatable
                                          else
                                            r.maindeptnamedet
                                          end,
-        total_sales_contract_amount: r.scalearea }
+        total_sales_contract_amount: sa_contract_sum.round(0) }
     end
   end
 
