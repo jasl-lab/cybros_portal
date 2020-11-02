@@ -16,7 +16,11 @@ class Company::ContractsMapsController < ApplicationController
     @show_empty = params[:show_empty].presence
 
     @all_tracestates = policy_scope(Bi::NewMapInfo).all_tracestates_with_color_hint
-    @tracestate = params[:tracestate].presence || %w[跟踪中 跟踪成功]
+    @tracestate = if params[:tracestate].presence || params[:tracestate] == 'both'
+      %w[跟踪中 跟踪成功]
+    else
+      params[:tracestate]
+    end
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
     @project_item_genre_name = params[:project_item_genre_name].presence
