@@ -53,7 +53,7 @@ export default class extends Controller {
         text: '新开工面积（万㎡）',
         textStyle: {
           color: '#2D3E53',
-          fontSize: 18
+          fontSize: 16
         },
         right: '2%',
         top: '90%'
@@ -64,25 +64,33 @@ export default class extends Controller {
           fontSize: 12
         },
         right: '68%',
-        top: '70%'
+        top: '67%'
       },{
         text: '>= 10% ●',
         textStyle: {
           color: '#441704',
           fontSize: 12
         },
-        right: '72%',
-        top: '73%'
+        right: '73%',
+        top: '70%'
       },{
-        text: '>= 5% ●',
+        text: '5% ~ 10% ●',
         textStyle: {
           color: '#C14107',
           fontSize: 12
         },
         right: '73%',
+        top: '73%'
+      },{
+        text: '3% ~ 5% ●',
+        textStyle: {
+          color: '#F87235',
+          fontSize: 12
+        },
+        right: '73.5%',
         top: '76%'
       },{
-        text: '>= 3% ●',
+        text: '1% ~ 3% ●',
         textStyle: {
           color: '#F87235',
           fontSize: 12
@@ -90,12 +98,12 @@ export default class extends Controller {
         right: '73%',
         top: '79%'
       },{
-        text: '>= 1% ●',
+        text: '0% ~ 1% (白色)',
         textStyle: {
-          color: '#F87235',
+          color: '#000000',
           fontSize: 12
         },
-        right: '73%',
+        right: '69%',
         top: '82%'
       }],
       grid: {
