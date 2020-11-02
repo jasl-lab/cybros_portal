@@ -27,12 +27,18 @@ class CompanyContractDatatable < ApplicationDatatable
   def data
     project_codes = records.collect(&:id)
     sa_contracts = Bi::SaContract.where(projectcode: project_codes).select(:projectcode, :amounttotal)
+    sa_opportunities = Bi::SaProjectOpportunity.where(projectcode: project_codes).select(:projectcode, :contractamount)
     records.map do |r|
       project_items_array = r.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
 
       project_items = project_items_array.group_by(&:first).transform_values { |a| a.collect(&:second) }.to_a
 
-      sa_contract_sum = sa_contracts.find_all { |c| c.projectcode.to_s == r.id.to_s }.sum(&:amounttotal)
+      project_sa_contracts = sa_contracts.find_all { |c| c.projectcode.to_s == r.id.to_s }
+      sa_contract_sum = if project_sa_contracts.present?
+        project_sa_contracts.sum(&:amounttotal)
+      else
+        sa_opportunities.find { |o| o.projectcode.to_s == r.id.to_s }&.contractamount
+      end
       project_type_and_main_dept_name = project_items.map do |p|
         "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
       end.join("<br />")
