@@ -237,9 +237,9 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @payback_rates = real_data.collect do |d|
       r = real_rate_sum.find { |r| r.deptcode == d.deptcode }
       if r.present?
-        分子 = r.realamount_now + r.trans_now - r.realamount_nc - r.trans_nc
-        年初应收款 = r.sumvalue_change_nc - r.realamount_nc
-        分母 = 年初应收款 * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
+        分子 = r.realamount_now.to_f + r.trans_now.to_f - r.realamount_nc.to_f - r.trans_nc.to_f
+        年初应收款 = r.sumvalue_change_nc.to_f - r.realamount_nc.to_f
+        分母 = 年初应收款 * (beginning_of_month.month / 12.0) + r.sumvalue_change_now.to_f - r.sumvalue_change_nc.to_f
         payback_rates_总分子 += 分子
         payback_rates_总分母 += 分母
         if 分子.zero?
