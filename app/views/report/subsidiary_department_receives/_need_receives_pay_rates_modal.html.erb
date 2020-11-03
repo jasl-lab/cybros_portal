@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-xl" role="document">
+<div class="modal-dialog modal-2xl" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <div>
@@ -13,52 +13,52 @@
       </a>
     </div>
     <div class="modal-body">
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th><%= t("report.subsidiary_receives.show.table.salescontractcode_name_specialty") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.projectitemcode_name") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.deptvalue") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.sumvalue_nc") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.sumvalue_change_nc") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.realamount_nc") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.sumvalue_now") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.sumvalue_change_now") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.realamount_now") -%></th>
-      <th><%= t("report.subsidiary_receives.show.table.pay_rates") -%></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @data.each do |d| %>
-      <tr>
-        <td>
-          <%= d.salescontractcode -%>
-          <br />
-          <%= d.salescontractname -%>
-          <br />
-          <%= d.specialty -%>
-        </td>
-        <td>
-          <%= d.projectitemcode -%>
-          <br />
-          <%= d.projectitemname -%>
-        </td>
-        <td><%= d.deptvalue&.round(0) -%></td>
-        <td><%= d.sumvalue_nc&.round(0) -%></td>
-        <td><%= d.sumvalue_change_nc&.round(0) -%></td>
-        <td><%= d.realamount_nc&.round(0) -%></td>
-        <td><%= d.sumvalue_now&.round(0) -%></td>
-        <td><%= d.sumvalue_change_now&.round(0) -%></td>
-        <td><%= d.realamount_now&.round(0) -%></td>
-        <% if ((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12.0)).zero? %>
-          <td>100%</td>
-        <% else %>
-          <td><%= (((d.realamount_now - d.realamount_nc)/((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12.0)))*100).round(0) -%>%</td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <table class="table table-striped table-bordered table-fixed table-fix-head">
+        <thead>
+          <tr>
+            <th><%= t("report.subsidiary_receives.show.table.salescontractcode_name_specialty") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.projectitemcode_name") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.deptvalue") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.sumvalue_nc") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.sumvalue_change_nc") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.realamount_nc") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.sumvalue_now") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.sumvalue_change_now") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.realamount_now") -%></th>
+            <th><%= t("report.subsidiary_receives.show.table.pay_rates") -%></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @data.each do |d| %>
+            <tr>
+              <td>
+                <%= d.salescontractcode -%>
+                <br />
+                <%= d.salescontractname -%>
+                <br />
+                <%= d.specialty -%>
+              </td>
+              <td>
+                <%= d.projectitemcode -%>
+                <br />
+                <%= d.projectitemname -%>
+              </td>
+              <td><%= d.deptvalue&.round(0) -%></td>
+              <td><%= d.sumvalue_nc&.round(0) -%></td>
+              <td><%= d.sumvalue_change_nc&.round(0) -%></td>
+              <td><%= d.realamount_nc&.round(0) -%></td>
+              <td><%= d.sumvalue_now&.round(0) -%></td>
+              <td><%= d.sumvalue_change_now&.round(0) -%></td>
+              <td><%= d.realamount_now&.round(0) -%></td>
+              <% if ((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12.0)).zero? %>
+                <td>100%</td>
+              <% else %>
+                <td><%= (((d.realamount_now - d.realamount_nc)/((d.sumvalue_change_now - d.sumvalue_change_nc) + (d.sumvalue_change_nc - d.realamount_nc)*(@begin_month.month/12.0)))*100).round(0) -%>%</td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
