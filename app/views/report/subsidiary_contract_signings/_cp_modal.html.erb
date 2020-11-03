@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-xl" role="document">
+<div class="modal-dialog modal-2xl" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title"><%= @company_name -%> <%= Array(@department_name).to_sentence -%> 生产合同额明细</h5>
@@ -7,34 +7,34 @@
       </a>
     </div>
     <div class="modal-body">
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th width="10%"><%= t(".table.salescontractcode") -%></th>
-      <th width="30%"><%= t(".table.salescontractname") -%></th>
-      <th width="15%"><%= t(".table.filingtime") -%></th>
-      <th width="25%"><%= t(".table.deptname") -%></th>
-      <th width="25%"><%= t(".table.deptvalue") -%></th>
-      <th width="25%"><%= t(".table.marketbouns") -%></th>
-      <th width="25%"><%= t(".table.clientbouns") -%></th>
-      <th width="20%"><%= t(".table.total") -%></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @data.each do |d| %>
-      <tr>
-        <td><%= d.salescontractcode -%></td>
-        <td><%= d.salescontractname -%></td>
-        <td><%= d.filingtime.to_date -%></td>
-        <td><%= d.deptname -%></td>
-        <td><%= d.deptvalue -%></td>
-        <td><%= d.marketbouns -%></td>
-        <td><%= d.clientbouns -%></td>
-        <td><%= d.total -%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <table class="table table-striped table-bordered table-fix-head">
+        <thead>
+          <tr>
+            <th width="10%"><%= t(".table.salescontractcode") -%></th>
+            <th width="30%"><%= t(".table.salescontractname") -%></th>
+            <th width="15%"><%= t(".table.filingtime") -%></th>
+            <th width="25%"><%= t(".table.deptname") -%></th>
+            <th width="25%"><%= t(".table.deptvalue") -%></th>
+            <th width="25%"><%= t(".table.marketbouns") -%></th>
+            <th width="25%"><%= t(".table.clientbouns") -%></th>
+            <th width="20%"><%= t(".table.total") -%></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @data.each do |d| %>
+            <tr>
+              <td><%= d.salescontractcode -%></td>
+              <td><%= d.salescontractname -%></td>
+              <td><%= d.filingtime.to_date -%></td>
+              <td><%= d.deptname -%></td>
+              <td><%= d.deptvalue -%></td>
+              <td><%= d.marketbouns -%></td>
+              <td><%= d.clientbouns -%></td>
+              <td><%= d.total -%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
