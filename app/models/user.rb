@@ -128,7 +128,8 @@ class User < ApplicationRecord
       else
         c[1]
       end
-    end.reject(&:blank?).uniq
+    end.reject(&:blank?)
+    @_can_access_org_codes = @_can_access_org_codes.unshift(user_company_orgcode).uniq
   end
 
   def can_access_dept_codes
