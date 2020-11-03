@@ -242,18 +242,19 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         分母 = 年初应收款 * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
         payback_rates_总分子 += 分子
         payback_rates_总分母 += 分母
-        res = (分子 / 分母.to_f)*100
-        if 分母.zero?
-          '分母为0'
+        if 分子.zero?
+          0
+        elsif 分母.zero?
+          100
         else
-          (res> 100 ? 100 : res).round(0)
+          ((分子 / 分母.to_f) * 100).round(0)
         end
       else
         0
       end
     end
     total_payback_res = (payback_rates_总分子 / payback_rates_总分母.to_f)*100
-    @total_payback_rates= if total_payback_res.nan?
+    @total_payback_rates = if total_payback_res.nan?
       0
     else
       (total_payback_res > 100 ? 100 : total_payback_res).round(0)
