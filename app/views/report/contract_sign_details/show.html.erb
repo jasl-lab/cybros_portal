@@ -31,6 +31,7 @@
             </div>
             <div>
               <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
+              <%= link_to t('.export'), report_contract_sign_detail_path(month_name: @month_name, org_name: @org_name, date_1_great_than: @date_1_great_than, show_hide_item: @show_hide_item, province_names: @province_names, format: :csv), class: 'btn' %>
             </div>
           <% end -%>
         <table id="contract-sign-details-datatable"

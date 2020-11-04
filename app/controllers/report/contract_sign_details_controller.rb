@@ -26,11 +26,8 @@ class Report::ContractSignDetailsController < Report::BaseController
     @show_hide_item = params[:show_hide_item] == 'true' && @can_hide_item
 
     respond_to do |format|
-      format.html
-      format.json do
-        contract_sign_detail_dates = policy_scope(Bi::ContractSignDetailDate)
-        render json: ContractSignDetailDatatable.new(params,
-          contract_sign_detail_dates: contract_sign_detail_dates,
+      contract_sign_detail_datatable = ContractSignDetailDatatable.new(params,
+          contract_sign_detail_dates: policy_scope(Bi::ContractSignDetailDate),
           org_name: @org_name,
           province_names: @province_names,
           beginning_of_month: @beginning_of_month,
@@ -38,6 +35,49 @@ class Report::ContractSignDetailsController < Report::BaseController
           date_1_great_than: @date_1_great_than.to_i,
           show_hide: @show_hide_item,
           view_context: view_context)
+      format.html
+      format.json do
+        render json: contract_sign_detail_datatable
+      end
+      format.csv do
+        render_csv_header '已归档合同签约周期明细'
+        csv_res = CSV.generate do |csv|
+          csv << [
+            I18n.t('report.contract_sign_details.show.table.org_name'),
+            I18n.t('report.contract_sign_details.show.table.dept_name'),
+            I18n.t('report.contract_sign_details.show.table.business_director_name'),
+            I18n.t('report.contract_sign_details.show.table.sales_contract_code'),
+            I18n.t('report.contract_sign_details.show.table.sales_contract_name'),
+            I18n.t('report.contract_sign_details.show.table.first_party_name'),
+            I18n.t('report.contract_sign_details.show.table.amount_total'),
+            I18n.t('report.contract_sign_details.show.table.date_1'),
+            I18n.t('report.contract_sign_details.show.table.date_2'),
+            I18n.t('report.contract_sign_details.show.table.contract_time'),
+            I18n.t('report.contract_sign_details.show.table.min_timecard_fill'),
+            I18n.t('report.contract_sign_details.show.table.min_date_hrcost_amount'),
+            I18n.t('report.contract_sign_details.show.table.project_type'),
+          ]
+          contract_sign_detail_datatable.get_raw_records.each do |r|
+            values = []
+            values << Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)
+            values << r.deptname
+            values << r.businessdirectorname
+            values << r.salescontractcode
+            values << r.salescontractname
+
+            values << r.firstpartyname
+            values << r.amounttotal
+            values << r.date1
+            values << r.date2
+            values << r.filingtime
+
+            values << r.mintimecardfill
+            values << r.mindatehrcostamount
+            values << r.projecttype
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
       end
     end
   end
