@@ -13,10 +13,6 @@ class ErrorsController < ApplicationController
     render status: :forbidden
   end
 
-  def not_found
-    render status: :not_found
-  end
-
   protected
 
     def set_page_meta_tags

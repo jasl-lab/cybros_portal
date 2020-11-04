@@ -1,6 +1,0 @@
-en:
-  errors:
-    not_found:
-      code: '404'
-      title: 'Page not found'
-      content: 'You may have typed the URL incorrectly.'

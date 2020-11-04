@@ -360,7 +360,6 @@ Rails.application.routes.draw do
 
   get '401', to: 'errors#unauthorized', as: :unauthorized
   get '403', to: 'errors#forbidden', as: :forbidden
-  get '404', to: 'errors#not_found', as: :not_found
 
   resource :wechat, only: [:show, :create]
   root to: 'home#index'

@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
       redirect_to forbidden_url
     end
 
-    %w(forbidden unauthorized not_found).each do |s|
+    %w(forbidden unauthorized).each do |s|
       class_eval <<-RUBY_EVAL, __FILE__, __LINE__ + 1
       def #{s}!(redirect_url: nil)
         if redirect_url.present?
