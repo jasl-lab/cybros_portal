@@ -539,6 +539,35 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.integer "checkdate", default: 1
   end
 
+  create_table "SA_PROJECT_OPPORTUNITY", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "projectcode", limit: 200
+    t.text "projectname"
+    t.string "opportunitycode", limit: 200
+    t.text "opportunityname"
+    t.string "opportunitystatus", limit: 200
+    t.date "traceassigndate"
+    t.string "clientsname", limit: 200
+    t.string "belongcompanyname", limit: 200
+    t.float "contractamount", limit: 53
+    t.string "businessdirectororgname", limit: 200
+    t.string "businessdirectordeptname", limit: 200
+    t.string "businessdirectorname", limit: 200
+    t.string "clueprovidename", limit: 200
+    t.string "areatype", limit: 200
+    t.float "area", limit: 53
+    t.string "mainbusinesstypename", limit: 200
+    t.string "projecttype", limit: 200
+    t.string "projectbigstage", limit: 200
+    t.string "servicestage", limit: 200
+    t.string "coworkapproachname", limit: 200
+    t.string "isplan", limit: 200
+    t.date "contractdate"
+    t.float "successrate", limit: 53
+    t.float "contractconvert", limit: 53
+    t.date "finishdate"
+    t.string "refusereason", limit: 200
+  end
+
   create_table "SH_REFRESH_RATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.text "work_no"
     t.text "work_name"
@@ -775,6 +804,23 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "clientmaintenancedeptcode"
     t.float "clientfeeorgsettle", limit: 53
     t.date "confirmdate"
+  end
+
+  create_table "SUB_COMPANY_REAL_RECEIVE_ORIGIN", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.text "orgcode_sum"
+    t.text "orgcode"
+    t.text "deptcode_sum"
+    t.text "deptcode"
+    t.datetime "realdate"
+    t.float "real_receive", limit: 53
+    t.float "trans_value", limit: 53
+    t.float "total", limit: 53
+    t.float "belongmarketfee", limit: 53
+    t.float "clientfeeorgsettle", limit: 53
+    t.float "marketfeechange", limit: 53
+    t.float "markettotal", limit: 53
+    t.float "cumtotal", limit: 53
+    t.float "cummarkettotal", limit: 53
   end
 
   create_table "TH_DEPTPLANVALUE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -1225,10 +1271,10 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["index"], name: "index_UNIQUE", unique: true
   end
 
-  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["userid", "date"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.string "userid", limit: 100, null: false
+  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["date", "ncworkno"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "userid", limit: 100
     t.string "username", limit: 100
-    t.string "ncworkno", limit: 100
+    t.string "ncworkno", limit: 100, null: false
     t.date "date", null: false
     t.float "realhours", limit: 53
     t.float "type1", limit: 53
