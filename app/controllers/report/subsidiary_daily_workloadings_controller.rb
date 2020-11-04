@@ -123,10 +123,10 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     view_deptcode_sum = params[:view_deptcode_sum] == 'true'
 
     data = policy_scope(Bi::WorkHoursCountCombine)
-      .select('userid, ncworkno, username, profession, SUM(type1) type1, SUM(type2) type2, SUM(type4) type4, SUM(needhours) needhours')
+      .select('ncworkno, username, profession, SUM(type1) type1, SUM(type2) type2, SUM(type4) type4, SUM(needhours) needhours')
       .where(date: beginning_of_day..end_of_day, orgcode: company_code)
-      .order(:userid, :ncworkno, :username, :profession)
-      .group(:userid, :ncworkno, :username, :profession)
+      .order(:ncworkno, :username, :profession)
+      .group(:ncworkno, :username, :profession)
 
     lunch_work_count, lunch_non_work_count = policy_scope(Bi::WorkHoursCountCombine).lunch_count_hash(company_code, beginning_of_day, end_of_day)
 
@@ -141,8 +141,8 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
         values << d.username
         values << d.type1.to_f + d.type2.to_f + d.type4.to_f
         values << d.needhours
-        numerator = fill_rate_numerator[d.userid]
-        denominator = fill_rate_denominator[d.userid]
+        numerator = fill_rate_numerator[d.ncworkno]
+        denominator = fill_rate_denominator[d.ncworkno]
         fr = if denominator.present?
           fill_rate = (numerator.to_f * 100 / denominator).round(1)
           (fill_rate > 100) ? 100 : fill_rate
@@ -151,7 +151,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
         end
         values << fr
         values << ((d.type1.to_f * 100) / d.needhours.to_f).round(1)
-        values << lunch_work_count[d.userid].to_i + lunch_non_work_count[d.userid].to_i
+        values << lunch_work_count[d.ncworkno].to_i + lunch_non_work_count[d.ncworkno].to_i
         values << d.profession
         csv << values
       end

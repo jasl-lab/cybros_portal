@@ -72,8 +72,8 @@
             <% total_hour = d.type1.to_f + d.type2.to_f + d.type4.to_f  %>
             <td><%= total_hour -%></td>
             <td><%= d.needhours -%></td>
-            <% numerator = @fill_rate_numerator[d.userid] %>
-            <% denominator = @fill_rate_denominator[d.userid] %>
+            <% numerator = @fill_rate_numerator[d.ncworkno] %>
+            <% denominator = @fill_rate_denominator[d.ncworkno] %>
             <% if denominator.present? %>
               <% fill_rate = (numerator.to_f * 100 / denominator).round(1) %>
               <td><%= (fill_rate > 100) ? 100 : fill_rate -%>%</td>
@@ -81,7 +81,7 @@
               <td>N/A</td>
             <% end %>
             <td><%= ((d.type1.to_f * 100) / d.needhours.to_f).round(1) -%>%</td>
-            <% person_lunch = @lunch_work_count[d.userid].to_i + @lunch_non_work_count[d.userid].to_i %>
+            <% person_lunch = @lunch_work_count[d.ncworkno].to_i + @lunch_non_work_count[d.ncworkno].to_i %>
             <% total_lunch_count += person_lunch %>
             <td><%= person_lunch -%></td>
             <td><%= d.profession -%></td>

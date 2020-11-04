@@ -10,16 +10,16 @@ module Bi
     end
 
     def self.lunch_count_hash(company_code, beginning_of_day, end_of_day)
-      lunch_count = select('userid, type1')
+      lunch_count = select('ncworkno, type1')
         .where('type1 > 0')
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
 
       lunch_work_count = lunch_count.where(iswork: 1).reduce({}) do |h, l|
         t = l.type1 >= 10 ? 1 : 0
-        if h[l.userid].present?
-          h[l.userid] = h[l.userid] + t
+        if h[l.ncworkno].present?
+          h[l.ncworkno] = h[l.ncworkno] + t
         else
-          h[l.userid] = t
+          h[l.ncworkno] = t
         end
         h
       end
@@ -32,10 +32,10 @@ module Bi
         else
           0
         end
-        if h[l.userid].present?
-          h[l.userid] = h[l.userid] + t
+        if h[l.ncworkno].present?
+          h[l.ncworkno] = h[l.ncworkno] + t
         else
-          h[l.userid] = t
+          h[l.ncworkno] = t
         end
         h
       end
@@ -44,10 +44,10 @@ module Bi
     end
 
     def self.fill_rate_hash(company_code, dept_code, beginning_of_day, end_of_day, view_deptcode_sum)
-      fill_rate_numerator = select('userid, COUNT(*) realhours_count')
+      fill_rate_numerator = select('ncworkno, COUNT(*) realhours_count')
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
         .where('type1 > 0 OR type2 > 0 OR type4 > 0 ')
-        .group(:userid)
+        .group(:ncworkno)
       fill_rate_numerator = if view_deptcode_sum && dept_code
         fill_rate_numerator.where(deptcode_sum: dept_code)
       elsif dept_code
@@ -55,14 +55,14 @@ module Bi
       else
         fill_rate_numerator
       end.reduce({}) do |h, s|
-        h[s.userid] = s.realhours_count
+        h[s.ncworkno] = s.realhours_count
         h
       end
 
-      fill_rate_denominator = select('userid, COUNT(needhours) needhours_count')
+      fill_rate_denominator = select('ncworkno, COUNT(needhours) needhours_count')
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
         .where('needhours > 0')
-        .group(:userid)
+        .group(:ncworkno)
       fill_rate_denominator = if view_deptcode_sum && dept_code
         fill_rate_denominator.where(deptcode_sum: dept_code)
       elsif dept_code
@@ -70,7 +70,7 @@ module Bi
       else
         fill_rate_denominator
       end.reduce({}) do |h, s|
-        h[s.userid] = s.needhours_count
+        h[s.ncworkno] = s.needhours_count
         h
       end
 

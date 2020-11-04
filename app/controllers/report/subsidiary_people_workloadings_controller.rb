@@ -42,10 +42,10 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     @selected_dept_name = Bi::PkCodeName.mapping2deptname.fetch(@selected_dept_code, @selected_dept_code)
 
     data = policy_scope(Bi::WorkHoursCountCombine)
-      .select('userid, ncworkno, username, profession, SUM(IFNULL(type1,0)) type1, SUM(IFNULL(type2,0)) type2, SUM(IFNULL(type4,0)) type4, SUM(IFNULL(needhours,0)) needhours')
+      .select('ncworkno, username, profession, SUM(IFNULL(type1,0)) type1, SUM(IFNULL(type2,0)) type2, SUM(IFNULL(type4,0)) type4, SUM(IFNULL(needhours,0)) needhours')
       .where(date: beginning_of_day..end_of_day, orgcode: @selected_company_code)
-      .order(:userid, :ncworkno, :username, :profession)
-      .group(:userid, :ncworkno, :username, :profession)
+      .order(:ncworkno, :username, :profession)
+      .group(:ncworkno, :username, :profession)
     @data = if @view_deptcode_sum
       data.where(deptcode_sum: @selected_dept_code)
     else
@@ -68,8 +68,8 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
             values << d.username
             values << d.type1.to_f + d.type2.to_f + d.type4.to_f
             values << d.needhours
-            numerator = @fill_rate_numerator[d.userid]
-            denominator = @fill_rate_denominator[d.userid]
+            numerator = @fill_rate_numerator[d.ncworkno]
+            denominator = @fill_rate_denominator[d.ncworkno]
             fr = if denominator.present?
               fill_rate = (numerator.to_f * 100 / denominator).round(1)
               (fill_rate > 100) ? 100 : fill_rate
@@ -78,7 +78,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
             end
             values << fr
             values << ((d.type1.to_f * 100) / d.needhours.to_f).round(1)
-            values << @lunch_work_count[d.userid].to_i + @lunch_non_work_count[d.userid].to_i
+            values << @lunch_work_count[d.ncworkno].to_i + @lunch_non_work_count[d.ncworkno].to_i
             values << d.profession
             csv << values
           end
