@@ -50,6 +50,13 @@
                 <td><%= previous_r&.new_area&.round(0) -%></td>
               </tr>
             <% end %>
+            <tr>
+              <td>合计</td>
+              <td><%= @total_new_area -%></td>
+              <td><%= ((@total_scale / @total_new_area) * 0.01).round(2) -%>%</td>
+              <td></td>
+              <td></td>
+            </tr>
             </tbody>
           </table>
         </div>

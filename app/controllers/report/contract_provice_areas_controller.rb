@@ -28,8 +28,12 @@ class Report::ContractProviceAreasController < Report::BaseController
     sum_cp = filter_contract_price_scope(@beginning_of_year, @end_of_month, @orgs_options, @service_phase)
     @sum_scope = filter_province_new_area_scope(@end_of_month)
 
+    @total_new_area = 0
+    @total_scale = 0
     @new_area_rates = @sum_scope.collect do |r|
       cp_r = sum_cp.find { |pr| pr.provincename == r.province }
+      @total_new_area += r.new_area.to_i
+      @total_scale += cp_r&.scale.to_f
       new_area_rate = ((cp_r&.scale.to_f / r.new_area) * 0.01).round(2)
       { province: r.province, new_area_rate: new_area_rate }
     end
