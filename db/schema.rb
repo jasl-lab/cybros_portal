@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_23_005409) do
+ActiveRecord::Schema.define(version: 2020_11_05_023900) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -487,6 +487,7 @@ ActiveRecord::Schema.define(version: 2020_10_23_005409) do
     t.string "chinese_name"
     t.string "desk_phone"
     t.string "job_level"
+    t.string "executor_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
