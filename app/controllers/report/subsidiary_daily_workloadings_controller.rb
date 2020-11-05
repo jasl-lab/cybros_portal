@@ -58,9 +58,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end
 
     @job_company_or_department_codes = data.filter_map do |d|
-      # exclude 建筑专项技术咨询所
-      if d.date_need.to_f > 0 && !(%w[00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
-        d.deptcode
+      if d.date_need.to_f > 0
+        # exclude 建筑专项技术咨询所
+        if !(%w[00010100801].include?(d.deptcode)) && @short_company_name == '上海天华'
+          d.deptcode
+        elsif d.部门类别 == '生产' && @short_company_name != '上海天华'
+          d.deptcode
+        end
       end
     end
     @job_company_or_department_names = @job_company_or_department_codes.collect do |dept_code|
@@ -68,9 +72,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end
 
     @blue_print_company_or_department_codes = data.filter_map do |d|
-      # exclude 公建一所 施工图综合所 建筑专项技术咨询所
-      if d.blue_print_need.to_f > 0 && !(%w[000101022 000101045 00010100801].include?(d.deptcode) && @short_company_name == '上海天华')
-        d.deptcode
+      if d.blue_print_need.to_f > 0
+        # exclude 公建一所 施工图综合所 建筑专项技术咨询所
+        if !(%w[000101022 000101045 00010100801].include?(d.deptcode)) && @short_company_name == '上海天华'
+          d.deptcode
+        elsif d.部门类别 == '生产' && @short_company_name != '上海天华'
+          d.deptcode
+        end
       end
     end
     @blue_print_company_or_department_names = @blue_print_company_or_department_codes.collect do |dept_code|
@@ -78,9 +86,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end
 
     @construction_company_or_department_codes = data.filter_map do |d|
-      # exclude 集团创作研究中心 建筑二所（总） 建筑八所 建筑专项技术咨询所 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
-      if d.construction_need.to_f > 0 and !(%w[000101194 000101150 000101018 00010100801 000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode) and @short_company_name == '上海天华')
-        d.deptcode
+      if d.construction_need.to_f > 0
+        # exclude 集团创作研究中心 建筑二所（总） 建筑八所 建筑专项技术咨询所 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
+        if !(%w[000101194 000101150 000101018 00010100801 000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode)) && @short_company_name == '上海天华'
+          d.deptcode
+        elsif d.部门类别 == '生产' && @short_company_name != '上海天华'
+          d.deptcode
+        end
       end
     end
     @construction_company_or_department_names = @construction_company_or_department_codes.collect do |dept_code|
@@ -89,7 +101,9 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     @non_construction_company_or_department_codes = data.filter_map do |d|
       if d.others_need.to_f > 0
-        d.deptcode
+        if d.部门类别 == '职能'
+          d.deptcode
+        end
       end
     end
     @non_construction_company_or_department_names = @non_construction_company_or_department_codes.collect do |dept_code|
