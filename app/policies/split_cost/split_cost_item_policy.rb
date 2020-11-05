@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module CostSplit
-  class HumanResourcePolicy < Struct.new(:user, :dashboard)
+module SplitCost
+  class SplitCostItemPolicy < ApplicationPolicy
     def index?
       return false unless user.present?
 

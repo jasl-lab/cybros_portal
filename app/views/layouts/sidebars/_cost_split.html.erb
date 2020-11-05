@@ -7,7 +7,7 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if policy(:"CostSplit::HumanResource").index? %>
+      <% if policy(:"SplitCost::HumanResource").index? %>
         <%= nav_item controller: 'cost_split/human_resources', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_human_resources_path, class: "nav-link", data: { turbolinks: false } do %>
             <i class="nav-icon fas fa-pen"></i>
@@ -15,7 +15,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"CostSplit::SplitCostItem").index? %>
+      <% if policy(SplitCost::SplitCostItem).index? %>
         <%= nav_item controller: 'cost_split/split_cost_items', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_split_cost_items_path, class: "nav-link", data: { turbolinks: false } do %>
             <i class="nav-icon fas fa-pen"></i>

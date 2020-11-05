@@ -79,7 +79,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"CostSplit::Home").show? %>
+      <% if policy(:"SplitCost::Home").show? %>
         <%= nav_item controller: 'cost_split/home', html_options: {class: "nav-item"} do %>
           <%= link_to cost_split_root_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-balance-scale"></i>
