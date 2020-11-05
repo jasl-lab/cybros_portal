@@ -47,8 +47,12 @@ class Report::ContractProviceAreasController < Report::BaseController
       @orgs_options, @service_phase)
     @sum_previous_scope = filter_province_new_area_scope((@end_of_month - 1.year))
 
+    @total_previous_new_area = 0
+    @total_previous_scale = 0
     @previous_new_area_rates = @sum_scope.collect do |r|
       cp_pr = sum_previous_cp.find { |pr| pr.provincename == r.province }
+      @total_previous_new_area += r.new_area.to_i
+      @total_previous_scale += cp_pr&.scale.to_f
       previous_r = @sum_previous_scope.find { |pr| pr.province == r.province }
       previous_new_area_rate = ((cp_pr&.scale.to_f / previous_r&.new_area) * 0.01).round(2)
 

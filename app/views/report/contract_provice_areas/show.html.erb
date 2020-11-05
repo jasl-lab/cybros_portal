@@ -54,8 +54,8 @@
               <td>合计</td>
               <td><%= @total_new_area -%></td>
               <td><%= ((@total_scale / @total_new_area) * 0.01).round(2) -%>%</td>
-              <td></td>
-              <td></td>
+              <td><%= ((@total_previous_scale / @total_previous_new_area) * 0.01).round(2) -%>%</td>
+              <td><%= @total_previous_new_area -%></td>
             </tr>
             </tbody>
           </table>
