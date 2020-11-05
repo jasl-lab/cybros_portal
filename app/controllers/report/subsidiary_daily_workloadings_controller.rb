@@ -45,21 +45,23 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     data = if @view_deptcode_sum
       data
-        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
+        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
-        .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
-        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别')
+        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别')
     else
       data
-        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
+        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode')
-        .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode')
-        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别')
+        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别')
     end
 
     @job_company_or_department_codes = data.filter_map do |d|
       # exclude 建筑专项技术咨询所
-      d.deptcode if d.date_need.to_f > 0 and !(%w[00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
+      if d.date_need.to_f > 0 && !(%w[00010100801].include?(d.deptcode) and @short_company_name == '上海天华')
+        d.deptcode
+      end
     end
     @job_company_or_department_names = @job_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
@@ -67,8 +69,9 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     @blue_print_company_or_department_codes = data.filter_map do |d|
       # exclude 公建一所 施工图综合所 建筑专项技术咨询所
-      d.deptcode if d.blue_print_need.to_f > 0 \
-        && !(%w[000101022 000101045 00010100801].include?(d.deptcode) && @short_company_name == '上海天华')
+      if d.blue_print_need.to_f > 0 && !(%w[000101022 000101045 00010100801].include?(d.deptcode) && @short_company_name == '上海天华')
+        d.deptcode
+      end
     end
     @blue_print_company_or_department_names = @blue_print_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
@@ -76,14 +79,18 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     @construction_company_or_department_codes = data.filter_map do |d|
       # exclude 集团创作研究中心 建筑二所（总） 建筑八所 建筑专项技术咨询所 建筑一A所 建筑二A所 建筑二C所 建筑三所 建筑三A所 建筑四所 建筑七所 公建七所
-      d.deptcode if d.construction_need.to_f > 0 and !(%w[000101194 000101150 000101018 00010100801 000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode) and @short_company_name == '上海天华')
+      if d.construction_need.to_f > 0 and !(%w[000101194 000101150 000101018 00010100801 000101055 000101143 000101122 000101013 000101125 000101061 000101017 000101075].include?(d.deptcode) and @short_company_name == '上海天华')
+        d.deptcode
+      end
     end
     @construction_company_or_department_names = @construction_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
     end
 
     @non_construction_company_or_department_codes = data.filter_map do |d|
-      d.deptcode if d.others_need.to_f > 0
+      if d.others_need.to_f > 0
+        d.deptcode
+      end
     end
     @non_construction_company_or_department_names = @non_construction_company_or_department_codes.collect do |dept_code|
       Bi::PkCodeName.mapping2deptcode.fetch(dept_code, dept_code)
