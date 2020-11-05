@@ -141,3 +141,4 @@ en:
         header: "Cost split"
         human_resources: "Staff cost allocation settings"
         split_cost_items: "Split cost items"
+        allocation_bases: "Allocation bases"

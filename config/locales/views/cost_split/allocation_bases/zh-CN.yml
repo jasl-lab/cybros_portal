@@ -1,0 +1,6 @@
+---
+zh-CN:
+  cost_split:
+    allocation_bases:
+      index:
+        title: "分摊分子基数设置"

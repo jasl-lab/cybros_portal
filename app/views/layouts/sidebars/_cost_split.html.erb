@@ -23,6 +23,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(SplitCost::CostSplitAllocationBase).index? %>
+        <%= nav_item controller: 'cost_split/allocation_bases', html_options: { class: "nav-item" } do %>
+          <%= link_to cost_split_allocation_bases_path, class: "nav-link", data: { turbolinks: false } do %>
+            <i class="nav-icon fas fa-pen"></i>
+            <%= t("layouts.sidebar.cost_split.allocation_bases") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

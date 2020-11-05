@@ -1,0 +1,6 @@
+---
+en:
+  cost_split:
+    allocation_bases:
+      index:
+        title: "Allocation numerator base setting"
