@@ -872,7 +872,7 @@
 
 "@fortawesome/fontawesome-free@^5.14.0":
   version "5.15.1"
-  resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.15.1.tgz#ccfef6ddbe59f8fe8f694783e1d3eb88902dc5eb"
+  resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.15.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40fortawesome%2Ffontawesome-free%2Fdownload%2F%40fortawesome%2Ffontawesome-free-5.15.1.tgz#ccfef6ddbe59f8fe8f694783e1d3eb88902dc5eb"
   integrity sha1-zP723b5Z+P6PaUeD4dPriJAtxes=
 
 "@npmcli/move-file@^1.0.1":
@@ -1866,9 +1866,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001154:
-  version "1.0.30001154"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001154.tgz#f3bbc245ce55e4c1cd20fa731b097880181a7f17"
-  integrity sha1-87vCRc5V5MHNIPpzGwl4gBgafxc=
+  version "1.0.30001155"
+  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001155.tgz?cache=0&sync_timestamp=1604552644543&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001155.tgz#087f063d7de063fd26516b66689a69075c75431b"
+  integrity sha1-CH8GPX3gY/0mUWtmaJppB1x1Qxs=
 
 cardinal@^1.0.0:
   version "1.0.0"
@@ -1918,7 +1918,7 @@ chalk@^4.0.0:
 
 chokidar@^2.1.8, chokidar@^3.4.0, chokidar@^3.4.1:
   version "3.4.3"
-  resolved "https://registry.npm.taobao.org/chokidar/download/chokidar-3.4.3.tgz#c1df38231448e45ca4ac588e6c79573ba6a57d5b"
+  resolved "https://registry.npm.taobao.org/chokidar/download/chokidar-3.4.3.tgz?cache=0&sync_timestamp=1602585438968&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchokidar%2Fdownload%2Fchokidar-3.4.3.tgz#c1df38231448e45ca4ac588e6c79573ba6a57d5b"
   integrity sha1-wd84IxRI5FykrFiObHlXO6alfVs=
   dependencies:
     anymatch "~3.1.1"
@@ -2810,7 +2810,7 @@ ecc-jsbn@~0.1.1:
 
 echarts@^4.9.0:
   version "4.9.0"
-  resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
+  resolved "https://registry.npm.taobao.org/echarts/download/echarts-4.9.0.tgz?cache=0&sync_timestamp=1603712757840&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fecharts%2Fdownload%2Fecharts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
   integrity sha1-qbm6oD8Doqcx5jQMVb77V6nhNH0=
   dependencies:
     zrender "4.3.2"
@@ -2994,7 +2994,7 @@ eslint-visitor-keys@^2.0.0:
 
 eslint@^7.9.0:
   version "7.12.1"
-  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.12.1.tgz#bd9a81fa67a6cfd51656cdb88812ce49ccec5801"
+  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.12.1.tgz?cache=0&sync_timestamp=1603768186412&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint%2Fdownload%2Feslint-7.12.1.tgz#bd9a81fa67a6cfd51656cdb88812ce49ccec5801"
   integrity sha1-vZqB+memz9UWVs24iBLOSczsWAE=
   dependencies:
     "@babel/code-frame" "^7.0.0"
@@ -3090,7 +3090,7 @@ etag@~1.8.1:
 
 eventemitter3@^4.0.0:
   version "4.0.7"
-  resolved "https://registry.npm.taobao.org/eventemitter3/download/eventemitter3-4.0.7.tgz?cache=0&sync_timestamp=1598517714257&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feventemitter3%2Fdownload%2Feventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
+  resolved "https://registry.npm.taobao.org/eventemitter3/download/eventemitter3-4.0.7.tgz?cache=0&sync_timestamp=1598517790184&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feventemitter3%2Fdownload%2Feventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha1-Lem2j2Uo1WRO9cWVJqG0oHMGFp8=
 
 events@^3.0.0:
@@ -7676,7 +7676,7 @@ typedarray@^0.0.6:
 
 typescript@^3.8.3:
   version "3.9.7"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.9.7.tgz?cache=0&sync_timestamp=1604481744842&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha1-mNYApevcOPQMsndSLxLcgA6eJfo=
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
@@ -7986,7 +7986,7 @@ webpack-sources@^1.0.0, webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-
 
 webpack@^4.41.6, webpack@^4.44.1:
   version "4.44.2"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-4.44.2.tgz#6bfe2b0af055c8b2d1e90ed2cd9363f841266b72"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-4.44.2.tgz?cache=0&sync_timestamp=1603999795527&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-4.44.2.tgz#6bfe2b0af055c8b2d1e90ed2cd9363f841266b72"
   integrity sha1-a/4rCvBVyLLR6Q7SzZNj+EEma3I=
   dependencies:
     "@webassemblyjs/ast" "1.9.0"
