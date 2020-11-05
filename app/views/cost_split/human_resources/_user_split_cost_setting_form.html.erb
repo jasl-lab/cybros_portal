@@ -36,9 +36,9 @@
       <%= f.error_message :shanghai_hq, class: "invalid-feedback" %>
   </td>
   <td class="pt-1 pb-1">
-    <p class="mt-0 mb-1"><%= f.select :group_rate_base, SplitCost::UserSplitCostSetting::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
-    <p class="mt-0 mb-1"><%= f.select :shanghai_area_base, SplitCost::UserSplitCostSetting::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
-    <p class="mt-0 mb-1"><%= f.select :shanghai_hq_base, SplitCost::UserSplitCostSetting::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
+    <p class="mt-0 mb-1"><%= f.select :group_rate_base, SplitCost::CostSplitAllocationBase::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
+    <p class="mt-0 mb-1"><%= f.select :shanghai_area_base, SplitCost::CostSplitAllocationBase::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
+    <p class="mt-0 mb-1"><%= f.select :shanghai_hq_base, SplitCost::CostSplitAllocationBase::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control' -%></p>
   </td>
   <td class="pt-1 pb-1">
     <p class="mt-0 mb-1"><%= f.select :user_split_cost_group_rate_companies_codes, Bi::OrgOrder.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control' -%></p>
