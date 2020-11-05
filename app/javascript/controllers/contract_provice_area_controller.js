@@ -53,9 +53,9 @@ export default class extends Controller {
         text: '新开工面积（万㎡）',
         textStyle: {
           color: '#2D3E53',
-          fontSize: 16
+          fontSize: 12
         },
-        right: '2%',
+        right: '4%',
         top: '90%'
       },{
         text: '市场占有率（%）',
@@ -64,7 +64,7 @@ export default class extends Controller {
           fontSize: 12
         },
         right: '68%',
-        top: '67%'
+        top: '68%'
       },{
         text: '>= 10% ●',
         textStyle: {
@@ -72,15 +72,15 @@ export default class extends Controller {
           fontSize: 12
         },
         right: '73%',
-        top: '70%'
+        top: '71%'
       },{
         text: '5% ~ 10% ●',
         textStyle: {
           color: '#C14107',
           fontSize: 12
         },
-        right: '73%',
-        top: '73%'
+        right: '73.2%',
+        top: '74%'
       },{
         text: '3% ~ 5% ●',
         textStyle: {
@@ -88,7 +88,7 @@ export default class extends Controller {
           fontSize: 12
         },
         right: '73.5%',
-        top: '76%'
+        top: '77%'
       },{
         text: '1% ~ 3% ●',
         textStyle: {
@@ -96,15 +96,15 @@ export default class extends Controller {
           fontSize: 12
         },
         right: '73%',
-        top: '79%'
+        top: '80%'
       },{
-        text: '0% ~ 1% (白色)',
+        text: '0% ~ 1% ◯',
         textStyle: {
           color: '#000000',
           fontSize: 12
         },
-        right: '69%',
-        top: '82%'
+        right: '72.2%',
+        top: '83%'
       }],
       grid: {
         left: '0',
