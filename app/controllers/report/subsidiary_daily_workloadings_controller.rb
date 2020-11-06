@@ -101,7 +101,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     @non_construction_company_or_department_codes = data.filter_map do |d|
       if d.others_need.to_f > 0
-        if d.部门类别 == '职能'
+        if d.部门类别 == '生产'
           d.deptcode
         end
       end
