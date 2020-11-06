@@ -78,9 +78,16 @@
               <% fill_rate = (numerator.to_f * 100 / denominator).round(1) %>
               <td><%= (fill_rate > 100) ? 100 : fill_rate -%>%</td>
             <% else %>
-              <td>N/A</td>
+              <td>-</td>
             <% end %>
-            <td><%= ((d.type1.to_f * 100) / d.needhours.to_f).round(1) -%>%</td>
+            <td>
+              <% busyrate = (d.type1.to_f * 100) / d.needhours.to_f %>
+              <% if busyrate.present? && !busyrate.infinite? %>
+                <%= (busyrate).round(1) -%> %
+              <% else %>
+                -
+              <% end %>
+            </td>
             <% person_lunch = @lunch_work_count[d.ncworkno].to_i + @lunch_non_work_count[d.ncworkno].to_i %>
             <% total_lunch_count += person_lunch %>
             <td><%= person_lunch -%></td>
