@@ -4,3 +4,6 @@ zh-CN:
     allocation_bases:
       index:
         title: "分摊分子基数设置"
+        table:
+          i_no: "序号"
+          allocation_base: "分摊基数"

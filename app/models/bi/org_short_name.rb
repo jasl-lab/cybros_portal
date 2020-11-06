@@ -2,7 +2,7 @@
 
 module Bi
   class OrgShortName < BiLocalTimeRecord
-    self.table_name = "ORG_SHORTNAME"
+    self.table_name = 'ORG_SHORTNAME'
 
     def self.company_short_names
       @company_short_names ||= available_unit.reduce({}) do |h, s|

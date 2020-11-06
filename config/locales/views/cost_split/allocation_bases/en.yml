@@ -4,3 +4,6 @@ en:
     allocation_bases:
       index:
         title: "Allocation numerator base setting"
+        table:
+          i_no: "No"
+          allocation_base: "Allocation base"
