@@ -9,3 +9,6 @@ en:
           allocation_base: "Allocation base"
         action:
           new: "New"
+      new:
+        title: "Create new allocation numerator base"
+        close: "Close"

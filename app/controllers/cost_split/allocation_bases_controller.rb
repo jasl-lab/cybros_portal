@@ -6,7 +6,7 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
   end
 
   def new
-    base_name = params[:base_name]
-    company_code = params[:company_code]
+    @base_name = params[:base_name]
+    @company_code = params[:company_code]
   end
 end

@@ -9,3 +9,6 @@ zh-CN:
           allocation_base: "分摊基数"
         action:
           new: "新建"
+      new:
+        title: "新建分摊分子基数"
+        close: "关闭"
