@@ -66,7 +66,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
             values = []
             values << d.ncworkno
             values << d.username
-            values << d.type1.to_f + d.type2.to_f
+            values << d.type1.to_f + d.type2.to_f + d.type4.to_f
             values << d.needhours
             numerator = @fill_rate_numerator[d.ncworkno]
             denominator = @fill_rate_denominator[d.ncworkno]
