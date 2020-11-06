@@ -17,7 +17,7 @@ en:
           ncworkno: "NC work no"
           username: "User name"
           realhours: "Real hours"
-          needhours: "Need hours"
+          leavehours: "Leave hours"
           fillrate: "Fill rate"
           busyrate: "Busy rate"
           lunch_day_num: "Number of meals"

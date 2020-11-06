@@ -56,7 +56,7 @@
           <th><%= t(".table.ncworkno") %></th>
           <th><%= t(".table.username") %></th>
           <th><%= t(".table.realhours") %></th>
-          <th><%= t(".table.needhours") %></th>
+          <th><%= t(".table.leavehours") %></th>
           <th><%= t(".table.fillrate") %></th>
           <th><%= t(".table.busyrate") %></th>
           <th><%= t(".table.lunch_day_num") %></th>
@@ -71,7 +71,7 @@
             <td><%= d.username -%></td>
             <% total_hour = d.type1.to_f + d.type2.to_f + d.type4.to_f  %>
             <td><%= total_hour -%></td>
-            <td><%= d.needhours -%></td>
+            <td><%= d.type4 -%></td>
             <% numerator = @fill_rate_numerator[d.ncworkno] %>
             <% denominator = @fill_rate_denominator[d.ncworkno] %>
             <% if denominator.present? %>
