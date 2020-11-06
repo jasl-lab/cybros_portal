@@ -15,7 +15,7 @@ module Bi
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
 
       lunch_work_count = lunch_count.where(iswork: 1).reduce({}) do |h, l|
-        t = (l.type1 + l.type2 - l.type24) >= 10 ? 1 : 0
+        t = (l.type1.to_f + l.type2.to_f - l.type24.to_f) >= 10 ? 1 : 0
         if h[l.ncworkno].present?
           h[l.ncworkno] = h[l.ncworkno] + t
         else
@@ -25,7 +25,7 @@ module Bi
       end
 
       lunch_non_work_count = lunch_count.where(iswork: 0).reduce({}) do |h, l|
-        cal_type = l.type1 + l.type22
+        cal_type = l.type1.to_f + l.type22.to_f
         t = if cal_type >= 8
           2
         elsif cal_type >= 4 && cal_type < 8
