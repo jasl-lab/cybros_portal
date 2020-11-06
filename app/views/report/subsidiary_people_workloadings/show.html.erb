@@ -82,7 +82,7 @@
             <% end %>
             <td>
               <% busyrate = (d.type1.to_f * 100) / d.needhours.to_f %>
-              <% if busyrate.present? && !busyrate.infinite? %>
+              <% if busyrate.present? && !busyrate.infinite? && !busyrate.nan? %>
                 <%= (busyrate).round(1) -%> %
               <% else %>
                 -
