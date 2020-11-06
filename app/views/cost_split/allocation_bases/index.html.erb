@@ -23,7 +23,11 @@
                 <td><%= index + 1 -%></td>
                 <td><%= base_name -%></td>
                 <% short_name_pairs.each do |name_pair| -%>
-                  <td><%= name_pair.second -%></td>
+                  <td>
+                    <%= link_to new_cost_split_allocation_basis_path(base_name: base_name, company_code: name_pair.second), remote: true do -%>
+                      <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>
+                    <% end %>
+                  </td>
                 <% end %>
               </tr>
             <% end %>

@@ -7,3 +7,5 @@ en:
         table:
           i_no: "No"
           allocation_base: "Allocation base"
+        action:
+          new: "New"

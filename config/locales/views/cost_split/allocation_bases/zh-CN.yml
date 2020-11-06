@@ -7,3 +7,5 @@ zh-CN:
         table:
           i_no: "序号"
           allocation_base: "分摊基数"
+        action:
+          new: "新建"
