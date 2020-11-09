@@ -24,9 +24,15 @@
                 <td><%= base_name -%></td>
                 <% short_name_pairs.each do |name_pair| -%>
                   <td>
-                    <%= link_to new_cost_split_allocation_basis_path(base_name: base_name, company_code: name_pair.second), remote: true do -%>
-                      <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>
+                    <% csab = @cost_split_allocation_bases.find { |c| c.base_name == base_name && c.company_code == name_pair.second } %>
+                    <% if csab.present? %>
+                      <%= csab.head_count -%>
+                    <% else %>
+                      <%= link_to new_cost_split_allocation_basis_path(base_name: base_name, company_code: name_pair.second), remote: true do -%>
+                        <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>
+                      <% end %>
                     <% end %>
+
                   </td>
                 <% end %>
               </tr>
