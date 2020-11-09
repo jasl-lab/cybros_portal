@@ -13,3 +13,7 @@ zh-CN:
         title: "新建分摊分子基数"
         head_count: "人数"
         close: "关闭"
+      edit:
+        title: "修改分摊分子基数"
+        head_count: "人数"
+        close: "关闭"

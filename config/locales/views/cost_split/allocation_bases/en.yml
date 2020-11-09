@@ -13,3 +13,7 @@ en:
         title: "Create new allocation numerator base"
         head_count: "Head count"
         close: "Close"
+      edit:
+        title: "Edit allocation numerator base"
+        head_count: "Head count"
+        close: "Close"

@@ -16,6 +16,15 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(cost_split_allocation_base_params)
   end
 
+  def edit
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
+  end
+
+  def update
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
+    @cost_split_allocation_base.update(cost_split_allocation_base_params)
+  end
+
   private
 
     def cost_split_allocation_base_params
