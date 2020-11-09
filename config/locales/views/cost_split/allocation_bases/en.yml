@@ -11,6 +11,5 @@ en:
           new: "New"
       new:
         title: "Create new allocation numerator base"
-        close: "Close"
-      form:
         head_count: "Head count"
+        close: "Close"
