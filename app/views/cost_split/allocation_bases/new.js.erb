@@ -1,2 +1,2 @@
-$("#allocation-bases-modal").html('<%= j render(partial: "new", locals: { base_name: @base_name, company_code: @company_code }) -%>');
+$("#allocation-bases-modal").html('<%= j render(partial: "new", locals: { base_name: @base_name, company_code: @company_code, cost_split_allocation_base: @cost_split_allocation_base }) -%>');
 $("#allocation-bases-modal").modal('show');

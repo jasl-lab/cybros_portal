@@ -12,3 +12,5 @@ zh-CN:
       new:
         title: "新建分摊分子基数"
         close: "关闭"
+      form:
+        head_count: "人数"

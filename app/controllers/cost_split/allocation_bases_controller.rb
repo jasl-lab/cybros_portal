@@ -8,5 +8,17 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
   def new
     @base_name = params[:base_name]
     @company_code = params[:company_code]
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(base_name: @base_name, company_code: @company_code)
   end
+
+  def create
+    SplitCost::CostSplitAllocationBase.create(cost_split_allocation_base_params)
+  end
+
+  private
+
+    def cost_split_allocation_base_params
+      params.fetch(:split_cost_cost_split_allocation_base, {})
+        .permit(:base_name, :company_code, :head_count)
+    end
 end

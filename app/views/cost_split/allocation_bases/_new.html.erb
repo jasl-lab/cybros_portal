@@ -6,6 +6,7 @@
       </h5>
     </div>
     <div class="modal-body">
+      <%= render partial: 'form', locals: { cost_split_allocation_base: cost_split_allocation_base } %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
