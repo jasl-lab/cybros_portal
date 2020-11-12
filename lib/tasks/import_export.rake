@@ -146,4 +146,14 @@ namespace :import_export do
       sci.save
     end
   end
+
+  desc 'Import NC in_out_biz into cybros'
+  task nc_in_out_biz_import: :environment do
+    Nc::InOutBiz.all.each do |iob|
+      sci = SplitCost::SplitCostItem.find_or_initialize_by(split_cost_item_no: iob.code)
+      sci.split_cost_item_name = iob.name
+      sci.split_cost_item_category = '业务性支出预算'
+      sci.save
+    end
+  end
 end
