@@ -5,7 +5,7 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
 
   def index
     prepare_meta_tags title: t('.title')
-    @split_cost_items = SplitCost::SplitCostItem.all
+    @split_cost_items = SplitCost::SplitCostItem.all.page(params[:page]).per(params[:per_page])
     @new_split_cost_item = SplitCost::SplitCostItem.new
   end
 

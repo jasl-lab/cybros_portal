@@ -136,4 +136,14 @@ namespace :import_export do
       end
     end
   end
+
+  desc 'Import NC fa_card into cybros'
+  task nc_fa_card_import: :environment do
+    Nc::FaCard.where('LENGTH(asset_code) < 12').each do |f|
+      sci = SplitCost::SplitCostItem.find_or_initialize_by(split_cost_item_no: f.asset_code)
+      sci.split_cost_item_name = f.asset_name
+      sci.split_cost_item_category = '固定资产'
+      sci.save
+    end
+  end
 end

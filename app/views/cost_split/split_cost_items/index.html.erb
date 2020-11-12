@@ -27,15 +27,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <% @split_cost_items.each do |split_cost_item| %>
+            <% @split_cost_items.each do |split_cost_item| %>
+              <tr>
                 <%= render partial: 'split_cost_item', locals: { split_cost_item: split_cost_item } %>
-              <% end %>
-            </tr>
+              </tr>
+            <% end %>
           </tbody>
         </table>
       </div>
     </div>
+    <%= paginate @split_cost_items %>
+
     <hr />
     <div class="row my-2">
       <div class="col-12">
