@@ -51,8 +51,10 @@ class NameCardApplyDatatable < ApplicationDatatable
       end
       r_delete = link_to I18n.t("person.name_cards.index.actions.delete"), person_name_card_path(r),
         method: :delete, data: { confirm: "你确定要删除吗？" }
-      r_start_approve = link_to I18n.t("person.name_cards.index.actions.start_approve"), start_approve_person_name_card_path(r),
+      r_start_approve = if r.begin_task_id.blank?
+        link_to I18n.t("person.name_cards.index.actions.start_approve"), start_approve_person_name_card_path(r),
         class: "btn btn-primary", method: :patch, data: { disable_with: "处理中" }
+      end
       { name: r_chinese_name,
         english_name: r.english_name,
         email: r.email,

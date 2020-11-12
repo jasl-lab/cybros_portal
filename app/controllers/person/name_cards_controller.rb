@@ -150,10 +150,10 @@ class Person::NameCardsController < ApplicationController
     @name_card_apply.update_columns(backend_in_processing: false)
 
     if result['isSuccess'] == '1'
-      @name_card_apply.update(begin_task_id: result['BeginTaskId'])
+      @name_card_apply.update_columns(begin_task_id: result['BeginTaskId'])
       redirect_to person_name_cards_path, notice: t('.success')
     else
-      @name_card_apply.update(bpm_message: result['message'])
+      @name_card_apply.update_columns(bpm_message: result['message'])
       redirect_to person_name_cards_path, notice: t('.failed', message: result['message'])
     end
   end
