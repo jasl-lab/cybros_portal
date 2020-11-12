@@ -1,3 +1,4 @@
-$("#td-<%= @cost_split_allocation_base.base_name -%>-<%= @cost_split_allocation_base.company_code -%>").html('<%= @cost_split_allocation_base.head_count -%>');
+<% csab = @cost_split_allocation_base %>
+$("#td-<%= csab.base_name -%>-<%= csab.company_code -%>").html('<%= j link_to(csab.head_count, edit_cost_split_allocation_basis_path(csab), remote: true) -%>');
 $("#allocation-bases-modal").html('');
 $("#allocation-bases-modal").modal('hide');
