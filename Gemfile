@@ -19,6 +19,10 @@ gem 'tiny_tds', '~> 2.1.3.pre'
 # bundle config local.activerecord-sqlserver-adapter /Users/guochunzhong/git/oss/activerecord-sqlserver-adapter/
 gem 'activerecord-sqlserver-adapter', git: 'https://github.com/rails-sqlserver/activerecord-sqlserver-adapter', branch: 'master'
 
+# Use Oracle to fetch NC data
+gem 'ruby-oci8'
+gem 'activerecord-oracle_enhanced-adapter'
+
 gem "sidekiq", "~> 5.2.7"
 
 # Use Puma as the app server

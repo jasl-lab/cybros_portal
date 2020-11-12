@@ -73,6 +73,9 @@ GEM
     activerecord (6.0.3.4)
       activemodel (= 6.0.3.4)
       activesupport (= 6.0.3.4)
+    activerecord-oracle_enhanced-adapter (6.0.4)
+      activerecord (~> 6.0.0)
+      ruby-plsql (>= 0.6.0)
     activestorage (6.0.3.4)
       actionpack (= 6.0.3.4)
       activejob (= 6.0.3.4)
@@ -372,6 +375,8 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 0.87.0)
+    ruby-oci8 (2.2.8)
+    ruby-plsql (0.7.1)
     ruby-progressbar (1.10.1)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
@@ -466,6 +471,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  activerecord-oracle_enhanced-adapter
   activerecord-sqlserver-adapter!
   ajax-datatables-rails
   auto_strip_attributes
@@ -503,6 +509,7 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   rubocop-rails
+  ruby-oci8
   selenium-webdriver
   server_timing
   sidekiq (~> 5.2.7)
