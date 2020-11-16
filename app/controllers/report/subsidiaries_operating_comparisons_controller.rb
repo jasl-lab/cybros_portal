@@ -72,7 +72,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
 
     @head_count_data = if @view_orgcode_sum
       head_count_data.where(orgcode_sum: @orgs_options)
-        .select('orgcode_sum orgcode, year, SUM(avg_staff_no) avg_staff_no, SUM(avg_work_no) avg_work_no')
+        .select('orgcode_sum orgcode, year, SUM(avg_staff_no_sum) avg_staff_no, SUM(avg_work_no_sum) avg_work_no')
         .group('orgcode_sum, year')
         .order('orgcode_sum, year')
     else
