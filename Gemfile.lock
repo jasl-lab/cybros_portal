@@ -202,7 +202,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
-    erubi (1.9.0)
+    erubi (1.10.0)
     ffi (1.13.1)
     ffi (1.13.1-x64-mingw32)
     ffi-compiler (1.0.1)
@@ -248,7 +248,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
-    listen (3.3.0)
+    listen (3.3.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.7.0)
