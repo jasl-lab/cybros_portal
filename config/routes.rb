@@ -169,7 +169,6 @@ Rails.application.routes.draw do
       end
     end
     resource :people_workloading, only: %i[show]
-    resource :yearly_subsidiary_workloading, only: %i[show]
     resource :contract_signing, only: %i[show]
     resource :subsidiary_contract_signing, only: %i[show] do
       collection do
