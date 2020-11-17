@@ -823,6 +823,12 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "cummarkettotal", limit: 53
   end
 
+  create_table "TH_CALENDAR", primary_key: "datestamp", id: :date, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "iswork", limit: 10
+    t.bigint "datetype"
+    t.text "remark"
+  end
+
   create_table "TH_DEPTPLANVALUE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.text "id"
     t.text "bizorgcode"
@@ -1271,11 +1277,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["index"], name: "index_UNIQUE", unique: true
   end
 
-  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["date", "ncworkno"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORKHOURS_LABEL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.text "gxname"
+    t.text "profession"
+  end
+
+  create_table "WORK_HOURS_COUNT_COMBINE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "userid", limit: 100
     t.string "username", limit: 100
-    t.string "ncworkno", limit: 100, null: false
-    t.date "date", null: false
+    t.string "ncworkno", limit: 100
+    t.date "date"
     t.float "realhours", limit: 53
     t.float "type1", limit: 53
     t.float "type2", limit: 53
@@ -1290,10 +1301,10 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptcode_sum", limit: 100
     t.string "deptcode", limit: 100
     t.integer "iswork", limit: 1
-    t.index ["date"], name: "idx_work_hours_count_combine_date"
+    t.index ["date", "orgcode"], name: "idx_work_hours_count_combine_date"
   end
 
-  create_table "WORK_HOURS_COUNT_DETAIL_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_DETAIL_DEPT_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgname_sum", limit: 45
     t.string "orgcode", limit: 45
@@ -1314,7 +1325,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "construction_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_COUNT_DETAIL_STAFF", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_DETAIL_STAFF_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgname_sum", limit: 45
     t.string "orgcode", limit: 45
@@ -1337,7 +1348,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "construction_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_COUNT_NEED", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_NEED_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.text "userid"
     t.text "username"
     t.text "ncworkno"
@@ -1350,7 +1361,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_COUNT_ORG", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_ORG_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgcode", limit: 45
     t.string "orgname_sum", limit: 45
@@ -1367,7 +1378,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "construction_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_COUNT_REAL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_REAL_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.datetime "date"
     t.text "userid"
     t.text "username"
@@ -1382,12 +1393,12 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_DAY_COUNT_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.text "orgcode_sum"
-    t.text "orgcode"
-    t.text "deptcode_sum"
-    t.text "deptcode"
-    t.datetime "date"
+  create_table "WORK_HOURS_DAY_COUNT_DEPT", primary_key: ["date", "deptcode"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "orgcode_sum", limit: 100
+    t.string "orgcode", limit: 100
+    t.string "deptcode_sum", limit: 100
+    t.string "deptcode", limit: 100, null: false
+    t.date "date", null: false
     t.float "date_need", limit: 53
     t.float "date_real", limit: 53
     t.float "fill_rate", limit: 53
@@ -1470,6 +1481,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "realamount", limit: 53
     t.float "avg_work_no", limit: 53
     t.float "avg_staff_no", limit: 53
+    t.float "avg_work_no_sum", limit: 53
+    t.float "avg_staff_no_sum", limit: 53
   end
 
   create_table "comment_on_project_item_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
