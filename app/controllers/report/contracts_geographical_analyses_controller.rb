@@ -52,9 +52,9 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         years_sum_二线 << sum_scope.find_all { |c| c.year_name == year.to_i && Bi::ContractPrice.all_city_levels[c.cityname] == '二线' }.sum(&:realamounttotal)
         years_sum_非一二线 << sum_scope.find_all { |c| c.year_name == year.to_i && (Bi::ContractPrice.all_city_levels[c.cityname] == '非一二线' || Bi::ContractPrice.all_city_levels[c.cityname] == '三四线城市') }.sum(&:realamounttotal)
       end
-      years_sum_一线 = years_sum_一线.map { |d| (d/10000_00.0).round(2) }
-      years_sum_二线 = years_sum_二线.map { |d| (d/10000_00.0).round(2) }
-      years_sum_非一二线 = years_sum_非一二线.map { |d| (d/10000_00.0).round(2) }
+      years_sum_一线 = years_sum_一线.map { |d| (d/10000_00.0).round(0) }
+      years_sum_二线 = years_sum_二线.map { |d| (d/10000_00.0).round(0) }
+      years_sum_非一二线 = years_sum_非一二线.map { |d| (d/10000_00.0).round(0) }
       return [years_sum_一线, years_sum_二线, years_sum_非一二线]
     end
 
@@ -66,13 +66,13 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
         .where(businessltdcode: orgs_options, contractstatuscnname: ['合同完成','已归档'], contractcategorycnname: '经营合同')
         .order('YEAR(filingtime)')
 
-      西南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西南区域' }
-      华东区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华东区域' }
-      华南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华南区域' }
-      华中区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华中区域' }
-      东北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '东北区域' }
-      华北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '华北区域' }
-      西北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(2) if c.area == '西北区域' }
+      西南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '西南区域' }
+      华东区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '华东区域' }
+      华南区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '华南区域' }
+      华中区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '华中区域' }
+      东北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '东北区域' }
+      华北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '华北区域' }
+      西北区域_sum_years = sum_scope.filter_map  { |c| (c.realamounttotal/10000_00.0).round(0) if c.area == '西北区域' }
 
       return [西南区域_sum_years, 华东区域_sum_years, 华南区域_sum_years, \
         华中区域_sum_years, 东北区域_sum_years, 华北区域_sum_years, 西北区域_sum_years]
@@ -131,7 +131,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
                   sum_湖北, sum_湖南, sum_广东, sum_广西, sum_海南, sum_四川, sum_贵州,
                   sum_云南, sum_西藏, sum_陕西, sum_甘肃, sum_青海, sum_宁夏, sum_新疆,
                   sum_北京, sum_天津, sum_上海, sum_重庆, sum_香港, sum_澳门 ]
-      sum_省市.map { |d| d.nil? ? nil : (d / 10000_00.0).round(1) }
+      sum_省市.map { |d| d.nil? ? nil : (d / 10000_00.0).round(0) }
     end
 
     def set_breadcrumbs

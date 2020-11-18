@@ -50,7 +50,7 @@ export default class extends Controller {
       for (let i = 0; i < year_city_level_stack_option.series.length; i++) {
         sum += year_city_level_stack_option.series[i].data[p.dataIndex];
       }
-      return `${p.data}\n${(p.data/sum * 100).toFixed(1)}%`;
+      return `${p.data}\n${(p.data/sum * 100).toFixed(0)}%`;
     }
 
     const map_option = {
