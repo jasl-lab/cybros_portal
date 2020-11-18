@@ -84,15 +84,16 @@ export default class extends Controller {
       },{
         text: '3% ~ 5% ●',
         textStyle: {
-          color: '#F87235',
+          color: '#E55F46',
           fontSize: 12
         },
+
         right: '73.5%',
         top: '77%'
       },{
         text: '1% ~ 3% ●',
         textStyle: {
-          color: '#F87235',
+          color: '#FFCBB2',
           fontSize: 12
         },
         right: '73%',
@@ -190,9 +191,9 @@ export default class extends Controller {
               } else if (rate >= 5) {
                 return '#C14107';
               } else if (rate >= 3) {
-                return '#F87235';
+                return '#E55F46';
               } else if (rate >= 1) {
-                return '#F87235';
+                return '#FFCBB2';
               } else {
                 return '#FFFFFF';
               }
