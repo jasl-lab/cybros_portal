@@ -156,4 +156,12 @@ namespace :import_export do
       sci.save
     end
   end
+
+  desc 'Import HRDW COM_MONTH_REPORT into cybros'
+  task hrdw_com_month_report_import: :environment do
+    Hrdw::ComMonthReport.all.each do |c|
+      staff_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块平均总人数', company_code: c.orgcode_sum)
+      staff_now.update(head_count: c.staff_now, start_date: "#{c.pmonth}-01")
+    end
+  end
 end

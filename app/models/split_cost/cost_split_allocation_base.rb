@@ -2,7 +2,8 @@
 
 module SplitCost
   class CostSplitAllocationBase < ApplicationRecord
-    CALC_BASE_NAMES = %w[创意板块平均总人数
+    CALC_BASE_NAMES = %w[
+      创意板块平均总人数
       创意板块上海区域人数
       施工图人数
       方案人数
@@ -14,6 +15,7 @@ module SplitCost
       创意板块及新业务（上海区域）
       创意板块及新业务（上海区域2020年1月年会人数）
       创意板块及新业务（2020年12月31日人数）
-      上年平均人数]
+      上年平均人数
+    ]
   end
 end
