@@ -51,7 +51,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
       policy_scope(Bi::YearReportHistory).where(year: most_recent_year, month: most_recent_month)
         .group('ORG_ORDER.org_order, YEAR_REPORT_HISTORY.orgcode_sum')
         .where(orgcode_sum: @orgs_options)
-        .select('orgcode_sum, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
+        .select('orgcode_sum, SUM(IFNULL(avg_staff_no_sum,0)) avg_staff_no, SUM(IFNULL(avg_work_no_sum,0)) avg_work_no')
         .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode_sum')
         .order('ORG_ORDER.org_order ASC, YEAR_REPORT_HISTORY.orgcode_sum')
     else
