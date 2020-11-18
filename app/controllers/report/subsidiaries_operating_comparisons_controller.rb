@@ -10,7 +10,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
-    @month_name = params[:month_name]&.strip || Time.now.month
+    @month_name = params[:month_name]&.strip || Time.now.last_month.month
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
 
@@ -43,7 +43,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     show_org_codes = data.collect(&:orgcode)
 
     most_recent_year = @year_names.first
-    most_recent_month = (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)
+    most_recent_month = (@month_name.to_i < Time.now.last_month.month ? @month_name.to_i : Time.now.last_month.month)
     end_of_month = Time.new(most_recent_year, most_recent_month, 1).end_of_month
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
 
