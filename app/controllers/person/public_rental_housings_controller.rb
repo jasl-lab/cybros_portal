@@ -121,7 +121,7 @@ module Person
           @public_rental_housing_apply.belong_company_code = current_user_department.company_code
           @public_rental_housing_apply.belong_department_name = current_user_department.name
           @public_rental_housing_apply.belong_department_code = current_user_department.dept_code
-          @public_rental_housing_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
+          @public_rental_housing_apply.contract_belong_company = Nc::PsndocCtrt.contract_belong_company(current_user.clerk_code)
           @public_rental_housing_apply.contract_belong_company_code = current_user_department.company_code
         end
       end

@@ -121,7 +121,7 @@ module Person
           @proof_of_income_apply.belong_company_code = current_user_department.company_code
           @proof_of_income_apply.belong_department_name = current_user_department.name
           @proof_of_income_apply.belong_department_code = current_user_department.dept_code
-          @proof_of_income_apply.contract_belong_company = UltDb::Query.contract_belong_company(current_user.clerk_code)
+          @proof_of_income_apply.contract_belong_company = Nc::PsndocCtrt.contract_belong_company(current_user.clerk_code)
           @proof_of_income_apply.contract_belong_company_code = Bi::OrgShortName.org_code_by_long_name.fetch(@proof_of_income_apply.contract_belong_company, current_user_department.company_code)
         end
       end
