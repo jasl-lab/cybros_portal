@@ -164,7 +164,11 @@ class Person::NameCardsController < ApplicationController
   end
 
   def upload_name_card
-    @name_card_apply.update(printed_name_card: params[:name_card_apply][:printed_name_card])
+    res = @name_card_apply.update(printed_name_card: params[:name_card_apply][:printed_name_card])
+    if res
+      DownloadPersonalNameCardMailer.with(name_card_apply_id: @name_card_apply.id)
+        .download_link_email.deliver_later
+    end
   end
 
   def download_name_card
