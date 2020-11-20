@@ -15,7 +15,7 @@ gem "auto_strip_attributes"
 # Use sqlite as the database for Active Record
 gem "mysql2"
 
-gem 'tiny_tds', '~> 2.1.3.pre'
+gem 'tiny_tds', '~> 2.1.3'
 # bundle config local.activerecord-sqlserver-adapter /Users/guochunzhong/git/oss/activerecord-sqlserver-adapter/
 gem 'activerecord-sqlserver-adapter', git: 'https://github.com/rails-sqlserver/activerecord-sqlserver-adapter', branch: 'master'
 

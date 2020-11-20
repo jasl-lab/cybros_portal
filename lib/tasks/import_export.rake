@@ -38,6 +38,7 @@ namespace :import_export do
       email = row['email']
       position_title = row['position_title']
       clerk_code = row['clerk_code']
+      pre_sso_id = row['pre_sso_id']
       job_level = row['job_level']
       locked_at = row['locked_at']
       chinese_name = row['chinese_name']
@@ -47,6 +48,7 @@ namespace :import_export do
       user = User.find_or_create_by(email: email)
       user.position_title = position_title
       user.clerk_code = clerk_code
+      user.pre_sso_id = pre_sso_id
       user.job_level = job_level
       user.locked_at = locked_at
       user.chinese_name = chinese_name
