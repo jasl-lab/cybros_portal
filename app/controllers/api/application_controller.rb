@@ -29,6 +29,7 @@ module API
       user = User.find_or_initialize_by(email: email)
       user.position_title = params[:position_title]
       user.clerk_code = params[:clerk_code]
+      user.pre_sso_id = params[:pre_sso_id]
       user.chinese_name = params[:chinese_name]
       user.job_level = params[:job_level]
       user.locked_at = params[:locked_at]
