@@ -12,10 +12,22 @@ export default class extends Controller {
     subsidiaryWorkloadingsJobDayChart = echarts.init(document.getElementById('subsidiary-workloadings-job-day-chart'));
 
     if (!isNonConstruction) {
-      subsidiaryWorkloadingsPlanningDayChart = echarts.init(document.getElementById('subsidiary-workloadings-planning-day-chart'));
-      subsidiaryWorkloadingsBuildingDayChart = echarts.init(document.getElementById('subsidiary-workloadings-building-day-chart'));
+      if (document.getElementById('subsidiary-workloadings-planning-day-chart')) {
+        subsidiaryWorkloadingsPlanningDayChart = echarts.init(document.getElementById('subsidiary-workloadings-planning-day-chart'));
+      } else {
+        subsidiaryWorkloadingsPlanningDayChart = null;
+      }
+      if (document.getElementById('subsidiary-workloadings-building-day-chart')) {
+        subsidiaryWorkloadingsBuildingDayChart = echarts.init(document.getElementById('subsidiary-workloadings-building-day-chart'));
+      } else {
+        subsidiaryWorkloadingsBuildingDayChart = null;
+      }
     } else {
-      subsidiaryWorkloadingsNonConstructionDayChart = echarts.init(document.getElementById('subsidiary-workloadings-non-construction-day-chart'));
+      if (document.getElementById('subsidiary-workloadings-non-construction-day-chart')) {
+        subsidiaryWorkloadingsNonConstructionDayChart = echarts.init();
+      } else {
+        subsidiaryWorkloadingsNonConstructionDayChart = null;
+      }
     }
 
     const xAxisJobCode = JSON.parse(this.data.get("x_axis_job_code"));
@@ -295,21 +307,33 @@ export default class extends Controller {
     subsidiaryWorkloadingsJobDayChart.setOption(option1, false);
     subsidiaryWorkloadingsJobDayChart.on('click', drill_down_model_show(xAxisJob, xAxisJobCode));
     if(!isNonConstruction) {
-      subsidiaryWorkloadingsPlanningDayChart.setOption(option2, false);
-      subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show(xAxisBluePrint, xAxisBluePrintCode));
-      subsidiaryWorkloadingsBuildingDayChart.setOption(option3, false);
-      subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show(xAxisConstruction, xAxisConstructionCode));
+      if (subsidiaryWorkloadingsPlanningDayChart) {
+        subsidiaryWorkloadingsPlanningDayChart.setOption(option2, false);
+        subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show(xAxisBluePrint, xAxisBluePrintCode));
+      }
+      if (subsidiaryWorkloadingsBuildingDayChart) {
+        subsidiaryWorkloadingsBuildingDayChart.setOption(option3, false);
+        subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show(xAxisConstruction, xAxisConstructionCode));
+      }
     } else {
-      subsidiaryWorkloadingsNonConstructionDayChart.setOption(option4, false);
-      subsidiaryWorkloadingsNonConstructionDayChart.on('click', drill_down_model_show(xAxisNonConstruction, xAxisNonConstructionCode));
+      if (subsidiaryWorkloadingsNonConstructionDayChart) {
+        subsidiaryWorkloadingsNonConstructionDayChart.setOption(option4, false);
+        subsidiaryWorkloadingsNonConstructionDayChart.on('click', drill_down_model_show(xAxisNonConstruction, xAxisNonConstructionCode));
+      }
     }
     setTimeout(() => {
       subsidiaryWorkloadingsJobDayChart.resize();
       if(!isNonConstruction) {
-        subsidiaryWorkloadingsPlanningDayChart.resize();
-        subsidiaryWorkloadingsBuildingDayChart.resize();
+        if (subsidiaryWorkloadingsPlanningDayChart) {
+          subsidiaryWorkloadingsPlanningDayChart.resize();
+        }
+        if (subsidiaryWorkloadingsBuildingDayChart) {
+          subsidiaryWorkloadingsBuildingDayChart.resize();
+        }
       } else {
-        subsidiaryWorkloadingsNonConstructionDayChart.resize();
+        if (subsidiaryWorkloadingsBuildingDayChart) {
+          subsidiaryWorkloadingsNonConstructionDayChart.resize();
+        }
       }
     }, 200);
   }
@@ -317,20 +341,32 @@ export default class extends Controller {
   layout() {
     subsidiaryWorkloadingsJobDayChart.resize();
     if(!isNonConstruction) {
-      subsidiaryWorkloadingsPlanningDayChart.resize();
-      subsidiaryWorkloadingsBuildingDayChart.resize();
+      if (subsidiaryWorkloadingsPlanningDayChart) {
+        subsidiaryWorkloadingsPlanningDayChart.resize();
+      }
+      if (subsidiaryWorkloadingsBuildingDayChart) {
+        subsidiaryWorkloadingsBuildingDayChart.resize();
+      }
     } else {
-      subsidiaryWorkloadingsNonConstructionDayChart.resize();
+      if (subsidiaryWorkloadingsNonConstructionDayChart) {
+        subsidiaryWorkloadingsNonConstructionDayChart.resize();
+      }
     }
   }
 
   disconnect() {
     subsidiaryWorkloadingsJobDayChart.dispose();
     if(!isNonConstruction) {
-      subsidiaryWorkloadingsPlanningDayChart.dispose();
-      subsidiaryWorkloadingsBuildingDayChart.dispose();
+      if (subsidiaryWorkloadingsPlanningDayChart) {
+        subsidiaryWorkloadingsPlanningDayChart.dispose();
+      }
+      if (subsidiaryWorkloadingsBuildingDayChart) {
+        subsidiaryWorkloadingsBuildingDayChart.dispose();
+      }
     } else {
-      subsidiaryWorkloadingsNonConstructionDayChart.dispose();
+      if (subsidiaryWorkloadingsNonConstructionDayChart) {
+        subsidiaryWorkloadingsNonConstructionDayChart.dispose();
+      }
     }
   }
 }
