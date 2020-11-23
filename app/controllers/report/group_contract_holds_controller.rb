@@ -20,7 +20,7 @@ class Report::GroupContractHoldsController < Report::BaseController
       .where(date: @last_available_date)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     data = if @view_orgcode_sum
       data.select("CONTRACT_HOLD.orgcode_sum orgcode, ORG_ORDER.org_order, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")

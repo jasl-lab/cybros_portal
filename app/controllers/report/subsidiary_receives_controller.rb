@@ -24,7 +24,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .where(realdate: beginning_of_year..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     real_data = if @view_orgcode_sum
       real_data.select("orgcode_sum orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
@@ -70,7 +70,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .where(date: need_data_last_available_date)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     need_data = if @view_orgcode_sum
       need_data.select("orgcode_sum orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
@@ -139,7 +139,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .where(date: beginning_of_month)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
     real_rate_sum = if @view_orgcode_sum
       real_rate_sum.select("orgcode_sum orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode_sum")

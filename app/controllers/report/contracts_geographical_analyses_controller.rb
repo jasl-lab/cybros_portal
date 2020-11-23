@@ -18,7 +18,7 @@ class Report::ContractsGeographicalAnalysesController < Report::BaseController
     all_company_orgcodes = policy_scope(Bi::CrmSacontract, :overview_resolve)
       .select(:businessltdcode, :"ORG_ORDER.org_order")
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = V_TH_RP_CRM_SACONTRACT.businessltdcode')
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
       .where('YEAR(filingtime) in (?)', @year_names).pluck(:businessltdcode).uniq
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 

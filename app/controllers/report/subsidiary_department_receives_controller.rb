@@ -30,7 +30,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
         .where('ORG_ORDER.org_order is not null')
         .where("ORG_ORDER.org_type = '创意板块'")
-        .order('ORG_ORDER.org_order DESC').pluck(:orgcode).uniq
+        .order('ORG_ORDER.org_order ASC').pluck(:orgcode).uniq
     @available_short_company_names = available_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @real_data_last_available_date = policy_scope(Bi::CompleteValueDept, :group_resolve).last_available_date(@end_of_month)

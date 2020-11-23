@@ -33,7 +33,7 @@ class Report::ContractSigningsController < Report::BaseController
       .where(date: last_available_date)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     data = if @view_orgcode_sum
       data.select("orgcode_sum orgcode, org_order, ROUND(SUM(contract_amount)/10000, 2) sum_contract_amount, SUM(contract_period) sum_contract_period, SUM(count) sum_contract_amount_count")
@@ -91,7 +91,7 @@ class Report::ContractSigningsController < Report::BaseController
       .where(date: last_available_date)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     cp_data = if @view_orgcode_sum
       cp_data.select("CONTRACT_PRODUCTION_DEPT.orgcode_sum orgcode, org_order, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")

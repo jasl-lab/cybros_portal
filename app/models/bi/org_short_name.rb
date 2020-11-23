@@ -51,7 +51,7 @@ module Bi
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
       .where('ORG_SHORTNAME.shortname is not null')
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
       .collect { |o| [o.shortname, o.code] }
     end
 

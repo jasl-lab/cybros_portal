@@ -22,7 +22,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
         .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = OCDW.V_TH_DEPTMONEYFLOW.comp')
         .where('ORG_ORDER.org_order is not null')
         .where("ORG_ORDER.org_type = '创意板块'")
-        .order('ORG_ORDER.org_order DESC')
+        .order('ORG_ORDER.org_order ASC')
         .pluck(:comp).uniq
     @available_short_company_names = available_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 

@@ -19,7 +19,7 @@ class Report::DesignCashFlowsController < Report::BaseController
       .where(checkdate: beginning_of_month..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     only_have_data_orgs = orgs_data.pluck(:comp).uniq
     real_company_short_names = only_have_data_orgs.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
@@ -34,7 +34,7 @@ class Report::DesignCashFlowsController < Report::BaseController
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
       .group('OCDW.V_TH_DEPTMONEYFLOW.comp, ORG_ORDER.org_order')
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     @org_names = data.collect(&:orgcode).collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
     @org_endmoney = data.collect(&:endmoney)

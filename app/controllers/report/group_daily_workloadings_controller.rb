@@ -27,7 +27,7 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
       .where(date: beginning_of_day..end_of_day)
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
-      .order('ORG_ORDER.org_order DESC')
+      .order('ORG_ORDER.org_order ASC')
 
     data = if @view_orgcode_sum
       data
