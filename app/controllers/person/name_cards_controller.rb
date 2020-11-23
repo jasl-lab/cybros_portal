@@ -179,9 +179,10 @@ class Person::NameCardsController < ApplicationController
   def download_name_card
     clerk_code = params[:clerk_code]
     user = User.find_by clerk_code: clerk_code
-    return head :not_found unless user.present? && user.id == current_user.id
-
     certain_name_card_apply = NameCardApply.find_by id: params[:name_card_apply_id]
+
+    return head :not_found unless user.present? && (user.id == current_user.id || current_user.email == certain_name_card_apply.email)
+
     if certain_name_card_apply.present? && certain_name_card_apply.printed_name_card.attached?
       return redirect_to rails_blob_path(certain_name_card_apply.printed_name_card)
     end
