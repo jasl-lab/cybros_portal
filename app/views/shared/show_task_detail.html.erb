@@ -1,9 +1,11 @@
-<%- content_for :action_bar do %>
-  <ol>
-    <li class="action_bar-item">
-      <%= link_to t(".actions.return"), show_task_detail_return_path, class: "btn text-primary" %>
-    </li>
-  </ol>
+<% if show_task_detail_return_path.present? %>
+  <%- content_for :action_bar do %>
+    <ol>
+      <li class="action_bar-item">
+        <%= link_to t(".actions.return"), show_task_detail_return_path, class: "btn text-primary" %>
+      </li>
+    </ol>
+  <% end %>
 <% end %>
 
 <div class="row justify-content-center">
@@ -25,30 +27,30 @@
           </tr>
           </thead>
           <tbody>
-          <% @result['rows'].each do |r| %>
-            <tr>
-              <td>
-                <%= r["STEPNAME"] -%>
-              </td>
-              <td>
-                <%= r["TASKUSER"] -%>
-              </td>
-              <td>
-                <%= r["APPROVER"] -%>
-              </td>
-              <td>
-                <%= r["ACTION"] -%>
-              </td>
-              <td>
-                <%= r["COMMENTS"] -%>
-              </td>
-              <td>
-                <%= r["STARTTIME"] -%>
-                <br />
-                <%= r["ENDTIME"] -%>
-              </td>
-            </tr>
-          <% end %>
+            <% @result['rows'].each do |r| %>
+              <tr>
+                <td>
+                  <%= r["STEPNAME"] -%>
+                </td>
+                <td>
+                  <%= r["TASKUSER"] -%>
+                </td>
+                <td>
+                  <%= r["APPROVER"] -%>
+                </td>
+                <td>
+                  <%= r["ACTION"] -%>
+                </td>
+                <td>
+                  <%= r["COMMENTS"] -%>
+                </td>
+                <td>
+                  <%= r["STARTTIME"] -%>
+                  <br />
+                  <%= r["ENDTIME"] -%>
+                </td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
       </div>

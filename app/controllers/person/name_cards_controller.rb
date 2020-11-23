@@ -102,7 +102,12 @@ class Person::NameCardsController < ApplicationController
       json: { processName: '', incident: '', taskId: @name_card_apply.begin_task_id })
     Rails.logger.debug "name cards apply history response: #{response}"
     @result = JSON.parse(response.body.to_s)
-    render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: person_name_cards_path }
+    respond_to do |format|
+      format.html do
+        render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: person_name_cards_path }
+      end
+      format.js { render }
+    end
   end
 
   def start_approve

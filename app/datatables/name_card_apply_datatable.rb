@@ -58,7 +58,7 @@ class NameCardApplyDatatable < ApplicationDatatable
       { name: r_chinese_name,
         english_name: r.english_name,
         email: r.email,
-        task_id: (r.begin_task_id.present? ? link_to(I18n.t("person.name_cards.index.actions.look_workflow"), person_name_card_path(id: r.id, begin_task_id: r.begin_task_id)) : ""),
+        task_id: (r.begin_task_id.present? ? link_to(I18n.t("person.name_cards.index.actions.look_workflow"), person_name_card_path(id: r.id, begin_task_id: r.begin_task_id), remote: true) : ""),
         department_name: r.department_name,
         en_department_name: r.en_department_name,
         title: r.title,

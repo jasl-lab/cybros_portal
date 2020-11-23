@@ -1,0 +1,16 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"><%= name_card_apply.chinese_name %></h5>
+      <a class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <%= render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: nil } %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
+    </div>
+  </div>
+</div
