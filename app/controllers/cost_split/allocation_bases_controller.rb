@@ -3,7 +3,7 @@
 class CostSplit::AllocationBasesController < CostSplit::BaseController
   def index
     prepare_meta_tags title: t('.title')
-    @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase.all
+    @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase.where.not(start_date: nil).where.not(version: nil)
   end
 
   def new
@@ -13,7 +13,7 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
   end
 
   def create
-    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(cost_split_allocation_base_params)
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(cost_split_allocation_base_params, start_date: Time.now, version: 1)
   end
 
   def edit
