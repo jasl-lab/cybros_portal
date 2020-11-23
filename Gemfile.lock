@@ -157,7 +157,7 @@ GEM
     devise-jwt (0.8.0)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.5)
-    devise_invitable (2.0.2)
+    devise_invitable (2.0.3)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     domain_name (0.5.20190701)
@@ -298,7 +298,7 @@ GEM
       validate_url
       webfinger (>= 1.0.1)
     orm_adapter (0.5.0)
-    parallel (1.20.0)
+    parallel (1.20.1)
     parser (2.7.2.0)
       ast (~> 2.4.1)
     public_suffix (4.0.6)
