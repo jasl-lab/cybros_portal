@@ -43,7 +43,7 @@ class NameCardApplyDatatable < ApplicationDatatable
           "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.upload"), edit_person_name_card_path(id: r.id), remote: true)}".html_safe
         end
       else
-        if r.user.id == @current_user.id
+        if r.user.id == @current_user.id && r.printed_name_card.attached?
           "#{r.chinese_name}<br />#{link_to(I18n.t("person.name_cards.index.actions.download"), download_name_card_person_name_cards_path(clerk_code: r.user.clerk_code, name_card_apply_id: r.id))}".html_safe
         else
           r.chinese_name
