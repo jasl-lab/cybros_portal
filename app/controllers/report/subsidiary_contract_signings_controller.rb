@@ -39,6 +39,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept, :group_resolve).last_available_date(@end_of_month)
     @company_short_names = policy_scope(Bi::ContractSignDept, :group_resolve).where(date: @last_available_sign_dept_date)
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN_DEPT.orgcode')
       .order("ORG_ORDER.org_order DESC")
       .select("CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order").distinct.where(filingtime: @beginning_of_year..@end_of_month)

@@ -23,6 +23,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     real_data = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
       .where(realdate: beginning_of_year..@end_of_month)
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order DESC')
 
     real_data = if @view_orgcode_sum
@@ -68,6 +69,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
       .where(date: need_data_last_available_date)
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order DESC')
 
     need_data = if @view_orgcode_sum
@@ -136,6 +138,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum, :group_resolve)
       .where(date: beginning_of_month)
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order DESC')
     real_rate_sum = if @view_orgcode_sum
       real_rate_sum.select("orgcode_sum orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")

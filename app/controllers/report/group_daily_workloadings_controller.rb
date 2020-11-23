@@ -26,6 +26,7 @@ class Report::GroupDailyWorkloadingsController < Report::BaseController
     data = policy_scope(Bi::WorkHoursDayCountOrg)
       .where(date: beginning_of_day..end_of_day)
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order DESC')
 
     data = if @view_orgcode_sum

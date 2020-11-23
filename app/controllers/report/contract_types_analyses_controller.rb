@@ -23,6 +23,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
       .select('businessltdcode')
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRICE.businessltdcode')
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order DESC')
       .collect(&:businessltdcode).uniq
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }

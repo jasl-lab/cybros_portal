@@ -25,6 +25,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     all_company_orgcodes = data
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = YEAR_REPORT_HISTORY.orgcode')
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order DESC')
       .collect { |y| @view_orgcode_sum ? y.orgcode_sum : y.orgcode } - ['000103', '000149', '000150', '000130', '00012801','000119']
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }

@@ -14,6 +14,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       all_orgcodes = Bi::CompleteValueDept
         .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode')
         .where('ORG_ORDER.org_order is not null')
+        .where("ORG_ORDER.org_type = '创意板块'")
         .order('ORG_ORDER.org_order DESC')
         .pluck(:orgcode).uniq
       all_company_names = all_orgcodes.collect do |c|

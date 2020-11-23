@@ -49,6 +49,7 @@ module Bi
     def self.org_options
       joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = ORG_SHORTNAME.code')
       .where('ORG_ORDER.org_order is not null')
+      .where("ORG_ORDER.org_type = '创意板块'")
       .where('ORG_SHORTNAME.shortname is not null')
       .order('ORG_ORDER.org_order DESC')
       .collect { |o| [o.shortname, o.code] }
