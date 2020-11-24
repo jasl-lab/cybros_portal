@@ -44,11 +44,12 @@
       <% end %>
       <div class="form-group">
         <label class="mr-1"><%= t(".month_name") -%>：</label>
-        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control',
+          onchange: "$('#input-of-real-receive-per-staff-ref').val('')" %>
       </div>
       <div class="form-group">
         <label class="mr-1"><%= t(".real_receive_per_staff_ref") -%>：</label>
-        <%= text_field_tag 'real_receive_per_staff_ref', @real_receive_per_staff_ref, class: 'form-control form-control2' %>
+        <%= text_field_tag 'real_receive_per_staff_ref', @real_receive_per_staff_ref, class: 'form-control form-control2', id: 'input-of-real-receive-per-staff-ref' %>
       </div>
       <div class="form-group mr-3">
         <label class="mr-1"><%= t(".dept_names") -%>：</label>
