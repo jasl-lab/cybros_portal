@@ -34,8 +34,20 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
     end
   end
 
-  private
+  def submit
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
+    @cost_split_allocation_base.update(version:
+      SplitCost::CostSplitAllocationBase.where(base_name: @cost_split_allocation_base.base_name, company_code: @cost_split_allocation_base.company_code).count)
+    render :update
+  end
 
+  def reject
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
+    @cost_split_allocation_base.update(version: nil)
+    render :update
+  end
+
+  private
     def cost_split_allocation_base_params
       params.fetch(:split_cost_cost_split_allocation_base, {})
         .permit(:base_name, :company_code, :head_count)
