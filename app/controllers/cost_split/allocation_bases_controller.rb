@@ -19,7 +19,12 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
   end
 
   def create
-    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(cost_split_allocation_base_params)
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(
+      base_name: cost_split_allocation_base_params[:base_name],
+      company_code: cost_split_allocation_base_params[:company_code],
+      head_count: cost_split_allocation_base_params[:head_count],
+      version: SplitCost::CostSplitAllocationBase.where(base_name: cost_split_allocation_base_params[:base_name],
+               company_code: cost_split_allocation_base_params[:company_code])&.count.to_i)
   end
 
   def edit
@@ -38,6 +43,13 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
       @cost_split_allocation_base.update_columns(start_date: Date.today)
     when 'version_up'
       @cost_split_allocation_base.update(end_date: Date.today)
+      @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(
+        base_name: @cost_split_allocation_base.base_name,
+        company_code: @cost_split_allocation_base.company_code,
+        head_count: @cost_split_allocation_base.head_count,
+        version: SplitCost::CostSplitAllocationBase
+          .where(base_name: cost_split_allocation_base_params[:base_name],
+                 company_code: cost_split_allocation_base_params[:company_code]).count)
     end
   end
 
