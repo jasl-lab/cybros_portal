@@ -11,9 +11,12 @@ en:
           new: "New"
       new:
         title: "Create new allocation numerator base"
-        head_count: "Head count"
         close: "Close"
       edit:
         title: "Edit allocation numerator base"
-        head_count: "Head count"
         close: "Close"
+      table:
+        head_count: "Head count"
+        start_date: "Start date"
+        end_date: "End date"
+        version: "Version"

@@ -14,6 +14,8 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
     @base_name = params[:base_name]
     @company_code = params[:company_code]
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(base_name: @base_name, company_code: @company_code)
+
+    @csab_histories = SplitCost::CostSplitAllocationBase.where(base_name: @base_name, company_code: @company_code)
   end
 
   def create
@@ -22,6 +24,8 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
 
   def edit
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
+
+    @csab_histories = SplitCost::CostSplitAllocationBase.where(base_name: @cost_split_allocation_base.base_name, company_code: @cost_split_allocation_base.company_code)
   end
 
   def update

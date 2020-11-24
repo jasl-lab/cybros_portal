@@ -11,9 +11,12 @@ zh-CN:
           new: "新建"
       new:
         title: "新建分摊分子基数"
-        head_count: "人数"
         close: "关闭"
       edit:
         title: "修改分摊分子基数"
-        head_count: "人数"
         close: "关闭"
+      table:
+        head_count: "人数"
+        start_date: "开始时间"
+        end_date: "结束日期"
+        version: "版本"
