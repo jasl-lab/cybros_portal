@@ -13,5 +13,9 @@ en:
         update: "Update"
         submit: "Submit"
         destroy: "Delete"
+        version_up: "Version up"
+        confirm: "Confirm"
+        reject: "Reject"
+        save: "Save"
     confirmation:
       destroy: "Do you want to delete?"

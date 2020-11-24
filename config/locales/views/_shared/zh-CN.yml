@@ -13,5 +13,9 @@ zh-CN:
         update: "更新"
         submit: "提交"
         destroy: "删除"
+        version_up: "升级版本"
+        confirm: "确认"
+        reject: "驳回"
+        save: "保存"
     confirmation:
       destroy: "确定要删除吗？"

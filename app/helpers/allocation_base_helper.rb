@@ -14,6 +14,15 @@ module AllocationBaseHelper
   end
 
   def cost_split_allocation_base_possible_next_form_actions(status)
-    ['update']
+    case status
+    when 'archived'
+      []
+    when 'confirmed'
+      ['version_up']
+    when 'submitted'
+      ['confirm', 'reject']
+    when 'editing'
+      ['save', 'submit']
+    end
   end
 end
