@@ -1,0 +1,10 @@
+---
+en:
+  activerecord:
+    attributes:
+      split_cost/cost_splite_allocation_base:
+        status:
+          archived: Archived
+          confirmed: Confirmed
+          submitted: Submitted
+          editing: Editing

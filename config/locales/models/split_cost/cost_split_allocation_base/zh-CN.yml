@@ -1,0 +1,10 @@
+---
+zh-CN:
+  activerecord:
+    attributes:
+      split_cost/cost_splite_allocation_base:
+        status:
+          archived: 已归档
+          confirmed: 已确认
+          submitted: 已提交
+          editing: 编辑中

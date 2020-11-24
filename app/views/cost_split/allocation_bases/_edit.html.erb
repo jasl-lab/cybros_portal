@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title">
-        <%= t(".title") %>
+        <%= t(".title") %> (<%= current_status(cost_split_allocation_base) %>)
       </h5>
     </div>
     <%= form_with model: cost_split_allocation_base, url: cost_split_allocation_basis_path(cost_split_allocation_base) do |f| %>

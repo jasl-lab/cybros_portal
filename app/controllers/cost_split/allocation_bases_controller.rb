@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CostSplit::AllocationBasesController < CostSplit::BaseController
+  include AllocationBaseHelper
+
   def index
     prepare_meta_tags title: t('.title')
     @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase.where.not(start_date: nil).where.not(version: nil)
