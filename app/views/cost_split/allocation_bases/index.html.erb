@@ -24,7 +24,12 @@
                 <td><%= base_name -%></td>
                 <% short_name_pairs.each do |name_pair| -%>
                   <td id="td-<%= base_name -%>-<%= name_pair.second -%>">
-                    <% csab = @cost_split_allocation_bases.find { |c| c.base_name == base_name && c.company_code == name_pair.second } %>
+                    <% 
+                      csab = @cost_split_allocation_bases.find { |c| c.base_name == base_name && c.company_code == name_pair.second } 
+                      if csab.blank?
+                        csab = SplitCost::CostSplitAllocationBase.find_by(base_name: base_name, company_code: name_pair.second, start_date: nil)
+                      end
+                    %>
                     <% if csab.present? %>
                       <%= link_to csab.head_count, edit_cost_split_allocation_basis_path(csab), remote: true -%>
                     <% else %>
