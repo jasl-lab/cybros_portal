@@ -331,7 +331,12 @@ Rails.application.routes.draw do
         patch :version_up
       end
     end
-    resources :allocation_bases, only: %i[index create new update edit]
+    resources :allocation_bases, only: %i[index create new update edit] do
+      member do
+        patch :reject
+        patch :submit
+      end
+    end
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

@@ -5,7 +5,9 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
 
   def index
     prepare_meta_tags title: t('.title')
-    @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase.where.not(start_date: nil).where.not(version: nil)
+    @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase
+      .where.not(start_date: nil)
+      .where(end_date: nil)
   end
 
   def new
@@ -23,14 +25,21 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
   end
 
   def update
+    base_name = cost_split_allocation_base_params[:base_name]
+    company_code = cost_split_allocation_base_params[:company_code]
+    head_count = cost_split_allocation_base_params[:head_count]
+
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
-    @cost_split_allocation_base.update(cost_split_allocation_base_params)
+    case params[:form_action]
+    when 'version_up'
+      @cost_split_allocation_base.update(end_date: Date.today)
+    end
   end
 
   private
 
     def cost_split_allocation_base_params
       params.fetch(:split_cost_cost_split_allocation_base, {})
-        .permit(:base_name, :company_code, :head_count, :form_action)
+        .permit(:base_name, :company_code, :head_count)
     end
 end
