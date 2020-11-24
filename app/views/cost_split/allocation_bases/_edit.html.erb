@@ -1,8 +1,9 @@
 <div class="modal-dialog" role="document">
+  <% status = current_status(cost_split_allocation_base) %>
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title">
-        <%= t(".title") %> (<%= I18n.t("activerecord.attributes.split_cost/cost_splite_allocation_base.status.#{current_status(cost_split_allocation_base)}") %>)
+        <%= t(".title") %> (<%= I18n.t("activerecord.attributes.split_cost/cost_splite_allocation_base.status.#{status}") %>)
       </h5>
     </div>
     <%= form_with model: cost_split_allocation_base, url: cost_split_allocation_basis_path(cost_split_allocation_base) do |f| %>
@@ -15,8 +16,10 @@
         </div>
     </div>
     <div class="modal-footer">
-
-      <%= f.submit t("shared.form.submit.update"), class: "btn btn-primary" %>
+      <% cost_split_allocation_base_possible_next_form_actions(status).each do |form_action| %>
+        <%= f.hidden_field :form_action %>
+        <%= f.submit t("shared.form.submit.#{form_action}"), class: "btn btn-primary" %>
+      <% end %>
       <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
     </div>
     <% end %>

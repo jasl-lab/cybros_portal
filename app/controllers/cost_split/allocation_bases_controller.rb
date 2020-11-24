@@ -31,6 +31,6 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
 
     def cost_split_allocation_base_params
       params.fetch(:split_cost_cost_split_allocation_base, {})
-        .permit(:base_name, :company_code, :head_count)
+        .permit(:base_name, :company_code, :head_count, :form_action)
     end
 end

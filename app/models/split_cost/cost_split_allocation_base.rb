@@ -17,5 +17,7 @@ module SplitCost
       创意板块及新业务（2020年12月31日人数）
       上年平均人数
     ]
+
+    attr_accessor :form_action
   end
 end

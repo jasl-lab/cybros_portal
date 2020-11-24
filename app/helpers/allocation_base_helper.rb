@@ -12,4 +12,8 @@ module AllocationBaseHelper
       'editing'
     end
   end
+
+  def cost_split_allocation_base_possible_next_form_actions(status)
+    ['update']
+  end
 end
