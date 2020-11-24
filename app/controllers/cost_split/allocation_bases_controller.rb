@@ -29,6 +29,9 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
     case params[:form_action]
     when 'save'
       @cost_split_allocation_base.update(cost_split_allocation_base_params)
+    when 'confirm'
+      @cost_split_allocation_base.update(cost_split_allocation_base_params)
+      @cost_split_allocation_base.update_columns(start_date: Date.today)
     when 'version_up'
       @cost_split_allocation_base.update(end_date: Date.today)
     end
