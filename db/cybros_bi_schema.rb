@@ -393,6 +393,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "org_order", limit: 53
     t.string "org_code", limit: 45
     t.string "org_shortname", limit: 45
+    t.string "org_type", limit: 45
   end
 
   create_table "ORG_REPORT_DEPT_ORDER", primary_key: "index", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -705,7 +706,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   create_table "SUB_COMPANY_REAL_RATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "salescontractcode", limit: 20
     t.text "salescontractname"
-    t.datetime "contracttime"
+    t.datetime "filingtime"
     t.string "projectitemcode", limit: 20
     t.text "projectitemname"
     t.datetime "createddate"
@@ -1449,14 +1450,14 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "YEAR_AVG_STAFF", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.text "orgcode"
-    t.text "deptcode"
-    t.datetime "f_month"
+    t.string "orgcode", limit: 20
+    t.string "deptcode", limit: 20
+    t.date "f_month"
     t.float "date_x", limit: 53
     t.float "date_y", limit: 53
     t.float "avgamount", limit: 53
-    t.text "deptcode_sum"
-    t.text "orgcode_sum"
+    t.string "deptcode_sum", limit: 20
+    t.string "orgcode_sum", limit: 20
   end
 
   create_table "YEAR_AVG_STAFF_ALL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
