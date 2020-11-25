@@ -33,6 +33,7 @@ class User < ApplicationRecord
   has_many :cad_operations, class_name: "Cad::CadOperation", dependent: :destroy
   has_many :report_view_histories
   has_many :user_split_cost_settings, class_name: "SplitCost::UserSplitCostSetting"
+  has_many :user_split_cost_details, class_name: "SplitCost::UserSplitCostDetail"
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)

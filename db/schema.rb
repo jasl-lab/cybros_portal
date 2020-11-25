@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_085243) do
+ActiveRecord::Schema.define(version: 2020_11_25_073032) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -419,6 +419,19 @@ ActiveRecord::Schema.define(version: 2020_11_20_085243) do
     t.string "split_cost_item_no"
     t.string "split_cost_item_name"
     t.string "split_cost_item_category"
+  end
+
+  create_table "user_split_cost_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "v_wata_dept_code"
+    t.bigint "user_id", null: false
+    t.date "month"
+    t.string "to_split_company_code"
+    t.decimal "group_cost", precision: 10
+    t.decimal "shanghai_area_cost", precision: 10
+    t.decimal "shanghai_hq_cost", precision: 10
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_split_cost_details_on_user_id"
   end
 
   create_table "user_split_cost_group_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
