@@ -4,10 +4,11 @@ namespace :split_cost do
   desc 'Generate user split cost details'
   task :generate_user_split_cost_details, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
+    cyearperiod_month_start = Date.parse("#{cyearperiod[0..3]}-#{cyearperiod[4..5]}-01")
     水电房租 = Nc::Balance.countc_at_month(cyearperiod)
     csb = SplitCost::CostSplitAllocationBase
       .where(base_name: '创意板块平均总人数', company_code: '000101') # 上海天华
-      .where('start_date >= ?', Date.parse("#{cyearperiod[0..3]}-#{cyearperiod[4..5]}-01"))
+      .where('start_date >= ?', cyearperiod_month_start)
     raise '当前月份没有人数数据' unless csb.present? && csb.first&.head_count.present?
     当前计算月份上海天华人数 = csb.first.head_count
     Nc::WaTa.where(cyearperiod: cyearperiod, deptname: '天华集团-流程与信息化部').each do |wata|
@@ -18,13 +19,20 @@ namespace :split_cost do
       clerk_code = wata.code
       user = User.find_by(clerk_code: clerk_code)
       if user.present?
-        user.user_split_cost_settings.each do |settings|
-
+        user_split_cost_setting = user.user_split_cost_settings.where(start_date: cyearperiod_month_start).order(version: :desc).first
+        if user_split_cost_setting.present?
+          split_cost_to_companies(user_split_cost_setting, 该员工当月需要摊销金额, v_wata_dept_code)
+        else
+          puts "Can not find user_split_cost_setting, clert_code: #{clerk_code}, name: #{wata.name}"
         end
       else
-        "Can not find user, clert_code: #{clerk_code}, name: #{wata.name}"
+        puts "Can not find user, clert_code: #{clerk_code}, name: #{wata.name}"
       end
     end
+  end
+
+  def split_cost_to_companies(user_split_cost_setting, split_amount, v_wata_dept_code)
+
   end
 
   desc 'Import HRDW COM_MONTH_REPORT into cybros'
