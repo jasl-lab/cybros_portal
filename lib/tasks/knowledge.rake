@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :knowledge do
   desc 'Match knowledge question based on input sentence'
   task :match, [:sentence] => [:environment] do |task, args|

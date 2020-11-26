@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :export_lat_lng do
   desc "Export the CSV file"
   task :csv, [:csv_file_path] => [:environment] do |_task, args|

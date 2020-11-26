@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
 namespace :split_cost do
+  desc 'Generate user split cost details'
+  task generate_user_split_cost_details: :environment do
+  end
+
   desc 'Import HRDW COM_MONTH_REPORT into cybros'
   task hrdw_com_month_report_import: :environment do
     Hrdw::ComMonthReport.all.each do |c|

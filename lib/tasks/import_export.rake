@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :import_export do
   desc 'Filling CSV file to subsidiary_workloadings'
   task :subsidiary_workloadings, [:csv_file] => [:environment] do |task, args|

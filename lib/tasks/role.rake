@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :role do
   desc "Filling HR role and CW roles"
   task :all => [:auto_hr_access_role, :create_hr_role_access, :auto_cw_access_role, :create_cw_role_access]

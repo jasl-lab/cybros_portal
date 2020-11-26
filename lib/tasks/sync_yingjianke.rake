@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :sync_yingjianke do
   desc 'Sync overrun users in yingjianke'
   task sync_overrun_users: :environment do
@@ -13,6 +15,6 @@ namespace :sync_yingjianke do
         user.save
       end
     end
-    YingjiankeOverrunUser.where("created_at < ?", 3.days.ago).delete_all
+    YingjiankeOverrunUser.where('created_at < ?', 3.days.ago).delete_all
   end
 end
