@@ -5,10 +5,15 @@ namespace :split_cost do
   task :generate_user_split_cost_details, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
     水电房租 = Nc::Balance.countc_at_month(cyearperiod)
-    当前计算月份上海天华人数 = 1409
+    csb = SplitCost::CostSplitAllocationBase
+      .where(base_name: '创意板块平均总人数', company_code: '000101') # 上海天华
+      .where('start_date >= ?', Date.parse("#{cyearperiod[0..3]}-#{cyearperiod[4..5]}-01"))
+    raise '当前月份没有人数数据' unless csb.present? && csb.first&.head_count.present?
+    当前计算月份上海天华人数 = csb.first.head_count
     Nc::WaTa.where(cyearperiod: cyearperiod, deptname: '天华集团-流程与信息化部').each do |wata|
       需要摊销的工资 = wata.sum_gz + wata.sb * wata.sbpercent + wata.gjj * wata.gjjpercent
       该员工当月需要摊销金额 = 需要摊销的工资 + 水电房租 / 当前计算月份上海天华人数
+
       v_wata_dept_code = wata.deptcode
       clerk_code = wata.code
       user = User.find_by(clerk_code: clerk_code)
