@@ -6,11 +6,9 @@ namespace :split_cost do
     cyearperiod = args[:cyearperiod]
     cyearperiod_month_start = Date.parse("#{cyearperiod[0..3]}-#{cyearperiod[4..5]}-01")
     水电房租 = Nc::Balance.countc_at_month(cyearperiod)
-    csb = SplitCost::CostSplitAllocationBase
-      .where(base_name: '创意板块平均总人数', company_code: '000101') # 上海天华
-      .where('start_date >= ?', cyearperiod_month_start)
-    raise '当前月份没有人数数据' unless csb.present? && csb.first&.head_count.present?
-    当前计算月份上海天华人数 = csb.first.head_count
+    # 上海天华
+    当前计算月份上海天华人数 = SplitCost::CostSplitAllocationBase.head_count_at('创意板块平均总人数', '000101', cyearperiod_month_start)
+    raise '当前月份没有人数数据' unless 当前计算月份上海天华人数.present?
     Nc::WaTa.where(cyearperiod: cyearperiod, deptname: '天华集团-流程与信息化部').each do |wata|
       需要摊销的工资 = wata.sum_gz + wata.sb * wata.sbpercent + wata.gjj * wata.gjjpercent
       该员工当月需要摊销金额 = 需要摊销的工资 + 水电房租 / 当前计算月份上海天华人数
@@ -32,7 +30,6 @@ namespace :split_cost do
   end
 
   def split_cost_to_companies(user_split_cost_setting, split_amount, v_wata_dept_code)
-
   end
 
   desc 'Import HRDW COM_MONTH_REPORT into cybros'
