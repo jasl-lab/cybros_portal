@@ -18,13 +18,11 @@ module SplitCost
       上年平均人数
     ]
 
-    def self.head_count_at(base_name, company_code, start_date)
-      csab = SplitCost::CostSplitAllocationBase
-        .where(base_name: base_name, company_code: company_code)
-        .where('start_date >= ?', start_date)
-      if csab.present?
-        csab.first.head_count
-      end
+    def self.head_count_at(base_name, company_codes, start_date)
+      company_codes = Array(company_codes)
+      SplitCost::CostSplitAllocationBase
+        .where(base_name: base_name, company_code: company_codes)
+        .where('start_date >= ?', start_date).sum(:head_count)
     end
   end
 end
