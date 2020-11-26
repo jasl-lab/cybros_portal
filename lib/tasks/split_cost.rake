@@ -2,7 +2,24 @@
 
 namespace :split_cost do
   desc 'Generate user split cost details'
-  task generate_user_split_cost_details: :environment do
+  task :generate_user_split_cost_details, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    水电房租 = Nc::Balance.countc_at_month(cyearperiod)
+    当前计算月份上海天华人数 = 1409
+    Nc::WaTa.where(cyearperiod: cyearperiod, deptname: '天华集团-流程与信息化部').each do |wata|
+      需要摊销的工资 = wata.sum_gz + wata.sb * wata.sbpercent + wata.gjj * wata.gjjpercent
+      该员工当月需要摊销金额 = 需要摊销的工资 + 水电房租 / 当前计算月份上海天华人数
+      v_wata_dept_code = wata.deptcode
+      clerk_code = wata.code
+      user = User.find_by(clerk_code: clerk_code)
+      if user.present?
+        user.user_split_cost_settings.each do |settings|
+
+        end
+      else
+        "Can not find user, clert_code: #{clerk_code}, name: #{wata.name}"
+      end
+    end
   end
 
   desc 'Import HRDW COM_MONTH_REPORT into cybros'
