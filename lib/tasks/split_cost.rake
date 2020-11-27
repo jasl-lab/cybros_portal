@@ -126,5 +126,11 @@ namespace :split_cost do
       profession_electrical.update(start_date: "#{c.pmonth}-01", version: 1,
         head_count: c.profession_electrical)
     end
+    Hrdw::ComMonthReport.where(pmonth: "2019-12").each do |c|
+      # 上年平均人数
+      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '上年平均人数', company_code: c.orgcode_sum)
+      staff_avg_now.update(start_date: "#{c.pmonth}-01", version: 1,
+        head_count: c.staff_now)
+    end
   end
 end
