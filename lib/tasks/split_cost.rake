@@ -17,9 +17,9 @@ namespace :split_cost do
       clerk_code = wata.code
       user = User.find_by(clerk_code: clerk_code)
       if user.present?
-        user_split_cost_setting = user.user_split_cost_settings.where(start_date: cyearperiod_month_start).order(version: :desc).first
+        user_split_cost_setting = user.user_split_cost_settings.where("start_date>= ?", cyearperiod_month_start).order(version: :desc).first
         if user_split_cost_setting.present?
-          split_cost_to_companies(user_split_cost_setting, 该员工当月需要摊销金额, v_wata_dept_code)
+          split_cost_to_companies(user_split_cost_setting, 该员工当月需要摊销金额, v_wata_dept_code, cyearperiod_month_start)
         else
           puts "Can not find user_split_cost_setting, clert_code: #{clerk_code}, name: #{wata.name}"
         end
@@ -29,7 +29,43 @@ namespace :split_cost do
     end
   end
 
-  def split_cost_to_companies(user_split_cost_setting, split_amount, v_wata_dept_code)
+  def split_cost_to_companies(user_split_cost_setting, split_amount, v_wata_dept_code, cyearperiod_month_start)
+    unless user_split_cost_setting.group_rate.zero?
+      group_rate_base_name = user_split_cost_setting.group_rate_base
+      摊销人数分母_company_codes = user_split_cost_setting.user_split_cost_group_rate_companies.collect(&:company_code)
+      摊销人数分母 = SplitCost::CostSplitAllocationBase.head_count_at(group_rate_base_name, 摊销人数分母_company_codes, cyearperiod_month_start)
+      user_split_cost_setting.user_split_cost_group_rate_companies.each do |grc|
+        摊销人数分子_company_code = grc.company_code
+        摊销人数分子 = SplitCost::CostSplitAllocationBase.head_count_at(group_rate_base_name, 摊销人数分子_company_code, cyearperiod_month_start)
+        user_split_cost_detail = SplitCost::UserSplitCostDetail.find_or_initialize_by(v_wata_dept_code: v_wata_dept_code, user_id: user_split_cost_setting.user.id, month: cyearperiod_month_start, to_split_company_code: grc.company_code)
+        user_split_cost_detail.group_cost = split_amount * (user_split_cost_setting.group_rate / 100.0) * (摊销人数分子 / 摊销人数分母.to_f)
+        user_split_cost_detail.save
+      end
+    end
+    unless user_split_cost_setting.shanghai_area.zero?
+      shanghai_area_base_name = user_split_cost_setting.shanghai_area_base
+      摊销人数分母_company_codes = user_split_cost_setting.user_split_cost_shanghai_area_rate_companies.collect(&:company_code)
+      摊销人数分母 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_area_base_name, 摊销人数分母_company_codes, cyearperiod_month_start)
+      user_split_cost_setting.user_split_cost_shanghai_area_rate_companies.each do |sarc|
+        摊销人数分子_company_code = sarc.company_code
+        摊销人数分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_area_base_name, 摊销人数分子_company_code, cyearperiod_month_start)
+        user_split_cost_detail = SplitCost::UserSplitCostDetail.find_or_initialize_by(v_wata_dept_code: v_wata_dept_code, user_id: user_split_cost_setting.user.id, month: cyearperiod_month_start, to_split_company_code: sarc.company_code)
+        user_split_cost_detail.shanghai_area_cost = split_amount * (user_split_cost_setting.shanghai_area / 100.0) * (摊销人数分子 / 摊销人数分母.to_f)
+        user_split_cost_detail.save
+      end
+    end
+    unless user_split_cost_setting.shanghai_hq.zero?
+      shanghai_hq_base_name = user_split_cost_setting.shanghai_hq_base
+      摊销人数分母_company_codes = user_split_cost_setting.user_split_cost_shanghai_hq_rate_companies.collect(&:company_code)
+      摊销人数分母 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_hq_base_name, 摊销人数分母_company_codes, cyearperiod_month_start)
+      user_split_cost_setting.user_split_cost_shanghai_hq_rate_companies.each do |shrc|
+        摊销人数分子_company_code = shrc.company_code
+        摊销人数分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_hq_base_name, 摊销人数分子_company_code, cyearperiod_month_start)
+        user_split_cost_detail = SplitCost::UserSplitCostDetail.find_or_initialize_by(v_wata_dept_code: v_wata_dept_code, user_id: user_split_cost_setting.user.id, month: cyearperiod_month_start, to_split_company_code: shrc.company_code)
+        user_split_cost_detail.shanghai_hq_cost = split_amount * (user_split_cost_setting.shanghai_hq / 100.0) * (摊销人数分子 / 摊销人数分母.to_f)
+        user_split_cost_detail.save
+      end
+    end
   end
 
   desc 'Import HRDW COM_MONTH_REPORT into cybros'
