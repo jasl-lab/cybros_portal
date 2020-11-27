@@ -19,7 +19,7 @@
         <table class="table table-bordered table-responsive">
           <thead>
             <tr>
-              <th><%= t(".table.abstract") -%></th>
+              <th colspan="2"><%= t(".table.abstract") -%></th>
               <th><%= t(".table.sum") -%></th>
               <% @ordered_companies.keys.each do |org_shortname| -%>
                 <th><%= org_shortname -%></th>
@@ -29,8 +29,11 @@
           <tbody>
             <% @ordered_depts.keys.each_with_index do |dept_name, index| %>
               <tr>
-                <td><%= index + 1 -%></td>
+                <% if index == 0 %>
+                  <td rowspan="<%= @ordered_depts.keys.count -%>" style="vertical-align:middle;text-align:center;">工资、社保、公积金、房租及物业费小计</td>
+                <% end %>
                 <td><%= dept_name -%></td>
+                <td>0</td>
                 <% @ordered_companies.keys.each do |org_shortname| -%>
                   <td>
 
