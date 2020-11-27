@@ -6,3 +6,6 @@ zh-CN:
         title: "集团性费用分摊汇总"
         month_name: "年月"
         confirm: "确认"
+        table:
+          abstract: "摘要"
+          sum: "总计"

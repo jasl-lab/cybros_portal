@@ -6,3 +6,6 @@ en:
         title: "Group cost allocation summary"
         month_name: "Month"
         confirm: "Confirm"
+        table:
+          abstract: "Abstract"
+          sum: "Summary"
