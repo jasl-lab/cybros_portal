@@ -18,6 +18,23 @@ module SplitCost
       上年平均人数
     ]
 
+    # 上海天华、AICO建筑、上海室内、上海规划、天华景观、虹核审图、EID SH、AICO室内、天华节能、易术家、易湃工程、环境中心、易衡光伏科技
+    SHANGHAI_BASE_COMPANY_CODE = %w[
+      000101
+      000151
+      000113
+      000112
+      000114
+      000117
+      000126
+      000124
+      000103
+      000122
+      000150
+      000149
+      000130
+    ]
+
     def self.head_count_at(base_name, company_codes, start_date)
       company_codes = Array(company_codes)
       SplitCost::CostSplitAllocationBase

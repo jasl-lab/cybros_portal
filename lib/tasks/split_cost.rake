@@ -72,14 +72,23 @@ namespace :split_cost do
   task hrdw_com_month_report_import: :environment do
     Hrdw::ComMonthReport.all.each do |c|
       # 创意板块平均总人数
-      staff_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块平均总人数', company_code: c.orgcode_sum)
-      staff_now.update(start_date: "#{c.pmonth}-01", version: 1,
+      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块平均总人数', company_code: c.orgcode_sum)
+      staff_avg_now.update(start_date: "#{c.pmonth}-01", version: 1,
+        head_count: c.staff_now)
+      # 创意板块及新业务
+      staff_new_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块及新业务', company_code: c.orgcode_sum)
+      staff_new_now.update(start_date: "#{c.pmonth}-01", version: 1,
         head_count: c.staff_now)
 
       # 创意板块上海区域人数
       work_shanghai = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块上海区域人数', company_code: c.orgcode_sum)
-      work_shanghai.update(start_date: "#{c.pmonth}-01", version: 1,
-        head_count: c.work_shanghai)
+      if SHANGHAI_BASE_COMPANY_CODE.include?(c.orgcode_sum)
+        work_shanghai.update(start_date: "#{c.pmonth}-01", version: 1,
+          head_count: c.staff_now)
+      else
+        work_shanghai.update(start_date: "#{c.pmonth}-01", version: 1,
+          head_count: c.work_shanghai)
+      end
 
       # 施工图人数
       construction_design_electrical = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '施工图人数', company_code: c.orgcode_sum)
