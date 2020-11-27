@@ -90,6 +90,16 @@ namespace :split_cost do
           head_count: c.work_shanghai)
       end
 
+      # 创意板块及新业务（上海区域）
+      work_shanghai_new = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块及新业务（上海区域）', company_code: c.orgcode_sum)
+      if SHANGHAI_BASE_NEW_COMPANY_CODE.include?(c.orgcode_sum)
+        work_shanghai_new.update(start_date: "#{c.pmonth}-01", version: 1,
+          head_count: c.staff_now)
+      else
+        work_shanghai_new.update(start_date: "#{c.pmonth}-01", version: 1,
+          head_count: c.work_shanghai)
+      end
+
       # 施工图人数
       construction_design_electrical = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '施工图人数', company_code: c.orgcode_sum)
       construction_design_electrical.update(start_date: "#{c.pmonth}-01", version: 1,
