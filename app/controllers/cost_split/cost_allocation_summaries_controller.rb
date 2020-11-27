@@ -21,5 +21,10 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
         h[s.org_shortname] = s.org_code
         h
       end
+
+    @user_split_cost_details = SplitCost::UserSplitCostDetail.where(month: beginning_of_month)
+      .select('v_wata_dept_code, to_split_company_code, SUM(IFNULL(user_split_cost_details.group_cost,0)) group_cost, SUM(IFNULL(user_split_cost_details.shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(user_split_cost_details.shanghai_hq_cost,0)) shanghai_hq_cost')
+      .group(:v_wata_dept_code, :to_split_company_code)
+      .order(:v_wata_dept_code, :to_split_company_code)
   end
 end

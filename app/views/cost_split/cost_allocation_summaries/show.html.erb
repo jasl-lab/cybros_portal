@@ -35,8 +35,15 @@
                 <td><%= dept_name -%></td>
                 <td>0</td>
                 <% @ordered_companies.keys.each do |org_shortname| -%>
+                  <% uscd = @user_split_cost_details.find {|u| u.v_wata_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
                   <td>
-
+                    <% if uscd.present? %>
+                      集团性: <%= uscd.group_cost -%>
+                      <br />
+                      上海区域: <%= uscd.shanghai_area_cost -%>
+                      <br />
+                      纯上海天华: <%= uscd.shanghai_hq_cost -%>
+                    <% end %>
                   </td>
                 <% end %>
               </tr>
