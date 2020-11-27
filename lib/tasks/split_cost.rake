@@ -69,8 +69,9 @@ namespace :split_cost do
   end
 
   desc 'Import HRDW COM_MONTH_REPORT into cybros'
-  task hrdw_com_month_report_import: :environment do
-    Hrdw::ComMonthReport.all.each do |c|
+  task :hrdw_com_month_report_import, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    Hrdw::ComMonthReport.where(pmonth: "#{cyearperiod[0..3]}-#{cyearperiod[4..5]}").each do |c|
       # 创意板块平均总人数
       staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块平均总人数', company_code: c.orgcode_sum)
       staff_avg_now.update(start_date: "#{c.pmonth}-01", version: 1,
