@@ -337,6 +337,8 @@ Rails.application.routes.draw do
         patch :submit
       end
     end
+
+    resource :cost_allocation_summary, only: %i[show]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

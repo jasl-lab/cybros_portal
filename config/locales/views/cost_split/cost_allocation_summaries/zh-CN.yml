@@ -1,0 +1,6 @@
+---
+zh-CN:
+  cost_split:
+    cost_allocation_summaries:
+      show:
+        title: "集团性费用分摊汇总"

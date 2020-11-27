@@ -1,0 +1,6 @@
+---
+en:
+  cost_split:
+    cost_allocation_summaries:
+      show:
+        title: "Group cost allocation summary"
