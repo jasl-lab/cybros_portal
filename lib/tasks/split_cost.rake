@@ -17,7 +17,7 @@ namespace :split_cost do
       clerk_code = wata.code
       user = User.find_by(clerk_code: clerk_code)
       if user.present?
-        user_split_cost_setting = user.user_split_cost_settings.where("start_date>= ?", cyearperiod_month_start).order(version: :desc).first
+        user_split_cost_setting = user.user_split_cost_settings.where("start_date <= ?", cyearperiod_month_start).order(version: :desc).first
         if user_split_cost_setting.present?
           split_cost_to_companies(user_split_cost_setting, 该员工当月需要摊销金额, v_wata_dept_code, cyearperiod_month_start)
         else
