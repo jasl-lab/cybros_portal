@@ -7,6 +7,18 @@ class Report::GroupPredictContractsController < Report::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @all_month_names = policy_scope(Bi::TrackContract, :group_resolve).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.first
+    if @month_name.blank?
+      flash[:alert] = I18n.t('not_data_authorized')
+      raise Pundit::NotAuthorizedError
+    end
+    end_of_month = Date.parse(@month_name).end_of_month
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
+
+    @last_available_date = policy_scope(Bi::TrackContract, :group_resolve).where(date: beginning_of_month..end_of_month).order(date: :desc).first.date
+    @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
+
   end
 
   private

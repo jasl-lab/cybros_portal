@@ -7,3 +7,5 @@ en:
           view_orgcode_sum: "View organization in sum"
           view_orgcode: "View organization in detail"
         title: "Group predict contract"
+        month_name: "Query year and month"
+        confirm: "Submit"
