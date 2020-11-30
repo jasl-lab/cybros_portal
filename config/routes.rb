@@ -338,7 +338,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :cost_allocation_summary, only: %i[show]
+    resource :cost_allocation_summary, only: %i[show] do
+      collection do
+        get :drill_down
+      end
+    end
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

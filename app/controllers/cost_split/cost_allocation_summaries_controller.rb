@@ -27,4 +27,12 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
       .group(:v_wata_dept_code, :to_split_company_code)
       .order(:v_wata_dept_code, :to_split_company_code)
   end
+
+  def drill_down
+    dept_code = params[:dept_code].strip
+    to_split_company_code = params[:company_code].strip
+    month_name = params[:month_name].strip
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+    @user_split_cost_details = SplitCost::UserSplitCostDetail.where(v_wata_dept_code: dept_code, to_split_company_code: to_split_company_code, month: beginning_of_month)
+  end
 end

@@ -1,0 +1,32 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        <%= t(".title") %>
+      </h5>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered">
+        <thead>
+          <th><%= t('.table.user') -%></th>
+          <th><%= t('.table.group_cost') -%></th>
+          <th><%= t('.table.shanghai_area_cost') -%></th>
+          <th><%= t('.table.shanghai_hq_cost') -%></th>
+        </thead>
+        <tbody>
+          <% details.each do |d| %>
+            <tr>
+              <td><%= d.user_id -%></td>
+              <td><%= d.group_cost -%></td>
+              <td><%= d.shanghai_area_cost -%></td>
+              <td><%= d.shanghai_hq_cost -%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
+    </div>
+  </div>
+</div>

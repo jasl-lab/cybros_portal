@@ -9,3 +9,11 @@ en:
         table:
           abstract: "Abstract"
           sum: "Summary"
+      drill_down:
+        title: "Group cost allocation drill down"
+        table:
+          user: "User ID"
+          group_cost: "Group cost"
+          shanghai_area_cost: "Shanghai area cost"
+          shanghai_hq_cost: "Shanghai HQ cost"
+        close: "Close"
