@@ -7,6 +7,7 @@ export default class extends Controller {
     groupPredictContractChart = echarts.init(document.getElementById('group-predict-contract-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
+    const orgCodes = JSON.parse(this.data.get("org_codes"));
     const contractConvert = JSON.parse(this.data.get("contract_convert"));
     const convertRealAmount = JSON.parse(this.data.get("convert_real_amount"));
     const contractConvertTotals = JSON.parse(this.data.get("contract_convert_totals"));
@@ -108,9 +109,11 @@ export default class extends Controller {
     function drill_down_contract_detail(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
-          const department_name = xAxisData[params.dataIndex];
+          const org_code = orgCodes[params.dataIndex];
           const month_name = $('#month_name').val();
-          let drill_down_url;
+          let url;
+          url = '/report/predict_contract?view_deptcode_sum=true&org_code=' + org_code + '&month_name=' + encodeURIComponent(month_name);
+          Turbolinks.visit(url);
         }
       }
     }

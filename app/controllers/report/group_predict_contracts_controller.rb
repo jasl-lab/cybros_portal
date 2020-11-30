@@ -37,8 +37,9 @@ class Report::GroupPredictContractsController < Report::BaseController
         .order('ORG_ORDER.org_order, TRACK_CONTRACT.orgcode')
     end
 
-    @org_names = data.collect do |d|
-      Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
+    @org_codes = data.collect(&:orgcode)
+    @org_names = @org_codes.collect do |orgcode|
+      Bi::OrgShortName.company_short_names_by_orgcode.fetch(orgcode, orgcode)
     end
     @contract_convert = data.collect do |d|
       ((d.contractconvert || 0) / 10000.to_f).round(0)
