@@ -19,10 +19,17 @@
         <table class="table table-bordered table-responsive">
           <thead>
             <tr>
-              <th colspan="2"><%= t(".table.abstract") -%></th>
-              <th><%= t(".table.sum") -%></th>
+              <th colspan="2" rowspan="2"><%= t(".table.abstract") -%></th>
+              <th rowspan="2"><%= t(".table.sum") -%></th>
               <% @ordered_companies.keys.each do |org_shortname| -%>
-                <th><%= org_shortname -%></th>
+                <th colspan="3"><%= org_shortname -%></th>
+              <% end %>
+            </tr>
+            <tr>
+              <% @ordered_companies.keys.each do |org_shortname| -%>
+                <th>集团性</th>
+                <th>上海区域</th>
+                <th>纯上海天华</th>
               <% end %>
             </tr>
           </thead>
@@ -36,15 +43,15 @@
                 <td>0</td>
                 <% @ordered_companies.keys.each do |org_shortname| -%>
                   <% uscd = @user_split_cost_details.find {|u| u.v_wata_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
-                  <td>
-                    <% if uscd.present? %>
-                      集团性: <%= uscd.group_cost -%>
-                      <br />
-                      上海区域: <%= uscd.shanghai_area_cost -%>
-                      <br />
-                      纯上海天华: <%= uscd.shanghai_hq_cost -%>
-                    <% end %>
-                  </td>
+                  <% if uscd.present? %>
+                    <td><%= uscd.group_cost -%></td>
+                    <td><%= uscd.shanghai_area_cost -%></td>
+                    <td><%= uscd.shanghai_hq_cost -%></td>
+                  <% else %>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  <% end %>
                 <% end %>
               </tr>
             <% end %>
