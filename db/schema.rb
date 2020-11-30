@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_073032) do
+ActiveRecord::Schema.define(version: 2020_11_30_062818) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -379,6 +379,18 @@ ActiveRecord::Schema.define(version: 2020_11_25_073032) do
     t.boolean "org_viewer", default: false
   end
 
+  create_table "split_cost_item_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "split_cost_item_id", null: false
+    t.date "month"
+    t.string "to_split_company_code"
+    t.decimal "group_cost", precision: 10
+    t.decimal "shanghai_area_cost", precision: 10
+    t.decimal "shanghai_hq_cost", precision: 10
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["split_cost_item_id"], name: "index_split_cost_item_details_on_split_cost_item_id"
+  end
+
   create_table "split_cost_item_group_rate_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "split_cost_item_id"
     t.string "company_code"
@@ -550,5 +562,6 @@ ActiveRecord::Schema.define(version: 2020_11_25_073032) do
   add_foreign_key "proof_of_income_applies", "users"
   add_foreign_key "public_rental_housing_applies", "users"
   add_foreign_key "report_view_histories", "users"
+  add_foreign_key "split_cost_item_details", "split_cost_items"
   add_foreign_key "user_split_cost_settings", "users"
 end

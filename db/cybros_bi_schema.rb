@@ -1283,11 +1283,11 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_COUNT_COMBINE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["date", "ncworkno"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "userid", limit: 100
     t.string "username", limit: 100
-    t.string "ncworkno", limit: 100
-    t.date "date"
+    t.string "ncworkno", limit: 100, null: false
+    t.date "date", null: false
     t.float "realhours", limit: 53
     t.float "type1", limit: 53
     t.float "type2", limit: 53

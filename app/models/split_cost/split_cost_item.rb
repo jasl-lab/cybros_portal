@@ -6,6 +6,7 @@ module SplitCost
     has_many :split_cost_item_group_rate_companies
     has_many :split_cost_item_shanghai_area_rate_companies
     has_many :split_cost_item_shanghai_hq_rate_companies
+    has_many :split_cost_item_details
 
     validates :split_cost_item_no, :split_cost_item_name, :split_cost_item_category, presence: true
 
