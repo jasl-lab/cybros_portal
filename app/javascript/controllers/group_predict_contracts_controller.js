@@ -1,13 +1,12 @@
 import { Controller } from "stimulus"
 
-let predictContractChart;
+let groupPredictContractChart;
 
 export default class extends Controller {
   connect() {
-    predictContractChart = echarts.init(document.getElementById('predict-contract-chart'));
+    groupPredictContractChart = echarts.init(document.getElementById('group-predict-contract-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
-    const deptCodes = JSON.parse(this.data.get("dept_codes_as_options"));
     const contractConvert = JSON.parse(this.data.get("contract_convert"));
     const convertRealAmount = JSON.parse(this.data.get("convert_real_amount"));
     const contractConvertTotals = JSON.parse(this.data.get("contract_convert_totals"));
@@ -110,41 +109,25 @@ export default class extends Controller {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
           const department_name = xAxisData[params.dataIndex];
-          const department_code = deptCodes[params.dataIndex];
           const month_name = $('#month_name').val();
-          const sent_data = { department_name, department_code, month_name };
           let drill_down_url;
-          switch (params.seriesName) {
-            case '跟踪合同额（成功率小于80%）':
-              drill_down_url = '/report/predict_contract/opportunity_detail_drill_down';
-              break;
-            case '流转中合同额（成功率等于80%）':
-              drill_down_url = '/report/predict_contract/signing_detail_drill_down';
-              break;
-          }
-          if (drill_down_url !== undefined) {
-            $.ajax(drill_down_url, {
-              data: sent_data,
-              dataType: 'script'
-            });
-          }
         }
       }
     }
 
-    predictContractChart.setOption(option, false);
-    predictContractChart.on('click', drill_down_contract_detail);
+    groupPredictContractChart.setOption(option, false);
+    groupPredictContractChart.on('click', drill_down_contract_detail);
 
     setTimeout(() => {
-      predictContractChart.resize();
+      groupPredictContractChart.resize();
     }, 200);
   }
 
   layout() {
-    predictContractChart.resize();
+    groupPredictContractChart.resize();
   }
 
   disconnect() {
-    predictContractChart.dispose();
+    groupPredictContractChart.dispose();
   }
 }
