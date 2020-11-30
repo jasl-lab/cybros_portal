@@ -1,0 +1,9 @@
+---
+en:
+  report:
+    group_predict_contracts:
+      show:
+        actions:
+          view_orgcode_sum: "View organization in sum"
+          view_orgcode: "View organization in detail"
+        title: "Group predict contract"

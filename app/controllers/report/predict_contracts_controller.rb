@@ -82,7 +82,7 @@ class Report::PredictContractsController < Report::BaseController
     @tcsd = policy_scope(Bi::TrackContractSigningDetail)
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
-      .where("convertrealamount > 0")
+      .where('convertrealamount > 0')
     render
   end
 
@@ -90,7 +90,7 @@ class Report::PredictContractsController < Report::BaseController
 
     def set_drill_down_variables
       @dept_name = params[:department_name].strip
-      @drill_down_subtitle = t(".subtitle")
+      @drill_down_subtitle = t('.subtitle')
 
       month_name = params[:month_name]&.strip
       end_of_month = Date.parse(month_name).end_of_month
@@ -101,10 +101,12 @@ class Report::PredictContractsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
+      { text: t('layouts.sidebar.operation.group_predict_contract'),
+        link: report_group_predict_contract_path },
       { text: t('layouts.sidebar.operation.predict_contract'),
         link: report_predict_contract_path }]
     end

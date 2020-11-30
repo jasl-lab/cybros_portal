@@ -197,6 +197,7 @@ Rails.application.routes.draw do
         get :need_receives_pay_rates_drill_down
       end
     end
+    resource :group_predict_contract, only: %i[show]
     resource :predict_contract, only: %i[show] do
       collection do
         get :opportunity_detail_drill_down

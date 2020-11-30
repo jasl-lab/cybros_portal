@@ -1,0 +1,9 @@
+---
+zh-CN:
+  report:
+    group_predict_contracts:
+      show:
+        actions:
+          view_orgcode_sum: "显示汇总组织"
+          view_orgcode: "显示明细部门"
+        title: "集团跟踪合同额"
