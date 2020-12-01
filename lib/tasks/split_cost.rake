@@ -1,6 +1,64 @@
 # frozen_string_literal: true
 
 namespace :split_cost do
+  desc 'Generate split cost item details'
+  task :generate_split_cost_item_details, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    cyearperiod_month_start = Date.parse("#{cyearperiod[0..3]}-#{cyearperiod[4..5]}-01")
+
+    Nc::CardLog.where('depamount > 0').where(yp: cyearperiod).each do |card_log|
+      该资产当月需要摊销金额 = card_log.depamount
+      asset_name = card_log.asset_name
+      asset_code = card_log.asset_code
+      split_cost_item = SplitCost::SplitCostItem.where(split_cost_item_no: asset_code)
+        .where('start_date <= ?', cyearperiod_month_start).order(version: :desc).first
+      if split_cost_item.present?
+        split_item_cost_to_companies(split_cost_item, 该资产当月需要摊销金额, cyearperiod_month_start)
+      else
+        puts "Can not find split_cost_item, asset_code: #{asset_code} asset_name: #{asset_name}"
+      end
+    end
+  end
+
+  def split_item_cost_to_companies(split_cost_item, split_amount, cyearperiod_month_start)
+    unless split_cost_item.group_rate.zero?
+      group_rate_base_name = split_cost_item.group_rate_base
+      摊销资产分母_company_codes = split_cost_item.split_cost_item_group_rate_companies.collect(&:company_code)
+      摊销资产分母 = SplitCost::CostSplitAllocationBase.head_count_at(group_rate_base_name, 摊销资产分母_company_codes, cyearperiod_month_start)
+      split_cost_item.split_cost_item_group_rate_companies.each do |grc|
+        摊销资产分子_company_code = grc.company_code
+        摊销资产分子 = SplitCost::CostSplitAllocationBase.head_count_at(group_rate_base_name, 摊销资产分子_company_code, cyearperiod_month_start)
+        split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: grc.company_code)
+        split_cost_item_detail.group_cost = split_amount * (split_cost_item.group_rate / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
+        split_cost_item_detail.save
+      end
+    end
+    unless split_cost_item.shanghai_area.zero?
+      shanghai_area_base_name = split_cost_item.shanghai_area_base
+      摊销资产分母_company_codes = split_cost_item.split_cost_item_shanghai_area_rate_companies.collect(&:company_code)
+      摊销资产分母 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_area_base_name, 摊销资产分母_company_codes, cyearperiod_month_start)
+      split_cost_item.split_cost_item_shanghai_area_rate_companies.each do |sarc|
+        摊销资产分子_company_code = sarc.company_code
+        摊销资产分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_area_base_name, 摊销资产分子_company_code, cyearperiod_month_start)
+        split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: sarc.company_code)
+        split_cost_item_detail.shanghai_area_cost = split_amount * (split_cost_item.shanghai_area / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
+        split_cost_item_detail.save
+      end
+    end
+    unless split_cost_item.shanghai_hq.zero?
+      shanghai_hq_base_name = split_cost_item.shanghai_hq_base
+      摊销资产分母_company_codes = split_cost_item.split_cost_item_shanghai_hq_rate_companies.collect(&:company_code)
+      摊销资产分母 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_hq_base_name, 摊销资产分母_company_codes, cyearperiod_month_start)
+      split_cost_item.split_cost_item_shanghai_hq_rate_companies.each do |shrc|
+        摊销资产分子_company_code = shrc.company_code
+        摊销资产分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_hq_base_name, 摊销资产分子_company_code, cyearperiod_month_start)
+        split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: shrc.company_code)
+        split_cost_item_detail.shanghai_hq_cost = split_amount * (split_cost_item.shanghai_hq / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
+        split_cost_item_detail.save
+      end
+    end
+  end
+
   desc 'Generate user split cost details'
   task :generate_user_split_cost_details, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
