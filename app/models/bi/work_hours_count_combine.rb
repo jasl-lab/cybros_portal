@@ -47,7 +47,7 @@ module Bi
     def self.fill_rate_hash(company_code, dept_code, beginning_of_day, end_of_day, view_deptcode_sum)
       fill_rate_numerator = select('ncworkno, COUNT(*) realhours_count')
         .where(date: beginning_of_day..end_of_day, orgcode: company_code)
-        .where('type1 > 0 OR type2 > 0 OR type4 > 0 ')
+        .where('realhours >= 0')
         .group(:ncworkno)
       fill_rate_numerator = if view_deptcode_sum && dept_code
         fill_rate_numerator.where(deptcode_sum: dept_code)
