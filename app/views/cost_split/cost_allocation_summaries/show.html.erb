@@ -45,7 +45,9 @@
                   <td rowspan="<%= @ordered_depts.keys.count -%>" style="vertical-align:middle;text-align:center;">工资、社保、公积金、房租及物业费小计</td>
                 <% end %>
                 <td><%= dept_name -%></td>
-                <td>0</td>
+                <td>
+                  <%= @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:group_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_area_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_hq_cost) -%>
+                </td>
                 <% @ordered_companies.keys.each do |org_shortname| -%>
                   <% uscd = @user_split_cost_details.find {|u| u.v_wata_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
                   <% if uscd.present? %>
@@ -60,6 +62,18 @@
                 <% end %>
               </tr>
             <% end %>
+
+            <tr>
+              <td colspan="2">工资、社保、公积金、房租及物业费小计</td>
+              <td>
+                <%= @user_split_cost_details.sum(&:group_cost) + @user_split_cost_details.sum(&:shanghai_area_cost) + @user_split_cost_details.sum(&:shanghai_hq_cost) -%>
+              </td>
+              <% @ordered_companies.keys.each do |org_shortname| -%>
+                <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:group_cost) %></td>
+                <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_area_cost) %></td>
+                <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_hq_cost) %></td>
+              <% end %>
+            </tr>
           </tbody>
         </table>
       </div>
