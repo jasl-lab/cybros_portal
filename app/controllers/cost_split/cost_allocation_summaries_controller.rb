@@ -23,9 +23,14 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
       end
 
     @user_split_cost_details = SplitCost::UserSplitCostDetail.where(month: beginning_of_month)
-      .select('v_wata_dept_code, to_split_company_code, SUM(IFNULL(user_split_cost_details.group_cost,0)) group_cost, SUM(IFNULL(user_split_cost_details.shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(user_split_cost_details.shanghai_hq_cost,0)) shanghai_hq_cost')
+      .select('v_wata_dept_code, to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
       .group(:v_wata_dept_code, :to_split_company_code)
       .order(:v_wata_dept_code, :to_split_company_code)
+
+    @split_cost_items = SplitCost::SplitCostItem.where(month: beginning_of_month)
+      .where('split_cost_item_category, to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
+      .group(:split_cost_item_category, :to_split_company_code)
+      .order(:split_cost_item_category, :to_split_company_code)
   end
 
   def drill_down
