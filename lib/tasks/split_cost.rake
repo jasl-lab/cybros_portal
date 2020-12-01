@@ -30,6 +30,7 @@ namespace :split_cost do
         摊销资产分子 = SplitCost::CostSplitAllocationBase.head_count_at(group_rate_base_name, 摊销资产分子_company_code, cyearperiod_month_start)
         split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: grc.company_code)
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
+        split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
         split_cost_item_detail.group_cost = split_amount * (split_cost_item.group_rate / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -43,6 +44,7 @@ namespace :split_cost do
         摊销资产分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_area_base_name, 摊销资产分子_company_code, cyearperiod_month_start)
         split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: sarc.company_code)
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
+        split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
         split_cost_item_detail.shanghai_area_cost = split_amount * (split_cost_item.shanghai_area / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -56,6 +58,7 @@ namespace :split_cost do
         摊销资产分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_hq_base_name, 摊销资产分子_company_code, cyearperiod_month_start)
         split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: shrc.company_code)
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
+        split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
         split_cost_item_detail.shanghai_hq_cost = split_amount * (split_cost_item.shanghai_hq / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end

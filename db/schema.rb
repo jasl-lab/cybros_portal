@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_061617) do
+ActiveRecord::Schema.define(version: 2020_12_01_085918) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -389,6 +389,7 @@ ActiveRecord::Schema.define(version: 2020_12_01_061617) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "split_cost_item_category"
+    t.string "from_dept_code"
     t.index ["split_cost_item_id"], name: "index_split_cost_item_details_on_split_cost_item_id"
   end
 
@@ -432,6 +433,7 @@ ActiveRecord::Schema.define(version: 2020_12_01_061617) do
     t.string "split_cost_item_no"
     t.string "split_cost_item_name"
     t.string "split_cost_item_category"
+    t.string "from_dept_code"
   end
 
   create_table "user_split_cost_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

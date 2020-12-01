@@ -157,6 +157,7 @@ namespace :import_export do
       sci = SplitCost::SplitCostItem.find_or_initialize_by(split_cost_item_no: iob.code)
       sci.split_cost_item_name = iob.name
       sci.split_cost_item_category = '业务性支出预算'
+      sci.from_dept_code = iob.deptcode
       sci.save
     end
   end
