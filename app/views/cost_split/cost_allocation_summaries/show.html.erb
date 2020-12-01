@@ -85,6 +85,17 @@
                 <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost) %></td>
               <% end %>
             </tr>
+            <tr>
+              <td colspan="2">无形资产摊销（软件）</td>
+              <td>
+                <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost) -%>
+              </td>
+              <% @ordered_companies.keys.each do |org_shortname| -%>
+                <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:group_cost) %></td>
+                <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) %></td>
+                <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost) %></td>
+              <% end %>
+            </tr>
           </tbody>
         </table>
       </div>
