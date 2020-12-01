@@ -74,6 +74,17 @@
                 <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_hq_cost) %></td>
               <% end %>
             </tr>
+            <tr>
+              <td colspan="2">固定资产折旧（服务器及交换机等）</td>
+              <td>
+                <%= @split_cost_item_details.sum(&:group_cost) + @split_cost_item_details.sum(&:shanghai_area_cost) + @split_cost_item_details.sum(&:shanghai_hq_cost) -%>
+              </td>
+              <% @ordered_companies.keys.each do |org_shortname| -%>
+                <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:group_cost) %></td>
+                <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_area_cost) %></td>
+                <td><%= @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_hq_cost) %></td>
+              <% end %>
+            </tr>
           </tbody>
         </table>
       </div>
