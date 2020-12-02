@@ -9,7 +9,7 @@ en:
         table:
           abstract: "Abstract"
           sum: "Summary"
-      drill_down:
+      drill_down_user:
         title: "Group cost allocation drill down"
         table:
           user: "User ID"

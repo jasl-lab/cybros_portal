@@ -51,9 +51,9 @@
                 <% @ordered_companies.keys.each do |org_shortname| -%>
                   <% uscd = @user_split_cost_details.find {|u| u.v_wata_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
                   <% if uscd.present? %>
-                    <td><%= link_to uscd.group_cost, drill_down_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
-                    <td><%= link_to uscd.shanghai_area_cost, drill_down_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
-                    <td><%= link_to uscd.shanghai_hq_cost, drill_down_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                    <td><%= link_to uscd.group_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                    <td><%= link_to uscd.shanghai_area_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                    <td><%= link_to uscd.shanghai_hq_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
                   <% else %>
                     <td></td>
                     <td></td>

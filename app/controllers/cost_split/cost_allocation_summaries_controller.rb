@@ -33,7 +33,7 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
       .order(:split_cost_item_category, :to_split_company_code)
   end
 
-  def drill_down
+  def drill_down_user
     dept_code = params[:dept_code].strip
     to_split_company_code = params[:company_code].strip
     month_name = params[:month_name].strip

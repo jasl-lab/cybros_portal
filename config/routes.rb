@@ -341,7 +341,7 @@ Rails.application.routes.draw do
 
     resource :cost_allocation_summary, only: %i[show] do
       collection do
-        get :drill_down
+        get :drill_down_user
       end
     end
   end
