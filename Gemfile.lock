@@ -124,10 +124,10 @@ GEM
     capistrano-sidekiq (1.0.3)
       capistrano (>= 3.9.0)
       sidekiq (>= 3.4, < 6.0)
-    capistrano3-puma (4.0.0)
+    capistrano3-puma (5.0.0)
       capistrano (~> 3.7)
       capistrano-bundler
-      puma (~> 4.0)
+      puma (>= 4.0, < 6.0)
     capybara (3.34.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -302,7 +302,7 @@ GEM
     parser (2.7.2.0)
       ast (~> 2.4.1)
     public_suffix (4.0.6)
-    puma (4.3.7)
+    puma (5.1.0)
       nio4r (~> 2.0)
     rack (2.2.3)
     rack-oauth2 (1.16.0)
@@ -503,7 +503,7 @@ DEPENDENCIES
   minitest-ci
   mysql2
   omniauth_openid_connect
-  puma (~> 4.3.0)
+  puma
   pundit!
   rails (~> 6.0.3)
   rails-i18n

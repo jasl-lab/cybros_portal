@@ -26,7 +26,7 @@ gem 'activerecord-oracle_enhanced-adapter'
 gem "sidekiq", "~> 5.2.7"
 
 # Use Puma as the app server
-gem "puma", "~> 4.3.0"
+gem "puma"
 # Use development version of Webpacker
 gem "webpacker", "~> 5.2"
 
