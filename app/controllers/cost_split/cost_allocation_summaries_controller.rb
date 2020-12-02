@@ -40,4 +40,8 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
     beginning_of_month = Date.parse(month_name).beginning_of_month
     @user_split_cost_details = SplitCost::UserSplitCostDetail.where(v_wata_dept_code: dept_code, to_split_company_code: to_split_company_code, month: beginning_of_month)
   end
+
+  def drill_down_item
+    @split_cost_item_details = []
+  end
 end

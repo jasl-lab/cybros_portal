@@ -10,10 +10,13 @@ zh-CN:
           abstract: "摘要"
           sum: "总计"
       drill_down_user:
-        title: "集团性费用分摊明细"
+        title: "集团性费用人员分摊明细"
         table:
           user: "用户ID"
           group_cost: "集团性费用"
           shanghai_area_cost: "上海区域费用"
           shanghai_hq_cost: "纯上海天华费用"
+        close: "关闭"
+      drill_down_item:
+        title: "集团性费用项目分摊明细"
         close: "关闭"
