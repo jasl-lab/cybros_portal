@@ -42,6 +42,10 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
   end
 
   def drill_down_item
-    @split_cost_item_details = []
+    split_cost_item_category = params[:category].strip
+    to_split_company_code = params[:company_code].strip
+    month_name = params[:month_name].strip
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+    @split_cost_item_details = SplitCost::SplitCostItemDetail.where(split_cost_item_category: split_cost_item_category, month: beginning_of_month, to_split_company_code: to_split_company_code)
   end
 end

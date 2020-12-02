@@ -19,4 +19,9 @@ en:
         close: "Close"
       drill_down_item:
         title: "Group cost allocation item drill down"
+        table:
+          split_cost_item: "Split cost item ID"
+          group_cost: "Group cost"
+          shanghai_area_cost: "Shanghai area cost"
+          shanghai_hq_cost: "Shanghai HQ cost"
         close: "Close"

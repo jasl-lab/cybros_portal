@@ -8,10 +8,18 @@
     <div class="modal-body">
       <table class="table table-bordered">
         <thead>
+          <th><%= t('.table.split_cost_item') -%></th>
+          <th><%= t('.table.group_cost') -%></th>
+          <th><%= t('.table.shanghai_area_cost') -%></th>
+          <th><%= t('.table.shanghai_hq_cost') -%></th>
         </thead>
         <tbody>
           <% details.each do |d| %>
             <tr>
+              <td><%= d.split_cost_item_id -%></td>
+              <td><%= d.group_cost -%></td>
+              <td><%= d.shanghai_area_cost -%></td>
+              <td><%= d.shanghai_hq_cost -%></td>
             </tr>
           <% end %>
         </tbody>

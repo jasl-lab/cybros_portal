@@ -19,4 +19,9 @@ zh-CN:
         close: "关闭"
       drill_down_item:
         title: "集团性费用项目分摊明细"
+        table:
+          split_cost_item: "项目分摊ID"
+          group_cost: "集团性费用"
+          shanghai_area_cost: "上海区域费用"
+          shanghai_hq_cost: "纯上海天华费用"
         close: "关闭"
