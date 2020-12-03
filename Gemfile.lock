@@ -124,7 +124,7 @@ GEM
     capistrano-sidekiq (1.0.3)
       capistrano (>= 3.9.0)
       sidekiq (>= 3.4, < 6.0)
-    capistrano3-puma (5.0.0)
+    capistrano3-puma (5.0.1)
       capistrano (~> 3.7)
       capistrano-bundler
       puma (>= 4.0, < 6.0)
@@ -387,7 +387,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    semantic_range (2.3.0)
+    semantic_range (2.3.1)
     server_timing (1.0.2)
       scout_apm
     sidekiq (5.2.9)
