@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
-  before_action :set_user_and_split_cost_setting, except: %i[create new]
+  before_action :set_user_and_split_cost_setting, only: %i[edit update]
 
   def new
     user_id = params[:user_id]
@@ -20,7 +20,7 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   end
 
   def update
-    @scs.update(scs_params)
+    @user_split_cost_setting.update(scs_params)
   end
 
   private
@@ -37,7 +37,7 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
     end
 
     def set_user_and_split_cost_setting
-      @scs = SplitCost::UserSplitCostSetting.find(params[:id])
-      @user = @scs.user
+      @user_split_cost_setting = SplitCost::UserSplitCostSetting.find(params[:id])
+      @user = @user_split_cost_setting.user
     end
 end

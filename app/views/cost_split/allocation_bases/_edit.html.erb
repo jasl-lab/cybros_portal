@@ -39,11 +39,11 @@
             case form_action
             when 'reject'
         %>
-              <%= link_to t("shared.form.submit.#{form_action}"), reject_cost_split_allocation_basis_path(cost_split_allocation_base), class: "btn btn-danger", remote: true, method: :patch  %>
+              <%= link_to t("shared.form.submit.reject"), reject_cost_split_allocation_basis_path(cost_split_allocation_base), class: "btn btn-danger", remote: true, method: :patch  %>
         <%
             when 'submit'
         %>
-              <%= link_to t("shared.form.submit.#{form_action}"), submit_cost_split_allocation_basis_path(cost_split_allocation_base), class: "btn btn-success", remote: true, method: :patch  %>
+              <%= link_to t("shared.form.submit.submit"), submit_cost_split_allocation_basis_path(cost_split_allocation_base), class: "btn btn-success", remote: true, method: :patch  %>
         <%
             end
            else %>

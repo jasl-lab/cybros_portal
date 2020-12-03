@@ -5,3 +5,6 @@ en:
       new:
         title: "New user split cost setting"
         close: "Close"
+      edit:
+        title: "Edit user split cost setting"
+        close: "Close"
