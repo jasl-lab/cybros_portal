@@ -18,7 +18,7 @@ module SplitCost
     end
 
     def user_split_cost_group_rate_companies_codes
-      @_user_split_cost_group_rate_companies_codes ||= user_split_cost_group_rate_companies.pluck(:company_code)
+      user_split_cost_group_rate_companies.pluck(:company_code)
     end
 
     def user_split_cost_group_rate_companies_codes=(values)
@@ -38,7 +38,7 @@ module SplitCost
     end
 
     def user_split_cost_shanghai_area_rate_companies_codes
-      @_user_split_cost_shanghai_area_rate_companies_codes ||= user_split_cost_shanghai_area_rate_companies.pluck(:company_code)
+      user_split_cost_shanghai_area_rate_companies.pluck(:company_code)
     end
 
     def user_split_cost_shanghai_area_rate_companies_codes=(values)
@@ -58,7 +58,7 @@ module SplitCost
     end
 
     def user_split_cost_shanghai_hq_rate_companies_codes
-      @_user_split_cost_shanghai_hq_rate_companies_codes ||= user_split_cost_shanghai_hq_rate_companies.pluck(:company_code)
+      user_split_cost_shanghai_hq_rate_companies.pluck(:company_code)
     end
 
     def user_split_cost_shanghai_hq_rate_companies_codes=(values)
