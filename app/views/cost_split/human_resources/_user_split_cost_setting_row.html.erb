@@ -1,0 +1,46 @@
+<td>
+  <p><%= user.clerk_code -%></p>
+  <p><%= user.chinese_name -%></p>
+  <p><%= user.position_title -%></p>
+</td>
+<td>
+  <p>集团性</p>
+  <p>上海区域</p>
+  <p>上海天华</p>
+</td>
+<td>
+  <p><%= scs&.group_rate -%>&nbsp;</p>
+  <p><%= scs&.shanghai_area -%>&nbsp;</p>
+  <p><%= scs&.shanghai_hq -%>&nbsp;</p>
+</td>
+<td>
+  <p><%= scs&.group_rate_base -%>&nbsp;</p>
+  <p><%= scs&.shanghai_area_base -%>&nbsp;</p>
+  <p><%= scs&.shanghai_hq_base -%>&nbsp;</p>
+</td>
+<td>
+  <p class="<%= scs&.user_split_cost_group_rate_companies_codes.present? ? 'mb-0' : '' -%>">
+    <% scs&.user_split_cost_group_rate_companies_codes&.each do |company_code| %>
+      <span class="badge badge-primary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+    <% end %>
+  &nbsp;</p>
+  <p class="<%= scs&.user_split_cost_shanghai_area_rate_companies_codes.present? ? 'mb-0' : '' -%>">
+    <% scs&.user_split_cost_shanghai_area_rate_companies_codes&.each do |company_code| %>
+      <span class="badge badge-secondary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+    <% end %>
+  &nbsp;</p>
+  <p>
+    <% scs&.user_split_cost_shanghai_hq_rate_companies_codes&.each do |company_code| %>
+      <span class="badge badge-dark"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+    <% end %>
+  &nbsp;</p>
+</td>
+<td>
+  <% if scs.present? %>
+    <%= link_to scs.version, edit_cost_split_user_split_cost_setting_path(id: scs.id), remote: true -%>
+  <% else %>
+    <%= link_to new_cost_split_user_split_cost_setting_path(user_id: user.id), remote: true do -%>
+      <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>
+    <% end %>
+  <% end %>
+</td>

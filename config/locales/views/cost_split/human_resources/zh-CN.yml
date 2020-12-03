@@ -3,8 +3,6 @@ zh-CN:
   cost_split:
     human_resources:
       index:
-        action:
-          new: '新建'
         title: "部门人员人力成本及房租分摊规则设置"
         company_name: "公司名字"
         dept_name: "部门名称"
@@ -16,6 +14,9 @@ zh-CN:
           split_base_number: "分摊基数"
           split_companies: "分摊包含公司"
           version: "版本"
+      user_split_cost_setting_row:
+        action:
+          new: '新建'
       user_split_cost_setting_form:
         submit_save: "保存"
         submit_new: "新建"

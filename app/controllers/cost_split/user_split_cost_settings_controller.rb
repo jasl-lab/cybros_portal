@@ -14,11 +14,11 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   end
 
   def create
-    @scs = SplitCost::UserSplitCostSetting.new(scs_params)
-    @user = @scs.user
-    @scs.start_date ||= Date.today
-    @scs.version = @user.user_split_cost_settings.count
-    @scs.save
+    @user_split_cost_setting = SplitCost::UserSplitCostSetting.new(scs_params)
+    @user = @user_split_cost_setting.user
+    @user_split_cost_setting.start_date ||= Date.today
+    @user_split_cost_setting.version = @user.user_split_cost_settings.count
+    @user_split_cost_setting.save
   end
 
   def edit

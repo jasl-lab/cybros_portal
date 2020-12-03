@@ -3,8 +3,6 @@ en:
   cost_split:
     human_resources:
       index:
-        action:
-          new: 'New'
         title: "Cost split for human resources"
         company_name: "Company name"
         dept_name: "Department name"
@@ -16,6 +14,9 @@ en:
           split_base_number: "Split base number"
           split_companies: "Split companies"
           version: "version"
+      user_split_cost_setting_row:
+        action:
+          new: 'New'
       user_split_cost_setting_form:
         submit_save: "Save"
         submit_new: "Create"
