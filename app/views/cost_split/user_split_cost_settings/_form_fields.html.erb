@@ -1,0 +1,18 @@
+<%= f.hidden_field :user_id, id: nil %>
+<%= f.hidden_field :org_code, id: nil %>
+<%= f.hidden_field :dept_code, id: nil %>
+<%= f.hidden_field :position_title, id: nil %>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="text-group_rate"><%= t('.group_rate') -%></label>
+    <%= f.text_field :group_rate, class: 'form-control', id: 'text-group_rate' -%>
+  </div>
+  <div class="form-group">
+    <label for="text-shanghai_area"><%= t('.shanghai_area') -%></label>
+    <%= f.text_field :shanghai_area, class: 'form-control mt-1', id: 'text-shanghai_area' -%>
+  </div>
+  <div class="form-group">
+    <label for="text-shanghai_hq"><%= t('.shanghai_hq') -%></label>
+    <%= f.text_field :shanghai_hq, class: 'form-control mt-1', id: 'text-shanghai_hq' -%>
+  </div>
+</div>

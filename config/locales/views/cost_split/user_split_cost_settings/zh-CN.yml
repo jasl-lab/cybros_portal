@@ -8,3 +8,7 @@ zh-CN:
       edit:
         title: "修改用户摊销"
         close: "关闭"
+      form_fields:
+        group_rate: "集团性分摊百分比"
+        shanghai_area: "上海区域分摊百分比"
+        shanghai_hq: "上海天华分摊百分比"

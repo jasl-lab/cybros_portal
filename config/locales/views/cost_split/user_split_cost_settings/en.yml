@@ -8,3 +8,7 @@ en:
       edit:
         title: "Edit user split cost setting"
         close: "Close"
+      form_fields:
+        group_rate: "Group rate"
+        shanghai_area: "Shanghai area"
+        shanghai_hq: "Shanghai HQ"
