@@ -189,8 +189,7 @@ class User < ApplicationRecord
 
   def current_user_split_cost_setting
     user_split_cost_settings.find_by(end_date: nil, confirmed: false) \
-      || user_split_cost_settings.find_by(end_date: nil, confirmed: true) \
-      || user_split_cost_settings.build
+      || user_split_cost_settings.find_by(end_date: nil, confirmed: true)
   end
 
   private
