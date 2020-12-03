@@ -3,6 +3,8 @@ en:
   cost_split:
     human_resources:
       index:
+        action:
+          new: 'New'
         title: "Cost split for human resources"
         company_name: "Company name"
         dept_name: "Department name"
