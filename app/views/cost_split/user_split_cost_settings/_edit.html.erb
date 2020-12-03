@@ -6,7 +6,14 @@
       </h5>
     </div>
     <%= form_with model: user_split_cost_setting, url: cost_split_user_split_cost_setting_path(id: user_split_cost_setting.id) do |f| %>
+      <%= f.hidden_field :user_id, id: nil %>
+      <%= f.hidden_field :org_code, id: nil %>
+      <%= f.hidden_field :dept_code, id: nil %>
+      <%= f.hidden_field :position_title, id: nil %>
       <div class="modal-body">
+        <%= f.text_field :group_rate, class: 'form-control', id: nil -%>
+        <%= f.text_field :shanghai_area, class: 'form-control mt-1', id: nil -%>
+        <%= f.text_field :shanghai_hq, class: 'form-control mt-1', id: nil -%>
       </div>
       <div class="modal-footer">
         <%= f.submit t("shared.form.submit.submit"), class: "btn btn-primary" %>
