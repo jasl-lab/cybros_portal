@@ -31,8 +31,49 @@
           </thead>
           <tbody>
             <% @users.each do |user| %>
-              <tr id="user-split-cost-setting-<%= user.id -%>">
-                <%= render partial: 'user_split_cost_setting_form', locals: { user: user, show_submit_button: true } -%>
+              <% scs = user.current_user_split_cost_setting %>
+              <tr>
+                <td>
+                  <p><%= user.clerk_code -%></p>
+                  <p><%= user.chinese_name -%></p>
+                  <p><%= user.position_title -%></p>
+                </td>
+                <td>
+                  <p>集团性</p>
+                  <p>上海区域</p>
+                  <p>上海天华</p>
+                </td>
+                <td>
+                  <p><%= scs.group_rate -%>&nbsp;</p>
+                  <p><%= scs.shanghai_area -%>&nbsp;</p>
+                  <p><%= scs.shanghai_hq -%>&nbsp;</p>
+                </td>
+                <td>
+                  <p><%= scs.group_rate_base -%>&nbsp;</p>
+                  <p><%= scs.shanghai_area_base -%>&nbsp;</p>
+                  <p><%= scs.shanghai_hq_base -%>&nbsp;</p>
+                </td>
+                <td>
+                  <p class="<%= scs.user_split_cost_group_rate_companies_codes.present? ? 'mb-0' : '' -%>">
+                    <% scs.user_split_cost_group_rate_companies_codes.each do |company_code| %>
+                      <span class="badge badge-primary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+                    <% end %>
+                  &nbsp;</p>
+                  <p class="<%= scs.user_split_cost_shanghai_area_rate_companies_codes.present? ? 'mb-0' : '' -%>">
+                    <% scs.user_split_cost_shanghai_area_rate_companies_codes.each do |company_code| %>
+                      <span class="badge badge-secondary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+                    <% end %>
+                  &nbsp;</p>
+                  <p>
+                    <% scs.user_split_cost_shanghai_hq_rate_companies_codes.each do |company_code| %>
+                      <span class="badge badge-dark"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+                    <% end %>
+                  &nbsp;</p>
+                </td>
+                <td><%= scs.version -%></td>
+                <td>
+
+                </td>
               </tr>
             <% end %>
           </tbody>
