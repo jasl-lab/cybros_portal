@@ -2,5 +2,6 @@
 en:
   cost_split:
     user_split_cost_settings:
-      version_up:
-        success: "升版成功"
+      new:
+        title: "New user split cost setting"
+        close: "Close"

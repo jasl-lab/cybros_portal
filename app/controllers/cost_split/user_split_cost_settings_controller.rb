@@ -4,6 +4,8 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   before_action :set_user_and_split_cost_setting, except: %i[create new]
 
   def new
+    user_id = params[:user_id]
+    @user_split_cost_setting = SplitCost::UserSplitCostSetting.new(user_id: user_id)
   end
 
   def create

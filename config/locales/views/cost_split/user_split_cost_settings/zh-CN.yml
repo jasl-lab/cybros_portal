@@ -2,5 +2,6 @@
 zh-CN:
   cost_split:
     user_split_cost_settings:
-      version_up:
-        success: "升版成功"
+      new:
+        title: "新建用户摊销"
+        close: "关闭"
