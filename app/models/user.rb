@@ -100,6 +100,14 @@ class User < ApplicationRecord
     Bi::OrgShortName.org_code_by_short_name.fetch(user_company_short_name, user_company_short_name)
   end
 
+  def user_department_codes
+    @belongs_to_department_codes ||= departments.collect(&:dept_code)
+  end
+
+  def user_department_code
+    user_department_codes.first
+  end
+
   def user_department_names
     @belongs_to_department_names ||= departments.collect(&:name)
   end

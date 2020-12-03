@@ -4,8 +4,13 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   before_action :set_user_and_split_cost_setting, only: %i[edit update]
 
   def new
-    user_id = params[:user_id]
-    @user_split_cost_setting = SplitCost::UserSplitCostSetting.new(user_id: user_id)
+    user = User.find_by(id: params[:user_id])
+    @user_split_cost_setting = SplitCost::UserSplitCostSetting.new(
+      user_id: user.id,
+      org_code: user.user_company_orgcode,
+      dept_code: user.user_department_code,
+      position_title: user.position_title
+    )
   end
 
   def create
