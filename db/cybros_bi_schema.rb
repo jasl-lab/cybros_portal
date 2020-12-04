@@ -864,7 +864,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "professiondeptname"
     t.text "salescontractcode"
     t.text "salescontractname"
-    t.datetime "savedate"
+    t.date "savedate"
     t.text "realamounttotal"
   end
 
@@ -919,7 +919,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "realamounttotal"
     t.text "salescontractcode"
     t.text "salescontractname"
-    t.datetime "savedate"
+    t.date "savedate"
     t.text "scalearea"
     t.text "scaletype"
     t.text "scaletypecnname"
@@ -1042,7 +1042,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "deptid"
     t.text "dept"
     t.text "deptname"
-    t.datetime "checkdate"
+    t.date "checkdate"
     t.float "openingmoney", limit: 53
     t.float "nextbonusamount", limit: 53
     t.float "nextamount", limit: 53

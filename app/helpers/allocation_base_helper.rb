@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AllocationBaseHelper
-  def current_status(nc_record)
+  def cost_split_current_status(nc_record)
     if nc_record.end_date.present?
       'archived'
     elsif nc_record.start_date.present?
@@ -13,7 +13,7 @@ module AllocationBaseHelper
     end
   end
 
-  def cost_split_allocation_base_possible_next_form_actions(status)
+  def cost_split_possible_next_form_actions(status)
     case status
     when 'archived'
       []

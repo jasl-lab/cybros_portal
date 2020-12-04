@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_085918) do
+ActiveRecord::Schema.define(version: 2020_12_04_021152) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -470,7 +470,6 @@ ActiveRecord::Schema.define(version: 2020_12_01_085918) do
     t.string "position_title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "confirmed", default: false, null: false
     t.string "group_rate_base"
     t.string "shanghai_area_base"
     t.string "shanghai_hq_base"

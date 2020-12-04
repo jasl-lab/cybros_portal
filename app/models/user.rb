@@ -196,8 +196,7 @@ class User < ApplicationRecord
   end
 
   def current_user_split_cost_setting
-    user_split_cost_settings.find_by(end_date: nil, confirmed: false) \
-      || user_split_cost_settings.find_by(end_date: nil, confirmed: true)
+    user_split_cost_settings.where.not(start_date: nil).order(version: :desc).find_by(end_date: nil)
   end
 
   private
