@@ -34,6 +34,15 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
       @user_split_cost_setting.update(end_date: Date.today)
       @user_split_cost_setting = SplitCost::UserSplitCostSetting.create(
         user_id: @user.id,
+        group_rate: @user_split_cost_setting.group_rate,
+        shanghai_area: @user_split_cost_setting.shanghai_area,
+        shanghai_hq: @user_split_cost_setting.shanghai_hq,
+        org_code: @user.user_company_orgcode,
+        dept_code: @user.user_department_code,
+        position_title: @user.position_title,
+        group_rate_base: @user_split_cost_setting.group_rate_base,
+        shanghai_area_base: @user_split_cost_setting.shanghai_area_base,
+        shanghai_hq_base: @user_split_cost_setting.shanghai_hq_base,
         version: @user.user_split_cost_settings.count)
     end
   end
