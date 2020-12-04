@@ -8,6 +8,10 @@
     <%= f.text_field :group_rate, class: 'form-control', id: 'text-group_rate' -%>
   </div>
   <div class="form-group">
+    <label for="select-group_rate_base"><%= t('.group_rate_base') -%></label>
+    <%= f.select :group_rate_base, SplitCost::CostSplitAllocationBase::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control', id: 'select-group_rate_base' -%>
+  </div>
+  <div class="form-group">
     <label for="select-group_rate_companies"><%= t('.group_rate_companies') -%></label>
     <%= f.select :user_split_cost_group_rate_companies_codes, Bi::OrgOrder.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-group_rate_companies' -%>
   </div>
@@ -16,12 +20,20 @@
     <%= f.text_field :shanghai_area, class: 'form-control mt-1', id: 'text-shanghai_area' -%>
   </div>
   <div class="form-group">
+    <label for="select-shanghai_area_base"><%= t('.shanghai_area_base') -%></label>
+    <%= f.select :shanghai_area_base, SplitCost::CostSplitAllocationBase::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control', id: 'select-shanghai_area_base' -%>
+  </div>
+  <div class="form-group">
     <label for="select-shanghai_area_rate_companies"><%= t('.shanghai_area_rate_companies') -%></label>
     <%= f.select :user_split_cost_shanghai_area_rate_companies_codes, Bi::OrgOrder.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-shanghai_area_rate_companies' -%>
   </div>
   <div class="form-group">
     <label for="text-shanghai_hq"><%= t('.shanghai_hq') -%></label>
     <%= f.text_field :shanghai_hq, class: 'form-control mt-1', id: 'text-shanghai_hq' -%>
+  </div>
+  <div class="form-group">
+    <label for="select-shanghai_hq_base"><%= t('.shanghai_hq_rate_companies_codes') -%></label>
+    <%= f.select :shanghai_hq_base, SplitCost::CostSplitAllocationBase::CALC_BASE_NAMES, {}, class: 'form-control-plaintext form-control', id: 'select-shanghai_hq_base' -%>
   </div>
   <div class="form-group">
     <label for="select-shanghai_hq_rate_companies_codes"><%= t('.shanghai_hq_rate_companies_codes') -%></label>
