@@ -7,7 +7,7 @@
     <div class="row my-2">
       <div class="col-12">
         <table class="table table-bordered table-responsive">
-          <% short_name_pairs = Bi::OrgOrder.all_company_shortnames_with_code  %>
+          <% short_name_pairs = SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code  %>
           <thead>
             <tr>
               <th width="40px"><%= t(".table.i_no") -%></th>

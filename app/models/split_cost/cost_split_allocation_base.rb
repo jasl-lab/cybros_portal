@@ -48,6 +48,16 @@ module SplitCost
       000130
     ]
 
+    def self.all_company_shortnames_with_code
+      return @all_company_shortnames_with_code if @all_company_shortnames_with_code.present?
+
+      all_company_codes = all.distinct.pluck(:company_code)
+
+      @all_company_shortnames_with_code = all_company_codes.collect do |company_code|
+        [ Bi::OrgShortName.company_short_names_by_orgcode[company_code], company_code ]
+      end
+    end
+
     def self.head_count_at(base_name, company_codes, start_date)
       company_codes = Array(company_codes)
       SplitCost::CostSplitAllocationBase
