@@ -38,6 +38,8 @@
 <td>
   <% if scs.present? %>
     <%= link_to scs.version, edit_cost_split_user_split_cost_setting_path(id: scs.id), remote: true -%>
+    <br />
+    <span class="badge badge-info"><%= I18n.t("activerecord.attributes.split_cost.status.#{cost_split_current_status(scs)}") %></span>
   <% else %>
     <%= link_to new_cost_split_user_split_cost_setting_path(user_id: user.id), remote: true do -%>
       <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>
