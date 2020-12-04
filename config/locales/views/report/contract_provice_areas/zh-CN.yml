@@ -14,4 +14,4 @@ zh-CN:
           new_area: "新开工面积（万㎡）"
           new_area_rate: "%{title}占有率"
           previous_new_area_rate: "上一年同期占有率"
-          previous_new_area: "去年新开工面积（万㎡）"
+          previous_new_area: "上一年新开工面积（万㎡）"
