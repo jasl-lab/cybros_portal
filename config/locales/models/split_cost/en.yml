@@ -2,7 +2,7 @@
 en:
   activerecord:
     attributes:
-      split_cost/cost_splite_allocation_base:
+      split_cost:
         status:
           archived: Archived
           confirmed: Confirmed

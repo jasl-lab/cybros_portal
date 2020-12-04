@@ -320,7 +320,12 @@ Rails.application.routes.draw do
         get :change_company
       end
     end
-    resources :user_split_cost_settings, only: %i[new create edit update]
+    resources :user_split_cost_settings, only: %i[new create edit update] do
+      member do
+        patch :reject
+        patch :submit
+      end
+    end
     resources :split_cost_items, except: %i[show new edit] do
       member do
         patch :confirm

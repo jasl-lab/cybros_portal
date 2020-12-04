@@ -2,7 +2,7 @@
 zh-CN:
   activerecord:
     attributes:
-      split_cost/cost_splite_allocation_base:
+      split_cost:
         status:
           archived: 已归档
           confirmed: 已确认

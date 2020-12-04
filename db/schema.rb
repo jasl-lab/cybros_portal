@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_021152) do
+ActiveRecord::Schema.define(version: 2020_12_04_024737) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -462,8 +462,8 @@ ActiveRecord::Schema.define(version: 2020_12_04_021152) do
     t.integer "shanghai_area", null: false
     t.integer "shanghai_hq", null: false
     t.bigint "user_id", null: false
-    t.integer "version", null: false
-    t.date "start_date", null: false
+    t.integer "version"
+    t.date "start_date"
     t.date "end_date"
     t.string "org_code", null: false
     t.string "dept_code", null: false

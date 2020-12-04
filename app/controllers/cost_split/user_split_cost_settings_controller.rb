@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
-  before_action :set_user_and_split_cost_setting, only: %i[edit update]
+  before_action :set_user_and_split_cost_setting, only: %i[edit update submit reject]
 
   def new
     user = User.find_by(id: params[:user_id])
@@ -16,7 +16,6 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   def create
     @user_split_cost_setting = SplitCost::UserSplitCostSetting.new(scs_params)
     @user = @user_split_cost_setting.user
-    @user_split_cost_setting.start_date ||= Date.today
     @user_split_cost_setting.version = @user.user_split_cost_settings.count
     @user_split_cost_setting.save
   end
@@ -25,7 +24,29 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
   end
 
   def update
-    @user_split_cost_setting.update(scs_params)
+    case params[:form_action]
+    when 'save'
+      @user_split_cost_setting.update(scs_params)
+    when 'confirm'
+      @user_split_cost_setting.update(scs_params)
+      @user_split_cost_setting.update_columns(start_date: Date.today)
+    when 'version_up'
+      @user_split_cost_setting.update(end_date: Date.today)
+      @user_split_cost_setting = SplitCost::UserSplitCostSetting.create(
+        user_id: @user.id,
+        version: @user.user_split_cost_settings.count)
+    end
+  end
+
+  def submit
+    @user_split_cost_setting.update(version:
+      SplitCost::UserSplitCostSetting.where(user_id: @user_split_cost_setting.user_id).count)
+    render :update
+  end
+
+  def reject
+    @user_split_cost_setting.update(version: nil)
+    render :update
   end
 
   private
