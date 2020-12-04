@@ -9,7 +9,10 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
       user_id: user.id,
       org_code: user.user_company_orgcode,
       dept_code: user.user_department_code,
-      position_title: user.position_title
+      position_title: user.position_title,
+      group_rate: 40,
+      shanghai_area: 30,
+      shanghai_hq: 30,
     )
   end
 
