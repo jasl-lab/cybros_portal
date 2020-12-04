@@ -12,6 +12,8 @@ en:
         table:
           province: "Province"
           new_area: "New area"
-          new_area_rate: "%{category} new area rate"
-          previous_new_area_rate: "Previous new area rate"
           previous_new_area: "Previous new area"
+          new_area_amount: "%{title} new area amount"
+          previous_new_area_amount: "Previous new area amount"
+          new_area_rate: "%{title} new area rate"
+          previous_new_area_rate: "Previous new area rate"

@@ -32,9 +32,11 @@
               <tr>
                 <th><%= t(".table.province") %></th>
                 <th><%= t(".table.new_area") %></th>
+                <th><%= t(".table.previous_new_area") %></th>
+                <th><%= t(".table.new_area_amount", title: "#{@beginning_of_year.year}年#{@beginning_of_year.month}-#{@end_of_month.month}月#{@service_phase}") %></th>
+                <th><%= t(".table.previous_new_area_amount") %></th>
                 <th><%= t(".table.new_area_rate", title: "#{@beginning_of_year.year}年#{@beginning_of_year.month}-#{@end_of_month.month}月#{@service_phase}") %></th>
                 <th><%= t(".table.previous_new_area_rate") %></th>
-                <th><%= t(".table.previous_new_area") %></th>
               </tr>
             </thead>
             <tbody>
@@ -42,20 +44,30 @@
               <tr>
                 <td><%= r.province -%></td>
                 <td><%= r.new_area&.round(0) -%></td>
-                <% new_area_rate = @new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:new_area_rate, '-') %>
-                <td><%= new_area_rate.nan? ? '-' : "#{new_area_rate} %" -%></td>
-                <% previous_new_area_rate = @previous_new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:new_area_rate, '-') %>
-                <td><%= previous_new_area_rate.nan? ? '-' : "#{previous_new_area_rate} %" -%></td>
-                <% previous_r = @sum_previous_scope.find {|pr| pr.province == r.province } %>
-                <td><%= previous_r&.new_area&.round(0) -%></td>
+                <td>
+                  <% previous_r = @sum_previous_scope.find {|pr| pr.province == r.province } %>
+                  <%= previous_r&.new_area&.round(0) -%>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                  <% new_area_rate = @new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:new_area_rate, '-') %>
+                  <%= new_area_rate.nan? ? '-' : "#{new_area_rate} %" -%>
+                </td>
+                <td>
+                  <% previous_new_area_rate = @previous_new_area_rates.find { |pr| pr[:province] == r.province }.fetch(:new_area_rate, '-') %>
+                  <%= previous_new_area_rate.nan? ? '-' : "#{previous_new_area_rate} %" -%>
+                </td>
               </tr>
             <% end %>
             <tr>
               <td>合计</td>
               <td><%= @total_new_area -%></td>
+              <td><%= @total_previous_new_area -%></td>
+              <td></td>
+              <td></td>
               <td><%= ((@total_scale / @total_new_area) * 0.01).round(2) -%>%</td>
               <td><%= ((@total_previous_scale / @total_previous_new_area) * 0.01).round(2) -%>%</td>
-              <td><%= @total_previous_new_area -%></td>
             </tr>
             </tbody>
           </table>
