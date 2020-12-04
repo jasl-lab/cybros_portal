@@ -23,14 +23,11 @@
               <th><%= t(".table.split_base_number") -%></th>
               <th><%= t(".table.split_companies") -%></th>
               <th><%= t(".table.version") -%></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             <% @split_cost_items.each do |split_cost_item| %>
-              <tr>
-                <%= render partial: 'split_cost_item', locals: { split_cost_item: split_cost_item } %>
-              </tr>
+              <%= render partial: 'split_cost_item_row', locals: { split_cost_item: split_cost_item } %>
             <% end %>
           </tbody>
         </table>
