@@ -18,3 +18,6 @@ en:
         shanghai_hq: "Shanghai HQ"
         shanghai_hq_base: "Shanghai HQ base"
         shanghai_hq_companies: "Shanghai HQ companies"
+        errors:
+          rate_not_reach_to_100: "Total rate not reach to 100%"
+          empty_text: ""

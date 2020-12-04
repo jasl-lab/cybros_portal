@@ -18,3 +18,6 @@ zh-CN:
         shanghai_hq: "上海天华分摊百分比"
         shanghai_hq_base: "上海天华分摊基数"
         shanghai_hq_rate_companies_codes: "上海天华分摊包含公司"
+        errors:
+          rate_not_reach_to_100: "比例总和相加没有到达100%"
+          empty_text: ""

@@ -12,9 +12,9 @@ module SplitCost
     def split_rate_reach_100
       return if group_rate.to_i + shanghai_area.to_i + shanghai_hq.to_i == 100
 
-      errors.add(:group_rate, I18n.t('cost_split.human_resources.user_split_cost_setting_form.errors.empty_text'))
-      errors.add(:shanghai_area, I18n.t('cost_split.human_resources.user_split_cost_setting_form.errors.empty_text'))
-      errors.add(:shanghai_hq, I18n.t('cost_split.human_resources.user_split_cost_setting_form.errors.rate_not_reach_to_100'))
+      errors.add(:group_rate, I18n.t('cost_split.user_split_cost_settings.form_fields.errors.empty_text'))
+      errors.add(:shanghai_area, I18n.t('cost_split.user_split_cost_settings.form_fields.errors.empty_text'))
+      errors.add(:shanghai_hq, I18n.t('cost_split.user_split_cost_settings.form_fields.errors.rate_not_reach_to_100'))
     end
 
     def user_split_cost_group_rate_companies_codes
