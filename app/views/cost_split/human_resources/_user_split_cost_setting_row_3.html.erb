@@ -1,0 +1,21 @@
+<td>
+  <p><%= user.position_title -%></p>
+</td>
+<td>
+  <p>上海天华</p>
+</td>
+<td>
+  <p><%= scs&.shanghai_hq -%>&nbsp;</p>
+</td>
+<td>
+  <p><%= scs&.shanghai_hq_base -%>&nbsp;</p>
+</td>
+<td>
+  <p>
+    <% scs&.user_split_cost_shanghai_hq_rate_companies_codes&.each do |company_code| %>
+      <span class="badge badge-dark"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+    <% end %>
+  &nbsp;</p>
+</td>
+<td>
+</td>

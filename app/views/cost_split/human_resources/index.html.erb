@@ -33,6 +33,12 @@
               <tr id="user-split-cost-setting-<%= user.id -%>-r1">
                 <%= render partial: 'user_split_cost_setting_row_1', locals: { user: user, scs: user.current_user_split_cost_setting } -%>
               </tr>
+              <tr id="user-split-cost-setting-<%= user.id -%>-r2">
+                <%= render partial: 'user_split_cost_setting_row_2', locals: { user: user, scs: user.current_user_split_cost_setting } -%>
+              </tr>
+              <tr id="user-split-cost-setting-<%= user.id -%>-r3">
+                <%= render partial: 'user_split_cost_setting_row_3', locals: { user: user, scs: user.current_user_split_cost_setting } -%>
+              </tr>
             <% end %>
           </tbody>
         </table>

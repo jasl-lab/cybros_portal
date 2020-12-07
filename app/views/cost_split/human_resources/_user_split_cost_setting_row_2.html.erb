@@ -1,0 +1,21 @@
+<td>
+  <p><%= user.chinese_name -%></p>
+</td>
+<td>
+  <p>上海区域</p>
+</td>
+<td>
+  <p><%= scs&.shanghai_area -%>&nbsp;</p>
+</td>
+<td>
+  <p><%= scs&.shanghai_area_base -%>&nbsp;</p>
+</td>
+<td>
+  <p class="<%= scs&.user_split_cost_shanghai_area_rate_companies_codes.present? ? 'mb-0' : '' -%>">
+    <% scs&.user_split_cost_shanghai_area_rate_companies_codes&.each do |company_code| %>
+      <span class="badge badge-secondary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+    <% end %>
+  &nbsp;</p>
+</td>
+<td>
+</td>
