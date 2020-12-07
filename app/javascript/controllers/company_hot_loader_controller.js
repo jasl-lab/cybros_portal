@@ -10,7 +10,6 @@ export default class extends Controller {
       dataType: 'json'
     }).done(function(response) {
       const data = response.data[0];
-      console.log(data);
 
       $("#company-hots-img").attr("src", `https://portal.thape.com.cn${data.cover}`);
       $("#company-hots-title").html(data.title);

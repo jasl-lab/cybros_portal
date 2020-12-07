@@ -30,8 +30,6 @@ export default class extends Controller {
       for (var i = 0; i < data.length; i++) {
         var geoCoord = geoCoordMap[data[i].name];
         if (geoCoord) {
-          console.log(data[i]);
-          console.log(geoCoord);
           res.push({
             name: data[i].name,
             value: geoCoord.concat([yearRateSum[i], previousYearRateSum[i]])
@@ -42,7 +40,6 @@ export default class extends Controller {
     }
 
     const scatter_data = convertData(map_data);
-    console.log(scatter_data);
     const map_option = {
       title: [{
         text: '全国开工面积 省份分布',
