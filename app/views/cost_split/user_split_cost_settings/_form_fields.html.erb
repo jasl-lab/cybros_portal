@@ -3,6 +3,8 @@
 <%= f.hidden_field :dept_code, id: nil %>
 <%= f.hidden_field :position_title, id: nil %>
 <div class="modal-body">
+  <hr />
+  <h4>集团</h4>
   <div class="form-row">
     <div class="col-4">
       <div class="form-group">
@@ -21,7 +23,8 @@
     <label for="select-group_rate_companies"><%= t('.group_rate_companies') -%></label>
     <%= f.select :user_split_cost_group_rate_companies_codes, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-group_rate_companies' -%>
   </div>
-
+  <hr />
+  <h4>上海区域</h4>
   <div class="form-row mt-3">
     <div class="col-4">
       <div class="form-group">
@@ -41,6 +44,8 @@
     <%= f.select :user_split_cost_shanghai_area_rate_companies_codes, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-shanghai_area_rate_companies' -%>
   </div>
 
+  <hr />
+  <h4>上海天华</h4>
   <div class="form-row mt-3">
     <div class="col-4">
       <div class="form-group">
