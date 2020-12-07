@@ -25,7 +25,7 @@
 <td>
   <p class="<%= split_cost_item.split_cost_item_group_rate_companies_codes.present? ? 'mb-0' : '' -%>">
     <% split_cost_item.split_cost_item_group_rate_companies_codes&.each do |company_code| %>
-      <span class="badge badge-primary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+      <span class="badge badge-info"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
     <% end %>
   &nbsp;</p>
   <p class="<%= split_cost_item.split_cost_item_shanghai_area_rate_companies_codes.present? ? 'mb-0' : '' -%>">
