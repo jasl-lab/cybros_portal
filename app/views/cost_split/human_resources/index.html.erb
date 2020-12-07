@@ -30,8 +30,8 @@
           </thead>
           <tbody>
             <% @users.each do |user| %>
-              <tr id="user-split-cost-setting-<%= user.id -%>">
-                <%= render partial: 'user_split_cost_setting_row', locals: { user: user, scs: user.current_user_split_cost_setting } -%>
+              <tr id="user-split-cost-setting-<%= user.id -%>-r1">
+                <%= render partial: 'user_split_cost_setting_row_1', locals: { user: user, scs: user.current_user_split_cost_setting } -%>
               </tr>
             <% end %>
           </tbody>

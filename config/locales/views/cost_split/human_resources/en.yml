@@ -14,6 +14,6 @@ en:
           split_base_number: "Split base number"
           split_companies: "Split companies"
           version: "version"
-      user_split_cost_setting_row:
+      user_split_cost_setting_row_1:
         action:
           new: 'New'

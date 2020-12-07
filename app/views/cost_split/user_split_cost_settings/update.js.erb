@@ -1,3 +1,3 @@
-$("#user-split-cost-setting-<%= @user.id -%>").html('<%= j render(partial: "cost_split/human_resources/user_split_cost_setting_row", locals: { user: @user, scs: @user_split_cost_setting }) -%>');
+$("#user-split-cost-setting-<%= @user.id -%>-r1").html('<%= j render(partial: "cost_split/human_resources/user_split_cost_setting_row_1", locals: { user: @user, scs: @user_split_cost_setting }) -%>');
 $("#cost-human-resources-modal").html('');
 $("#cost-human-resources-modal").modal('hide');
