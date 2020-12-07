@@ -1,5 +1,7 @@
-<td>
+<td rowspan="3" class="text-left align-middle">
+  <p class="badge badge-pill badge-primary"><%= user.chinese_name -%></p>
   <p><%= user.clerk_code -%></p>
+  <p><%= user.position_title -%></p>
 </td>
 <td>
   <p>集团性</p>
@@ -17,7 +19,7 @@
     <% end %>
   &nbsp;</p>
 </td>
-<td>
+<td rowspan="3">
   <% if scs.present? %>
     <%= link_to scs.version.presence || raw('&nbsp;'), edit_cost_split_user_split_cost_setting_path(id: scs.id), remote: true, class: 'btn btn-primary btn-sm' -%>
     <br />
