@@ -15,7 +15,7 @@
 <td>
   <p class="<%= scs&.user_split_cost_group_rate_companies_codes.present? ? 'mb-0' : '' -%>">
     <% scs&.user_split_cost_group_rate_companies_codes&.each do |company_code| %>
-      <span class="badge badge-info"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+      <span class="badge badge-light"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
     <% end %>
   &nbsp;</p>
 </td>
