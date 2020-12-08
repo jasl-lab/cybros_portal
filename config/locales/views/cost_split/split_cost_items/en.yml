@@ -23,3 +23,19 @@ en:
       split_cost_item_row_1:
         action:
           edit: "Edit"
+      edit:
+        title: "Edit split_cost_items"
+        close: "Close"
+      form_fields:
+        group_rate: "Group rate"
+        group_rate_base: "Group rate base"
+        group_rate_companies: "Group rate companies"
+        shanghai_area: "Shanghai area"
+        shanghai_area_base: "Shanghai area"
+        shanghai_area_companies: "Shanghai area companies"
+        shanghai_hq: "Shanghai HQ"
+        shanghai_hq_base: "Shanghai HQ base"
+        shanghai_hq_companies: "Shanghai HQ companies"
+        errors:
+          rate_not_reach_to_100: "Total rate not reach to 100%"
+          empty_text: ""

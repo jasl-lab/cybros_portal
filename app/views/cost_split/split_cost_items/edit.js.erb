@@ -1,0 +1,3 @@
+$("#cost-split-cost-items-modal").html('<%= j render(partial: "edit", locals: { split_cost_item: @split_cost_item }) -%>');
+$("select[class='form-control'][class!='selectized']").selectize();
+$("#cost-split-cost-items-modal").modal('show');

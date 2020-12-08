@@ -23,3 +23,19 @@ zh-CN:
       split_cost_item_row_1:
         action:
           edit: "编辑"
+      edit:
+        title: "修改资产及费用预算分摊规则"
+        close: "关闭"
+      form_fields:
+        group_rate: "集团性分摊百分比"
+        group_rate_base: "集团性分摊基数"
+        group_rate_companies: "集团性分摊包含公司"
+        shanghai_area: "上海区域分摊百分比"
+        shanghai_area_base: "上海区域分摊基数"
+        shanghai_area_rate_companies: "上海区域分摊包含公司"
+        shanghai_hq: "上海天华分摊百分比"
+        shanghai_hq_base: "上海天华分摊基数"
+        shanghai_hq_rate_companies_codes: "上海天华分摊包含公司"
+        errors:
+          rate_not_reach_to_100: "比例总和相加没有到达100%"
+          empty_text: ""

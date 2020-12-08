@@ -1,7 +1,3 @@
-<%= f.hidden_field :user_id, id: nil %>
-<%= f.hidden_field :org_code, id: nil %>
-<%= f.hidden_field :dept_code, id: nil %>
-<%= f.hidden_field :position_title, id: nil %>
 <div class="modal-body">
   <h4>集团</h4>
   <div class="form-row">
@@ -20,7 +16,7 @@
   </div>
   <div class="form-group">
     <label for="select-group_rate_companies"><%= t('.group_rate_companies') -%></label>
-    <%= f.select :user_split_cost_group_rate_companies_codes, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-group_rate_companies' -%>
+    <%= f.select :split_cost_item_group_rate_companies, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-group_rate_companies' -%>
   </div>
   <hr />
   <h4>上海区域</h4>
@@ -40,7 +36,7 @@
   </div>
   <div class="form-group">
     <label for="select-shanghai_area_rate_companies"><%= t('.shanghai_area_rate_companies') -%></label>
-    <%= f.select :user_split_cost_shanghai_area_rate_companies_codes, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-shanghai_area_rate_companies' -%>
+    <%= f.select :split_cost_item_shanghai_area_rate_companies, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-shanghai_area_rate_companies' -%>
   </div>
 
   <hr />
@@ -61,6 +57,6 @@
   </div>
   <div class="form-group">
     <label for="select-shanghai_hq_rate_companies_codes"><%= t('.shanghai_hq_rate_companies_codes') -%></label>
-    <%= f.select :user_split_cost_shanghai_hq_rate_companies_codes, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-shanghai_hq_rate_companies_codes' -%>
+    <%= f.select :split_cost_item_shanghai_hq_rate_companies, SplitCost::CostSplitAllocationBase.all_company_shortnames_with_code, { }, multiple: true, class: 'form-control', id: 'select-shanghai_hq_rate_companies_codes' -%>
   </div>
 </div>
