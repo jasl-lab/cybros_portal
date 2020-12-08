@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-12">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -15,92 +15,93 @@
           </div>
         <% end -%>
       </div>
-      <div class="col-12 mt-2">
-        <table class="table table-bordered table-responsive">
-          <thead>
-            <tr>
-              <th colspan="2" rowspan="3"><%= t(".table.abstract") -%></th>
-              <th rowspan="3"><%= t(".table.sum") -%></th>
-              <% @ordered_companies.keys.each_with_index do |org_shortname, index| -%>
-                <th colspan="3" style="vertical-align:middle;text-align:center;"><%= index + 1 -%></th>
-              <% end %>
-            </tr>
-            <tr>
-              <% @ordered_companies.keys.each do |org_shortname| -%>
-                <th colspan="3" style="vertical-align:middle;text-align:center;"><%= org_shortname -%></th>
-              <% end %>
-            </tr>
-            <tr>
-              <% @ordered_companies.keys.each do |org_shortname| -%>
-                <th>集团性</th>
-                <th>上海区域</th>
-                <th>纯上海天华</th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <% @ordered_depts.keys.each_with_index do |dept_name, index| %>
-              <tr>
-                <% if index == 0 %>
-                  <td rowspan="<%= @ordered_depts.keys.count -%>" style="vertical-align:middle;text-align:center;">工资、社保、公积金、房租及物业费小计</td>
-                <% end %>
-                <td><%= dept_name -%></td>
-                <td>
-                  <%= @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:group_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_area_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_hq_cost) -%>
-                </td>
-                <% @ordered_companies.keys.each do |org_shortname| -%>
-                  <% uscd = @user_split_cost_details.find {|u| u.v_wata_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
-                  <% if uscd.present? %>
-                    <td><%= link_to uscd.group_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
-                    <td><%= link_to uscd.shanghai_area_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
-                    <td><%= link_to uscd.shanghai_hq_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
-                  <% else %>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  <% end %>
-                <% end %>
-              </tr>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="overflow-auto">
+      <table class="table table-bordered" style="width: 5000px">
+        <thead>
+          <tr>
+            <th colspan="2" rowspan="3"><%= t(".table.abstract") -%></th>
+            <th rowspan="3"><%= t(".table.sum") -%></th>
+            <% @ordered_companies.keys.each_with_index do |org_shortname, index| -%>
+              <th colspan="3" style="vertical-align:middle;text-align:center;"><%= index + 1 -%></th>
             <% end %>
+          </tr>
+          <tr>
+            <% @ordered_companies.keys.each do |org_shortname| -%>
+              <th colspan="3" style="vertical-align:middle;text-align:center;"><%= org_shortname -%></th>
+            <% end %>
+          </tr>
+          <tr>
+            <% @ordered_companies.keys.each do |org_shortname| -%>
+              <th>集团性</th>
+              <th>上海区域</th>
+              <th>纯上海天华</th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @ordered_depts.keys.each_with_index do |dept_name, index| %>
+            <tr>
+              <% if index == 0 %>
+                <td rowspan="<%= @ordered_depts.keys.count -%>" style="vertical-align:middle;text-align:center;">工资、社保、公积金、房租及物业费小计</td>
+              <% end %>
+              <td><%= dept_name -%></td>
+              <td>
+                <%= @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:group_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_area_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_hq_cost) -%>
+              </td>
+              <% @ordered_companies.keys.each do |org_shortname| -%>
+                <% uscd = @user_split_cost_details.find {|u| u.v_wata_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
+                <% if uscd.present? %>
+                  <td><%= link_to uscd.group_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                  <td><%= link_to uscd.shanghai_area_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                  <td><%= link_to uscd.shanghai_hq_cost, drill_down_user_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
 
-            <tr>
-              <td colspan="2">工资、社保、公积金、房租及物业费小计</td>
-              <td>
-                <%= @user_split_cost_details.sum(&:group_cost) + @user_split_cost_details.sum(&:shanghai_area_cost) + @user_split_cost_details.sum(&:shanghai_hq_cost) -%>
-              </td>
-              <% @ordered_companies.keys.each do |org_shortname| -%>
-                <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:group_cost) %></td>
-                <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_area_cost) %></td>
-                <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_hq_cost) %></td>
-              <% end %>
-            </tr>
-            <tr>
-              <td colspan="2">固定资产折旧（服务器及交换机等）</td>
-              <td>
-                <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost) -%>
-              </td>
-              <% @ordered_companies.keys.each do |org_shortname| -%>
-                <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:group_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '固定资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
-                <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '固定资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
-                <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '固定资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
-              <% end %>
-            </tr>
-            <tr>
-              <td colspan="2">无形资产摊销（软件）</td>
-              <td>
-                <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost) -%>
-              </td>
-              <% @ordered_companies.keys.each do |org_shortname| -%>
-                <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:group_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
-                <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
-                <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
-              <% end %>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <tr>
+            <td colspan="2">工资、社保、公积金、房租及物业费小计</td>
+            <td>
+              <%= @user_split_cost_details.sum(&:group_cost) + @user_split_cost_details.sum(&:shanghai_area_cost) + @user_split_cost_details.sum(&:shanghai_hq_cost) -%>
+            </td>
+            <% @ordered_companies.keys.each do |org_shortname| -%>
+              <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:group_cost) %></td>
+              <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_area_cost) %></td>
+              <td><%= @user_split_cost_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] }.sum(&:shanghai_hq_cost) %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td colspan="2">固定资产折旧（服务器及交换机等）</td>
+            <td>
+              <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost) -%>
+            </td>
+            <% @ordered_companies.keys.each do |org_shortname| -%>
+              <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:group_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '固定资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
+              <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '固定资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
+              <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '固定资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
+            <% end %>
+          </tr>
+          <tr>
+            <td colspan="2">无形资产摊销（软件）</td>
+            <td>
+              <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost) -%>
+            </td>
+            <% @ordered_companies.keys.each do |org_shortname| -%>
+              <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:group_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
+              <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
+              <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-
 <div id="cost-allocation-summary-modal" class="modal" tabindex="-1" role="dialog"></div>
