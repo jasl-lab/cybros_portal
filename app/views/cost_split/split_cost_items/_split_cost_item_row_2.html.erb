@@ -1,21 +1,19 @@
-<tr>
-  <td>
-    <p><%= split_cost_item.start_date -%> ~ <%= split_cost_item.end_date -%></p>
-  </td>
-  <td>
-    <p>上海区域</p>
-  </td>
-  <td>
-    <p><%= split_cost_item.shanghai_area -%></p>
-  </td>
-  <td>
-    <p><%= split_cost_item.shanghai_area_base -%></p>
-  </td>
-  <td>
-    <p class="<%= split_cost_item.split_cost_item_shanghai_area_rate_companies_codes.present? ? 'mb-0' : '' -%>">
-      <% split_cost_item.split_cost_item_shanghai_area_rate_companies_codes&.each do |company_code| %>
-        <span class="badge badge-secondary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
-      <% end %>
-    &nbsp;</p>
-  </td>
-</tr>
+<td>
+  <p><%= split_cost_item.start_date -%> ~ <%= split_cost_item.end_date -%></p>
+</td>
+<td>
+  <p>上海区域</p>
+</td>
+<td>
+  <p><%= split_cost_item.shanghai_area -%></p>
+</td>
+<td>
+  <p><%= split_cost_item.shanghai_area_base -%></p>
+</td>
+<td>
+  <p class="<%= split_cost_item.split_cost_item_shanghai_area_rate_companies_codes.present? ? 'mb-0' : '' -%>">
+    <% split_cost_item.split_cost_item_shanghai_area_rate_companies_codes&.each do |company_code| %>
+      <span class="badge badge-secondary"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+    <% end %>
+  &nbsp;</p>
+</td>

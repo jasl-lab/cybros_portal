@@ -13,8 +13,24 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
   end
 
   def update
-    @split_cost_item.update(split_cost_item_params)
-    redirect_to cost_split_split_cost_items_path, notice: t('.success')
+    case params[:form_action]
+    when 'save'
+      @split_cost_item.update(split_cost_item_params)
+    when 'confirm'
+      @split_cost_item.update(split_cost_item_params)
+      @split_cost_item.update_columns(start_date: Date.today)
+    end
+  end
+
+  def submit
+    @split_cost_item.update(version:
+      SplitCost::SplitCostItem.where(split_cost_item_no: @split_cost_item.split_cost_item_no).count)
+    render :update
+  end
+
+  def reject
+    @split_cost_item.update(version: nil)
+    render :update
   end
 
   protected

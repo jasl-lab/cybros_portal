@@ -1,0 +1,5 @@
+$("#split-cost-items-<%= @split_cost_item.id -%>-r1").html('<%= j render(partial: "split_cost_item_row_1", locals: { split_cost_item: @split_cost_item }) -%>');
+$("#split-cost-items-<%= @split_cost_item.id -%>-r2").html('<%= j render(partial: "split_cost_item_row_2", locals: { split_cost_item: @split_cost_item }) -%>');
+$("#split-cost-items-<%= @split_cost_item.id -%>-r3").html('<%= j render(partial: "split_cost_item_row_3", locals: { split_cost_item: @split_cost_item }) -%>');
+$("#cost-split-cost-items-modal").html('');
+$("#cost-split-cost-items-modal").modal('hide');

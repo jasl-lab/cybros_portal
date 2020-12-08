@@ -11,7 +11,7 @@ module SplitCost
     validates :split_cost_item_no, :split_cost_item_name, :split_cost_item_category, presence: true
 
     def split_cost_item_group_rate_companies_codes
-      @_split_cost_item_group_rate_companies_codes ||= split_cost_item_group_rate_companies.pluck(:company_code)
+      split_cost_item_group_rate_companies.pluck(:company_code)
     end
 
     def split_cost_item_group_rate_companies_codes=(values)
@@ -31,7 +31,7 @@ module SplitCost
     end
 
     def split_cost_item_shanghai_area_rate_companies_codes
-      @_split_cost_item_shanghai_area_rate_companies_codes ||= split_cost_item_shanghai_area_rate_companies.pluck(:company_code)
+      split_cost_item_shanghai_area_rate_companies.pluck(:company_code)
     end
 
     def split_cost_item_shanghai_area_rate_companies_codes=(values)
@@ -51,7 +51,7 @@ module SplitCost
     end
 
     def split_cost_item_shanghai_hq_rate_companies_codes
-      @_split_cost_item_shanghai_hq_rate_companies_codes ||= split_cost_item_shanghai_hq_rate_companies.pluck(:company_code)
+      split_cost_item_shanghai_hq_rate_companies.pluck(:company_code)
     end
 
     def split_cost_item_shanghai_hq_rate_companies_codes=(values)
