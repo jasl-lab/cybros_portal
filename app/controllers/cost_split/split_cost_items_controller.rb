@@ -19,6 +19,20 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
     when 'confirm'
       @split_cost_item.update(split_cost_item_params)
       @split_cost_item.update_columns(start_date: Date.today)
+    when 'version_up'
+      @split_cost_item.update(end_date: Date.today)
+      @split_cost_item = SplitCost::SplitCostItem.create(
+        split_cost_item_no: @split_cost_item.split_cost_item_no,
+        split_cost_item_name: @split_cost_item.split_cost_item_name,
+        split_cost_item_category: @split_cost_item.split_cost_item_category,
+        from_dept_code: @split_cost_item.from_dept_code,
+        group_rate: @split_cost_item.group_rate,
+        shanghai_area: @split_cost_item.shanghai_area,
+        shanghai_hq: @split_cost_item.shanghai_hq,
+        group_rate_base: @split_cost_item.group_rate_base,
+        shanghai_area_base: @split_cost_item.shanghai_area_base,
+        shanghai_hq_base: @split_cost_item.shanghai_hq_base,
+        version: SplitCost::SplitCostItem.where(split_cost_item_no: @split_cost_item.split_cost_item_no).count)
     end
   end
 
