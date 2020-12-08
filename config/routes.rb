@@ -326,10 +326,10 @@ Rails.application.routes.draw do
         patch :submit
       end
     end
-    resources :split_cost_items, except: %i[show new edit] do
+    resources :split_cost_items, only: %i[index edit update] do
       member do
-        patch :confirm
-        patch :version_up
+        patch :reject
+        patch :submit
       end
     end
     resources :allocation_bases, only: %i[index create new update edit] do

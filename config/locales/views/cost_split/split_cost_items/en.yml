@@ -16,15 +16,10 @@ en:
           split_base_number: "Split base number"
           split_companies: "Split companies"
           version: "Version"
-      create:
-        success: "Create cost split item successed."
-      destroy:
-        success: "Cost split item removed."
       update:
         success: "Cost split item updated."
-      confirm:
-        success: "Cost split item confirmed."
-      version_up:
-        success: "Cost split item version uped."
       split_cost_item:
         submit_save: "Save"
+      split_cost_item_row_1:
+        action:
+          edit: "Edit"

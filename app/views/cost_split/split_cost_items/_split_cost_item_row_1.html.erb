@@ -22,7 +22,12 @@
       <% end %>
     &nbsp;</p>
   </td>
-  <td rowspan="3">
-    <%= split_cost_item.version -%>
+  <td rowspan="3" style="width: 80px">
+    <span class="badge badge-light"><%= I18n.t("activerecord.attributes.split_cost.status.#{cost_split_current_status(split_cost_item)}") %></span>
+    <br />
+    <br />
+    <%= link_to edit_cost_split_split_cost_item_path(id: split_cost_item.id), remote: true, class: 'btn btn-sm' do -%>
+      <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="<%= t('.action.edit') -%>"></i>版本 <%= split_cost_item.version %>
+    <% end %>
   </td>
 </tr>

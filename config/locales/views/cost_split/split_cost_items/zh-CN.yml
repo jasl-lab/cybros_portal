@@ -16,15 +16,10 @@ zh-CN:
           split_base_number: "分摊基数"
           split_companies: "分摊包含公司"
           version: "版本"
-      create:
-        success: "分摊项目已新建"
-      destroy:
-        success: "分摊项目已删除"
       update:
         success: "分摊项目已更新"
-      confirm:
-        success: "分摊项目已确认"
-      version_up:
-        success: "分摊项目已升版"
       split_cost_item:
         submit_save: "保存"
+      split_cost_item_row_1:
+        action:
+          edit: "编辑"

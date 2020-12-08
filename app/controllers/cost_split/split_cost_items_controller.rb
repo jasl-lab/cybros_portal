@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::SplitCostItemsController < CostSplit::BaseController
-  before_action :set_split_cost_item, except: %i[create index]
+  before_action :set_split_cost_item, except: %i[index]
 
   def index
     prepare_meta_tags title: t('.title')
@@ -9,31 +9,11 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
     @new_split_cost_item = SplitCost::SplitCostItem.new
   end
 
-  def create
-    split_cost_item = SplitCost::SplitCostItem.new(split_cost_item_params)
-    split_cost_item.version ||= 0
-    split_cost_item.start_date ||= Date.today
-    split_cost_item.save
-    redirect_to cost_split_split_cost_items_path, notice: t('.success')
-  end
-
-  def destroy
-    @split_cost_item.destroy
-    redirect_to cost_split_split_cost_items_path, notice: t('.success')
+  def edit
   end
 
   def update
     @split_cost_item.update(split_cost_item_params)
-    redirect_to cost_split_split_cost_items_path, notice: t('.success')
-  end
-
-  def confirm
-    @split_cost_item.update(confirmed: true)
-    redirect_to cost_split_split_cost_items_path, notice: t('.success')
-  end
-
-  def version_up
-    @split_cost_item.update(end_date: Date.today)
     redirect_to cost_split_split_cost_items_path, notice: t('.success')
   end
 
