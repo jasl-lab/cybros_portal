@@ -27,7 +27,9 @@
           </thead>
           <tbody>
             <% @split_cost_items.each do |split_cost_item| %>
-              <%= render partial: 'split_cost_item_row', locals: { split_cost_item: split_cost_item } %>
+              <%= render partial: 'split_cost_item_row_1', locals: { split_cost_item: split_cost_item } %>
+              <%= render partial: 'split_cost_item_row_2', locals: { split_cost_item: split_cost_item } %>
+              <%= render partial: 'split_cost_item_row_3', locals: { split_cost_item: split_cost_item } %>
             <% end %>
           </tbody>
         </table>

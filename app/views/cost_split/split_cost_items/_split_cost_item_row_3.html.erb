@@ -1,0 +1,21 @@
+<tr>
+  <td>
+    <p><%= split_cost_item.end_date -%></p>
+  </td>
+  <td>
+    <p>上海天华</p>
+  </td>
+  <td>
+    <p><%= split_cost_item.shanghai_hq -%></p>
+  </td>
+  <td>
+    <p><%= split_cost_item.shanghai_hq_base -%></p>
+  </td>
+  <td>
+    <p>
+      <% split_cost_item.split_cost_item_shanghai_hq_rate_companies_codes&.each do |company_code| %>
+        <span class="badge badge-dark"><%= Bi::OrgShortName.company_short_names_by_orgcode[company_code] -%></span>
+      <% end %>
+    &nbsp;</p>
+  </td>
+</tr>
