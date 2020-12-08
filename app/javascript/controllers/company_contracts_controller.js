@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let companyContractsFixedHeader;
+
 export default class extends Controller {
   connect() {
     const normalColumns = [
@@ -8,7 +10,7 @@ export default class extends Controller {
       {"data": "total_sales_contract_amount"}
     ];
 
-    $('#company-contracts-datatable').dataTable({
+    const companyContractsDatatable = $('#company-contracts-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "autoWidth": false,
@@ -21,9 +23,16 @@ export default class extends Controller {
       "order": [[ 0, 'desc' ]],
       "stateSave": false
     });
+    companyContractsFixedHeader = new $.fn.dataTable.FixedHeader(companyContractsDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    companyContractsFixedHeader.destroy();
     $('#company-contracts-datatable').DataTable().destroy();
   }
 }

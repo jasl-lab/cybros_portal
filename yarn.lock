@@ -2501,6 +2501,14 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
+datatables.net-bs4@^1.10.15:
+  version "1.10.22"
+  resolved "https://registry.npm.taobao.org/datatables.net-bs4/download/datatables.net-bs4-1.10.22.tgz#1ba03e5628841b83329069743ec389a56940234b"
+  integrity sha1-G6A+ViiEG4MykGl0PsOJpWlAI0s=
+  dependencies:
+    datatables.net "1.10.22"
+    jquery ">=1.7"
+
 datatables.net-bs@^1.10.15, datatables.net-bs@^1.10.22:
   version "1.10.22"
   resolved "https://registry.npm.taobao.org/datatables.net-bs/download/datatables.net-bs-1.10.22.tgz#955ae681e4681b7712bab744bca63ebb3c6c6ec5"
@@ -2522,6 +2530,23 @@ datatables.net-buttons@1.6.5, datatables.net-buttons@^1.6.5:
   version "1.6.5"
   resolved "https://registry.npm.taobao.org/datatables.net-buttons/download/datatables.net-buttons-1.6.5.tgz#e7142b928ec9f5a6f9381bb965605c12e1610954"
   integrity sha1-5xQrko7J9ab5OBu5ZWBcEuFhCVQ=
+  dependencies:
+    datatables.net "^1.10.15"
+    jquery ">=1.7"
+
+datatables.net-fixedheader-bs4@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.npm.taobao.org/datatables.net-fixedheader-bs4/download/datatables.net-fixedheader-bs4-3.1.7.tgz#13e86e203a62b616f28883562f862e4c585729e8"
+  integrity sha1-E+huIDpithbyiINWL4YuTFhXKeg=
+  dependencies:
+    datatables.net-bs4 "^1.10.15"
+    datatables.net-fixedheader "3.1.7"
+    jquery ">=1.7"
+
+datatables.net-fixedheader@3.1.7, datatables.net-fixedheader@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.npm.taobao.org/datatables.net-fixedheader/download/datatables.net-fixedheader-3.1.7.tgz#d1d02f96f765e6d1877f9f799ded9b818074abaf"
+  integrity sha1-0dAvlvdl5tGHf595ne2bgYB0q68=
   dependencies:
     datatables.net "^1.10.15"
     jquery ">=1.7"

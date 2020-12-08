@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let subsidiaryNeedReceiveSignDetailsFixedHeader;
+
 export default class extends Controller {
   connect() {
     const canHideItem = this.data.get("can_hide_item") == "true";
@@ -19,7 +21,7 @@ export default class extends Controller {
 
     const adminColumns = normalColumns.concat([{"data": "comment_on_sales_contract_code"}, {"data": "admin_action", bSortable: false}]);
 
-    $('#subsidiary-need-receive-sign-details-datatable').dataTable({
+    const subsidiaryNeedReceiveSignDetailsDatatable = $('#subsidiary-need-receive-sign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "autoWidth": false,
@@ -38,9 +40,16 @@ export default class extends Controller {
         return JSON.parse(localStorage.getItem('DataTables_subsidiary-need-receive-sign-details'));
         }
     });
+    subsidiaryNeedReceiveSignDetailsFixedHeader = new $.fn.dataTable.FixedHeader(subsidiaryNeedReceiveSignDetailsDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    subsidiaryNeedReceiveSignDetailsFixedHeader.destroy();
     $('#subsidiary-need-receive-sign-details-datatable').DataTable().destroy();
   }
 }

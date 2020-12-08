@@ -48,6 +48,8 @@ require('datatables.net-responsive-bs')(window, $);
 require('datatables.net-select')(window, $);
 // require('yadcf')(window, $); // Uncomment if you use yadcf (need a recent version of yadcf)
 require("datatables");
+require('datatables.net-fixedheader')(window, $);
+require('datatables.net-fixedheader-bs4')(window, $);
 
 require("devise-jwt");
 

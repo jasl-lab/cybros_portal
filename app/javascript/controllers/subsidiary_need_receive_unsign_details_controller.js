@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let subsidiaryNeedReceiveUnsignDetailsFixedHeader;
+
 export default class extends Controller {
   connect() {
     const canHideItem = this.data.get("can_hide_item") == "true";
@@ -18,7 +20,7 @@ export default class extends Controller {
 
     const adminColumns = normalColumns.concat([{"data": "comment_on_project_item_code"}, {"data": "admin_action", bSortable: false}]);
 
-    $('#subsidiary-need-receive-unsign-details-datatable').dataTable({
+    const subsidiaryNeedReceiveUnsignDetailsDatatable = $('#subsidiary-need-receive-unsign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "autoWidth": false,
@@ -37,9 +39,16 @@ export default class extends Controller {
         return JSON.parse(localStorage.getItem('DataTables_subsidiary-need-receive-unsign-details'));
         }
     });
+    subsidiaryNeedReceiveUnsignDetailsFixedHeader = new $.fn.dataTable.FixedHeader(subsidiaryNeedReceiveUnsignDetailsDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    subsidiaryNeedReceiveUnsignDetailsFixedHeader.destroy();
     $('#subsidiary-need-receive-unsign-details-datatable').DataTable().destroy();
   }
 }

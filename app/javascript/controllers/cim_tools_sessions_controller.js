@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let cimToolsSessionsFixedHeader;
+
 export default class extends Controller {
   connect() {
     const normalColumns = [
@@ -13,7 +15,7 @@ export default class extends Controller {
       {"data": "updated_at"}
     ];
 
-    $('#cim-tools-sessions-datatable').dataTable({
+    const cimToolsSessionsDatatable = $('#cim-tools-sessions-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "autoWidth": false,
@@ -29,9 +31,16 @@ export default class extends Controller {
         return JSON.parse(localStorage.getItem('DataTables_cim-tools-sessions'));
         }
     });
+    cimToolsSessionsFixedHeader = new $.fn.dataTable.FixedHeader(cimToolsSessionsDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    cimToolsSessionsFixedHeader.destroy();
     $('#cim-tools-sessions-datatable').DataTable().destroy();
   }
 }

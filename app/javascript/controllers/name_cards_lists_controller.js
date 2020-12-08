@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let nameCardsListsFixedHeader;
+
 export default class extends Controller {
   connect() {
     const normalColumns = [
@@ -19,7 +21,7 @@ export default class extends Controller {
       {"data": "item_action", bSortable: false}
     ];
 
-    $('#name-cards-lists-datatable').dataTable({
+    const nameCardsListsDatatable = $('#name-cards-lists-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "autoWidth": false,
@@ -34,9 +36,16 @@ export default class extends Controller {
         return JSON.parse(localStorage.getItem('DataTables_name-cards-lists'));
         }
     });
+    nameCardsListsFixedHeader = new $.fn.dataTable.FixedHeader(nameCardsListsDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    nameCardsListsFixedHeader.destroy();
     $('#name-cards-lists-datatable').DataTable().destroy();
   }
 }
