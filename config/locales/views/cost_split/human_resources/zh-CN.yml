@@ -16,4 +16,5 @@ zh-CN:
           version: "版本"
       user_split_cost_setting_row_1:
         action:
-          new: '新建'
+          new: "新建"
+          edit: "编辑"

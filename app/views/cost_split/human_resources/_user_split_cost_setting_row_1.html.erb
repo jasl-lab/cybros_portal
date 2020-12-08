@@ -19,11 +19,15 @@
     <% end %>
   &nbsp;</p>
 </td>
-<td rowspan="3">
+<td rowspan="3" style="width: 80px">
   <% if scs.present? %>
-    <%= link_to scs.version.presence || raw('&nbsp;'), edit_cost_split_user_split_cost_setting_path(id: scs.id), remote: true, class: 'btn btn-primary btn-sm' -%>
-    <br />
     <span class="badge badge-light"><%= I18n.t("activerecord.attributes.split_cost.status.#{cost_split_current_status(scs)}") %></span>
+    <br />
+    <br />
+    <%= link_to edit_cost_split_user_split_cost_setting_path(id: scs.id), remote: true, class: 'btn btn-sm' do -%>
+      <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="<%= t('.action.edit') -%>"></i>版本 <%= scs.version %>
+    <% end %>
+    <br />
   <% else %>
     <%= link_to new_cost_split_user_split_cost_setting_path(user_id: user.id), remote: true do -%>
       <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>

@@ -16,4 +16,5 @@ en:
           version: "version"
       user_split_cost_setting_row_1:
         action:
-          new: 'New'
+          new: "New"
+          edit: "Edit"
