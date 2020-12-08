@@ -22,7 +22,7 @@
       <% @orgs_options.each do |id| %>
         <%= hidden_field_tag "orgs[]", id %>
       <% end %>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
     <div class="row">
       <div class="col-lg-6">
@@ -40,7 +40,7 @@
         <label class="mr-1"><%= t(".org_names") -%>：</label>
         <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), {include_blank: true, multiple: true, class: 'form-control' } %>
       </div>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
     <div class="row">
       <div class="col-lg-12">

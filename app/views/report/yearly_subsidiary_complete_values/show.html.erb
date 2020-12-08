@@ -18,7 +18,7 @@
         <label class="mr-1"><%= t(".company_name") -%>：</label>
         <%= select_tag 'org_code', options_for_select(@all_short_companies, @org_code), class: 'form-control' %>
       </div>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
     <div id="yearly-subsidiary-complete-value-chart" style="width: 100%;height: 400px;"></div>
   </div>

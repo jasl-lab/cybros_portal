@@ -32,7 +32,7 @@
               <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), {include_blank: true, multiple: true, class: 'form-control' } %>
           </div>
           <div>
-            <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
+            <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
           </div>
         <% end -%>
         <h5 class="text-center">至<%= @last_available_date.year -%>年至<%= @last_available_date.month -%>月,集团业务保有量为<%= (@biz_retent_totals_sum/10000.0).round(2) -%>亿元,人均业务保有量为<%= @sum_biz_retent_totals_staff.round(0) -%>万元。</h5>

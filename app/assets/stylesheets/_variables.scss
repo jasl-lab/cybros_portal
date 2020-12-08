@@ -33,6 +33,7 @@ $yellow:                          #ffc107;
 $green:                           #bdea74;
 $teal:                            #20c997;
 $cyan:                            #67c2ef;
+$thape-color:                     #698198;
 
 $theme-colors: (
   primary: $blue,
@@ -44,7 +45,8 @@ $theme-colors: (
   warning: $yellow,
   danger: $red,
   light: $gray-200,
-  dark: $gray-800
+  dark: $gray-800,
+  thape-color: $thape-color,
 );
 
 // Options
@@ -216,7 +218,7 @@ $table-cell-padding-sm:       .1rem;
 $aside-menu-width: 140px;
 $form-group-margin-bottom:    .7rem;
 
-$selectize-input-item-bg: #698198;
+$selectize-input-item-bg: $thape-color;
 
 $selectize-dropdown-option-bg-active: gray;
 $selectize-input-arrow-width: .3rem;

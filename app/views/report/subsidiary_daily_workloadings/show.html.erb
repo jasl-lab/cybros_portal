@@ -51,7 +51,7 @@
         <div class="form-group col-md-3">
           <label class="mr-1">&nbsp;</label>
           <div class="form-control form-button">
-            <%= submit_tag t(".confirm"), class: 'btn btn-primary' %>
+            <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
             <%= link_to t('.export'), export_report_subsidiary_daily_workloading_path(company_code: @selected_company_code, begin_date: @begin_date.to_date, end_date: @end_date.to_date, view_deptcode_sum: @view_deptcode_sum, format: :csv), class: 'btn' %>
           </div>
         </div>

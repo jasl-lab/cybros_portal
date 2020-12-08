@@ -28,7 +28,7 @@
         <label class="mr-1"><%= t(".org_names") -%>：</label>
         <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), { include_blank: true, multiple: true, class: 'form-control' } %>
       </div>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-primary' %></div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
     <div class="row">
       <div class="col-sm-12 col-xl-7">
