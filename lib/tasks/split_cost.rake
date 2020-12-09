@@ -9,18 +9,23 @@ namespace :split_cost do
     cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
 
     Nc::CardLog.where('depamount > 0').where(yp: cyearperiod).each do |card_log|
+      next if card_log.depamount.blank?
+
       该资产当月需要摊销金额 = card_log.depamount
       asset_name = card_log.asset_name
       asset_code = card_log.asset_code
       split_cost_item = SplitCost::SplitCostItem.where(split_cost_item_no: asset_code)
         .where('start_date <= ?', cyearperiod_month_start).order(version: :desc).first
       if split_cost_item.present?
+        puts "Processing CardLog asset_code: #{asset_code} asset_name: #{asset_name}"
         split_item_cost_to_companies(split_cost_item, 该资产当月需要摊销金额, cyearperiod_month_start, nil)
       else
         puts "Can not find split_cost_item, asset_code: #{asset_code} asset_name: #{asset_name}"
       end
     end
     Nc::YsfsLine.where('moneycr > 0').where(year: cyearperiod_year, month: cyearperiod_month).each do |ysfs_line|
+      next if ysfs_line.moneycr.blank?
+
       该资产当月需要摊销金额 = ysfs_line.moneycr
       asset_name = ysfs_line.ysname
       asset_code = ysfs_line.yscode
@@ -28,6 +33,7 @@ namespace :split_cost do
       split_cost_item = SplitCost::SplitCostItem.where(split_cost_item_no: asset_code)
         .where('start_date <= ?', cyearperiod_month_start).order(version: :desc).first
       if split_cost_item.present?
+        puts "Processing YsfsLine asset_code: #{asset_code} asset_name: #{asset_name}"
         split_item_cost_to_companies(split_cost_item, 该资产当月需要摊销金额, cyearperiod_month_start, bill_no)
       else
         puts "Can not find split_cost_item, asset_code: #{asset_code} asset_name: #{asset_name}"
