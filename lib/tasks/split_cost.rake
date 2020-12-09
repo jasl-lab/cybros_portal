@@ -15,14 +15,27 @@ namespace :split_cost do
       split_cost_item = SplitCost::SplitCostItem.where(split_cost_item_no: asset_code)
         .where('start_date <= ?', cyearperiod_month_start).order(version: :desc).first
       if split_cost_item.present?
-        split_item_cost_to_companies(split_cost_item, 该资产当月需要摊销金额, cyearperiod_month_start)
+        split_item_cost_to_companies(split_cost_item, 该资产当月需要摊销金额, cyearperiod_month_start, nil)
+      else
+        puts "Can not find split_cost_item, asset_code: #{asset_code} asset_name: #{asset_name}"
+      end
+    end
+    Nc::YsfsLine.where('moneycr > 0').where(year: cyearperiod_year, month: cyearperiod_month).each do |ysfs_line|
+      该资产当月需要摊销金额 = ysfs_line.moneycr
+      asset_name = ysfs_line.ysname
+      asset_code = ysfs_line.yscode
+      bill_no = ysfs_line.billno
+      split_cost_item = SplitCost::SplitCostItem.where(split_cost_item_no: asset_code)
+        .where('start_date <= ?', cyearperiod_month_start).order(version: :desc).first
+      if split_cost_item.present?
+        split_item_cost_to_companies(split_cost_item, 该资产当月需要摊销金额, cyearperiod_month_start, bill_no)
       else
         puts "Can not find split_cost_item, asset_code: #{asset_code} asset_name: #{asset_name}"
       end
     end
   end
 
-  def split_item_cost_to_companies(split_cost_item, split_amount, cyearperiod_month_start)
+  def split_item_cost_to_companies(split_cost_item, split_amount, cyearperiod_month_start, bill_no)
     unless split_cost_item.group_rate.zero?
       group_rate_base_name = split_cost_item.group_rate_base
       摊销资产分母_company_codes = split_cost_item.split_cost_item_group_rate_companies.collect(&:company_code)
@@ -33,6 +46,7 @@ namespace :split_cost do
         split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: grc.company_code)
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
         split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
+        split_cost_item_detail.bill_no = bill_no
         split_cost_item_detail.group_cost = split_amount * (split_cost_item.group_rate / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -47,6 +61,7 @@ namespace :split_cost do
         split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: sarc.company_code)
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
         split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
+        split_cost_item_detail.bill_no = bill_no
         split_cost_item_detail.shanghai_area_cost = split_amount * (split_cost_item.shanghai_area / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -61,6 +76,7 @@ namespace :split_cost do
         split_cost_item_detail = SplitCost::SplitCostItemDetail.find_or_initialize_by(split_cost_item_id: split_cost_item.id, month: cyearperiod_month_start, to_split_company_code: shrc.company_code)
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
         split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
+        split_cost_item_detail.bill_no = bill_no
         split_cost_item_detail.shanghai_hq_cost = split_amount * (split_cost_item.shanghai_hq / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
