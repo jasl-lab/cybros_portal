@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let contractSignDetailsFixedHeader;
+
 export default class extends Controller {
   connect() {
     const canHideItem = this.data.get("can_hide_item") == "true";
@@ -21,7 +23,7 @@ export default class extends Controller {
 
     const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
 
-    $('#contract-sign-details-datatable').dataTable({
+    const contractSignDetailsDatatable = $('#contract-sign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "autoWidth": false,
@@ -37,9 +39,16 @@ export default class extends Controller {
         return JSON.parse(localStorage.getItem('DataTables_contract-sign-details'));
         }
     });
+    contractSignDetailsFixedHeader = new $.fn.dataTable.FixedHeader(contractSignDetailsDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    contractSignDetailsFixedHeader.destroy();
     $('#contract-sign-details-datatable').DataTable().destroy();
   }
 }
