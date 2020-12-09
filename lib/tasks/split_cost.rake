@@ -4,7 +4,9 @@ namespace :split_cost do
   desc 'Generate split cost item details'
   task :generate_split_cost_item_details, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
-    cyearperiod_month_start = Date.parse("#{cyearperiod[0..3]}-#{cyearperiod[4..5]}-01")
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
 
     Nc::CardLog.where('depamount > 0').where(yp: cyearperiod).each do |card_log|
       该资产当月需要摊销金额 = card_log.depamount
