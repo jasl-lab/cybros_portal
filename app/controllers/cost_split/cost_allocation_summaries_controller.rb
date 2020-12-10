@@ -53,9 +53,23 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
     month_name = params[:month_name].strip
     beginning_of_month = Date.parse(month_name).beginning_of_month
     @split_cost_item_details = SplitCost::SplitCostItemDetail.where(split_cost_item_category: split_cost_item_category, month: beginning_of_month, to_split_company_code: to_split_company_code)
+    @title = case split_cost_item_category
+    when '业务性支出预算'
+      '业务性支出预算分摊明细'
+    else
+      '集团性费用项目分摊明细'
+    end
   end
 
   def drill_down_expenditure
+    dept_code = params[:dept_code].strip
+    to_split_company_code = params[:company_code].strip
+    month_name = params[:month_name].strip
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+    @split_cost_item_details = SplitCost::SplitCostItemDetail
+      .where(split_cost_item_category: '业务性支出预算', month: beginning_of_month,
+         to_split_company_code: to_split_company_code, from_dept_code: dept_code)
+    @title = '业务性支出预算分摊明细'
   end
 
 end
