@@ -99,6 +99,31 @@
               <td><%= link_to @split_cost_item_details.filter { |u| u.to_split_company_code == @ordered_companies[org_shortname] && u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost), drill_down_item_cost_split_cost_allocation_summary_path(category: '无形资产', company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true %></td>
             <% end %>
           </tr>
+
+          <% @ordered_depts.keys.each_with_index do |dept_name, index| %>
+            <tr>
+              <% if index == 0 %>
+                <td rowspan="<%= @ordered_depts.keys.count -%>" class="align-middle text-center">业务类支出小计</td>
+              <% end %>
+              <td><%= dept_name -%></td>
+              <td>
+                <%= @split_cost_item_expenditure_per_depts.filter { |u| u.from_dept_code == @ordered_depts[dept_name] }.sum(&:group_cost) + @split_cost_item_expenditure_per_depts.filter { |u| u.from_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_area_cost) + @split_cost_item_expenditure_per_depts.filter { |u| u.from_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_hq_cost) -%>
+              </td>
+              <% @ordered_companies.keys.each do |org_shortname| -%>
+                <% scid = @split_cost_item_expenditure_per_depts.find {|u| u.from_dept_code == @ordered_depts[dept_name] && u.to_split_company_code == @ordered_companies[org_shortname] } %>
+                <% if scid.present? %>
+                  <td><%= link_to scid.group_cost, drill_down_expenditure_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                  <td><%= link_to scid.shanghai_area_cost, drill_down_expenditure_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                  <td><%= link_to scid.shanghai_hq_cost, drill_down_expenditure_cost_split_cost_allocation_summary_path(dept_code: @ordered_depts[dept_name], company_code: @ordered_companies[org_shortname], month_name: @month_name), remote: true -%></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+
           <tr>
             <td colspan="2">业务类支出小计</td>
             <td>

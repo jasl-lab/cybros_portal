@@ -31,6 +31,12 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
       .select('split_cost_item_category, to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
       .group(:split_cost_item_category, :to_split_company_code)
       .order(:split_cost_item_category, :to_split_company_code)
+
+    @split_cost_item_expenditure_per_depts = SplitCost::SplitCostItemDetail
+      .where(month: beginning_of_month, split_cost_item_category: '业务性支出预算')
+      .select('from_dept_code, to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
+      .group(:from_dept_code, :to_split_company_code)
+      .order(:from_dept_code, :to_split_company_code)
   end
 
   def drill_down_user
@@ -48,4 +54,8 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
     beginning_of_month = Date.parse(month_name).beginning_of_month
     @split_cost_item_details = SplitCost::SplitCostItemDetail.where(split_cost_item_category: split_cost_item_category, month: beginning_of_month, to_split_company_code: to_split_company_code)
   end
+
+  def drill_down_expenditure
+  end
+
 end

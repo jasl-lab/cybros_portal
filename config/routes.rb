@@ -343,6 +343,7 @@ Rails.application.routes.draw do
       collection do
         get :drill_down_user
         get :drill_down_item
+        get :drill_down_expenditure
       end
     end
   end
