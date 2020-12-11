@@ -140,6 +140,8 @@ Rails.application.routes.draw do
     resource :hr_core_staff_in_and_out, only: %i[show]
     resource :hr_staff_in_and_out, only: %i[show]
 
+    resource :cost_allocation_summary_table, only: %i[show]
+
     resources :yingjianke_logins, only: %i[index destroy] do
       collection do
         get :export

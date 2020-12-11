@@ -142,3 +142,4 @@ en:
         split_cost_items: "Split cost items"
         allocation_bases: "Allocation bases"
         cost_allocation_summaries: "Group cost allocation summary"
+        cost_allocation_summary_tables: "Group cost allocation summary table"

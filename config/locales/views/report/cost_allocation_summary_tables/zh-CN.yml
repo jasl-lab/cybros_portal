@@ -1,0 +1,6 @@
+---
+zh-CN:
+  report:
+    cost_allocation_summary_tables:
+      show:
+        title: "集团费用分摊汇总表"

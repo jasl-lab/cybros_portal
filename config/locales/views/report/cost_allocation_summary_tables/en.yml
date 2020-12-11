@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    cost_allocation_summary_tables:
+      show:
+        title: "Cost allocation summary table"

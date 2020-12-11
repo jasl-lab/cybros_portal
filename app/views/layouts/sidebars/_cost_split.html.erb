@@ -39,6 +39,12 @@
           <% end %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'report/cost_allocation_summary_tables', html_options: { class: "nav-item" } do %>
+        <%= link_to report_cost_allocation_summary_table_path, class: "nav-link", data: { turbolinks: false } do %>
+          <i class="nav-icon fas fa-pen"></i>
+          <%= t("layouts.sidebar.cost_split.cost_allocation_summary_tables") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>
