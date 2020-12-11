@@ -99,7 +99,7 @@ namespace :split_cost do
     raise '当前月份没有人数数据' unless 当前计算月份上海天华人数.present?
     Nc::WaTa.where(cyearperiod: cyearperiod).each do |wata|
       需要摊销的工资 = wata.sum_gz + wata.sb * wata.sbpercent + wata.gjj * wata.gjjpercent
-      该员工当月需要摊销金额 = 需要摊销的工资 + 水电房租 / 当前计算月份上海天华人数
+      该员工当月需要摊销金额 = 需要摊销的工资 + 水电房租 / 当前计算月份上海天华人数.to_f
 
       v_wata_dept_code = wata.deptcode
       clerk_code = wata.code
