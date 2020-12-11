@@ -45,9 +45,9 @@
           <% @ordered_depts.keys.each_with_index do |dept_name, index| %>
             <tr>
               <% if index == 0 %>
-                <th rowspan="<%= @ordered_depts.keys.count -%>" class="align-middle text-center">工资、社保、公积金、房租及物业费小计</th>
+                <th rowspan="<%= @ordered_depts.keys.count -%>" class="align-middle text-center table-fix-head-col" width="200px">工资、社保、公积金、房租及物业费小计</th>
               <% end %>
-              <th class="table-fix-head-col"><%= dept_name -%></th>
+              <th class="table-fix-head-col-2"><%= dept_name -%></th>
               <td>
                 <%= @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:group_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_area_cost) + @user_split_cost_details.filter { |u| u.v_wata_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_hq_cost) -%>
               </td>
@@ -67,7 +67,7 @@
           <% end %>
 
           <tr>
-            <th colspan="2" class="table-fix-head-col">工资、社保、公积金、房租及物业费小计</th>
+            <th colspan="2" class="table-fix-head-col" width="200px">工资、社保、公积金、房租及物业费小计</th>
             <td>
               <%= @user_split_cost_details.sum(&:group_cost) + @user_split_cost_details.sum(&:shanghai_area_cost) + @user_split_cost_details.sum(&:shanghai_hq_cost) -%>
             </td>
@@ -78,7 +78,7 @@
             <% end %>
           </tr>
           <tr>
-            <th colspan="2" class="table-fix-head-col">固定资产折旧（服务器及交换机等）</th>
+            <th colspan="2" class="table-fix-head-col" width="200px">固定资产折旧（服务器及交换机等）</th>
             <td>
               <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost) -%>
             </td>
@@ -89,7 +89,7 @@
             <% end %>
           </tr>
           <tr>
-            <th colspan="2" class="table-fix-head-col">无形资产摊销（软件）</th>
+            <th colspan="2" class="table-fix-head-col" width="200px">无形资产摊销（软件）</th>
             <td>
               <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost) -%>
             </td>
@@ -103,9 +103,9 @@
           <% @ordered_depts.keys.each_with_index do |dept_name, index| %>
             <tr>
               <% if index == 0 %>
-                <th rowspan="<%= @ordered_depts.keys.count -%>" class="align-middle text-center" width="150px">业务类支出小计</th>
+                <th rowspan="<%= @ordered_depts.keys.count -%>" class="align-middle text-center table-fix-head-col" width="200px">业务类支出小计</th>
               <% end %>
-              <th class="table-fix-head-col"><%= dept_name -%></th>
+              <th class="table-fix-head-col-2"><%= dept_name -%></th>
               <td>
                 <%= @split_cost_item_expenditure_per_depts.filter { |u| u.from_dept_code == @ordered_depts[dept_name] }.sum(&:group_cost) + @split_cost_item_expenditure_per_depts.filter { |u| u.from_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_area_cost) + @split_cost_item_expenditure_per_depts.filter { |u| u.from_dept_code == @ordered_depts[dept_name] }.sum(&:shanghai_hq_cost) -%>
               </td>
@@ -125,7 +125,7 @@
           <% end %>
 
           <tr>
-            <th colspan="2" class="table-fix-head-col">业务类支出小计</th>
+            <th colspan="2" class="table-fix-head-col" width="200px">业务类支出小计</th>
             <td>
               <%= @split_cost_item_details.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:group_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_area_cost) + @split_cost_item_details.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_hq_cost) -%>
             </td>
