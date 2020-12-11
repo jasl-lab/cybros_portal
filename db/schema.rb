@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_082713) do
+ActiveRecord::Schema.define(version: 2020_12_11_092701) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -391,6 +391,9 @@ ActiveRecord::Schema.define(version: 2020_12_09_082713) do
     t.string "split_cost_item_category"
     t.string "from_dept_code"
     t.string "bill_no"
+    t.decimal "group_cost_numerator", precision: 10
+    t.decimal "shanghai_area_cost_numerator", precision: 10
+    t.decimal "shanghai_hq_cost_numerator", precision: 10
     t.index ["split_cost_item_id"], name: "index_split_cost_item_details_on_split_cost_item_id"
   end
 
@@ -446,6 +449,9 @@ ActiveRecord::Schema.define(version: 2020_12_09_082713) do
     t.decimal "shanghai_hq_cost", precision: 10
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "group_cost_numerator", precision: 10
+    t.decimal "shanghai_area_cost_numerator", precision: 10
+    t.decimal "shanghai_hq_cost_numerator", precision: 10
     t.index ["user_id"], name: "index_user_split_cost_details_on_user_id"
   end
 

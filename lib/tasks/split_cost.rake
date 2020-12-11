@@ -53,6 +53,7 @@ namespace :split_cost do
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
         split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
         split_cost_item_detail.bill_no = bill_no
+        split_cost_item_detail.group_cost_numerator = 摊销资产分子
         split_cost_item_detail.group_cost = split_amount * (split_cost_item.group_rate / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -68,6 +69,7 @@ namespace :split_cost do
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
         split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
         split_cost_item_detail.bill_no = bill_no
+        split_cost_item_detail.shanghai_area_cost_numerator = 摊销资产分子
         split_cost_item_detail.shanghai_area_cost = split_amount * (split_cost_item.shanghai_area / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -83,6 +85,7 @@ namespace :split_cost do
         split_cost_item_detail.split_cost_item_category = split_cost_item.split_cost_item_category
         split_cost_item_detail.from_dept_code = split_cost_item.from_dept_code
         split_cost_item_detail.bill_no = bill_no
+        split_cost_item_detail.shanghai_hq_cost_numerator = 摊销资产分子
         split_cost_item_detail.shanghai_hq_cost = split_amount * (split_cost_item.shanghai_hq / 100.0) * (摊销资产分子 / 摊销资产分母.to_f)
         split_cost_item_detail.save
       end
@@ -126,6 +129,7 @@ namespace :split_cost do
         摊销人数分子_company_code = grc.company_code
         摊销人数分子 = SplitCost::CostSplitAllocationBase.head_count_at(group_rate_base_name, 摊销人数分子_company_code, cyearperiod_month_start)
         user_split_cost_detail = SplitCost::UserSplitCostDetail.find_or_initialize_by(v_wata_dept_code: v_wata_dept_code, user_id: user_split_cost_setting.user.id, month: cyearperiod_month_start, to_split_company_code: grc.company_code)
+        user_split_cost_detail.group_cost_numerator = 摊销人数分子
         user_split_cost_detail.group_cost = split_amount * (user_split_cost_setting.group_rate / 100.0) * (摊销人数分子 / 摊销人数分母.to_f)
         user_split_cost_detail.save
       end
@@ -138,6 +142,7 @@ namespace :split_cost do
         摊销人数分子_company_code = sarc.company_code
         摊销人数分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_area_base_name, 摊销人数分子_company_code, cyearperiod_month_start)
         user_split_cost_detail = SplitCost::UserSplitCostDetail.find_or_initialize_by(v_wata_dept_code: v_wata_dept_code, user_id: user_split_cost_setting.user.id, month: cyearperiod_month_start, to_split_company_code: sarc.company_code)
+        user_split_cost_detail.shanghai_area_cost_numerator = 摊销人数分子
         user_split_cost_detail.shanghai_area_cost = split_amount * (user_split_cost_setting.shanghai_area / 100.0) * (摊销人数分子 / 摊销人数分母.to_f)
         user_split_cost_detail.save
       end
@@ -150,6 +155,7 @@ namespace :split_cost do
         摊销人数分子_company_code = shrc.company_code
         摊销人数分子 = SplitCost::CostSplitAllocationBase.head_count_at(shanghai_hq_base_name, 摊销人数分子_company_code, cyearperiod_month_start)
         user_split_cost_detail = SplitCost::UserSplitCostDetail.find_or_initialize_by(v_wata_dept_code: v_wata_dept_code, user_id: user_split_cost_setting.user.id, month: cyearperiod_month_start, to_split_company_code: shrc.company_code)
+        user_split_cost_detail.shanghai_hq_cost_numerator = 摊销人数分子
         user_split_cost_detail.shanghai_hq_cost = split_amount * (user_split_cost_setting.shanghai_hq / 100.0) * (摊销人数分子 / 摊销人数分母.to_f)
         user_split_cost_detail.save
       end
