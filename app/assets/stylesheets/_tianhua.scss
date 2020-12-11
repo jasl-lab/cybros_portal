@@ -119,3 +119,9 @@
   }
 }
 
+.table-fix-head-col {
+  background: $white;
+  color: $black;
+  left: 0;
+  position: sticky;
+}
