@@ -10,8 +10,9 @@ importAll(require.context('images', false, /\.(png|jpe?g|svg)$/i));
 import "regenerator-runtime/runtime";
 import "@stimulus/polyfills";
 
-import JQuery from 'jquery';
-window.$ = window.JQuery = JQuery;
+import $ from 'jquery'
+global.$ = $
+global.jQuery = $
 require("node-json2html/json2html.js")
 
 import "bootstrap";
@@ -82,7 +83,7 @@ $.extend( $.fn.dataTable.defaults, {
 });
 
 document.addEventListener("turbolinks:load", function() {
-  JQuery("figure>img").on( "click", function() {
+  jQuery("figure>img").on( "click", function() {
     $("#knowledge-edit-modal").html(`
 <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
