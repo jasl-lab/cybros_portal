@@ -111,11 +111,11 @@
 
 .table-fix-head {
   overflow-y: auto;
-  height: 100px;
+
+  thead th {
+    background-color: $white;
+    position: sticky;
+    top: 0;
+  }
 }
 
-.table-fix-head thead th {
-  position: sticky;
-  top: 0;
-  background-color: white;
-}
