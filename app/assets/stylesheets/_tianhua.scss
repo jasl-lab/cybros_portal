@@ -119,6 +119,24 @@
   }
 }
 
+.table-fix-head-row-1 {
+  background-color: $white;
+  position: sticky;
+  top: 0;
+}
+
+.table-fix-head-row-2 {
+  background-color: $white;
+  position: sticky;
+  top: 32px;
+}
+
+.table-fix-head-row-3 {
+  background-color: $white;
+  position: sticky;
+  top: 64px;
+}
+
 .table-fix-head-col {
   background: $white;
   color: $black;

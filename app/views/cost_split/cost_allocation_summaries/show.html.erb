@@ -18,22 +18,22 @@
     </div>
   </div>
   <div class="col-12">
-    <div class="overflow-auto position-relative">
-      <table class="table table-bordered position-relative" style="width: 7500px">
+    <div class="overflow-auto" style="height: 80vh;">
+      <table class="table table-bordered position-relative" style="width: 7500px;border-collapse: collapse">
         <thead>
-          <tr>
+          <tr class="table-fix-head-row-1">
             <th colspan="2" rowspan="3" class="align-middle text-center"><%= t(".table.abstract") -%></th>
             <th rowspan="3" class="align-middle text-center"><%= t(".table.sum") -%></th>
             <% @ordered_companies.keys.each_with_index do |org_shortname, index| -%>
               <th colspan="3" class="align-middle text-center"><%= index + 1 -%></th>
             <% end %>
           </tr>
-          <tr>
+          <tr class="table-fix-head-row-2">
             <% @ordered_companies.keys.each do |org_shortname| -%>
               <th colspan="3" class="align-middle text-center"><%= org_shortname -%></th>
             <% end %>
           </tr>
-          <tr>
+          <tr class="table-fix-head-row-3">
             <% @ordered_companies.keys.each do |org_shortname| -%>
               <th>集团性</th>
               <th>上海区域</th>
