@@ -36,6 +36,7 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
         shanghai_hq_base: @split_cost_item.shanghai_hq_base,
         version: SplitCost::SplitCostItem.where(split_cost_item_no: @split_cost_item.split_cost_item_no).count + 1)
       @split_cost_item.update(split_cost_item_params)
+      @split_cost_item.update_columns(start_date: Date.today)
     end
   end
 

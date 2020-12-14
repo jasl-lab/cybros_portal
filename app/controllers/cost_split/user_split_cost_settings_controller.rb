@@ -35,7 +35,7 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
       @user_split_cost_setting.update_columns(start_date: Date.today)
     when 'version_up'
       @user_split_cost_setting.update(end_date: Date.today)
-      @user_split_cost_setting = SplitCost::UserSplitCostSetting.create(
+      @user_split_cost_setting = SplitCost::UserSplitCostSetting.new(
         user_id: @user.id,
         group_rate: @user_split_cost_setting.group_rate,
         shanghai_area: @user_split_cost_setting.shanghai_area,
@@ -46,7 +46,9 @@ class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
         group_rate_base: @user_split_cost_setting.group_rate_base,
         shanghai_area_base: @user_split_cost_setting.shanghai_area_base,
         shanghai_hq_base: @user_split_cost_setting.shanghai_hq_base,
-        version: @user.user_split_cost_settings.count)
+        version: @user.user_split_cost_settings.count + 1)
+      @user_split_cost_setting.update(scs_params)
+      @user_split_cost_setting.update_columns(start_date: Date.today)
     end
   end
 

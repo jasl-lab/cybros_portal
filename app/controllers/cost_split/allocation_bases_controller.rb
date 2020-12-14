@@ -43,13 +43,15 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
       @cost_split_allocation_base.update_columns(start_date: Date.today)
     when 'version_up'
       @cost_split_allocation_base.update(end_date: Date.today)
-      @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(
+      @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(
         base_name: @cost_split_allocation_base.base_name,
         company_code: @cost_split_allocation_base.company_code,
         head_count: @cost_split_allocation_base.head_count,
         version: SplitCost::CostSplitAllocationBase
           .where(base_name: cost_split_allocation_base_params[:base_name],
-                 company_code: cost_split_allocation_base_params[:company_code]).count)
+                 company_code: cost_split_allocation_base_params[:company_code]).count + 1)
+      @cost_split_allocation_base.update(cost_split_allocation_base_params)
+      @cost_split_allocation_base.update_columns(start_date: Date.today)
     end
   end
 
