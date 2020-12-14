@@ -5,7 +5,9 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
 
   def index
     prepare_meta_tags title: t('.title')
-    @split_cost_items = SplitCost::SplitCostItem.all.page(params[:page]).per(params[:per_page])
+    @split_cost_items = SplitCost::SplitCostItem.where(end_date: nil)
+    @split_cost_items = @split_cost_items.where(split_cost_item_no: params[:split_cost_item_no]) if params[:split_cost_item_no].present?
+    @split_cost_items = @split_cost_items.page(params[:page]).per(params[:per_page])
     @new_split_cost_item = SplitCost::SplitCostItem.new
   end
 
@@ -21,7 +23,7 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
       @split_cost_item.update_columns(start_date: Date.today)
     when 'version_up'
       @split_cost_item.update(end_date: Date.today)
-      @split_cost_item = SplitCost::SplitCostItem.create(
+      @split_cost_item = SplitCost::SplitCostItem.new(
         split_cost_item_no: @split_cost_item.split_cost_item_no,
         split_cost_item_name: @split_cost_item.split_cost_item_name,
         split_cost_item_category: @split_cost_item.split_cost_item_category,
@@ -32,7 +34,8 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
         group_rate_base: @split_cost_item.group_rate_base,
         shanghai_area_base: @split_cost_item.shanghai_area_base,
         shanghai_hq_base: @split_cost_item.shanghai_hq_base,
-        version: SplitCost::SplitCostItem.where(split_cost_item_no: @split_cost_item.split_cost_item_no).count)
+        version: SplitCost::SplitCostItem.where(split_cost_item_no: @split_cost_item.split_cost_item_no).count + 1)
+      @split_cost_item.update(split_cost_item_params)
     end
   end
 
