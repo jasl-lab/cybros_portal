@@ -44,6 +44,7 @@ namespace :import_export do
       job_level = row['job_level']
       locked_at = row['locked_at']
       chinese_name = row['chinese_name']
+      mobile = row['mobile']
       desk_phone = row['desk_phone']
       combine_departments = row['combine_departments'].split(';')
 
@@ -54,6 +55,7 @@ namespace :import_export do
       user.job_level = job_level
       user.locked_at = locked_at
       user.chinese_name = chinese_name
+      user.mobile = mobile
       user.desk_phone = desk_phone
       user.confirmed_at = Time.current
       random_password = SecureRandom.hex(4) # like "301bccce"
