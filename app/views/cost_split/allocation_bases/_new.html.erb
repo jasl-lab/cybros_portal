@@ -9,6 +9,7 @@
     <div class="modal-body">
         <%= f.hidden_field :base_name %>
         <%= f.hidden_field :company_code %>
+        <%= f.hidden_field :pmonth %>
         <div class="form-group">
           <label for="cost-split-allocation-base-head_count"><%= t('cost_split.allocation_bases.table.head_count') %></label>
           <%= f.text_field :head_count, class: 'form-control', id: 'cost-split-allocation-base-head_count' %>

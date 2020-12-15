@@ -35,9 +35,9 @@
                       csab = @cost_split_allocation_bases.find { |c| c.base_name == base_name && c.company_code == name_pair.second } 
                     %>
                     <% if csab.present? %>
-                      <%= link_to csab.head_count, edit_cost_split_allocation_basis_path(csab), remote: true -%>
+                      <%= link_to csab.head_count, edit_cost_split_allocation_basis_path(id: csab.id), remote: true -%>
                     <% else %>
-                      <%= link_to new_cost_split_allocation_basis_path(base_name: base_name, company_code: name_pair.second), remote: true do -%>
+                      <%= link_to new_cost_split_allocation_basis_path(base_name: base_name, company_code: name_pair.second, p_month: @p_month), remote: true do -%>
                         <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="<%= t('.action.new') -%>"></i>
                       <% end %>
                     <% end %>

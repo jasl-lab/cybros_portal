@@ -9,6 +9,7 @@ en:
           allocation_base: "Allocation base"
         action:
           new: "New"
+        p_month: "P month"
         confirm: "Confirm"
       new:
         title: "Create new allocation numerator base"

@@ -14,15 +14,13 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
     @base_name = params[:base_name]
     @company_code = params[:company_code]
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(base_name: @base_name, company_code: @company_code, pmonth: '2020-11')
+    @cost_split_allocation_base.pmonth = params[:p_month]&.strip
 
     @csab_histories = SplitCost::CostSplitAllocationBase.where(base_name: @base_name, company_code: @company_code, pmonth: '2020-11')
   end
 
   def create
-    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(
-      base_name: cost_split_allocation_base_params[:base_name],
-      company_code: cost_split_allocation_base_params[:company_code],
-      head_count: cost_split_allocation_base_params[:head_count])
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(cost_split_allocation_base_params)
   end
 
   def edit
@@ -40,6 +38,6 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
 
     def cost_split_allocation_base_params
       params.fetch(:split_cost_cost_split_allocation_base, {})
-        .permit(:base_name, :company_code, :head_count)
+        .permit(:base_name, :company_code, :head_count, :pmonth)
     end
 end

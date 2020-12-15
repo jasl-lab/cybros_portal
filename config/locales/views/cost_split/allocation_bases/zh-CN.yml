@@ -9,6 +9,7 @@ zh-CN:
           allocation_base: "分摊基数"
         action:
           new: "新建"
+        p_month: "月份"
         confirm: "确认"
       new:
         title: "新建分摊分子基数"
