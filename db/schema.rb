@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_024125) do
+ActiveRecord::Schema.define(version: 2020_12_15_053213) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -103,11 +103,9 @@ ActiveRecord::Schema.define(version: 2020_12_15_024125) do
     t.string "base_name"
     t.string "company_code"
     t.integer "head_count"
-    t.date "start_date"
-    t.date "end_date"
-    t.integer "version"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "pmonth"
   end
 
   create_table "department_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

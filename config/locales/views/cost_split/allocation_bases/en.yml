@@ -9,6 +9,7 @@ en:
           allocation_base: "Allocation base"
         action:
           new: "New"
+        confirm: "Confirm"
       new:
         title: "Create new allocation numerator base"
         close: "Close"
@@ -17,6 +18,4 @@ en:
         close: "Close"
       table:
         head_count: "Head count"
-        start_date: "Start date"
-        end_date: "End date"
-        version: "Version"
+        pmonth: "P month"

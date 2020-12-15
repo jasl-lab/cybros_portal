@@ -1,9 +1,8 @@
 <div class="modal-dialog" role="document">
-  <% status = cost_split_current_status(cost_split_allocation_base) %>
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title">
-        <%= t(".title") %> (<%= I18n.t("activerecord.attributes.split_cost.status.#{status}") %>)
+        <%= t(".title") %>
       </h5>
     </div>
     <%= form_with model: cost_split_allocation_base, url: cost_split_allocation_basis_path(cost_split_allocation_base) do |f| %>
@@ -17,40 +16,20 @@
       <table class="table table-bordered">
         <thead>
           <th><%= t('cost_split.allocation_bases.table.head_count') -%></th>
-          <th><%= t('cost_split.allocation_bases.table.start_date') -%></th>
-          <th><%= t('cost_split.allocation_bases.table.end_date') -%></th>
-          <th><%= t('cost_split.allocation_bases.table.version') -%></th>
+          <th><%= t('cost_split.allocation_bases.table.pmonth') -%></th>
         </thead>
         <tbody>
           <% @csab_histories.each do |csab| %>
             <tr>
               <td><%= csab.head_count -%></td>
-              <td><%= csab.start_date -%></td>
-              <td><%= csab.end_date -%></td>
-              <td><%= csab.version -%></td>
+              <td><%= csab.pmonth -%></td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
     <div class="modal-footer">
-      <% cost_split_possible_next_form_actions(status).each do |form_action| %>
-        <% if %w[reject submit].include?(form_action)
-            case form_action
-            when 'reject'
-        %>
-              <%= link_to t("shared.form.submit.reject"), reject_cost_split_allocation_basis_path(cost_split_allocation_base), class: "btn btn-danger", remote: true, method: :patch  %>
-        <%
-            when 'submit'
-        %>
-              <%= link_to t("shared.form.submit.submit"), submit_cost_split_allocation_basis_path(cost_split_allocation_base), class: "btn btn-success", remote: true, method: :patch  %>
-        <%
-            end
-           else %>
-          <%= hidden_field_tag :form_action, form_action %>
-          <%= f.submit t("shared.form.submit.#{form_action}"), class: "btn btn-primary" %>
-        <% end %>
-      <% end %>
+      <%= f.submit t("shared.form.submit.save"), class: "btn btn-primary" %>
       <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
     </div>
     <% end %>

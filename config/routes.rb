@@ -335,12 +335,7 @@ Rails.application.routes.draw do
         patch :submit
       end
     end
-    resources :allocation_bases, only: %i[index create new update edit] do
-      member do
-        patch :reject
-        patch :submit
-      end
-    end
+    resources :allocation_bases, only: %i[index create new update edit]
 
     resource :cost_allocation_summary, only: %i[show] do
       collection do

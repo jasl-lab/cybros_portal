@@ -5,26 +5,24 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
 
   def index
     prepare_meta_tags title: t('.title')
-    @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase
-      .where.not(start_date: nil)
-      .where(end_date: nil)
+    @all_pmonths = policy_scope(SplitCost::CostSplitAllocationBase).all_pmonths
+    @p_month = params[:p_month]&.strip || @all_pmonths.first
+    @cost_split_allocation_bases = SplitCost::CostSplitAllocationBase.where(pmonth: @p_month)
   end
 
   def new
     @base_name = params[:base_name]
     @company_code = params[:company_code]
-    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(base_name: @base_name, company_code: @company_code)
+    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(base_name: @base_name, company_code: @company_code, pmonth: '2020-11')
 
-    @csab_histories = SplitCost::CostSplitAllocationBase.where(base_name: @base_name, company_code: @company_code)
+    @csab_histories = SplitCost::CostSplitAllocationBase.where(base_name: @base_name, company_code: @company_code, pmonth: '2020-11')
   end
 
   def create
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.create(
       base_name: cost_split_allocation_base_params[:base_name],
       company_code: cost_split_allocation_base_params[:company_code],
-      head_count: cost_split_allocation_base_params[:head_count],
-      version: SplitCost::CostSplitAllocationBase.where(base_name: cost_split_allocation_base_params[:base_name],
-               company_code: cost_split_allocation_base_params[:company_code])&.count.to_i)
+      head_count: cost_split_allocation_base_params[:head_count])
   end
 
   def edit
@@ -35,40 +33,11 @@ class CostSplit::AllocationBasesController < CostSplit::BaseController
 
   def update
     @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
-    case params[:form_action]
-    when 'save'
-      @cost_split_allocation_base.update(cost_split_allocation_base_params)
-    when 'confirm'
-      @cost_split_allocation_base.update(cost_split_allocation_base_params)
-      @cost_split_allocation_base.update_columns(start_date: Date.today)
-    when 'version_up'
-      @cost_split_allocation_base.update(end_date: Date.today)
-      @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.new(
-        base_name: @cost_split_allocation_base.base_name,
-        company_code: @cost_split_allocation_base.company_code,
-        head_count: @cost_split_allocation_base.head_count,
-        version: SplitCost::CostSplitAllocationBase
-          .where(base_name: cost_split_allocation_base_params[:base_name],
-                 company_code: cost_split_allocation_base_params[:company_code]).count + 1)
-      @cost_split_allocation_base.update(cost_split_allocation_base_params)
-      @cost_split_allocation_base.update_columns(start_date: Date.today)
-    end
-  end
-
-  def submit
-    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
-    @cost_split_allocation_base.update(version:
-      SplitCost::CostSplitAllocationBase.where(base_name: @cost_split_allocation_base.base_name, company_code: @cost_split_allocation_base.company_code).count)
-    render :update
-  end
-
-  def reject
-    @cost_split_allocation_base = SplitCost::CostSplitAllocationBase.find(params[:id])
-    @cost_split_allocation_base.update(version: nil)
-    render :update
+    @cost_split_allocation_base.update(cost_split_allocation_base_params)
   end
 
   private
+
     def cost_split_allocation_base_params
       params.fetch(:split_cost_cost_split_allocation_base, {})
         .permit(:base_name, :company_code, :head_count)

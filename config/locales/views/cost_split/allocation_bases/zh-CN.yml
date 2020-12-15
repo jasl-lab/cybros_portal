@@ -9,6 +9,7 @@ zh-CN:
           allocation_base: "分摊基数"
         action:
           new: "新建"
+        confirm: "确认"
       new:
         title: "新建分摊分子基数"
         close: "关闭"
@@ -17,6 +18,4 @@ zh-CN:
         close: "关闭"
       table:
         head_count: "人数"
-        start_date: "开始时间"
-        end_date: "结束日期"
-        version: "版本"
+        pmonth: "月份"

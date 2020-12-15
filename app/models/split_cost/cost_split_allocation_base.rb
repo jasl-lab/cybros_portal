@@ -48,6 +48,10 @@ module SplitCost
       000130
     ]
 
+    def self.all_pmonths
+      order(pmonth: :desc).distinct.pluck(:pmonth)
+    end
+
     def self.all_company_shortnames_with_code
       return @all_company_shortnames_with_code if @all_company_shortnames_with_code.present?
 

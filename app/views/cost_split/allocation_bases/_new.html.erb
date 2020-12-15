@@ -16,17 +16,13 @@
       <table class="table table-bordered">
         <thead>
           <th><%= t('cost_split.allocation_bases.table.head_count') -%></th>
-          <th><%= t('cost_split.allocation_bases.table.start_date') -%></th>
-          <th><%= t('cost_split.allocation_bases.table.end_date') -%></th>
-          <th><%= t('cost_split.allocation_bases.table.version') -%></th>
+          <th><%= t('cost_split.allocation_bases.table.pmonth') -%></th>
         </thead>
         <tbody>
           <% @csab_histories.each do |csab| %>
             <tr>
               <td><%= csab.head_count -%></td>
-              <td><%= csab.start_date -%></td>
-              <td><%= csab.end_date -%></td>
-              <td><%= csab.version -%></td>
+              <td><%= csab.pmonth -%></td>
             </tr>
           <% end %>
         </tbody>
