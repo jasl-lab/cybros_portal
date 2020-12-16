@@ -501,6 +501,7 @@ DEPENDENCIES
   kaminari
   listen
   meta-tags
+  mini_magick
   minitest-ci
   mysql2
   omniauth_openid_connect

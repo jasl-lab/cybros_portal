@@ -13,17 +13,49 @@ namespace :generate do
 
     origin_image = MiniMagick::Image.open("#{Rails.public_path}/system/name-card.png")
     origin_image.combine_options do |c|
-      if Gem::Platform.local.os == "darwin"
-        c.font "#{Dir.home}/Library/Fonts/SourceHanSansCN-Normal.ttf"
-      else
-        c.font '/usr/share/fonts/default/SourceHanSansCN-Normal.ttf'
-      end
-      c.pointsize 48
-      c.draw "text 280,1060 '#{user.chinese_name}'"
+      c.font source_han_sans_font_path
+      c.pointsize 64
+      c.draw "text 120,320 '#{user.chinese_name}'"
       c.fill 'black'
     end
 
-    origin_image.write(final_image_file_name)
+    with_name = origin_image.combine_options do |c|
+      c.font source_han_sans_font_path
+      c.pointsize 32
+      c.draw "text 120,380 '#{user.position_title}'"
+      c.fill 'black'
+    end
+
+    with_name_email = with_name.combine_options do |c|
+      c.font source_han_sans_font_path
+      c.pointsize 24
+      c.draw "text 120,650 'E: #{user.email}'"
+      c.fill 'black'
+    end
+
+    with_name_email_mobile = with_name_email.combine_options do |c|
+      c.font source_han_sans_font_path
+      c.pointsize 24
+      c.draw "text 120,680 'M: #{user.mobile}'"
+      c.fill 'black'
+    end
+
+    with_name_email_mobile_web = with_name_email_mobile.combine_options do |c|
+      c.font source_han_sans_font_path
+      c.pointsize 24
+      c.draw "text 120,710 'W: https://www.thape.com/'"
+      c.fill 'black'
+    end
+
+    with_name_email_mobile_web.write(final_image_file_name)
     File.chmod(0604, final_image_file_name)
+  end
+
+  def source_han_sans_font_path
+    if Gem::Platform.local.os == 'darwin'
+      "#{Dir.home}/Library/Fonts/SourceHanSansCN-Normal.ttf"
+    else
+      '/usr/share/fonts/default/SourceHanSansCN-Normal.ttf'
+    end
   end
 end
