@@ -37,7 +37,7 @@ zh-CN:
         back_color: "背面颜色"
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"
         submit: "保存申请单"
-        no_name_card: "您从来没有申请过名片，请先申请一张名片，或者暂时使用我们提供的自动生成名片。"
+        no_name_card: "您从来没有申请过名片，请先申请一张名片，或者暂时使用我们提供的自动生成名片。<a href=%{url}>点击下载</a>"
       create:
         success: "您的名片申请成功创建！"
         name_card_title_fill_hint: "您可以直接申请职务为：%{white_titles}；您不可以申请的职务为：%{black_titles}。"

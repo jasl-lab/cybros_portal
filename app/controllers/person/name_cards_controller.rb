@@ -61,17 +61,18 @@ class Person::NameCardsController < ApplicationController
 
 
   def new
-    prepare_meta_tags title: t(".form_title")
-    add_to_breadcrumbs(t("person.name_cards.index.actions.new"), new_person_name_card_path)
-    @name_card_apply = current_user.name_card_applies.build
-    @name_card_apply.chinese_name = current_user.chinese_name
-    @name_card_apply.company_name = current_user.departments.first&.company_name
-    @name_card_apply.department_name = current_user.departments.first&.name
-    @name_card_apply.email = current_user.email
-    @name_card_apply.title = current_user.position_title
+    prepare_meta_tags title: t('.form_title')
+    add_to_breadcrumbs(t('person.name_cards.index.actions.new'), new_person_name_card_path)
+    user = current_user
+    @name_card_apply = user.name_card_applies.build
+    @name_card_apply.chinese_name = user.chinese_name
+    @name_card_apply.company_name = user.departments.first&.company_name
+    @name_card_apply.department_name = user.departments.first&.name
+    @name_card_apply.email = user.email
+    @name_card_apply.title = user.position_title
     @name_card_apply.print_out_box_number = 2
     if current_user.name_card_applies.count.zero?
-      flash.now[:notice] = t('.no_name_card')
+      flash.now[:notice] = t('.no_name_card', url: "#{request.protocol}#{request.host_with_port}/default_name_card/#{user.clerk_code}.png")
     end
   end
 
