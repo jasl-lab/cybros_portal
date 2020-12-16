@@ -24,7 +24,7 @@ set :pty, false
 append :linked_files, *%w[puma.rb config/database.yml config/secrets.yml config/mailer.yml config/master.key config/credentials.yml.enc]
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'storage', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/knowledge_images', 'public/packs', 'public/images/weixin', 'node_modules'
+append :linked_dirs, 'log', 'storage', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'public/knowledge_images', 'public/packs', 'public/default_name_card', 'public/images/weixin', 'node_modules'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
