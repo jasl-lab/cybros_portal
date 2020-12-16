@@ -213,7 +213,7 @@ namespace :split_cost do
     end
     Hrdw::ComMonthReport.where(pmonth: '2019-12').each do |c|
       # 上年平均人数
-      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '上年平均人数', company_code: c.orgcode_sum, pmonth: '2019-12')
+      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '上年平均人数', company_code: c.orgcode_sum, pmonth: "#{cyearperiod[0..3]}-#{cyearperiod[4..5]}")
       staff_avg_now.update(pmonth: c.pmonth, head_count: c.staff_now)
     end
   end
