@@ -66,7 +66,7 @@ module SplitCost
       company_codes = Array(company_codes)
       SplitCost::CostSplitAllocationBase
         .where(base_name: base_name, company_code: company_codes)
-        .where('start_date >= ?', start_date).sum(:head_count)
+        .where(pmonth: start_date.to_s(:short_month)).sum(:head_count)
     end
   end
 end
