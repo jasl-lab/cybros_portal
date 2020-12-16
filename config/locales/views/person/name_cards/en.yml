@@ -30,6 +30,7 @@ en:
         print_out_box_number_fill_hint: "Minimum number of boxes is 2, 100 sheets per 1 box"
         name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
         submit: "Save the name card apply"
+        no_name_card: "You have never applied for a business card, please apply for a business card first, or temporarily use the automatically generated business card provided by us."
       create:
         success: "Your new name card apply created!"
         name_card_title_fill_hint: "You can apply for a title directly as: %{white_titles}; The title you can't apply for is %{black_titles}."
@@ -70,4 +71,3 @@ en:
           status: "Status"
       download_name_card:
         no_printed_name_card: "No printed name card upload yet."
-        no_name_card: "Need apply new name card first."

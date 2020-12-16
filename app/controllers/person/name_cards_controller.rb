@@ -70,6 +70,9 @@ class Person::NameCardsController < ApplicationController
     @name_card_apply.email = current_user.email
     @name_card_apply.title = current_user.position_title
     @name_card_apply.print_out_box_number = 2
+    if current_user.name_card_applies.count.zero?
+      flash.now[:notice] = t('.no_name_card')
+    end
   end
 
   def create
@@ -192,10 +195,11 @@ class Person::NameCardsController < ApplicationController
         return redirect_to rails_blob_path(name_card_apply.printed_name_card)
       end
     end
-    if user.name_card_applies.count > 0
+
+    if user.name_card_applies.where(status: '同意').count > 0
       redirect_to person_name_cards_path, notice: t('.no_printed_name_card')
     else
-      redirect_to new_person_name_card_path, notice: t('.no_name_card')
+      redirect_to new_person_name_card_path, notice: t('person.name_cards.new.no_name_card')
     end
   end
 
