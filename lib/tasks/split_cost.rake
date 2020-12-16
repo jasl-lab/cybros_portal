@@ -167,14 +167,14 @@ namespace :split_cost do
     cyearperiod = args[:cyearperiod]
     Hrdw::ComMonthReport.where(pmonth: "#{cyearperiod[0..3]}-#{cyearperiod[4..5]}").each do |c|
       # 创意板块平均总人数
-      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块平均总人数', company_code: c.orgcode_sum)
+      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块平均总人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       staff_avg_now.update(pmonth: c.pmonth, head_count: c.staff_now)
       # 创意板块及新业务
-      staff_new_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块及新业务', company_code: c.orgcode_sum)
+      staff_new_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块及新业务', company_code: c.orgcode_sum, pmonth: c.pmonth)
       staff_new_now.update(pmonth: c.pmonth, head_count: c.staff_now)
 
       # 创意板块上海区域人数
-      work_shanghai = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块上海区域人数', company_code: c.orgcode_sum)
+      work_shanghai = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块上海区域人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       if SplitCost::CostSplitAllocationBase::SHANGHAI_BASE_COMPANY_CODE.include?(c.orgcode_sum)
         work_shanghai.update(pmonth: c.pmonth, head_count: c.staff_now)
       else
@@ -182,7 +182,7 @@ namespace :split_cost do
       end
 
       # 创意板块及新业务（上海区域）
-      work_shanghai_new = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块及新业务（上海区域）', company_code: c.orgcode_sum)
+      work_shanghai_new = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '创意板块及新业务（上海区域）', company_code: c.orgcode_sum, pmonth: c.pmonth)
       if SplitCost::CostSplitAllocationBase::SHANGHAI_BASE_NEW_COMPANY_CODE.include?(c.orgcode_sum)
         work_shanghai_new.update(pmonth: c.pmonth, head_count: c.staff_now)
       else
@@ -190,30 +190,30 @@ namespace :split_cost do
       end
 
       # 施工图人数
-      construction_design_electrical = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '施工图人数', company_code: c.orgcode_sum)
+      construction_design_electrical = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '施工图人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       construction_design_electrical.update(pmonth: c.pmonth,
         head_count: c.profession_construction_design.to_i + c.profession_construction.to_i + c.profession_electrical.to_i)
 
       # 方案人数
-      profession_draw_design = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '方案人数', company_code: c.orgcode_sum)
+      profession_draw_design = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '方案人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       profession_draw_design.update(pmonth: c.pmonth, head_count: c.profession_draw_design)
 
       # 建筑人数
-      construction_draw_design = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '建筑人数', company_code: c.orgcode_sum)
+      construction_draw_design = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '建筑人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       construction_draw_design.update(pmonth: c.pmonth,
         head_count: c.profession_draw_design.to_i + c.profession_construction_design.to_i)
 
       # 结构人数
-      profession_construction = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '结构人数', company_code: c.orgcode_sum)
+      profession_construction = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '结构人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       profession_construction.update(pmonth: c.pmonth, head_count: c.profession_construction)
 
       # 机电人数
-      profession_electrical = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '机电人数', company_code: c.orgcode_sum)
+      profession_electrical = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '机电人数', company_code: c.orgcode_sum, pmonth: c.pmonth)
       profession_electrical.update(pmonth: c.pmonth, head_count: c.profession_electrical)
     end
     Hrdw::ComMonthReport.where(pmonth: '2019-12').each do |c|
       # 上年平均人数
-      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '上年平均人数', company_code: c.orgcode_sum)
+      staff_avg_now = SplitCost::CostSplitAllocationBase.find_or_create_by(base_name: '上年平均人数', company_code: c.orgcode_sum, pmonth: '2019-12')
       staff_avg_now.update(pmonth: c.pmonth, head_count: c.staff_now)
     end
   end
