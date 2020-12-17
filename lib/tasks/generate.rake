@@ -3,7 +3,8 @@
 namespace :generate do
   desc 'Generate user default name card'
   task user_default_name_card: :environment do
-    User.where.not(mobile: nil, chinese_name: nil, clerk_code: nil, position_title: nil, email: nil).each do |user|
+    User.where.not(mobile: nil, chinese_name: nil, clerk_code: nil, position_title: nil, email: nil)
+      .where("created_at > '2020-12-16'").each do |user|
       generate_name_card(user)
     end
   end
