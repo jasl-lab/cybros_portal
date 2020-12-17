@@ -99,7 +99,7 @@ $.fn.datetimepicker.Constructor.Default = $.extend({},
       close: 'far fa-times' } });
 
 document.addEventListener("turbolinks:load", function() {
-  jQuery("figure>img").on( "click", function() {
+  $("figure>img").on( "click", function() {
     $("#knowledge-edit-modal").html(`
 <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
@@ -108,8 +108,9 @@ document.addEventListener("turbolinks:load", function() {
 </div>`).modal('show');
   });
 
-  $("select[class='form-control'][class!='selectized']").selectize();
   $('#datetimepicker_start_date').datetimepicker({locale: 'zh-cn', format: 'YYYY-MM-DD'});
   $('#datetimepicker_end_date').datetimepicker({locale: 'zh-cn', format: 'YYYY-MM-DD'});
+
+  $("select[class='form-control'][class!='selectized']").selectize();
   $('button[data-toggle="popover"]').popover();
 });
