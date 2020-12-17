@@ -21,9 +21,12 @@ import "selectize/dist/js/selectize";
 
 import "stylesheets/application";
 
-window.Rails = require("@rails/ujs");
+global.moment = require('moment');
+require("tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4")
 
-window.Rails.start();
+global.Rails = require("@rails/ujs");
+
+global.Rails.start();
 
 require("turbolinks").start()
 require("@rails/activestorage").start()
@@ -35,7 +38,7 @@ import "turbolinks/coreui";
 
 import echarts from 'echarts'
 require("echarts/map/js/china")
-window.echarts = echarts;
+global.echarts = echarts;
 
 import "controllers";
 
@@ -82,6 +85,19 @@ $.extend( $.fn.dataTable.defaults, {
   }
 });
 
+$.fn.datetimepicker.Constructor.Default = $.extend({},
+  $.fn.datetimepicker.Constructor.Default,
+  { icons:
+    { time: 'fas fa-clock',
+      date: 'fas fa-calendar',
+      up: 'fas fa-arrow-up',
+      down: 'fas fa-arrow-down',
+      previous: 'fas fa-arrow-circle-left',
+      next: 'fas fa-arrow-circle-right',
+      today: 'far fa-calendar-check-o',
+      clear: 'fas fa-trash',
+      close: 'far fa-times' } });
+
 document.addEventListener("turbolinks:load", function() {
   jQuery("figure>img").on( "click", function() {
     $("#knowledge-edit-modal").html(`
@@ -93,5 +109,7 @@ document.addEventListener("turbolinks:load", function() {
   });
 
   $("select[class='form-control'][class!='selectized']").selectize();
+  $('#datetimepicker_start_date').datetimepicker({locale: 'zh-cn', format: 'YYYY-MM-DD'});
+  $('#datetimepicker_end_date').datetimepicker({locale: 'zh-cn', format: 'YYYY-MM-DD'});
   $('button[data-toggle="popover"]').popover();
 });

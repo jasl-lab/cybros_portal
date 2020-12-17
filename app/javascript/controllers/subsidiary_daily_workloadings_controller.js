@@ -271,8 +271,8 @@ export default class extends Controller {
 
     function drill_down_model_show(x_name, x_code) {
       function drill_down(params) {
-        const begin_date = $('#subsidiary-daily-workloading-begin-date').val();
-        const end_date = $('#subsidiary-daily-workloading-end-date').val();
+        const begin_date = $('#datetimepicker_start_date').datetimepicker('viewDate');
+        const end_date = $('#datetimepicker_end_date').datetimepicker('viewDate');
 
         if (params.componentType === 'xAxis') {
           const deptIndex = x_name.indexOf(params.value);
