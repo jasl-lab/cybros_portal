@@ -116,7 +116,6 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       .group('contractcode, salescontractname, projectcode, projectname, confirmdate')
       .where(orgname: @company_name, deptname: @dept_name)
       .where(confirmdate: end_of_month.beginning_of_year..end_of_month)
-      .where('sumamount > 0')
     render
   end
 
