@@ -133,6 +133,7 @@ en:
         account_dept_month_fill: "Subcompany month fill"
         account_interior_fill: "Interior company fill"
         account_business_target_org: "Organization business target"
+        account_business_target_org_show: "Organization business target"
         account_business_target_dept: "Company business target"
         account_business_target_dept_show: "Company business target"
         account_operation_summary_org: "Organization operation summary"

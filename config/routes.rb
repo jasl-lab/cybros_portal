@@ -309,6 +309,7 @@ Rails.application.routes.draw do
     resource :dept_year_fill, only: %i[show]
     resource :dept_month_fill, only: %i[show]
     resource :business_target_org, only: %i[show]
+    resource :business_target_org_show, only: %i[show]
     resource :business_target_dept, only: %i[show]
     resource :business_target_dept_show, only: %i[show]
     resource :operation_summary_org, only: %i[show]

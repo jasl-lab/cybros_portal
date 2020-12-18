@@ -55,6 +55,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Account::BusinessTargetOrg").show? %>
+        <%= nav_item controller: 'account/business_target_org_shows', html_options: { class: "nav-item" } do %>
+          <%= link_to account_business_target_org_show_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.account_report.account_business_target_org_show") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Account::BusinessTargetDept").show? %>
         <%= nav_item controller: 'account/business_target_depts', html_options: { class: "nav-item" } do %>
           <%= link_to account_business_target_dept_path, class: "nav-link" do %>
