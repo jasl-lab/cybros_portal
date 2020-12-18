@@ -19,7 +19,7 @@ export default class extends Controller {
       {"data": "over_amount"},
     ];
 
-    const adminColumns = normalColumns.concat([{"data": "comment_on_sales_contract_code"}, {"data": "admin_action", bSortable: false}]);
+    const adminColumns = normalColumns.concat([{"data": "comment_on_sales_contract_code", bSortable: false}, {"data": "admin_action", bSortable: false}]);
 
     const subsidiaryNeedReceiveSignDetailsDatatable = $('#subsidiary-need-receive-sign-details-datatable').dataTable({
       "processing": true,
