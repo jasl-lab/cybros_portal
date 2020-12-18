@@ -5,9 +5,9 @@ let companyContractsFixedHeader;
 export default class extends Controller {
   connect() {
     const normalColumns = [
-      {"data": "project_no_and_name"},
-      {"data": "project_type_and_main_dept_name"},
-      {"data": "total_sales_contract_amount"}
+      {"data": "project_no_and_name" },
+      {"data": "project_type_and_main_dept_name" },
+      {"data": "total_sales_contract_amount", "orderable": false }
     ];
 
     const companyContractsDatatable = $('#company-contracts-datatable').dataTable({
