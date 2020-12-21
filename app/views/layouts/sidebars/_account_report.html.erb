@@ -7,46 +7,52 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
-      <% if policy(:"Account::OrgYearFill").show? %>
-        <%= nav_item controller: 'account/org_year_fills', html_options: { class: "nav-item" } do %>
-          <%= link_to account_org_year_fill_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.account_report.account_org_year_fill") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Account::OrgMonthFill").show? %>
-        <%= nav_item controller: 'account/org_month_fills', html_options: { class: "nav-item" } do %>
-          <%= link_to account_org_month_fill_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.account_report.account_org_month_fill") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Account::InteriorFill").show? %>
-        <%= nav_item controller: 'account/interior_fills', html_options: { class: "nav-item" } do %>
-          <%= link_to account_interior_fill_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.account_report.account_interior_fill") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Account::DeptYearFill").show? %>
-        <%= nav_item controller: 'account/dept_year_fills', html_options: { class: "nav-item" } do %>
-          <%= link_to account_dept_year_fill_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.account_report.account_dept_year_fill") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Account::DeptMonthFill").show? %>
-        <%= nav_item controller: 'account/dept_month_fills', html_options: { class: "nav-item" } do %>
-          <%= link_to account_dept_month_fill_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-user-alt"></i>
-            <%= t("layouts.sidebar.account_report.account_dept_month_fill") %>
-          <% end %>
-        <% end %>
-      <% end %>
+        <li class="nav-item nav-dropdown open">
+          <a class="nav-link nav-dropdown-toggle" href="#">
+          <i class="nav-icon fas fa-map"></i>填报</a>
+          <ul class="nav-dropdown-items">
+            <% if policy(:"Account::OrgYearFill").show? %>
+              <%= nav_item controller: 'account/org_year_fills', html_options: { class: "nav-item" } do %>
+                <%= link_to account_org_year_fill_path, class: "nav-link ml-1" do %>
+                  <i class="nav-icon fas fa-user-alt"></i>
+                  <%= t("layouts.sidebar.account_report.account_org_year_fill") %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if policy(:"Account::OrgMonthFill").show? %>
+              <%= nav_item controller: 'account/org_month_fills', html_options: { class: "nav-item" } do %>
+                <%= link_to account_org_month_fill_path, class: "nav-link ml-1" do %>
+                  <i class="nav-icon fas fa-user-alt"></i>
+                  <%= t("layouts.sidebar.account_report.account_org_month_fill") %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if policy(:"Account::InteriorFill").show? %>
+              <%= nav_item controller: 'account/interior_fills', html_options: { class: "nav-item" } do %>
+                <%= link_to account_interior_fill_path, class: "nav-link ml-1" do %>
+                  <i class="nav-icon fas fa-user-alt"></i>
+                  <%= t("layouts.sidebar.account_report.account_interior_fill") %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if policy(:"Account::DeptYearFill").show? %>
+              <%= nav_item controller: 'account/dept_year_fills', html_options: { class: "nav-item" } do %>
+                <%= link_to account_dept_year_fill_path, class: "nav-link ml-1" do %>
+                  <i class="nav-icon fas fa-user-alt"></i>
+                  <%= t("layouts.sidebar.account_report.account_dept_year_fill") %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if policy(:"Account::DeptMonthFill").show? %>
+              <%= nav_item controller: 'account/dept_month_fills', html_options: { class: "nav-item" } do %>
+                <%= link_to account_dept_month_fill_path, class: "nav-link ml-1" do %>
+                  <i class="nav-icon fas fa-user-alt"></i>
+                  <%= t("layouts.sidebar.account_report.account_dept_month_fill") %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
       <% if policy(:"Account::BusinessTargetOrg").show? %>
         <%= nav_item controller: 'account/business_target_orgs', html_options: { class: "nav-item" } do %>
           <%= link_to account_business_target_org_path, class: "nav-link" do %>
