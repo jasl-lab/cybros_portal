@@ -21,12 +21,14 @@ module Bi
 
     def show?
       return false unless user.present?
-      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.admin?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.admin? \
+      || user.operation_access_codes.any? { |c| c[0] <= User::ALL_OF_ALL }
     end
 
     def export_sign_detail?
       return false unless user.present?
-      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.admin?
+      user.roles.pluck(:report_viewer).any? || user.roles.pluck(:report_view_all).any? || user.admin? \
+      || user.operation_access_codes.any? { |c| c[0] <= User::ALL_OF_ALL }
     end
   end
 end
