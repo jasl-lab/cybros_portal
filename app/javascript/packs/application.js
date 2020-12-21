@@ -43,47 +43,39 @@ global.echarts = echarts;
 import "controllers";
 
 // Load Datatables
-require('datatables.net-bs')(window, $);
-require('datatables.net-buttons-bs')(window, $);
-require('datatables.net-buttons/js/buttons.colVis.js')(window, $);
-require('datatables.net-buttons/js/buttons.html5.js')(window, $);
-require('datatables.net-buttons/js/buttons.print.js')(window, $);
-require('datatables.net-responsive-bs')(window, $);
-require('datatables.net-select')(window, $);
-// require('yadcf')(window, $); // Uncomment if you use yadcf (need a recent version of yadcf)
-require("datatables");
-require('datatables.net-fixedheader')(window, $);
+require('datatables.net-bs4')(window, $);
+require('datatables.net-buttons-bs4')(window, $);
 require('datatables.net-fixedheader-bs4')(window, $);
+require('datatables.net-select-bs4')(window, $);
+// require('yadcf')(window, $); // Uncomment if you use yadcf (need a recent version of yadcf)
 
 require("devise-jwt");
 
-// Translate dataTable into Chinese
 $.extend( $.fn.dataTable.defaults, {
   language: {
-    "sProcessing":   "处理中...",
-    "sLengthMenu":   "显示 _MENU_ 项结果",
-    "sZeroRecords":  "没有匹配结果",
-    "sInfo":         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-    "sInfoEmpty":    "显示第 0 至 0 项结果，共 0 项",
-    "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-    "sInfoPostFix":  "",
-    "sSearch":       "搜索:",
-    "sUrl":          "",
-    "sEmptyTable":     "表中数据为空",
-    "sLoadingRecords": "载入中...",
-    "sInfoThousands":  ",",
-    "oPaginate": {
-        "sFirst":    "首页",
-        "sPrevious": "上页",
-        "sNext":     "下页",
-        "sLast":     "末页"
+    "emptyTable":     "表中数据为空",
+    "info":           "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+    "infoEmpty":      "显示第 0 至 0 项结果，共 0 项",
+    "infoFiltered":   "(由 _MAX_ 项结果过滤)",
+    "infoThousands":  ",",
+    "lengthMenu":     "显示数量 _MENU_",
+    "loadingRecords": "载入中...",
+    "processing":     "处理中...",
+    "search":         "搜索:",
+    "zeroRecords":    "没有匹配结果",
+    "thousands": ",",
+    "paginate": {
+      "first":    "第一页",
+      "last":     "最后一页",
+      "next":     "下一页",
+      "previous": "上一页"
     },
-    "oAria": {
-        "sSortAscending":  ": 以升序排列此列",
-        "sSortDescending": ": 以降序排列此列"
+    "aria": {
+      "sortAscending":  ": 以升序排列此列",
+      "sortDescending": ": 以降序排列此列"
     }
   }
-});
+} );
 
 $.fn.datetimepicker.Constructor.Default = $.extend({},
   $.fn.datetimepicker.Constructor.Default,
