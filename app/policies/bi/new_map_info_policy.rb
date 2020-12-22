@@ -29,7 +29,7 @@ module Bi
     def allow_download?
       user.admin? || (user.in_tianhua_hq? && user.position_title.in?(ALLOW_DOWNLOAD_HQ_TITLES)) \
         || (!user.in_tianhua_hq? && user.position_title.in?(ALLOW_DOWNLOAD_SUBSIDIARY_TITLES)) \
-        || user.roles.pluck(:project_map_viewer).any?
+        || user.roles.pluck(:project_map_contract_download).any?
     end
   end
 end
