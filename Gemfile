@@ -23,7 +23,7 @@ gem 'activerecord-sqlserver-adapter', git: 'https://github.com/rails-sqlserver/a
 gem 'ruby-oci8'
 gem 'activerecord-oracle_enhanced-adapter'
 
-gem "sidekiq", "~> 5.2.7"
+gem "sidekiq"
 
 # Use Puma as the app server
 gem "puma"

@@ -38,6 +38,8 @@ install_plugin Capistrano::Puma
 install_plugin Capistrano::Puma::Nginx
 install_plugin Capistrano::Puma::Systemd
 require 'capistrano/sidekiq'
+install_plugin Capistrano::Sidekiq
+install_plugin Capistrano::Sidekiq::Systemd
 
 require 'whenever/capistrano'
 
