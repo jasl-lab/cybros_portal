@@ -1,12 +1,12 @@
 import { Controller } from "stimulus"
 
 let completeValuesTotalChart;
-let completeValuesStaffChart;
+let completeValuesWorkerChart;
 
 export default class extends Controller {
   connect() {
     completeValuesTotalChart = echarts.init(document.getElementById('complete-values-total-chart'));
-    completeValuesStaffChart = echarts.init(document.getElementById('complete-values-staff-chart'));
+    completeValuesWorkerChart = echarts.init(document.getElementById('complete-values-staff-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const inIFrame = this.data.get("in_iframe");
@@ -105,7 +105,7 @@ export default class extends Controller {
         }]
     };
 
-    const option_staff = {
+    const option_worker = {
         legend: {
             data: ['预计全年一线人均完成产值（万元）','本年累计一线人均完成产值（万元）'],
             align: 'left'
@@ -225,20 +225,20 @@ export default class extends Controller {
     }
     completeValuesTotalChart.setOption(option_total, false);
     completeValuesTotalChart.on('click', drill_down_complete_value_total);
-    completeValuesStaffChart.setOption(option_staff, false);
+    completeValuesWorkerChart.setOption(option_worker, false);
     setTimeout(() => {
       completeValuesTotalChart.resize();
-      completeValuesStaffChart.resize();
+      completeValuesWorkerChart.resize();
     }, 200);
   }
 
   layout() {
     completeValuesTotalChart.resize();
-    completeValuesStaffChart.resize();
+    completeValuesWorkerChart.resize();
   }
 
   disconnect() {
     completeValuesTotalChart.dispose();
-    completeValuesStaffChart.dispose();
+    completeValuesWorkerChart.dispose();
   }
 }
