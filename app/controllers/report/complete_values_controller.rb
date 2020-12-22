@@ -64,14 +64,16 @@ class Report::CompleteValuesController < Report::BaseController
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
 
     @complete_value_totals_per_worker, @worker_per_company = set_complete_value_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
-
     @fix_avg_complete_value_totals_per_worker = rounded_avg(@complete_value_totals_per_worker)
-
     @complete_value_year_totals_per_worker = complete_value_year_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
-
     @complete_value_gap_per_worker = @complete_value_year_totals_per_worker.zip(@complete_value_totals_per_worker).map { |d| d[0] - d[1] }
-
     @fix_avg_complete_value_year_totals_per_worker = rounded_avg(@complete_value_year_totals_per_worker)
+
+    @complete_value_totals_per_staff, @staff_per_company = set_complete_value_totals_per_staff(data, @end_of_month, @view_orgcode_sum)
+    @fix_avg_complete_value_totals_per_staff = rounded_avg(@complete_value_totals_per_staff)
+    @complete_value_year_totals_per_staff = complete_value_year_totals_per_staff(data, @end_of_month, @view_orgcode_sum)
+    @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
+    @fix_avg_complete_value_year_totals_per_staff = rounded_avg(@complete_value_year_totals_per_staff)
   end
 
   private
@@ -130,6 +132,32 @@ class Report::CompleteValuesController < Report::BaseController
         (sum_of_array / array.size).round(0)
       else
         0
+      end
+    end
+
+    def set_complete_value_totals_per_staff(data, end_of_month, view_orgcode_sum)
+      staff_per_orgcode = Bi::YearAvgStaffAll.staff_per_orgcode_by_date_and_sum(end_of_month, view_orgcode_sum)
+      complete_value_totals_per_staff = data.collect do |d|
+        staff_number = staff_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+        if staff_number.zero?
+          0
+        else
+          (d.sum_total / (staff_number * 10000).to_f).round(0)
+        end
+      end
+      staff_per_company = staff_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+      [complete_value_totals_per_staff, staff_per_company]
+    end
+
+    def complete_value_year_totals_per_staff(data, end_of_month, view_orgcode_sum)
+      staff_per_orgcode_by_year = Bi::YearAvgStaffAll.staff_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
+      data.collect do |d|
+        staff_number = staff_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+        if staff_number.zero?
+          0
+        else
+          (d.sum_total / (staff_number * 10000).to_f).round(0)
+        end
       end
     end
 end

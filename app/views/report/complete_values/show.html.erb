@@ -23,7 +23,10 @@
     data-complete-values-complete_value_year_totals_remain="<%= @complete_value_year_totals_remain.to_json -%>"
     data-complete-values-complete_value_totals_per_worker="<%= @complete_value_totals_per_worker.to_json -%>"
     data-complete-values-complete_value_gap_per_worker="<%= @complete_value_gap_per_worker.to_json -%>"
-    data-complete-values-complete_value_year_totals_per_worker="<%= @complete_value_year_totals_per_worker.to_json -%>">
+    data-complete-values-complete_value_year_totals_per_worker="<%= @complete_value_year_totals_per_worker.to_json -%>"
+    data-complete-values-complete_value_totals_per_staff="<%= @complete_value_totals_per_staff.to_json -%>"
+    data-complete-values-complete_value_gap_per_staff="<%= @complete_value_gap_per_staff.to_json -%>"
+    data-complete-values-complete_value_year_totals_per_staff="<%= @complete_value_year_totals_per_staff.to_json -%>">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -48,19 +51,23 @@
           <%= @selected_short_name.presence || '集团' -%>本年累计完成产值
           <span style="color:red"><%= @selected_short_name.present? ? ("#{@complete_value_totals.blank? ? 0 : @complete_value_totals.sum.round(1)}百万元") : "#{@fix_sum_complete_value_totals}亿元" -%></span>，
           本年累计一线人均完成产值
-          <span style="color:red"><%= @selected_short_name.present? ? ((@complete_value_totals_per_worker.blank? ? 0 : (@complete_value_totals_per_worker.sum.to_f / @complete_value_totals_per_worker.size)).round(0)) : @fix_avg_complete_value_totals_per_worker -%> 万元</span>；
+          <span style="color:red"><%= @selected_short_name.present? ? ((@complete_value_totals_per_worker.blank? ? 0 : (@complete_value_totals_per_worker.sum.to_f / @complete_value_totals_per_worker.size)).round(0)) : @fix_avg_complete_value_totals_per_worker -%> 万元</span>，全员人均完成产值<span style="color:red"><%= @selected_short_name.present? ? ((@complete_value_totals_per_staff.blank? ? 0 : (@complete_value_totals_per_staff.sum.to_f / @complete_value_totals_per_staff.size)).round(0)) : @fix_avg_complete_value_totals_per_staff -%> 万元</span>；
         </h5>
         <h5 class="text-center">
           <%= @selected_short_name.presence || '集团' -%>预计全年完成产值
           <span style="color:red"><%= @selected_short_name.present? ? ("#{@complete_value_year_totals.blank? ? 0 : @complete_value_year_totals.sum.round(1)}百万元") : "#{@fix_sum_complete_value_year_totals}亿元" -%></span>，
           预计全年一线人均完成产值
-          <span style="color:red"><%= @selected_short_name.present? ? (@complete_value_year_totals_per_worker.blank? ? 0 : (@complete_value_year_totals_per_worker.sum.to_f / @complete_value_year_totals_per_worker.size).round(0)) : @fix_avg_complete_value_year_totals_per_worker -%> 万元</span>
+          <span style="color:red"><%= @selected_short_name.present? ? (@complete_value_year_totals_per_worker.blank? ? 0 : (@complete_value_year_totals_per_worker.sum.to_f / @complete_value_year_totals_per_worker.size).round(0)) : @fix_avg_complete_value_year_totals_per_worker -%> 万元</span>，全员完成产值
+          <span style="color:red"><%= @selected_short_name.present? ? (@complete_value_year_totals_per_staff.blank? ? 0 : (@complete_value_year_totals_per_staff.sum.to_f / @complete_value_year_totals_per_staff.size).round(0)) : @fix_avg_complete_value_year_totals_per_staff -%> 万元</span>
         </h5>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-12">
         <div id="complete-values-total-chart" style="width: 100%; height: 340px;"></div>
+      </div>
+      <div class="col-lg-12">
+        <div id="complete-values-worker-chart" style="width: 100%; height: 340px;"></div>
       </div>
       <div class="col-lg-12">
         <div id="complete-values-staff-chart" style="width: 100%; height: 340px;"></div>

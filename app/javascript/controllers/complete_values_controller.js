@@ -2,11 +2,13 @@ import { Controller } from "stimulus"
 
 let completeValuesTotalChart;
 let completeValuesWorkerChart;
+let completeValuesStaffChart;
 
 export default class extends Controller {
   connect() {
     completeValuesTotalChart = echarts.init(document.getElementById('complete-values-total-chart'));
-    completeValuesWorkerChart = echarts.init(document.getElementById('complete-values-staff-chart'));
+    completeValuesWorkerChart = echarts.init(document.getElementById('complete-values-worker-chart'));
+    completeValuesStaffChart = echarts.init(document.getElementById('complete-values-staff-chart'));
 
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const inIFrame = this.data.get("in_iframe");
@@ -17,6 +19,9 @@ export default class extends Controller {
     const completeValueTotalsPerWorker = JSON.parse(this.data.get("complete_value_totals_per_worker"));
     const completeValueGapPerWorker = JSON.parse(this.data.get("complete_value_gap_per_worker"));
     const completeValueYearTotalsPerWorker = JSON.parse(this.data.get("complete_value_year_totals_per_worker"));
+    const completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
+    const completeValueGapPerStaff = JSON.parse(this.data.get("complete_value_gap_per_staff"));
+    const completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
 
     const option_total = {
         legend: {
@@ -200,6 +205,101 @@ export default class extends Controller {
         }]
     };
 
+    const option_staff = {
+        legend: {
+            data: ['预计全年全员人均完成产值（万元）','本年累计全员人均完成产值（万元）'],
+            align: 'left'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        grid: {
+          left: 70,
+          right: 110,
+          top: 50,
+          bottom: 80
+        },
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+                pixelRatio: 2
+            }
+          }
+        },
+        xAxis: {
+          data: xAxisData,
+          offset: 16,
+          silent: true,
+          axisLabel: {
+            interval: 0,
+            rotate: -40
+          },
+          splitLine: {
+              show: false
+          }
+        },
+        yAxis: [{
+          type: 'value',
+          name: '人均完成产值（万元）',
+          position: 'left',
+          axisLabel: {
+            formatter: '{value}万'
+          }
+        }],
+        series: [{
+          name: '预计全年全员人均完成产值（万元）',
+          type: 'bar',
+          barGap: '-100%',
+          data: completeValueYearTotalsPerStaff,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              color: '#353535',
+              position: 'top'
+            }
+          }
+        },{
+          name: '本年累计全员人均完成产值（万元）',
+          type: 'bar',
+          stack: '全员人均',
+          data: completeValueTotalsPerStaff,
+          itemStyle: {
+            color: '#509098'
+          },
+          barWidth: 20,
+          label: {
+            normal: {
+              show: true,
+              position: 'insideTop',
+              fontWeight: 'bold',
+              color: '#000000'
+            }
+          }
+        },{
+          name: '预计全员人均将完成产值（万元）',
+          type: 'bar',
+          stack: '全员人均',
+          data: completeValueGapPerStaff,
+          itemStyle: {
+            color: '#DDDDDD'
+          },
+          barWidth: 20,
+          label: {
+            normal: {
+              show: false
+            }
+          }
+        }]
+    };
+
     function drill_down_complete_value_total(params) {
       if (params.componentType === 'series') {
         if (params.seriesType === 'bar') {
@@ -223,22 +323,28 @@ export default class extends Controller {
         }
       }
     }
+
     completeValuesTotalChart.setOption(option_total, false);
     completeValuesTotalChart.on('click', drill_down_complete_value_total);
     completeValuesWorkerChart.setOption(option_worker, false);
+    completeValuesStaffChart.setOption(option_staff, false);
+
     setTimeout(() => {
       completeValuesTotalChart.resize();
       completeValuesWorkerChart.resize();
+      completeValuesStaffChart.resize();
     }, 200);
   }
 
   layout() {
     completeValuesTotalChart.resize();
     completeValuesWorkerChart.resize();
+    completeValuesStaffChart.resize();
   }
 
   disconnect() {
     completeValuesTotalChart.dispose();
     completeValuesWorkerChart.dispose();
+    completeValuesStaffChart.dispose();
   }
 }
