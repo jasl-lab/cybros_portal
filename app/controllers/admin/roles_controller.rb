@@ -15,9 +15,12 @@ class Admin::RolesController < Admin::ApplicationController
     @users = @role.users.includes(:departments)
     @users_auto = case @role.id
     when 6  # 查看项目地图并允许下载合同
-      User.where(position_title: Bi::NewMapInfoPolicy::ALLOW_SHOW_TITLES)
+      User.joins(:departments).where(departments: { company_name: '上海天华建筑设计有限公司' })
+        .where(position_title: Bi::NewMapInfoPolicy::ALLOW_DOWNLOAD_HQ_TITLES)
+          .or(User.joins(:departments).where.not(departments: { company_name: '上海天华建筑设计有限公司' })
+        .where(position_title: Bi::NewMapInfoPolicy::ALLOW_DOWNLOAD_SUBSIDIARY_TITLES))
     when 30 # 查看项目地图
-      []
+      User.where(position_title: Bi::NewMapInfoPolicy::ALLOW_SHOW_TITLES)
     else
       []
     end
