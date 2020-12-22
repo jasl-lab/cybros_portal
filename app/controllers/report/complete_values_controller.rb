@@ -68,12 +68,12 @@ class Report::CompleteValuesController < Report::BaseController
     else
       Bi::YearAvgStaff.worker_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
     end
-    @complete_value_totals_per_staff = data.collect do |d|
-      staff_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
-      if staff_number.zero?
+    @complete_value_totals_per_worker = data.collect do |d|
+      worker_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      if worker_number.zero?
         0
       else
-        (d.sum_total / (staff_number * 10000).to_f).round(0)
+        (d.sum_total / (worker_number * 10000).to_f).round(0)
       end
     end
 
@@ -84,24 +84,25 @@ class Report::CompleteValuesController < Report::BaseController
     end
     @worker_per_company = worker_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
-    sum_of_complete_value_totals_per_staff = @complete_value_totals_per_staff.sum.to_f
-    @fix_avg_complete_value_totals_per_staff = if @complete_value_totals_per_staff.present?
-      (sum_of_complete_value_totals_per_staff / @complete_value_totals_per_staff.size).round(0)
+    sum_of_complete_value_totals_per_worker = @complete_value_totals_per_worker.sum.to_f
+    @fix_avg_complete_value_totals_per_worker = if @complete_value_totals_per_worker.present?
+      (sum_of_complete_value_totals_per_worker / @complete_value_totals_per_worker.size).round(0)
     else
       0
     end
-    @complete_value_year_totals_per_staff = data.collect do |d|
-      staff_number = worker_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
-      if staff_number.zero?
+    @complete_value_year_totals_per_worker = data.collect do |d|
+      worker_number = worker_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+      if worker_number.zero?
         0
       else
-        (d.sum_total / (staff_number * 10000).to_f).round(0)
+        (d.sum_total / (worker_number * 10000).to_f).round(0)
       end
     end
-    @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
-    sum_of_complete_value_year_totals_per_staff = @complete_value_year_totals_per_staff.sum.to_f
-    @fix_avg_complete_value_year_totals_per_staff = if @complete_value_year_totals_per_staff.present?
-      (sum_of_complete_value_year_totals_per_staff / @complete_value_year_totals_per_staff.size).round(0)
+    @complete_value_gap_per_worker = @complete_value_year_totals_per_worker.zip(@complete_value_totals_per_worker).map { |d| d[0] - d[1] }
+
+    sum_of_complete_value_year_totals_per_worker = @complete_value_year_totals_per_worker.sum.to_f
+    @fix_avg_complete_value_year_totals_per_worker = if @complete_value_year_totals_per_worker.present?
+      (sum_of_complete_value_year_totals_per_worker / @complete_value_year_totals_per_worker.size).round(0)
     else
       0
     end

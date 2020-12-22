@@ -14,9 +14,9 @@ export default class extends Controller {
     const completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
     const completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
     const completeValueYearTotalsRemain = JSON.parse(this.data.get("complete_value_year_totals_remain"));
-    const completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
-    const completeValueGapPerStaff = JSON.parse(this.data.get("complete_value_gap_per_staff"));
-    const completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));
+    const completeValueTotalsPerWorker = JSON.parse(this.data.get("complete_value_totals_per_worker"));
+    const completeValueGapPerWorker = JSON.parse(this.data.get("complete_value_gap_per_worker"));
+    const completeValueYearTotalsPerWorker = JSON.parse(this.data.get("complete_value_year_totals_per_worker"));
 
     const option_total = {
         legend: {
@@ -107,7 +107,7 @@ export default class extends Controller {
 
     const option_staff = {
         legend: {
-            data: ['预计全年人均完成产值（万元）','本年累计人均完成产值（万元）'],
+            data: ['预计全年一线人均完成产值（万元）','本年累计一线人均完成产值（万元）'],
             align: 'left'
         },
         tooltip: {
@@ -151,11 +151,10 @@ export default class extends Controller {
           }
         }],
         series: [{
-          name: '预计全年人均完成产值（万元）',
+          name: '预计全年一线人均完成产值（万元）',
           type: 'bar',
-          barWidth: '30%',
           barGap: '-100%',
-          data: completeValueYearTotalsPerStaff,
+          data: completeValueYearTotalsPerWorker,
           itemStyle: {
             color: '#DDDDDD'
           },
@@ -168,10 +167,10 @@ export default class extends Controller {
             }
           }
         },{
-          name: '本年累计人均完成产值（万元）',
+          name: '本年累计一线人均完成产值（万元）',
           type: 'bar',
-          stack: '人均',
-          data: completeValueTotalsPerStaff,
+          stack: '一线人均',
+          data: completeValueTotalsPerWorker,
           itemStyle: {
             color: '#60A0A8'
           },
@@ -185,10 +184,10 @@ export default class extends Controller {
             }
           }
         },{
-          name: '预计人均将完成产值（万元）',
+          name: '预计一线人均将完成产值（万元）',
           type: 'bar',
-          stack: '人均',
-          data: completeValueGapPerStaff,
+          stack: '一线人均',
+          data: completeValueGapPerWorker,
           itemStyle: {
             color: '#DDDDDD'
           },
