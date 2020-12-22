@@ -11,10 +11,10 @@
           <span class="badge badge-secondary"><%= a.second -%></span>
         <% end %>
       </p>
-      <div class="table-responsive">
-        <table class="table table-striped">
+      <div class="overflow-auto" style="height: 80vh;">
+        <table class="table table-striped position-relative">
           <thead>
-            <tr>
+            <tr class="table-fix-head-row-1">
               <th><%= t(".table.id") %></th>
               <th><%= t(".table.email") %></th>
               <th><%= t(".table.position") %></th>
@@ -40,6 +40,20 @@
                 <% end %>
               </td>
               <td><%= link_to t(".action.delete"), user_admin_role_path(@role, user_id: user.id), method: :delete, data: { confirm: t(".action.delete_confirm", role_name: @role.role_name, user_name: user.chinese_name) } %></td>
+            </tr>
+          <% end %>
+          <% @users_auto.each do |user| %>
+            <tr>
+              <td><%= link_to user.id, edit_admin_user_path(id: user.id) %></td>
+              <td><%= user.email %></td>
+              <td><%= user.position_title %></td>
+              <td><%= raw user.departments.collect(&:company_name).join('<br />') %></td>
+              <td><%= user.clerk_code %></td>
+              <td><%= user.chinese_name %></td>
+              <td>
+                <span class="badge badge-info">true</span>
+              </td>
+              <td></td>
             </tr>
           <% end %>
           </tbody>

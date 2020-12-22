@@ -13,6 +13,14 @@ class Admin::RolesController < Admin::ApplicationController
   def show
     prepare_meta_tags title: @role.role_name
     @users = @role.users.includes(:departments)
+    @users_auto = case @role.id
+    when 6  # 查看项目地图并允许下载合同
+      User.where(position_title: Bi::NewMapInfoPolicy::ALLOW_SHOW_TITLES)
+    when 30 # 查看项目地图
+      []
+    else
+      []
+    end
   end
 
   def user
