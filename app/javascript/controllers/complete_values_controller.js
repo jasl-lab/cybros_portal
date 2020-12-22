@@ -13,12 +13,15 @@ export default class extends Controller {
     const xAxisData = JSON.parse(this.data.get("x_axis"));
     const inIFrame = this.data.get("in_iframe");
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
+
     const completeValueTotals = JSON.parse(this.data.get("complete_value_totals"));
     const completeValueYearTotals = JSON.parse(this.data.get("complete_value_year_totals"));
     const completeValueYearTotalsRemain = JSON.parse(this.data.get("complete_value_year_totals_remain"));
+
     const completeValueTotalsPerWorker = JSON.parse(this.data.get("complete_value_totals_per_worker"));
     const completeValueGapPerWorker = JSON.parse(this.data.get("complete_value_gap_per_worker"));
     const completeValueYearTotalsPerWorker = JSON.parse(this.data.get("complete_value_year_totals_per_worker"));
+
     const completeValueTotalsPerStaff = JSON.parse(this.data.get("complete_value_totals_per_staff"));
     const completeValueGapPerStaff = JSON.parse(this.data.get("complete_value_gap_per_staff"));
     const completeValueYearTotalsPerStaff = JSON.parse(this.data.get("complete_value_year_totals_per_staff"));

@@ -86,18 +86,26 @@
               <% end %>
             </tr>
           </thead>
+          <% total_worker_num = 0 %>
           <% total_staff_num = 0 %>
           <tbody>
             <tr>
-              <td>人数</td>
+              <td>一线人数</td>
               <% @company_short_names&.each do |short_company_name| %>
-                <% total_staff_num += (@worker_per_company[short_company_name] || 0) %>
+                <% total_worker_num += (@worker_per_company[short_company_name] || 0) %>
                 <td><%= @worker_per_company[short_company_name]&.round(0) -%></td>
+              <% end %>
+            </tr>
+            <tr>
+              <td>全员人数</td>
+              <% @company_short_names&.each do |short_company_name| %>
+                <% total_staff_num += (@staff_per_company[short_company_name] || 0) %>
+                <td><%= @staff_per_company[short_company_name]&.round(0) -%></td>
               <% end %>
             </tr>
           </tbody>
         </table>
-        <h6>表格上的总人数：<%= total_staff_num.round(0) -%></h6>
+        <h6>表格上的总一线人数：<%= total_worker_num.round(0) -%>，总全员人数<%= total_staff_num.round(0) -%></h6>
       </div>
     </div>
   </div>

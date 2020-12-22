@@ -111,10 +111,10 @@ class Report::CompleteValuesController < Report::BaseController
     end
 
     def complete_value_year_totals_per_worker(data, end_of_month, view_orgcode_sum)
-      worker_per_orgcode_by_year = if @end_of_month.year <= 2020 && @end_of_month.month < 5
-        Bi::StaffCount.staff_per_orgcode(@end_of_month)
+      worker_per_orgcode_by_year = if end_of_month.year <= 2020 && end_of_month.month < 5
+        Bi::StaffCount.staff_per_orgcode(end_of_month)
       else
-        Bi::YearAvgStaff.worker_per_orgcode_by_year_and_sum(@end_of_month, @view_orgcode_sum)
+        Bi::YearAvgStaff.worker_per_orgcode_by_year_and_sum(end_of_month, view_orgcode_sum)
       end
       data.collect do |d|
         worker_number = worker_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
@@ -150,7 +150,7 @@ class Report::CompleteValuesController < Report::BaseController
     end
 
     def complete_value_year_totals_per_staff(data, end_of_month, view_orgcode_sum)
-      staff_per_orgcode_by_year = Bi::YearAvgStaffAll.staff_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
+      staff_per_orgcode_by_year = Bi::YearAvgStaffAll.staff_per_orgcode_by_date_and_sum(end_of_month, view_orgcode_sum)
       data.collect do |d|
         staff_number = staff_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
         if staff_number.zero?
