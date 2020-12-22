@@ -63,26 +63,13 @@ class Report::CompleteValuesController < Report::BaseController
     @complete_value_year_totals_remain = @complete_value_year_totals.zip(@complete_value_totals).map { |d| d[0] - d[1] }
     @fix_sum_complete_value_year_totals = (@complete_value_year_totals.sum / 100.0).round(1)
 
-    worker_per_orgcode = if @end_of_month.year <= 2020 && @end_of_month.month < 5
-      Bi::StaffCount.staff_per_orgcode(@end_of_month)
-    else
-      Bi::YearAvgStaff.worker_per_orgcode_by_date_and_sum(@end_of_month, @view_orgcode_sum)
-    end
-    @complete_value_totals_per_worker = data.collect do |d|
-      worker_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
-      if worker_number.zero?
-        0
-      else
-        (d.sum_total / (worker_number * 10000).to_f).round(0)
-      end
-    end
+    @complete_value_totals_per_worker, @worker_per_company = set_complete_value_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
 
     worker_per_orgcode_by_year = if @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::StaffCount.staff_per_orgcode(@end_of_month)
     else
       Bi::YearAvgStaff.worker_per_orgcode_by_year_and_sum(@end_of_month, @view_orgcode_sum)
     end
-    @worker_per_company = worker_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     sum_of_complete_value_totals_per_worker = @complete_value_totals_per_worker.sum.to_f
     @fix_avg_complete_value_totals_per_worker = if @complete_value_totals_per_worker.present?
@@ -123,5 +110,23 @@ class Report::CompleteValuesController < Report::BaseController
 
     def set_page_layout_data
       @_sidebar_name = "operation"
+    end
+
+    def set_complete_value_totals_per_worker(data, end_of_month,view_orgcode_sum)
+      worker_per_orgcode = if end_of_month.year <= 2020 && end_of_month.month < 5
+        Bi::StaffCount.staff_per_orgcode(end_of_month)
+      else
+        Bi::YearAvgStaff.worker_per_orgcode_by_date_and_sum(end_of_month, view_orgcode_sum)
+      end
+      complete_value_totals_per_worker = data.collect do |d|
+        worker_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
+        if worker_number.zero?
+          0
+        else
+          (d.sum_total / (worker_number * 10000).to_f).round(0)
+        end
+      end
+      worker_per_company = worker_per_orgcode.transform_keys { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+      [complete_value_totals_per_worker, worker_per_company]
     end
 end
