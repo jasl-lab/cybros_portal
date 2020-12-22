@@ -18,7 +18,7 @@ zh-CN:
         operation: "天华市场运营分析"
         operation_entry: "财务分析填报"
         human_resource: "天华人力资源分析"
-        account_report: "财务分析-运营报表"
+        account_report: "财务分析-经营报表"
         financial_management: "财务分析-所级管理表"
         cost_split: "集团费用分摊"
       accounts:
@@ -126,7 +126,7 @@ zh-CN:
         org_market_fees: "公司市场费管理表"
         bonus_distribution: "产值汇总表"
       account_report:
-        header: "财务分析-运营报表"
+        header: "财务分析-经营报表"
         account_org_year_fill: "集团年度数据填报"
         account_org_month_fill: "集团月度数据填报"
         account_interior_fill: "室内公司月度填报"
