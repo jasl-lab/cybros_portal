@@ -65,23 +65,13 @@ class Report::CompleteValuesController < Report::BaseController
 
     @complete_value_totals_per_worker, @worker_per_company = set_complete_value_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
 
-    sum_of_complete_value_totals_per_worker = @complete_value_totals_per_worker.sum.to_f
-    @fix_avg_complete_value_totals_per_worker = if @complete_value_totals_per_worker.present?
-      (sum_of_complete_value_totals_per_worker / @complete_value_totals_per_worker.size).round(0)
-    else
-      0
-    end
+    @fix_avg_complete_value_totals_per_worker = rounded_avg(@complete_value_totals_per_worker)
 
     @complete_value_year_totals_per_worker = complete_value_year_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
 
     @complete_value_gap_per_worker = @complete_value_year_totals_per_worker.zip(@complete_value_totals_per_worker).map { |d| d[0] - d[1] }
 
-    sum_of_complete_value_year_totals_per_worker = @complete_value_year_totals_per_worker.sum.to_f
-    @fix_avg_complete_value_year_totals_per_worker = if @complete_value_year_totals_per_worker.present?
-      (sum_of_complete_value_year_totals_per_worker / @complete_value_year_totals_per_worker.size).round(0)
-    else
-      0
-    end
+    @fix_avg_complete_value_year_totals_per_worker = rounded_avg(@complete_value_year_totals_per_worker)
   end
 
   private
@@ -131,6 +121,15 @@ class Report::CompleteValuesController < Report::BaseController
         else
           (d.sum_total / (worker_number * 10000).to_f).round(0)
         end
+      end
+    end
+
+    def rounded_avg(array)
+      sum_of_array = array.sum.to_f
+      if array.present?
+        (sum_of_array / array.size).round(0)
+      else
+        0
       end
     end
 end
