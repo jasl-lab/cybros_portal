@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_082344) do
+ActiveRecord::Schema.define(version: 2020_12_22_052749) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -375,6 +375,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_082344) do
     t.boolean "large_customer_detail_viewser"
     t.boolean "group_report_viewer", default: false
     t.boolean "org_viewer", default: false
+    t.boolean "project_map_contract_download", default: false, null: false
   end
 
   create_table "split_cost_item_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
