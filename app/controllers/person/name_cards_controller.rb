@@ -198,9 +198,13 @@ class Person::NameCardsController < ApplicationController
     end
 
     if user.name_card_applies.where(status: '同意').count > 0
-      redirect_to person_name_cards_path, notice: t('.no_printed_name_card')
+      if user.name_card_applies.where(status: '同意').first.created_at >= Date.new(2020, 12, 21)
+        redirect_to person_name_cards_path, notice: t('.no_printed_name_card', url: "#{request.protocol}#{request.host_with_port}/default_name_card/#{user.clerk_code}.png")
+      else
+        redirect_to person_name_cards_path, notice: t('.previous_no_printed_name_card', url: "#{request.protocol}#{request.host_with_port}/default_name_card/#{user.clerk_code}.png")
+      end
     else
-      redirect_to new_person_name_card_path, notice: t('person.name_cards.new.no_name_card')
+      redirect_to new_person_name_card_path, notice: t('person.name_cards.new.no_name_card', url: "#{request.protocol}#{request.host_with_port}/default_name_card/#{user.clerk_code}.png")
     end
   end
 
