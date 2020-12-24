@@ -56,12 +56,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       data.select("CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum"))
     else
       data.select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode"))
     end
 
     @all_department_codes = data.collect(&:deptcode)
@@ -102,12 +102,12 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum"))
     else
       cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode"))
     end
     @all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = @all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }

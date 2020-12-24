@@ -31,12 +31,12 @@ class Report::ContractHoldsController < Report::BaseController
       data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
         .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum"))
     else
       data.select("CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
         .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode"))
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum
@@ -45,7 +45,7 @@ class Report::ContractHoldsController < Report::BaseController
         .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
         .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
         .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum"))
 
       h_deptcodes = data_sum.pluck(:deptcode_sum)
       belongs_to_h_deptcodes = data_sum.where(deptcode_sum: h_deptcodes).pluck(:deptcode)
@@ -53,7 +53,7 @@ class Report::ContractHoldsController < Report::BaseController
       Bi::OrgReportDeptOrder.where(编号: sum_depts)
         .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
         .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
-        .order("ORG_REPORT_DEPT_ORDER.部门排名").pluck(:编号)
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名")).pluck(:编号)
     elsif @dept_options.blank?
       data.pluck('CONTRACT_HOLD.deptcode')
     else

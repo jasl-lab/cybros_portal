@@ -36,7 +36,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
     data_org = data
       .select('OCDW.V_TH_DEPTMONEYFLOW.checkdate, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney,0)) endmoney, SUM(IFNULL(OCDW.V_TH_DEPTMONEYFLOW.nexthrpaymoney,0)) nexthrpaymoney')
       .group('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
-      .order('OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+      .order(Arel.sql('OCDW.V_TH_DEPTMONEYFLOW.checkdate'))
     @org_checkdate = data_org.collect { |d| d.checkdate.month }
     @org_endmoney = data_org.collect(&:endmoney)
     org_nexthrpaymoney = data_org.collect(&:nexthrpaymoney)
@@ -48,7 +48,7 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
       .select('OCDW.V_TH_DEPTMONEYFLOW.dept deptcode, OCDW.V_TH_DEPTMONEYFLOW.checkdate, IFNULL(OCDW.V_TH_DEPTMONEYFLOW.endmoney,0) endmoney')
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', data_last_available_date)
       .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = OCDW.V_TH_DEPTMONEYFLOW.dept')
-      .order('ORG_REPORT_DEPT_ORDER.部门排名, OCDW.V_TH_DEPTMONEYFLOW.dept, OCDW.V_TH_DEPTMONEYFLOW.checkdate')
+      .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, OCDW.V_TH_DEPTMONEYFLOW.dept, OCDW.V_TH_DEPTMONEYFLOW.checkdate'))
 
     data = if @view_deptcode_sum
       data.where('ORG_REPORT_DEPT_ORDER.上级部门编号 IS NULL')

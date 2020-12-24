@@ -48,13 +48,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
         .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别')
-        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别'))
     else
       data
         .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别')
-        .order('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别'))
     end
 
     @job_company_or_department_codes = data.filter_map do |d|

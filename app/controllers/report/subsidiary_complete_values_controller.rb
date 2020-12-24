@@ -46,12 +46,12 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode_sum")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum"))
     else
       data.select("COMPLETE_VALUE_DEPT.deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total")
         .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode"))
     end
 
     @all_department_codes = data.collect(&:deptcode)

@@ -37,12 +37,12 @@ class Report::PredictContractsController < Report::BaseController
       data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum")
         .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode_sum")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum"))
     else
       data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
         .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
         .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode")
-        .order("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
+        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode"))
     end
 
     @dept_codes_as_options = data.collect(&:deptcode) if @dept_codes_as_options.blank?

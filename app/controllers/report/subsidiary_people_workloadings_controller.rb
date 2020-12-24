@@ -32,7 +32,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       .distinct.where(date: beginning_of_day..end_of_day,)
       .where(orgcode: @selected_company_code)
       .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_COMBINE.deptcode_sum')
-      .order('ORG_REPORT_DEPT_ORDER.部门排名')
+      .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名'))
     @dept_short_names = if @view_deptcode_sum
       dept_short_names.select('deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名')
     else
@@ -97,7 +97,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
       .distinct.where(date: beginning_of_day..end_of_day)
       .where(orgcode: params[:company_code])
       .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_COUNT_COMBINE.deptcode_sum')
-      .order('ORG_REPORT_DEPT_ORDER.部门排名')
+      .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名'))
     @dept_short_names = if view_deptcode_sum
       dept_short_names.select('deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名')
     else
