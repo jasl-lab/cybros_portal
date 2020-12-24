@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_10_09_011647) do
 
-  create_table "ACCOUNT_RECEIVE_SAVEDATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "ACCOUNT_RECEIVE_SAVEDATE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "kporg"
     t.text "kporgcode"
     t.text "kpdeptcode"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "savedate"
   end
 
-  create_table "COMPLETE_VALUE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "COMPLETE_VALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "orgcode_sum"
     t.date "month"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "COMPLETE_VALUE_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "COMPLETE_VALUE_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.text "deptcode_sum"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "COMPLETE_VALUE_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "COMPLETE_VALUE_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "projectname"
     t.text "contractcode"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["date", "orgname"], name: "IDX_DATE_ORGNAME"
   end
 
-  create_table "CONTRACT_HOLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_HOLD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "id"
     t.string "orgcode_sum", limit: 50
     t.string "orgcode", limit: 50
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_HOLD_SIGN_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_HOLD_SIGN_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "id"
     t.text "projectitemcode"
     t.text "projectitemname"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_HOLD_UNSIGN_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_HOLD_UNSIGN_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "id"
     t.text "projectitemcode"
     t.text "projectitemname"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_PRICE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_PRICE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "projectcode", limit: 50
     t.text "projectname"
     t.string "salescontractcode", limit: 50
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "parttotal", limit: 53
   end
 
-  create_table "CONTRACT_PRODUCTION_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_PRODUCTION_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.text "deptcode_sum"
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_PRODUCTION_DEPT_RECORD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_PRODUCTION_DEPT_RECORD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.text "deptcode_sum"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_PRODUCTION_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_PRODUCTION_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractcode"
     t.text "salescontractname"
     t.text "contractstatusname"
@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_PRODUCTION_DETAIL_RECORD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_PRODUCTION_DETAIL_RECORD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractcode"
     t.text "salescontractname"
     t.text "contractstatusname"
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_SIGN", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_SIGN", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.datetime "filingtime"
@@ -257,24 +257,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_SIGN_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.text "orgcode_sum"
-    t.text "orgcode"
-    t.text "deptcode_sum"
-    t.text "deptcode"
-    t.datetime "filingtime"
-    t.float "contract_amount", limit: 53
-    t.float "count", limit: 53
-    t.float "contract_period", limit: 53
-    t.float "period_mean", limit: 53
-    t.float "cum_amount", limit: 53
-    t.float "cum_count", limit: 53
-    t.float "cum_period", limit: 53
-    t.float "cum_period_mean", limit: 53
-    t.date "date"
-  end
-
-  create_table "CONTRACT_SIGN_DEPT_RECORD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_SIGN_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.text "deptcode_sum"
@@ -291,7 +274,24 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_SIGN_DETAIL_AMOUNT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_SIGN_DEPT_RECORD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "orgcode_sum"
+    t.text "orgcode"
+    t.text "deptcode_sum"
+    t.text "deptcode"
+    t.datetime "filingtime"
+    t.float "contract_amount", limit: 53
+    t.float "count", limit: 53
+    t.float "contract_period", limit: 53
+    t.float "period_mean", limit: 53
+    t.float "cum_amount", limit: 53
+    t.float "cum_count", limit: 53
+    t.float "cum_period", limit: 53
+    t.float "cum_period_mean", limit: 53
+    t.date "date"
+  end
+
+  create_table "CONTRACT_SIGN_DETAIL_AMOUNT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractcode"
     t.text "salescontractname"
     t.text "belongcompanyname"
@@ -309,7 +309,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_SIGN_DETAIL_AMOUNT_RECORD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_SIGN_DETAIL_AMOUNT_RECORD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractcode"
     t.text "salescontractname"
     t.text "belongcompanyname"
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "CONTRACT_SIGN_DETAIL_DATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CONTRACT_SIGN_DETAIL_DATE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "projectname"
     t.text "businessdirectorname"
@@ -355,13 +355,13 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "provincename", limit: 45
   end
 
-  create_table "CW_CASHFLOW_FILL", primary_key: "deptcode", id: :string, limit: 45, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "CW_CASHFLOW_FILL", primary_key: "deptcode", id: { type: :string, limit: 45 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.date "createdate"
     t.string "deptleader", limit: 45
     t.string "deptbusitype", limit: 45
   end
 
-  create_table "HR_MONTH_REPORT", primary_key: ["deptcode", "savedate"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "HR_MONTH_REPORT", primary_key: ["deptcode", "savedate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 50
     t.string "orgcode", limit: 50
     t.string "deptcode_sum", limit: 50
@@ -388,7 +388,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "org_sum_turn_out", limit: 53
   end
 
-  create_table "ORG_ORDER", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "ORG_ORDER", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "org_name"
     t.float "org_order", limit: 53
     t.string "org_code", limit: 45
@@ -396,7 +396,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "org_type", limit: 45
   end
 
-  create_table "ORG_REPORT_DEPT_ORDER", primary_key: "index", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "ORG_REPORT_DEPT_ORDER", primary_key: "index", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "编号", limit: 45
     t.string "部门", limit: 45
     t.string "上级部门编号", limit: 45
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["index"], name: "index_UNIQUE", unique: true
   end
 
-  create_table "ORG_REPORT_RELATION_ORDER", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "ORG_REPORT_RELATION_ORDER", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "code", limit: 45
     t.string "depttype", limit: 45
     t.datetime "enddate"
@@ -432,7 +432,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptattribute", limit: 45
   end
 
-  create_table "ORG_SHORTNAME", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "ORG_SHORTNAME", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "pk_org", limit: 100
     t.string "code", limit: 45
     t.string "name", limit: 45
@@ -441,7 +441,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["code", "shortname"], name: "code_idx"
   end
 
-  create_table "PK_CODE_NAME", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PK_CODE_NAME", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "pk_org"
     t.text "orgname"
@@ -451,7 +451,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "displayorder", limit: 53
   end
 
-  create_table "PREDICT_MONEY_RECEIVE_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PREDICT_MONEY_RECEIVE_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "orgname"
     t.text "deptcode"
@@ -463,7 +463,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date"
   end
 
-  create_table "PREDICT_MONEY_RECEIVE_ORG", primary_key: ["orgcode", "f_month", "refresh_date"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PREDICT_MONEY_RECEIVE_ORG", primary_key: ["orgcode", "f_month", "refresh_date"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgcode", limit: 45, null: false
     t.string "orgname_sum", limit: 200
@@ -475,7 +475,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date", null: false
   end
 
-  create_table "PROVINCE_NEW_AREA", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PROVINCE_NEW_AREA", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.integer "year"
     t.integer "month"
     t.string "province", limit: 100
@@ -483,14 +483,14 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "date"
   end
 
-  create_table "PV_BASIC", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PV_BASIC", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "项目"
     t.text "系统ID"
     t.float "装机容量", limit: 53
     t.text "天气地点"
   end
 
-  create_table "PV_DAYS_RECORD", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PV_DAYS_RECORD", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "项目"
     t.text "系统ID"
     t.float "发电量", limit: 53
@@ -500,7 +500,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["id"], name: "index_UNIQUE", unique: true
   end
 
-  create_table "PV_INCOME", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PV_INCOME", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "项目编号"
     t.text "项目名称"
     t.text "地点"
@@ -524,7 +524,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "当月度电收益", limit: 53
   end
 
-  create_table "PV_MONTH_RECORD", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "PV_MONTH_RECORD", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "项目"
     t.text "系统ID"
     t.date "日期"
@@ -534,13 +534,13 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["id"], name: "id_UNIQUE", unique: true
   end
 
-  create_table "REFRESH_RECORD", primary_key: "program", id: :string, limit: 100, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "REFRESH_RECORD", primary_key: "program", id: { type: :string, limit: 100 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.datetime "refresh_date"
     t.integer "isinuse", limit: 1, default: 1
     t.integer "checkdate", default: 1
   end
 
-  create_table "SA_PROJECT_OPPORTUNITY", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SA_PROJECT_OPPORTUNITY", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "projectcode", limit: 200
     t.text "projectname"
     t.string "opportunitycode", limit: 200
@@ -569,7 +569,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "refusereason", limit: 200
   end
 
-  create_table "SH_REFRESH_RATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SH_REFRESH_RATE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "work_no"
     t.text "work_name"
     t.bigint "total_count"
@@ -579,7 +579,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "deptcode"
   end
 
-  create_table "SH_REFRESH_RATE_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SH_REFRESH_RATE_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectitemcode"
     t.text "projectitemname"
     t.text "orgcode"
@@ -597,21 +597,21 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "SH_STAFF_COUNT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SH_STAFF_COUNT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "deptcode"
     t.text "f_month"
     t.float "avgamount", limit: 53
     t.text "deptname"
   end
 
-  create_table "STAFF_COUNT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "STAFF_COUNT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode", limit: 45
     t.date "f_month"
     t.float "avg_work", limit: 53
     t.float "avg_work1", limit: 53
   end
 
-  create_table "SUB_COMPANY_NEED_RECEIVE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_NEED_RECEIVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 20
     t.string "orgcode", limit: 20
     t.string "deptcode_sum", limit: 20
@@ -624,7 +624,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date", null: false
   end
 
-  create_table "SUB_COMPANY_NEED_RECEIVE_ACCOUNT_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_NEED_RECEIVE_ACCOUNT_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "kporgcode", limit: 20
     t.string "orgcode_sum", limit: 20
     t.string "orgcode", limit: 20
@@ -650,7 +650,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "SUB_COMPANY_NEED_RECEIVE_SIGN_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_NEED_RECEIVE_SIGN_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "projectcode", limit: 45
     t.text "projectname"
     t.string "salescontractcode", limit: 45
@@ -680,7 +680,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["date"], name: "idx_sub_company_need_receive_sign_detail_date"
   end
 
-  create_table "SUB_COMPANY_NEED_RECEIVE_UNSIGN_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_NEED_RECEIVE_UNSIGN_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectitemcode"
     t.text "projectitemname"
     t.text "projectmanagername"
@@ -703,7 +703,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.integer "need_hide", limit: 1
   end
 
-  create_table "SUB_COMPANY_REAL_RATE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RATE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "salescontractcode", limit: 20
     t.text "salescontractname"
     t.datetime "filingtime"
@@ -727,7 +727,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "date"
   end
 
-  create_table "SUB_COMPANY_REAL_RATE_SUM", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RATE_SUM", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 20
     t.string "orgcode", limit: 20
     t.string "deptcode_sum", limit: 20
@@ -741,7 +741,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "trans_now", limit: 53
   end
 
-  create_table "SUB_COMPANY_REAL_RECEIVE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RECEIVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.text "deptcode_sum"
@@ -758,7 +758,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "cummarkettotal", limit: 53
   end
 
-  create_table "SUB_COMPANY_REAL_RECEIVE_CHANGE_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RECEIVE_CHANGE_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "projectitemcode", limit: 45
     t.datetime "approvedate"
     t.string "orgcode_sum", limit: 45
@@ -773,7 +773,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "adjusttype", limit: 45
   end
 
-  create_table "SUB_COMPANY_REAL_RECEIVE_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RECEIVE_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "projectname"
     t.text "contractcode"
@@ -790,7 +790,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "realdate"
   end
 
-  create_table "SUB_COMPANY_REAL_RECEIVE_MARKETFEE_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RECEIVE_MARKETFEE_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "contractcode"
     t.text "contractname"
     t.float "collectionamount", limit: 53
@@ -807,7 +807,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "confirmdate"
   end
 
-  create_table "SUB_COMPANY_REAL_RECEIVE_ORIGIN", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "SUB_COMPANY_REAL_RECEIVE_ORIGIN", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.text "deptcode_sum"
@@ -824,13 +824,13 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "cummarkettotal", limit: 53
   end
 
-  create_table "TH_CALENDAR", primary_key: "datestamp", id: :date, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "TH_CALENDAR", primary_key: "datestamp", id: :date, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "iswork", limit: 10
     t.bigint "datetype"
     t.text "remark"
   end
 
-  create_table "TH_DEPTPLANVALUE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "TH_DEPTPLANVALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "id"
     t.text "bizorgcode"
     t.text "createdbizorgcode"
@@ -868,7 +868,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "realamounttotal"
   end
 
-  create_table "TH_RP_CRM_SACONTRACT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "TH_RP_CRM_SACONTRACT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "id"
     t.text "bizorgcode"
     t.text "createdbizorgcode"
@@ -930,7 +930,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "clientsshort"
   end
 
-  create_table "TRACK_CONTRACT", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "TRACK_CONTRACT", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode", limit: 20
     t.string "deptcode", limit: 20
     t.float "contractconvert", limit: 53
@@ -941,7 +941,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["id"], name: "id_UNIQUE", unique: true
   end
 
-  create_table "TRACK_CONTRACT_OPPORTUNITY_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "TRACK_CONTRACT_OPPORTUNITY_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "opportunitycode", limit: 20
     t.text "opportunityname"
     t.text "opportunitycontent"
@@ -958,7 +958,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptcode_sum", limit: 45
   end
 
-  create_table "TRACK_CONTRACT_SIGNING_DETAIL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "TRACK_CONTRACT_SIGNING_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractcode"
     t.text "projectcode"
     t.text "salescontractname"
@@ -975,7 +975,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptcode_sum", limit: 45
   end
 
-  create_table "V_TH_CRM_RPOPPORTUNITY", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_CRM_RPOPPORTUNITY", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "projectname"
     t.text "opportunitycode"
@@ -1020,7 +1020,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "realcontractdate"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_DEPT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "comp", limit: 50
     t.string "dept", limit: 50
     t.date "checkdate"
@@ -1028,14 +1028,14 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_ORG", primary_key: ["comp", "checkdate"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_ORG", primary_key: ["comp", "checkdate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "comp", limit: 50, null: false
     t.date "checkdate", null: false
     t.float "endmoney"
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_SAVE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "compid"
     t.text "comp"
     t.text "compname"
@@ -1059,7 +1059,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_NEWMAPINFO", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_NEWMAPINFO", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "id"
     t.text "marketinfoname"
     t.datetime "createddate"
@@ -1082,13 +1082,13 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "ischecked"
   end
 
-  create_table "V_TH_NEWMAPINFO_REL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_NEWMAPINFO_REL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "docname"
     t.text "address"
   end
 
-  create_table "V_TH_RP_CRM_SACONTRACT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_RP_CRM_SACONTRACT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "redatedate"
     t.text "bizorgcode"
@@ -1154,7 +1154,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "clientsshort"
   end
 
-  create_table "V_TH_SACONTRACT", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_SACONTRACT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "contractcategory"
     t.text "contractcategoryname"
     t.text "contractproperty"
@@ -1225,7 +1225,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "discounttotal", limit: 53
   end
 
-  create_table "V_TH_SACONTRACTCOLLPLAN", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_SACONTRACTCOLLPLAN", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractid"
     t.text "collratio"
     t.float "collmoney", limit: 53
@@ -1233,7 +1233,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "contcollplan"
   end
 
-  create_table "V_TH_SACONTRACTPRICE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_SACONTRACTPRICE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "operationgenre"
     t.text "operationgenrename"
     t.text "projectitemgenre"
@@ -1259,14 +1259,14 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "redatedate"
   end
 
-  create_table "V_TH_SALESFILES", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_SALESFILES", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractid"
     t.text "enclosurename"
     t.text "attachmentaddress"
     t.datetime "uploadtime"
   end
 
-  create_table "WEATHER_RECORD", primary_key: "index", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WEATHER_RECORD", primary_key: "index", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "地点"
     t.date "日期"
     t.text "时间"
@@ -1278,12 +1278,12 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["index"], name: "index_UNIQUE", unique: true
   end
 
-  create_table "WORKHOURS_LABEL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORKHOURS_LABEL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "gxname"
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["date", "ncworkno"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["date", "ncworkno"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "userid", limit: 100
     t.string "username", limit: 100
     t.string "ncworkno", limit: 100, null: false
@@ -1305,7 +1305,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["date", "orgcode"], name: "idx_work_hours_count_combine_date"
   end
 
-  create_table "WORK_HOURS_COUNT_DETAIL_DEPT_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_DETAIL_DEPT_OLD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgname_sum", limit: 45
     t.string "orgcode", limit: 45
@@ -1326,7 +1326,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "construction_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_COUNT_DETAIL_STAFF_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_DETAIL_STAFF_OLD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgname_sum", limit: 45
     t.string "orgcode", limit: 45
@@ -1349,7 +1349,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "construction_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_COUNT_NEED_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_NEED_OLD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "userid"
     t.text "username"
     t.text "ncworkno"
@@ -1362,7 +1362,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_COUNT_ORG_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_ORG_OLD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "orgcode", limit: 45
     t.string "orgname_sum", limit: 45
@@ -1379,7 +1379,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "construction_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_COUNT_REAL_OLD", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_REAL_OLD", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.datetime "date"
     t.text "userid"
     t.text "username"
@@ -1394,7 +1394,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_DAY_COUNT_DEPT", primary_key: ["date", "deptcode"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_DAY_COUNT_DEPT", primary_key: ["date", "deptcode"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 100
     t.string "orgcode", limit: 100
     t.string "deptcode_sum", limit: 100
@@ -1417,7 +1417,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "others_rate", limit: 53
   end
 
-  create_table "WORK_HOURS_DAY_COUNT_ORG", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_DAY_COUNT_ORG", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode_sum"
     t.text "orgcode"
     t.datetime "date"
@@ -1438,7 +1438,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "work_rate", limit: 53
   end
 
-  create_table "WUHAN_DEPT_COMBINE", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "WUHAN_DEPT_COMBINE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "deptcode1"
     t.text "deptname1"
     t.text "orgcode1"
@@ -1449,7 +1449,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "orgname2"
   end
 
-  create_table "YEAR_AVG_STAFF", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "YEAR_AVG_STAFF", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode", limit: 20
     t.string "deptcode", limit: 20
     t.date "f_month"
@@ -1460,7 +1460,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "orgcode_sum", limit: 20
   end
 
-  create_table "YEAR_AVG_STAFF_ALL", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "YEAR_AVG_STAFF_ALL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "deptcode"
     t.datetime "f_month"
@@ -1471,7 +1471,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "orgcode_sum"
   end
 
-  create_table "YEAR_REPORT_HISTORY", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "YEAR_REPORT_HISTORY", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "year"
     t.bigint "month"
     t.string "year_month", limit: 50
@@ -1486,7 +1486,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "avg_staff_no_sum", limit: 53
   end
 
-  create_table "comment_on_project_item_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "comment_on_project_item_codes", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "project_item_code"
     t.string "comment"
     t.date "record_month"
@@ -1494,7 +1494,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "comment_on_sales_contract_codes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "comment_on_sales_contract_codes", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "sales_contract_code", null: false
     t.string "comment", null: false
     t.date "record_month", null: false
@@ -1502,7 +1502,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "crm_opportunity", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "crm_opportunity", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "id"
     t.text "bizorgcode"
     t.text "createdbizorgcode"
@@ -1565,7 +1565,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "realcontractdate"
   end
 
-  create_table "cybros_dashboards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", comment: "管理驾驶舱", force: :cascade do |t|
+  create_table "cybros_dashboards", charset: "utf8mb4", collation: "utf8mb4_bin", comment: "管理驾驶舱", force: :cascade do |t|
     t.date "fill_at", comment: "数据填写日期"
     t.integer "current_employee_hc", comment: "现有人数"
     t.integer "average_employee_hc", comment: "平均人数"
@@ -1586,7 +1586,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "v_gcz_projectitem", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "v_gcz_projectitem", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "projectitemdeptname"
     t.text "businesstypecnname"
