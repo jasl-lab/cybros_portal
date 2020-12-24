@@ -4,7 +4,7 @@
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
-      <%= form_with model: @new_card_black_title, url: person_name_card_black_titles_path, class: 'form-inline' do |f| -%>
+      <%= form_with model: @new_card_black_title, url: person_name_card_black_titles_path, class: 'form-inline', local: false do |f| -%>
         <div class="form-group mb-2">
           <label for="new-original-title"><%= t(".table.original_title") %>：</label>
           <%= f.text_field :original_title, class: 'form-control', id: 'new-original-title' %>

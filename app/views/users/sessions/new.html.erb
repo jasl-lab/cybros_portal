@@ -23,7 +23,7 @@
       <div class="card-body p-4">
         <h6 class="card-title text-center">供应商可以通过邮件登录</h6>
 
-        <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), id: "user-sign-in") do |f| %>
+        <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: false, id: "user-sign-in") do |f| %>
           <div class="form-group">
             <%= f.label :email %>
             <%= f.email_field :email, id: "user_email", autocomplete: "username", autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>

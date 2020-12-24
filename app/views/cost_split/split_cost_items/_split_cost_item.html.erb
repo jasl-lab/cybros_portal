@@ -1,4 +1,4 @@
-<%= form_with model: split_cost_item, url: cost_split_split_cost_item_path(split_cost_item), class: 'form-inline' do |f| %>
+<%= form_with model: split_cost_item, url: cost_split_split_cost_item_path(split_cost_item), class: 'form-inline', local: false do |f| %>
   <td>
     <%= f.text_field :split_cost_item_no, class: 'form-control' -%>
     <br />

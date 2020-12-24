@@ -5,7 +5,7 @@
         <%= t(".title") %>
       </h5>
     </div>
-    <%= form_with model: cost_split_allocation_base, url: cost_split_allocation_basis_path(cost_split_allocation_base) do |f| %>
+    <%= form_with model: cost_split_allocation_base, url: cost_split_allocation_basis_path(cost_split_allocation_base), local: false do |f| %>
     <div class="modal-body">
         <%= f.hidden_field :base_name %>
         <%= f.hidden_field :company_code %>

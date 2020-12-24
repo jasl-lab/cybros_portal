@@ -6,7 +6,7 @@
         <i class="fas fa-window-close"></i>
       </a>
     </div>
-<%= form_with(model: knowledge, url: company_knowledge_maintain_path(knowledge), class: 'form-horizontal') do |f| %>
+<%= form_with(model: knowledge, local: false, url: company_knowledge_maintain_path(knowledge), class: 'form-horizontal') do |f| %>
     <div class="modal-body">
   <div class="form-group row">
     <label class="col-md-2 col-form-label"><%= f.label :category_1 -%></label>

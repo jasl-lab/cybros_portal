@@ -6,7 +6,7 @@
         <%= t(".title") %> (<%= I18n.t("activerecord.attributes.split_cost.status.#{status}") %>)
       </h5>
     </div>
-    <%= form_with model: user_split_cost_setting, url: cost_split_user_split_cost_setting_path(id: user_split_cost_setting.id) do |f| %>
+    <%= form_with model: user_split_cost_setting, url: cost_split_user_split_cost_setting_path(id: user_split_cost_setting.id), local: false do |f| %>
       <%= render partial: 'form_fields', locals: { f: f } -%>
       <div class="modal-footer">
         <% cost_split_possible_next_form_actions(status).each do |form_action| %>

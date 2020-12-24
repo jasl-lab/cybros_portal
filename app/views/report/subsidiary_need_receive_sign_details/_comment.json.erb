@@ -1,5 +1,5 @@
 <%# Must end as json as it's called from json %>
-<%= form_with model: coc, url: report_comment_on_sales_contract_code_path, method: :post, format: :js, class: 'form-inline' do |f| %>
+<%= form_with model: coc, url: report_comment_on_sales_contract_code_path, local: false, method: :post, format: :js, class: 'form-inline' do |f| %>
   <%= f.hidden_field :sales_contract_code %>
   <%= f.hidden_field :record_month %>
   <div class="form-group">

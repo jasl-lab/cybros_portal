@@ -1,5 +1,4 @@
-<%= form_with(model: knowledge,
-  url: knowledge.new_record? ? company_knowledge_maintains_path : company_knowledge_maintain_path(knowledge), local: true, class: 'form-horizontal') do |f| %>
+<%= form_with(model: knowledge, url: knowledge.new_record? ? company_knowledge_maintains_path : company_knowledge_maintain_path(knowledge), local: true, class: 'form-horizontal') do |f| %>
 <div class="card-body">
   <%= f.hidden_field :q_user_id %>
   <div class="form-group row">
