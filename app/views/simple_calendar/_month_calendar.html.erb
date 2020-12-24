@@ -12,12 +12,15 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
-              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
-                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
-              <% else %>
-                <% passed_block.call day, sorted_events.fetch(day, []) %>
-              <% end %>
+            <%
+              day_class = calendar.td_classes_for(day)
+              if @non_working_days[day]
+                day_class << " holiday"
+              end
+            %>
+
+            <%= content_tag :td, class: day_class do %>
+              <% passed_block.call day, sorted_events.fetch(day, []) %>
             <% end %>
           <% end %>
         </tr>

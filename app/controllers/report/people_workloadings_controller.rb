@@ -24,6 +24,7 @@ class Report::PeopleWorkloadingsController < Report::BaseController
     end
 
     months = all_months_until(beginning_of_day, end_of_day)
+    @non_working_days = Bi::ThCalendar.non_working_days(beginning_of_day, end_of_day)
     @months = months.each_cons(2).to_a.append([end_of_day.beginning_of_month, end_of_day])
   end
 
