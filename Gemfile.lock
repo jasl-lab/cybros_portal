@@ -10,15 +10,6 @@ GIT
       thor
 
 GIT
-  remote: https://github.com/rails-sqlserver/activerecord-sqlserver-adapter
-  revision: 88a84daf27e58a2bbd7fa738a674c5657a65c3bb
-  branch: master
-  specs:
-    activerecord-sqlserver-adapter (6.0.0)
-      activerecord (~> 6.0.0)
-      tiny_tds
-
-GIT
   remote: https://github.com/thape-cn/pundit
   revision: e2288c25af565838020c0d4364c392dd0fc380e0
   branch: master
@@ -412,8 +403,6 @@ GEM
       httpclient (>= 2.4)
     thor (1.0.1)
     thread_safe (0.3.6)
-    tiny_tds (2.1.3)
-    tiny_tds (2.1.3-x64-mingw32)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -472,7 +461,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter
-  activerecord-sqlserver-adapter!
   ajax-datatables-rails
   auto_strip_attributes
   bootsnap (>= 1.4.4)
@@ -516,7 +504,6 @@ DEPENDENCIES
   sidekiq
   similar_text
   simple_calendar
-  tiny_tds (~> 2.1.3)
   turbolinks (~> 5)
   tzinfo-data
   web-console
@@ -529,4 +516,4 @@ RUBY VERSION
    ruby 2.7.1p83
 
 BUNDLED WITH
-   2.2.2
+   2.2.3
