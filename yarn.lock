@@ -3599,7 +3599,7 @@ globals@^12.1.0:
 
 globby@^6.1.0:
   version "6.1.0"
-  resolved "https://registry.npm.taobao.org/globby/download/globby-6.1.0.tgz?cache=0&sync_timestamp=1600218587118&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fglobby%2Fdownload%2Fglobby-6.1.0.tgz#f5a6d70e8395e21c858fb0489d64df02424d506c"
+  resolved "https://registry.npm.taobao.org/globby/download/globby-6.1.0.tgz#f5a6d70e8395e21c858fb0489d64df02424d506c"
   integrity sha1-9abXDoOV4hyFj7BInWTfAkJNUGw=
   dependencies:
     array-union "^1.0.1"
