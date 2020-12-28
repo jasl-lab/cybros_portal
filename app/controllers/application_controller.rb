@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action do
-    ServerTiming::Auth.ok!
-  end
-
   include Pundit
   before_action :prepare_meta_tags, if: -> { request.format.html? }
   before_action :set_current_user

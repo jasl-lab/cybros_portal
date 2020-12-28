@@ -370,14 +370,10 @@ GEM
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     rubyzip (2.3.0)
-    scout_apm (4.0.0)
-      parser
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.1)
-    server_timing (1.0.2)
-      scout_apm
     sidekiq (6.1.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -496,7 +492,6 @@ DEPENDENCIES
   rubocop-rails
   ruby-oci8
   selenium-webdriver
-  server_timing
   sidekiq
   similar_text
   simple_calendar

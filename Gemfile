@@ -58,7 +58,6 @@ gem "pundit", git: 'https://github.com/thape-cn/pundit', branch: :master
 gem "meta-tags"
 
 gem "browser"
-gem 'server_timing'
 
 gem "ajax-datatables-rails"
 gem "kaminari"
