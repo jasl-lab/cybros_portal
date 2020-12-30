@@ -27,7 +27,7 @@ module Company
         json: { processName: '', incident: '', taskId: @official_stamp_usage_apply.begin_task_id })
       Rails.logger.debug "name cards apply history response: #{response}"
       @result = JSON.parse(response.body.to_s)
-      render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: company_official_stamp_usages_path }
+      render partial: 'shared/show_task_detail', locals: { show_task_detail_return_path: company_official_stamp_usages_path, result: @result }
     end
 
     def new

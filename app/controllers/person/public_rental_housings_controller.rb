@@ -27,7 +27,7 @@ module Person
         json: { processName: '', incident: '', taskId: @public_rental_housing_apply.begin_task_id })
       Rails.logger.debug "name cards apply history response: #{response}"
       @result = JSON.parse(response.body.to_s)
-      render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: person_public_rental_housings_path }
+      render partial: 'shared/show_task_detail', locals: { show_task_detail_return_path: person_public_rental_housings_path, result: @result }
     end
 
     def new

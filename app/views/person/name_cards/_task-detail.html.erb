@@ -7,7 +7,7 @@
       </a>
     </div>
     <div class="modal-body">
-      <%= render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: nil } %>
+      <%= render partial: 'shared/show_task_detail', locals: { show_task_detail_return_path: nil, result: @result } %>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>

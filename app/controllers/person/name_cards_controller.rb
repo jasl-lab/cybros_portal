@@ -108,7 +108,7 @@ class Person::NameCardsController < ApplicationController
     @result = JSON.parse(response.body.to_s)
     respond_to do |format|
       format.html do
-        render file: '/shared/show_task_detail', locals: { show_task_detail_return_path: person_name_cards_path }
+        render partial: 'shared/show_task_detail', locals: { show_task_detail_return_path: person_name_cards_path, result: @result }
       end
       format.js { render }
     end

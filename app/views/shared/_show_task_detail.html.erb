@@ -27,29 +27,31 @@
           </tr>
           </thead>
           <tbody>
-            <% @result['rows'].each do |r| %>
-              <tr>
-                <td>
-                  <%= r["STEPNAME"] -%>
-                </td>
-                <td>
-                  <%= r["TASKUSER"] -%>
-                </td>
-                <td>
-                  <%= r["APPROVER"] -%>
-                </td>
-                <td>
-                  <%= r["ACTION"] -%>
-                </td>
-                <td>
-                  <%= r["COMMENTS"] -%>
-                </td>
-                <td>
-                  <%= r["STARTTIME"] -%>
-                  <br />
-                  <%= r["ENDTIME"] -%>
-                </td>
-              </tr>
+            <% if result['rows'].present? %>
+              <% result['rows'].each do |r| %>
+                <tr>
+                  <td>
+                    <%= r["STEPNAME"] -%>
+                  </td>
+                  <td>
+                    <%= r["TASKUSER"] -%>
+                  </td>
+                  <td>
+                    <%= r["APPROVER"] -%>
+                  </td>
+                  <td>
+                    <%= r["ACTION"] -%>
+                  </td>
+                  <td>
+                    <%= r["COMMENTS"] -%>
+                  </td>
+                  <td>
+                    <%= r["STARTTIME"] -%>
+                    <br />
+                    <%= r["ENDTIME"] -%>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>
