@@ -45,7 +45,7 @@ export default class extends Controller {
     const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
     const nonConstructionDayRateData = JSON.parse(this.data.get("non_construction_day_rate"));
 
-    const option1 = {
+    const day_option = {
         title: {
           text: '工作填报率'
         },
@@ -80,6 +80,9 @@ export default class extends Controller {
             show: true,
             interval: 'auto',
             formatter: '{value} %'
+          },
+          max: function (value) {
+            return value.max >= 100 ? value.max : 100;
           }
         },
         series: [{
@@ -101,7 +104,7 @@ export default class extends Controller {
         }]
     };
 
-    const option2 = {
+    const planning_option = {
         title: {
           text: '方案饱和度'
         },
@@ -136,6 +139,9 @@ export default class extends Controller {
             show: true,
             interval: 'auto',
             formatter: '{value} %'
+          },
+          max: function (value) {
+            return value.max >= 100 ? value.max : 100;
           }
         },
         series: [{
@@ -157,7 +163,7 @@ export default class extends Controller {
         }]
     };
 
-    const option3 = {
+    const building_option = {
         title: {
           text: '施工图饱和度'
         },
@@ -192,6 +198,9 @@ export default class extends Controller {
             show: true,
             interval: 'auto',
             formatter: '{value} %'
+          },
+          max: function (value) {
+            return value.max >= 100 ? value.max : 100;
           }
         },
         series: [{
@@ -213,7 +222,7 @@ export default class extends Controller {
         }]
     };
 
-    const option4 = {
+    const non_construction_option = {
         title: {
           text: '饱和度'
         },
@@ -248,6 +257,9 @@ export default class extends Controller {
             show: true,
             interval: 'auto',
             formatter: '{value} %'
+          },
+          max: function (value) {
+            return value.max >= 100 ? value.max : 100;
           }
         },
         series: [{
@@ -304,23 +316,24 @@ export default class extends Controller {
       return drill_down;
     }
 
-    subsidiaryWorkloadingsJobDayChart.setOption(option1, false);
+    subsidiaryWorkloadingsJobDayChart.setOption(day_option, false);
     subsidiaryWorkloadingsJobDayChart.on('click', drill_down_model_show(xAxisJob, xAxisJobCode));
     if(!isNonConstruction) {
       if (subsidiaryWorkloadingsPlanningDayChart) {
-        subsidiaryWorkloadingsPlanningDayChart.setOption(option2, false);
+        subsidiaryWorkloadingsPlanningDayChart.setOption(planning_option, false);
         subsidiaryWorkloadingsPlanningDayChart.on('click', drill_down_model_show(xAxisBluePrint, xAxisBluePrintCode));
       }
       if (subsidiaryWorkloadingsBuildingDayChart) {
-        subsidiaryWorkloadingsBuildingDayChart.setOption(option3, false);
+        subsidiaryWorkloadingsBuildingDayChart.setOption(building_option, false);
         subsidiaryWorkloadingsBuildingDayChart.on('click', drill_down_model_show(xAxisConstruction, xAxisConstructionCode));
       }
     } else {
       if (subsidiaryWorkloadingsNonConstructionDayChart) {
-        subsidiaryWorkloadingsNonConstructionDayChart.setOption(option4, false);
+        subsidiaryWorkloadingsNonConstructionDayChart.setOption(non_construction_option, false);
         subsidiaryWorkloadingsNonConstructionDayChart.on('click', drill_down_model_show(xAxisNonConstruction, xAxisNonConstructionCode));
       }
     }
+
     setTimeout(() => {
       subsidiaryWorkloadingsJobDayChart.resize();
       if(!isNonConstruction) {
