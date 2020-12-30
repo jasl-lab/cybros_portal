@@ -24,7 +24,7 @@ export default class extends Controller {
       }
     } else {
       if (document.getElementById('subsidiary-workloadings-non-construction-day-chart')) {
-        subsidiaryWorkloadingsNonConstructionDayChart = echarts.init();
+        subsidiaryWorkloadingsNonConstructionDayChart = echarts.init(document.getElementById('subsidiary-workloadings-non-construction-day-chart'));
       } else {
         subsidiaryWorkloadingsNonConstructionDayChart = null;
       }
