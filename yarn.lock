@@ -6040,7 +6040,7 @@ postcss-normalize-whitespace@^4.0.2:
 
 postcss-ordered-values@^4.1.2:
   version "4.1.2"
-  resolved "https://registry.npm.taobao.org/postcss-ordered-values/download/postcss-ordered-values-4.1.2.tgz?cache=0&sync_timestamp=1603214546361&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-ordered-values%2Fdownload%2Fpostcss-ordered-values-4.1.2.tgz#0cf75c820ec7d5c4d280189559e0b571ebac0eee"
+  resolved "https://registry.npm.taobao.org/postcss-ordered-values/download/postcss-ordered-values-4.1.2.tgz#0cf75c820ec7d5c4d280189559e0b571ebac0eee"
   integrity sha1-DPdcgg7H1cTSgBiVWeC1ceusDu4=
   dependencies:
     cssnano-util-get-arguments "^4.0.0"
@@ -6210,7 +6210,7 @@ postcss-svgo@^4.0.2:
 
 postcss-unique-selectors@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.npm.taobao.org/postcss-unique-selectors/download/postcss-unique-selectors-4.0.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-unique-selectors%2Fdownload%2Fpostcss-unique-selectors-4.0.1.tgz#9446911f3289bfd64c6d680f073c03b1f9ee4bac"
+  resolved "https://registry.npm.taobao.org/postcss-unique-selectors/download/postcss-unique-selectors-4.0.1.tgz#9446911f3289bfd64c6d680f073c03b1f9ee4bac"
   integrity sha1-lEaRHzKJv9ZMbWgPBzwDsfnuS6w=
   dependencies:
     alphanum-sort "^1.0.0"
