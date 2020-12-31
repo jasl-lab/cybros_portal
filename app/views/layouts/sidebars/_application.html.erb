@@ -39,14 +39,6 @@
           <%= t("layouts.sidebar.application.operation") %>
         <% end %>
       <% end %>
-      <% if policy(:"OperationEntry::CostStructureEntry").show? || policy(:"OperationEntry::CashFlowDeptEntry").show? %>
-        <%= nav_item controller: 'operation_entry/operation_entry', html_options: {class: "nav-item"} do %>
-          <%= link_to operation_entry_root_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-pen-square"></i>
-            <%= t("layouts.sidebar.application.operation_entry") %>
-          <% end %>
-        <% end %>
-      <% end %>
       <% if policy(:"Bi::KeyCustomerDetail").show? %>
         <%= nav_item controller: 'report/key_customer_detail', html_options: { class: "nav-item" } do %>
           <%= link_to report_key_customer_detail_path, class: "nav-link" do %>
@@ -66,7 +58,7 @@
 
       <% account_report_show = (policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? || policy(:"Account::OrgYearFill").show?) %>
       <% financial_management_show = (policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show?) %>
-      <% capital_report_show = (policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show?) %>
+      <% operation_entry_show = (policy(:"OperationEntry::CostStructureEntry").show? || policy(:"OperationEntry::CashFlowDeptEntry").show?) %>
       <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.financial_analysis") -%></a>
@@ -87,16 +79,24 @@
               <% end %>
             <% end %>
           <% end %>
-          <% if capital_report_show %>
-            <%= nav_item controller: 'capital/reports', html_options: {class: "nav-item"} do %>
-              <%= link_to capital_report_path, class: "nav-link" do %>
-                <i class="nav-icon fas fa-jedi"></i>
-                <%= t("layouts.sidebar.application.capital_report") %>
+          <% if operation_entry_show %>
+            <%= nav_item controller: 'operation_entry/operation_entry', html_options: {class: "nav-item"} do %>
+              <%= link_to operation_entry_root_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-pen-square"></i>
+                <%= t("layouts.sidebar.application.operation_entry") %>
               <% end %>
             <% end %>
           <% end %>
         </ul>
       </li>
+      <% if policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show? %>
+        <%= nav_item controller: 'capital/reports', html_options: {class: "nav-item"} do %>
+          <%= link_to capital_report_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-jedi"></i>
+            <%= t("layouts.sidebar.application.capital_report") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"SplitCost::Home").show? %>
         <%= nav_item controller: 'cost_split/home', html_options: {class: "nav-item"} do %>
           <%= link_to cost_split_root_path, class: "nav-link" do %>

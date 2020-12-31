@@ -16,12 +16,12 @@ zh-CN:
         person: "个人事务"
         report: "报表报告"
         operation: "天华市场运营分析"
-        operation_entry: "财务分析填报"
         human_resource: "天华人力资源分析"
         financial_analysis: "财务分析"
         account_report: "财务分析-经营报表"
         financial_management: "财务分析-所级管理表"
         capital_report: "财务分析-资金日报"
+        operation_entry: "财务分析-填报"
         cost_split: "集团费用分摊"
       accounts:
         header: "用户设置"

@@ -16,12 +16,12 @@ en:
         person: "Person"
         report: "Report"
         operation: "Operation"
-        operation_entry: "Opeartion entry"
         human_resource: "Human resource"
         financial_analysis: "Financial analysis"
         financial_management: "Financial management"
         account_report: "Account report"
         capital_report: "Capital report"
+        operation_entry: "Opeartion entry"
         cost_split: "Group cost split"
       accounts:
         header: "User settings"
