@@ -177,7 +177,7 @@ export default class extends Controller {
           stack: '一线人均',
           data: completeValueGapPerWorker,
           itemStyle: {
-            color: '#DDDDDD'
+            color: '#CCCCCC'
           },
           label: {
             normal: {
@@ -206,7 +206,7 @@ export default class extends Controller {
           stack: '全员人均',
           data: completeValueGapPerStaff,
           itemStyle: {
-            color: '#F3F3F3'
+            color: '#DDDDDD'
           },
           label: {
             normal: {
