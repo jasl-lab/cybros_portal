@@ -1,0 +1,6 @@
+---
+en:
+  capital:
+    fund_daily_fills:
+      show:
+        title: "Fund daily fill"

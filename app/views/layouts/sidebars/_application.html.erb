@@ -66,6 +66,7 @@
 
       <% account_report_show = (policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? || policy(:"Account::OrgYearFill").show?) %>
       <% financial_management_show = (policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show?) %>
+      <% capital_report_show = (policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show?) %>
       <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.financial_analysis") -%></a>
@@ -86,12 +87,14 @@
               <% end %>
             <% end %>
           <% end %>
+          <% if capital_report_show %>
             <%= nav_item controller: 'capital/reports', html_options: {class: "nav-item"} do %>
               <%= link_to capital_report_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-jedi"></i>
                 <%= t("layouts.sidebar.application.capital_report") %>
               <% end %>
             <% end %>
+          <% end %>
         </ul>
       </li>
       <% if policy(:"SplitCost::Home").show? %>

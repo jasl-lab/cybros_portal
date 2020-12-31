@@ -142,6 +142,8 @@ en:
         account_operation_summary_dept: "Company operation summary"
       capital_report:
         header: "Financial Analysis - Capital Daily"
+        fund_daily_fill: "Fund daily fill"
+        summary_fund_daily: "Summary fund daily"
       cost_split:
         header: "Cost split"
         human_resources: "Staff cost allocation settings"

@@ -7,6 +7,22 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
+      <% if policy(:"Capital::FundDailyFill").show? %>
+        <%= nav_item controller: 'capital/fund_daily_fills', html_options: { class: "nav-item" } do %>
+          <%= link_to capital_fund_daily_fill_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-university"></i>
+            <%= t("layouts.sidebar.capital_report.fund_daily_fill") %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if policy(:"Capital::SummaryFundDaily").show? %>
+        <%= nav_item controller: 'capital/summary_fund_dailies', html_options: { class: "nav-item" } do %>
+          <%= link_to capital_summary_fund_daily_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-university"></i>
+            <%= t("layouts.sidebar.capital_report.summary_fund_daily") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
 </div>

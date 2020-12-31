@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Capital::ReportsController < Capital::BaseController
+class Capital::FundDailyFillsController < Capital::BaseController
   before_action :authenticate_user!
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 

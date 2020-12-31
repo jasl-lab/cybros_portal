@@ -142,6 +142,8 @@ zh-CN:
         account_operation_summary_dept: "公司经营情况汇总（测试中）"
       capital_report:
         header: "财务分析-资金日报"
+        fund_daily_fill: "资金日报填报表"
+        summary_fund_daily: "资金日报汇总表"
       cost_split:
         header: "集团费用分摊"
         human_resources: "人员成本分摊设置"

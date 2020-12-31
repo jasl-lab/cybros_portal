@@ -318,6 +318,8 @@ Rails.application.routes.draw do
 
   namespace :capital do
     resource :report, only: %i[show]
+    resource :fund_daily_fill, only: %i[show]
+    resource :summary_fund_daily, only: %i[show]
   end
 
   namespace :cost_split do
