@@ -138,7 +138,7 @@ class User < ApplicationRecord
         c[1]
       end
     end.reject(&:blank?)
-    @_can_access_org_codes = @_can_access_org_codes.unshift(user_company_orgcode).uniq
+    @_can_access_org_codes = @_can_access_org_codes.concat(user_company_orgcodes).uniq
   end
 
   def can_access_dept_codes

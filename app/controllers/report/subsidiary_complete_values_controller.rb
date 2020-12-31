@@ -62,9 +62,10 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     @sum_complete_value_totals = (@complete_value_totals.sum / 10000.0).round(1)
     @complete_value_year_totals = @complete_value_totals.collect { |d| (d / (@end_of_month.month / 12.0)).round(0) }
     @sum_complete_value_year_totals = if orgcode == '000101' && @end_of_month.month == 12
-      (policy_scope(Bi::CompleteValueDept, :group_resolve).where(orgcode: orgcode)
+      sum_total_record = policy_scope(Bi::CompleteValueDept, :group_resolve).where(orgcode: orgcode)
         .where(month: @end_of_month.beginning_of_year..@end_of_month).where(date: last_available_date)
-        .select('SUM(IFNULL(total,0)) sum_total').first.sum_total / 10000_0000.0).round(1)
+        .select('SUM(IFNULL(total,0)) sum_total').first
+      (sum_total_record.sum_total / 10000_0000.0).round(1)
     else
       (@complete_value_year_totals.sum / 10000.0).round(1)
     end
