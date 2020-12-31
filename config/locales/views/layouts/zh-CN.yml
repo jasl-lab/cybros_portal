@@ -18,8 +18,10 @@ zh-CN:
         operation: "天华市场运营分析"
         operation_entry: "财务分析填报"
         human_resource: "天华人力资源分析"
+        financial_analysis: "财务分析"
         account_report: "财务分析-经营报表"
         financial_management: "财务分析-所级管理表"
+        capital_report: "财务分析-资金日报"
         cost_split: "集团费用分摊"
       accounts:
         header: "用户设置"
@@ -138,6 +140,8 @@ zh-CN:
         account_business_target_dept_show: "上海营业目标完成情况"
         account_operation_summary_org: "集团经营情况汇总（测试中）"
         account_operation_summary_dept: "公司经营情况汇总（测试中）"
+      capital_report:
+        header: "财务分析-资金日报"
       cost_split:
         header: "集团费用分摊"
         human_resources: "人员成本分摊设置"

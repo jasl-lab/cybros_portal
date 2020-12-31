@@ -18,8 +18,10 @@ en:
         operation: "Operation"
         operation_entry: "Opeartion entry"
         human_resource: "Human resource"
+        financial_analysis: "Financial analysis"
         financial_management: "Financial management"
         account_report: "Account report"
+        capital_report: "Capital report"
         cost_split: "Group cost split"
       accounts:
         header: "User settings"
@@ -138,6 +140,8 @@ en:
         account_business_target_dept_show: "Company business target"
         account_operation_summary_org: "Organization operation summary"
         account_operation_summary_dept: "Company operation summary"
+      capital_report:
+        header: "Financial Analysis - Capital Daily"
       cost_split:
         header: "Cost split"
         human_resources: "Staff cost allocation settings"

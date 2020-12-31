@@ -68,7 +68,7 @@
       <% financial_management_show = (policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show?) %>
       <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
-        <i class="nav-icon fas fa-map"></i> 财务分析</a>
+        <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.financial_analysis") -%></a>
         <ul class="nav-dropdown-items">
           <% if account_report_show %>
             <%= nav_item controller: 'account/reports', html_options: {class: "nav-item"} do %>
@@ -86,6 +86,12 @@
               <% end %>
             <% end %>
           <% end %>
+            <%= nav_item controller: 'capital/reports', html_options: {class: "nav-item"} do %>
+              <%= link_to capital_report_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-jedi"></i>
+                <%= t("layouts.sidebar.application.capital_report") %>
+              <% end %>
+            <% end %>
         </ul>
       </li>
       <% if policy(:"SplitCost::Home").show? %>

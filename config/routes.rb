@@ -316,6 +316,10 @@ Rails.application.routes.draw do
     resource :operation_summary_dept, only: %i[show]
   end
 
+  namespace :capital do
+    resource :report, only: %i[show]
+  end
+
   namespace :cost_split do
     root to: 'home#show'
 
