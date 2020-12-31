@@ -59,6 +59,7 @@
       <% account_report_show = (policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? || policy(:"Account::OrgYearFill").show?) %>
       <% financial_management_show = (policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show?) %>
       <% operation_entry_show = (policy(:"OperationEntry::CostStructureEntry").show? || policy(:"OperationEntry::CashFlowDeptEntry").show?) %>
+      <% if account_report_show || financial_management_show || operation_entry_show %>
       <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.financial_analysis") -%></a>
@@ -89,6 +90,7 @@
           <% end %>
         </ul>
       </li>
+      <% end %>
       <% if policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show? %>
         <%= nav_item controller: 'capital/reports', html_options: {class: "nav-item"} do %>
           <%= link_to capital_report_path, class: "nav-link" do %>
