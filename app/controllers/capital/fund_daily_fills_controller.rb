@@ -5,7 +5,13 @@ class Capital::FundDailyFillsController < Capital::BaseController
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def show
-    prepare_meta_tags title: t('.title')
+    authorize :"Bi::FundDailyFill"
+    prepare_meta_tags title: t(".title")
+    @redirect_url = "view/report?op=write&viewlet=FR/Finance/CWDailyFillTable.cpt&ref_t=design"
+    @hide_app_footer = true
+    @hide_main_header_wrapper = true
+    @hide_scroll = true
+    render 'shared/report_show'
   end
 
   protected
