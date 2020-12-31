@@ -992,9 +992,9 @@
   integrity sha1-PcoOPzOyAPx9ETnAzZbBJoyt/Z0=
 
 "@types/node@*":
-  version "14.14.16"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.16.tgz?cache=0&sync_timestamp=1608753356953&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.16.tgz#3cc351f8d48101deadfed4c9e4f116048d437b4b"
-  integrity sha1-PMNR+NSBAd6t/tTJ5PEWBI1De0s=
+  version "14.14.17"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.17.tgz?cache=0&sync_timestamp=1609347833947&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.17.tgz#29fab92f3986c0e379968ad3c2043683d8020dbb"
+  integrity sha1-Kfq5LzmGwON5lorTwgQ2g9gCDbs=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
