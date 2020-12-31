@@ -65,15 +65,15 @@ class Report::CompleteValuesController < Report::BaseController
 
     @complete_value_totals_per_worker, @worker_per_company = set_complete_value_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
     @fix_avg_complete_value_totals_per_worker = rounded_avg(@complete_value_totals_per_worker)
-    @complete_value_year_totals_per_worker = complete_value_year_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
-    @complete_value_gap_per_worker = @complete_value_year_totals_per_worker.zip(@complete_value_totals_per_worker).map { |d| d[0] - d[1] }
-    @fix_avg_complete_value_year_totals_per_worker = rounded_avg(@complete_value_year_totals_per_worker)
+    complete_value_year_totals_per_worker = complete_value_year_totals_per_worker(data, @end_of_month, @view_orgcode_sum)
+    @complete_value_gap_per_worker = complete_value_year_totals_per_worker.zip(@complete_value_totals_per_worker).map { |d| d[0] - d[1] }
+    @fix_avg_complete_value_year_totals_per_worker = rounded_avg(complete_value_year_totals_per_worker)
 
     @complete_value_totals_per_staff, @staff_per_company = set_complete_value_totals_per_staff(data, @end_of_month, @view_orgcode_sum)
     @fix_avg_complete_value_totals_per_staff = rounded_avg(@complete_value_totals_per_staff)
-    @complete_value_year_totals_per_staff = complete_value_year_totals_per_staff(data, @end_of_month, @view_orgcode_sum)
-    @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
-    @fix_avg_complete_value_year_totals_per_staff = rounded_avg(@complete_value_year_totals_per_staff)
+    complete_value_year_totals_per_staff = complete_value_year_totals_per_staff(data, @end_of_month, @view_orgcode_sum)
+    @complete_value_gap_per_staff = complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
+    @fix_avg_complete_value_year_totals_per_staff = rounded_avg(complete_value_year_totals_per_staff)
   end
 
   private
