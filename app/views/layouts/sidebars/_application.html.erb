@@ -63,22 +63,31 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? || policy(:"Account::OrgYearFill").show? %>
-        <%= nav_item controller: 'account/reports', html_options: {class: "nav-item"} do %>
-          <%= link_to account_report_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-jedi"></i>
-            <%= t("layouts.sidebar.application.account_report") %>
+
+      <% account_report_show = (policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? || policy(:"Account::OrgYearFill").show?) %>
+      <% financial_management_show = (policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show?) %>
+      <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) ? 'open' : '' %>">
+        <a class="nav-link nav-dropdown-toggle" href="#">
+        <i class="nav-icon fas fa-map"></i> 财务分析</a>
+        <ul class="nav-dropdown-items">
+          <% if account_report_show %>
+            <%= nav_item controller: 'account/reports', html_options: {class: "nav-item"} do %>
+              <%= link_to account_report_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-jedi"></i>
+                <%= t("layouts.sidebar.application.account_report") %>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::BonusDistribution").show? %>
-        <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
-          <%= link_to report_financial_management_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-jedi"></i>
-            <%= t("layouts.sidebar.application.financial_management") %>
+          <% if financial_management_show %>
+            <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
+              <%= link_to report_financial_management_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-jedi"></i>
+                <%= t("layouts.sidebar.application.financial_management") %>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
-      <% end %>
+        </ul>
+      </li>
       <% if policy(:"SplitCost::Home").show? %>
         <%= nav_item controller: 'cost_split/home', html_options: {class: "nav-item"} do %>
           <%= link_to cost_split_root_path, class: "nav-link" do %>
