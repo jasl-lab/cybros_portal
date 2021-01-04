@@ -75,7 +75,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     end.select('year, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
       .group(:year)
 
-    @avg_staff_no_head_count = Bi::HrMonthReport.按月子公司全员人数(@month_name.to_i, @orgs_options)
+    @avg_staff_no_head_count = Bi::HrMonthReport.按月子公司全员人数(@month_name.to_i, @orgs_options, @view_orgcode_sum)
 
     @work_head_count = @data.collect do |d|
       head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
