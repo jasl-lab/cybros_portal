@@ -84,7 +84,7 @@ class Report::YearReportHistoriesController < Report::BaseController
 
     @avg_staff_dept_amount = @data.collect do |d|
       head_count = @avg_staff_no_head_count.find { |h| h.year.to_i == d.year.to_i }
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank? || head_count.avg_staff_no.blank?
       (d.deptvalue / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
@@ -95,7 +95,7 @@ class Report::YearReportHistoriesController < Report::BaseController
 
     @avg_staff_real_amount = @data.collect do |d|
       head_count = @avg_staff_no_head_count.find { |h| h.year.to_i == d.year.to_i }
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank? || head_count.avg_staff_no.blank?
       (d.realamount / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
@@ -106,7 +106,7 @@ class Report::YearReportHistoriesController < Report::BaseController
 
     @avg_staff_contract_amount = @data.collect do |d|
       head_count = @avg_staff_no_head_count.find { |h| h.year.to_i == d.year.to_i }
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank? || head_count.avg_staff_no.blank?
       (d.contractamount / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
