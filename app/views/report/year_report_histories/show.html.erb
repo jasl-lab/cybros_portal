@@ -116,14 +116,14 @@
           <tbody>
             <% @data.each do |d| %>
               <%
-              head_count_avg = @avg_head_count_from_hr.find { |h| h.year.to_i == d.year.to_i }
+              head_count_staff_avg = @avg_staff_no_head_count.find { |h| h.year.to_i == d.year.to_i }
               head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } 
-              avg_work_no = if head_count_avg.present? && head_count_avg.avg_work_no.present?
-                head_count_avg.avg_work_no
+              avg_work_no = head_count.avg_work_no
+              avg_staff_no = if head_count_staff_avg.present? && head_count_staff_avg.avg_staff_no.present?
+                head_count_staff_avg.avg_staff_no
               else
-                head_count.avg_work_no
+                head_count.avg_staff_no
               end
-              avg_staff_no = head_count.avg_staff_no
               %>
               <tr>
                 <td><%= d.year %></td>
