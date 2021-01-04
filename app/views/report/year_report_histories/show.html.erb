@@ -115,23 +115,32 @@
           </thead>
           <tbody>
             <% @data.each do |d| %>
-              <% head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } %>
+              <%
+              head_count_avg = @avg_head_count_from_hr.find { |h| h.year.to_i == d.year.to_i }
+              head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } 
+              avg_work_no = if head_count_avg.present? && head_count_avg.avg_work_no.present?
+                head_count_avg.avg_work_no
+              else
+                head_count.avg_work_no
+              end
+              avg_staff_no = head_count.avg_staff_no
+              %>
               <tr>
                 <td><%= d.year %></td>
                 <td><%= (d.deptvalue.to_f/100.0).round(0) %></td>
                 <td><%= (d.contractamount.to_f/100.0).round(0) %></td>
                 <td><%= (d.realamount.to_f/100.0).round(0) %></td>
 
-                <% if head_count.present? && !head_count.avg_work_no.zero? %>
-                  <td><%= (d.deptvalue.to_f/head_count.avg_work_no.to_f).round(0) %></td>
-                  <td><%= (d.contractamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
-                  <td><%= (d.deptvalue.to_f/head_count.avg_work_no.to_f).round(0) %></td>
-                  <td><%= (d.contractamount.to_f/head_count.avg_staff_no.to_f).round(0) %></td>
+                <% if head_count.present? && !avg_work_no.zero? %>
+                  <td><%= (d.deptvalue.to_f/avg_work_no.to_f).round(0) %></td>
+                  <td><%= (d.contractamount.to_f/avg_work_no.to_f).round(0) %></td>
+                  <td><%= (d.deptvalue.to_f/avg_work_no.to_f).round(0) %></td>
+                  <td><%= (d.contractamount.to_f/avg_staff_no.to_f).round(0) %></td>
 
-                  <td><%= (d.realamount.to_f/head_count.avg_work_no.to_f).round(0) %></td>
-                  <td><%= (d.realamount.to_f/head_count.avg_staff_no.to_f).round(0) %></td>
-                  <td><%= head_count.avg_work_no.to_f.round(0) %></td>
-                  <td><%= head_count.avg_staff_no.to_f.round(0) %></td>
+                  <td><%= (d.realamount.to_f/avg_work_no.to_f).round(0) %></td>
+                  <td><%= (d.realamount.to_f/avg_staff_no.to_f).round(0) %></td>
+                  <td><%= avg_work_no.to_f.round(0) %></td>
+                  <td><%= avg_staff_no.to_f.round(0) %></td>
                 <% else %>
                   <td></td>
                   <td>n/a</td>

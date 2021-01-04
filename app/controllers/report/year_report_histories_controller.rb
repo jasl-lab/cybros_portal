@@ -75,13 +75,17 @@ class Report::YearReportHistoriesController < Report::BaseController
     end.select('year, SUM(IFNULL(avg_staff_no,0)) avg_staff_no, SUM(IFNULL(avg_work_no,0)) avg_work_no')
       .group(:year)
 
+    @avg_head_count_from_hr = Bi::HrMonthReport.按月子公司一线人数(@month_name.to_i, @orgs_options)
+
     @work_head_count = @data.collect do |d|
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @avg_head_count_from_hr.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
       head_count.avg_work_no.round(0) rescue 0
     end
 
     @avg_staff_dept_amount = @data.collect do |d|
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @avg_head_count_from_hr.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
       (d.deptvalue / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
@@ -91,7 +95,8 @@ class Report::YearReportHistoriesController < Report::BaseController
     end
 
     @avg_staff_real_amount = @data.collect do |d|
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @avg_head_count_from_hr.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
       (d.realamount / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
@@ -101,7 +106,8 @@ class Report::YearReportHistoriesController < Report::BaseController
     end
 
     @avg_staff_contract_amount = @data.collect do |d|
-      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @avg_head_count_from_hr.find { |h| h.year.to_i == d.year.to_i }
+      head_count = @head_count_data.find { |h| h.year.to_i == d.year.to_i } if head_count.blank?
       (d.contractamount / head_count.avg_staff_no.to_f).round(0) rescue 0
     end
 
