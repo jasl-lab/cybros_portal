@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock '~> 3.14.0'
+lock '~> 3.15.0'
 
 set :application, 'cybros'
 set :repo_url, 'git@e.coding.net:sew/cybros_portal.git'
