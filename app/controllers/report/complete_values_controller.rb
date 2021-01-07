@@ -150,7 +150,7 @@ class Report::CompleteValuesController < Report::BaseController
     end
 
     def complete_value_year_totals_per_staff(data, end_of_month, view_orgcode_sum)
-      staff_per_orgcode_by_year = Bi::YearAvgStaffAll.worker_per_orgcode_by_year_and_sum(end_of_month, view_orgcode_sum)
+      staff_per_orgcode_by_year = Bi::YearAvgStaffAll.staff_per_orgcode_by_year_and_sum(end_of_month, view_orgcode_sum)
       data.collect do |d|
         staff_number = staff_per_orgcode_by_year.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
         if staff_number.zero?

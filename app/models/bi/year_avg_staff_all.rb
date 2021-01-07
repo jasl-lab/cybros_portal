@@ -29,7 +29,7 @@ module Bi
       end
     end
 
-    def self.worker_per_orgcode_by_year_and_sum(end_of_month, view_sum)
+    def self.staff_per_orgcode_by_year_and_sum(end_of_month, view_sum)
       d1 = available_data_at_month(end_of_month)
       d2 = if view_sum
         d1.select('orgcode_sum orgcode, SUM(date_x) sum_x, MAX(date_y) max_y').group(:orgcode_sum)
