@@ -8,7 +8,7 @@ module Bi
       order(f_month: :desc).first.f_month
     end
 
-    def self.staff_per_dept_code_by_date(end_of_month)
+    def self.staff_count_per_dept_code_by_date(end_of_month)
       d = where(f_month: end_of_month.to_s(:short_month))
       if d.blank?
         d = where(f_month: Bi::ShStaffCount.last_available_f_month)
