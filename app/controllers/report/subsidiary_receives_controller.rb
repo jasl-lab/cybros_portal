@@ -122,19 +122,6 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
     end
 
-    complete_value_data = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
-      Bi::CompleteValue.all
-    else
-      Bi::CompleteValue.where(orgcode: current_user.user_company_names)
-    end.where(date: beginning_of_year..@end_of_month)
-      .select('orgcode, SUM(IFNULL(total,0)) sum_total')
-      .group(:orgcode)
-    complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
-      h[short_name] = d.sum_total
-      h
-    end
-
     real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum, :group_resolve)
       .where(date: beginning_of_month)
       .where('ORG_ORDER.org_order is not null')
@@ -153,7 +140,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     end
 
     @payback_rates = real_data.collect do |d|
-      r = real_rate_sum.find { |r| r.orgcode == d.orgcode }
+      r = real_rate_sum.find { |rr| rr.orgcode == d.orgcode }
       if r.present?
         numerator = r.realamount_now - r.realamount_nc
         年初应收款 = r.sumvalue_change_nc - (r.realamount_nc)

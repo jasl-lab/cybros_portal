@@ -193,13 +193,6 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       begin_date = Date.parse(params[:begin_date]).beginning_of_day
       end_date = Date.parse(params[:end_date]).end_of_day
 
-      belong_deparments = Bi::OrgReportDeptOrder.where(组织: @company_name, 上级部门编号: department_code)
-      department_codes = if belong_deparments.exists?
-        belong_deparments.pluck(:编号).reject { |dept_name| dept_name.include?('撤销') }
-      else
-        department_code
-      end
-
       @drill_down_subtitle = "#{begin_date.to_date} - #{end_date.to_date}"
       data = policy_scope(Bi::WorkHoursDayCountDept).where(date: begin_date..end_date)
         .where(orgcode: short_company_code)

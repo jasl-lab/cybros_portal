@@ -72,17 +72,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @real_department_short_codes = real_data.collect(&:deptcode)
     @real_department_short_names = @real_department_short_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
     @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
-    true_real_meta_receives = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
-      .where(realdate: beginning_of_year..@end_of_month)
-      .where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @real_data_last_available_date)
-      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @real_data_last_available_date)
-      .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = SUB_COMPANY_REAL_RECEIVE.deptcode_sum')
-
-    true_real_meta_receives = if @view_deptcode_sum
-      true_real_meta_receives.where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
-    else
-      true_real_meta_receives.where(orgcode: selected_orgcode)
-    end
 
     sum_real_receives = if @view_deptcode_sum
       policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
@@ -105,7 +94,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .where(orgcode: selected_orgcode)
     end.select('SUM(markettotal) markettotal').first.markettotal
     @sum_real_markettotals = (sum_real_markettotals.to_f / 100_00.0).round(0)
-
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
     need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
@@ -180,46 +168,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_should_receives_per_staff_max = @need_should_receives_per_staff.max&.round(-1) || 1
     @avg_of_need_should_receives_per_staff = (total_should_receives_per_staff / worker_per_dept_code.values.sum).round(1)
 
-    previous_year_need_receive_data = policy_scope(Bi::SubCompanyNeedReceive)
-      .where(date: (@end_of_month.beginning_of_year - 1.day))
-
-    previous_year_need_receive_data = if @view_deptcode_sum
-      previous_year_need_receive_data
-        .select('deptcode_sum deptcode, SUM(account_need_receive) account_need_receive')
-        .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode_sum")
-        .order('SUB_COMPANY_NEED_RECEIVE.deptcode_sum')
-    else
-      previous_year_need_receive_data
-        .select('deptcode, SUM(account_need_receive) account_need_receive')
-        .group(:"SUB_COMPANY_NEED_RECEIVE.deptcode")
-        .order('SUB_COMPANY_NEED_RECEIVE.deptcode')
-    end
-
-    previous_year_need_receive_hash = previous_year_need_receive_data.reduce({}) do |h, d|
-      dept_name = Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
-      h[dept_name] = d.account_need_receive
-      h
-    end
-
-    complete_value_data = if @view_deptcode_sum
-      Bi::CompleteValueDept.where(orgcode: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
-        .select('deptcode_sum deptcode, SUM(IFNULL(total,0)) sum_total')
-        .group(:deptcode_sum)
-    else
-      Bi::CompleteValueDept.where(orgcode: selected_orgcode)
-        .select('deptcode, SUM(IFNULL(total,0)) sum_total')
-        .group(:deptcode)
-    end.where(date: @real_data_last_available_date)
-
-    complete_value_hash = complete_value_data.reduce({}) do |h, d|
-      dept_name = Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(d.deptcode, Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode))
-      h[dept_name] = d.sum_total
-      h
-    end
-    sum_real_receives_for_payback = 0
-    sum_need_receives_for_payback = 0
-    total_complete_value_per_staff = 0
-
     real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum, :group_resolve)
       .where(date: beginning_of_month)
 
@@ -236,7 +184,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     payback_rates_总分子 = 0
     payback_rates_总分母 = 0
     @payback_rates = need_data.collect do |d|
-      r = real_rate_sum.find { |r| r.deptcode == d.deptcode }
+      r = real_rate_sum.find { |rr| rr.deptcode == d.deptcode }
       if r.present?
         分子 = r.realamount_now.to_f - r.realamount_nc.to_f
         年初应收款 = r.sumvalue_change_nc.to_f - r.realamount_nc.to_f
