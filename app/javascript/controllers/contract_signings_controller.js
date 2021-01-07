@@ -22,7 +22,7 @@ export default class extends Controller {
     const sumContractAmountMax = JSON.parse(this.data.get("sum_contract_amount_max"));
     const avgPeriodMean = JSON.parse(this.data.get("avg_period_mean"));
     const avgPeriodMeanMax = JSON.parse(this.data.get("avg_period_mean_max"));
-    const productionAmountsPerStaff = JSON.parse(this.data.get("production_amounts_per_staff"));
+    const productionAmountsPerWorker = JSON.parse(this.data.get("production_amounts_per_worker"));
     const periodMeanRef = this.data.get("period_mean_ref");
     const contractAmountsPerStaffRef = this.data.get("contract_amounts_per_staff_ref");
     const cpOrgNames = JSON.parse(this.data.get("cp_org_names"));
@@ -50,7 +50,7 @@ export default class extends Controller {
 
     const sumContractAmountsWithColor = sumContractAmounts.map(differentColorForContractSigning);
 
-    function differentColorForAmountPerStaff(amount) {
+    function differentColorForAmountPerWorker(amount) {
       let color;
 
       if(contractAmountsPerStaffRef > amount) {
@@ -62,7 +62,7 @@ export default class extends Controller {
       return { value: amount, itemStyle: { color: color }}
     }
 
-    const productionAmountsPerStaffWithColor = productionAmountsPerStaff.map(differentColorForAmountPerStaff);
+    const productionAmountsPerWorkerWithColor = productionAmountsPerWorker.map(differentColorForAmountPerWorker);
 
     const option = {
         legend: {
@@ -290,7 +290,7 @@ export default class extends Controller {
         series: [{
           name: '本年累计一线人均生产合同额',
           type: 'bar',
-          data: productionAmountsPerStaffWithColor,
+          data: productionAmountsPerWorkerWithColor,
           barWidth: 20,
           label: {
             normal: {

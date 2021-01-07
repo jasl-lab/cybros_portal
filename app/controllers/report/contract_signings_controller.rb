@@ -112,7 +112,7 @@ class Report::ContractSigningsController < Report::BaseController
     plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
     @cp_plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
 
-    @production_amounts_per_staff, @worker_per_company = 
+    @production_amounts_per_worker, @worker_per_company = 
       set_production_amounts_per_worker(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
   end
 
@@ -139,13 +139,13 @@ class Report::ContractSigningsController < Report::BaseController
         Bi::YearAvgStaff.worker_per_short_company_name_by_date_and_sum(end_of_month, @view_orgcode_sum)
       end
 
-      production_amounts_per_staff = []
+      production_amounts_per_worker = []
       cp_contract_amounts.each_with_index do |contract_amount, index|
         company_name = cp_org_names[index]
         staff_count = worker_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
         staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
-        production_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
+        production_amounts_per_worker << (contract_amount / staff_count.to_f).round(0)
       end
-      [production_amounts_per_staff, worker_per_company]
+      [production_amounts_per_worker, worker_per_company]
     end
 end
