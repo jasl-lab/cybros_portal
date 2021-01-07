@@ -105,13 +105,15 @@ class Report::ContractSigningsController < Report::BaseController
         .where(orgcode: @orgs_options)
     end
     @cp_org_names = cp_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
+    cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
+    @sum_cp_contract_amounts = (cp_contract_amounts.sum / 10000.to_f).round(2)
     @cp_contract_amounts_div_100 = cp_data.collect { |d| (d.cp_amount / 100.0).round(0) }
 
     plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
     @cp_plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
 
-    @production_amounts_per_staff, @staff_per_company, @sum_cp_contract_amounts = 
-      set_production_amounts_per_staff(cp_data, @cp_org_names, @end_of_month, @view_orgcode_sum)
+    @production_amounts_per_staff, @staff_per_company = 
+      set_production_amounts_per_staff(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
   end
 
   private
@@ -130,13 +132,12 @@ class Report::ContractSigningsController < Report::BaseController
       @_sidebar_name = 'operation'
     end
 
-    def set_production_amounts_per_staff(data, cp_org_names, end_of_month, view_orgcode_sum)
+    def set_production_amounts_per_staff(cp_contract_amounts, cp_org_names, end_of_month, view_orgcode_sum)
       staff_per_company = if end_of_month.year <= 2020 && end_of_month.month < 5
         Bi::StaffCount.staff_per_short_company_name(end_of_month)
       else
         Bi::YearAvgStaff.worker_per_short_company_name_by_date_and_sum(end_of_month, @view_orgcode_sum)
       end
-      cp_contract_amounts = data.collect { |d| d.cp_amount.round(0) }
 
       production_amounts_per_staff = []
       cp_contract_amounts.each_with_index do |contract_amount, index|
@@ -145,6 +146,6 @@ class Report::ContractSigningsController < Report::BaseController
         staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
         production_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
       end
-      [production_amounts_per_staff, staff_per_company, (cp_contract_amounts.sum / 10000.to_f).round(2)]
+      [production_amounts_per_staff, staff_per_company]
     end
 end
