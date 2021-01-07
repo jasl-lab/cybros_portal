@@ -39,7 +39,12 @@
     <thead class="thead-light">
       <tr>
       <% group.each do |dep| %>
-        <th><%= Bi::OrgReportDeptOrder.all_department_names[dep] || dep || '　'*6 %></th>
+        <th>
+          <%= raw Bi::OrgReportDeptOrder.all_department_names[dep] || dep || '&nbsp;'*6 %>
+          <% if @hr_staff_per_dept_codes[dep].present? %>
+            (<%= @hr_staff_per_dept_codes[dep] -%>)
+          <% end %>
+        </th>
       <% end %>
       </tr>
     </thead>
@@ -47,7 +52,7 @@
       <% (0...max_people_in_group).each do |i| %>
         <tr>
           <% group.each do |dep| %>
-            <% if dep.present? && @person_by_department_in_sh[dep][i].present? %>
+            <% if dep.present? && @person_by_department_in_sh[dep].present? && @person_by_department_in_sh[dep][i].present? %>
               <% person = @person_by_department_in_sh[dep][i] %>
               <td data-action="click->project-milestone-table#drill_down"
                 data-project-milestone-table-work_no="<%= person.work_no -%>"

@@ -25,7 +25,8 @@ class Report::ProjectMilestoresController < Report::BaseController
 
     @person_count_by_department = policy_scope(Bi::ShRefreshRate).person_count_by_department(@target_date)
     @person_by_department_in_sh = policy_scope(Bi::ShRefreshRate).person_by_department_in_sh(@target_date, @selected_org_code)
-    @department_codes = @person_by_department_in_sh.keys
+    @hr_staff_per_dept_codes = Hrdw::StfreinstateBi.hr_staff_per_dept_code_by_date(@selected_org_code, end_of_month)
+    @department_codes = @hr_staff_per_dept_codes.keys
 
     @deptnames_in_order = @department_codes.collect { |deptcode| Bi::OrgReportDeptOrder.all_department_names[deptcode] }
 
