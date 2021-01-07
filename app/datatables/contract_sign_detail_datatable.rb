@@ -19,18 +19,18 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_name: { source: "Bi::ContractSignDetailDate.orgname", searchable: false, orderable: true },
-      dept_name: { source: "Bi::ContractSignDetailDate.deptname", cond: :string_eq, searchable: true, orderable: true },
-      business_director_name: { source: "Bi::ContractSignDetailDate.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
-      sales_contract_code_name: { source: "Bi::ContractSignDetailDate.salescontractname", cond: :like, searchable: true, orderable: true },
-      first_party_name: { source: "Bi::ContractSignDetailDate.firstpartyname", cond: :like, searchable: true, orderable: true },
-      amount_total: { source: "Bi::ContractSignDetailDate.amounttotal", cond: :gteq, orderable: true },
-      date_1: { source: "Bi::ContractSignDetailDate.date1", orderable: true },
-      date_2: { source: "Bi::ContractSignDetailDate.date2", orderable: true },
-      contract_time: { source: "Bi::ContractSignDetailDate.filingtime", orderable: true },
-      min_timecard_fill: { source: "Bi::ContractSignDetailDate.mintimecardfill", orderable: true },
-      min_date_hrcost_amount: { source: "Bi::ContractSignDetailDate.mindatehrcostamount", orderable: true },
-      project_type: { source: "Bi::ContractSignDetailDate.projecttype", cond: :string_eq, searchable: true, orderable: true },
+      org_name: { source: 'Bi::ContractSignDetailDate.orgname', searchable: false, orderable: true },
+      dept_name: { source: 'Bi::ContractSignDetailDate.deptname', cond: :string_eq, searchable: true, orderable: true },
+      business_director_name: { source: 'Bi::ContractSignDetailDate.businessdirectorname', cond: :string_eq, searchable: true, orderable: true },
+      sales_contract_code_name: { source: 'Bi::ContractSignDetailDate.salescontractname', cond: :like, searchable: true, orderable: true },
+      first_party_name: { source: 'Bi::ContractSignDetailDate.firstpartyname', cond: :like, searchable: true, orderable: true },
+      amount_total: { source: 'Bi::ContractSignDetailDate.amounttotal', cond: :gteq, orderable: true },
+      date_1: { source: 'Bi::ContractSignDetailDate.date1', orderable: true },
+      date_2: { source: 'Bi::ContractSignDetailDate.date2', orderable: true },
+      contract_time: { source: 'Bi::ContractSignDetailDate.filingtime', orderable: true },
+      min_timecard_fill: { source: 'Bi::ContractSignDetailDate.mintimecardfill', orderable: true },
+      min_date_hrcost_amount: { source: 'Bi::ContractSignDetailDate.mindatehrcostamount', orderable: true },
+      project_type: { source: 'Bi::ContractSignDetailDate.projecttype', cond: :string_eq, searchable: true, orderable: true },
       admin_action: { source: nil, searchable: false, orderable: false }
     }
   end
@@ -42,9 +42,9 @@ class ContractSignDetailDatatable < ApplicationDatatable
         business_director_name: r.businessdirectorname,
         sales_contract_code_name: "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
         first_party_name: r.firstpartyname,
-        amount_total: tag.div(r.amounttotal, class: "text-center"),
-        date_1: tag.div(r.date1, class: "text-center"),
-        date_2: tag.div(r.date2, class: "text-center"),
+        amount_total: tag.div(r.amounttotal, class: 'text-center'),
+        date_1: tag.div(r.date1, class: 'text-center'),
+        date_2: tag.div(r.date2, class: 'text-center'),
         contract_time: r.filingtime,
         min_timecard_fill: r.mintimecardfill,
         min_date_hrcost_amount: r.mindatehrcostamount,
@@ -60,12 +60,12 @@ class ContractSignDetailDatatable < ApplicationDatatable
 
   def get_raw_records
     rr = if @show_hide
-      @contract_sign_detail_dates.where("NEED_HIDE = 1")
+      @contract_sign_detail_dates.where('NEED_HIDE = 1')
     else
-      @contract_sign_detail_dates.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
+      @contract_sign_detail_dates.where('NEED_HIDE != 1 OR NEED_HIDE IS NULL')
     end
     rr = rr.where(filingtime: @beginning_of_month..@end_of_month) if @beginning_of_month.present? && @end_of_month.present?
-    rr = rr.where("date1 > ?", @date_1_great_than) unless @date_1_great_than.zero?
+    rr = rr.where('date1 > ?', @date_1_great_than) unless @date_1_great_than.zero?
     rr = rr.where(provincename: @province_names) unless @province_names.blank?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr

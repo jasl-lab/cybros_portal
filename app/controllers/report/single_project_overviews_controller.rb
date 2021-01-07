@@ -8,8 +8,8 @@ class Report::SingleProjectOverviewsController < Report::BaseController
 
   def show
     authorize :"Bi::SingleProjectOverviews"
-    prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?op=write&ref_c=01e1da3d-4af5-43a8-a773-6d0c7ea23a00&viewlet=FR/Finance/SingleProjectOverview.cpt&ref_t=design"
+    prepare_meta_tags title: t('.title')
+    @redirect_url = 'view/report?op=write&ref_c=01e1da3d-4af5-43a8-a773-6d0c7ea23a00&viewlet=FR/Finance/SingleProjectOverview.cpt&ref_t=design'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -18,15 +18,15 @@ class Report::SingleProjectOverviewsController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "financial_management"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'financial_management'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.key_customer_detail.header"),
-      link: report_key_customer_detail_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.key_customer_detail.header'),
+        link: report_key_customer_detail_path }]
+    end
 end

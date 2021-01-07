@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class YingjiankeOverrunUser < ApplicationRecord
   self.default_timezone = :local
 
@@ -17,7 +19,7 @@ class YingjiankeOverrunUser < ApplicationRecord
         trs.each do |tr|
           mid = tr.attributes['data-mid'].value
           device = tr.elements[1].elements[0].content.strip
-          user_name = device.split("@")[0]
+          user_name = device.split('@')[0]
           info = User.details_mapping.fetch(user_name, user_name)
           ip = tr.elements[2].content.strip
           login_time = DateTime.parse(tr.elements[3].content.strip)

@@ -9,13 +9,13 @@ class HomeController < ApplicationController
 
   def logout
     sign_out(current_user) if current_user.present?
-    redirect_to new_user_session_path, alert: "Logout success"
+    redirect_to new_user_session_path, alert: 'Logout success'
   end
 
   protected
 
-  def set_page_layout_data
-    prepare_meta_tags title: t("home.index.title")
-    @_sidebar_name = "application"
-  end
+    def set_page_layout_data
+      prepare_meta_tags title: t('home.index.title')
+      @_sidebar_name = 'application'
+    end
 end

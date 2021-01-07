@@ -58,12 +58,12 @@ module NavigationHelper
   #
   # Returns a list item element String
   def nav_item(options = {}, &block)
-    klass = active_nav_item?(options) ? "active" : ""
+    klass = active_nav_item?(options) ? 'active' : ''
 
     # Add our custom class into the html_options, which may or may not exist
     # and which may or may not already have a :class key
     o = options.delete(:html_options) || {}
-    o[:class] = [*o[:class], klass].join(" ").strip
+    o[:class] = [*o[:class], klass].join(' ').strip
 
     if block_given?
       content_tag(:li, capture(&block), o)
@@ -73,12 +73,12 @@ module NavigationHelper
   end
 
   def nav_link_to(path = {}, name = nil, options = nil, html_options = nil, &block)
-    klass = active_nav_item?(path) ? "active" : ""
+    klass = active_nav_item?(path) ? 'active' : ''
 
     # Add our custom class into the html_options, which may or may not exist
     # and which may or may not already have a :class key
     html_options ||= {}
-    html_options[:class] = [*html_options[:class], klass].join(" ").strip
+    html_options[:class] = [*html_options[:class], klass].join(' ').strip
 
     link_to name, options, html_options, &block
   end
@@ -117,7 +117,7 @@ module NavigationHelper
   end
 
   def current_path?(path)
-    c, a, _ = path.split("#")
+    c, a, _ = path.split('#')
     current_controller?(c) && current_action?(a)
   end
 end

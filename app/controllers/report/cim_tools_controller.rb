@@ -6,7 +6,7 @@ class Report::CimToolsController < Report::BaseController
 
   def index
     authorize Cad::CadSession
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
 
     respond_to do |format|
       format.html
@@ -151,16 +151,16 @@ class Report::CimToolsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.report.header"),
+      { text: t('layouts.sidebar.report.header'),
         link: report_root_path },
-      { text: t("layouts.sidebar.report.cim_tools"),
+      { text: t('layouts.sidebar.report.cim_tools'),
         link: report_cim_tools_path }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "report"
+      @_sidebar_name = 'report'
     end
 end

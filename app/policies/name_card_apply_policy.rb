@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NameCardApplyPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

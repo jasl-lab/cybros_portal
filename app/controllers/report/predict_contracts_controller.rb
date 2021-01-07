@@ -30,19 +30,19 @@ class Report::PredictContractsController < Report::BaseController
     data = policy_scope(Bi::TrackContract, :group_resolve)
       .where(orgcode: @selected_org_code)
       .where(date: @last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @last_available_date)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @last_available_date)
 
     data = if @view_deptcode_sum
-      data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum")
-        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode_sum")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum"))
+      data.select('ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum')
+        .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode_sum'))
     else
-      data.select("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode")
-        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode"))
+      data.select('ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode, SUM(contractconvert) contractconvert, SUM(convertrealamount) convertrealamount')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode')
+        .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = TRACK_CONTRACT.deptcode')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, TRACK_CONTRACT.deptcode'))
     end
 
     @dept_codes_as_options = data.collect(&:deptcode) if @dept_codes_as_options.blank?
@@ -112,6 +112,6 @@ class Report::PredictContractsController < Report::BaseController
     end
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

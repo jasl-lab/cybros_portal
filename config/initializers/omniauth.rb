@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   issuer = if Rails.env.development?
     'https://oauth2id.test/'
@@ -25,7 +27,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
            nonce: false,
            issuer: issuer,
            client_signing_alg: :RS256,
-           client_jwk_signing_key: "{\"keys\":[{\"kty\":\"RSA\",\"kid\":\"LqqRQA72LVnbtET__DuG_LdzdB1U31dBdJORWdB96tI\",\"e\":\"AQAB\",\"n\":\"uuqxOPaceNE5NubPcf2iN3rPuOHjeOyFd5Djpade3njJePcLKW3SW-FI61QPsLa9zg4GrFYmAuxzZoISohtNBjv4vIRC0ocrsUfpOWZKbTvhHjBJp725azc2cOMcgIOgjG8mM4nQIeUYQNeX40b3XwAEVBIo22OXvO7vmHQzjlswWsY54iEM4gWeNt3O7M4o37IGOQDFKV7muJxeoAnU7caZfZy1aa5-3mMcJa2xryukC45tmOy_76tLqm0Ig3BDoPVDiHbFDtU5GzLXI2CbyDWnB-S0a-cU7HFGJX7qiYZxrTjBcI2nf98Ljb8ZN1AeLUq5NcpOTE_BCvJ-zyc-sw\",\"use\":\"sig\",\"alg\":\"RS256\"}]}",
+           client_jwk_signing_key: '{"keys":[{"kty":"RSA","kid":"LqqRQA72LVnbtET__DuG_LdzdB1U31dBdJORWdB96tI","e":"AQAB","n":"uuqxOPaceNE5NubPcf2iN3rPuOHjeOyFd5Djpade3njJePcLKW3SW-FI61QPsLa9zg4GrFYmAuxzZoISohtNBjv4vIRC0ocrsUfpOWZKbTvhHjBJp725azc2cOMcgIOgjG8mM4nQIeUYQNeX40b3XwAEVBIo22OXvO7vmHQzjlswWsY54iEM4gWeNt3O7M4o37IGOQDFKV7muJxeoAnU7caZfZy1aa5-3mMcJa2xryukC45tmOy_76tLqm0Ig3BDoPVDiHbFDtU5GzLXI2CbyDWnB-S0a-cU7HFGJX7qiYZxrTjBcI2nf98Ljb8ZN1AeLUq5NcpOTE_BCvJ-zyc-sw","use":"sig","alg":"RS256"}]}',
            client_options: {
              scheme: 'https',
              host: host,

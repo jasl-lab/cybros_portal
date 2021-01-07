@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Company
   class DirectQuestionPolicy < ApplicationPolicy
     def index?

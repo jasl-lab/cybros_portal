@@ -2,6 +2,6 @@
 
 module Bi
   class GczProjectItem < BiLocalTimeRecord
-    self.table_name = "v_gcz_projectitem"
+    self.table_name = 'v_gcz_projectitem'
   end
 end

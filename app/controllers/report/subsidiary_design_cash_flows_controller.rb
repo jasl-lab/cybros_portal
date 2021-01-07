@@ -58,14 +58,14 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
 
     only_have_data_depts = data.collect(&:deptcode)
     only_have_data_depts = case @found_time
-    when '三年以上'
-      Bi::CwCashflowFillHeader.where('createdate <= ?', 3.years.ago)
-        .where(deptcode: only_have_data_depts).pluck(:deptcode)
-    when '三年以内'
-      Bi::CwCashflowFillHeader.where('createdate > ?', 3.years.ago)
-        .where(deptcode: only_have_data_depts).pluck(:deptcode)
-    else
-      only_have_data_depts
+                           when '三年以上'
+                             Bi::CwCashflowFillHeader.where('createdate <= ?', 3.years.ago)
+                               .where(deptcode: only_have_data_depts).pluck(:deptcode)
+                           when '三年以内'
+                             Bi::CwCashflowFillHeader.where('createdate > ?', 3.years.ago)
+                               .where(deptcode: only_have_data_depts).pluck(:deptcode)
+                           else
+                             only_have_data_depts
     end
 
     only_have_data_depts = if @biz_type.present?
@@ -90,15 +90,15 @@ class Report::SubsidiaryDesignCashFlowsController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = 'operation'
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'operation'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.operation.header"),
-      link: report_operation_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.operation.header'),
+        link: report_operation_path }]
+    end
 end

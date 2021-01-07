@@ -8,8 +8,8 @@ class Report::RtGroupHrMonthlyPuresController < Report::BaseController
 
   def show
     authorize :"Bi::RtGroupHrMonthlyPure"
-    prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=HR/HR_REPORT_MONTH_1.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4-234fac3cfc14"
+    prepare_meta_tags title: t('.title')
+    @redirect_url = 'view/report?viewlet=HR/HR_REPORT_MONTH_1.cpt&ref_t=design&ref_c=864a5e40-658a-4d13-91c4-234fac3cfc14'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -18,15 +18,15 @@ class Report::RtGroupHrMonthlyPuresController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "human_resource"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'human_resource'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.human_resource.header"),
-      link: report_human_resource_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.human_resource.header'),
+        link: report_human_resource_path }]
+    end
 end

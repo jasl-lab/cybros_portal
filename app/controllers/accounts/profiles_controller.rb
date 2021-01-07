@@ -11,7 +11,7 @@ module Accounts
     # PUT /account/profile
     def update
       if @user.update_without_password(user_params)
-        redirect_to after_update_url, notice: t("accounts.profiles.show.updated")
+        redirect_to after_update_url, notice: t('accounts.profiles.show.updated')
       else
         render :show
       end

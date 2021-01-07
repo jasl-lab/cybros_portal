@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Company::KnowledgesController < ApplicationController
   wechat_api
   before_action :authenticate_user!, only: :modal
@@ -14,12 +16,12 @@ class Company::KnowledgesController < ApplicationController
     authorize knowledges
     @category_1_list = Company::Knowledge.distinct.pluck(:category_1)
     params[:category_1] = case params[:category_1]
-    when 'finance' then '财务'
-    when 'human_resources' then '人力资源'
-    when 'integrated_management' then '综合管理'
-    when 'process_and_information' then '流程与信息化'
-    when 'market_operation' then '市场运营'
-    else params[:category_1]
+                          when 'finance' then '财务'
+                          when 'human_resources' then '人力资源'
+                          when 'integrated_management' then '综合管理'
+                          when 'process_and_information' then '流程与信息化'
+                          when 'market_operation' then '市场运营'
+                          else params[:category_1]
     end
     knowledges = knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
     knowledges = knowledges.where('question LIKE ?', "%#{params[:question]}%") if params[:question].present?
@@ -31,18 +33,18 @@ class Company::KnowledgesController < ApplicationController
 
   private
 
-  def set_knowledge
-    @knowledge = Company::Knowledge.find(params[:id])
-    authorize @knowledge
-  end
+    def set_knowledge
+      @knowledge = Company::Knowledge.find(params[:id])
+      authorize @knowledge
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.company.header"),
-      link: company_root_path },
-    { text: t("layouts.sidebar.company.knowledges"),
-      link: company_home_knowledges_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.company.header'),
+        link: company_root_path },
+      { text: t('layouts.sidebar.company.knowledges'),
+        link: company_home_knowledges_path }]
+    end
 end

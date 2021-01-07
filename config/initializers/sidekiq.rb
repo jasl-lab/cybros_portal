@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Sidekiq.configure_server do |config|
   config.average_scheduled_poll_interval = 1
   config.redis = { url: "redis://#{Rails.application.credentials.redis_server!}:#{Rails.application.credentials.redis_port!}/#{Rails.application.credentials[Rails.env.to_sym][:redis_db_num]}" }

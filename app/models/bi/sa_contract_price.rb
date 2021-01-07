@@ -2,6 +2,6 @@
 
 module Bi
   class SaContractPrice < BiLocalTimeRecord
-    self.table_name = "V_TH_SACONTRACTPRICE"
+    self.table_name = 'V_TH_SACONTRACTPRICE'
   end
 end

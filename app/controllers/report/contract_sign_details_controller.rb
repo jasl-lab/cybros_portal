@@ -7,7 +7,7 @@ class Report::ContractSignDetailsController < Report::BaseController
 
   def show
     authorize Bi::ContractSignDetailDate
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(Bi::ContractSignDetailDate).all_month_names
     @month_name = params[:month_name]&.strip
     if @month_name.present?
@@ -100,15 +100,15 @@ class Report::ContractSignDetailsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.contract_sign_detail"),
+      { text: t('layouts.sidebar.operation.contract_sign_detail'),
         link: report_contract_sign_detail_path }]
     end
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

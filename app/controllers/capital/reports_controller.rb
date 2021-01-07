@@ -10,11 +10,11 @@ class Capital::ReportsController < Capital::BaseController
 
   protected
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t('layouts.sidebar.application.header'),
-      link: root_path },
-    { text: t('layouts.sidebar.capital_report.header'),
-      link: report_capital_report_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.capital_report.header'),
+        link: report_capital_report_path }]
+    end
 end

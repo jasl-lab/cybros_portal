@@ -5,12 +5,12 @@ class Admin::UsersController < Admin::ApplicationController
   # before_action :set_breadcrumbs, only: %i[new edit create update], if: -> { request.format.html? }
 
   def index
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
 
     @users = User.includes(:departments)
-    @users = @users.where("email LIKE ?", "%#{params[:user_email]}%") if params[:user_email].present?
-    @users = @users.where("chinese_name LIKE ?", "%#{params[:user_name]}%") if params[:user_name].present?
-    @users = @users.where("clerk_code LIKE ?", "%#{params[:clerk_code]}%") if params[:clerk_code].present?
+    @users = @users.where('email LIKE ?', "%#{params[:user_email]}%") if params[:user_email].present?
+    @users = @users.where('chinese_name LIKE ?', "%#{params[:user_name]}%") if params[:user_name].present?
+    @users = @users.where('clerk_code LIKE ?', "%#{params[:clerk_code]}%") if params[:clerk_code].present?
     @users = @users.page(params[:page]).per(params[:per_page])
   end
 
@@ -21,12 +21,12 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def new
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @user = User.new
   end
 
   def edit
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
   end
 
   def create
@@ -34,18 +34,18 @@ class Admin::UsersController < Admin::ApplicationController
 
     if @user.save
       @user.update(confirmed_at: Time.now)
-      redirect_to admin_user_url(@user), notice: t(".shared.notice.created")
+      redirect_to admin_user_url(@user), notice: t('.shared.notice.created')
     else
-      prepare_meta_tags title: t("admin.users.new.title")
+      prepare_meta_tags title: t('admin.users.new.title')
       render :new
     end
   end
 
   def update
     if @user.update_without_password(user_params)
-      redirect_to admin_user_url(@user), notice: t(".shared.notice.updated")
+      redirect_to admin_user_url(@user), notice: t('.shared.notice.updated')
     else
-      prepare_meta_tags title: t("admin.users.edit.title")
+      prepare_meta_tags title: t('admin.users.edit.title')
       render :edit
     end
   end
@@ -55,7 +55,7 @@ class Admin::UsersController < Admin::ApplicationController
       @user.lock_access!
     end
 
-    redirect_to admin_user_url(@user), notice: t(".shared.notice.locked")
+    redirect_to admin_user_url(@user), notice: t('.shared.notice.locked')
   end
 
   def unlock
@@ -63,7 +63,7 @@ class Admin::UsersController < Admin::ApplicationController
       @user.unlock_access!
     end
 
-    redirect_to admin_user_url(@user), notice: t(".shared.notice.unlocked")
+    redirect_to admin_user_url(@user), notice: t('.shared.notice.unlocked')
   end
 
   def resend_confirmation_mail
@@ -71,7 +71,7 @@ class Admin::UsersController < Admin::ApplicationController
       @user.resend_confirmation_instructions
     end
 
-    redirect_to admin_user_url(@user), notice: t(".shared.notice.sent_confirmation_mail")
+    redirect_to admin_user_url(@user), notice: t('.shared.notice.sent_confirmation_mail')
   end
 
   def resend_invitation_mail
@@ -79,7 +79,7 @@ class Admin::UsersController < Admin::ApplicationController
       @user.deliver_invitation
     end
 
-    redirect_to admin_user_url(@user), notice: t(".shared.notice.sent_confirmation_mail")
+    redirect_to admin_user_url(@user), notice: t('.shared.notice.sent_confirmation_mail')
   end
 
   def login_as
@@ -111,7 +111,7 @@ class Admin::UsersController < Admin::ApplicationController
 
     def set_breadcrumbs
       @_breadcrumbs = [{
-                         text: t("layouts.sidebar.admin.users"),
+                         text: t('layouts.sidebar.admin.users'),
                          link: admin_users_path
                        }]
     end

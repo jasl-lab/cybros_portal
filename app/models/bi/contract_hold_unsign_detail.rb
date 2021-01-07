@@ -2,6 +2,6 @@
 
 module Bi
   class ContractHoldUnsignDetail < BiLocalTimeRecord
-    self.table_name = "CONTRACT_HOLD_UNSIGN_DETAIL"
+    self.table_name = 'CONTRACT_HOLD_UNSIGN_DETAIL'
   end
 end

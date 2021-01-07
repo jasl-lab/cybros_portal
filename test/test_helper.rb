@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
 
-if ENV["CIRCLECI"]
-  gem "minitest-ci"
-  require "minitest-ci"
+if ENV['CIRCLECI']
+  gem 'minitest-ci'
+  require 'minitest-ci'
 
-  Minitest::Ci.report_dir = "/tmp/test-results"
+  Minitest::Ci.report_dir = '/tmp/test-results'
 end
 
 class ActiveSupport::TestCase

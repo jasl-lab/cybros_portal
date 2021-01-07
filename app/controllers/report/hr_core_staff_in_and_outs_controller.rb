@@ -8,8 +8,8 @@ class Report::HrCoreStaffInAndOutsController < Report::BaseController
 
   def show
     authorize :"Bi::HrCoreStaffInAndOut"
-    prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?op=write&viewlet=HR/HR_CORE_STAFF_IN_OUT.frm&ref_t=design"
+    prepare_meta_tags title: t('.title')
+    @redirect_url = 'view/report?op=write&viewlet=HR/HR_CORE_STAFF_IN_OUT.frm&ref_t=design'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -18,15 +18,15 @@ class Report::HrCoreStaffInAndOutsController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "human_resource"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'human_resource'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.human_resource.header"),
-      link: report_human_resource_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.human_resource.header'),
+        link: report_human_resource_path }]
+    end
 end

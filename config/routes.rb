@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     resource :name_card, only: %i[create]
     resource :official_seal_usage, only: %i[create]
 
-    match "me" => 'application#user_info', via: :options
-    match "sync_white_jwts" => 'application#sync_white_jwts', via: :options
+    match 'me' => 'application#user_info', via: :options
+    match 'sync_white_jwts' => 'application#sync_white_jwts', via: :options
 
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]

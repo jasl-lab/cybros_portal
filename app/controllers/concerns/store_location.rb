@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "uri"
+require 'uri'
 
 # Provide the ability to store a location.
 # Used to redirect back to a desired path after sign in.
@@ -46,8 +46,8 @@ module StoreLocation
     session_key = stored_location_key(scope)
     uri = parse_uri(location)
     if uri
-      path = [uri.path.sub(/\A\/+/, "/"), uri.query].compact.join("?")
-      path = [path, uri.fragment].compact.join("#")
+      path = [uri.path.sub(/\A\/+/, '/'), uri.query].compact.join('?')
+      path = [path, uri.fragment].compact.join('#')
       session[session_key] = path
     end
   end
@@ -62,7 +62,7 @@ module StoreLocation
 
     def stored_location_key(scope = nil)
       if scope.blank?
-        "return_to"
+        'return_to'
       else
         "#{scope}_return_to"
       end

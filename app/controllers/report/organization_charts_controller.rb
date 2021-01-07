@@ -8,7 +8,7 @@ class Report::OrganizationChartsController < Report::BaseController
 
   def show
     authorize :"Bi::OrganizationChart"
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -16,15 +16,15 @@ class Report::OrganizationChartsController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "application"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'application'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.organization_chart.header"),
-      link: report_organization_chart_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.organization_chart.header'),
+        link: report_organization_chart_path }]
+    end
 end

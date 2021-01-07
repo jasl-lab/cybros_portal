@@ -7,6 +7,6 @@ module ActionBarHelper
 
   def render_action_bar
     return unless has_action_bar?
-    render "layouts/application/action_bar"
+    render 'layouts/application/action_bar'
   end
 end

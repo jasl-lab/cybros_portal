@@ -20,9 +20,9 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
     data = policy_scope(Bi::CompleteValue).where(orgcode: @selected_org_code)
       .where(date: last_available_date)
 
-    data = data.select("COMPLETE_VALUE.month, SUM(IFNULL(total,0)) sum_total")
-        .group("COMPLETE_VALUE.month")
-        .order("COMPLETE_VALUE.month")
+    data = data.select('COMPLETE_VALUE.month, SUM(IFNULL(total,0)) sum_total')
+        .group('COMPLETE_VALUE.month')
+        .order('COMPLETE_VALUE.month')
 
     @all_months = data.collect(&:month)
     @complete_value_totals = data.collect { |d| (d.sum_total / 10000.0).round(0) }
@@ -35,17 +35,17 @@ class Report::YearlySubsidiaryCompleteValuesController < Report::BaseController
       current_company = current_user.user_company_names.first
       @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
       @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
-      prepare_meta_tags title: t(".title", company: @selected_company_short_name)
+      prepare_meta_tags title: t('.title', company: @selected_company_short_name)
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.yearly_subsidiary_complete_value", company: @selected_company_short_name),
+      { text: t('layouts.sidebar.operation.yearly_subsidiary_complete_value', company: @selected_company_short_name),
         link: report_yearly_subsidiary_complete_value_path }]
     end
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

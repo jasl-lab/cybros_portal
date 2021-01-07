@@ -2,7 +2,7 @@
 
 module Bi
   class PkCodeName < BiLocalTimeRecord
-    self.table_name = "PK_CODE_NAME"
+    self.table_name = 'PK_CODE_NAME'
 
     def self.mapping2deptcode
       @_mapping2deptcode ||= PkCodeName.all.reduce({}) do |h, s|

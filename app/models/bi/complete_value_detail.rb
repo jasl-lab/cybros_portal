@@ -2,6 +2,6 @@
 
 module Bi
   class CompleteValueDetail < BiLocalTimeRecord
-    self.table_name = "COMPLETE_VALUE_DETAIL"
+    self.table_name = 'COMPLETE_VALUE_DETAIL'
   end
 end

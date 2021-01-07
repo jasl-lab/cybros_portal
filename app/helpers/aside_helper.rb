@@ -7,6 +7,6 @@ module AsideHelper
 
   def render_aside
     return unless has_aside?
-    render "layouts/application/aside_menu"
+    render 'layouts/application/aside_menu'
   end
 end

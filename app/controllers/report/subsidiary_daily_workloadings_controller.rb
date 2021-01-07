@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
@@ -29,7 +31,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     else
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
     end
-    prepare_meta_tags title: t(".title", company: @short_company_name)
+    prepare_meta_tags title: t('.title', company: @short_company_name)
 
     @company_short_names = policy_scope(Bi::WorkHoursDayCountDept).select(:orgcode)
       .distinct.where(date: beginning_of_day..end_of_day).collect do |r|
@@ -186,7 +188,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
       authorize Bi::WorkHoursDayCountDept
       short_company_code = params[:company_code]
       @company_name = Bi::OrgShortName.company_long_names_by_orgcode.fetch(short_company_code, short_company_code)
-      view_deptcode_sum = params[:view_deptcode_sum] == "true"
+      view_deptcode_sum = params[:view_deptcode_sum] == 'true'
       department_code = params[:department_code]
       begin_date = Date.parse(params[:begin_date]).beginning_of_day
       end_date = Date.parse(params[:end_date]).end_of_day

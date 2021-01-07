@@ -2,9 +2,9 @@
 
 module Bi
   class NewMapInfo < BiLocalTimeRecord
-    self.table_name = "V_TH_NEWMAPINFO"
-    has_many :rels, class_name: "Bi::NewMapInfoRel", primary_key: :id, foreign_key: :projectcode
-    has_many :project_items, class_name: "Bi::GczProjectItem", primary_key: :id, foreign_key: :projectcode
+    self.table_name = 'V_TH_NEWMAPINFO'
+    has_many :rels, class_name: 'Bi::NewMapInfoRel', primary_key: :id, foreign_key: :projectcode
+    has_many :project_items, class_name: 'Bi::GczProjectItem', primary_key: :id, foreign_key: :projectcode
 
     def self.all_tracestates
       return @_all_tracestates if @_all_tracestates.present?
@@ -30,8 +30,8 @@ module Bi
 
     def self.all_createddate_year
       return @_all_createddate_year if @_all_createddate_year.present?
-      all_createddate_year = Bi::NewMapInfo.order('YEAR(CREATEDDATE) DESC').select('YEAR(CREATEDDATE)').distinct.collect {|b| b['YEAR(CREATEDDATE)']}
-      @_all_createddate_year = all_createddate_year.unshift(['跟踪时间','所有'])
+      all_createddate_year = Bi::NewMapInfo.order('YEAR(CREATEDDATE) DESC').select('YEAR(CREATEDDATE)').distinct.collect { |b| b['YEAR(CREATEDDATE)'] }
+      @_all_createddate_year = all_createddate_year.unshift(['跟踪时间', '所有'])
     end
   end
 end

@@ -29,7 +29,7 @@ ActionView::Helpers::FormBuilder.class_eval do
   end
 
   alias_method :_check_box, :check_box unless instance_methods(false).include?(:_check_box)
-  def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+  def check_box(method, options = {}, checked_value = '1', unchecked_value = '0')
     _check_box method, normalize_html_options(method, **options), checked_value, unchecked_value
   end
 
@@ -66,7 +66,7 @@ ActionView::Helpers::FormBuilder.class_eval do
       if @object&.errors&.any? && class_for_error.present?
         errors = @object.errors
         if errors.include?(method) || (ref_method.present? && errors.include?(ref_method.to_sym))
-          return options.merge class: [options[:class], class_for_error].join(" ")
+          return options.merge class: [options[:class], class_for_error].join(' ')
         end
       end
 

@@ -21,7 +21,7 @@ module Personal
         belong_company_department: { source: 'Personal::PublicRentalHousingApply.belong_company_name', cond: :like, searchable: true, orderable: true },
         stamp_to_place: { source: 'Personal::PublicRentalHousingApply.stamp_to_place', cond: :like, searchable: true, orderable: true },
         stamp_comment: { source: 'Personal::PublicRentalHousingApply.stamp_comment', cond: :like, searchable: true, orderable: true },
-        status: { source: "Personal::PublicRentalHousingApply.status", cond: :string_eq, searchable: true, orderable: true },
+        status: { source: 'Personal::PublicRentalHousingApply.status', cond: :string_eq, searchable: true, orderable: true },
         item_action: { source: nil, searchable: false, orderable: false }
       }
     end

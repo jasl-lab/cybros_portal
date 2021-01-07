@@ -11,15 +11,15 @@ class Account::ReportsController < Account::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = 'account_report'
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'account_report'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t('layouts.sidebar.application.header'),
-      link: root_path },
-    { text: t('layouts.sidebar.account_report.header'),
-      link: report_account_report_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.account_report.header'),
+        link: report_account_report_path }]
+    end
 end

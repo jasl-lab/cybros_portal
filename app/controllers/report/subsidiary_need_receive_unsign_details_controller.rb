@@ -23,7 +23,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
     @unsign_receive_great_than = params[:unsign_receive_great_than] || 100
     @days_to_min_timecard_fill_great_than = params[:days_to_min_timecard_fill_great_than] || 100
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
-    @show_hide_item = params[:show_hide_item] == "true" && @can_hide_item
+    @show_hide_item = params[:show_hide_item] == 'true' && @can_hide_item
 
     respond_to do |format|
       format.html
@@ -59,15 +59,15 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.subsidiary_need_receive_unsign_detail"),
+      { text: t('layouts.sidebar.operation.subsidiary_need_receive_unsign_detail'),
         link: report_subsidiary_need_receive_unsign_detail_path }]
     end
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

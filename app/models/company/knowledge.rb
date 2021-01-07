@@ -21,10 +21,10 @@ module Company
       nouns = Company::Knowledge.extract_the_noun_and_verb_in_question(question)
       if nouns.count == 1
         only_noun = nouns.first
-        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where("question LIKE ?", "%#{only_noun}%").limit(1)
+        only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun}%").limit(1)
         if only_noun_question.blank?
           only_noun_in_synonym = user_synonym.fetch(only_noun, only_noun)
-          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where("question LIKE ?", "%#{only_noun_in_synonym}%").limit(1)
+          only_noun_question = Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{only_noun_in_synonym}%").limit(1)
         end
 
         return [] if only_noun_question.blank?
@@ -45,7 +45,7 @@ module Company
     def self.user_synonym
       @@h ||= {}
       return @@h if @@h.present?
-      File.readlines(Rails.root.join("config", "synonym.dict.utf8")).each do |l|
+      File.readlines(Rails.root.join('config', 'synonym.dict.utf8')).each do |l|
         words = l.strip.split(' ')
         to_change_word = words[0]
         words.each_with_index do |w, i|
@@ -58,12 +58,12 @@ module Company
 
     def self.extract_the_noun_and_verb_in_question(question)
       tags = Current.jieba_tagging.tag question
-      noun_tags = tags.reject { |h| !(h.has_value?("n") || h.has_value?("v") || h.has_value?("t"))  }
+      noun_tags = tags.reject { |h| !(h.has_value?('n') || h.has_value?('v') || h.has_value?('t'))  }
       noun_tags.collect { |h| h.keys.first }
     end
 
     def self.knowledge_maintainers
-      @knowledge_maintainers ||= Role.find_by(role_name: "知识库维护").users.collect do |user|
+      @knowledge_maintainers ||= Role.find_by(role_name: '知识库维护').users.collect do |user|
         [user.chinese_name, user.id]
       end
     end
@@ -73,31 +73,31 @@ module Company
     end
 
     def can_show_text_directly?
-      knowledge_images_path = Rails.root.join("public", "knowledge_images", id.to_s)
-      answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?("[Image]") \
+      knowledge_images_path = Rails.root.join('public', 'knowledge_images', id.to_s)
+      answer.embeds_attachment_ids.blank? && !answer.to_plain_text.include?('[Image]') \
         && (!Dir.exist?(knowledge_images_path) || Dir.empty?(knowledge_images_path)) \
         && (answer.to_plain_text.length < 200)
     end
 
     private
 
-    def self.search_question(qw1, qw2, user_question)
-      ans = if qw2.present?
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
-      elsif qw1.present?
-        Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
-      else
-        Pundit.policy_scope(Current.user, Company::Knowledge).none
-      end.limit(7)
-      if ans.count > 1 && qw2.present?
-        if ans.first.question.similar(user_question) < ans.second.question.similar(user_question)
-          [ans.second]
+      def self.search_question(qw1, qw2, user_question)
+        ans = if qw2.present?
+          Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%#{qw2}%").or(Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw2}%#{qw1}%"))
+        elsif qw1.present?
+          Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%")
         else
-          [ans.first]
+          Pundit.policy_scope(Current.user, Company::Knowledge).none
+        end.limit(7)
+        if ans.count > 1 && qw2.present?
+          if ans.first.question.similar(user_question) < ans.second.question.similar(user_question)
+            [ans.second]
+          else
+            [ans.first]
+          end
+        else
+          ans.present? ? ans : Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%").limit(7)
         end
-      else
-        ans.present? ? ans : Pundit.policy_scope(Current.user, Company::Knowledge).where('question LIKE ?', "%#{qw1}%").limit(7)
       end
-    end
   end
 end

@@ -6,7 +6,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(Bi::ContractPrice, :overview_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_year_month = Date.parse(@month_name).end_of_month
@@ -53,7 +53,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d / 10000_00.0).round(2) }
 
     @years_category, @years_sum_住宅方案, @years_sum_住宅施工图, @years_sum_公建方案, @years_sum_公建施工图 \
-      = 住宅公建_contract_price(Time.now.year-2, Time.now.year, @orgs_options)
+      = 住宅公建_contract_price(Time.now.year - 2, Time.now.year, @orgs_options)
   end
 
   private
@@ -91,11 +91,11 @@ class Report::ContractTypesAnalysesController < Report::BaseController
         years_sum_公建施工图 << years_sum_公建施工图_后端.to_f + years_sum_公建施工图_全过程.to_f
         # Rails.logger.debug "years_sum_公建施工图: #{year}, #{years_sum_公建施工图}"
       end
-      years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d/10000_00.0).round(1) }
-      years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d/10000_00.0).round(1) }
-      years_sum_公建方案 = years_sum_公建方案.map { |d| (d/10000_00.0).round(1) }
-      years_sum_公建施工图 = years_sum_公建施工图.map { |d| (d/10000_00.0).round(1) }
-      return [years_name, years_sum_住宅方案, years_sum_住宅施工图, years_sum_公建方案, years_sum_公建施工图]
+      years_sum_住宅方案 = years_sum_住宅方案.map { |d| (d / 10000_00.0).round(1) }
+      years_sum_住宅施工图 = years_sum_住宅施工图.map { |d| (d / 10000_00.0).round(1) }
+      years_sum_公建方案 = years_sum_公建方案.map { |d| (d / 10000_00.0).round(1) }
+      years_sum_公建施工图 = years_sum_公建施工图.map { |d| (d / 10000_00.0).round(1) }
+      [years_name, years_sum_住宅方案, years_sum_住宅施工图, years_sum_公建方案, years_sum_公建施工图]
     end
 
 

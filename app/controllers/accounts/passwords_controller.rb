@@ -12,7 +12,7 @@ module Accounts
     def update
       if @user.update_with_password(user_params)
         bypass_sign_in @user, scope: :user
-        redirect_to after_update_url, notice: t("accounts.passwords.show.updated")
+        redirect_to after_update_url, notice: t('accounts.passwords.show.updated')
       else
         @user.clean_up_passwords
         render :show

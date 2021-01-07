@@ -8,7 +8,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
   after_action :verify_authorized
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     authorize Bi::SubCompanyRealReceive
     authorize Bi::SubCompanyNeedReceive
     @all_month_names = Bi::SubCompanyRealReceive.all_month_names
@@ -17,7 +17,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     beginning_of_year = @end_of_month.beginning_of_year
     beginning_of_month = @end_of_month.beginning_of_month
     @orgs_options = params[:orgs]
-    @view_orgcode_sum = params[:view_orgcode_sum] == "true"
+    @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
     selected_short_name = params[:company_name]&.strip
 
     real_data = policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
@@ -27,12 +27,12 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order('ORG_ORDER.org_order ASC')
 
     real_data = if @view_orgcode_sum
-      real_data.select("orgcode_sum orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum")
+      real_data.select('orgcode_sum orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal')
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode_sum')
         .group(:orgcode_sum, :org_order)
     else
-      real_data.select("orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode")
+      real_data.select('orgcode, org_order, SUM(IFNULL(total,0)) total, SUM(markettotal) markettotal')
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RECEIVE.orgcode')
         .group(:orgcode, :org_order)
     end
 
@@ -41,13 +41,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @orgs_options = only_have_real_data_orgs if @orgs_options.blank?
     @organization_options = real_company_short_names.zip(only_have_real_data_orgs)
 
-    @sum_org_names = @organization_options.reject { |k, v| !v.start_with?("H") }.collect(&:first)
+    @sum_org_names = @organization_options.reject { |k, v| !v.start_with?('H') }.collect(&:first)
 
     if selected_short_name.present?
       selected_sum_h_code = Bi::OrgShortName.org_code_by_short_name.fetch(selected_short_name, selected_short_name)
       @orgs_options = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode_sum: selected_sum_h_code).pluck(:orgcode)
       if @orgs_options.blank?
-        @orgs_options = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode_sum: 'H'+selected_sum_h_code).pluck(:orgcode)
+        @orgs_options = Bi::SubCompanyRealReceive.where(realdate: beginning_of_year..@end_of_month).where(orgcode_sum: 'H' + selected_sum_h_code).pluck(:orgcode)
       end
     end
 
@@ -60,9 +60,9 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @real_company_short_names = real_data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
     @real_receives = real_data.collect { |d| ((d.total + d.markettotal) / 100_0000.0).round(0) }
     @fix_sum_real_receives = (policy_scope(Bi::SubCompanyRealReceive, :group_resolve).where(realdate: beginning_of_year..@end_of_month)
-      .select("SUM(real_receive) fix_sum_real_receives").first.fix_sum_real_receives / 10000_0000.0).round(1)
+      .select('SUM(real_receive) fix_sum_real_receives').first.fix_sum_real_receives / 10000_0000.0).round(1)
     @fix_sum_market_totals = (policy_scope(Bi::SubCompanyRealReceive, :group_resolve).where(realdate: beginning_of_year..@end_of_month)
-      .select("SUM(markettotal) fix_sum_markettotals").first.fix_sum_markettotals / 10000.0).round(1)
+      .select('SUM(markettotal) fix_sum_markettotals').first.fix_sum_markettotals / 10000.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).last_available_date(@end_of_month)
 
@@ -73,13 +73,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .order('ORG_ORDER.org_order ASC')
 
     need_data = if @view_orgcode_sum
-      need_data.select("orgcode_sum orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode_sum")
+      need_data.select('orgcode_sum orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive')
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode_sum')
         .group(:orgcode_sum, :org_order)
         .where(orgcode_sum: @orgs_options)
     else
-      need_data.select("orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode")
+      need_data.select('orgcode, org_order, SUM(busi_unsign_receive) unsign_receive, SUM(busi_sign_receive) sign_receive, SUM(account_longbill) long_account_receive, SUM(account_shortbill) short_account_receive')
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_NEED_RECEIVE.orgcode')
         .group(:orgcode, :org_order)
         .where(orgcode: @orgs_options)
     end
@@ -90,7 +90,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
 
     fix_need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).where(date: need_data_last_available_date)
-      .select("SUM(account_longbill) long_account_receive, SUM(busi_unsign_receive)+SUM(busi_sign_receive) business_receive").first
+      .select('SUM(account_longbill) long_account_receive, SUM(busi_unsign_receive)+SUM(busi_sign_receive) business_receive').first
     @fix_need_long_account_receives = (fix_need_data.long_account_receive / 100_0000.0).round(0)
     @fix_need_short_account_receives = (fix_need_data.business_receive / 100_0000.0).round(0)
     @fix_need_should_receives = @fix_need_long_account_receives + @fix_need_short_account_receives
@@ -127,7 +127,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     else
       Bi::CompleteValue.where(orgcode: current_user.user_company_names)
     end.where(date: beginning_of_year..@end_of_month)
-      .select("orgcode, SUM(IFNULL(total,0)) sum_total")
+      .select('orgcode, SUM(IFNULL(total,0)) sum_total')
       .group(:orgcode)
     complete_value_hash = complete_value_data.reduce({}) do |h, d|
       short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode)
@@ -141,13 +141,13 @@ class Report::SubsidiaryReceivesController < Report::BaseController
       .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order ASC')
     real_rate_sum = if @view_orgcode_sum
-      real_rate_sum.select("orgcode_sum orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode_sum")
+      real_rate_sum.select('orgcode_sum orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now')
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode_sum')
         .group(:orgcode_sum, :org_order)
         .where(orgcode_sum: @orgs_options)
     else
-      real_rate_sum.select("orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now")
-        .joins("LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode")
+      real_rate_sum.select('orgcode, org_order, SUM(IFNULL(sumvalue_change_nc,0)) sumvalue_change_nc, SUM(IFNULL(realamount_nc,0)) realamount_nc, SUM(IFNULL(trans_nc,0)) trans_nc, SUM(IFNULL(sumvalue_change_now,0)) sumvalue_change_now, SUM(IFNULL(realamount_now,0)) realamount_now, SUM(IFNULL(trans_now,0)) trans_now')
+        .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = SUB_COMPANY_REAL_RATE_SUM.orgcode')
         .group(:orgcode, :org_order)
         .where(orgcode: @orgs_options)
     end
@@ -158,7 +158,7 @@ class Report::SubsidiaryReceivesController < Report::BaseController
         numerator = r.realamount_now - r.realamount_nc
         年初应收款 = r.sumvalue_change_nc - (r.realamount_nc)
         denominator = (年初应收款 < 0 ? 0 : 年初应收款) * (beginning_of_month.month / 12.0) + r.sumvalue_change_now - r.sumvalue_change_nc
-        ((numerator / denominator.to_f)*100).round(1)
+        ((numerator / denominator.to_f) * 100).round(1)
       else
         0
       end
@@ -179,16 +179,16 @@ class Report::SubsidiaryReceivesController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.subsidiary_receive"),
+      { text: t('layouts.sidebar.operation.subsidiary_receive'),
         link: report_subsidiary_receive_path(view_orgcode_sum: params[:view_orgcode_sum]) }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

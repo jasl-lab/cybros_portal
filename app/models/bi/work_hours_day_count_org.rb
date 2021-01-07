@@ -2,6 +2,6 @@
 
 module Bi
   class WorkHoursDayCountOrg < BiLocalTimeRecord
-    self.table_name = "WORK_HOURS_DAY_COUNT_ORG"
+    self.table_name = 'WORK_HOURS_DAY_COUNT_ORG'
   end
 end

@@ -8,7 +8,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   after_action :cors_set_access_control_headers, if: -> { params[:in_iframe].present? }
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
     @all_month_names = policy_scope(Bi::ShRefreshRate).all_month_names(@selected_org_code)
     @month_name = params[:month_name]&.strip || @all_month_names.first
@@ -43,7 +43,7 @@ class Report::ProjectMilestoresController < Report::BaseController
   end
 
   def detail_table_drill_down
-    @drill_down_subtitle = t(".subtitle")
+    @drill_down_subtitle = t('.subtitle')
 
     @month_name = params[:month_name]&.strip
     end_of_month = Date.parse(@month_name).end_of_month
@@ -78,7 +78,7 @@ class Report::ProjectMilestoresController < Report::BaseController
 
   def set_drill_down_variables
     @dept_name = params[:department_name].strip
-    @drill_down_subtitle = t(".subtitle")
+    @drill_down_subtitle = t('.subtitle')
 
     month_name = params[:month_name]&.strip
     end_of_month = Date.parse(month_name).end_of_month
@@ -91,16 +91,16 @@ class Report::ProjectMilestoresController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.project_milestore", company: params[:company_name]&.strip || current_user.user_company_short_name),
+      { text: t('layouts.sidebar.operation.project_milestore', company: params[:company_name]&.strip || current_user.user_company_short_name),
         link: report_project_milestore_path }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VoiceAnswerWorker
   include Sidekiq::Worker
 
@@ -35,32 +37,32 @@ class VoiceAnswerWorker
 
   private
 
-  def answer_via_wechat_api(content, openid)
-    ks = Company::Knowledge.answer(content)
-    if ks.present?
-      k = ks.first
-      Current.user = User.find_by email: "#{openid}@thape.com.cn"
-      Rails.logger.debug "User name: #{openid}, User company: #{Current.user.user_company_short_name}, " +
-      "department: #{Current.user.user_department_name}, User voice question: #{content} " +
-      "Question category: #{k.category_1}, answered as question: #{k.question}"
-      if k.can_show_text_directly? && ks.count == 1
-        Wechat.api.custom_message_send Wechat::Message.to(openid).text k.answer.to_plain_text
-      else
-        host = CybrosCore::Application.config.action_mailer.default_url_options[:host]
-        answer_articles = ks.each_with_object([]) do |q, memo|
-          memo << { title: q.question, description: "类别：#{q.category_1} #{q.category_2} #{q.category_3}",
-          pic_url: ActionController::Base.helpers.asset_url(Company::KnowledgeImages.random_one, type: :image),
-          url: Rails.application.routes.url_helpers.company_home_knowledge_url(q, host: host) }
+    def answer_via_wechat_api(content, openid)
+      ks = Company::Knowledge.answer(content)
+      if ks.present?
+        k = ks.first
+        Current.user = User.find_by email: "#{openid}@thape.com.cn"
+        Rails.logger.debug "User name: #{openid}, User company: #{Current.user.user_company_short_name}, " +
+        "department: #{Current.user.user_department_name}, User voice question: #{content} " +
+        "Question category: #{k.category_1}, answered as question: #{k.question}"
+        if k.can_show_text_directly? && ks.count == 1
+          Wechat.api.custom_message_send Wechat::Message.to(openid).text k.answer.to_plain_text
+        else
+          host = CybrosCore::Application.config.action_mailer.default_url_options[:host]
+          answer_articles = ks.each_with_object([]) do |q, memo|
+            memo << { title: q.question, description: "类别：#{q.category_1} #{q.category_2} #{q.category_3}",
+            pic_url: ActionController::Base.helpers.asset_url(Company::KnowledgeImages.random_one, type: :image),
+            url: Rails.application.routes.url_helpers.company_home_knowledge_url(q, host: host) }
+          end
+          Wechat.api.custom_message_send Wechat::Message.to(openid).news answer_articles
         end
-        Wechat.api.custom_message_send Wechat::Message.to(openid).news answer_articles
-      end
-    else
-      if Current.user.present?
-        Current.user.pending_questions.create(question: content)
       else
-        Rails.logger.debug "User question not answer: #{content}"
+        if Current.user.present?
+          Current.user.pending_questions.create(question: content)
+        else
+          Rails.logger.debug "User question not answer: #{content}"
+        end
+        Wechat.api.custom_message_send Wechat::Message.to(openid).text Company::Knowledge.no_answer_content
       end
-      Wechat.api.custom_message_send Wechat::Message.to(openid).text Company::Knowledge.no_answer_content
     end
-  end
 end

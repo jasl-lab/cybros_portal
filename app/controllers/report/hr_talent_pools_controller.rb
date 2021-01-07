@@ -8,8 +8,8 @@ class Report::HrTalentPoolsController < Report::BaseController
 
   def show
     authorize :"Bi::HrTalentPool"
-    prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=HR/HR_REPORT_TALENTPOOL.cpt&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33"
+    prepare_meta_tags title: t('.title')
+    @redirect_url = 'view/report?viewlet=HR/HR_REPORT_TALENTPOOL.cpt&ref_t=design&ref_c=7c332fd4-ca53-4731-8200-9147e584be33'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -18,15 +18,15 @@ class Report::HrTalentPoolsController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "human_resource"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'human_resource'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.human_resource.header"),
-      link: report_human_resource_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.human_resource.header'),
+        link: report_human_resource_path }]
+    end
 end

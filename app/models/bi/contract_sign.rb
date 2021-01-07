@@ -5,7 +5,7 @@ module Bi
     self.table_name = 'CONTRACT_SIGN'
 
     def self.all_month_names
-      Bi::ContractSign.order(filingtime: :desc).where('filingtime >= ?', Date.new(2019,10,1))
+      Bi::ContractSign.order(filingtime: :desc).where('filingtime >= ?', Date.new(2019, 10, 1))
         .pluck(:filingtime).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 

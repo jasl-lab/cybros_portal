@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
       filename ||= params[:action]
       filename += '.csv'
 
-      if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      if /msie/i.match?(request.env['HTTP_USER_AGENT'])
         headers['Pragma'] = 'public'
         headers['Content-type'] = 'text/plain'
         headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
           site_name: site_name,
           title: title,
           description: description,
-          type: "website"
+          type: 'website'
         }
       }
 
@@ -77,25 +77,25 @@ class ApplicationController < ActionController::Base
       RUBY_EVAL
     end
 
-  def make_sure_wechat_user_login
-    wechat_oauth2 do |user_name|
-      Current.user = User.find_by email: "#{user_name}@thape.com.cn"
-      if Current.user.present?
-        sign_in Current.user
-      else
-        return redirect_to new_user_session_path
-      end
-    end unless current_user.present?
-  end
+    def make_sure_wechat_user_login
+      wechat_oauth2 do |user_name|
+        Current.user = User.find_by email: "#{user_name}@thape.com.cn"
+        if Current.user.present?
+          sign_in Current.user
+        else
+          return redirect_to new_user_session_path
+        end
+      end unless current_user.present?
+    end
 
   private
 
-  def set_current_user
-    Current.user = current_user
-  end
+    def set_current_user
+      Current.user = current_user
+    end
 
-  def user_not_authorized
-    flash[:alert] ||= t('not_authorized')
-    redirect_to(request.referrer || root_path)
-  end
+    def user_not_authorized
+      flash[:alert] ||= t('not_authorized')
+      redirect_to(request.referrer || root_path)
+    end
 end

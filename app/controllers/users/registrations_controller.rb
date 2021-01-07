@@ -2,19 +2,19 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
-    layout "sign_in", only: [:new, :create]
+    layout 'sign_in', only: [:new, :create]
 
     before_action :configure_sign_up_params, only: [:create]
 
     # GET /resource/sign_up
     def new
-      prepare_meta_tags title: t("users.registrations.new.title")
+      prepare_meta_tags title: t('users.registrations.new.title')
       super
     end
 
     # POST /resource
     def create
-      prepare_meta_tags title: t("users.registrations.new.title")
+      prepare_meta_tags title: t('users.registrations.new.title')
       super
     end
 

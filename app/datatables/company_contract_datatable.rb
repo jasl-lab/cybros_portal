@@ -18,8 +18,8 @@ class CompanyContractDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      project_no_and_name: { source: "Bi::NewMapInfo.id", orderable: true },
-      project_type_and_main_dept_name: { source: "Bi::NewMapInfo.maindeptnamedet", orderable: true },
+      project_no_and_name: { source: 'Bi::NewMapInfo.id', orderable: true },
+      project_type_and_main_dept_name: { source: 'Bi::NewMapInfo.maindeptnamedet', orderable: true },
       total_sales_contract_amount: { source: nil, searchable: false, orderable: false }
     }
   end
@@ -40,8 +40,8 @@ class CompanyContractDatatable < ApplicationDatatable
         sa_opportunities.find { |o| o.projectcode.to_s == r.id.to_s }&.contractamount
       end
       project_type_and_main_dept_name = project_items.map do |p|
-        "<strong>" + p[0] + "</strong>" + "<br />" + p[1].join("<br />");
-      end.join("<br />")
+        '<strong>' + p[0] + '</strong>' + '<br />' + p[1].join('<br />')
+      end.join('<br />')
 
       { project_no_and_name: "#{r.id}<br />#{link_to(r.marketinfoname, company_contract_path(id: r.id), remote: true)}<br />#{r.projectframename}".html_safe,
         project_type_and_main_dept_name: if project_type_and_main_dept_name.present?
@@ -60,9 +60,9 @@ class CompanyContractDatatable < ApplicationDatatable
     rr = rr.where('developercompanyname LIKE ?', "%#{@client}%") if @client.present?
     rr = rr.where(tracestate: @tracestate) if @tracestate.present? && @tracestate != '所有'
     rr = rr.where('YEAR(CREATEDDATE) = ?', @createddate_year) unless @createddate_year == '所有'
-    rr = rr.where("projecttype LIKE ?", "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
+    rr = rr.where('projecttype LIKE ?', "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
     if @query_text.present?
-      rr = rr.where("developercompanyname LIKE ? OR marketinfoname LIKE ? OR projectframename like ? OR ID LIKE ?",
+      rr = rr.where('developercompanyname LIKE ? OR marketinfoname LIKE ? OR projectframename like ? OR ID LIKE ?',
         "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%", "%#{@query_text}%")
     end
     rr

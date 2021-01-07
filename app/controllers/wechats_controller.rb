@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WechatsController < ApplicationController
   # For details on the DSL available within this file, see https://github.com/Eric-Guo/wechat#wechat_responder---rails-responder-controller-dsl
   wechat_responder
@@ -41,7 +43,7 @@ class WechatsController < ApplicationController
     voice_id = request[:MediaId]
     Rails.logger.debug "voice_id: #{voice_id}"
     VoiceAnswerWorker.perform_async(voice_id, Current.user&.id)
-    request.reply.text "🤔"
+    request.reply.text '🤔'
   end
 
   on :click, with: 'LIKE_US' do |request, key|
@@ -52,7 +54,7 @@ class WechatsController < ApplicationController
     end
     kl.update(like_count: kl.like_count + 1)
 
-    request.reply.text "谢谢你夸奖我。🥰"
+    request.reply.text '谢谢你夸奖我。🥰'
   end
 
   on :event, with: 'enter_agent' do |request|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Bi
   class WorkHoursDayCountOrgPolicy < BasePolicy
     class Scope < Scope

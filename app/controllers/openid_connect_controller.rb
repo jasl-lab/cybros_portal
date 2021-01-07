@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class OpenidConnectController < ApplicationController
   def callback
-    @omniaut_auth = request.env["omniauth.auth"]
+    @omniaut_auth = request.env['omniauth.auth']
     # Rails.logger.debug "omniaut_auth: " + JSON.pretty_generate(@omniaut_auth)
     user = User.find_or_create_by!(email: @omniaut_auth.dig(:info, :email)) do |u|
       u.confirmed_at = Time.current
@@ -26,9 +28,9 @@ class OpenidConnectController < ApplicationController
     user.update(position_title: main_position_title, clerk_code: clerk_code,
       chinese_name: chinese_name, job_level: job_level, desk_phone: desk_phone)
 
-    original_url = request.env["omniauth.origin"]
+    original_url = request.env['omniauth.origin']
     sign_in user
-    if !original_url.nil? && original_url != "https://sso.thape.com.cn/"
+    if !original_url.nil? && original_url != 'https://sso.thape.com.cn/'
       redirect_to original_url
     else
       redirect_to root_path

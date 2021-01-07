@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
@@ -26,7 +28,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     else
       Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_company_code, @selected_company_code)
     end
-    prepare_meta_tags title: t(".title", company: @short_company_name)
+    prepare_meta_tags title: t('.title', company: @short_company_name)
 
     dept_short_names = policy_scope(Bi::WorkHoursCountCombine)
       .distinct.where(date: beginning_of_day..end_of_day,)

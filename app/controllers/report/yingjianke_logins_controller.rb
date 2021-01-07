@@ -5,7 +5,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
   def index
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @rows = YingjiankeOverrunUser.rows.sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }
     @user_8am = count_yjk_user(Time.current.beginning_of_day + 8 * 60 * 60)
     @user_10am = count_yjk_user(Time.current.beginning_of_day + 10 * 60 * 60)
@@ -16,24 +16,24 @@ class Report::YingjiankeLoginsController < Report::BaseController
 
   def destroy
     mid = params[:mid]
-    response = HTTP.cookies("bsAutoLogin" => "BIT_TRUE",
-      "bsPassword" => Rails.application.credentials.yingjianke_admin_password!,
-      "bsSessionID" => Rails.application.credentials.yingjianke_admin_session_id!,
-      "bsUser" => Rails.application.credentials.yingjianke_admin_username!)
-      .headers(accept: "application/json", referer: Rails.application.credentials.yingjianke_admin_web_url!)
+    response = HTTP.cookies('bsAutoLogin' => 'BIT_TRUE',
+      'bsPassword' => Rails.application.credentials.yingjianke_admin_password!,
+      'bsSessionID' => Rails.application.credentials.yingjianke_admin_session_id!,
+      'bsUser' => Rails.application.credentials.yingjianke_admin_username!)
+      .headers(accept: 'application/json', referer: Rails.application.credentials.yingjianke_admin_web_url!)
       .get(Rails.application.credentials.yingjianke_kill_session_url!,
-        params: { mid: ERB::Util.url_encode(mid), feature: "all", productname: "31313034352D38313234", random: rand() })
-    if response.code == 200 && JSON.parse(response.body)["status"] == 0
-      redirect_to report_yingjianke_logins_path, notice: t(".destroy_success", ip: params[:ip])
+        params: { mid: ERB::Util.url_encode(mid), feature: 'all', productname: '31313034352D38313234', random: rand() })
+    if response.code == 200 && JSON.parse(response.body)['status'] == 0
+      redirect_to report_yingjianke_logins_path, notice: t('.destroy_success', ip: params[:ip])
     else
-      redirect_to report_yingjianke_logins_path, alert: t(".destroy_failed", status: response.body)
+      redirect_to report_yingjianke_logins_path, alert: t('.destroy_failed', status: response.body)
     end
   end
 
   def export
     respond_to do |format|
       format.csv do
-        render_csv_header "Yingjianke_Logins"
+        render_csv_header 'Yingjianke_Logins'
         csv_res = CSV.generate do |csv|
           csv << %w[序号 部门姓名 登陆时间 最后访问 逗留时长 机器 IP地址]
           YingjiankeOverrunUser.rows.sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }
@@ -66,16 +66,16 @@ class Report::YingjiankeLoginsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.report.header"),
+      { text: t('layouts.sidebar.report.header'),
         link: report_root_path },
-      { text: t("layouts.sidebar.report.yingjianke_logins"),
+      { text: t('layouts.sidebar.report.yingjianke_logins'),
         link: report_yingjianke_logins_path }]
     end
 
 
     def set_page_layout_data
-      @_sidebar_name = "report"
+      @_sidebar_name = 'report'
     end
 end

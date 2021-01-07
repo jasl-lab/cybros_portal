@@ -2,10 +2,10 @@
 
 module Users
   class InvitationsController < Devise::InvitationsController
-    layout "sign_in"
+    layout 'sign_in'
 
     def edit
-      prepare_meta_tags title: t("users.invitations.edit.title")
+      prepare_meta_tags title: t('users.invitations.edit.title')
       super
     end
 
@@ -29,7 +29,7 @@ module Users
       else
         resource.invitation_token = raw_invitation_token
         respond_with_navigational(resource) do
-          prepare_meta_tags title: t("users.invitations.edit.title")
+          prepare_meta_tags title: t('users.invitations.edit.title')
           render :edit
         end
       end

@@ -26,19 +26,19 @@ class User < ApplicationRecord
   has_many :proof_of_income_applies, class_name: 'Personal::ProofOfIncomeApply', dependent: :restrict_with_error
   has_many :public_rental_housing_applies, class_name: 'Personal::PublicRentalHousingApply', dependent: :restrict_with_error
   has_many :name_card_applies, dependent: :restrict_with_error
-  has_many :pending_questions, class_name: "Company::PendingQuestion", dependent: :restrict_with_error
-  has_many :owing_pending_questions, class_name: "Company::PendingQuestion", foreign_key: :owner_id
-  has_one :knowledge_like, class_name: "Company::KnowledgeLike"
-  has_many :cad_sessions, class_name: "Cad::CadSession", dependent: :destroy
-  has_many :cad_operations, class_name: "Cad::CadOperation", dependent: :destroy
+  has_many :pending_questions, class_name: 'Company::PendingQuestion', dependent: :restrict_with_error
+  has_many :owing_pending_questions, class_name: 'Company::PendingQuestion', foreign_key: :owner_id
+  has_one :knowledge_like, class_name: 'Company::KnowledgeLike'
+  has_many :cad_sessions, class_name: 'Cad::CadSession', dependent: :destroy
+  has_many :cad_operations, class_name: 'Cad::CadOperation', dependent: :destroy
   has_many :report_view_histories
-  has_many :user_split_cost_settings, class_name: "SplitCost::UserSplitCostSetting"
-  has_many :user_split_cost_details, class_name: "SplitCost::UserSplitCostDetail"
+  has_many :user_split_cost_settings, class_name: 'SplitCost::UserSplitCostSetting'
+  has_many :user_split_cost_details, class_name: 'SplitCost::UserSplitCostDetail'
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)
-      .select(:email, :chinese_name, :desk_phone, "departments.name", "departments.company_name").reduce({}) do |h, u|
-      user_name = u.email.split("@")[0]
+      .select(:email, :chinese_name, :desk_phone, 'departments.name', 'departments.company_name').reduce({}) do |h, u|
+      user_name = u.email.split('@')[0]
       h[user_name] ||= "#{Bi::OrgShortName.company_short_names.fetch(u.company_name, u.company_name)}-#{u.name}-#{u.chinese_name}-#{u.desk_phone}"
       h
     end
@@ -57,7 +57,7 @@ class User < ApplicationRecord
   end
 
   def expired_jwts
-    allowlisted_jwts.where("exp <= ?", Time.now)
+    allowlisted_jwts.where('exp <= ?', Time.now)
   end
 
   def role_ids
@@ -117,7 +117,7 @@ class User < ApplicationRecord
   end
 
   def in_tianhua_hq?
-    user_company_names.include?("上海天华建筑设计有限公司")
+    user_company_names.include?('上海天华建筑设计有限公司')
   end
 
   ALL_OF_ALL = 1
@@ -162,7 +162,7 @@ class User < ApplicationRecord
     主职_access_codes = 主职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
     兼职 = Hrdw::StfreinstateVirtual
-      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员','其他人员'])
+      .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
     兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
     手工_access_codes = manual_operation_access_codes.collect { |m| [m.code, m.org_code, m.dept_code, m.title, m.job_level, m.id] }
@@ -202,36 +202,36 @@ class User < ApplicationRecord
 
   private
 
-  def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
-    return MY_DEPARTMENT if 基准岗位.nil?
+    def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
+      return MY_DEPARTMENT if 基准岗位.nil?
 
-    access_code = if 基准岗位.include?('董事长') && job_level >= 18
-       ALL_EXCEPT_OTHER_COMPANY_DETAILS
-    elsif 基准岗位.include?('副总经理') && job_level >= 16
-      MY_COMPANY_ALL_DETAILS
-    elsif 基准岗位.include?('总经理助理') && job_level >= 15
-      MY_COMPANY_ALL_DETAILS
-    elsif (基准岗位.include?('市场总监') || 基准岗位.include?('市场运营总监') || 基准岗位 == '财务部经理') && job_level >= 13
-      MY_COMPANY_ALL_DETAILS
-    elsif 基准岗位.include?('经营核算主管') && job_level >= 8
-      MY_COMPANY_ALL_DETAILS
-    elsif 基准岗位.include?('总经理') && job_level >= 17
-      ALL_EXCEPT_OTHER_COMPANY_DETAILS
-    elsif (基准岗位.include?('商务经理') || 基准岗位.include?('商务助理')) && job_level >= 11
-      MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif 基准岗位.include?('所长助理') && job_level >= 12
-      MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif 基准岗位.include?('管理副所长') && job_level >= 13
-      MY_COMPANY_EXCEPT_OTHER_DEPTS
-    elsif 基准岗位.include?('所长') && job_level >= 14
-      MY_COMPANY_EXCEPT_OTHER_DEPTS
-    else
-      MY_DEPARTMENT
+      access_code = if 基准岗位.include?('董事长') && job_level >= 18
+        ALL_EXCEPT_OTHER_COMPANY_DETAILS
+      elsif 基准岗位.include?('副总经理') && job_level >= 16
+        MY_COMPANY_ALL_DETAILS
+      elsif 基准岗位.include?('总经理助理') && job_level >= 15
+        MY_COMPANY_ALL_DETAILS
+      elsif (基准岗位.include?('市场总监') || 基准岗位.include?('市场运营总监') || 基准岗位 == '财务部经理') && job_level >= 13
+        MY_COMPANY_ALL_DETAILS
+      elsif 基准岗位.include?('经营核算主管') && job_level >= 8
+        MY_COMPANY_ALL_DETAILS
+      elsif 基准岗位.include?('总经理') && job_level >= 17
+        ALL_EXCEPT_OTHER_COMPANY_DETAILS
+      elsif (基准岗位.include?('商务经理') || 基准岗位.include?('商务助理')) && job_level >= 11
+        MY_COMPANY_EXCEPT_OTHER_DEPTS
+      elsif 基准岗位.include?('所长助理') && job_level >= 12
+        MY_COMPANY_EXCEPT_OTHER_DEPTS
+      elsif 基准岗位.include?('管理副所长') && job_level >= 13
+        MY_COMPANY_EXCEPT_OTHER_DEPTS
+      elsif 基准岗位.include?('所长') && job_level >= 14
+        MY_COMPANY_EXCEPT_OTHER_DEPTS
+      else
+        MY_DEPARTMENT
+      end
+      if org_code == '000109' && access_code == MY_COMPANY_EXCEPT_OTHER_DEPTS
+        MY_DEPARTMENT
+      else
+        access_code
+      end
     end
-    if org_code == '000109' && access_code == MY_COMPANY_EXCEPT_OTHER_DEPTS
-      return MY_DEPARTMENT
-    else
-      return access_code
-    end
-  end
 end

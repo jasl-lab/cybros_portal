@@ -2,10 +2,10 @@
 
 module SidebarHelper
   def collapsed_sidebar?
-    cookies["sidebar_collapsed"] == "true"
+    cookies['sidebar_collapsed'] == 'true'
   end
 
-  def use_sidebar(name = "application")
+  def use_sidebar(name = 'application')
     @_sidebar_name = name
   end
 

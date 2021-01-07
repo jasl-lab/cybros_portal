@@ -12,6 +12,6 @@ class Company::SalesContractsController < ApplicationController
   protected
 
     def set_page_layout_data
-      @_sidebar_name = "company"
+      @_sidebar_name = 'company'
     end
 end

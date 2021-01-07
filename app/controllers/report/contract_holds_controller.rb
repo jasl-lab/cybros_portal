@@ -10,7 +10,7 @@ class Report::ContractHoldsController < Report::BaseController
   end
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(Bi::ContractHold, :group_resolve).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     end_of_month = Date.parse(@month_name).end_of_month
@@ -18,7 +18,7 @@ class Report::ContractHoldsController < Report::BaseController
     @dept_options = params[:depts].presence
     @company_short_names = policy_scope(Bi::ContractHold, :group_resolve).available_company_names(@last_available_date)
     @selected_org_code = params[:org_code]&.strip || current_user.can_access_org_codes.first || current_user.user_company_orgcode
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_short_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(@selected_org_code, @selected_org_code)
     @selected_org_code = @selected_org_code[1..] if @selected_org_code.start_with?('H')
     data = policy_scope(Bi::ContractHold, :group_resolve)
@@ -28,32 +28,32 @@ class Report::ContractHoldsController < Report::BaseController
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @last_available_date)
 
     data = if @view_deptcode_sum
-      data.select("CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
-        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum"))
+      data.select('CONTRACT_HOLD.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')
+        .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum'))
     else
-      data.select("CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract")
-        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode"))
+      data.select('CONTRACT_HOLD.deptcode, ORG_REPORT_DEPT_ORDER.部门排名, SUM(busiretentcontract) busiretentcontract, SUM(busiretentnocontract) busiretentnocontract')
+        .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode'))
     end
 
     @dept_options = if @dept_options.blank? && @view_deptcode_sum
       data_sum = policy_scope(Bi::ContractHold, :group_resolve)
         .where(date: @last_available_date).where(orgcode: @selected_org_code)
-        .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
-        .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
-        .joins("INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum"))
+        .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @last_available_date)
+        .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @last_available_date)
+        .joins('INNER JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_HOLD.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_HOLD.deptcode_sum'))
 
       h_deptcodes = data_sum.pluck(:deptcode_sum)
       belongs_to_h_deptcodes = data_sum.where(deptcode_sum: h_deptcodes).pluck(:deptcode)
       sum_depts = data_sum.pluck(:deptcode) - belongs_to_h_deptcodes + h_deptcodes
       Bi::OrgReportDeptOrder.where(编号: sum_depts)
-        .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @last_available_date)
-        .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @last_available_date)
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名")).pluck(:编号)
+        .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @last_available_date)
+        .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @last_available_date)
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名')).pluck(:编号)
     elsif @dept_options.blank?
       data.pluck('CONTRACT_HOLD.deptcode')
     else
@@ -106,16 +106,16 @@ class Report::ContractHoldsController < Report::BaseController
     end
 
     @biz_retent_totals_sum = @biz_retent_totals.sum()
-    @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.reject {|d| d == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM}.sum.to_f
+    @sum_biz_retent_totals_staff = @biz_retent_totals.sum / @dept_avg_staff.reject { |d| d == Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM }.sum.to_f
   end
 
   def unsign_detail_drill_down
     @department_name = params[:department_name]
     dept_code = params[:department_code]
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
-    @drill_down_subtitle = t(".subtitle")
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
+    @drill_down_subtitle = t('.subtitle')
     end_of_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+    last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where('date <= ?', end_of_month).order(date: :desc).first.date
     @unsigned_data = policy_scope(Bi::ContractHoldUnsignDetail)
       .order(:projectitemcode)
     @unsigned_data = if @view_deptcode_sum
@@ -129,7 +129,7 @@ class Report::ContractHoldsController < Report::BaseController
   def export_unsign_detail
     authorize Bi::ContractHoldUnsignDetail
     end_of_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+    last_available_date = policy_scope(Bi::ContractHoldUnsignDetail).where('date <= ?', end_of_month).order(date: :desc).first.date
     company_short_names_by_orgcode = Bi::OrgShortName.company_short_names_by_orgcode
 
     respond_to do |format|
@@ -137,16 +137,16 @@ class Report::ContractHoldsController < Report::BaseController
         render_csv_header "Unsign #{last_available_date.to_date} details"
         csv_res = CSV.generate do |csv|
           csv << [
-            t("report.contract_holds.show.table.orgname"),
-            t("report.contract_holds.show.table.deptname"),
-            t("report.contract_holds.show.table.projectitemcode"),
-            t("report.contract_holds.show.table.projectitemname"),
-            t("report.contract_holds.show.table.contractcode"),
-            t("report.contract_holds.show.table.contractname"),
-            t("report.contract_holds.show.table.profession"),
-            t("report.contract_holds.show.table.planning_output"),
-            t("report.contract_holds.show.table.workhour_cost"),
-            t("report.contract_holds.show.table.unsign_hold_value")
+            t('report.contract_holds.show.table.orgname'),
+            t('report.contract_holds.show.table.deptname'),
+            t('report.contract_holds.show.table.projectitemcode'),
+            t('report.contract_holds.show.table.projectitemname'),
+            t('report.contract_holds.show.table.contractcode'),
+            t('report.contract_holds.show.table.contractname'),
+            t('report.contract_holds.show.table.profession'),
+            t('report.contract_holds.show.table.planning_output'),
+            t('report.contract_holds.show.table.workhour_cost'),
+            t('report.contract_holds.show.table.unsign_hold_value')
           ]
           policy_scope(Bi::ContractHoldUnsignDetail).order(:orgcode, :deptcode).where(date: last_available_date).find_each do |r|
             values = []
@@ -171,12 +171,12 @@ class Report::ContractHoldsController < Report::BaseController
   def sign_detail_drill_down
     @department_name = params[:department_name]
     dept_code = params[:department_code]
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
-    @drill_down_subtitle = t(".subtitle")
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
+    @drill_down_subtitle = t('.subtitle')
     end_of_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where('date <= ?', end_of_month).order(date: :desc).first.date
     @signed_data = policy_scope(Bi::ContractHoldSignDetail)
-      .where("sign_hold_value > 0")
+      .where('sign_hold_value > 0')
       .order(:projectitemcode)
     @signed_data = if @view_deptcode_sum
       @signed_data.where(date: last_available_date, deptcode_sum: dept_code)
@@ -189,23 +189,23 @@ class Report::ContractHoldsController < Report::BaseController
   def export_sign_detail
     authorize Bi::ContractHoldSignDetail
     end_of_month = Date.parse(params[:month_name]).end_of_month
-    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where("date <= ?", end_of_month).order(date: :desc).first.date
+    last_available_date = policy_scope(Bi::ContractHoldSignDetail).where('date <= ?', end_of_month).order(date: :desc).first.date
     company_short_names_by_orgcode = Bi::OrgShortName.company_short_names_by_orgcode
     respond_to do |format|
       format.csv do
         render_csv_header "Sign #{last_available_date.to_date} details"
         csv_res = CSV.generate do |csv|
           csv << [
-            t("report.contract_holds.show.table.orgname"),
-            t("report.contract_holds.show.table.deptname"),
-            t("report.contract_holds.show.table.projectitemcode"),
-            t("report.contract_holds.show.table.projectitemname"),
-            t("report.contract_holds.show.table.contractcode"),
-            t("report.contract_holds.show.table.contractname"),
-            t("report.contract_holds.show.table.profession"),
-            t("report.contract_holds.show.table.output"),
-            t("report.contract_holds.show.table.milestone"),
-            t("report.contract_holds.show.table.sign_hold_value")
+            t('report.contract_holds.show.table.orgname'),
+            t('report.contract_holds.show.table.deptname'),
+            t('report.contract_holds.show.table.projectitemcode'),
+            t('report.contract_holds.show.table.projectitemname'),
+            t('report.contract_holds.show.table.contractcode'),
+            t('report.contract_holds.show.table.contractname'),
+            t('report.contract_holds.show.table.profession'),
+            t('report.contract_holds.show.table.output'),
+            t('report.contract_holds.show.table.milestone'),
+            t('report.contract_holds.show.table.sign_hold_value')
           ]
           policy_scope(Bi::ContractHoldSignDetail).order(:orgcode, :deptcode).where(date: last_available_date).each do |r|
             values = []
@@ -232,17 +232,17 @@ class Report::ContractHoldsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.group_contract_hold"),
+      { text: t('layouts.sidebar.operation.group_contract_hold'),
         link: report_group_contract_hold_path(view_orgcode_sum: true) },
-      { text: t("layouts.sidebar.operation.contract_hold"),
+      { text: t('layouts.sidebar.operation.contract_hold'),
         link: report_contract_hold_path(view_deptcode_sum: true) }]
     end
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

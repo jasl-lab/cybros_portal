@@ -2,29 +2,29 @@
 
 module Users
   class PasswordsController < Devise::PasswordsController
-    layout "sign_in"
+    layout 'sign_in'
 
     # GET /resource/password/new
     def new
-      prepare_meta_tags title: t("users.passwords.new.title")
+      prepare_meta_tags title: t('users.passwords.new.title')
       super
     end
 
     # POST /resource/password
     def create
-      prepare_meta_tags title: t("users.passwords.new.title")
+      prepare_meta_tags title: t('users.passwords.new.title')
       super
     end
 
     # GET /resource/password/edit?reset_password_token=abcdef
     def edit
-      prepare_meta_tags title: t("users.passwords.edit.title")
+      prepare_meta_tags title: t('users.passwords.edit.title')
       super
     end
 
     # PUT /resource/password
     def update
-      prepare_meta_tags title: t("users.passwords.edit.title")
+      prepare_meta_tags title: t('users.passwords.edit.title')
       super
     end
 

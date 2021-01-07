@@ -6,15 +6,15 @@ module ApplicationHelper
       extra,
       content_for(:body_class),
       "#{controller_path.tr('/', '-')}-#{action_name}",
-      user_signed_in? ? "signed-in" : "guest"
-    ].reject(&:blank?).join(" ")
+      user_signed_in? ? 'signed-in' : 'guest'
+    ].reject(&:blank?).join(' ')
   end
 
   def html_class(extra = nil)
     classes = [extra, content_for(:html_class), *browser.meta]
-    classes << "default" unless browser.device.mobile? || browser.device.tablet?
+    classes << 'default' unless browser.device.mobile? || browser.device.tablet?
 
-    classes.reject(&:blank?).join(" ")
+    classes.reject(&:blank?).join(' ')
   end
 
   def options_for_enum_select(klass, attribute, selected = nil)
@@ -94,6 +94,6 @@ module ApplicationHelper
   # Example:
   #   %li{ class: active_when(params[:filter] == '1') }
   def active_when(condition)
-    "active" if condition
+    'active' if condition
   end
 end

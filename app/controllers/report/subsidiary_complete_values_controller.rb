@@ -27,7 +27,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
     @all_short_company_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
-    prepare_meta_tags title: t(".title", company: @selected_company_name)
+    prepare_meta_tags title: t('.title', company: @selected_company_name)
     orgcode = Bi::OrgShortName.org_code_by_long_name.fetch(@selected_company_name, @selected_company_name)
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
     Rails.logger.debug "orgcode: #{orgcode}"
@@ -43,15 +43,15 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', last_available_date)
 
     data = if @view_deptcode_sum
-      data.select("COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode_sum")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum"))
+      data.select('COMPLETE_VALUE_DEPT.deptcode_sum deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode_sum'))
     else
-      data.select("COMPLETE_VALUE_DEPT.deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode"))
+      data.select('COMPLETE_VALUE_DEPT.deptcode, 部门排名, SUM(IFNULL(total,0)) sum_total')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = COMPLETE_VALUE_DEPT.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, COMPLETE_VALUE_DEPT.deptcode'))
     end
 
     @all_department_codes = data.collect(&:deptcode)

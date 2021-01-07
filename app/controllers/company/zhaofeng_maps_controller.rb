@@ -5,13 +5,12 @@ class Company::ZhaofengMapsController < ApplicationController
 
 
   def show
-
   end
 
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = 'company'
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'company'
+    end
 end

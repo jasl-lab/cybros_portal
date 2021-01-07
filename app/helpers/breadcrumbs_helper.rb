@@ -14,6 +14,6 @@ module BreadcrumbsHelper
 
   def render_breadcrumbs
     return unless breadcrumbs.any?
-    render "layouts/application/breadcrumb"
+    render 'layouts/application/breadcrumb'
   end
 end

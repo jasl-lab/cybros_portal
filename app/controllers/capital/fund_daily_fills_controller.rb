@@ -7,8 +7,8 @@ class Capital::FundDailyFillsController < Capital::BaseController
 
   def show
     authorize :"Capital::FundDailyFill"
-    prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?op=write&viewlet=FR/Finance/CWDailyFillTable.cpt&ref_t=design"
+    prepare_meta_tags title: t('.title')
+    @redirect_url = 'view/report?op=write&viewlet=FR/Finance/CWDailyFillTable.cpt&ref_t=design'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -17,11 +17,11 @@ class Capital::FundDailyFillsController < Capital::BaseController
 
   protected
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t('layouts.sidebar.application.header'),
-      link: root_path },
-    { text: t('layouts.sidebar.capital_report.header'),
-      link: report_capital_report_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.capital_report.header'),
+        link: report_capital_report_path }]
+    end
 end

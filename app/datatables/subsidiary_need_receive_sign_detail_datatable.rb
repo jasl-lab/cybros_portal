@@ -18,16 +18,16 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_dept_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.deptname", cond: :string_eq, searchable: true, orderable: true },
-      business_director_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname", cond: :string_eq, searchable: true, orderable: true },
-      first_party_name_and_comment: { source: "Bi::SubCompanyNeedReceiveSignDetail.firstpartyname", cond: :like, searchable: true, orderable: true },
-      sales_contract_code_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.salescontractname", cond: :like, searchable: true, orderable: true },
-      amount_total: { source: "Bi::SubCompanyNeedReceiveSignDetail.amounttotal", cond: :gteq, searchable: true, orderable: true },
-      contract_property_name: { source: "Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname", orderable: true },
-      contract_time: { source: "Bi::SubCompanyNeedReceiveSignDetail.contracttime", orderable: true },
+      org_dept_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.deptname', cond: :string_eq, searchable: true, orderable: true },
+      business_director_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname', cond: :string_eq, searchable: true, orderable: true },
+      first_party_name_and_comment: { source: 'Bi::SubCompanyNeedReceiveSignDetail.firstpartyname', cond: :like, searchable: true, orderable: true },
+      sales_contract_code_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractname', cond: :like, searchable: true, orderable: true },
+      amount_total: { source: 'Bi::SubCompanyNeedReceiveSignDetail.amounttotal', cond: :gteq, searchable: true, orderable: true },
+      contract_property_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname', orderable: true },
+      contract_time: { source: 'Bi::SubCompanyNeedReceiveSignDetail.contracttime', orderable: true },
       acc_need_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive', orderable: true },
-      sign_receive: { source: "Bi::SubCompanyNeedReceiveSignDetail.sign_receive", orderable: true },
-      over_amount: { source: "Bi::SubCompanyNeedReceiveSignDetail.overamount", orderable: true },
+      sign_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.sign_receive', orderable: true },
+      over_amount: { source: 'Bi::SubCompanyNeedReceiveSignDetail.overamount', orderable: true },
       comment_on_sales_contract_code: { source: nil, searchable: false, orderable: false },
       admin_action: { source: nil, searchable: false, orderable: false }
     }
@@ -48,7 +48,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         business_director_name: r.businessdirectorname,
         first_party_name_and_comment: "#{r.firstpartyname}<br /><i>#{coc.comment}</i>".html_safe,
         sales_contract_code_name:  "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
-        amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: "text-center"),
+        amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: 'text-center'),
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime.to_date,
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
@@ -67,12 +67,12 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def get_raw_records
     rr = if @show_hide
-      @subsidiary_need_receive_sign_details.where("NEED_HIDE = 1")
+      @subsidiary_need_receive_sign_details.where('NEED_HIDE = 1')
     else
-      @subsidiary_need_receive_sign_details.where("NEED_HIDE != 1 OR NEED_HIDE IS NULL")
+      @subsidiary_need_receive_sign_details.where('NEED_HIDE != 1 OR NEED_HIDE IS NULL')
     end.where(date: @end_of_date)
-    rr = rr.where("sign_receive + accneedreceive > ?", @total_sign_receive_great_than) unless @total_sign_receive_great_than.zero?
-    rr = rr.where("overamount > ?", @over_amount_great_than) unless @over_amount_great_than.zero?
+    rr = rr.where('sign_receive + accneedreceive > ?', @total_sign_receive_great_than) unless @total_sign_receive_great_than.zero?
+    rr = rr.where('overamount > ?', @over_amount_great_than) unless @over_amount_great_than.zero?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr
   end

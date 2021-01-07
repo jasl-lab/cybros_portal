@@ -5,7 +5,7 @@ class Admin::RolesController < Admin::ApplicationController
   before_action :set_breadcrumbs, only: %i[new edit create update], if: -> { request.format.html? }
 
   def index
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
 
     @roles = Role.all
   end
@@ -14,15 +14,15 @@ class Admin::RolesController < Admin::ApplicationController
     prepare_meta_tags title: @role.role_name
     @users = @role.users.includes(:departments)
     @users_auto = case @role.id
-    when 6  # 查看项目地图并允许下载合同
-      User.joins(:departments).where(departments: { company_name: '上海天华建筑设计有限公司' })
-        .where(position_title: Bi::NewMapInfoPolicy::ALLOW_DOWNLOAD_HQ_TITLES)
-          .or(User.joins(:departments).where.not(departments: { company_name: '上海天华建筑设计有限公司' })
-        .where(position_title: Bi::NewMapInfoPolicy::ALLOW_DOWNLOAD_SUBSIDIARY_TITLES))
-    when 30 # 查看项目地图
-      User.where(position_title: Bi::NewMapInfoPolicy::ALLOW_SHOW_TITLES)
-    else
-      []
+                  when 6  # 查看项目地图并允许下载合同
+                    User.joins(:departments).where(departments: { company_name: '上海天华建筑设计有限公司' })
+                      .where(position_title: Bi::NewMapInfoPolicy::ALLOW_DOWNLOAD_HQ_TITLES)
+                        .or(User.joins(:departments).where.not(departments: { company_name: '上海天华建筑设计有限公司' })
+                      .where(position_title: Bi::NewMapInfoPolicy::ALLOW_DOWNLOAD_SUBSIDIARY_TITLES))
+                  when 30 # 查看项目地图
+                    User.where(position_title: Bi::NewMapInfoPolicy::ALLOW_SHOW_TITLES)
+                  else
+                    []
     end
   end
 
@@ -41,7 +41,7 @@ class Admin::RolesController < Admin::ApplicationController
 
     def set_breadcrumbs
       @_breadcrumbs = [{
-                         text: t("layouts.sidebar.admin.users"),
+                         text: t('layouts.sidebar.admin.users'),
                          link: admin_users_path
                        }]
     end

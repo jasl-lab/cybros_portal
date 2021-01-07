@@ -8,7 +8,7 @@ class Company::ContractsController < ApplicationController
 
   def index
     authorize Bi::NewMapInfo
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
 
     @city = params[:city].presence
     @client = params[:client].presence
@@ -46,6 +46,6 @@ class Company::ContractsController < ApplicationController
   protected
 
     def set_page_layout_data
-      @_sidebar_name = "company"
+      @_sidebar_name = 'company'
     end
 end

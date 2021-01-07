@@ -10,7 +10,7 @@ module Admin
     protected
 
       def set_page_layout_data
-        @_sidebar_name = "admin"
+        @_sidebar_name = 'admin'
       end
 
       def require_admin!

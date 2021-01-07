@@ -2,6 +2,6 @@
 
 class Admin::HomeController < Admin::ApplicationController
   def index
-    prepare_meta_tags title: t("admin.home.index.title")
+    prepare_meta_tags title: t('admin.home.index.title')
   end
 end

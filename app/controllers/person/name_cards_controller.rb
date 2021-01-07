@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Person::NameCardsController < ApplicationController
   include BreadcrumbsHelper
   before_action :authenticate_user!
@@ -9,7 +11,7 @@ class Person::NameCardsController < ApplicationController
     @only_see_approved = params[:only_see_approved] == 'true'
     respond_to do |format|
       format.html do
-        prepare_meta_tags title: t(".title")
+        prepare_meta_tags title: t('.title')
       end
       format.json do
         name_card_applies = policy_scope(NameCardApply)
@@ -29,9 +31,9 @@ class Person::NameCardsController < ApplicationController
       format.csv do
         render_csv_header 'name card applies'
         csv_res = CSV.generate do |csv|
-          csv << ['ID', 'chinese_name', 'english_name', 'email', 'begin_task_id','back_color','thickness',
+          csv << ['ID', 'chinese_name', 'english_name', 'email', 'begin_task_id', 'back_color', 'thickness',
                   'department_name', 'en_department_name', 'title', 'en_title',
-                  'mobile', 'phone_ext', 'fax_no','print_out_box_number','status','created_at']
+                  'mobile', 'phone_ext', 'fax_no', 'print_out_box_number', 'status', 'created_at']
           policy_scope(NameCardApply).find_each do |s|
             values = []
             values << s.id
@@ -152,7 +154,7 @@ class Person::NameCardsController < ApplicationController
 
     @name_card_apply.update_columns(backend_in_processing: true)
     response = HTTP.post(Rails.application.credentials[Rails.env.to_sym][:bpm_process_restapi_handler],
-      :json => { processName: 'NameCardApplication', taskId: "", action: "", comments: "", step: "Begin",
+      json: { processName: 'NameCardApplication', taskId: '', action: '', comments: '', step: 'Begin',
       userCode: current_user.clerk_code, bizData: bizData.to_json })
     Rails.logger.debug "name cards apply handler response: #{response}"
     result = JSON.parse(response.body.to_s)
@@ -210,36 +212,36 @@ class Person::NameCardsController < ApplicationController
 
   protected
 
-  def name_card_apply_params
-    params.require(:name_card_apply).permit(:chinese_name, :email, :company_name, :department_name, :title, :professional_title, :english_name,
-      :en_company_name, :en_department_name, :en_title, :en_professional_title, :mobile, :phone_ext, :fax_no, :office_address, :office_level,
-      :print_out_box_number, :comment, :thickness, :back_color)
-  end
+    def name_card_apply_params
+      params.require(:name_card_apply).permit(:chinese_name, :email, :company_name, :department_name, :title, :professional_title, :english_name,
+        :en_company_name, :en_department_name, :en_title, :en_professional_title, :mobile, :phone_ext, :fax_no, :office_address, :office_level,
+        :print_out_box_number, :comment, :thickness, :back_color)
+    end
 
-  def set_page_layout_data
-    @_sidebar_name = "person"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'person'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.person.header"),
-      link: person_root_path },
-    { text: t("layouts.sidebar.person.name_card"),
-      link: person_name_cards_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.person.header'),
+        link: person_root_path },
+      { text: t('layouts.sidebar.person.name_card'),
+        link: person_name_cards_path }]
+    end
 
   private
 
-  def set_name_card_apply
-    @name_card_apply = policy_scope(NameCardApply).find(params[:id])
-  end
+    def set_name_card_apply
+      @name_card_apply = policy_scope(NameCardApply).find(params[:id])
+    end
 
-  def name_card_title_hint(name_card_title)
-    name_card_white_titles = NameCardWhiteTitle.where(original_title: @name_card_apply.title).pluck(:required_title)
-    name_card_black_titles = NameCardBlackTitle.where(original_title: @name_card_apply.title).pluck(:required_title)
-    return if name_card_white_titles.blank? && name_card_black_titles.blank?
-    t(".name_card_title_fill_hint", white_titles: name_card_white_titles.to_sentence, black_titles: name_card_black_titles.to_sentence)
-  end
+    def name_card_title_hint(name_card_title)
+      name_card_white_titles = NameCardWhiteTitle.where(original_title: @name_card_apply.title).pluck(:required_title)
+      name_card_black_titles = NameCardBlackTitle.where(original_title: @name_card_apply.title).pluck(:required_title)
+      return if name_card_white_titles.blank? && name_card_black_titles.blank?
+      t('.name_card_title_fill_hint', white_titles: name_card_white_titles.to_sentence, black_titles: name_card_black_titles.to_sentence)
+    end
 end

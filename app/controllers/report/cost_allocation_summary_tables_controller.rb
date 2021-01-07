@@ -9,7 +9,7 @@ class Report::CostAllocationSummaryTablesController < Report::BaseController
   def show
     authorize :"SplitCost::CostAllocationSummaryTable"
     prepare_meta_tags title: t('.title')
-    @redirect_url = "view/report?viewlet=SPLIT/expense_split_rep.cpt&ref_t=design&op=write&ref_c=a10ffa2e-f284-4be4-aa9a-8e28b001d0d7"
+    @redirect_url = 'view/report?viewlet=SPLIT/expense_split_rep.cpt&ref_t=design&op=write&ref_c=a10ffa2e-f284-4be4-aa9a-8e28b001d0d7'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true

@@ -41,27 +41,27 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
       .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_SIGN_DEPT.orgcode')
-      .order("ORG_ORDER.org_order DESC")
-      .select("CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order").distinct.where(filingtime: @beginning_of_year..@end_of_month)
+      .order('ORG_ORDER.org_order DESC')
+      .select('CONTRACT_SIGN_DEPT.orgcode, ORG_ORDER.org_order').distinct.where(filingtime: @beginning_of_year..@end_of_month)
       .collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
 
     data = policy_scope(Bi::ContractSignDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_sign_dept_date)
       .where(orgcode: org_code)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @end_of_month)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @end_of_month)
 
     data = if @view_deptcode_sum
-      data.select("CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode_sum")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum"))
+      data.select('CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum'))
     else
-      data.select("CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode"))
+      data.select('CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode'))
     end
 
     @all_department_codes = data.collect(&:deptcode)
@@ -82,7 +82,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
     @avg_period_mean_max = @avg_period_mean.max&.round(-1)
     @sum_contract_amounts = (policy_scope(Bi::ContractSignDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_sign_dept_date)
-      .select("ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts").first&.sum_contract_amounts.to_f / 10000.to_f).round(2)
+      .select('ROUND(SUM(contract_amount)/10000, 2) sum_contract_amounts').first&.sum_contract_amounts.to_f / 10000.to_f).round(2)
 
     contract_period = data.collect { |d| d.sum_contract_period.to_f }
     contract_count = data.collect { |d| d.sum_contract_amount_count.to_f }
@@ -95,25 +95,25 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept, :group_resolve).last_available_date(@end_of_month)
     cp_data = policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_production_dept_date)
       .where(orgcode: org_code)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where("ORG_REPORT_DEPT_ORDER.开始时间 <= ?", @end_of_month)
-      .where("ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?", @end_of_month)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @end_of_month)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @end_of_month)
 
     cp_data = if @view_deptcode_sum
-      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum"))
+      cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum'))
     else
-      cp_data.select("CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount")
-        .joins("LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode")
-        .group("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode")
-        .order(Arel.sql("ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode"))
+      cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode'))
     end
     @all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = @all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
     @sum_cp_contract_amounts = (policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(orgcode: org_code).where(date: @last_available_production_dept_date)
-      .select("ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amounts").first.cp_amounts.to_f / 10000.to_f).round(2)
+      .select('ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amounts').first.cp_amounts.to_f / 10000.to_f).round(2)
 
     @cp_contract_amounts_per_staff = []
     @cp_contract_amounts.each_with_index do |contract_amount, index|
@@ -126,7 +126,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
   def drill_down_amount
     @company_name = params[:company_name]
-    @view_deptcode_sum = params[:view_deptcode_sum] == "true"
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @department_name = [params[:department_name]]
     department_code = params[:department_code]
     month_name = params[:month_name]&.strip || policy_scope(Bi::ContractSignDept).all_month_names.first
@@ -198,17 +198,17 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
     def set_breadcrumbs
       @_breadcrumbs = [
-      { text: t("layouts.sidebar.application.header"),
+      { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t("layouts.sidebar.operation.header"),
+      { text: t('layouts.sidebar.operation.header'),
         link: report_operation_path },
-      { text: t("layouts.sidebar.operation.contract_signing"),
+      { text: t('layouts.sidebar.operation.contract_signing'),
         link: report_contract_signing_path(view_orgcode_sum: true) },
-      { text: t("layouts.sidebar.operation.subsidiary_contract_signing"),
+      { text: t('layouts.sidebar.operation.subsidiary_contract_signing'),
         link: report_subsidiary_contract_signing_path(view_deptcode_sum: true) }]
     end
 
     def set_page_layout_data
-      @_sidebar_name = "operation"
+      @_sidebar_name = 'operation'
     end
 end

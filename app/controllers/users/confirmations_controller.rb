@@ -2,17 +2,17 @@
 
 module Users
   class ConfirmationsController < Devise::ConfirmationsController
-    layout "sign_in"
+    layout 'sign_in'
 
     # GET /resource/confirmation/new
     def new
-      prepare_meta_tags title: t("users.confirmations.new.title")
+      prepare_meta_tags title: t('users.confirmations.new.title')
       super
     end
 
     # POST /resource/confirmation
     def create
-      prepare_meta_tags title: t("users.confirmations.new.title")
+      prepare_meta_tags title: t('users.confirmations.new.title')
       super
     end
 

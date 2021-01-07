@@ -54,10 +54,10 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
     beginning_of_month = Date.parse(month_name).beginning_of_month
     @split_cost_item_details = SplitCost::SplitCostItemDetail.where(split_cost_item_category: split_cost_item_category, month: beginning_of_month, to_split_company_code: to_split_company_code)
     @title = case split_cost_item_category
-    when '业务性支出预算'
-      '业务性支出预算分摊明细'
-    else
-      '集团性费用项目分摊明细'
+             when '业务性支出预算'
+               '业务性支出预算分摊明细'
+             else
+               '集团性费用项目分摊明细'
     end
   end
 
@@ -71,5 +71,4 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
          to_split_company_code: to_split_company_code, from_dept_code: dept_code)
     @title = '业务性支出预算分摊明细'
   end
-
 end

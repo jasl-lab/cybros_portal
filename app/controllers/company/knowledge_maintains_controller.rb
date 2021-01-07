@@ -45,7 +45,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
           Wechat.api.custom_message_send Wechat::Message.to(openid).text("您的问题：#{@knowledge.question} 已经有了答案：\r\n#{@knowledge.answer.to_plain_text}")
         end
       end
-      redirect_to company_knowledge_maintains_path, notice: t(".success")
+      redirect_to company_knowledge_maintains_path, notice: t('.success')
     else
       render :new
     end
@@ -55,7 +55,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
     respond_to do |format|
       @save_success = @knowledge.update(knowledge_params)
       if @save_success
-        format.html { redirect_to company_knowledge_maintains_path, notice: t(".success") }
+        format.html { redirect_to company_knowledge_maintains_path, notice: t('.success') }
         format.js { render }
       else
         format.html { render :edit }
@@ -102,28 +102,28 @@ class Company::KnowledgeMaintainsController < ApplicationController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "company"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'company'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.company.header"),
-      link: company_root_path },
-    { text: t("layouts.sidebar.company.knowledge_maintains"),
-      link: company_knowledge_maintains_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.company.header'),
+        link: company_root_path },
+      { text: t('layouts.sidebar.company.knowledge_maintains'),
+        link: company_knowledge_maintains_path }]
+    end
 
   private
 
-  def set_knowledge
-    @knowledge = Company::Knowledge.find(params[:id])
-    authorize @knowledge
-  end
+    def set_knowledge
+      @knowledge = Company::Knowledge.find(params[:id])
+      authorize @knowledge
+    end
 
-  def knowledge_params
-    params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer, :shanghai_only, :q_user_id)
-  end
+    def knowledge_params
+      params.require(:company_knowledge).permit(:category_1, :category_2, :category_3, :question, :answer, :shanghai_only, :q_user_id)
+    end
 end

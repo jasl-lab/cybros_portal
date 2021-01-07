@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.15.0'
 
@@ -43,11 +45,9 @@ set :rbenv_ruby, '3.0.0'
 
 set :puma_init_active_record, true
 
-SSHKit.config.command_map[:sidekiq] = "bundle exec sidekiq"
-SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
+SSHKit.config.command_map[:sidekiq] = 'bundle exec sidekiq'
+SSHKit.config.command_map[:sidekiqctl] = 'bundle exec sidekiqctl'
 
 # https://stackoverflow.com/a/48627238/262826
 Rake::Task['deploy:assets:backup_manifest'].clear_actions
 Rake::Task['deploy:assets:restore_manifest'].clear_actions
-
-

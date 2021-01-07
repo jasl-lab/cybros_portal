@@ -9,7 +9,7 @@ module Accounts
 
       def set_page_layout_data
         prepare_meta_tags title: t("accounts.#{controller_name}.#{params[:action]}.title")
-        @_sidebar_name = "accounts"
+        @_sidebar_name = 'accounts'
       end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Used by wechat gems, do not rename WechatSession to other name,
 class WechatSession < ActiveRecord::Base
   validates :openid, presence: true, uniqueness: true

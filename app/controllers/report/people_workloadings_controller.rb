@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Report::PeopleWorkloadingsController < Report::BaseController
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
@@ -5,7 +7,7 @@ class Report::PeopleWorkloadingsController < Report::BaseController
 
   def show
     authorize Bi::WorkHoursCountCombine
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
     @ncworkno = params[:ncworkno] || current_user.clerk_code
     last_available_date = policy_scope(Bi::WorkHoursCountCombine).last_available_date
     @begin_date = params[:begin_date]&.strip || last_available_date.beginning_of_month

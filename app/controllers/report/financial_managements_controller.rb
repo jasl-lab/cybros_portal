@@ -7,20 +7,20 @@ class Report::FinancialManagementsController < Report::BaseController
   before_action :prepare_encrypt_uid
 
   def show
-    prepare_meta_tags title: t(".title")
+    prepare_meta_tags title: t('.title')
   end
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "financial_management"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'financial_management'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.financial_management.header"),
-      link: report_financial_management_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.financial_management.header'),
+        link: report_financial_management_path }]
+    end
 end

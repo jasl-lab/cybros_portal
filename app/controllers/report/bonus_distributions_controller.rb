@@ -8,8 +8,8 @@ class Report::BonusDistributionsController < Report::BaseController
 
   def show
     authorize :"Bi::BonusDistribution"
-    prepare_meta_tags title: t(".title")
-    @redirect_url = "view/report?viewlet=FR/Finance/BonusShares.frm&ref_t=design"
+    prepare_meta_tags title: t('.title')
+    @redirect_url = 'view/report?viewlet=FR/Finance/BonusShares.frm&ref_t=design'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true
@@ -18,15 +18,15 @@ class Report::BonusDistributionsController < Report::BaseController
 
   protected
 
-  def set_page_layout_data
-    @_sidebar_name = "financial_management"
-  end
+    def set_page_layout_data
+      @_sidebar_name = 'financial_management'
+    end
 
-  def set_breadcrumbs
-    @_breadcrumbs = [
-    { text: t("layouts.sidebar.application.header"),
-      link: root_path },
-    { text: t("layouts.sidebar.financial_management.header"),
-      link: report_financial_management_path }]
-  end
+    def set_breadcrumbs
+      @_breadcrumbs = [
+      { text: t('layouts.sidebar.application.header'),
+        link: root_path },
+      { text: t('layouts.sidebar.financial_management.header'),
+        link: report_financial_management_path }]
+    end
 end
