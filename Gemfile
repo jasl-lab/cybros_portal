@@ -3,7 +3,7 @@
 source 'https://gems.ruby-china.com'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '>= 2.6'
+ruby '>= 2.7'
 
 gem 'rails', '~> 6.1.0'
 gem 'rails-i18n'
@@ -27,11 +27,11 @@ gem 'puma'
 gem 'webpacker', '~> 5.2'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 
-gem 'http', '~> 4.1'
+gem 'http'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -39,11 +39,11 @@ gem 'http', '~> 4.1'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 gem 'mini_magick'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '>= 1.5.1', require: false
 
 gem 'config'
 
@@ -102,7 +102,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
+  gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end

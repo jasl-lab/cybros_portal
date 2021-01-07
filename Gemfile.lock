@@ -461,7 +461,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter
   ajax-datatables-rails
   auto_strip_attributes
-  bootsnap (>= 1.4.4)
+  bootsnap (>= 1.5.1)
   brakeman
   browser
   byebug
@@ -470,7 +470,7 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano-sidekiq
   capistrano3-puma
-  capybara (>= 2.15)
+  capybara
   config
   dalli
   devise
@@ -478,9 +478,9 @@ DEPENDENCIES
   devise-jwt
   devise_invitable
   geocoder
-  http (~> 4.1)
-  image_processing (~> 1.2)
-  jbuilder (~> 2.5)
+  http
+  image_processing (~> 1.12)
+  jbuilder
   jieba-rb
   kaminari
   listen
@@ -501,7 +501,7 @@ DEPENDENCIES
   sidekiq
   similar_text
   simple_calendar
-  turbolinks (~> 5)
+  turbolinks (~> 5.2)
   tzinfo-data
   web-console
   webdrivers
