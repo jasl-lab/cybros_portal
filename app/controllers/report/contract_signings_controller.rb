@@ -110,7 +110,8 @@ class Report::ContractSigningsController < Report::BaseController
     plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
     @cp_plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
 
-    @production_amounts_per_staff, @staff_per_company, @sum_cp_contract_amounts = set_production_amounts_per_staff(cp_data, @end_of_month, @view_orgcode_sum)
+    @production_amounts_per_staff, @staff_per_company, @sum_cp_contract_amounts = 
+      set_production_amounts_per_staff(cp_data, @cp_org_names, @end_of_month, @view_orgcode_sum)
   end
 
   private
@@ -129,13 +130,12 @@ class Report::ContractSigningsController < Report::BaseController
       @_sidebar_name = 'operation'
     end
 
-    def set_production_amounts_per_staff(data, end_of_month, view_orgcode_sum)
+    def set_production_amounts_per_staff(data, cp_org_names, end_of_month, view_orgcode_sum)
       staff_per_company = if end_of_month.year <= 2020 && end_of_month.month < 5
         Bi::StaffCount.staff_per_short_company_name(end_of_month)
       else
         Bi::YearAvgStaff.worker_per_short_company_name_by_date_and_sum(end_of_month, @view_orgcode_sum)
       end
-      cp_org_names = data.collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
       cp_contract_amounts = data.collect { |d| d.cp_amount.round(0) }
 
       production_amounts_per_staff = []
