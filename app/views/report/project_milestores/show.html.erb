@@ -41,9 +41,6 @@
       <% group.each do |dep| %>
         <th>
           <%= raw Bi::OrgReportDeptOrder.all_department_names[dep] || dep || '&nbsp;'*6 %>
-          <% if @hr_staff_per_dept_codes[dep].present? %>
-            (<%= @hr_staff_per_dept_codes[dep] -%>)
-          <% end %>
         </th>
       <% end %>
       </tr>
