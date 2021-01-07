@@ -112,8 +112,8 @@ class Report::ContractSigningsController < Report::BaseController
     plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
     @cp_plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
 
-    @production_amounts_per_staff, @staff_per_company = 
-      set_production_amounts_per_staff(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
+    @production_amounts_per_staff, @worker_per_company = 
+      set_production_amounts_per_worker(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
   end
 
   private
@@ -132,8 +132,8 @@ class Report::ContractSigningsController < Report::BaseController
       @_sidebar_name = 'operation'
     end
 
-    def set_production_amounts_per_staff(cp_contract_amounts, cp_org_names, end_of_month, view_orgcode_sum)
-      staff_per_company = if end_of_month.year <= 2020 && end_of_month.month < 5
+    def set_production_amounts_per_worker(cp_contract_amounts, cp_org_names, end_of_month, view_orgcode_sum)
+      worker_per_company = if end_of_month.year <= 2020 && end_of_month.month < 5
         Bi::StaffCount.staff_per_short_company_name(end_of_month)
       else
         Bi::YearAvgStaff.worker_per_short_company_name_by_date_and_sum(end_of_month, @view_orgcode_sum)
@@ -142,10 +142,10 @@ class Report::ContractSigningsController < Report::BaseController
       production_amounts_per_staff = []
       cp_contract_amounts.each_with_index do |contract_amount, index|
         company_name = cp_org_names[index]
-        staff_count = staff_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
+        staff_count = worker_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
         staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
         production_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
       end
-      [production_amounts_per_staff, staff_per_company]
+      [production_amounts_per_staff, worker_per_company]
     end
 end

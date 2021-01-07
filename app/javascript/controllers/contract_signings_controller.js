@@ -245,7 +245,7 @@ export default class extends Controller {
 
     const option_avg = {
         legend: {
-            data: ['本年累计人均生产合同额'],
+            data: ['本年累计一线人均生产合同额'],
             align: 'left'
         },
         tooltip: {
@@ -255,7 +255,7 @@ export default class extends Controller {
           }
         },
         grid: {
-          left: 80,
+          left: 90,
           right: 110,
           top: 50,
           bottom: 60
@@ -288,7 +288,7 @@ export default class extends Controller {
           }
         }],
         series: [{
-          name: '本年累计人均生产合同额',
+          name: '本年累计一线人均生产合同额',
           type: 'bar',
           data: productionAmountsPerStaffWithColor,
           barWidth: 20,
@@ -300,7 +300,7 @@ export default class extends Controller {
           },
           markLine: {
             label: {
-              formatter: '人均合同额预警'
+              formatter: '一线人均合同额预警'
             },
             lineStyle: {
               type: 'solid',
