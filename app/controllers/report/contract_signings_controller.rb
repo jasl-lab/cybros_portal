@@ -136,7 +136,7 @@ class Report::ContractSigningsController < Report::BaseController
       worker_per_company = if end_of_month.year <= 2020 && end_of_month.month < 5
         Bi::StaffCount.staff_per_short_company_name(end_of_month)
       else
-        Bi::YearAvgStaff.worker_per_short_company_name_by_date_and_sum(end_of_month, @view_orgcode_sum)
+        Bi::YearAvgWorker.worker_per_short_company_name_by_date_and_sum(end_of_month, @view_orgcode_sum)
       end
 
       production_amounts_per_worker = []

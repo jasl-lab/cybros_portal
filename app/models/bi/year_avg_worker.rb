@@ -2,7 +2,7 @@
 
 module Bi
   # 一线人数
-  class YearAvgStaff < BiLocalTimeRecord
+  class YearAvgWorker < BiLocalTimeRecord
     self.table_name = 'YEAR_AVG_STAFF'
 
     def self.last_available_date(end_of_month)

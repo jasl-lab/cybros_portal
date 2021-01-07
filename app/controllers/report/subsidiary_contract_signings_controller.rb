@@ -71,7 +71,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     @staff_per_dept_code = if org_code == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_count_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.worker_per_dept_code_by_date_and_sum(org_code, @end_of_month, @view_deptcode_sum)
+      Bi::YearAvgWorker.worker_per_dept_code_by_date_and_sum(org_code, @end_of_month, @view_deptcode_sum)
     end
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.to_f.round(0) }

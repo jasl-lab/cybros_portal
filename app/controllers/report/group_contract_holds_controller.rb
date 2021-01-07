@@ -68,7 +68,7 @@ class Report::GroupContractHoldsController < Report::BaseController
     this_month_staff_data = if end_of_month.year <= 2020 && end_of_month.month < 5
       Bi::StaffCount.staff_per_orgcode(end_of_month)
     else
-      Bi::YearAvgStaff.worker_per_orgcode_by_date_and_sum(end_of_month, @view_orgcode_sum)
+      Bi::YearAvgWorker.worker_per_orgcode_by_date_and_sum(end_of_month, @view_orgcode_sum)
     end
 
     @group_avg_staff = @orgs_options.collect do |org_code|

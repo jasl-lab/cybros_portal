@@ -142,7 +142,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     worker_per_dept_code = if selected_orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
       Bi::ShStaffCount.staff_count_per_dept_code_by_date(@end_of_month)
     else
-      Bi::YearAvgStaff.worker_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, @view_deptcode_sum)
+      Bi::YearAvgWorker.worker_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, @view_deptcode_sum)
     end
 
     total_work_number = 0
