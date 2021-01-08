@@ -114,6 +114,9 @@ class Report::ContractSigningsController < Report::BaseController
 
     @production_amounts_per_worker, @worker_per_company = 
       set_production_amounts_per_worker(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
+
+    @production_amounts_per_staff, @staff_per_company =
+      set_production_amounts_per_staff(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
   end
 
   private
@@ -126,6 +129,19 @@ class Report::ContractSigningsController < Report::BaseController
         link: report_operation_path },
       { text: t('layouts.sidebar.operation.contract_signing'),
         link: report_contract_signing_path(view_orgcode_sum: params[:view_orgcode_sum]) }]
+    end
+
+    def set_production_amounts_per_staff(cp_contract_amounts, cp_org_names, end_of_month, view_orgcode_sum)
+      staff_per_company = Bi::YearAvgStaffAll.staff_per_short_company_name_by_date_and_sum(end_of_month, view_orgcode_sum)
+
+      production_amounts_per_staff = []
+      cp_contract_amounts.each_with_index do |contract_amount, index|
+        company_name = cp_org_names[index]
+        staff_count = staff_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
+        staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
+        production_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
+      end
+      [production_amounts_per_staff, staff_per_company]
     end
 
     def set_page_layout_data
@@ -142,9 +158,9 @@ class Report::ContractSigningsController < Report::BaseController
       production_amounts_per_worker = []
       cp_contract_amounts.each_with_index do |contract_amount, index|
         company_name = cp_org_names[index]
-        staff_count = worker_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
-        staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
-        production_amounts_per_worker << (contract_amount / staff_count.to_f).round(0)
+        worker_count = worker_per_company[company_name] || Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
+        worker_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if worker_count.nil? || worker_count.zero?
+        production_amounts_per_worker << (contract_amount / worker_count.to_f).round(0)
       end
       [production_amounts_per_worker, worker_per_company]
     end
