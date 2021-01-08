@@ -64,7 +64,6 @@ export default class extends Controller {
     }
 
     const productionAmountsPerWorkerWithColor = productionAmountsPerWorker.map(differentColorForAmountPerPeople);
-    const productionAmountsPerStaffWithColor = productionAmountsPerStaff.map(differentColorForAmountPerPeople);
 
     const option = {
         legend: {
@@ -247,7 +246,7 @@ export default class extends Controller {
 
     const option_avg = {
         legend: {
-            data: ['本年累计一线人均生产合同额'],
+            data: ['本年累计一线人均生产合同额','本年累计全员人均生产合同额'],
             align: 'left'
         },
         tooltip: {
@@ -292,8 +291,8 @@ export default class extends Controller {
         series: [{
           name: '本年累计一线人均生产合同额',
           type: 'bar',
+          stack: '一线人均',
           data: productionAmountsPerWorkerWithColor,
-          barWidth: 20,
           label: {
             normal: {
               show: true,
@@ -302,7 +301,7 @@ export default class extends Controller {
           },
           markLine: {
             label: {
-              formatter: '一线人均合同额预警'
+              formatter: '人均合同额预警'
             },
             lineStyle: {
               type: 'solid',
@@ -313,6 +312,20 @@ export default class extends Controller {
                 yAxis: contractAmountsPerStaffRef
               }
             ]
+          }
+        },{
+          name: '本年累计全员人均生产合同额',
+          type: 'bar',
+          stack: '全员人均',
+          data: productionAmountsPerStaff,
+          itemStyle: {
+            color: '#7E91A5'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top'
+            }
           }
         }]
     };
