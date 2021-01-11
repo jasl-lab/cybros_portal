@@ -39,16 +39,28 @@
             month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
           <thead>
             <tr>
-              <th><%= t(".table.org_dept_name") -%></th>
+              <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.org_dept_name_tip") -%>">
+                <%= t(".table.org_dept_name") -%>
+              </th>
               <th><%= t(".table.business_director_name") -%></th>
-              <th><%= t(".table.first_party_name_and_comment") -%></th>
+              <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.first_party_name_and_comment_tip") -%>">
+                <%= t(".table.first_party_name_and_comment") -%>
+              </th>
               <th style="width: 300px"><%= t(".table.sales_contract_code_name") -%></th>
-              <th><%= t(".table.amount_total") -%></th>
+              <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.amount_total_tip") -%>">
+                <%= t(".table.amount_total") -%>
+              </th>
               <th><%= t(".table.contract_property_name") -%></th>
               <th><%= t(".table.contract_time") -%></th>
-              <th style="width: 80px"><%= t(".table.acc_need_receive") -%></th>
-              <th style="width: 80px"><%= t(".table.sign_receive") -%></th>
-              <th style="width: 80px"><%= t(".table.over_amount") -%></th>
+              <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.acc_need_receive_tip") -%>">
+                <%= t(".table.acc_need_receive") -%>
+              </th>
+              <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.sign_receive_tip") -%>">
+                <%= t(".table.sign_receive") -%>
+              </th>
+              <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.over_amount_tip") -%>">
+                <%= t(".table.over_amount") -%>
+              </th>
               <% if @can_hide_item -%>
                 <th><%= t(".table.comment_on_sales_contract_code") -%></th>
                 <th><%= t(".table.admin_action") -%></th>
