@@ -993,7 +993,7 @@
 
 "@types/node@*":
   version "14.14.20"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.20.tgz?cache=0&sync_timestamp=1609792389810&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.20.tgz#f7974863edd21d1f8a494a73e8e2b3658615c340"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.20.tgz?cache=0&sync_timestamp=1610475928493&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.20.tgz#f7974863edd21d1f8a494a73e8e2b3658615c340"
   integrity sha1-95dIY+3SHR+KSUpz6OKzZYYVw0A=
 
 "@types/parse-json@^4.0.0":
@@ -5646,7 +5646,7 @@ postcss-color-gray@^5.0.0:
 
 postcss-color-hex-alpha@^5.0.3:
   version "5.0.3"
-  resolved "https://registry.npm.taobao.org/postcss-color-hex-alpha/download/postcss-color-hex-alpha-5.0.3.tgz#a8d9ca4c39d497c9661e374b9c51899ef0f87388"
+  resolved "https://registry.npm.taobao.org/postcss-color-hex-alpha/download/postcss-color-hex-alpha-5.0.3.tgz?cache=0&sync_timestamp=1610465397508&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-color-hex-alpha%2Fdownload%2Fpostcss-color-hex-alpha-5.0.3.tgz#a8d9ca4c39d497c9661e374b9c51899ef0f87388"
   integrity sha1-qNnKTDnUl8lmHjdLnFGJnvD4c4g=
   dependencies:
     postcss "^7.0.14"
@@ -5697,7 +5697,7 @@ postcss-custom-media@^7.0.8:
 
 postcss-custom-properties@^8.0.11:
   version "8.0.11"
-  resolved "https://registry.npm.taobao.org/postcss-custom-properties/download/postcss-custom-properties-8.0.11.tgz#2d61772d6e92f22f5e0d52602df8fae46fa30d97"
+  resolved "https://registry.npm.taobao.org/postcss-custom-properties/download/postcss-custom-properties-8.0.11.tgz?cache=0&sync_timestamp=1610468273337&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-custom-properties%2Fdownload%2Fpostcss-custom-properties-8.0.11.tgz#2d61772d6e92f22f5e0d52602df8fae46fa30d97"
   integrity sha1-LWF3LW6S8i9eDVJgLfj65G+jDZc=
   dependencies:
     postcss "^7.0.17"
@@ -5705,7 +5705,7 @@ postcss-custom-properties@^8.0.11:
 
 postcss-custom-selectors@^5.1.2:
   version "5.1.2"
-  resolved "https://registry.npm.taobao.org/postcss-custom-selectors/download/postcss-custom-selectors-5.1.2.tgz#64858c6eb2ecff2fb41d0b28c9dd7b3db4de7fba"
+  resolved "https://registry.npm.taobao.org/postcss-custom-selectors/download/postcss-custom-selectors-5.1.2.tgz?cache=0&sync_timestamp=1610468875220&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-custom-selectors%2Fdownload%2Fpostcss-custom-selectors-5.1.2.tgz#64858c6eb2ecff2fb41d0b28c9dd7b3db4de7fba"
   integrity sha1-ZIWMbrLs/y+0HQsoyd17PbTef7o=
   dependencies:
     postcss "^7.0.2"
@@ -5786,7 +5786,7 @@ postcss-focus-within@^3.0.0:
 
 postcss-font-variant@^4.0.0:
   version "4.0.1"
-  resolved "https://registry.npm.taobao.org/postcss-font-variant/download/postcss-font-variant-4.0.1.tgz?cache=0&sync_timestamp=1603866617210&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-font-variant%2Fdownload%2Fpostcss-font-variant-4.0.1.tgz#42d4c0ab30894f60f98b17561eb5c0321f502641"
+  resolved "https://registry.npm.taobao.org/postcss-font-variant/download/postcss-font-variant-4.0.1.tgz?cache=0&sync_timestamp=1610473214903&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-font-variant%2Fdownload%2Fpostcss-font-variant-4.0.1.tgz#42d4c0ab30894f60f98b17561eb5c0321f502641"
   integrity sha1-QtTAqzCJT2D5ixdWHrXAMh9QJkE=
   dependencies:
     postcss "^7.0.2"
@@ -5860,7 +5860,7 @@ postcss-logical@^3.0.0:
 
 postcss-media-minmax@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npm.taobao.org/postcss-media-minmax/download/postcss-media-minmax-4.0.0.tgz#b75bb6cbc217c8ac49433e12f22048814a4f5ed5"
+  resolved "https://registry.npm.taobao.org/postcss-media-minmax/download/postcss-media-minmax-4.0.0.tgz?cache=0&sync_timestamp=1610466227052&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-media-minmax%2Fdownload%2Fpostcss-media-minmax-4.0.0.tgz#b75bb6cbc217c8ac49433e12f22048814a4f5ed5"
   integrity sha1-t1u2y8IXyKxJQz4S8iBIgUpPXtU=
   dependencies:
     postcss "^7.0.2"
@@ -7932,7 +7932,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
 
 webpack-assets-manifest@^3.1.1:
   version "3.1.1"
-  resolved "https://registry.npm.taobao.org/webpack-assets-manifest/download/webpack-assets-manifest-3.1.1.tgz?cache=0&sync_timestamp=1607389628207&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-assets-manifest%2Fdownload%2Fwebpack-assets-manifest-3.1.1.tgz#39bbc3bf2ee57fcd8ba07cda51c9ba4a3c6ae1de"
+  resolved "https://registry.npm.taobao.org/webpack-assets-manifest/download/webpack-assets-manifest-3.1.1.tgz#39bbc3bf2ee57fcd8ba07cda51c9ba4a3c6ae1de"
   integrity sha1-ObvDvy7lf82LoHzaUcm6Sjxq4d4=
   dependencies:
     chalk "^2.0"
@@ -7962,7 +7962,7 @@ webpack-cli@^3.3.12:
 
 webpack-dev-middleware@^3.7.2:
   version "3.7.3"
-  resolved "https://registry.npm.taobao.org/webpack-dev-middleware/download/webpack-dev-middleware-3.7.3.tgz?cache=0&sync_timestamp=1608055043155&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-dev-middleware%2Fdownload%2Fwebpack-dev-middleware-3.7.3.tgz#0639372b143262e2b84ab95d3b91a7597061c2c5"
+  resolved "https://registry.npm.taobao.org/webpack-dev-middleware/download/webpack-dev-middleware-3.7.3.tgz?cache=0&sync_timestamp=1610475857326&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-dev-middleware%2Fdownload%2Fwebpack-dev-middleware-3.7.3.tgz#0639372b143262e2b84ab95d3b91a7597061c2c5"
   integrity sha1-Bjk3KxQyYuK4SrldO5GnWXBhwsU=
   dependencies:
     memory-fs "^0.4.1"
@@ -8194,5 +8194,5 @@ yocto-queue@^0.1.0:
 
 zrender@4.3.2:
   version "4.3.2"
-  resolved "https://registry.npm.taobao.org/zrender/download/zrender-4.3.2.tgz?cache=0&sync_timestamp=1605884445437&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fzrender%2Fdownload%2Fzrender-4.3.2.tgz#ec7432f9415c82c73584b6b7b8c47e1b016209c6"
+  resolved "https://registry.npm.taobao.org/zrender/download/zrender-4.3.2.tgz#ec7432f9415c82c73584b6b7b8c47e1b016209c6"
   integrity sha1-7HQy+UFcgsc1hLa3uMR+GwFiCcY=
