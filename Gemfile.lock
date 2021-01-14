@@ -67,7 +67,7 @@ GEM
     activerecord (6.1.1)
       activemodel (= 6.1.1)
       activesupport (= 6.1.1)
-    activerecord-oracle_enhanced-adapter (6.1.0)
+    activerecord-oracle_enhanced-adapter (6.1.1)
       activerecord (~> 6.1.0)
       ruby-plsql (>= 0.6.0)
     activestorage (6.1.1)
