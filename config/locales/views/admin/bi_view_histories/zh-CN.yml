@@ -1,0 +1,6 @@
+---
+zh-CN:
+  admin:
+    bi_view_histories:
+      show:
+        title: "BI历史访问情况"

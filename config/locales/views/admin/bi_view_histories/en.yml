@@ -1,0 +1,6 @@
+---
+en:
+  admin:
+    bi_view_histories:
+      show:
+        title: "BI PV report"

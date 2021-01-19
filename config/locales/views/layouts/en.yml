@@ -34,6 +34,7 @@ en:
         users: "Users"
         roles: "Roles"
         manual_operation_access_codes: "Manual OP access code"
+        bi_view_histories: "BI PV report"
       company:
         header: "Company Home"
         knowledges: "Knowledges"
