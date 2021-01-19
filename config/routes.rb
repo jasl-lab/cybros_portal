@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     end
 
     resources :manual_operation_access_codes, only: %i[index destroy]
+    resource :bi_view_histories, only: %i[show]
   end
 
   namespace :company do
