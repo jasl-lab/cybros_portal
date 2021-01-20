@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "savedate"
   end
 
+  create_table "BI_VIEW_HISTORIES", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "访问链接"
+    t.string "报表名字", limit: 200
+    t.string "行为", limit: 100
+    t.datetime "访问时间"
+    t.string "工号", limit: 50
+    t.string "姓名", limit: 50
+  end
+
   create_table "COMPLETE_VALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "orgcode_sum"
