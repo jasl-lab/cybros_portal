@@ -215,4 +215,54 @@ namespace :split_cost do
       last_year_staff_avg_now.update(head_count: c.staff_now)
     end
   end
+
+  desc 'Import NC V_CLASSIFY_SALARY into cybros'
+  task :nc_v_classify_salary_import, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+
+    基本工资_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '10').id
+    预发设计费_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '20').id
+    岗位补贴_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '30').id
+    资质补贴_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '40').id
+    预发待扣_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '50').id
+    其他_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '60').id
+
+    Nc::ClassifySalary.where(ym: cyearperiod).each do |cs|
+      next if cs.classify_post.blank?
+      user_id = User.find_by(clerk_code: cs.clerkcode)&.id
+      if user_id.blank?
+        puts "clerkcode #{cs.clerkcode} not existing"
+        next
+      else
+        puts "#{cs.clerkcode}: #{cs.classify_post} #{cs.基本工资}  #{cs.预发设计费}  #{cs.公司补贴}  #{cs.资质补贴}  #{cs.预发待扣}  #{cs.其他}"
+      end
+      belong_company_name = cs.orgname
+      belong_department_name = nil
+      job_position = cs.postname
+      user_job_type_id = SplitCost::UserJobType.find_by!(code: cs.classify_post).id
+
+      upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 基本工资_classification_id,
+        belong_company_name, belong_department_name, job_position, cs.基本工资, user_job_type_id)
+      upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 预发设计费_classification_id,
+        belong_company_name, belong_department_name, job_position, cs.预发设计费, user_job_type_id)
+      upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 岗位补贴_classification_id,
+        belong_company_name, belong_department_name, job_position, cs.公司补贴, user_job_type_id)
+      upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 资质补贴_classification_id,
+        belong_company_name, belong_department_name, job_position, cs.资质补贴, user_job_type_id)
+      upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 预发待扣_classification_id,
+        belong_company_name, belong_department_name, job_position, cs.预发待扣, user_job_type_id)
+      upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 其他_classification_id,
+        belong_company_name, belong_department_name, job_position, cs.其他, user_job_type_id)
+    end
+  end
+
+  def upsert_user_split_classify_salary(user_id, month, user_salary_classification_id, belong_company_name, belong_department_name, job_position, amount, user_job_type_id)
+    classify_salary = SplitCost::UserSplitClassifySalary.find_or_initialize_by(user_id: user_id, month: month,
+                               user_salary_classification_id: user_salary_classification_id)
+    classify_salary.save(belong_company_name: belong_company_name, belong_department_name: belong_department_name,
+        job_position: job_position, amount: amount, user_job_type_id: user_job_type_id)
+  end
 end
