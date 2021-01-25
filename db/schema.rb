@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_24_055721) do
+ActiveRecord::Schema.define(version: 2021_01_25_063302) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -445,6 +445,20 @@ ActiveRecord::Schema.define(version: 2020_12_24_055721) do
     t.string "from_dept_code"
   end
 
+  create_table "user_split_classify_salaries", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "belong_company_name"
+    t.string "belong_department_name"
+    t.string "job_position"
+    t.string "job_type"
+    t.date "month"
+    t.decimal "amount", precision: 10
+    t.string "amount_classification"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_split_classify_salaries_on_user_id"
+  end
+
   create_table "user_split_cost_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "v_wata_dept_code"
     t.bigint "user_id", null: false
@@ -579,5 +593,6 @@ ActiveRecord::Schema.define(version: 2020_12_24_055721) do
   add_foreign_key "public_rental_housing_applies", "users"
   add_foreign_key "report_view_histories", "users"
   add_foreign_key "split_cost_item_details", "split_cost_items"
+  add_foreign_key "user_split_classify_salaries", "users"
   add_foreign_key "user_split_cost_settings", "users"
 end
