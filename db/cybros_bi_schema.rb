@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "savedate"
   end
 
+  create_table "BI_MESSAGE_BOX", primary_key: "MESSAGEID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "title", limit: 200, null: false, comment: "文档标题"
+    t.text "text"
+    t.string "messagetype", limit: 200
+    t.string "status", limit: 200
+    t.string "creater", limit: 200
+    t.datetime "create_time"
+  end
+
   create_table "BI_VIEW_HISTORIES", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "访问链接"
     t.string "报表名字", limit: 200
