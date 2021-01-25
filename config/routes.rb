@@ -331,6 +331,7 @@ Rails.application.routes.draw do
         get :change_company
       end
     end
+    resources :set_baseline_job_types, only: %i[index]
     resources :user_split_cost_settings, only: %i[new create edit update] do
       member do
         patch :reject

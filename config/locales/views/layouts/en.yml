@@ -148,6 +148,7 @@ en:
       cost_split:
         header: "Cost split"
         human_resources: "Staff cost allocation settings"
+        set_baseline_job_types: "Set baseline job types"
         split_cost_items: "Split cost items"
         allocation_bases: "Allocation bases"
         cost_allocation_summaries: "Group cost allocation summary"

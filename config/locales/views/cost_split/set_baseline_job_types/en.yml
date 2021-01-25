@@ -1,0 +1,6 @@
+---
+en:
+  cost_split:
+    set_baseline_job_types:
+      index:
+        title: "Set baseline job types"

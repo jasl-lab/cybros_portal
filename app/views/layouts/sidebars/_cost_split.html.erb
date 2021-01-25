@@ -15,6 +15,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"SplitCost::HumanResource").index? %>
+        <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
+          <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-pen"></i>
+            <%= t("layouts.sidebar.cost_split.set_baseline_job_types") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(SplitCost::SplitCostItem).index? %>
         <%= nav_item controller: 'cost_split/split_cost_items', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_split_cost_items_path, class: "nav-link", data: { turbolinks: false } do %>

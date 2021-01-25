@@ -1,0 +1,6 @@
+---
+zh-CN:
+  cost_split:
+    set_baseline_job_types:
+      index:
+        title: "设置基准岗位类型"
