@@ -24,6 +24,7 @@ every 1.day, at: '5:55' do
 end
 
 every 1.day, at: '12:50am' do
+  rake 'sync_nc:all'
   rake 'role:all'
 end
 
