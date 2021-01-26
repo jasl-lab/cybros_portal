@@ -23,9 +23,12 @@ every 1.day, at: '5:55' do
   command 'RAILS_ENV=production; cd /var/www/cybros/current/ && bundle exec pumactl -S /var/www/cybros/shared/tmp/pids/puma.state -F /var/www/cybros/shared/puma.rb restart'
 end
 
+every 1.day, at: '12:49am' do
+  rake 'role:all'
+end
+
 every 1.day, at: '12:50am' do
   rake 'sync_nc:all'
-  rake 'role:all'
 end
 
 # Learn more: http://github.com/javan/whenever
