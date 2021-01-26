@@ -6,5 +6,11 @@ zh-CN:
         title: "设置基准岗位类型"
         month_name: "设置年月"
         confirm: "确认"
+        generate_prev_month: "生成上个月"
+        generate_next_month: "生成下个月"
+        prev_month_generated: "成功生成上个月的设置"
+        prev_month_exist: "上个月数据已经存在，请重用/修改已有的数据。"
+        next_month_generated: "成功生成下个月的设置"
+        next_month_exist: "下个月数据已经存在，请重用/修改已有的数据。"
         table:
           job_type: "岗位类型"

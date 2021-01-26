@@ -9,7 +9,13 @@
         <label class="mr-1"><%= t(".month_name") -%>：</label>
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
       </div>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color ml-3' %></div>
+      <% if @all_month_names.last == @month_name %>
+        <div><%= submit_tag t(".generate_prev_month"), class: 'btn btn-secondary ml-3' %></div>
+      <% end %>
+      <% if @all_month_names.first == @month_name %>
+        <div><%= submit_tag t(".generate_next_month"), class: 'btn btn-secondary ml-2' %></div>
+      <% end %>
     <% end -%>
 
     <div class="row mt-2">

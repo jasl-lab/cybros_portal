@@ -6,5 +6,11 @@ en:
         title: "Set baseline job types"
         month_name: "Month name"
         confirm: "Confirm"
+        generate_prev_month: "Generate previous month"
+        generate_next_month: "Generate next month"
+        prev_month_generated: "Previous month generated"
+        prev_month_exist: "The data for previous month already exists, please reuse/modify the existing data."
+        next_month_generated: "Next month generated"
+        next_month_exist: "The data for next month already exists, please reuse/modify the existing data."
         table:
           job_type: "Job type"
