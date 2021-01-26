@@ -112,7 +112,7 @@ class Report::ContractSigningsController < Report::BaseController
     plan_contract_amounts_hash = Bi::OcdmThJttbYear.orgs_plan_contract_amounts(@end_of_month)
     @cp_plan_contract_amounts = company_codes.collect { |c| (plan_contract_amounts_hash.fetch(c, 0).to_f / 100.0).round(0) }
 
-    @production_amounts_per_worker, @worker_per_company = 
+    @production_amounts_per_worker, @worker_per_company =
       set_production_amounts_per_worker(cp_contract_amounts, @cp_org_names, @end_of_month, @view_orgcode_sum)
 
     @production_amounts_per_staff, @staff_per_company =
