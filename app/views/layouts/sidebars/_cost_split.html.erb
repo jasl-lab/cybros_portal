@@ -10,7 +10,7 @@
       <% if policy(:"SplitCost::HumanResource").index? %>
         <%= nav_item controller: 'cost_split/human_resources', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_human_resources_path, class: "nav-link", data: { turbolinks: false } do %>
-            <i class="nav-icon fas fa-pen"></i>
+            <i class="nav-icon fas fa-users"></i>
             <%= t("layouts.sidebar.cost_split.human_resources") %>
           <% end %>
         <% end %>
@@ -18,7 +18,7 @@
       <% if policy(:"SplitCost::HumanResource").index? %>
         <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-pen"></i>
+            <i class="nav-icon fas fa-desktop"></i>
             <%= t("layouts.sidebar.cost_split.set_baseline_job_types") %>
           <% end %>
         <% end %>
@@ -26,7 +26,7 @@
       <% if policy(SplitCost::SplitCostItem).index? %>
         <%= nav_item controller: 'cost_split/split_cost_items', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_split_cost_items_path, class: "nav-link", data: { turbolinks: false } do %>
-            <i class="nav-icon fas fa-pen"></i>
+            <i class="nav-icon fas fa-yen-sign"></i>
             <%= t("layouts.sidebar.cost_split.split_cost_items") %>
           <% end %>
         <% end %>
@@ -42,14 +42,14 @@
       <% if policy(SplitCost::UserSplitCostDetail).show? %>
         <%= nav_item controller: 'cost_split/cost_allocation_summaries', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_cost_allocation_summary_path, class: "nav-link", data: { turbolinks: false } do %>
-            <i class="nav-icon fas fa-pen"></i>
+            <i class="nav-icon fas fa-sliders-h"></i>
             <%= t("layouts.sidebar.cost_split.cost_allocation_summaries") %>
           <% end %>
         <% end %>
       <% end %>
       <%= nav_item controller: 'report/cost_allocation_summary_tables', html_options: { class: "nav-item" } do %>
         <%= link_to report_cost_allocation_summary_table_path, class: "nav-link", data: { turbolinks: false } do %>
-          <i class="nav-icon fas fa-pen"></i>
+          <i class="nav-icon fas fa-table"></i>
           <%= t("layouts.sidebar.cost_split.cost_allocation_summary_tables") %>
         <% end %>
       <% end %>
