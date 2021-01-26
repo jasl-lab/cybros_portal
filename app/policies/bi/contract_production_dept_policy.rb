@@ -31,10 +31,10 @@ module Bi
           || user.operation_access_codes.any? { |c| c[0] <= User::ALL_EXCEPT_OTHER_COMPANY_DETAILS } \
           || user.admin?
           scope.all
-        elsif allow_orgcodes.include?('000109') && # 武汉天华
+        elsif allow_orgcodes.include?('000109') && allow_orgcodes.length == 1 && # 武汉天华
           user.operation_access_codes.any? { |c| c[0] == User::MY_COMPANY_ALL_DETAILS }
           scope.where(orgcode: allow_orgcodes).or(scope.where(orgcode_sum: allow_orgcodes))
-        elsif allow_orgcodes.include?('000109') && # 武汉天华
+        elsif allow_orgcodes.include?('000109') && allow_orgcodes.length == 1 && # 武汉天华
           user.operation_access_codes.any? { |c| c[0] <= User::MY_COMPANY_EXCEPT_OTHER_DEPTS }
           can_access_dept_codes = user.can_access_dept_codes
           scope.where(orgcode: allow_orgcodes, deptcode: can_access_dept_codes).or(scope.where(orgcode_sum: allow_orgcodes, deptcode_sum: can_access_dept_codes))
