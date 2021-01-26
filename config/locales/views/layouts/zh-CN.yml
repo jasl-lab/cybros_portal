@@ -146,7 +146,7 @@ zh-CN:
         fund_daily_fill: "资金日报填报表"
         summary_fund_daily: "资金日报汇总表"
       cost_split:
-        header: "集团费用分摊"
+        header: "费用分摊"
         human_resources: "人员成本分摊设置"
         set_baseline_job_types: "设置基准岗位类型"
         split_cost_items: "资产及费用分摊设置"

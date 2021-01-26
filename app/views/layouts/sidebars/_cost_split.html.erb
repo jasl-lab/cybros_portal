@@ -7,19 +7,12 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
+      <li class="nav-title">管理费用分摊</li>
       <% if policy(:"SplitCost::HumanResource").index? %>
         <%= nav_item controller: 'cost_split/human_resources', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_human_resources_path, class: "nav-link", data: { turbolinks: false } do %>
             <i class="nav-icon fas fa-users"></i>
             <%= t("layouts.sidebar.cost_split.human_resources") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(:"SplitCost::HumanResource").index? %>
-        <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-desktop"></i>
-            <%= t("layouts.sidebar.cost_split.set_baseline_job_types") %>
           <% end %>
         <% end %>
       <% end %>
@@ -51,6 +44,15 @@
         <%= link_to report_cost_allocation_summary_table_path, class: "nav-link", data: { turbolinks: false } do %>
           <i class="nav-icon fas fa-table"></i>
           <%= t("layouts.sidebar.cost_split.cost_allocation_summary_tables") %>
+        <% end %>
+      <% end %>
+      <li class="nav-title">人力成本报表</li>
+      <% if policy(:"SplitCost::HumanResource").index? %>
+        <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
+          <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-desktop"></i>
+            <%= t("layouts.sidebar.cost_split.set_baseline_job_types") %>
+          <% end %>
         <% end %>
       <% end %>
     </ul>
