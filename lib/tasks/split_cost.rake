@@ -262,7 +262,7 @@ namespace :split_cost do
   def upsert_user_split_classify_salary(user_id, month, user_salary_classification_id, belong_company_name, belong_department_name, job_position, amount, user_job_type_id)
     classify_salary = SplitCost::UserSplitClassifySalary.find_or_initialize_by(user_id: user_id, month: month,
                                user_salary_classification_id: user_salary_classification_id)
-    classify_salary.save(belong_company_name: belong_company_name, belong_department_name: belong_department_name,
+    classify_salary.update(belong_company_name: belong_company_name, belong_department_name: belong_department_name,
         job_position: job_position, amount: amount, user_job_type_id: user_job_type_id)
   end
 end
