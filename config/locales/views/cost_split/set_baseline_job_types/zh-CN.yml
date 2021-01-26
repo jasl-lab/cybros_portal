@@ -4,3 +4,5 @@ zh-CN:
     set_baseline_job_types:
       index:
         title: "设置基准岗位类型"
+        table:
+          job_type: "岗位类型"

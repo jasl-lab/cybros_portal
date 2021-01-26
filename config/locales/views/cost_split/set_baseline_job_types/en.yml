@@ -4,3 +4,5 @@ en:
     set_baseline_job_types:
       index:
         title: "Set baseline job types"
+        table:
+          job_type: "Job type"
