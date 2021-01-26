@@ -61,7 +61,7 @@ export default class extends Controller {
       series: [{
         name: '跟踪合同额（万元）',
         type: 'bar',
-        barWidth: '30%',
+        barWidth: 20,
         barGap: '-100%',
         data: contractConvertTotals,
         itemStyle: {
