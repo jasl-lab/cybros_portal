@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_065523) do
+ActiveRecord::Schema.define(version: 2021_01_26_053853) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -199,6 +199,18 @@ ActiveRecord::Schema.define(version: 2021_01_25_065523) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_manual_operation_access_codes_on_user_id"
+  end
+
+  create_table "monthly_salary_split_rules", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_job_type_id", null: false
+    t.bigint "user_salary_classification_id", null: false
+    t.bigint "user_cost_type_id", null: false
+    t.date "month"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_cost_type_id"], name: "index_monthly_salary_split_rules_on_user_cost_type_id"
+    t.index ["user_job_type_id"], name: "index_monthly_salary_split_rules_on_user_job_type_id"
+    t.index ["user_salary_classification_id"], name: "idx_monthly_salary_split_rules_on_salary_classification_id"
   end
 
   create_table "name_card_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -611,6 +623,9 @@ ActiveRecord::Schema.define(version: 2021_01_25_065523) do
   add_foreign_key "knowledge_likes", "users"
   add_foreign_key "manual_hr_access_codes", "users"
   add_foreign_key "manual_operation_access_codes", "users"
+  add_foreign_key "monthly_salary_split_rules", "user_cost_types"
+  add_foreign_key "monthly_salary_split_rules", "user_job_types"
+  add_foreign_key "monthly_salary_split_rules", "user_salary_classifications"
   add_foreign_key "name_card_applies", "users"
   add_foreign_key "proof_of_income_applies", "users"
   add_foreign_key "public_rental_housing_applies", "users"
