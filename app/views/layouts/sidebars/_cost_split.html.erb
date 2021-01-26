@@ -47,7 +47,7 @@
         <% end %>
       <% end %>
       <li class="nav-title">人力成本报表</li>
-      <% if policy(:"SplitCost::HumanResource").index? %>
+      <% if policy(SplitCost::MonthlySalarySplitRule).index? %>
         <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
           <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-desktop"></i>

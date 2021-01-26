@@ -4,5 +4,7 @@ zh-CN:
     set_baseline_job_types:
       index:
         title: "设置基准岗位类型"
+        month_name: "设置年月"
+        confirm: "确认"
         table:
           job_type: "岗位类型"

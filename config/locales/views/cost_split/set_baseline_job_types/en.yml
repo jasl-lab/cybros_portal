@@ -4,5 +4,7 @@ en:
     set_baseline_job_types:
       index:
         title: "Set baseline job types"
+        month_name: "Month name"
+        confirm: "Confirm"
         table:
           job_type: "Job type"
