@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CostSplit::SetBaselineJobTypesController < CostSplit::BaseController
+  before_action :set_monthly_salary_split_rule, except: %i[index]
+
   def index
     prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(SplitCost::MonthlySalarySplitRule).all_month_names
@@ -41,4 +43,26 @@ class CostSplit::SetBaselineJobTypesController < CostSplit::BaseController
       @monthly_salary_split_rules = SplitCost::MonthlySalarySplitRule.where(month: beginning_of_month)
     end
   end
+
+  def show
+    render :update
+  end
+
+  def edit
+  end
+
+  def update
+    @monthly_salary_split_rule.update(monthly_salary_split_rule_params)
+  end
+
+  private
+
+    def set_monthly_salary_split_rule
+      @monthly_salary_split_rule = SplitCost::MonthlySalarySplitRule.find(params[:id])
+    end
+
+    def monthly_salary_split_rule_params
+      params.fetch(:split_cost_monthly_salary_split_rule, {})
+        .permit(:user_cost_type_id)
+    end
 end

@@ -2,6 +2,12 @@
 zh-CN:
   cost_split:
     set_baseline_job_types:
+      td_user_cost_type:
+        action:
+          edit: "编辑"
+      change_user_cost_type:
+        action:
+          cancel: "取消"
       index:
         title: "设置基准岗位类型"
         month_name: "设置年月"

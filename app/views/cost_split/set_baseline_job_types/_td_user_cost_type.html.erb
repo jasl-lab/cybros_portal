@@ -1,0 +1,4 @@
+<%= rule.user_cost_type.name %>
+<%= link_to edit_cost_split_set_baseline_job_type_path(id: rule.id), remote: true do -%>
+  <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="<%= t('.action.edit') -%>"></i>
+<% end %>
