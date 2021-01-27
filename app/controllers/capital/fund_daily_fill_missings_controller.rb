@@ -6,6 +6,7 @@ class Capital::FundDailyFillMissingsController < Capital::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @manual_cw_access_codes = ManualCwAccessCode.where(cw_rolename: 'CW_会计填报人')
   end
 
   protected

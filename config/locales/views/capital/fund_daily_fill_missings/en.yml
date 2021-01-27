@@ -4,3 +4,7 @@ en:
     fund_daily_fill_missings:
       show:
         title: "Missing fill fund daily report"
+        table:
+          org_code: "ORG code"
+          chinese_name: "Chinese name"
+          email: "Email"
