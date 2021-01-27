@@ -6,9 +6,14 @@ class Capital::FundDailyFillMissingsController < Capital::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @all_month_names = policy_scope(Ocdm::ThCwtbDay).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.first
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
+
     @org_orders = Bi::OrgOrder.all.order(:org_order)
     @manual_cw_access_codes = ManualCwAccessCode.where(cw_rolename: 'CW_会计填报人')
     @th_cwtb_days = Ocdm::ThCwtbDay.order(reportdate: :desc)
+      .where(reportdate: beginning_of_month..beginning_of_month.end_of_month)
       .where(filltype: 'write')
       .where.not(fillmancode: 'birobot01')
   end

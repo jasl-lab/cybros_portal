@@ -15,7 +15,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if policy(:"Capital::FundDailyFillMissing").show? %>
+      <% if policy(Ocdm::ThCwtbDay).show? %>
         <%= nav_item controller: 'capital/fund_daily_fill_missings', html_options: { class: "nav-item" } do %>
           <%= link_to capital_fund_daily_fill_missing_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>

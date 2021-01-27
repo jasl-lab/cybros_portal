@@ -4,6 +4,8 @@ zh-CN:
     fund_daily_fill_missings:
       show:
         title: "资金日报填报缺失人员"
+        month_name: "查询年月"
+        confirm: "确认"
         table:
           org_code: "公司编码"
           org_name: "公司名称"

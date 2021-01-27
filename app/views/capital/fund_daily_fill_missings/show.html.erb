@@ -4,11 +4,12 @@
       <%= t(".title") %>
     </h3>
 
-    <%= form_tag cost_split_set_baseline_job_types_path, method: :get, class: 'form-inline' do -%>
+    <%= form_tag capital_fund_daily_fill_missing_path, method: :get, class: 'form-inline' do -%>
       <div class="form-group">
         <label class="mr-1"><%= t(".month_name") -%>：</label>
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
       </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color ml-3' %></div>
     <% end -%>
 
     <div class="table-responsive">

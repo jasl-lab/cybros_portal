@@ -4,6 +4,8 @@ en:
     fund_daily_fill_missings:
       show:
         title: "Missing fill fund daily report"
+        month_name: "Month name"
+        confirm: "Confirm"
         table:
           org_code: "ORG code"
           org_name: "ORG name"
