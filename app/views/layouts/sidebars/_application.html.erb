@@ -93,8 +93,9 @@
       <% end %>
 
       <% capital_report_show = policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show? %>
-      <% if capital_report_show %>
-      <li class="nav-item nav-dropdown <%= (capital_report_show) ? 'open' : '' %>">
+      <% salary_query_show = policy(:"Capital::SalaryQuery").show? %>
+      <% if capital_report_show || salary_query_show %>
+      <li class="nav-item nav-dropdown <%= (capital_report_show || salary_query_show) ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.capital_dept") -%></a>
         <ul class="nav-dropdown-items">
@@ -103,6 +104,14 @@
               <%= link_to capital_report_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-jedi"></i>
                 <%= t("layouts.sidebar.application.capital_report") %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if salary_query_show %>
+            <%= nav_item controller: 'capital/salary_queries', html_options: {class: "nav-item"} do %>
+              <%= link_to capital_salary_query_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-jedi"></i>
+                <%= t("layouts.sidebar.application.salary_query") %>
               <% end %>
             <% end %>
           <% end %>

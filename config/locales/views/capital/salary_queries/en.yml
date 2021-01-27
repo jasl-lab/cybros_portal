@@ -1,0 +1,6 @@
+---
+en:
+  capital:
+    salary_queries:
+      show:
+        title: "Salary query"

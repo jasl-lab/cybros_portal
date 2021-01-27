@@ -22,6 +22,7 @@ zh-CN:
         account_report: "财务分析-经营报表"
         financial_management: "财务分析-所级管理表"
         capital_report: "财务部-资金日报"
+        salary_query: "财务部-薪资查询"
         operation_entry: "财务分析-填报"
         cost_split: "集团费用分摊"
       accounts:

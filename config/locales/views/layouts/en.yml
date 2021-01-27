@@ -22,6 +22,7 @@ en:
         financial_management: "Financial management"
         account_report: "Account report"
         capital_report: "Capital report"
+        salary_query: "Salary query"
         operation_entry: "Opeartion entry"
         cost_split: "Group cost split"
       accounts:
