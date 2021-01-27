@@ -144,6 +144,7 @@ zh-CN:
       capital_report:
         header: "财务部-资金日报"
         fund_daily_fill: "资金日报填报表"
+        fund_daily_fill_missing: "资金日报填报缺失人员"
         summary_fund_daily: "资金日报汇总表"
       cost_split:
         header: "费用分摊"

@@ -144,6 +144,7 @@ en:
       capital_report:
         header: "Financial Analysis - Capital Daily"
         fund_daily_fill: "Fund daily fill"
+        fund_daily_fill_missing: "Missing fill fund daily"
         summary_fund_daily: "Summary fund daily"
       cost_split:
         header: "Cost split"

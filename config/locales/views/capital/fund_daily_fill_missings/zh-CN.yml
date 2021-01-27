@@ -1,0 +1,6 @@
+---
+zh-CN:
+  capital:
+    fund_daily_fill_missings:
+      show:
+        title: "资金日报填报缺失人员"

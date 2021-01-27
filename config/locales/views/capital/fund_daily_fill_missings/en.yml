@@ -1,0 +1,6 @@
+---
+en:
+  capital:
+    fund_daily_fill_missings:
+      show:
+        title: "Missing fill fund daily report"
