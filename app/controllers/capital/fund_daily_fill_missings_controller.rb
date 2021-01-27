@@ -6,6 +6,7 @@ class Capital::FundDailyFillMissingsController < Capital::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @org_orders = Bi::OrgOrder.all.order(:org_order)
     @manual_cw_access_codes = ManualCwAccessCode.where(cw_rolename: 'CW_会计填报人')
     @th_cwtb_days = Ocdm::ThCwtbDay.order(reportdate: :desc)
       .where(filltype: 'write')
