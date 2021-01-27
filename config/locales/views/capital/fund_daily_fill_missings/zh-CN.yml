@@ -8,3 +8,4 @@ zh-CN:
           org_code: "公司编码"
           chinese_name: "姓名"
           email: "Email"
+          last_report_date: "最后报告时间"

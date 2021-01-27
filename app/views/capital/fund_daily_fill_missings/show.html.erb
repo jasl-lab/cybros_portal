@@ -10,14 +10,18 @@
           <th><%= t(".table.org_code") %></th>
           <th><%= t(".table.chinese_name") %></th>
           <th><%= t(".table.email") %></th>
+          <th><%= t(".table.last_report_date") %></th>
         </tr>
         </thead>
         <tbody>
           <% @manual_cw_access_codes.each do |ac| %>
+            <% email = ac.user.email -%>
+            <% th_cwtb_day = @th_cwtb_days.find { |d| d.fillmancode == email } %>
             <tr>
               <td><%= ac.org_code %></td>
               <td><%= ac.user.chinese_name %></td>
-              <td><%= ac.user.email %></td>
+              <td><%= email %></td>
+              <td><%= th_cwtb_day&.reportdate %></td>
             </tr>
           <% end %>
         </tbody>
