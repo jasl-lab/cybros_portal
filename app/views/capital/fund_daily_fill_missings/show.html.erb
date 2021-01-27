@@ -16,20 +16,26 @@
         <thead>
         <tr>
           <th><%= t(".table.org_code") %></th>
+          <th><%= t(".table.org_name") %></th>
           <th><%= t(".table.chinese_name") %></th>
           <th><%= t(".table.email") %></th>
           <th><%= t(".table.last_report_date") %></th>
+          <th><%= t(".table.distance_of_time_in_words_to_now") %></th>
         </tr>
         </thead>
         <tbody>
-          <% @manual_cw_access_codes.each do |ac| %>
+          <% @org_orders.each do |oo| %>
+            <% ac = @manual_cw_access_codes.find { |mcac| mcac.org_code == oo.org_code } %>
+            <% next unless ac.present? %>
             <% email = ac.user.email -%>
             <% th_cwtb_day = @th_cwtb_days.find { |d| d.fillmancode == email } %>
             <tr>
               <td><%= ac.org_code %></td>
+              <td><%= oo.org_shortname %></td>
               <td><%= ac.user.chinese_name %></td>
               <td><%= email %></td>
               <td><%= th_cwtb_day&.reportdate %></td>
+              <td><%= distance_of_time_in_words_to_now(th_cwtb_day.reportdate) if th_cwtb_day&.reportdate.present? %></td>
             </tr>
           <% end %>
         </tbody>

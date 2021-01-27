@@ -6,6 +6,8 @@ en:
         title: "Missing fill fund daily report"
         table:
           org_code: "ORG code"
+          org_name: "ORG name"
           chinese_name: "Chinese name"
           email: "Email"
           last_report_date: "Last report date"
+          distance_of_time_in_words_to_now: "Distance of time in words to now"
