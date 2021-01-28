@@ -1,0 +1,6 @@
+---
+en:
+  cost_split:
+    set_special_person_costs:
+      index:
+        title: "Special person salary item cost classification setting"
