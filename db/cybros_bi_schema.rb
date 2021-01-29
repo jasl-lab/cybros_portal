@@ -469,6 +469,77 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "displayorder", limit: 53
   end
 
+  create_table "PM_BONUSALLOCATIONDET_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "id"
+    t.text "bizorgcode"
+    t.text "createdbizorgcode"
+    t.datetime "createddate"
+    t.text "createdorgcode"
+    t.text "creatorcode"
+    t.bigint "dataversion"
+    t.text "orgcode"
+    t.text "redactorcode"
+    t.text "redatebizorgcode"
+    t.datetime "redatedate"
+    t.text "redateorgcode"
+    t.text "remark"
+    t.text "status"
+    t.text "allocationid"
+    t.float "allocationmoney", limit: 53
+    t.text "allocationreason"
+    t.text "incomcode"
+    t.text "incomid"
+    t.text "incomname"
+    t.text "indeptcode"
+    t.text "indeptid"
+    t.text "indeptname"
+    t.text "outcomcode"
+    t.text "outcomid"
+    t.text "outcomname"
+    t.text "outdeptcode"
+    t.text "outdeptid"
+    t.text "outdeptname"
+    t.text "adjusttype"
+    t.text "businesstype"
+    t.float "changemoney", limit: 53
+    t.text "projectbigstage"
+    t.text "projectcategory"
+    t.text "settlementrate"
+    t.text "projectitemcode"
+    t.text "projectitemid"
+    t.text "projectitemname"
+    t.text "agentcode"
+    t.text "agentid"
+    t.text "agentname"
+    t.text "savedate"
+    t.datetime "refreshdate"
+  end
+
+  create_table "PM_BONUSALLOCATION_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "id"
+    t.text "bizorgcode"
+    t.text "createdbizorgcode"
+    t.datetime "createddate"
+    t.text "createdorgcode"
+    t.text "creatorcode"
+    t.bigint "dataversion"
+    t.text "orgcode"
+    t.text "redactorcode"
+    t.text "redatebizorgcode"
+    t.datetime "redatedate"
+    t.text "redateorgcode"
+    t.text "remark"
+    t.text "status"
+    t.text "allocationno"
+    t.text "allocationstatus"
+    t.datetime "approvedate"
+    t.bigint "attachcount"
+    t.text "linkaddress"
+    t.text "synergyremark"
+    t.text "savedate"
+    t.datetime "refreshdate"
+  end
+
   create_table "PREDICT_MONEY_RECEIVE_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "orgcode"
     t.text "orgname"
@@ -993,6 +1064,86 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptcode_sum", limit: 45
   end
 
+  create_table "V_RCONTRACTVALUESETTLEMENTDET_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "projectcode"
+    t.text "projectname"
+    t.text "contractcode"
+    t.text "salescontractname"
+    t.text "contractcategory"
+    t.text "contractproperty"
+    t.text "maincontractcode"
+    t.text "bigstage1"
+    t.text "firstpartyname"
+    t.text "partybcode"
+    t.text "partybid"
+    t.text "partybname"
+    t.text "businessdirector"
+    t.text "businesspatronn"
+    t.text "businessltdname"
+    t.text "businessltdcode"
+    t.text "businessdepartmentsname"
+    t.text "businessdepartmentscode"
+    t.text "projectmanagerid"
+    t.text "seprojectmanagerid"
+    t.text "firstproleaderid"
+    t.text "secondproleaderid"
+    t.text "secondproleadercode"
+    t.text "secondproleadername"
+    t.text "businesstype"
+    t.text "operationgenre"
+    t.text "projectcategory"
+    t.text "projecttype"
+    t.text "bigstage"
+    t.text "stage"
+    t.text "projectstage"
+    t.text "projectbigstage"
+    t.float "amounttotal", limit: 53
+    t.float "realamounttotal", limit: 53
+    t.float "shardconamount", limit: 53
+    t.text "collectionterms"
+    t.text "collectiontermcode"
+    t.text "collectiondate"
+    t.float "collectionamount", limit: 53
+    t.text "iscashflow"
+    t.text "linetype"
+    t.text "adjustdate"
+    t.text "realdate"
+    t.datetime "bonusperiod"
+    t.float "taxrate", limit: 53
+    t.float "depositamount", limit: 53
+    t.float "reservefundpercent", limit: 53
+    t.float "percent", limit: 53
+    t.float "shardamount", limit: 53
+    t.float "amount", limit: 53
+    t.text "itemcode"
+    t.text "projectpaname"
+    t.text "projectpacode"
+    t.text "itemname"
+    t.text "specialtycode"
+    t.text "specialty"
+    t.text "cmp"
+    t.text "cmpcode"
+    t.text "cmpid"
+    t.text "deptid"
+    t.text "dept"
+    t.text "deptcode"
+    t.float "sumamount", limit: 53
+    t.text "yesno"
+    t.text "yorn"
+    t.text "squaredate"
+    t.float "bonusratio", limit: 53
+    t.float "bonus", limit: 53
+    t.text "confirmstatus"
+    t.text "confirmstatusname"
+    t.datetime "confirmdate"
+    t.text "billingtime"
+    t.text "wnsk_flag"
+    t.text "billingtxt"
+    t.text "billingcode"
+    t.text "savedate"
+    t.datetime "refreshdate"
+  end
+
   create_table "V_TH_CRM_RPOPPORTUNITY", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "projectcode"
     t.text "projectname"
@@ -1170,6 +1321,68 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "projecttypename"
     t.text "belongcompanyname"
     t.text "clientsshort"
+  end
+
+  create_table "V_TH_RP_MARKETSETTLEDET_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "id"
+    t.text "projectcode"
+    t.text "projectname"
+    t.text "contractcode"
+    t.text "contractname"
+    t.text "settlementstatus"
+    t.text "collectiondate"
+    t.float "collectionamount", limit: 53
+    t.float "amountdistribution", limit: 53
+    t.text "adjustdate"
+    t.text "businesstype"
+    t.text "projecttype"
+    t.text "partybcode"
+    t.text "partybid"
+    t.text "partybname"
+    t.text "firstparty"
+    t.text "firstpartycode"
+    t.text "firstpartyname"
+    t.text "contractlinecode"
+    t.text "businesstypename"
+    t.text "projecttypename"
+    t.text "marketcomp"
+    t.text "marketcomcode"
+    t.text "marketcomname"
+    t.text "marketdepartmentcode"
+    t.text "marketdepartment"
+    t.text "marketdepartmentname"
+    t.float "belongmarketfee", limit: 53
+    t.text "clientmaintenancecomcode"
+    t.text "clientmaintenancecomid"
+    t.text "clientmaintenancecomname"
+    t.text "clientmaintenancedeptcode"
+    t.text "clientmaintenancedeptid"
+    t.text "clientmaintenancedeptname"
+    t.float "marketfeetotal", limit: 53
+    t.float "marketfeesettletotal", limit: 53
+    t.float "marketfeesettle", limit: 53
+    t.text "businessdirector"
+    t.text "filingtime"
+    t.float "taxrate", limit: 53
+    t.float "realamounttotal", limit: 53
+    t.float "marketfeerate", limit: 53
+    t.float "clientfeeorgsettle", limit: 53
+    t.float "clientfeerate", limit: 53
+    t.float "clientfeetotal", limit: 53
+    t.text "namename"
+    t.text "businessdirectorid"
+    t.text "businessdirectorname"
+    t.text "businesspatronn"
+    t.text "businesspatronnname"
+    t.text "nameid"
+    t.text "confirmstatus"
+    t.text "confirmstatusname"
+    t.text "billingtime"
+    t.text "wnsk_flag"
+    t.text "yorn"
+    t.datetime "confirmdate"
+    t.text "savedate"
+    t.datetime "refreshdate"
   end
 
   create_table "V_TH_SACONTRACT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
