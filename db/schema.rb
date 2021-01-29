@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_053853) do
+ActiveRecord::Schema.define(version: 2021_01_29_021002) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -586,7 +586,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_053853) do
     t.string "chinese_name"
     t.string "desk_phone"
     t.string "job_level"
-    t.string "executor_id"
+    t.string "wecom_id"
     t.string "pre_sso_id"
     t.string "mobile"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
