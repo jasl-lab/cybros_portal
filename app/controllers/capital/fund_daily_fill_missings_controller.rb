@@ -20,7 +20,7 @@ class Capital::FundDailyFillMissingsController < Capital::BaseController
 
   def create
     @user = User.find params[:user_id]
-
+    Wechat.api(:bi).message_send(@user.wecom_id, "您好，本月您已累计三次未填写每日资金日报，需尽快填写，#{capital_fund_daily_fill_missing_url}")
   end
 
   protected
