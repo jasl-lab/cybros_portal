@@ -22,6 +22,7 @@
           <th><%= t(".table.email") %></th>
           <th><%= t(".table.last_report_date") %></th>
           <th><%= t(".table.distance_of_time_in_words_to_now") %></th>
+          <th><%= t(".table.action") %></th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +38,9 @@
                 <td><%= email %></td>
                 <td><%= th_cwtb_day&.reportdate %></td>
                 <td><%= distance_of_time_in_words_to_now(th_cwtb_day.reportdate) if th_cwtb_day&.reportdate.present? %></td>
+                <td class="js-send-remainer-<%= ac.user.id -%>"><%= link_to t('.send_remainer'), capital_fund_daily_fill_missing_path(user_id: ac.user.id), method: :post, remote: true, class: 'btn btn-alert btn-sm' -%>
+
+                </td>
               </tr>
             <% end %>
           <% end %>

@@ -6,6 +6,7 @@ en:
         title: "Missing fill fund daily report"
         month_name: "Month name"
         confirm: "Confirm"
+        send_remainer: "Send remainder"
         table:
           org_code: "ORG code"
           org_name: "ORG name"
@@ -13,3 +14,4 @@ en:
           email: "Email"
           last_report_date: "Last report date"
           distance_of_time_in_words_to_now: "Distance of time in words to now"
+          action: ""

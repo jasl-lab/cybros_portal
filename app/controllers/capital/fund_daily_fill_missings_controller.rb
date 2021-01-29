@@ -18,6 +18,11 @@ class Capital::FundDailyFillMissingsController < Capital::BaseController
       .where.not(fillmancode: 'birobot01')
   end
 
+  def create
+    @user = User.find params[:user_id]
+
+  end
+
   protected
 
     def set_breadcrumbs

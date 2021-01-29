@@ -48,6 +48,22 @@ svca_test:
 svca_production:
   <<: *service_account
 
+bi_account: &bi_account
+  corpid: <%= Rails.application.credentials.wechat_corpid! %>
+  corpsecret: <%= Rails.application.credentials.wechat_bi_corpsecret! %>
+  agentid: <%= Rails.application.credentials.wechat_bi_agentid! %>
+  access_token: "tmp/wechat_bi_access_token"
+  jsapi_ticket: "tmp/wechat_bi_jsapi_ticket"
+
+bi_development:
+  <<: *bi_account
+
+bi_test:
+  <<: *bi_account
+
+bi_production:
+  <<: *bi_account
+
 # wx3_development:
 #  <<: *default
 #  appid: "my_appid"
