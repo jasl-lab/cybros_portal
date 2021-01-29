@@ -61,6 +61,12 @@
             <%= t("layouts.sidebar.cost_split.set_special_person_costs") %>
           <% end %>
         <% end %>
+        <%= nav_item controller: 'cost_split/set_part_time_person_costs', html_options: { class: "nav-item" } do %>
+          <%= link_to cost_split_set_part_time_person_costs_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-thumbs-up"></i>
+            <%= t("layouts.sidebar.cost_split.set_part_time_person_costs") %>
+          <% end %>
+        <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

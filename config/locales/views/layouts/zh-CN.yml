@@ -153,6 +153,7 @@ zh-CN:
         human_resources: "人员成本分摊设置"
         set_baseline_job_types: "设置基准岗位类型"
         set_special_person_costs: "特殊人员薪资成本设置"
+        set_part_time_person_costs: "兼职人员薪资比例设置"
         split_cost_items: "资产及费用分摊设置"
         allocation_bases: "分摊分子基数设置"
         cost_allocation_summaries: "集团性费用分摊汇总"

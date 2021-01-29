@@ -153,6 +153,7 @@ en:
         human_resources: "Staff cost allocation settings"
         set_baseline_job_types: "Set baseline job types"
         set_special_person_costs: "Special person cost classification setting"
+        set_part_time_person_costs: "Part-time person cost setting"
         split_cost_items: "Split cost items"
         allocation_bases: "Allocation bases"
         cost_allocation_summaries: "Group cost allocation summary"

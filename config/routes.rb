@@ -335,6 +335,7 @@ Rails.application.routes.draw do
     end
     resources :set_baseline_job_types, only: %i[index edit update show]
     resources :set_special_person_costs, only: %i[index]
+    resources :set_part_time_person_costs, only: %i[index]
     resources :user_split_cost_settings, only: %i[new create edit update] do
       member do
         patch :reject

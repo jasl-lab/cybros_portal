@@ -1,0 +1,6 @@
+---
+en:
+  cost_split:
+    set_part_time_person_costs:
+      index:
+        title: "Part-time person salary item cost classification setting"
