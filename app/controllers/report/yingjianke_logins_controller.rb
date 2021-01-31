@@ -35,7 +35,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
       format.csv do
         render_csv_header 'Yingjianke_Logins'
         csv_res = CSV.generate do |csv|
-          csv << %w[序号 部门姓名 登陆时间 最后访问 逗留时长 机器 IP地址]
+          csv << %w[序号 部门姓名 登录时间 最后访问 逗留时长 机器 IP地址]
           YingjiankeOverrunUser.rows.sort { |a, b| (b[2] - b[1]) <=> (a[2] - a[1]) }
             .each_with_index do |r, idx|
             r[1] = r[1].to_s(:db)

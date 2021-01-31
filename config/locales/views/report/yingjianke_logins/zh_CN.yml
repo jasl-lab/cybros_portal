@@ -13,7 +13,7 @@ zh-CN:
           index: "序号"
           device: "机器"
           ip: "IP地址"
-          login_time: "登陆时间"
+          login_time: "登录时间"
           last_access_time: "最后访问"
           user_info: "部门姓名"
           stay_time: "逗留时长"
