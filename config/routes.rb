@@ -359,6 +359,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :ui do
+    resource :ncworkno_select, only: %i[show]
+  end
+
   devise_for :users, skip: %i[registrations invitations], controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',
