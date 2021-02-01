@@ -9,8 +9,8 @@ namespace :tianhua_bill do
       fcs = line[0..c1].split(' ')
       ip = fcs[0]
       full_time = fcs[3][1..]
-      date = full_time[0..full_time.index(':')-1]
-      time = full_time[full_time.index(':')+1..]
+      date = full_time[0..(full_time.index(':') - 1)]
+      time = full_time[(full_time.index(':') + 1)..]
 
       scs = line[(c1 + 1)..].split(' ')
       action = scs[0][1..]
@@ -22,7 +22,7 @@ namespace :tianhua_bill do
 
       user = User.find_by(clerk_code: real_clerk_code)
 
-      puts "#{ip}\t#{date}\t#{time}\t#{action}\t#{url}\t#{code}\t#{real_clerk_code}\t#{user&.chinese_name}\t#{user&.user_company_short_name}"
+      puts "#{ip}\t#{date}\t#{time} +0800\t#{action}\t#{url}\t#{code}\t#{real_clerk_code}\t#{user&.chinese_name}\t#{user&.user_company_short_name}"
     end
   end
 end
