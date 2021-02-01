@@ -201,6 +201,10 @@ class User < ApplicationRecord
       user_split_cost_settings.where(start_date: nil).order(version: :desc).find_by(end_date: nil)
   end
 
+  def wecom_id_with_fallback
+    wecom_id.present? ? wecom_id : email.split('@')[0]
+  end
+
   private
 
     def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
