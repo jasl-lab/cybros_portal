@@ -18,8 +18,12 @@ class User < ApplicationRecord
   has_many :manual_operation_access_codes, dependent: :destroy
   has_many :manual_hr_access_codes, dependent: :destroy
   has_many :manual_cw_access_codes, dependent: :destroy
+
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
+  has_many :position_users, dependent: :destroy
+  has_many :positions, through: :position_users
+
   has_many :copy_of_business_license_applies, class_name: 'Personal::CopyOfBusinessLicenseApply', dependent: :restrict_with_error
   has_many :official_stamp_usage_applies, class_name: 'Company::OfficialStampUsageApply', dependent: :restrict_with_error
   has_many :proof_of_employment_applies, class_name: 'Personal::ProofOfEmploymentApply', dependent: :restrict_with_error

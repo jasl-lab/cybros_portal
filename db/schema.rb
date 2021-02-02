@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_021002) do
+ActiveRecord::Schema.define(version: 2021_02_02_042721) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -287,6 +287,28 @@ ActiveRecord::Schema.define(version: 2021_01_29_021002) do
     t.bigint "owner_id"
     t.index ["owner_id"], name: "index_pending_questions_on_owner_id"
     t.index ["user_id"], name: "index_pending_questions_on_user_id"
+  end
+
+  create_table "position_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "position_id", null: false
+    t.boolean "main_position"
+    t.string "post_level"
+    t.bigint "user_job_type_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["position_id"], name: "index_position_users_on_position_id"
+    t.index ["user_id"], name: "index_position_users_on_user_id"
+    t.index ["user_job_type_id"], name: "index_position_users_on_user_job_type_id"
+  end
+
+  create_table "positions", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "name"
+    t.string "functional_category"
+    t.bigint "department_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_positions_on_department_id"
   end
 
   create_table "proof_of_employment_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -627,6 +649,8 @@ ActiveRecord::Schema.define(version: 2021_01_29_021002) do
   add_foreign_key "monthly_salary_split_rules", "user_job_types"
   add_foreign_key "monthly_salary_split_rules", "user_salary_classifications"
   add_foreign_key "name_card_applies", "users"
+  add_foreign_key "position_users", "positions"
+  add_foreign_key "position_users", "users"
   add_foreign_key "proof_of_income_applies", "users"
   add_foreign_key "public_rental_housing_applies", "users"
   add_foreign_key "report_view_histories", "users"

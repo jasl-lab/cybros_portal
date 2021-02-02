@@ -47,6 +47,7 @@ namespace :import_export do
       mobile = row['mobile']
       desk_phone = row['desk_phone']
       combine_departments = row['combine_departments'].split(';')
+      combine_positions = row['combine_positions'].split(';')
 
       user = User.find_or_create_by(email: email)
       user.position_title = position_title
@@ -76,6 +77,26 @@ namespace :import_export do
         end
         dep.update(company_name: company_name, company_code: company_code, name: department_name, dept_code: dept_code)
         DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
+      end
+
+      combine_positions.each do |cp|
+        cps = cp.split('@')
+        id = cps[0]
+        position_name = cps[1]
+        functional_category = cps[2]
+        dept_code = cps[3]
+        main_position = cps[4]
+        post_level = cps[5]
+        job_type_code = cps[6]
+
+        pos = Position.find_or_create_by(id: id) do |position|
+          position.name = position_name
+        end
+        dept = Department.find_by(dept_code: dept_code)
+        pos.update(functional_category: functional_category, name: position_name, department_id: dept&.id)
+        pu = PositionUser.find_or_create_by!(user_id: user.id, position_id: pos.id)
+        ujt = SplitCost::UserJobType.find_by(code: job_type_code)
+        pu.update(main_position: main_position, post_level: post_level, user_job_type_id: ujt&.id)
       end
     end
   end
