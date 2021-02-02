@@ -43,6 +43,8 @@ class User < ApplicationRecord
   has_many :user_split_cost_details, class_name: 'SplitCost::UserSplitCostDetail'
   # Import from NC via split_cost:nc_v_classify_salary_import
   has_many :user_split_classify_salaries, class_name: 'SplitCost::UserSplitClassifySalary'
+  # Generate at split_cost:generate_user_monthly_part_time_splits
+  has_many :user_monthly_part_time_split_rates, class_name: 'SplitCost::UserMonthlyPartTimeSplitRate'
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)
