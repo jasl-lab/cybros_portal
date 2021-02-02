@@ -36,9 +36,13 @@ class User < ApplicationRecord
   has_many :cad_sessions, class_name: 'Cad::CadSession', dependent: :destroy
   has_many :cad_operations, class_name: 'Cad::CadOperation', dependent: :destroy
   has_many :report_view_histories
+
+  # Setting at web page: cost_split_human_resources_path
   has_many :user_split_cost_settings, class_name: 'SplitCost::UserSplitCostSetting'
-  has_many :user_split_classify_salaries, class_name: 'SplitCost::UserSplitClassifySalary'
+  # Generate at split_cost:generate_user_split_cost_details tasks
   has_many :user_split_cost_details, class_name: 'SplitCost::UserSplitCostDetail'
+  # Import from NC via split_cost:nc_v_classify_salary_import
+  has_many :user_split_classify_salaries, class_name: 'SplitCost::UserSplitClassifySalary'
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)
