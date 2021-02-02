@@ -265,4 +265,23 @@ namespace :split_cost do
     classify_salary.update(belong_company_name: belong_company_name, belong_department_name: belong_department_name,
         job_position: job_position, amount: amount, user_job_type_id: user_job_type_id)
   end
+
+  desc 'Generate part time split settings'
+  task :generate_user_monthly_part_time_splits, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+
+    user_ids = PositionUser.where(main_position: false).pluck(:user_id).uniq
+    User.where(id: user_ids).each do |user|
+      user.position_users.each do |pu|
+        SplitCost::UserSalaryClassification.all.each do |sc|
+          ptsr = SplitCost::UserMonthlyPartTimeSplitRate.find_or_initialize_by(user_id: user.id, month: cyearperiod_month_start,
+            position_id: pu.position.id, user_salary_classification_id: sc.id)
+          ptsr.update(main_position: pu.main_position, salary_classification_split_rate: 0)
+        end
+      end
+    end
+  end
 end
