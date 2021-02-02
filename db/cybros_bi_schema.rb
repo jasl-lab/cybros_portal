@@ -1383,6 +1383,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "confirmdate"
     t.text "savedate"
     t.datetime "refreshdate"
+    t.string "iscashflow", limit: 10, default: "Y"
   end
 
   create_table "V_TH_SACONTRACT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
