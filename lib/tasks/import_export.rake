@@ -41,6 +41,7 @@ namespace :import_export do
       position_title = row['position_title']
       clerk_code = row['clerk_code']
       pre_sso_id = row['pre_sso_id']
+      wecom_id = row['wecom_id']
       job_level = row['job_level']
       locked_at = row['locked_at']
       chinese_name = row['chinese_name']
@@ -53,6 +54,7 @@ namespace :import_export do
       user.position_title = position_title
       user.clerk_code = clerk_code
       user.pre_sso_id = pre_sso_id
+      user.wecom_id = wecom_id
       user.job_level = job_level
       user.locked_at = locked_at
       user.chinese_name = chinese_name
