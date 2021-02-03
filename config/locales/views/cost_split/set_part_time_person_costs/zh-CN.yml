@@ -14,3 +14,7 @@ zh-CN:
           position: "岗位"
           main_position: "是否主职"
           salary_classification: "薪资项目分类"
+          action: "操作"
+      model:
+        title: "兼职人员设置"
+        close: "关闭"

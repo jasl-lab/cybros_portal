@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
-  before_action :set_monthly_salary_split_rule, except: %i[index part_time_people]
-
   def index
     prepare_meta_tags title: t('.title')
     @ncworkno = params[:ncworkno] || User.first.clerk_code
@@ -11,7 +9,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.first
     beginning_of_month = Date.parse(@month_name).beginning_of_month
 
-    @users = User.joins(:position_users)
+    @users = User.joins(:position_users).includes(:user_monthly_part_time_split_rates)
       .where(position_users: { main_position: false }).distinct
 
     if @ncworkno.present?
@@ -32,5 +30,12 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @users = User.joins(:position_users)
       .where(position_users: { main_position: false })
       .where('chinese_name LIKE ?', "%#{params[:q]}%").distinct.limit(7)
+  end
+
+  def edit
+    @month_name = params[:month_name]&.strip
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
+    user = User.includes(:user_monthly_part_time_split_rates).find params[:id]
+    @user_monthly_part_time_split_rates = user.user_monthly_part_time_split_rates.where(month: beginning_of_month)
   end
 end

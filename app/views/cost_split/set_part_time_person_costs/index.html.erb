@@ -30,6 +30,7 @@
             <th rowspan="2"><%= t('.table.position') -%></th>
             <th rowspan="2"><%= t('.table.main_position') -%></th>
             <th colspan="<%= @user_salary_classifications.length -%>" class="align-middle text-center"><%= t('.table.salary_classification') -%></th>
+            <th rowspan="2"><%= t('.table.action') -%></th>
           </tr>
           <tr>
             <% @user_salary_classifications.each do |user_salary_classification| %>
@@ -54,6 +55,13 @@
                 <% @user_salary_classifications.each do |user_salary_classification| %>
                   <td></td>
                 <% end %>
+                <% if index == 0 %>
+                  <td rowspan="<%= mpts_rates.length -%>" class="align-middle text-center">
+                    <%= link_to edit_cost_split_set_part_time_person_cost_path(id: user.id, month_name: @month_name), remote: true do %>
+                      <i class="nav-icon fas fa-edit"></i>
+                    <% end %>
+                  </td>
+                <% end %>
               </tr>
             <% end %>
           <% end %>
@@ -61,6 +69,8 @@
       </table>
     </div>
     <%= paginate @users %>
-
   </div>
 </div>
+
+<div id="set-part-time-person-costs-model" class="modal" tabindex="-1" role="dialog"></div>
+
