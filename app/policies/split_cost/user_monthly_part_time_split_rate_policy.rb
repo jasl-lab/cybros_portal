@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SplitCost
-  class MonthlySalarySplitRulePolicy < ApplicationPolicy
+  class UserMonthlyPartTimeSplitRatePolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
         return scope.none unless user.present?

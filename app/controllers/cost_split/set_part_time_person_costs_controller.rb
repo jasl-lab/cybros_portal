@@ -6,7 +6,9 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
   def index
     prepare_meta_tags title: t('.title')
     @ncworkno = params[:ncworkno] || current_user.clerk_code
-    @begin_date = params[:begin_date]&.strip || Date.today.beginning_of_year
-    @end_date = params[:end_date]&.strip || Date.today.end_of_year
+    
+    @all_month_names = policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.first
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
   end
 end

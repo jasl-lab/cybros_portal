@@ -4,7 +4,6 @@ zh-CN:
     set_part_time_person_costs:
       index:
         title: "兼职人员薪资项目比例设置"
+        month_name: "年月"
         ncworkno: "员工姓名"
-        begin_date: "开始日期"
-        end_date: "结束日期"
         confirm: "搜索"

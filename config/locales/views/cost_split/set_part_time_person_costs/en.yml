@@ -4,7 +4,6 @@ en:
     set_part_time_person_costs:
       index:
         title: "Part-time person salary item cost classification setting"
+        month_name: "Month name"
         ncworkno: "Employee name"
-        begin_date: "Begin date"
-        end_date: "End date"
         confirm: "Confirm"
