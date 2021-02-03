@@ -21,12 +21,37 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table width="100%" border="1">
+      <table class="table table-bordered table-striped">
         <thead>
+          <tr>
+            <th><%= t('.table.clerk_name') -%></th>
+            <th><%= t('.table.company') -%></th>
+            <th><%= t('.table.department') -%></th>
+            <th><%= t('.table.position') -%></th>
+            <th><%= t('.table.main_position') -%></th>
+          </tr>
         </thead>
         <tbody>
+          <% @users.each do |user| %>
+            <% mpts_rates = user.user_monthly_part_time_split_rates.collect do |r|
+                 [r.position.department&.company_name, r.position.department&.name, r.position.name, r.main_position]
+               end.uniq %>
+            <% mpts_rates.each_with_index do |mpts_rate, index| %>
+              <tr>
+                <% if index == 0 %>
+                  <td rowspan="<%= mpts_rates.length -%>"><%= user.chinese_name %></td>
+                <% end %>
+                <td><%= mpts_rate[0] %></td>
+                <td><%= mpts_rate[1] %></td>
+                <td><%= mpts_rate[2] %></td>
+                <td><%= mpts_rate[3] %></td>
+              </tr>
+            <% end %>
+          <% end %>
         </tbody>
       </table>
     </div>
+    <%= paginate @users %>
+
   </div>
 </div>

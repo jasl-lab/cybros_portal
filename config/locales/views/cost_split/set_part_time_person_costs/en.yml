@@ -7,3 +7,9 @@ en:
         month_name: "Month name"
         ncworkno: "Employee name"
         confirm: "Confirm"
+        table:
+          clerk_name: "Name"
+          company: "Company"
+          department: "Department"
+          position: "Position"
+          main_position: "Main position"
