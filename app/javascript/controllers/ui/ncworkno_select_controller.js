@@ -13,7 +13,7 @@ export default class extends Controller {
       load: function (query, callback) {
         if (!query.length) return callback();
         $.ajax({
-          url: `/ui/${load_url}?q=${encodeURIComponent(query)}`,
+          url: `${load_url}?q=${encodeURIComponent(query)}`,
           type: "GET",
           error: function () {
             callback();
