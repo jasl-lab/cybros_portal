@@ -1,7 +1,10 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
+  static values = { url: String }
+
   connect() {
+    const load_url = this.urlValue;
     $('#ncworkno-select').selectize({
       valueField: "clerk_code",
       labelField: "chinese_name",
@@ -10,7 +13,7 @@ export default class extends Controller {
       load: function (query, callback) {
         if (!query.length) return callback();
         $.ajax({
-          url: "/ui/ncworkno_select.json?q=" + encodeURIComponent(query),
+          url: `/ui/${load_url}?q=${encodeURIComponent(query)}`,
           type: "GET",
           error: function () {
             callback();
