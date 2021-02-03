@@ -24,11 +24,17 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th><%= t('.table.clerk_name') -%></th>
-            <th><%= t('.table.company') -%></th>
-            <th><%= t('.table.department') -%></th>
-            <th><%= t('.table.position') -%></th>
-            <th><%= t('.table.main_position') -%></th>
+            <th rowspan="2"><%= t('.table.clerk_name') -%></th>
+            <th rowspan="2"><%= t('.table.company') -%></th>
+            <th rowspan="2"><%= t('.table.department') -%></th>
+            <th rowspan="2"><%= t('.table.position') -%></th>
+            <th rowspan="2"><%= t('.table.main_position') -%></th>
+            <th colspan="<%= @user_salary_classifications.length -%>" class="align-middle text-center"><%= t('.table.salary_classification') -%></th>
+          </tr>
+          <tr>
+            <% @user_salary_classifications.each do |user_salary_classification| %>
+              <th><%= user_salary_classification.name -%></th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -39,12 +45,15 @@
             <% mpts_rates.each_with_index do |mpts_rate, index| %>
               <tr>
                 <% if index == 0 %>
-                  <td rowspan="<%= mpts_rates.length -%>"><%= user.chinese_name %></td>
+                  <td rowspan="<%= mpts_rates.length -%>" class="align-middle text-center"><%= user.chinese_name %></td>
                 <% end %>
                 <td><%= mpts_rate[0] %></td>
                 <td><%= mpts_rate[1] %></td>
                 <td><%= mpts_rate[2] %></td>
                 <td><%= mpts_rate[3] ? '是' : '' %></td>
+                <% @user_salary_classifications.each do |user_salary_classification| %>
+                  <td></td>
+                <% end %>
               </tr>
             <% end %>
           <% end %>

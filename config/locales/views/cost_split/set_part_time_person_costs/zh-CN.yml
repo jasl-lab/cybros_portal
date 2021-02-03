@@ -13,3 +13,4 @@ zh-CN:
           department: "所属部门"
           position: "岗位"
           main_position: "是否主职"
+          salary_classification: "薪资项目分类"

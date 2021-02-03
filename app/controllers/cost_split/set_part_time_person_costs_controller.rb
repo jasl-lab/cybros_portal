@@ -25,6 +25,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     end.where(month: beginning_of_month)
 
     @users = @users.page(params[:page]).per(params[:per_page])
+    @user_salary_classifications = SplitCost::UserSalaryClassification.all.order(:code)
   end
 
   def part_time_people
