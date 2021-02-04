@@ -36,6 +36,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
           org_name: @org_name,
           total_sign_receive_great_than: @total_sign_receive_great_than.to_i * 10000,
           over_amount_great_than: @over_amount_great_than.to_i * 10000,
+          can_hide_item: @can_hide_item,
           show_hide: @show_hide_item,
           view_context: view_context)
       end

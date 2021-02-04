@@ -12,6 +12,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     @total_sign_receive_great_than = opts[:total_sign_receive_great_than]
     @end_of_date = opts[:end_of_date]
     @org_name = opts[:org_name]
+    @can_hide_item = opts[:can_hide_item]
     @show_hide = opts[:show_hide]
     super
   end
@@ -20,7 +21,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     @view_columns ||= {
       org_dept_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.deptname', cond: :string_eq, searchable: true, orderable: true },
       business_director_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname', cond: :string_eq, searchable: true, orderable: true },
-      first_party_name_and_comment: { source: 'Bi::SubCompanyNeedReceiveSignDetail.firstpartyname', cond: :like, searchable: true, orderable: true },
+      first_party_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.firstpartyname', cond: :like, searchable: true, orderable: true },
       sales_contract_code_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractname', cond: :like, searchable: true, orderable: true },
       amount_total: { source: 'Bi::SubCompanyNeedReceiveSignDetail.amounttotal', cond: :gteq, searchable: true, orderable: true },
       contract_property_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname', orderable: true },
@@ -46,7 +47,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       display_coc_history = coc_history.collect { |c| "#{c.record_month}: #{sanitize c.comment}" }
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         business_director_name: r.businessdirectorname,
-        first_party_name_and_comment: "#{r.firstpartyname}<br /><i>#{coc.comment}</i>".html_safe,
+        first_party_name: r.firstpartyname,
         sales_contract_code_name:  "#{r.salescontractcode}<br />#{r.salescontractname}".html_safe,
         amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: 'text-center'),
         contract_property_name: r.contractpropertyname,
@@ -54,8 +55,11 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: 'text-center'),
-        comment_on_sales_contract_code:
-          render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc, coc_history: display_coc_history }),
+        comment_on_sales_contract_code: if @can_hide_item
+                                          render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc, coc_history: display_coc_history })
+                                        else
+                                          coc.comment
+                                        end,
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
                       else

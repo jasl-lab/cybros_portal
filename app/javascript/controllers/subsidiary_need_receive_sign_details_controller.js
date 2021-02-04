@@ -9,7 +9,7 @@ export default class extends Controller {
     const normalColumns = [
       {"data": "org_dept_name"},
       {"data": "business_director_name"},
-      {"data": "first_party_name_and_comment"},
+      {"data": "first_party_name"},
       {"data": "sales_contract_code_name"},
       {"data": "amount_total"},
       {"data": "contract_property_name"},
@@ -17,9 +17,10 @@ export default class extends Controller {
       {"data": "acc_need_receive"},
       {"data": "sign_receive"},
       {"data": "over_amount"},
+      {"data": "comment_on_sales_contract_code"},
     ];
 
-    const adminColumns = normalColumns.concat([{"data": "comment_on_sales_contract_code", bSortable: false}, {"data": "admin_action", bSortable: false}]);
+    const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
 
     const subsidiaryNeedReceiveSignDetailsDatatable = $('#subsidiary-need-receive-sign-details-datatable').dataTable({
       "processing": true,

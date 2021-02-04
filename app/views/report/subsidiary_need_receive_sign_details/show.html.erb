@@ -43,8 +43,8 @@
                 <%= t(".table.org_dept_name") -%>
               </th>
               <th><%= t(".table.business_director_name") -%></th>
-              <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.first_party_name_and_comment_tip") -%>">
-                <%= t(".table.first_party_name_and_comment") -%>
+              <th>
+                <%= t(".table.first_party_name") -%>
               </th>
               <th style="width: 300px"><%= t(".table.sales_contract_code_name") -%></th>
               <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.amount_total_tip") -%>">
@@ -61,8 +61,8 @@
               <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.over_amount_tip") -%>">
                 <%= t(".table.over_amount") -%>
               </th>
+              <th><%= t(".table.comment_on_sales_contract_code") -%></th>
               <% if @can_hide_item -%>
-                <th><%= t(".table.comment_on_sales_contract_code") -%></th>
                 <th><%= t(".table.admin_action") -%></th>
               <% end %>
             </tr>
