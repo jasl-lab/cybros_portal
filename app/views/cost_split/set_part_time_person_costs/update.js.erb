@@ -1,2 +1,5 @@
+<% @mpts_ids.each_with_index do |m_id, index| %>
+  $("#td-mpts-<%= m_id -%>").html('<%= @mpts_values[index] -%>');
+<% end %>
 $("#set-part-time-person-costs-model").html('');
 $("#set-part-time-person-costs-model").modal('hide');
