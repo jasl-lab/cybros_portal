@@ -12,9 +12,12 @@ en:
           company: "Company"
           department: "Department"
           position: "Position"
-          main_position: "Main position"
           salary_classification: "Salary classification"
           action: "Action"
       model:
-        title: "Part-time person salary item cost setting"
+        title: "${name}'s part-time person salary item cost setting"
         close: "Close"
+        table:
+          company_department: "Company & department"
+          position_with_main: "Position"
+          salary_classification: "Salary classification"

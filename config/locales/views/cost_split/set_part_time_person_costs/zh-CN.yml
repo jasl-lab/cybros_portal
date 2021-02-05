@@ -12,9 +12,12 @@ zh-CN:
           company: "所属公司"
           department: "所属部门"
           position: "岗位"
-          main_position: "是否主职"
           salary_classification: "薪资项目分类"
           action: "操作"
       model:
-        title: "兼职人员设置"
+        title: "%{name}的兼职人员设置"
         close: "关闭"
+        table:
+          company_department: "所属公司和部门"
+          position_with_main: "岗位"
+          salary_classification: "薪资项目分类"

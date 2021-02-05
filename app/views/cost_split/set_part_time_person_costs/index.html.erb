@@ -28,7 +28,6 @@
             <th rowspan="2"><%= t('.table.company') -%></th>
             <th rowspan="2"><%= t('.table.department') -%></th>
             <th rowspan="2"><%= t('.table.position') -%></th>
-            <th rowspan="2"><%= t('.table.main_position') -%></th>
             <th colspan="<%= @user_salary_classifications.length -%>" class="align-middle text-center"><%= t('.table.salary_classification') -%></th>
             <th rowspan="2"><%= t('.table.action') -%></th>
           </tr>
@@ -50,8 +49,7 @@
                 <% end %>
                 <td><%= mpts_rate[0] %></td>
                 <td><%= mpts_rate[1] %></td>
-                <td><%= mpts_rate[2] %></td>
-                <td><%= mpts_rate[3] ? '是' : '' %></td>
+                <td><%= mpts_rate[2] %> <%= mpts_rate[3] ? '<i class="fa fa-star"></i>'.html_safe : '' %></td>
                 <% @user_salary_classifications.each do |user_salary_classification| %>
                   <td></td>
                 <% end %>
