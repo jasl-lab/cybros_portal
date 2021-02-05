@@ -39,4 +39,16 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @user_monthly_part_time_split_rates = @user.user_monthly_part_time_split_rates.where(month: beginning_of_month)
     @user_salary_classifications = SplitCost::UserSalaryClassification.all.order(:code)
   end
+
+  def update
+    month_name = params[:month_name]&.strip
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+    user = User.includes(:user_monthly_part_time_split_rates).find params[:id]
+    mpts_rates = user.user_monthly_part_time_split_rates.where(month: beginning_of_month)
+    mpts_values = params[:values]
+    params[:ids].each_with_index do |m_id, index|
+      mpts_rate = mpts_rates.find_by!(id: m_id)
+      mpts_rate.update(salary_classification_split_rate: mpts_values[index])
+    end
+  end
 end

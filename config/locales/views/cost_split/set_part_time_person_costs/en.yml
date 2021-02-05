@@ -17,6 +17,7 @@ en:
       model:
         title: "${name}'s part-time person salary item cost setting"
         close: "Close"
+        save: "Save"
         table:
           company_department: "Company & department"
           position_with_main: "Position"

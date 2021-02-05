@@ -17,6 +17,7 @@ zh-CN:
       model:
         title: "%{name}的兼职人员设置"
         close: "关闭"
+        save: "保存"
         table:
           company_department: "所属公司和部门"
           position_with_main: "岗位"
