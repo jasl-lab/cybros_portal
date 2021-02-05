@@ -18,8 +18,4 @@ class Report::BaseController < ApplicationController
     time_stamp = Time.now.to_i
     @uid = AesEncryptDecrypt.encryption("#{login_name}:#{time_stamp}")
   end
-
-  def record_user_view_history
-    current_user.report_view_histories.create(controller_name: controller_path, action_name: action_name)
-  end
 end

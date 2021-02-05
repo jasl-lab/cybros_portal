@@ -88,6 +88,10 @@ class ApplicationController < ActionController::Base
       end unless current_user.present?
     end
 
+    def record_user_view_history
+      current_user.report_view_histories.create(controller_name: controller_path, action_name: action_name)
+    end
+
   private
 
     def set_current_user

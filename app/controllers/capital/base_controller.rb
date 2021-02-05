@@ -15,8 +15,4 @@ class Capital::BaseController < ApplicationController
     def set_page_layout_data
       @_sidebar_name = 'capital_report'
     end
-
-    def record_user_view_history
-      current_user.report_view_histories.create(controller_name: controller_path, action_name: action_name)
-    end
 end
