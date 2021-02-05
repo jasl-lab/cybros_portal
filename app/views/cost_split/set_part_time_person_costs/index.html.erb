@@ -39,22 +39,22 @@
         </thead>
         <tbody>
           <% @users.each do |user| %>
-            <% mpts_rates = user.user_monthly_part_time_split_rates.collect do |r|
-                 [r.position.department&.company_name, r.position.department&.name, r.position.name, r.main_position]
-               end.uniq %>
-            <% mpts_rates.each_with_index do |mpts_rate, index| %>
+            <% position_ids = user.user_monthly_part_time_split_rates.collect(&:position_id).uniq %>
+            <% position_ids.each_with_index do |position_id, index| %>
+              <% mpts_rates = user.user_monthly_part_time_split_rates.find_all { |r| r.position_id == position_id } %>
               <tr>
                 <% if index == 0 %>
-                  <td rowspan="<%= mpts_rates.length -%>" class="align-middle text-center"><%= user.chinese_name %></td>
+                  <td rowspan="<%= position_ids.length -%>" class="align-middle text-center"><%= user.chinese_name %></td>
                 <% end %>
-                <td><%= mpts_rate[0] %></td>
-                <td><%= mpts_rate[1] %></td>
-                <td><%= mpts_rate[2] %> <%= mpts_rate[3] ? '<i class="fa fa-star"></i>'.html_safe : '' %></td>
+                <td><%= mpts_rates.first.position.department&.company_name %></td>
+                <td><%= mpts_rates.first.position.department&.name %></td>
+                <td><%= mpts_rates.first.position.name %> <%= mpts_rates.first.main_position ? '<i class="fa fa-star"></i>'.html_safe : '' %></td>
                 <% @user_salary_classifications.each do |user_salary_classification| %>
-                  <td></td>
+                  <% mpts_rate = mpts_rates.find { |r| r.user_salary_classification_id == user_salary_classification.id } %>
+                  <td><%= mpts_rate.salary_classification_split_rate %></td>
                 <% end %>
                 <% if index == 0 %>
-                  <td rowspan="<%= mpts_rates.length -%>" class="align-middle text-center">
+                  <td rowspan="<%= position_ids.length -%>" class="align-middle text-center">
                     <%= link_to edit_cost_split_set_part_time_person_cost_path(id: user.id, month_name: @month_name), remote: true do %>
                       <i class="nav-icon fas fa-edit"></i>
                     <% end %>
