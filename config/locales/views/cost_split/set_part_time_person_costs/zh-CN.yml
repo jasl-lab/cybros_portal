@@ -11,7 +11,7 @@ zh-CN:
           clerk_name: "姓名"
           company: "所属公司"
           department: "所属部门"
-          position: "岗位"
+          position_with_star: "岗位 (星号为主职)"
           salary_classification: "薪资项目分类"
           action: "操作"
       model:

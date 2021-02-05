@@ -21,13 +21,13 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th rowspan="2"><%= t('.table.clerk_name') -%></th>
             <th rowspan="2"><%= t('.table.company') -%></th>
             <th rowspan="2"><%= t('.table.department') -%></th>
-            <th rowspan="2"><%= t('.table.position') -%></th>
+            <th rowspan="2"><%= t('.table.position_with_star') -%></th>
             <th colspan="<%= @user_salary_classifications.length -%>" class="align-middle text-center"><%= t('.table.salary_classification') -%></th>
             <th rowspan="2"><%= t('.table.action') -%></th>
           </tr>
@@ -39,11 +39,11 @@
         </thead>
         <tbody>
           <% @users.each do |user| %>
-            <% position_ids = user.user_monthly_part_time_split_rates.collect(&:position_id).uniq %>
+            <% position_ids = user.user_monthly_part_time_split_rates.order(main_position: :desc, position_id: :asc).collect(&:position_id).uniq %>
             <% position_ids.each_with_index do |position_id, index| %>
               <% mpts_rates = user.user_monthly_part_time_split_rates.find_all { |r| r.position_id == position_id } %>
-              <tr>
-                <% if index == 0 %>
+              <tr class="<%= index.zero? ? 'bg-secondary' : '' -%>">
+                <% if index.zero? %>
                   <td rowspan="<%= position_ids.length -%>" class="align-middle text-center"><%= user.chinese_name %></td>
                 <% end %>
                 <td><%= mpts_rates.first.position.department&.company_name %></td>
@@ -53,7 +53,7 @@
                   <% mpts_rate = mpts_rates.find { |r| r.user_salary_classification_id == user_salary_classification.id } %>
                   <td id="td-mpts-<%= mpts_rate.id -%>"><%= mpts_rate.salary_classification_split_rate %></td>
                 <% end %>
-                <% if index == 0 %>
+                <% if index.zero? %>
                   <td rowspan="<%= position_ids.length -%>" class="align-middle text-center">
                     <%= link_to edit_cost_split_set_part_time_person_cost_path(id: user.id, month_name: @month_name), remote: true do %>
                       <i class="nav-icon fas fa-edit"></i>

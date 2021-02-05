@@ -11,7 +11,7 @@ en:
           clerk_name: "Name"
           company: "Company"
           department: "Department"
-          position: "Position"
+          position_with_star: "Position (star is main)"
           salary_classification: "Salary classification"
           action: "Action"
       model:
