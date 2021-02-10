@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '>= 2.7'
 
-gem 'rails', '~> 6.1.1'
+gem 'rails', '~> 6.1.2'
 gem 'rails-i18n'
 
 gem 'auto_strip_attributes'
@@ -65,7 +65,7 @@ gem 'kaminari'
 gem 'simple_calendar'
 
 # bundle config local.wechat /Users/guochunzhong/git/oss/wechat/
-gem 'wechat', git: 'https://github.com/Eric-Guo/wechat', branch: :main
+gem 'wechat', git: 'https://github.com/Eric-Guo/wechat', branch: :zeitwerk
 
 gem 'jieba-rb'
 gem 'similar_text'
