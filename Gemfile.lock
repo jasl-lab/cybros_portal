@@ -151,7 +151,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.9.2)
       devise (>= 4.7.1)
-    devise-jwt (0.8.0)
+    devise-jwt (0.8.1)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.5)
     devise_invitable (2.0.3)
