@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]
+
+    post '/wechat_mini/login_by_code', to: 'wechat_mini#login_by_code'
   end
 
   namespace :admin do

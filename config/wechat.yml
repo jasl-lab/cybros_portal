@@ -64,20 +64,18 @@ bi_test:
 bi_production:
   <<: *bi_account
 
-# wx3_development:
-#  <<: *default
-#  appid: "my_appid"
-#  secret: "my_secret"
-#  access_token: "tmp/wechat_access_token3"
-#  jsapi_ticket: "tmp/wechat_jsapi_ticket3"
-#
-# wx3_test:
-#  <<: *default
-#  appid: "my_appid"
-#  secret: "my_secret"
-#
-# wx3_production:
-#  <<: *default
-#  appid: "my_appid"
-#  secret: "my_secret"
-#
+mini_account: &mini_account
+  appid: <%= Rails.application.credentials.wechat_mini_appid! %>
+  secret: <%= Rails.application.credentials.wechat_mini_secret! %>
+  type: "mp"
+  access_token: "tmp/wechat_mini_access_token"
+  jsapi_ticket: "tmp/wechat_mini_jsapi_ticket"
+
+mini_development:
+  <<: *mini_account
+
+mini_test:
+  <<: *mini_account
+
+mini_production:
+  <<: *mini_account

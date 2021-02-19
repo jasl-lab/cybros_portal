@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_074451) do
+ActiveRecord::Schema.define(version: 2021_02_19_025152) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -493,7 +493,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_074451) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.date "month"
     t.bigint "position_id", null: false
@@ -641,6 +641,26 @@ ActiveRecord::Schema.define(version: 2021_02_02_074451) do
     t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
   end
 
+  create_table "wechat_users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "app_id", null: false, comment: "微信APPID"
+    t.string "open_id", null: false, comment: "微信用户OPENID"
+    t.string "union_id", comment: "微信UNIONID"
+    t.string "mobile", default: "", null: false, comment: "手机号"
+    t.string "nick_name", default: "", null: false, comment: "昵称"
+    t.string "avatar_url", default: "", null: false, comment: "头像"
+    t.integer "gender", default: 0, null: false, comment: "性别 0：未知、1：男、2：女"
+    t.string "province", default: "", null: false, comment: "省"
+    t.string "city", default: "", null: false, comment: "市"
+    t.string "country", default: "", null: false, comment: "国家"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["app_id", "open_id"], name: "index_wechat_users_on_app_id_and_open_id", unique: true
+    t.index ["mobile"], name: "index_wechat_users_on_mobile"
+    t.index ["union_id"], name: "index_wechat_users_on_union_id"
+    t.index ["user_id"], name: "index_wechat_users_on_user_id"
+  end
+
   create_table "yingjianke_overrun_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.datetime "time"
     t.string "device"
@@ -674,4 +694,5 @@ ActiveRecord::Schema.define(version: 2021_02_02_074451) do
   add_foreign_key "user_monthly_part_time_split_rates", "users"
   add_foreign_key "user_split_classify_salaries", "users"
   add_foreign_key "user_split_cost_settings", "users"
+  add_foreign_key "wechat_users", "users"
 end
