@@ -7,16 +7,24 @@ function ifAddTo100(usc_id, index, is100) {
     let item = textFields[i];
     sum += parseInt(item.value);
   }
+  document.getElementById(`sum-user-salary-classification-${usc_id}`).innerHTML = `${sum}%`
   is100[index] = sum;
 }
 
 export default class extends Controller {
   static values = { uscIds: Array };
 
+  connect() {
+    this.check_all_text_fields();
+  }
+
   change(event) {
+    this.check_all_text_fields();
+  }
+
+  check_all_text_fields() {
     const is100 = Array(this.uscIdsValue.length);
     this.uscIdsValue.forEach(function(usec_id, index) { ifAddTo100(usec_id, index, is100) });
-    console.log(is100);
     if(is100.every(function(v) { return v === 100 })) {
       document.getElementById('submit-button').disabled = false;
     } else {

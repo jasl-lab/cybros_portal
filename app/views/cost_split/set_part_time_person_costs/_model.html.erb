@@ -17,7 +17,7 @@
             </tr>
             <tr>
               <% @user_salary_classifications.each do |user_salary_classification| %>
-                <th><%= user_salary_classification.name -%></th>
+                <th><%= user_salary_classification.name -%> <span class="badge badge-secondary" id="sum-user-salary-classification-<%= user_salary_classification.id -%>"></span></th>
               <% end %>
             </tr>
           </thead>
