@@ -22,8 +22,8 @@ class YingjiankeOverrunUser < ApplicationRecord
           user_name = device.split('@')[0]
           info = User.details_mapping.fetch(user_name, user_name)
           ip = tr.elements[2].content.strip
-          login_time = DateTime.parse(tr.elements[3].content.strip)
-          last_access_time = DateTime.parse(tr.elements[4].content.strip)
+          login_time = Time.zone.parse(tr.elements[3].content.strip)
+          last_access_time = Time.zone.parse(tr.elements[4].content.strip)
           stay_time = distance_of_time_in_words login_time, last_access_time
           rows << [info, login_time, last_access_time, stay_time, device, ip, mid]
         end
