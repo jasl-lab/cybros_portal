@@ -7,3 +7,11 @@ en:
         month_name: "Month name"
         ncworkno: "Employee name"
         confirm: "Confirm"
+        table:
+          clerk_code: "Clerk code"
+          clerk_name: "Clerk name"
+          company: "Company"
+          department: "Department"
+          position_with_star: "Position with star"
+          salary_classification: "Salary classification"
+          user_job_type: "User job type"

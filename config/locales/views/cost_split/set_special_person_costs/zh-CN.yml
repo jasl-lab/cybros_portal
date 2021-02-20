@@ -7,3 +7,11 @@ zh-CN:
         month_name: "年月"
         ncworkno: "员工姓名"
         confirm: "搜索"
+        table:
+          clerk_code: "员工编号"
+          clerk_name: "员工名称"
+          company: "公司"
+          department: "部门"
+          position_with_star: "岗位"
+          salary_classification: "岗位类别"
+          user_job_type: "成本类别"
