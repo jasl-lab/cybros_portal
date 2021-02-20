@@ -2,21 +2,21 @@
 
 module API
   class WechatMiniUsersController < ApplicationController
-    before_action :authenticate_api_wechat_user!
+    before_action :authenticate_wechat_user!
 
     def show
-      render json: { userinfo: current_api_wechat_user }
+      render json: { userinfo: current_wechat_user }
     end
 
     def update
       encrypted_data = params[:encrypted_data]
       iv = params[:iv]
       appid = Wechat.api('mini').access_token.appid
-      openid = current_api_wechat_user.openid
-      session_key = current_api_wechat_user.session_key
+      openid = current_wechat_user.openid
+      session_key = current_wechat_user.session_key
       userinfo = Wechat.decrypt(encrypted_data, session_key, iv)
-      current_api_wechat_user.update userinfo
-      render json: { userinfo: current_api_wechat_user }
+      current_wechat_user.update userinfo
+      render json: { userinfo: current_wechat_user }
     end
   end
 end

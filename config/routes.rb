@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_for :wechat_users, skip: :all
   namespace :api do
     resource :name_card, only: %i[create]
     resource :official_seal_usage, only: %i[create]
@@ -21,7 +22,6 @@ Rails.application.routes.draw do
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]
     
-    devise_for :wechat_users, skip: :all
     resource :wechat_mini_session, only: [:create]
     resource :wechat_mini_user, only: [:show, :update]
   end
