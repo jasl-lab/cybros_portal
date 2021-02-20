@@ -2,6 +2,7 @@
 
 module API
   class WechatMiniBaseController < ActionController::API
+    include Pundit
     include ActionController::ImplicitRender
     include ActionView::Layouts
 
@@ -17,9 +18,9 @@ module API
     end
 
     def has_auth
-      return false unless current_wechat_user.mobile
+      return false unless current_wechat_user.mobile.present?
       user = User.find_by mobile: current_wechat_user.mobile
-      return false unless user
+      return false unless user.present?
       sign_in user
       policy(Bi::NewMapInfo).show?
     end

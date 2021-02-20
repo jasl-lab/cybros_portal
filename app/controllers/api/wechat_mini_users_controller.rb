@@ -16,17 +16,31 @@ module API
       openid = current_wechat_user.open_id
       session_key = current_wechat_user.session_key
       userinfo = Wechat.decrypt(encrypted_data, session_key, iv)
-      unless userinfo && userinfo['watermark'] && userinfo['watermark']['appid'] == appid
+      unless userinfo && userinfo['watermark'] && userinfo['watermark']['appid'] == appid && userinfo['openId'] == openid
         raise StandardError.new '用户信息有误'
       end
-      @wechat_user = current_wechat_user.update(
-        nick_name: userinfo['nickName'],
-        avatar_url: userinfo['avatarUrl'],
-        gender: userinfo['gender'],
-        province: userinfo['province'],
-        city: userinfo['city'],
-        country: userinfo['country']
-      )
+      current_wechat_user.nick_name = userinfo['nickName']
+      current_wechat_user.avatar_url = userinfo['avatarUrl']
+      current_wechat_user.gender = userinfo['gender']
+      current_wechat_user.province = userinfo['province']
+      current_wechat_user.city = userinfo['city']
+      current_wechat_user.country = userinfo['country']
+      current_wechat_user.save
+      @wechat_user = current_wechat_user
+    end
+
+    def mobile
+      encrypted_data = params[:encrypted_data]
+      iv = params[:iv]
+      appid = Wechat.api('mini').access_token.appid
+      session_key = current_wechat_user.session_key
+      data = Wechat.decrypt(encrypted_data, session_key, iv)
+      unless data && data['watermark'] && data['watermark']['appid'] == appid
+        raise StandardError.new '用户信息有误'
+      end
+      current_wechat_user.mobile = data['phoneNumber']
+      current_wechat_user.save
+      @wechat_user = current_wechat_user
     end
   end
 end

@@ -1,0 +1,1 @@
+json.hasBindMobile @wechat_user.mobile.present?
