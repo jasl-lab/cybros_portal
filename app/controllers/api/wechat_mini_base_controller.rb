@@ -15,6 +15,7 @@ module API
       end
       sign_in user
     end
+
     def has_auth
       return false unless current_wechat_user.mobile
       user = User.find_by mobile: current_wechat_user.mobile
