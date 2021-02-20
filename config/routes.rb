@@ -20,8 +20,10 @@ Rails.application.routes.draw do
 
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]
-
-    post '/wechat_mini/login_by_code', to: 'wechat_mini#login_by_code'
+    
+    devise_for :wechat_users, skip: :all
+    resource :wechat_mini_session, only: [:create]
+    resource :wechat_mini_user, only: [:show, :update]
   end
 
   namespace :admin do

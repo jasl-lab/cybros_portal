@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_011125) do
+ActiveRecord::Schema.define(version: 2021_02_20_024354) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -493,7 +493,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_011125) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_monthly_part_time_special_job_types", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "user_monthly_part_time_special_job_types", charset: "utf8mb4", force: :cascade do |t|
     t.date "month", null: false
     t.bigint "user_id", null: false
     t.bigint "position_id", null: false
@@ -505,7 +505,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_011125) do
     t.index ["user_job_type_id"], name: "idx_user_monthly_part_time_special_job_types_on_user_job_type"
   end
 
-  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.date "month"
     t.bigint "position_id", null: false
@@ -653,7 +653,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_011125) do
     t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
   end
 
-  create_table "wechat_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "wechat_users", charset: "utf8mb4", force: :cascade do |t|
     t.string "app_id", null: false, comment: "微信APPID"
     t.string "open_id", null: false, comment: "微信用户OPENID"
     t.string "union_id", comment: "微信UNIONID"
@@ -667,6 +667,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_011125) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "session_key", default: ""
     t.index ["app_id", "open_id"], name: "index_wechat_users_on_app_id_and_open_id", unique: true
     t.index ["mobile"], name: "index_wechat_users_on_mobile"
     t.index ["union_id"], name: "index_wechat_users_on_union_id"
