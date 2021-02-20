@@ -15,6 +15,7 @@ module API
         user_encoder = Warden::JWTAuth::UserEncoder.new
         payload = user_encoder.helper.payload_for_user(wechat_user, "api_wechat_user")
         payload["exp"] = Time.now.to_i + 1.year
+        payload["aud"] = 'cybros'
         jwt = Warden::JWTAuth::TokenEncoder.new.call(payload)
         render json: { jwt: jwt }
       else
