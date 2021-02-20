@@ -6,8 +6,4 @@ class WechatUser < ActiveRecord::Base
   def self.find_for_jwt_authentication(sub)
     find_by(id: sub)
   end
-
-  def jwt_subject
-    id
-  end
 end
