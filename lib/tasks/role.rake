@@ -51,7 +51,7 @@ namespace :role do
         deptcode_sum = cw_access_code[1]
         stname = cw_access_code[2]
         zjname = cw_access_code[3]
-        chinese_name = hr_access_code[4]
+        chinese_name = cw_access_code[4]
         next if stname.nil? || zjname.nil? || %w[夏馥莹 张骏].include?(chinese_name)
 
         if (stname.include?('总经理') || stname.include?('董事长') || stname.include?('总建筑师')) && zjname >= 17
