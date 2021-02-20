@@ -6,7 +6,6 @@ module API
 
     def show
       @wechat_user = current_wechat_user
-      @bind_mobile = !!current_wechat_user.mobile
       @insider = has_auth
     end
 
