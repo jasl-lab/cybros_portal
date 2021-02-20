@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module API
-  class WechatMiniSessionsController < ApplicationController
+  class WechatMiniSessionsController < WechatMiniBaseController
     def create
       code = params[:code]
       wechat = Wechat.api('mini')
