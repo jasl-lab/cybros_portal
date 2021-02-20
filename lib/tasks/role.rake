@@ -14,7 +14,8 @@ namespace :role do
         deptcode_sum = hr_access_code[1]
         stname = hr_access_code[2]
         zjname = hr_access_code[3]
-        next if stname.nil? || zjname.nil?
+        chinese_name = hr_access_code[4]
+        next if stname.nil? || zjname.nil? || %w[夏馥莹 张骏].include?(chinese_name)
 
         if (stname == '总经理' || stname == '董事长') && zjname >= 17
           user.manual_hr_access_codes.create(hr_rolename: 'HR_子公司总经理、董事长', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)
@@ -50,7 +51,8 @@ namespace :role do
         deptcode_sum = cw_access_code[1]
         stname = cw_access_code[2]
         zjname = cw_access_code[3]
-        next if stname.nil? || zjname.nil?
+        chinese_name = hr_access_code[4]
+        next if stname.nil? || zjname.nil? || %w[夏馥莹 张骏].include?(chinese_name)
 
         if (stname.include?('总经理') || stname.include?('董事长') || stname.include?('总建筑师')) && zjname >= 17
           user.manual_cw_access_codes.create(cw_rolename: 'CW_子公司高管1', org_code: orgcode, dept_code: deptcode_sum, auto_generated_role: true)

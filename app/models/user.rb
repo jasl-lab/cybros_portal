@@ -184,11 +184,11 @@ class User < ApplicationRecord
     return @_hr_access_codes if @_hr_access_codes.present?
     主职 = Hrdw::StfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
+    主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, c.name] }
 
     兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
-    兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
+    兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, c.name] }
 
     @_hr_access_codes = 主职_access_codes + 兼职_access_codes
   end
@@ -197,11 +197,11 @@ class User < ApplicationRecord
     return @_cw_access_codes if @_cw_access_codes.present?
     主职 = Hrdw::StfreinstateBi
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code)
-    主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
+    主职_access_codes = 主职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, c.name] }
 
     兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
-    兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i] }
+    兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, c.name] }
 
     @_cw_access_codes = 主职_access_codes + 兼职_access_codes
   end
