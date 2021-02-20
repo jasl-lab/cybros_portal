@@ -1,0 +1,28 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="row">
+      <div class="col-lg-12">
+        <%= form_tag cost_split_set_special_person_costs_path, method: :get, class: 'form-inline' do -%>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".month_name") -%>：</label>
+            <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+          </div>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".ncworkno") -%>：</label>
+            <%= select_tag 'ncworkno', options_from_collection_for_select(User.where(clerk_code: @ncworkno), "clerk_code", "chinese_name"), class: 'form-control-plaintext form-control', id: 'ncworkno-select', data: { controller: 'ui--ncworkno-select', 'ui--ncworkno-select-url-value': '/cost_split/set_part_time_person_costs/part_time_people.json' } -%>
+          </div>
+          <div>
+            <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+          </div>
+        <% end -%>
+      </div>
+    </div>
+    <div class="table-responsive">
+    </div>
+  </div>
+</div>
+
+<div id="set-special-person-costs-model" class="modal" tabindex="-1" role="dialog"></div>

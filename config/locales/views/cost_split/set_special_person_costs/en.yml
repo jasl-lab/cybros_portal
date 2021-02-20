@@ -4,3 +4,6 @@ en:
     set_special_person_costs:
       index:
         title: "Special person salary item cost classification setting"
+        month_name: "Month name"
+        ncworkno: "Employee name"
+        confirm: "Confirm"
