@@ -220,7 +220,9 @@ class User < ApplicationRecord
     def self.calculate_operation_access_code(基准岗位, job_level, org_code, chinese_name)
       return MY_DEPARTMENT if 基准岗位.nil?
 
-      access_code = if 基准岗位.include?('董事长') && job_level >= 18
+      access_code = if %w[夏馥莹 张骏].include?(chinese_name)
+        MY_DEPARTMENT # special rule
+      elsif 基准岗位.include?('董事长') && job_level >= 18
         ALL_EXCEPT_OTHER_COMPANY_DETAILS
       elsif 基准岗位.include?('副总经理') && job_level >= 16
         MY_COMPANY_ALL_DETAILS
