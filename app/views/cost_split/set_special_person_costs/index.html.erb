@@ -42,7 +42,9 @@
               <td><%= mpts.position_user.position.department.name %></td>
               <td><%= mpts.position_user.position.name %></td>
               <td><%= mpts.position_user.user_job_type&.name %></td>
-              <td><%= mpts.user_job_type.name %></td>
+              <td id="monthly-part-time-special-job-type-<%= mpts.id -%>">
+                <%= render partial: 'td_user_job_type', locals: { mpts: mpts } -%>
+              </td>
             </tr>
           <% end %>
         </tbody>

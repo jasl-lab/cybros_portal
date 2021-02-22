@@ -2,6 +2,12 @@
 zh-CN:
   cost_split:
     set_special_person_costs:
+      td_user_job_type:
+        action:
+          edit: "编辑"
+      change_user_job_type:
+        action:
+          cancel: "取消"
       index:
         title: "特殊人员薪资项目成本分类设置"
         month_name: "年月"

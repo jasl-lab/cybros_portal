@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
-  before_action :set_monthly_salary_split_rule, except: %i[index]
+  before_action :set_user_monthly_part_time_special_job_type_rule, except: %i[index]
 
   def index
     prepare_meta_tags title: t('.title')
@@ -20,4 +20,26 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
       policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType)
     end.where(month: beginning_of_month)
   end
+
+  def show
+    render :update
+  end
+
+  def edit
+  end
+
+  def update
+    @mpts_job_type.update(user_monthly_part_time_special_job_type_params)
+  end
+
+  private
+
+    def set_user_monthly_part_time_special_job_type_rule
+      @mpts_job_type = SplitCost::UserMonthlyPartTimeSpecialJobType.find(params[:id])
+    end
+
+    def user_monthly_part_time_special_job_type_params
+      params.fetch(:split_cost_user_monthly_part_time_special_job_type, {})
+        .permit(:user_job_type_id)
+    end
 end

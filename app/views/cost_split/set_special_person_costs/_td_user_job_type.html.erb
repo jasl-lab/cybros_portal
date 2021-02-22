@@ -1,0 +1,4 @@
+<%= mpts.user_job_type.name %>
+<%= link_to edit_cost_split_set_special_person_cost_path(id: mpts.id), remote: true do -%>
+  <i class="fas fa-edit" data-toggle="tooltip" data-placement="top" title="<%= t('.action.edit') -%>"></i>
+<% end %>

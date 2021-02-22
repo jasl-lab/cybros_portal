@@ -2,6 +2,12 @@
 en:
   cost_split:
     set_special_person_costs:
+      td_user_job_type:
+        action:
+          edit: "Edit"
+      change_user_job_type:
+        action:
+          cancel: "Cancel"
       index:
         title: "Special person salary item cost classification setting"
         month_name: "Month name"
