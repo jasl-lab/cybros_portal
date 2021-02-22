@@ -28,6 +28,11 @@ Rails.application.routes.draw do
         post 'mobile'
       end
     end
+    resource :project_map, only: [:show] do
+      member do
+        get 'config'
+      end
+    end
   end
 
   namespace :admin do

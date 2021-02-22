@@ -7,14 +7,11 @@ module API
     include ActionView::Layouts
 
     def make_sure_auth
-      unless current_wechat_user.mobile
-        # 抛出错误 未绑定手机号
-      end
+      raise StandardError.new '未绑定手机号' unless current_wechat_user.mobile
       user = User.find_by mobile: current_wechat_user.mobile
-      unless user
-        # 抛出错误 仅限内部人员访问
-      end
+      raise StandardError.new '仅限天华人员访问' unless user
       sign_in user
+      raise StandardError.new '无权限访问' unless policy(Bi::NewMapInfo).show?
     end
 
     def has_auth
