@@ -15,7 +15,7 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
     end
 
     @mpts_job_types = if @target_user != User.first
-      policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType).where(user: target_user)
+      policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType).where(user: @target_user)
     else
       policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType)
     end.where(month: beginning_of_month)
