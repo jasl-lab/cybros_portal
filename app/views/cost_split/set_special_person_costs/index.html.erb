@@ -4,7 +4,7 @@
       <%= t(".title") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-6">
         <%= form_tag cost_split_set_special_person_costs_path, method: :get, class: 'form-inline' do -%>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".month_name") -%>：</label>
@@ -19,8 +19,24 @@
           </div>
         <% end -%>
       </div>
+      <div class="col-6">
+        <%= form_with model: @new_mpts, url: cost_split_set_special_person_costs_path, class: 'form-inline' do |f| %>
+          <%= f.hidden_field :month %>
+          <%= f.hidden_field :user_id %>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".position_user", name: @target_user.chinese_name) -%>：</label>
+            <%= f.select :position_user_id, options_from_collection_for_select(@target_user.position_users, "id", "position_name"), {}, class: 'form-control-plaintext form-control' -%>
+          </div>
+          <div class="form-group mr-3">
+            <%= f.select :user_job_type_id, SplitCost::UserJobType.pluck(:name, :id), {}, class: 'form-control-plaintext form-control' -%>
+          </div>
+          <div>
+            <%= submit_tag t(".add"), class: 'btn btn-primary' -%>
+          </div>
+        <% end -%>
+      </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive mt-3">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -29,11 +45,24 @@
             <th><%= t('.table.company') -%></th>
             <th><%= t('.table.department') -%></th>
             <th><%= t('.table.position_with_star') -%></th>
-            <th><%= t('.table.salary_classification') -%></th>
+            <th><%= t('.table.position_user_job_type') -%></th>
             <th><%= t('.table.user_job_type') -%></th>
           </tr>
         </thead>
         <tbody>
+          <% @mpts_job_types.each do |mpts| %>
+            <tr>
+              <td><%= mpts.user.clerk_code %></td>
+              <td><%= mpts.user.chinese_name %></td>
+              <td><%= mpts.position_user.position.department.company_name %></td>
+              <td><%= mpts.position_user.position.department.name %></td>
+              <td><%= mpts.position_user.position.name %></td>
+              <td><%= mpts.position_user.user_job_type&.name %></td>
+              <td id="monthly-part-time-special-job-type-<%= mpts.id -%>">
+                <%= render partial: 'td_user_job_type', locals: { mpts: mpts } -%>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

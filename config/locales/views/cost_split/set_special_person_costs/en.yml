@@ -2,16 +2,28 @@
 en:
   cost_split:
     set_special_person_costs:
+      td_user_job_type:
+        action:
+          edit: "Edit"
+          delete: "Delete"
+        confirm_delete: "Confirm delete?"
+      change_user_job_type:
+        action:
+          cancel: "Cancel"
       index:
         title: "Special person salary item cost classification setting"
         month_name: "Month name"
         ncworkno: "Employee name"
         confirm: "Confirm"
+        position_user: "Select %{name} position"
+        add: "Add"
         table:
           clerk_code: "Clerk code"
           clerk_name: "Clerk name"
           company: "Company"
           department: "Department"
           position_with_star: "Position with star"
-          salary_classification: "Salary classification"
+          position_user_job_type: "Salary classification"
           user_job_type: "User job type"
+      create:
+        create_success: "Create success"

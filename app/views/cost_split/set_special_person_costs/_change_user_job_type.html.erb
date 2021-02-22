@@ -1,0 +1,10 @@
+<%= form_with model: mpts, url: cost_split_set_special_person_cost_path(id: mpts.id), class: 'form-inline' do |f| %>
+  <div class="form-group">
+    <%= f.select :user_job_type_id, SplitCost::UserJobType.pluck(:name, :id), {}, class: 'form-control form-control-sm',onchange: 'Rails.fire(this.form, "submit")' %>
+  </div>
+  <div class="form-group ml-2">
+    <%= link_to cost_split_set_special_person_cost_path(id: mpts.id), remote: true do -%>
+      <i class="fas fa-window-close" data-toggle="tooltip" data-placement="top" title="<%= t('.action.cancel') -%>"></i>
+    <% end %>
+  </div>
+<% end %>

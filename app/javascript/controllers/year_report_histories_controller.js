@@ -29,16 +29,22 @@ export default class extends Controller {
     const deptAmount = JSON.parse(this.data.get("dept_amount"));
     const lastMonthDeptAmount = JSON.parse(this.data.get("last_month_dept_amount"));
     const thisMonthDeptAmount = JSON.parse(this.data.get("this_month_dept_amount"));
+    const isThisMonthDeptAmountAllZero = thisMonthDeptAmount.every(function(item) { return item === 0 });
+
     const deptAmountRate = deptAmount.map(calculate_yearly_rate);
     const realAmount = JSON.parse(this.data.get("real_amount"));
     const lastMonthRealAmount = JSON.parse(this.data.get("last_month_real_amount"));
     const thisMonthRealAmount = JSON.parse(this.data.get("this_month_real_amount"));
+    const isThisMonthRealAmountAllZero = thisMonthRealAmount.every(function(item) { return item === 0 });
+
     const realAmountRate = realAmount.map(calculate_yearly_rate);
     const avgStaffDeptAmount = JSON.parse(this.data.get("avg_staff_dept_amount"));
     const avgWorkDeptAmount = JSON.parse(this.data.get("avg_work_dept_amount"));
     const contractAmount = JSON.parse(this.data.get("contract_amount"));
     const lastMonthContractAmount = JSON.parse(this.data.get("last_month_contract_amount"));
     const thisMonthContractAmount = JSON.parse(this.data.get("this_month_contract_amount"));
+    const isThisMonthContractAmountAllZero = thisMonthContractAmount.every(function(item) { return item === 0 });
+
     const contractAmountRate = contractAmount.map(calculate_yearly_rate);
     const workHeadCount = JSON.parse(this.data.get("work_head_count"));
     const avgStaffRealAmount = JSON.parse(this.data.get("avg_staff_real_amount"));
@@ -155,7 +161,7 @@ export default class extends Controller {
           },
           label: {
             normal: {
-              show: true,
+              show: (isThisMonthDeptAmountAllZero ? false : true),
               position: 'inside',
               color: '#738496'
             }
@@ -371,7 +377,7 @@ export default class extends Controller {
           },
           label: {
             normal: {
-              show: true,
+              show: (isThisMonthContractAmountAllZero ? false : true),
               position: 'inside',
               color: '#738496'
             }
@@ -587,7 +593,7 @@ export default class extends Controller {
           },
           label: {
             normal: {
-              show: true,
+              show: (isThisMonthRealAmountAllZero ? false : true),
               position: 'inside',
               color: '#738496'
             }

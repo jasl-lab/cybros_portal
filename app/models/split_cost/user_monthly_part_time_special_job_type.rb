@@ -3,7 +3,7 @@
 module SplitCost
   class UserMonthlyPartTimeSpecialJobType < ApplicationRecord
     belongs_to :user
-    belongs_to :position
+    belongs_to :position_user
     belongs_to :user_job_type
 
     def self.all_month_names
