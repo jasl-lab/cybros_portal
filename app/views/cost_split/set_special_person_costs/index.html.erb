@@ -20,7 +20,7 @@
         <% end -%>
       </div>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive mt-3">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -29,11 +29,22 @@
             <th><%= t('.table.company') -%></th>
             <th><%= t('.table.department') -%></th>
             <th><%= t('.table.position_with_star') -%></th>
-            <th><%= t('.table.salary_classification') -%></th>
+            <th><%= t('.table.position_user_job_type') -%></th>
             <th><%= t('.table.user_job_type') -%></th>
           </tr>
         </thead>
         <tbody>
+          <% @mpts_job_types.each do |mpts| %>
+            <tr>
+              <td><%= mpts.user.clerk_code %></td>
+              <td><%= mpts.user.chinese_name %></td>
+              <td><%= mpts.position_user.position.department.company_name %></td>
+              <td><%= mpts.position_user.position.department.name %></td>
+              <td><%= mpts.position_user.position.name %></td>
+              <td><%= mpts.position_user.user_job_type&.name %></td>
+              <td><%= mpts.user_job_type.name %></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

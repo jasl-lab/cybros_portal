@@ -13,5 +13,5 @@ en:
           company: "Company"
           department: "Department"
           position_with_star: "Position with star"
-          salary_classification: "Salary classification"
+          position_user_job_type: "Salary classification"
           user_job_type: "User job type"

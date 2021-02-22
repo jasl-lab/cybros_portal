@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_024354) do
+ActiveRecord::Schema.define(version: 2021_02_22_032607) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -493,19 +493,19 @@ ActiveRecord::Schema.define(version: 2021_02_20_024354) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_monthly_part_time_special_job_types", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_monthly_part_time_special_job_types", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.date "month", null: false
     t.bigint "user_id", null: false
-    t.bigint "position_id", null: false
     t.bigint "user_job_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["position_id"], name: "index_user_monthly_part_time_special_job_types_on_position_id"
+    t.bigint "position_user_id"
+    t.index ["position_user_id"], name: "idx_user_monthly_part_time_special_job_types_on_position_user_id"
     t.index ["user_id"], name: "index_user_monthly_part_time_special_job_types_on_user_id"
     t.index ["user_job_type_id"], name: "idx_user_monthly_part_time_special_job_types_on_user_job_type"
   end
 
-  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.date "month"
     t.bigint "position_id", null: false
@@ -653,7 +653,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_024354) do
     t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
   end
 
-  create_table "wechat_users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "wechat_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "app_id", null: false, comment: "微信APPID"
     t.string "open_id", null: false, comment: "微信用户OPENID"
     t.string "union_id", comment: "微信UNIONID"
@@ -702,7 +702,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_024354) do
   add_foreign_key "public_rental_housing_applies", "users"
   add_foreign_key "report_view_histories", "users"
   add_foreign_key "split_cost_item_details", "split_cost_items"
-  add_foreign_key "user_monthly_part_time_special_job_types", "positions"
+  add_foreign_key "user_monthly_part_time_special_job_types", "position_users"
   add_foreign_key "user_monthly_part_time_special_job_types", "user_job_types"
   add_foreign_key "user_monthly_part_time_special_job_types", "users"
   add_foreign_key "user_monthly_part_time_split_rates", "positions"

@@ -13,5 +13,5 @@ zh-CN:
           company: "公司"
           department: "部门"
           position_with_star: "岗位"
-          salary_classification: "岗位类别"
-          user_job_type: "成本类别"
+          position_user_job_type: "岗位类别"
+          user_job_type: "特殊成本类别"
