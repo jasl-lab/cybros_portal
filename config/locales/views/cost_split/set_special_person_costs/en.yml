@@ -5,6 +5,8 @@ en:
       td_user_job_type:
         action:
           edit: "Edit"
+          delete: "Delete"
+        confirm_delete: "Confirm delete?"
       change_user_job_type:
         action:
           cancel: "Cancel"
@@ -13,6 +15,8 @@ en:
         month_name: "Month name"
         ncworkno: "Employee name"
         confirm: "Confirm"
+        position_user: "Select %{name} position"
+        add: "Add"
         table:
           clerk_code: "Clerk code"
           clerk_name: "Clerk name"
@@ -21,3 +25,5 @@ en:
           position_with_star: "Position with star"
           position_user_job_type: "Salary classification"
           user_job_type: "User job type"
+      create:
+        create_success: "Create success"

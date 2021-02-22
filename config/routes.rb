@@ -342,7 +342,7 @@ Rails.application.routes.draw do
       end
     end
     resources :set_baseline_job_types, only: %i[index edit update show]
-    resources :set_special_person_costs, only: %i[index edit update show]
+    resources :set_special_person_costs, except: %i[new]
     resources :set_part_time_person_costs, only: %i[index edit update] do
       collection do
         get :part_time_people

@@ -5,14 +5,18 @@ zh-CN:
       td_user_job_type:
         action:
           edit: "编辑"
+          delete: "删除"
+        confirm_delete: "确认删除？"
       change_user_job_type:
         action:
           cancel: "取消"
       index:
         title: "特殊人员薪资项目成本分类设置"
         month_name: "年月"
-        ncworkno: "员工姓名"
+        ncworkno: "姓名"
         confirm: "搜索"
+        position_user: "选择%{name}员工岗位"
+        add: "添加"
         table:
           clerk_code: "员工编号"
           clerk_name: "员工名称"
@@ -21,3 +25,7 @@ zh-CN:
           position_with_star: "岗位"
           position_user_job_type: "岗位类别"
           user_job_type: "特殊成本类别"
+      create:
+        create_success: "添加成功"
+      destroy:
+        destroy_success: "删除成功"
