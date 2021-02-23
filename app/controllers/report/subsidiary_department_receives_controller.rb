@@ -155,7 +155,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       end
       (d.total / (worker_number * 10000).to_f).round(0)
     end
-    @avg_of_real_receives_per_worker = (@real_receives.sum.to_f / total_work_number).round(1)
+    @avg_of_real_receives_per_worker = ((@sum_real_markettotals + @real_receives.sum.to_f) / total_work_number).round(1)
 
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|

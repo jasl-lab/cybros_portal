@@ -225,7 +225,7 @@ export default class extends Controller {
 
     const real_staff_option = {
       title: {
-        text: '人均实收款',
+        text: '人均实收产值',
         textStyle: {
           fontSize: 12,
         }
