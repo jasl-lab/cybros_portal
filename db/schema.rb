@@ -493,7 +493,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_055022) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_monthly_part_time_special_job_types", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_monthly_part_time_special_job_types", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.date "month", null: false
     t.bigint "user_id", null: false
     t.bigint "user_job_type_id", null: false
@@ -505,7 +505,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_055022) do
     t.index ["user_job_type_id"], name: "idx_user_monthly_part_time_special_job_types_on_user_job_type"
   end
 
-  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", force: :cascade do |t|
+  create_table "user_monthly_part_time_split_rates", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.date "month"
     t.bigint "position_id", null: false
@@ -654,7 +654,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_055022) do
     t.index ["openid"], name: "index_wechat_sessions_on_openid", unique: true
   end
 
-  create_table "wechat_users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "wechat_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "app_id", null: false, comment: "微信APPID"
     t.string "open_id", null: false, comment: "微信用户OPENID"
     t.string "union_id", comment: "微信UNIONID"

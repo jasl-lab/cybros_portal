@@ -1204,14 +1204,14 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "compid"
-    t.text "comp"
-    t.text "compname"
-    t.text "deptid"
-    t.text "dept"
-    t.text "deptname"
-    t.date "checkdate"
+  create_table "V_TH_DEPTMONEYFLOW_SAVE", primary_key: ["checkdate", "deptid"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "compid", limit: 200
+    t.string "comp", limit: 200
+    t.string "compname", limit: 200
+    t.string "deptid", limit: 200, null: false
+    t.string "dept", limit: 200
+    t.string "deptname", limit: 200
+    t.date "checkdate", null: false
     t.float "openingmoney", limit: 53
     t.float "nextbonusamount", limit: 53
     t.float "nextamount", limit: 53
