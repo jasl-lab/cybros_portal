@@ -32,6 +32,8 @@ Rails.application.routes.draw do
       member do
         get 'query_config'
         get 'project'
+        get 'project_contracts'
+        get 'project_contract'
       end
     end
   end

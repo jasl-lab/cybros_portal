@@ -70,5 +70,17 @@ module API
       @project = Bi::NewMapInfo.find_by(id: params[:project_code])
       @project_items = Edoc2::ProjectInfo.where(projectcode: params[:project_code]).order(projectitemcode: :asc)
     end
+
+    def project_contracts
+      @sas = Bi::SaContract.where(projectcode: params[:project_code]).order(salescontractcode: :asc)
+      if @sas.blank?
+        @opportunities = Bi::SaProjectOpportunity.where(projectcode: params[:project_code])
+      end
+    end
+
+    def project_contract
+      authorize Bi::NewMapInfo, :allow_download?
+      @sc = Bi::SaContract.find_by salescontractid: params[:id]
+    end
   end
 end

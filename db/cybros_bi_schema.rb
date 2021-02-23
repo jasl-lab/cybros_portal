@@ -1189,7 +1189,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "realcontractdate"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_DEPT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_DEPT1", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "comp", limit: 50
     t.string "dept", limit: 50
     t.date "checkdate"
@@ -1197,7 +1197,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_ORG", primary_key: ["comp", "checkdate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_ORG1", primary_key: ["comp", "checkdate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "comp", limit: 50, null: false
     t.date "checkdate", null: false
     t.float "endmoney"
