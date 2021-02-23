@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
     resource :cad_session, only: %i[create]
     resource :cad_operation, only: %i[create]
-    
+
     resource :wechat_mini_session, only: [:create]
     resource :wechat_mini_user, only: [:show, :update] do
       member do

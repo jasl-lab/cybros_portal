@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.nickName userinfo.nick_name
 json.avatarUrl userinfo.avatar_url
 json.gender userinfo.gender

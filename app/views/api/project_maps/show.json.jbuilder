@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.center do
   json.lat @avg_lat
   json.lng @avg_lng
@@ -13,5 +15,5 @@ json.points @valid_map_points do |point|
   json.scaleArea point[:scale_area]
   json.province point[:province]
   json.city point[:city]
-  json.businessTypeDeptnames point[:business_type_deptnames].collect{|item| item.join(' | ')}
+  json.businessTypeDeptnames point[:business_type_deptnames].collect { |item| item.join(' | ') }
 end
