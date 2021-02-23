@@ -73,17 +73,6 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @real_department_short_names = @real_department_short_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(@real_data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
     @real_receives = real_data.collect { |d| (d.total / 100_00.0).round(0) }
 
-    sum_real_receives = if @view_deptcode_sum
-      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
-        .where(realdate: beginning_of_year..@end_of_month)
-        .where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
-    else
-      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
-        .where(realdate: beginning_of_year..@end_of_month)
-        .where(orgcode: selected_orgcode)
-    end.select('SUM(total) total').first.total
-    @sum_real_receives = (sum_real_receives.to_f / 100_00_00_00.0).round(1)
-
     sum_real_markettotals = if @view_deptcode_sum
       policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
         .where(realdate: beginning_of_year..@end_of_month)
@@ -94,6 +83,17 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .where(orgcode: selected_orgcode)
     end.select('SUM(markettotal) markettotal').first.markettotal
     @sum_real_markettotals = (sum_real_markettotals.to_f / 100_00.0).round(0)
+
+    sum_real_receives = if @view_deptcode_sum
+      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
+        .where(realdate: beginning_of_year..@end_of_month)
+        .where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
+    else
+      policy_scope(Bi::SubCompanyRealReceive, :group_resolve)
+        .where(realdate: beginning_of_year..@end_of_month)
+        .where(orgcode: selected_orgcode)
+    end.select('SUM(total) total').first.total
+    @sum_real_receives = ((sum_real_markettotals.to_f + sum_real_receives.to_f) / 100_00_00_00.0).round(1)
 
     need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
     need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
@@ -155,7 +155,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       end
       (d.total / (worker_number * 10000).to_f).round(0)
     end
-    @avg_of_real_receives_per_worker = (@real_receives.sum.to_f / total_work_number).round(1)
+    @avg_of_real_receives_per_worker = ((@sum_real_markettotals + @real_receives.sum.to_f) / total_work_number).round(1)
 
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|

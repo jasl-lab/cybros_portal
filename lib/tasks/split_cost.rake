@@ -284,4 +284,13 @@ namespace :split_cost do
       end
     end
   end
+
+  desc 'Generate user split classify salary per months'
+  task :user_split_classify_salary_per_months, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+
+  end
 end

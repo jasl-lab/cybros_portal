@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_055022) do
+ActiveRecord::Schema.define(version: 2021_02_23_090001) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -542,6 +542,21 @@ ActiveRecord::Schema.define(version: 2021_02_23_055022) do
     t.index ["user_salary_classification_id"], name: "idx_user_split_classify_salaries_on_salary_classification_id"
   end
 
+  create_table "user_split_classify_salary_per_months", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.date "month", null: false
+    t.bigint "user_id", null: false
+    t.bigint "position_id", null: false
+    t.bigint "user_job_type_id", null: false
+    t.boolean "main_position", default: true, null: false
+    t.bigint "user_cost_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["position_id"], name: "index_user_split_classify_salary_per_months_on_position_id"
+    t.index ["user_cost_type_id"], name: "index_user_split_classify_salary_per_months_on_user_cost_type_id"
+    t.index ["user_id"], name: "index_user_split_classify_salary_per_months_on_user_id"
+    t.index ["user_job_type_id"], name: "index_user_split_classify_salary_per_months_on_user_job_type_id"
+  end
+
   create_table "user_split_cost_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "v_wata_dept_code"
     t.bigint "user_id", null: false
@@ -710,6 +725,10 @@ ActiveRecord::Schema.define(version: 2021_02_23_055022) do
   add_foreign_key "user_monthly_part_time_split_rates", "user_salary_classifications"
   add_foreign_key "user_monthly_part_time_split_rates", "users"
   add_foreign_key "user_split_classify_salaries", "users"
+  add_foreign_key "user_split_classify_salary_per_months", "positions"
+  add_foreign_key "user_split_classify_salary_per_months", "user_cost_types"
+  add_foreign_key "user_split_classify_salary_per_months", "user_job_types"
+  add_foreign_key "user_split_classify_salary_per_months", "users"
   add_foreign_key "user_split_cost_settings", "users"
   add_foreign_key "wechat_users", "users"
 end
