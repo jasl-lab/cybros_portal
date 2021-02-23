@@ -37,7 +37,6 @@ module API
 
       valid_map_infos = map_infos.reject { |m| !m.coordinate.include?(',') }
 
-      total_cos = valid_map_infos.collect(&:coordinate)
       @valid_map_points = valid_map_infos.collect do |m|
         lat = m.coordinate.split(',')[1].to_f
         if lat >= 85.051128 || lat <= -85.051128
@@ -60,11 +59,6 @@ module API
           city: m.company, # 市
           business_type_deptnames: business_type_deptnames }
       end
-
-      lat_total_cos = total_cos.collect { |c| c.split(',')[1].to_f }
-      lng_total_cos = total_cos.collect { |c| c.split(',')[0].to_f }
-      @avg_lat = lat_total_cos.sum / lat_total_cos.size.to_f
-      @avg_lng = lng_total_cos.sum / lng_total_cos.size.to_f
     end
   end
 

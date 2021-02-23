@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-json.center do
-  json.lat @avg_lat
-  json.lng @avg_lng
-end
-
 json.points @valid_map_points do |point|
   json.code point[:project_code]
   json.title point[:title]
