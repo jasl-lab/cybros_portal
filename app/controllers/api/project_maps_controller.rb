@@ -7,7 +7,7 @@ module API
 
     def show
       authorize Bi::NewMapInfo
-
+      puts '查询列表'
       city = params[:city].presence || '所有'
       province = params[:province].presence || '所有'
       client = params[:client].presence
@@ -60,11 +60,15 @@ module API
           business_type_deptnames: business_type_deptnames }
       end
     end
-  end
 
-  def config
-    authorize Bi::NewMapInfo
-    @tracestates = policy_scope(Bi::NewMapInfo).all_tracestates_with_color_hint
-    @createddate_years = Bi::NewMapInfo.all_createddate_year
+    def query_config
+      @tracestates = policy_scope(Bi::NewMapInfo).all_tracestates_with_color_hint
+      @createddate_years = Bi::NewMapInfo.all_createddate_year
+    end
+  
+    def project
+      @project = Bi::NewMapInfo.find_by(id: params[:project_code])
+      @project_items = Edoc2::ProjectInfo.where(projectcode: params[:project_code]).order(projectitemcode: :asc)
+    end
   end
 end

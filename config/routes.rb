@@ -30,7 +30,8 @@ Rails.application.routes.draw do
     end
     resource :project_map, only: [:show] do
       member do
-        get 'config'
+        get 'query_config'
+        get 'project'
       end
     end
   end

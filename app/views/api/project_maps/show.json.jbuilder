@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.points @valid_map_points do |point|
+json.array! @valid_map_points do |point|
   json.code point[:project_code]
   json.title point[:title]
   json.lat point[:lat]
