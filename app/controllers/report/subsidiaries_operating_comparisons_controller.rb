@@ -44,7 +44,7 @@ class Report::SubsidiariesOperatingComparisonsController < Report::BaseControlle
     show_org_codes = data.collect(&:orgcode)
 
     most_recent_year = @year_names.first
-    most_recent_month = (@month_name.to_i < Time.now.last_month.month ? @month_name.to_i : Time.now.last_month.month)
+    most_recent_month = @month_name.to_i
     end_of_month = Time.new(most_recent_year, most_recent_month, 1).end_of_month
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
 

@@ -225,13 +225,13 @@ export default class extends Controller {
 
     const real_staff_option = {
       title: {
-        text: '人均实收产值',
+        text: '一线人均实收产值',
         textStyle: {
           fontSize: 12,
         }
       },
       legend: {
-          data: ['一线人均实收款（万元）'],
+          data: ['一线人均实收产值（万元）'],
           align: 'left'
       },
       grid: {
@@ -268,7 +268,7 @@ export default class extends Controller {
         }
       },
       series: [{
-        name: '一线人均实收款（万元）',
+        name: '一线人均实收产值（万元）',
         type: 'bar',
         data: realReceivesPerWorkerWithColor,
         barMaxWidth: 38,

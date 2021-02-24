@@ -68,6 +68,12 @@ module Bi
       end
     end
 
+    def self.fix_worker_by_date_and_sum(org_code, end_of_month)
+      d1 = available_data_at_month(end_of_month)
+      d2 = d1.where(orgcode: org_code).select('SUM(date_x)/MAX(date_y) fix_worker').first
+      d2.fix_worker
+    end
+
     def self.worker_per_dept_code_by_year_and_sum(org_code, end_of_month, view_sum)
       d1 = available_data_at_month(end_of_month)
       d2 = if view_sum

@@ -9,7 +9,7 @@ class Account::BusinessTargetOrgShowsController < Account::BaseController
   def show
     authorize :"Account::BusinessTargetOrgShow"
     prepare_meta_tags title: t('.title')
-    @redirect_url = 'view/report?op=write&viewlet=FR/Finance/BusinessTargetTrackingTable_JiTuan_show.cpt&ref_t=design'
+    @redirect_url = 'view/report?op=view&viewlet=FR/Finance/BusinessTargetTrackingTable_JiTuan_show.cpt&ref_t=design'
     @hide_app_footer = true
     @hide_main_header_wrapper = true
     @hide_scroll = true

@@ -119,7 +119,7 @@ module API
       @createddate_years = @createddate_years.map{|item| item}
       @createddate_years.shift
     end
-  
+
     def project
       @project = Bi::NewMapInfo.find_by(id: params[:project_code])
       @project_items = Edoc2::ProjectInfo.where(projectcode: params[:project_code]).order(projectitemcode: :asc)
