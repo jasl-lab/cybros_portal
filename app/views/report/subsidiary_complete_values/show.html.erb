@@ -46,7 +46,7 @@
      <div class="col-lg-12 p-2">
        <h5 class="text-center">
          至<%= @end_of_month.year -%>年<%= @end_of_month.month -%>月,
-         <%= @selected_short_company_name -%>累计完成产值 <span style="color:red"><%= @sum_complete_value_totals -%> 亿元</span>，
+         <%= @selected_short_company_name -%>累计完成产值 <span style="color:red"><%= @fix_sum_complete_value_totals -%> 亿元</span>，
          一线人均累计完成产值 <span style="color:red"><%= (@complete_value_totals.sum / @total_staff_num).round(1) unless @total_staff_num.zero? -%> 万元</span>；
        </h5>
        <h5 class="text-center">
