@@ -60,7 +60,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @this_month_dept_amount = @dept_amount.zip(@last_month_dept_amount).map { |d| d[0] - d[1] }
 
     most_recent_year = @year_names.first
-    most_recent_month = (@month_name.to_i < Time.now.month ? @month_name.to_i : Time.now.month)
+    most_recent_month = @month_name.to_i
     end_of_month = Time.new(most_recent_year, most_recent_month, 1).end_of_month
     @last_available_sign_dept_date = policy_scope(Bi::ContractSignDept).last_available_date(end_of_month)
 
