@@ -143,7 +143,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       (d.total / (worker_number * 10000).to_f).round(0)
     end
 
-    total_work_number = worker_per_dept_code.values.sum
+    worker_per_dept_code_detail = if selected_orgcode == '000101' && @end_of_month.year <= 2020 && @end_of_month.month < 5
+      Bi::ShStaffCount.staff_count_per_dept_code_by_date(@end_of_month)
+    else
+      Bi::YearAvgWorker.worker_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, false) # always fix.
+    end
+    total_work_number = worker_per_dept_code_detail.values.sum
     @avg_of_real_receives_per_worker = ((@sum_real_markettotals + (sum_real_receives.to_f / 100_00.0)) / total_work_number).round(1)
 
     total_should_receives_per_staff = 0
