@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         get 'project'
         get 'project_contracts'
         get 'project_contract'
+        get 'list'
       end
     end
   end
