@@ -135,17 +135,16 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
       Bi::YearAvgWorker.worker_per_dept_code_by_date_and_sum(selected_orgcode, @end_of_month, @view_deptcode_sum)
     end
 
-    total_work_number = 0
     @real_receives_per_worker = real_data.collect do |d|
       worker_number = worker_per_dept_code.fetch(d.deptcode, 0)
       if worker_number.zero?
         worker_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM
-      else
-        total_work_number += worker_number
       end
       (d.total / (worker_number * 10000).to_f).round(0)
     end
-    @avg_of_real_receives_per_worker = ((@sum_real_markettotals + @real_receives.sum.to_f) / total_work_number).round(1)
+
+    total_work_number = worker_per_dept_code.values.sum
+    @avg_of_real_receives_per_worker = ((@sum_real_markettotals + (sum_real_receives.to_f / 100_00.0)) / total_work_number).round(1)
 
     total_should_receives_per_staff = 0
     @need_should_receives_per_staff = need_data.collect do |d|
