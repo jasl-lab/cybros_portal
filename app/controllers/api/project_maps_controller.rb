@@ -65,7 +65,7 @@ module API
       @tracestates = policy_scope(Bi::NewMapInfo).all_tracestates_with_color_hint
       @createddate_years = Bi::NewMapInfo.all_createddate_year
     end
-  
+
     def project
       @project = Bi::NewMapInfo.find_by(id: params[:project_code])
       @project_items = Edoc2::ProjectInfo.where(projectcode: params[:project_code]).order(projectitemcode: :asc)
