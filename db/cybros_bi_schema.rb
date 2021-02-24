@@ -1189,22 +1189,31 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "realcontractdate"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_DEPT1", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.string "comp", limit: 50
-    t.string "dept", limit: 50
-    t.date "checkdate"
+  create_table "V_TH_DEPTMONEYFLOW_SAVE", primary_key: ["checkdate", "deptid"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "compid", limit: 200
+    t.string "comp", limit: 200
+    t.string "compname", limit: 200
+    t.string "deptid", limit: 200, null: false
+    t.string "dept", limit: 200
+    t.string "deptname", limit: 200
+    t.date "checkdate", null: false
+    t.float "openingmoney", limit: 53
+    t.float "nextbonusamount", limit: 53
+    t.float "nextamount", limit: 53
+    t.float "covertmoney", limit: 53
+    t.float "nexthrpaymoney", limit: 53
+    t.float "nextdeptprocost", limit: 53
+    t.float "nextdeptcost", limit: 53
+    t.float "changemoney", limit: 53
+    t.float "allocationmoney", limit: 53
+    t.float "deptmoney", limit: 53
+    t.float "allowancemoney", limit: 53
+    t.float "allowancesetmoney", limit: 53
     t.float "endmoney", limit: 53
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_ORG1", primary_key: ["comp", "checkdate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.string "comp", limit: 50, null: false
-    t.date "checkdate", null: false
-    t.float "endmoney"
-    t.datetime "refresh_date"
-  end
-
-  create_table "V_TH_DEPTMONEYFLOW_SAVE", primary_key: ["checkdate", "deptid"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_SAVE1", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "compid", limit: 200
     t.string "comp", limit: 200
     t.string "compname", limit: 200
