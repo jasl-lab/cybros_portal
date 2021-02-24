@@ -44,6 +44,7 @@ class User < ApplicationRecord
   # Import from NC via split_cost:nc_v_classify_salary_import
   has_many :user_split_classify_salaries, class_name: 'SplitCost::UserSplitClassifySalary'
   # Generate at split_cost:generate_user_monthly_part_time_splits
+  # Edit at URL /cost_split/set_part_time_person_costs
   has_many :user_monthly_part_time_split_rates, class_name: 'SplitCost::UserMonthlyPartTimeSplitRate'
 
   def self.details_mapping

@@ -285,12 +285,35 @@ namespace :split_cost do
     end
   end
 
-  desc 'Generate user split classify salary per months'
+  desc 'Generate user split classify salary per months from user_split_classify_salaries'
   task :user_split_classify_salary_per_months, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
     cyearperiod_year = cyearperiod[0..3]
     cyearperiod_month = cyearperiod[4..5]
     cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+    SplitCost::UserSplitClassifySalary.where(month: cyearperiod_month_start).find_each do |scs|
+      user = scs.user
+      user_mpts = user.user_monthly_part_time_split_rates.where(user_salary_classification_id: scs.user_salary_classification_id)
+      if user_mpts.present?
 
+      else
+        position_user = user.position_users.find_by(main_position: true) || user.position_users.last
+        query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user.id,
+          scs.user_job_type_id, scs.user_salary_classification_id)
+        SplitCost::UserSplitClassifySalaryPerMonth.find_or_create_by!(month: cyearperiod_month_start,
+          user_id: user.id, position_id: position_user.position_id,
+          user_job_type_id: query_job_type_id, main_position: position_user.main_position,
+          user_cost_type_id: final_cost_type_id, amount: scs.amount)
+      end
+    end
+  end
+
+  def get_user_cost_type_id(month, user_id, position_user_id, input_job_type_id, input_salary_classification_id)
+    special_job_type_id = SplitCost::UserMonthlyPartTimeSpecialJobType.find_by(month: month,
+      user_id: user_id, position_user_id: position_user_id)&.user_job_type_id
+    query_job_type_id = special_job_type_id || input_job_type_id
+    final_cost_type_id = SplitCost::MonthlySalarySplitRule.find_by(month: month,
+      user_job_type_id: query_job_type_id, user_salary_classification_id: input_salary_classification_id)&.user_cost_type_id
+    return query_job_type_id, final_cost_type_id
   end
 end

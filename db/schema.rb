@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_090001) do
+ActiveRecord::Schema.define(version: 2021_02_24_025504) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -551,6 +551,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_090001) do
     t.bigint "user_cost_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "amount", precision: 10
     t.index ["position_id"], name: "index_user_split_classify_salary_per_months_on_position_id"
     t.index ["user_cost_type_id"], name: "index_user_split_classify_salary_per_months_on_user_cost_type_id"
     t.index ["user_id"], name: "index_user_split_classify_salary_per_months_on_user_id"
@@ -670,20 +671,20 @@ ActiveRecord::Schema.define(version: 2021_02_23_090001) do
   end
 
   create_table "wechat_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.string "app_id", null: false, collation: "utf8mb4_general_ci", comment: "微信APPID"
-    t.string "open_id", null: false, collation: "utf8mb4_general_ci", comment: "微信用户OPENID"
-    t.string "union_id", collation: "utf8mb4_general_ci", comment: "微信UNIONID"
-    t.string "mobile", default: "", null: false, collation: "utf8mb4_general_ci", comment: "手机号"
-    t.string "nick_name", default: "", null: false, collation: "utf8mb4_general_ci", comment: "昵称"
-    t.string "avatar_url", default: "", null: false, collation: "utf8mb4_general_ci", comment: "头像"
+    t.string "app_id", null: false, comment: "微信APPID"
+    t.string "open_id", null: false, comment: "微信用户OPENID"
+    t.string "union_id", comment: "微信UNIONID"
+    t.string "mobile", default: "", null: false, comment: "手机号"
+    t.string "nick_name", default: "", null: false, comment: "昵称"
+    t.string "avatar_url", default: "", null: false, comment: "头像"
     t.integer "gender", default: 0, null: false, comment: "性别 0：未知、1：男、2：女"
-    t.string "province", default: "", null: false, collation: "utf8mb4_general_ci", comment: "省"
-    t.string "city", default: "", null: false, collation: "utf8mb4_general_ci", comment: "市"
-    t.string "country", default: "", null: false, collation: "utf8mb4_general_ci", comment: "国家"
+    t.string "province", default: "", null: false, comment: "省"
+    t.string "city", default: "", null: false, comment: "市"
+    t.string "country", default: "", null: false, comment: "国家"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "session_key", default: "", collation: "utf8mb4_general_ci"
+    t.string "session_key", default: ""
     t.index ["app_id", "open_id"], name: "index_wechat_users_on_app_id_and_open_id", unique: true
     t.index ["mobile"], name: "index_wechat_users_on_mobile"
     t.index ["union_id"], name: "index_wechat_users_on_union_id"
