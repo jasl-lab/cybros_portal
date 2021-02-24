@@ -84,14 +84,6 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if current_user.present? && policy(Bi::ContractSign).show? %>
-          <%= nav_item controller: 'report/group_predict_contracts', action: 'show', html_options: { class: "nav-item" } do %>
-            <%= link_to report_group_predict_contract_path(view_orgcode_sum: true), class: "nav-link" do %>
-              <i class="nav-icon fas fa-database"></i>
-              <%= t("layouts.sidebar.operation.group_predict_contract") %>
-            <% end %>
-          <% end %>
-        <% end %>
         <% if current_user.present? && policy(Bi::SubCompanyRealReceive).show? && policy(Bi::SubCompanyNeedReceive).show? %>
           <%= nav_item controller: 'report/subsidiary_receives', action: 'show', html_options: { class: "nav-item" } do %>
             <%= link_to report_subsidiary_receive_path(view_orgcode_sum: true), class: "nav-link" do %>
@@ -108,7 +100,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <li class="nav-item nav-dropdown <%= %w[report/group_daily_workloadings report/complete_values report/group_contract_holds].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
+        <li class="nav-item nav-dropdown <%= %w[report/group_daily_workloadings report/complete_values report/group_contract_holds report/group_predict_contracts].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>
           <ul class="nav-dropdown-items">
@@ -133,6 +125,14 @@
                 <%= link_to report_group_contract_hold_path(view_orgcode_sum: true), class: "nav-link" do %>
                   <i class="nav-icon fas fa-hand-holding-water"></i>
                   <%= t("layouts.sidebar.operation.group_contract_hold") %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if current_user.present? && policy(Bi::ContractSign).show? %>
+              <%= nav_item controller: 'report/group_predict_contracts', action: 'show', html_options: { class: "nav-item nav-item-indent" } do %>
+                <%= link_to report_group_predict_contract_path(view_orgcode_sum: true), class: "nav-link" do %>
+                  <i class="nav-icon fas fa-database"></i>
+                  <%= t("layouts.sidebar.operation.group_predict_contract") %>
                 <% end %>
               <% end %>
             <% end %>
