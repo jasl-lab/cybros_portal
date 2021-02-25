@@ -292,10 +292,24 @@ namespace :split_cost do
     cyearperiod_month = cyearperiod[4..5]
     cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
     SplitCost::UserSplitClassifySalary.where(month: cyearperiod_month_start).find_each do |scs|
-      user = scs.user
-      user_mpts = user.user_monthly_part_time_split_rates.where(user_salary_classification_id: scs.user_salary_classification_id)
-      if user_mpts.present?
+      next if scs.amount.zero?
 
+      user = scs.user
+      user_mpts = user.user_monthly_part_time_split_rates.where(month: cyearperiod_month_start,
+        user_salary_classification_id: scs.user_salary_classification_id)
+      if user_mpts.present?
+        user_mpts.each do |mpts|
+          next if mpts.salary_classification_split_rate.zero?
+
+          # If user is not belongs to the position already, should remove the rules.
+          position_user = user.position_users.find_by!(position_id: mpts.position_id, main_position: mpts.main_position)
+          query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user.position_id,
+            scs.user_job_type_id, mpts.user_salary_classification_id)
+          SplitCost::UserSplitClassifySalaryPerMonth.find_or_create_by!(month: cyearperiod_month_start,
+            user_id: user.id, position_id: position_user.position_id,
+            user_job_type_id: query_job_type_id, main_position: position_user.main_position,
+            user_cost_type_id: final_cost_type_id, amount: (scs.amount * (mpts.salary_classification_split_rate / 100.0)))
+        end
       else
         position_user = user.position_users.find_by(main_position: true) || user.position_users.last
         query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user.id,
