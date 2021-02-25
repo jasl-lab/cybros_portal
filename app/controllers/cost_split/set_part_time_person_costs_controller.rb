@@ -12,8 +12,10 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @users = User.joins(:position_users).includes(:user_monthly_part_time_split_rates)
       .where(position_users: { main_position: false }).distinct
 
-    if @ncworkno.present?
+    @users = if @ncworkno != '015454'
       @users.where(clerk_code: @ncworkno)
+    else
+      @users
     end
 
     @mpts_rates = if @users.first != User.first
