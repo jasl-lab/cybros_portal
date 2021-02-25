@@ -103,10 +103,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     end
 
     @complete_value_gap_per_staff = @complete_value_year_totals_per_staff.zip(@complete_value_totals_per_staff).map { |d| d[0] - d[1] }
-    @total_staff_num = 0
-    @all_department_codes.each do |dept_code|
-      @total_staff_num += (@staff_per_dept_code[dept_code] || 0)
-    end
+    @total_staff_num = Bi::YearAvgWorker.fix_worker_by_date_and_sum(orgcode, @end_of_month)
   end
 
   def drill_down
