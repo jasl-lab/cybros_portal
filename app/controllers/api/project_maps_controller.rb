@@ -12,7 +12,7 @@ module API
       client = params[:client].presence
 
       trace_state = if params[:trace_state].presence.blank?
-        %w[跟踪中 跟踪成功 仅投标拿地协议 跟踪失败]
+        %w[跟踪中 跟踪成功 跟踪失败]
       else
         params[:trace_state]
       end

@@ -13,7 +13,7 @@ json.directorName @sc.businessdirectorname # 商务负责人
 json.categoryName @sc.contractcategoryname # 合同类型
 json.propertyName @sc.contractpropertyname # 合同性质
 json.scaleTypeName @sc.scaletypename # 规模类型
-json.scalearea @sc.scalearea # 规模面积（平方米）
+json.scaleArea @sc.scalearea # 规模面积（平方米）
 json.firstPartyName @sc.firstpartyname # 甲方名称
 json.partybName @sc.partybname # 乙方名称
 json.prices @sc.prices do |item| # 分项单价
