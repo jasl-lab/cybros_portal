@@ -9,20 +9,34 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.first
     beginning_of_month = Date.parse(@month_name).beginning_of_month
 
+    @company_short_names = policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).available_company_names(beginning_of_month)
+    @main_company_code = params[:main_company_code]&.strip
+
     @users = User.joins(:position_users).includes(:user_monthly_part_time_split_rates)
       .where(position_users: { main_position: false }).distinct
 
-    if @ncworkno.present?
+    @users = if @ncworkno != '015454'
       @users.where(clerk_code: @ncworkno)
+    else
+      @users
     end
 
-    @mpts_rates = if @users.first != User.first
+    @mpts_rates = if @users.first != User.first && @main_company_code.blank?
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).where(user: @users.first)
+    elsif @main_company_code.present?
+      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
+        .where(position: { departments: { company_code: @main_company_code } })
+        .where(main_position: true)
     else
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
     end.where(month: beginning_of_month)
 
-    @users = @users.page(params[:page]).per(params[:per_page])
+    @users = if @main_company_code.present?
+      @users.where(id: @mpts_rates.collect(&:user_id))
+    else
+      @users
+    end.page(params[:page]).per(params[:per_page])
+
     @user_salary_classifications = SplitCost::UserSalaryClassification.all.order(:code)
   end
 
