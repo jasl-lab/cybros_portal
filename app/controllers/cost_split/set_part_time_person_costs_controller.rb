@@ -3,7 +3,7 @@
 class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
   def index
     prepare_meta_tags title: t('.title')
-    @ncworkno = params[:ncworkno] || User.first.clerk_code
+    @chinese_name = params[:chinese_name]
 
     @all_month_names = policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
@@ -15,15 +15,13 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @users = User.joins(:position_users).includes(:user_monthly_part_time_split_rates)
       .where(position_users: { main_position: false }).distinct
 
-    @users = if @ncworkno != '015454'
-      @users.where(clerk_code: @ncworkno)
+    @users = if @chinese_name.present?
+      @users.where('chinese_name LIKE ?', "%#{@chinese_name}%")
     else
       @users
     end
 
-    @mpts_rates = if @users.first != User.first && @main_company_code.blank?
-      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).where(user: @users.first)
-    elsif @main_company_code.present?
+    @mpts_rates = if @main_company_code.present?
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
         .where(position: { departments: { company_code: @main_company_code } })
         .where(main_position: true)
