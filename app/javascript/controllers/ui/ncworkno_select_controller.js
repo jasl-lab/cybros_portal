@@ -8,7 +8,7 @@ export default class extends Controller {
     $('#ncworkno-select').selectize({
       valueField: "clerk_code",
       labelField: "chinese_name",
-      searchField: "chinese_name",
+      searchField: ['clerk_code','chinese_name'],
       create: false,
       load: function (query, callback) {
         if (!query.length) return callback();

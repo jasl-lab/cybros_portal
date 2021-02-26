@@ -11,7 +11,7 @@ class Admin::RolesController < Admin::ApplicationController
 
   def show
     prepare_meta_tags title: @role.role_name
-    @ncworkno = params[:ncworkno] || User.first.clerk_code
+    @ncworkno = params[:ncworkno]
 
     @users = @role.users.includes(:departments)
     @users_auto = case @role.id
