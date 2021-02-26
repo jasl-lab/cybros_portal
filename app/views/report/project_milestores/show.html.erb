@@ -39,6 +39,7 @@
     <thead class="thead-light">
       <tr>
       <% group.each do |dep| %>
+        <% next if Bi::OrgReportDeptOrder.all_department_names[dep].include?('（筹）') %>
         <th>
           <%= raw Bi::OrgReportDeptOrder.all_department_names[dep] || dep || '&nbsp;'*6 %>
         </th>
@@ -56,6 +57,7 @@
         <% (0...max_people_in_group).each do |i| %>
           <tr>
             <% group.each do |dep| %>
+              <% next if Bi::OrgReportDeptOrder.all_department_names[dep].include?('（筹）') %>
               <% if dep.present? && @person_by_department_in_sh[dep].present? && @person_by_department_in_sh[dep][i].present? %>
                 <% person = @person_by_department_in_sh[dep][i] %>
                 <td data-action="click->project-milestone-table#drill_down"
