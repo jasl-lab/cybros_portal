@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class Admin::RolesController < Admin::ApplicationController
-  before_action :set_role, only: %i[show user]
+  before_action :set_role, only: %i[show user update]
   before_action :set_breadcrumbs, only: %i[new edit create update], if: -> { request.format.html? }
 
   def index
     prepare_meta_tags title: t('.title')
-
     @roles = Role.all
   end
 
   def show
     prepare_meta_tags title: @role.role_name
+    @ncworkno = params[:ncworkno] || User.first.clerk_code
+
     @users = @role.users.includes(:departments)
     @users_auto = case @role.id
                   when 6  # 查看项目地图并允许下载合同
@@ -24,6 +25,12 @@ class Admin::RolesController < Admin::ApplicationController
                   else
                     []
     end
+  end
+
+  def update
+    to_add_user = User.find_by(clerk_code: params[:ncworkno])
+    @role.role_users.create(user: to_add_user)
+    redirect_to admin_role_path(id: @role.id)
   end
 
   def user

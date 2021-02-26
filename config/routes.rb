@@ -60,7 +60,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :roles, only: %i[index show] do
+    resources :roles, only: %i[index show update] do
       member do
         delete :user
       end

@@ -4,6 +4,13 @@
       <h3 class="page-title">
         <%= t(".title", role_name: @role.role_name) %>
       </h3>
+      <%= form_with url: admin_role_path(id: @role.id), method: :patch, class: 'form-inline', local: true do |f| %>
+        <div class="form-group mr-2">
+          <label for="new-question-text"><%= t(".ncworkno") -%>：</label>
+          <%= select_tag 'ncworkno', options_from_collection_for_select(User.where(clerk_code: @ncworkno), "clerk_code", "chinese_name"), class: 'form-control-plaintext form-control', id: 'ncworkno-select', data: { controller: 'ui--ncworkno-select', 'ui--ncworkno-select-url-value': '/ui/ncworkno_select.json' } -%>
+        </div>
+        <%= f.submit t(".add"), class: 'btn btn-primary' %>
+      <% end %>
       <p>
         <% @role.attributes.except('id', 'role_name','created_at', 'updated_at').each do |a| %>
           <% next unless a.second == true %>

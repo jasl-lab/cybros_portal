@@ -14,6 +14,8 @@ en:
           hr_subsidiary_reader: "HR subsidiary reader"
       show:
         title: "Role: %{role_name} users"
+        ncworkno: "Chinese name"
+        add: "Add"
         table:
           id: "Id"
           email: "Email"
