@@ -7,6 +7,7 @@ en:
         month_name: "Month name"
         chinese_name: "Employee name"
         main_company_code: "Main company name"
+        parttime_company_code: "Part time company name"
         confirm: "Confirm"
         table:
           clerk_name: "Name"

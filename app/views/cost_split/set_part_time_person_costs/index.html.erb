@@ -18,6 +18,10 @@
             <label class="mr-1"><%= t(".main_company_code") -%>：</label>
             <%= select_tag 'main_company_code', options_for_select(@company_short_names, @main_company_code), class: 'form-control-plaintext form-control', include_blank: true %>
           </div>
+          <div class="form-group mr-3">
+            <label class="mr-1"><%= t(".parttime_company_code") -%>：</label>
+            <%= select_tag 'parttime_company_code', options_for_select(@company_short_names, @parttime_company_code), class: 'form-control-plaintext form-control', include_blank: true %>
+          </div>
           <div>
             <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
           </div>

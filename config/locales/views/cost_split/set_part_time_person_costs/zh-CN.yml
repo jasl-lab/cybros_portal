@@ -7,6 +7,7 @@ zh-CN:
         month_name: "年月"
         chinese_name: "员工姓名"
         main_company_code: "主职公司"
+        parttime_company_code: "兼职公司"
         confirm: "搜索"
         table:
           clerk_name: "姓名"

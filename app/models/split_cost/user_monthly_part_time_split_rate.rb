@@ -10,7 +10,7 @@ module SplitCost
       SplitCost::UserMonthlyPartTimeSplitRate.order(month: :desc).select(:month).distinct.pluck(:month).collect { |d| d.to_s(:month_and_year) }.uniq
     end
 
-    def self.available_company_names(target_month)
+    def self.available_company_name_org_codes(target_month)
       where(month: target_month).joins(position: :department)
         .pluck(:company_code).uniq
         .collect { |c| [Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c), c] }

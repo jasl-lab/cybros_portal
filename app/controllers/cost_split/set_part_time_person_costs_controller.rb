@@ -9,10 +9,11 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @month_name = params[:month_name]&.strip || @all_month_names.first
     beginning_of_month = Date.parse(@month_name).beginning_of_month
 
-    @company_short_names = policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).available_company_names(beginning_of_month)
-    @main_company_code = params[:main_company_code]&.strip
+    @company_short_names = policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).available_company_name_org_codes(beginning_of_month)
+    @main_company_code = params[:main_company_code].presence
+    @parttime_company_code = params[:parttime_company_code].presence
 
-    @users = User.joins(:position_users).includes(:user_monthly_part_time_split_rates)
+    @users = User.joins(:position_users).includes(user_monthly_part_time_split_rates: :position)
       .where(position_users: { main_position: false }).distinct
 
     @users = if @chinese_name.present?
@@ -21,15 +22,22 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
       @users
     end
 
-    @mpts_rates = if @main_company_code.present?
+    @mpts_rates = if @parttime_company_code.present? && @main_company_code.present?
+      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
+        .where(position: { departments: { company_code: [@main_company_code, @parttime_company_code] } })
+    elsif @main_company_code.present?
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
         .where(position: { departments: { company_code: @main_company_code } })
         .where(main_position: true)
+    elsif @parttime_company_code.present?
+      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
+        .where(position: { departments: { company_code: @parttime_company_code } })
+        .where(main_position: false)
     else
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
     end.where(month: beginning_of_month)
 
-    @users = if @main_company_code.present?
+    @users = if @parttime_company_code.present? || @main_company_code.present?
       @users.where(id: @mpts_rates.collect(&:user_id))
     else
       @users
