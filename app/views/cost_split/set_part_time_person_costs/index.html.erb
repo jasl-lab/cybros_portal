@@ -32,16 +32,16 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th rowspan="2"><%= t('.table.clerk_name') -%></th>
-            <th rowspan="2"><%= t('.table.company') -%></th>
-            <th rowspan="2"><%= t('.table.department') -%></th>
-            <th rowspan="2"><%= t('.table.position_with_star') -%></th>
-            <th colspan="<%= @user_salary_classifications.length -%>" class="align-middle text-center"><%= t('.table.salary_classification') -%></th>
-            <th rowspan="2"><%= t('.table.action') -%></th>
+            <th rowspan="2" class="border-bottom border-dark"><%= t('.table.clerk_name') -%></th>
+            <th rowspan="2" class="border-bottom border-dark"><%= t('.table.company') -%></th>
+            <th rowspan="2" class="border-bottom border-dark"><%= t('.table.department') -%></th>
+            <th rowspan="2" class="border-bottom border-dark"><%= t('.table.position_with_star') -%></th>
+            <th colspan="<%= @user_salary_classifications.length -%>" class="align-middle text-center border-bottom border-dark"><%= t('.table.salary_classification') -%></th>
+            <th rowspan="2" class="border-bottom border-dark"><%= t('.table.action') -%></th>
           </tr>
           <tr>
             <% @user_salary_classifications.each do |user_salary_classification| %>
-              <th><%= user_salary_classification.name -%></th>
+              <th class="border-bottom border-dark"><%= user_salary_classification.name -%></th>
             <% end %>
           </tr>
         </thead>
@@ -52,7 +52,7 @@
               <% mpts_rates = user.user_monthly_part_time_split_rates.find_all { |r| r.position_id == position_id } %>
               <tr class="<%= index.zero? ? 'bg-secondary' : '' -%>">
                 <% if index.zero? %>
-                  <td rowspan="<%= position_ids.length -%>" class="align-middle text-center"><%= user.chinese_name %></td>
+                  <td rowspan="<%= position_ids.length -%>" class="align-middle text-center border border-dark"><%= user.chinese_name %></td>
                 <% end %>
                 <td><%= mpts_rates.first.position.department&.company_name %></td>
                 <td><%= mpts_rates.first.position.department&.name %></td>
