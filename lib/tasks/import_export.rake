@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 namespace :import_export do
+  desc 'Clean the PositionUser and DepartmentUser record'
+  task clean_position_department_user: :environment do
+    position_user_ids = SplitCost::UserMonthlyPartTimeSpecialJobType.all.distinct.pluck(:position_user_id)
+    PositionUser.where.not(id: position_user_ids).delete_all
+    DepartmentUser.delete_all
+  end
+
   desc 'Filling CSV file to subsidiary_workloadings'
   task :subsidiary_workloadings, [:csv_file] => [:environment] do |task, args|
     csv_file_path = args[:csv_file]
