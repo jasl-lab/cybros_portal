@@ -89,15 +89,22 @@ namespace :import_export do
         position_name = cps[1]
         functional_category = cps[2]
         dept_code = cps[3]
-        main_position = cps[4]
-        post_level = cps[5]
-        job_type_code = cps[6]
+        dept_name = cps[4]
+        org_code = cps[5]
+        org_name = cps[6]
+        main_position = cps[7]
+        post_level = cps[8]
+        job_type_code = cps[9]
 
         pos = Position.find_or_create_by(id: id) do |position|
           position.name = position_name
         end
-        dept = Department.find_by(dept_code: dept_code)
-        pos.update(functional_category: functional_category, name: position_name, department_id: dept&.id)
+        dept = Department.find_or_initialize_by(dept_code: dept_code)
+        dept.name = dept_name
+        dept.company_code = org_code
+        dept.company_name = org_name
+        dept.save
+        pos.update(functional_category: functional_category, name: position_name, department_id: dept.id)
         pu = PositionUser.find_or_create_by!(user_id: user.id, position_id: pos.id)
         ujt = SplitCost::UserJobType.find_by(code: job_type_code)
         pu.update(main_position: main_position, post_level: post_level, user_job_type_id: ujt&.id)
