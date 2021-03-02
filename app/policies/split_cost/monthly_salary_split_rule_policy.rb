@@ -6,7 +6,7 @@ module SplitCost
       def resolve
         return scope.none unless user.present?
 
-        if user.admin? || user.chinese_name.in?(%w[高尧 方子雪 黄飞 王旭煜 郑贤来])
+        if user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
           scope.all
         else
           scope.none
@@ -17,7 +17,7 @@ module SplitCost
     def show?
       return false unless user.present?
 
-      user.admin? || user.chinese_name.in?(%w[高尧 方子雪 黄飞 王旭煜 郑贤来])
+      user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
     end
   end
 end
