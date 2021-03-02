@@ -1213,7 +1213,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "refresh_date"
   end
 
-  create_table "V_TH_DEPTMONEYFLOW_SAVE1", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "V_TH_DEPTMONEYFLOW_SAVE1", primary_key: ["deptid", "checkdate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "compid", limit: 200
     t.string "comp", limit: 200
     t.string "compname", limit: 200

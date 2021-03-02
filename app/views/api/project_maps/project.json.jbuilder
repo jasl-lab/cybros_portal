@@ -12,6 +12,13 @@ json.items @project_items do |item|
   json.code item.projectitemcode # 项目编号
   json.title item.projectitemname # 项目名称
   json.isBoutique item.isboutiqueproject == '是' # 是否精品
+  if item.isboutiqueproject == '是'
+    response = HTTP.get("#{Rails.application.credentials.km_img_project_url!}mt/GetProjectMapPicList?projectitemcode=#{item.projectitemcode}")
+    result = JSON.parse response.body.to_s
+    if result['data'].present?
+      json.images result['data'].map{|it| it['projectpicurl']}
+    end
+  end
   json.clientName item.clientname # 客户名称
   json.milestones item.milestonesname # 项目进展
   json.designendData item.designenddate # 设计完成时间
