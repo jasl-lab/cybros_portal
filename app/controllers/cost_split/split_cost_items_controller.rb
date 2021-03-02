@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::SplitCostItemsController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_split_cost_item, except: %i[index]
 
   def index

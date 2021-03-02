@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::UserSplitCostSettingsController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_user_and_split_cost_setting, only: %i[edit update submit reject]
 
   def new

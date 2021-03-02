@@ -20,6 +20,7 @@ zh-CN:
         financial_analysis: "财务分析"
         capital_dept: "财务部"
         account_report: "财务分析-经营报表"
+        split_setting: "财务分析-分摊设置"
         financial_management: "财务分析-所级管理表"
         capital_report: "财务部-资金日报"
         salary_query: "财务部-薪资查询"
@@ -143,6 +144,8 @@ zh-CN:
         account_business_target_dept_show: "上海营业目标完成情况"
         account_operation_summary_org: "集团经营情况汇总（测试中）"
         account_operation_summary_dept: "公司经营情况汇总（测试中）"
+      account_split_setting:
+        header: "财务分析-分摊设置"
       capital_report:
         header: "财务部-资金日报"
         fund_daily_fill: "资金日报填报表"

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
+
   def index
     prepare_meta_tags title: t('.title')
     @chinese_name = params[:chinese_name]
@@ -72,4 +74,10 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
       mpts_rate.update(salary_classification_split_rate: @mpts_values[index])
     end
   end
+
+  protected
+
+    def set_page_layout_data
+      @_sidebar_name = 'split_settings'
+    end
 end

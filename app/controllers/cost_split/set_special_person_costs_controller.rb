@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_user_monthly_part_time_special_job_type_rule, except: %i[index create]
 
   def index
@@ -43,6 +44,12 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
     @mpts_job_type.destroy
     redirect_to cost_split_set_special_person_costs_path, notice: t('.destroy_success')
   end
+
+  protected
+
+    def set_page_layout_data
+      @_sidebar_name = 'split_settings'
+    end
 
   private
 

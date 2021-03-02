@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
+
   def show
     prepare_meta_tags title: t('.title')
     @all_month_names = policy_scope(SplitCost::UserSplitCostDetail).all_month_names

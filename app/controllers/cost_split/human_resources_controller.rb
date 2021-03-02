@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CostSplit::HumanResourcesController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
+
   def index
     prepare_meta_tags title: t('.title')
     @all_company_names = Bi::OrgOrder.all_company_names

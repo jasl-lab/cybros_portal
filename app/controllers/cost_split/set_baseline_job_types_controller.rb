@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CostSplit::SetBaselineJobTypesController < CostSplit::BaseController
+  before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_monthly_salary_split_rule, except: %i[index]
 
   def index
@@ -54,6 +55,12 @@ class CostSplit::SetBaselineJobTypesController < CostSplit::BaseController
   def update
     @monthly_salary_split_rule.update(monthly_salary_split_rule_params)
   end
+
+  protected
+
+    def set_page_layout_data
+      @_sidebar_name = 'split_settings'
+    end
 
   private
 
