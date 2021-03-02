@@ -74,7 +74,8 @@ class Report::PredictContractsController < Report::BaseController
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
       .where('contractamount > 0')
-    render
+      .distinct
+      .select(:opportunitycode, :opportunityname, :contractamount, :cnname, :successrate, :contractconvert, :businessdirectorname)
   end
 
   def signing_detail_drill_down
@@ -83,7 +84,8 @@ class Report::PredictContractsController < Report::BaseController
       .where(date: @last_available_date)
       .where(deptcode: dept_code)
       .where('convertrealamount > 0')
-    render
+      .distinct
+      .select(:salescontractcode, :salescontractname, :status, :realamounttotal, :convertrealamount, :businessdirectorname)
   end
 
   private
