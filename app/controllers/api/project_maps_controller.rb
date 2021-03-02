@@ -113,10 +113,10 @@ module API
 
     def query_config
       @tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
-      @tracestates = @tracestates.map{|item| item}
+      @tracestates = @tracestates.map { |item| item }
       @tracestates.shift
       @createddate_years = Bi::NewMapInfo.all_createddate_year
-      @createddate_years = @createddate_years.map{|item| item}
+      @createddate_years = @createddate_years.map { |item| item }
       @createddate_years.shift
     end
 

@@ -16,7 +16,7 @@ json.items @project_items do |item|
     response = HTTP.get("#{Rails.application.credentials.km_img_project_url!}/mt/GetProjectMapPicList?projectitemcode=#{item.projectitemcode}")
     result = JSON.parse response.body.to_s
     if result['data'].present?
-      json.images result['data'].map{|it| it['projectpicurl']}
+      json.images result['data'].map { |it| it['projectpicurl'] }
     end
   end
   json.clientName item.clientname # 客户名称
