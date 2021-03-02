@@ -18,32 +18,26 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @users = User.joins(:position_users).includes(user_monthly_part_time_split_rates: :position)
       .where(position_users: { main_position: false }).distinct
 
-    @users = if @chinese_name.present?
-      @users.where('chinese_name LIKE ?', "%#{@chinese_name}%")
-    else
-      @users
-    end
-
     @mpts_rates = if @parttime_company_code.present? && @main_company_code.present?
-      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
+      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
         .where(position: { departments: { company_code: [@main_company_code, @parttime_company_code] } })
     elsif @main_company_code.present?
-      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
+      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
         .where(position: { departments: { company_code: @main_company_code } })
         .where(main_position: true)
     elsif @parttime_company_code.present?
-      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).joins(position: :department)
+      policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
         .where(position: { departments: { company_code: @parttime_company_code } })
         .where(main_position: false)
     else
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
     end.where(month: beginning_of_month)
 
-    @users = if @parttime_company_code.present? || @main_company_code.present?
-      @users.where(id: @mpts_rates.collect(&:user_id))
+    @users = if @chinese_name.present?
+      @users.where('chinese_name LIKE ?', "%#{@chinese_name}%")
     else
       @users
-    end.page(params[:page]).per(params[:per_page])
+    end.where(id: @mpts_rates.collect(&:user_id)).page(params[:page]).per(params[:per_page])
 
     @user_salary_classifications = SplitCost::UserSalaryClassification.all.order(:code)
   end
