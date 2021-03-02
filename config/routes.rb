@@ -46,10 +46,12 @@ Rails.application.routes.draw do
       resources :manual_operation_access_codes, only: %i[destroy create]
       resources :manual_hr_access_codes, only: %i[destroy create]
       resources :manual_cw_access_codes, only: %i[destroy create]
+      resources :manual_pts_access_codes, only: %i[destroy create]
       collection do
         get :operation_org_code_change
         get :hr_org_code_change
         get :cw_org_code_change
+        get :pts_org_code_change
       end
       member do
         patch :lock
