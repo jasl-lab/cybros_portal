@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_051641) do
+ActiveRecord::Schema.define(version: 2021_03_02_021954) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -276,6 +276,16 @@ ActiveRecord::Schema.define(version: 2021_02_26_051641) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "application_subclasses", default: "--- []\n"
     t.index ["user_id"], name: "index_official_stamp_usage_applies_on_user_id"
+  end
+
+  create_table "part_time_split_access_codes", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "org_code"
+    t.string "dept_code"
+    t.string "auto_generated_role", default: "0", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_part_time_split_access_codes_on_user_id"
   end
 
   create_table "pending_questions", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -712,6 +722,7 @@ ActiveRecord::Schema.define(version: 2021_02_26_051641) do
   add_foreign_key "monthly_salary_split_rules", "user_job_types"
   add_foreign_key "monthly_salary_split_rules", "user_salary_classifications"
   add_foreign_key "name_card_applies", "users"
+  add_foreign_key "part_time_split_access_codes", "users"
   add_foreign_key "position_users", "positions"
   add_foreign_key "position_users", "users"
   add_foreign_key "proof_of_income_applies", "users"
