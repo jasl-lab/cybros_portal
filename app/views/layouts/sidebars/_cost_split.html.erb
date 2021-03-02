@@ -46,29 +46,6 @@
           <%= t("layouts.sidebar.cost_split.cost_allocation_summary_tables") %>
         <% end %>
       <% end %>
-      <li class="nav-title">人力成本报表</li>
-      <% if policy(SplitCost::MonthlySalarySplitRule).show? %>
-        <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-desktop"></i>
-            <%= t("layouts.sidebar.cost_split.set_baseline_job_types") %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if policy(SplitCost::UserMonthlyPartTimeSplitRate).show? %>
-        <%= nav_item controller: 'cost_split/set_part_time_person_costs', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_part_time_person_costs_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-thumbs-up"></i>
-            <%= t("layouts.sidebar.cost_split.set_part_time_person_costs") %>
-          <% end %>
-        <% end %>
-      <% end %>
-        <%= nav_item controller: 'cost_split/set_special_person_costs', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_special_person_costs_path, class: "nav-link" do %>
-            <i class="nav-icon fas fa-hiking"></i>
-            <%= t("layouts.sidebar.cost_split.set_special_person_costs") %>
-          <% end %>
-        <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

@@ -65,7 +65,7 @@
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.financial_analysis") -%></a>
         <ul class="nav-dropdown-items">
           <% if account_report_show %>
-            <%= nav_item controller: 'account/reports', html_options: {class: "nav-item"} do %>
+            <%= nav_item controller: 'account/reports', html_options: { class: "nav-item" } do %>
               <%= link_to account_report_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-jedi"></i>
                 <%= t("layouts.sidebar.application.account_report") %>
@@ -73,7 +73,7 @@
             <% end %>
           <% end %>
           <% if financial_management_show %>
-            <%= nav_item controller: 'report/financial_management', html_options: {class: "nav-item"} do %>
+            <%= nav_item controller: 'report/financial_management', html_options: { class: "nav-item" } do %>
               <%= link_to report_financial_management_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-jedi"></i>
                 <%= t("layouts.sidebar.application.financial_management") %>
@@ -81,10 +81,18 @@
             <% end %>
           <% end %>
           <% if operation_entry_show %>
-            <%= nav_item controller: 'operation_entry/operation_entry', html_options: {class: "nav-item"} do %>
+            <%= nav_item controller: 'operation_entry/operation_entry', html_options: { class: "nav-item" } do %>
               <%= link_to operation_entry_root_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-pen-square"></i>
                 <%= t("layouts.sidebar.application.operation_entry") %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if operation_entry_show %>
+            <%= nav_item controller: 'account/split_settings', html_options: { class: "nav-item" } do %>
+              <%= link_to account_split_setting_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-pen-square"></i>
+                <%= t("layouts.sidebar.application.split_setting") %>
               <% end %>
             <% end %>
           <% end %>

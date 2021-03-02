@@ -2,6 +2,7 @@
 
 class CostSplit::AllocationBasesController < CostSplit::BaseController
   include AllocationBaseHelper
+  before_action :set_page_layout_data, if: -> { request.format.html? }
 
   def index
     prepare_meta_tags title: t('.title')
