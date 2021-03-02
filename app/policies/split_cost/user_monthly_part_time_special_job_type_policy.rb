@@ -8,16 +8,20 @@ module SplitCost
 
         if user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
           scope.all
+        elsif user.part_time_split_access_codes.present?
+          scope.where(position_user: { position: { departments: { company_code: user.part_time_split_access_codes.pluck(:org_code) } } })
         else
           scope.none
-        end
+        end.joins(position_user: { position: :department })
       end
     end
 
     def show?
       return false unless user.present?
 
-      user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
+      user.admin? \
+      || user.part_time_split_access_codes.present? \
+      || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
     end
   end
 end
