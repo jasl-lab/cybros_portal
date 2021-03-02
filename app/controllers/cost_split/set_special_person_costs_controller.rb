@@ -13,6 +13,8 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
 
     @target_user = if @ncworkno.present?
       User.find_by(clerk_code: @ncworkno)
+    else
+      User.first
     end
 
     @mpts_job_types = if @target_user != User.first
