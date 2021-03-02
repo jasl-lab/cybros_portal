@@ -57,6 +57,16 @@ en:
           org_code: "ORG code"
           dept_code: "Dept code"
           auto_generated_role: "Auto generated"
+      show_pts_access_codes:
+        pts_access_codes: "Access rights for part-time staff salary item ratio setting"
+        table:
+          org_code: "ORG code"
+          auto_generated_role: "Auto generated"
+      show_pt_special_access_codes:
+        pt_special_access_codes: "Access authority for special personnel salary item cost classification settings"
+        table:
+          org_code: "ORG code"
+          auto_generated_role: "Auto generated"
       show:
         actions:
           lock: "Lock"
