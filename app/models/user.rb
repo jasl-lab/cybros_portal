@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :manual_hr_access_codes, dependent: :destroy
   has_many :manual_cw_access_codes, dependent: :destroy
   has_many :part_time_split_access_codes, dependent: :destroy
+  has_many :part_time_special_access_codes, dependent: :destroy
 
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
