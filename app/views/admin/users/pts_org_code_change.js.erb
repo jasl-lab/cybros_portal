@@ -1,6 +1,0 @@
-var selectize_ctl = $("#select-pts-dept-codes")[0].selectize;
-selectize_ctl.clear();
-selectize_ctl.clearOptions(true);
-<% @dept_codes.each do |d| %>
-  selectize_ctl.addOption({text: '<%= d.first -%>', value: '<%= d.second -%>'});
-<% end %>

@@ -51,7 +51,6 @@ Rails.application.routes.draw do
         get :operation_org_code_change
         get :hr_org_code_change
         get :cw_org_code_change
-        get :pts_org_code_change
       end
       member do
         patch :lock
