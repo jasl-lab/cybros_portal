@@ -35,6 +35,28 @@ zh-CN:
           actions:
             show: "查看"
             login_as: "登录为"
+      show_operation_access_codes:
+        operation_access_codes: "在市场运营的权限等级"
+        table:
+          access_code: "访问码"
+          org_code: "公司编码"
+          dept_code: "部门编码"
+          title: "称谓"
+          job_level: "职级"
+      show_cw_access_codes:
+        cw_access_codes: "财务帆软报表角色的访问权限"
+        table:
+          cw_rolename: "财务角色名字"
+          org_code: "公司编码"
+          dept_code: "部门编码"
+          auto_generated_role: "自动生成"
+      show_hw_access_codes:
+        hr_access_codes: "HR帆软报表角色的访问权限"
+        table:
+          hr_rolename: "HR角色名字"
+          org_code: "公司编码"
+          dept_code: "部门编码"
+          auto_generated_role: "自动生成"
       show:
         actions:
           lock: "禁用"
@@ -50,18 +72,6 @@ zh-CN:
         created_at: "创建于"
         current_sign_in_at: "最后登录"
         user_roles: "手工赋予的角色"
-        operation_access_codes: "在市场运营的权限等级"
-        hr_access_codes: "HR帆软报表角色的访问权限"
-        cw_access_codes: "财务帆软报表角色的访问权限"
-        table:
-          access_code: "访问码"
-          org_code: "公司编码"
-          dept_code: "部门编码"
-          title: "称谓"
-          job_level: "职级"
-          hr_rolename: "HR角色名字"
-          cw_rolename: "财务角色名字"
-          auto_generated_role: "自动生成"
         status: "状态"
       new:
         title: "新建用户"

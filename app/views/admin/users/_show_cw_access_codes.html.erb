@@ -1,0 +1,56 @@
+<dt class="col-sm-3">
+  <%= t(".cw_access_codes") %>
+</dt>
+<dd class="col-sm-9">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t('.table.cw_rolename') -%></th>
+        <th><%= t('.table.org_code') -%></th>
+        <th><%= t('.table.dept_code') -%></th>
+        <th><%= t('.table.auto_generated_role') -%></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.manual_cw_access_codes.each do |ac| %>
+        <tr>
+          <td><%= ac.cw_rolename -%></td>
+          <td><%= ac.org_code -%></td>
+          <td><%= ac.dept_code -%></td>
+          <td>
+            <% if ac.auto_generated_role %>
+              <span class="badge badge-info"><%= ac.auto_generated_role -%></span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to '移除', admin_user_manual_cw_access_code_path(id: ac.id, user_id: @user.id), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= form_with model: @user.manual_cw_access_codes.build, url: admin_user_manual_cw_access_codes_path(user_id: @user.id), local: false do |f| %>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label class="mr-1"><%= t('.table.cw_rolename') -%>：</label>
+        <%= f.select 'cw_rolename', options_for_select(Role::where("role_name like 'CW_%'").pluck(:role_name)), {}, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="mr-1"><%= t('.table.org_code') -%>：</label>
+        <%= f.select :org_code, @org_codes, { include_blank: false }, class: 'form-control-plaintext form-control', data: { remote: true, type: :script, url: url_for(controller: 'admin/users', action: 'cw_org_code_change', format: 'js')} %>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="mr-1"><%= t('.table.dept_code') -%>：</label>
+        <%= f.select :dept_code, @dept_codes, { include_blank: true }, id: 'select-cw-dept-codes', class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-2">
+        <label class="mr-1">&nbsp;</label>
+        <div class="form-control form-button">
+          <%= f.submit '添加', class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</dd>
+<hr />

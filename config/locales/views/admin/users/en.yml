@@ -35,6 +35,28 @@ en:
           actions:
             show: "Show"
             login_as: "Login as"
+      show_operation_access_codes:
+        operation_access_codes: "Operation access codes"
+        table:
+          access_code: "Access code"
+          org_code: "ORG code"
+          dept_code: "Dept code"
+          title: "Title"
+          job_level: "Job level"
+      show_cw_access_codes:
+        cw_access_codes: "CW access codes"
+        table:
+          cw_rolename: "CW role name"
+          org_code: "ORG code"
+          dept_code: "Dept code"
+          auto_generated_role: "Auto generated"
+      show_hw_access_codes:
+        hr_access_codes: "HR access codes"
+        table:
+          hr_rolename: "HR role name"
+          org_code: "ORG code"
+          dept_code: "Dept code"
+          auto_generated_role: "Auto generated"
       show:
         actions:
           lock: "Lock"
@@ -50,18 +72,6 @@ en:
         created_at: "Created at"
         current_sign_in_at: "Current sign in at"
         user_roles: "User roles"
-        operation_access_codes: "Operation access codes"
-        hr_access_codes: "HR access codes"
-        cw_access_codes: "CW access codes"
-        table:
-          access_code: "Access code"
-          org_code: "ORG code"
-          dept_code: "Dept code"
-          title: "Title"
-          job_level: "Job level"
-          hr_rolename: "HR role name"
-          cw_rolename: "CW role name"
-          auto_generated_role: "Auto generated"
         status: "Status"
       new:
         title: "New User"

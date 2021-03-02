@@ -1,0 +1,64 @@
+<dt class="col-sm-3">
+  <%= t(".operation_access_codes") %>
+</dt>
+<dd class="col-sm-9">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t('.table.access_code') -%></th>
+        <th><%= t('.table.org_code') -%></th>
+        <th><%= t('.table.dept_code') -%></th>
+        <th><%= t('.table.title') -%></th>
+        <th><%= t('.table.job_level') -%></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.operation_access_codes.each do |code| %>
+        <tr>
+          <td><%= code.first -%></td>
+          <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(code.second, code.second) -%></td>
+          <td><%= Bi::PkCodeName.mapping2deptcode.fetch(code.third, code.third) -%></td>
+          <td><%= code.fourth -%></td>
+          <td><%= code.fifth -%></td>
+          <td>
+            <% if code[5].present? %>
+              <%= link_to '移除', admin_user_manual_operation_access_code_path(id: code[5], user_id: @user.id), method: :delete %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= form_with model: @user.manual_operation_access_codes.build, url: admin_user_manual_operation_access_codes_path(user_id: @user.id), local: false do |f| %>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label class="mr-1"><%= t('.table.access_code') -%>：</label>
+        <%= f.text_field :code, class: 'form-control form-control2' %>
+      </div>
+      <div class="form-group col-md-2">
+        <label class="mr-1"><%= t('.table.org_code') -%>：</label>
+        <%= f.select :org_code, @org_codes, { include_blank: false }, class: 'form-control-plaintext form-control', data: { remote: true, type: :script, url: url_for(controller: 'admin/users', action: 'operation_org_code_change', format: 'js')} %>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="mr-1"><%= t('.table.dept_code') -%>：</label>
+        <%= f.select :dept_code, @dept_codes, { include_blank: true }, id: 'select-operation-dept-codes', class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-2">
+        <label class="mr-1"><%= t('.table.title') -%>：</label>
+        <%= f.text_field :title, class: 'form-control form-control2' %>
+      </div>
+      <div class="form-group col-md-2">
+        <label class="mr-1"><%= t('.table.job_level') -%>：</label>
+        <%= f.text_field :job_level, class: 'form-control form-control2' %>
+      </div>
+      <div class="form-group col-md-1">
+        <label class="mr-1">&nbsp;</label>
+        <div class="form-control form-button">
+          <%= f.submit '添加', class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</dd>
+<hr />
