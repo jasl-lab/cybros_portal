@@ -50,9 +50,9 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
 
   def edit
     @month_name = params[:month_name]&.strip
-    beginning_of_month = Date.parse(@month_name).beginning_of_month
+    @beginning_of_month = Date.parse(@month_name).beginning_of_month
     @user = User.includes(:user_monthly_part_time_split_rates).find params[:id]
-    @user_monthly_part_time_split_rates = @user.user_monthly_part_time_split_rates.where(month: beginning_of_month)
+    @user_monthly_part_time_split_rates = @user.user_monthly_part_time_split_rates.where(month: @beginning_of_month)
     @user_salary_classifications = SplitCost::UserSalaryClassification.all.order(:code)
   end
 
