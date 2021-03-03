@@ -18,7 +18,11 @@
             <tr>
               <% @user_salary_classifications.each do |user_salary_classification| %>
                 <% uscs = SplitCost::UserSplitClassifySalary.find_by(user_id: @user.id, month: @beginning_of_month, user_salary_classification_id: user_salary_classification.id) %>
-                <th><%= user_salary_classification.name -%> <span class="badge badge-secondary" id="sum-user-salary-classification-<%= user_salary_classification.id -%>"></span> <%= uscs&.amount -%></th>
+                <th>
+                  <%= user_salary_classification.name -%>
+                  <br />
+                  <span class="badge badge-secondary" id="sum-user-salary-classification-<%= user_salary_classification.id -%>"></span> <%= uscs&.amount -%>
+                </th>
               <% end %>
             </tr>
           </thead>
