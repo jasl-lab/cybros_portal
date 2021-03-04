@@ -33,9 +33,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
     end.where(month: beginning_of_month)
 
-    @users = if @chinese_name.present?
-      User.where('chinese_name LIKE ?', "%#{@chinese_name}%")
-    elsif current_user.part_time_split_access_codes.present?
+    @users = if current_user.part_time_split_access_codes.present?
       cu = User.joins(position_users: { position: :department })
       current_user.part_time_split_access_codes.each_with_index do |ac, index|
         if index == 0
@@ -58,6 +56,8 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     else
       User.where(id: users_ids)
     end.where(id: @mpts_rates.collect(&:user_id))
+
+    @users = @users.where('chinese_name LIKE ?', "%#{@chinese_name}%") if @chinese_name.present?
 
     @users = @users.page(params[:page]).per(params[:per_page])
 
