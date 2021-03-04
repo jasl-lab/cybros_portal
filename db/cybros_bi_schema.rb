@@ -1524,7 +1524,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["date", "ncworkno"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_COUNT_COMBINE", primary_key: ["ncworkno", "date"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "userid", limit: 100
     t.string "username", limit: 100
     t.string "ncworkno", limit: 100, null: false
@@ -1532,9 +1532,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "realhours", limit: 53
     t.float "type1", limit: 53
     t.float "type2", limit: 53
+    t.float "type21", limit: 53
     t.float "type22", limit: 53
     t.float "type24", limit: 53
     t.float "type4", limit: 53
+    t.float "real1", limit: 53
+    t.float "real2", limit: 53
+    t.float "real21", limit: 53
+    t.float "real22", limit: 53
+    t.float "real24", limit: 53
+    t.float "real4", limit: 53
     t.text "summary"
     t.float "needhours", limit: 53
     t.string "profession", limit: 100
@@ -1543,6 +1550,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptcode_sum", limit: 100
     t.string "deptcode", limit: 100
     t.integer "iswork", limit: 1
+    t.string "state", limit: 10, default: "Y"
     t.index ["date", "orgcode"], name: "idx_work_hours_count_combine_date"
   end
 
@@ -1635,7 +1643,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "profession"
   end
 
-  create_table "WORK_HOURS_DAY_COUNT_DEPT", primary_key: ["date", "deptcode"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "WORK_HOURS_DAY_COUNT_DEPT", primary_key: ["deptcode", "date"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 100
     t.string "orgcode", limit: 100
     t.string "deptcode_sum", limit: 100
@@ -1650,33 +1658,45 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "blue_print_need", limit: 53
     t.float "blue_print_real", limit: 53
     t.float "blue_print_rate", limit: 53
+    t.float "blue_print_real_unapproved", limit: 53
+    t.float "blue_print_rate_unapproved", limit: 53
     t.float "construction_need", limit: 53
     t.float "construction_real", limit: 53
     t.float "construction_rate", limit: 53
+    t.float "construction_real_unapproved", limit: 53
+    t.float "construction_rate_unapproved", limit: 53
     t.float "others_need", limit: 53
     t.float "others_real", limit: 53
     t.float "others_rate", limit: 53
+    t.float "others_real_unapproved", limit: 53
+    t.float "others_rate_unapproved", limit: 53
   end
 
   create_table "WORK_HOURS_DAY_COUNT_ORG", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "orgcode_sum"
-    t.text "orgcode"
-    t.datetime "date"
+    t.string "orgcode_sum", limit: 100
+    t.string "orgcode", limit: 100
+    t.date "date"
     t.float "date_need", limit: 53
     t.float "date_real", limit: 53
+    t.float "fill_rate", limit: 53
     t.float "work_need", limit: 53
     t.float "work_real", limit: 53
+    t.float "work_rate", limit: 53
     t.float "blue_print_need", limit: 53
     t.float "blue_print_real", limit: 53
+    t.float "blue_print_rate", limit: 53
     t.float "construction_need", limit: 53
     t.float "construction_real", limit: 53
+    t.float "construction_rate", limit: 53
     t.float "others_need", limit: 53
     t.float "others_real", limit: 53
-    t.float "fill_rate", limit: 53
-    t.float "blue_print_rate", limit: 53
-    t.float "construction_rate", limit: 53
+    t.float "blue_print_real_unapproved", limit: 53
+    t.float "blue_print_rate_unapproved", limit: 53
+    t.float "construction_real_unapproved", limit: 53
+    t.float "construction_rate_unapproved", limit: 53
     t.float "others_rate", limit: 53
-    t.float "work_rate", limit: 53
+    t.float "others_real_unapproved", limit: 53
+    t.float "others_rate_unapproved", limit: 53
   end
 
   create_table "WUHAN_DEPT_COMBINE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

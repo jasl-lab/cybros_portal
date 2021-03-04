@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_060425) do
+ActiveRecord::Schema.define(version: 2021_03_04_073434) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_060425) do
     t.boolean "auto_generated_role", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "dept_category"
     t.index ["user_id"], name: "index_part_time_split_access_codes_on_user_id"
   end
 
