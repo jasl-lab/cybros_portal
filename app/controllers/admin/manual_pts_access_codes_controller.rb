@@ -23,6 +23,6 @@ class Admin::ManualPtsAccessCodesController < Admin::ApplicationController
     end
 
     def manual_pts_access_code_params
-      params.require(:part_time_split_access_code).permit(:org_code)
+      params.require(:part_time_split_access_code).permit(:org_code, :dept_category)
     end
 end

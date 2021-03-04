@@ -61,6 +61,7 @@ zh-CN:
         pts_access_codes: "兼职人员薪资项目比例设置的访问权限"
         table:
           org_code: "公司编码"
+          dept_category: "部门类型"
           auto_generated_role: "自动生成"
       show_pt_special_access_codes:
         pt_special_access_codes: "特殊人员薪资项目成本分类设置的访问权限"

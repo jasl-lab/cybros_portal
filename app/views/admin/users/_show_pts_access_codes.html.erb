@@ -6,6 +6,7 @@
     <thead>
       <tr>
         <th><%= t('.table.org_code') -%></th>
+        <th><%= t('.table.dept_category') -%></th>
         <th><%= t('.table.auto_generated_role') -%></th>
         <th></th>
       </tr>
@@ -14,6 +15,7 @@
       <% @user.part_time_split_access_codes.each do |ac| %>
         <tr>
           <td><%= ac.org_code -%></td>
+          <td><%= ac.dept_category -%></td>
           <td>
             <% if ac.auto_generated_role? %>
               <span class="badge badge-info"><%= ac.auto_generated_role -%></span>
@@ -31,6 +33,10 @@
       <div class="form-group col-md-3">
         <label class="mr-1"><%= t('.table.org_code') -%>：</label>
         <%= f.select :org_code, @org_codes, { include_blank: false }, class: 'form-control-plaintext form-control' %>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="mr-1"><%= t('.table.dept_category') -%>：</label>
+        <%= f.select :dept_category, %w[职能 生产], { include_blank: true }, class: 'form-control-plaintext form-control' %>
       </div>
       <div class="form-group col-md-2">
         <label class="mr-1">&nbsp;</label>
