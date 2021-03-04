@@ -28,7 +28,7 @@
           </thead>
           <tbody data-controller="ui--filling-split-rate-checker"
             data-ui--filling-split-rate-checker-usc-ids-value="[<%= @user_salary_classifications.collect(&:id).join(',') -%>]">
-            <% position_ids = @user_monthly_part_time_split_rates.collect(&:position_id).uniq %>
+            <% position_ids = @user_monthly_part_time_split_rates.order(main_position: :desc, id: :asc).collect(&:position_id).uniq %>
             <% position_ids.each_with_index do |position_id, pos_index| %>
               <% mpts_rates = @user_monthly_part_time_split_rates.find_all { |r| r.position_id == position_id } %>
               <tr>
