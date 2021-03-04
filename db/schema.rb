@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_02_082710) do
+ActiveRecord::Schema.define(version: 2021_03_04_060425) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2021_03_02_082710) do
     t.string "company_name"
     t.string "dept_code"
     t.string "company_code"
+    t.string "dept_category"
   end
 
   create_table "direct_question_answers", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

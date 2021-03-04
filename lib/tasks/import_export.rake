@@ -82,11 +82,12 @@ namespace :import_export do
         dept_code = cds[2]
         company_name = cds[3]
         company_code = cds[4]
+        dept_category = cds[5]
 
         dep = Department.find_or_create_by(id: id) do |department|
           department.name = department_name
         end
-        dep.update(company_name: company_name, company_code: company_code, name: department_name, dept_code: dept_code)
+        dep.update(company_name: company_name, company_code: company_code, dept_category: dept_category, name: department_name, dept_code: dept_code)
         DepartmentUser.find_or_create_by!(user_id: user.id, department_id: dep.id)
       end
 
@@ -98,10 +99,11 @@ namespace :import_export do
         dept_code = cps[3]
         dept_name = cps[4]
         org_code = cps[5]
-        org_name = cps[6]
-        main_position = cps[7]
-        post_level = cps[8]
-        job_type_code = cps[9]
+        dept_category = cps[6]
+        org_name = cps[7]
+        main_position = cps[8]
+        post_level = cps[9]
+        job_type_code = cps[10]
 
         pos = Position.find_or_create_by(id: id) do |position|
           position.name = position_name
@@ -109,6 +111,7 @@ namespace :import_export do
         dept = Department.find_or_initialize_by(dept_code: dept_code)
         dept.name = dept_name
         dept.company_code = org_code
+        dept.dept_category = dept_category
         dept.company_name = org_name
         dept.save
         pos.update(functional_category: functional_category, name: position_name, department_id: dept.id)
