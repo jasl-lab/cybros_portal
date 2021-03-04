@@ -7,11 +7,11 @@ module API
     include ActionView::Layouts
 
     def make_sure_auth
-      raise StandardError.new '未绑定手机号' unless current_wechat_user.mobile
+      raise Pundit::NotAuthorizedError.new '未绑定手机号' unless current_wechat_user.mobile
       user = User.find_by mobile: current_wechat_user.mobile
-      raise StandardError.new '仅限天华人员访问' unless user
+      raise Pundit::NotAuthorizedError.new '仅限天华人员访问' unless user
       sign_in user
-      raise StandardError.new '无权限访问' unless policy(Bi::NewMapInfo).show?
+      raise Pundit::NotAuthorizedError.new '无权限访问' unless policy(Bi::NewMapInfo).show?
     end
 
     def has_auth

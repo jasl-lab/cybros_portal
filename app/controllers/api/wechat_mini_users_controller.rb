@@ -17,7 +17,7 @@ module API
       session_key = current_wechat_user.session_key
       userinfo = Wechat.decrypt(encrypted_data, session_key, iv)
       unless userinfo && userinfo['watermark'] && userinfo['watermark']['appid'] == appid && userinfo['openId'] == openid
-        raise StandardError.new '用户信息有误'
+        raise Pundit::NotAuthorizedError.new '用户信息有误'
       end
       current_wechat_user.nick_name = userinfo['nickName']
       current_wechat_user.avatar_url = userinfo['avatarUrl']
@@ -36,7 +36,7 @@ module API
       session_key = current_wechat_user.session_key
       data = Wechat.decrypt(encrypted_data, session_key, iv)
       unless data && data['watermark'] && data['watermark']['appid'] == appid
-        raise StandardError.new '用户信息有误'
+        raise Pundit::NotAuthorizedError.new '用户信息有误'
       end
       current_wechat_user.mobile = data['phoneNumber']
       current_wechat_user.save
