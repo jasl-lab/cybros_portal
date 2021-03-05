@@ -41,8 +41,11 @@ export default class extends Controller {
     const view_deptcode_sum = this.data.get("view_deptcode_sum") == "true";
     const companyCode = this.data.get("company_code");
     const dayRateData = JSON.parse(this.data.get("day_rate"));
+    const planningDayUnapprovedRateData = JSON.parse(this.data.get("planning_day_unapproved_rate"));
     const planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
+    const buildingDayUnapprovedRateData = JSON.parse(this.data.get("building_day_unapproved_rate"));
     const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
+    const nonConstructionDayUnapprovedRateData = JSON.parse(this.data.get("non_construction_day_unapproved_rate"));
     const nonConstructionDayRateData = JSON.parse(this.data.get("non_construction_day_rate"));
 
     const day_option = {
@@ -144,7 +147,27 @@ export default class extends Controller {
             return value.max >= 100 ? value.max : 100;
           }
         },
+        legend: {
+            data: ['未确认方案饱和度','方案饱和度'],
+            align: 'left'
+        },
         series: [{
+          name: '未确认方案饱和度',
+          type: 'line',
+          symbol: 'circle',
+          symbolSize: 10,
+          data: planningDayUnapprovedRateData,
+          itemStyle: {
+            color: '#69B0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        },{
           name: '方案饱和度',
           type: 'line',
           symbol: 'circle',
@@ -203,14 +226,34 @@ export default class extends Controller {
             return value.max >= 100 ? value.max : 100;
           }
         },
+        legend: {
+            data: ['未确认施工图饱和度','施工图饱和度'],
+            align: 'left'
+        },
         series: [{
+          name: '未确认施工图饱和度',
+          type: 'line',
+          symbol: 'square',
+          symbolSize:  10,
+          data: buildingDayUnapprovedRateData,
+          itemStyle: {
+            color: '#69B0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        },{
           name: '施工图饱和度',
           type: 'line',
           symbol: 'square',
           symbolSize:  10,
           data: buildingDayRateData,
           itemStyle: {
-            color: '#6AB0B8'
+            color: '#334B5C'
           },
           label: {
             normal: {
@@ -262,14 +305,34 @@ export default class extends Controller {
             return value.max >= 100 ? value.max : 100;
           }
         },
+        legend: {
+            data: ['未确认饱和度','饱和度'],
+            align: 'left'
+        },
         series: [{
+          name: '未确认饱和度',
+          type: 'line',
+          symbol: 'square',
+          symbolSize:  10,
+          data: nonConstructionDayUnapprovedRateData,
+          itemStyle: {
+            color: '#69B0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        },{
           name: '饱和度',
           type: 'line',
           symbol: 'square',
           symbolSize:  10,
           data: nonConstructionDayRateData,
           itemStyle: {
-            color: '#6AB0B8'
+            color: '#334B5C'
           },
           label: {
             normal: {

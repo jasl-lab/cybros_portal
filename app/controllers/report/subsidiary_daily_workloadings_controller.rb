@@ -47,13 +47,13 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
 
     data = if @view_deptcode_sum
       data
-        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
+        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(blue_print_real_unapproved) blue_print_real_unapproved, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(construction_real_unapproved) construction_real_unapproved, SUM(others_real) others_real, SUM(others_need) others_need, SUM(others_real_unapproved) others_real_unapproved')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别')
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode_sum, ORG_REPORT_DEPT_ORDER.部门类别'))
     else
       data
-        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(others_real) others_real, SUM(others_need) others_need')
+        .select('WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别, SUM(date_real) date_real, SUM(date_need) date_need, SUM(blue_print_real) blue_print_real, SUM(blue_print_need) blue_print_need, SUM(blue_print_real_unapproved) blue_print_real_unapproved, SUM(construction_real) construction_real, SUM(construction_need) construction_need, SUM(construction_real_unapproved) construction_real_unapproved, SUM(others_real) others_real, SUM(others_need) others_need, SUM(others_real_unapproved) others_real_unapproved')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = WORK_HOURS_DAY_COUNT_DEPT.deptcode')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别')
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, WORK_HOURS_DAY_COUNT_DEPT.deptcode, ORG_REPORT_DEPT_ORDER.部门类别'))
@@ -113,8 +113,11 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     end
 
     @day_rate = data.filter_map { |d| ((d.date_real / d.date_need.to_f) * 100).round(0) rescue 0 if @job_company_or_department_codes.include?(d.deptcode) }
+    @planning_day_unapproved_rate = data.filter_map { |d| ((d.blue_print_real_unapproved / d.blue_print_need.to_f) * 100).round(0) rescue 0 if @blue_print_company_or_department_codes.include?(d.deptcode) }
     @planning_day_rate = data.filter_map { |d| ((d.blue_print_real / d.blue_print_need.to_f) * 100).round(0) rescue 0 if @blue_print_company_or_department_codes.include?(d.deptcode) }
+    @building_day_unapproved_rate = data.filter_map { |d| ((d.construction_real_unapproved / d.construction_need.to_f) * 100).round(0) rescue 0 if @construction_company_or_department_codes.include?(d.deptcode) }
     @building_day_rate = data.filter_map { |d| ((d.construction_real / d.construction_need.to_f) * 100).round(0) rescue 0 if @construction_company_or_department_codes.include?(d.deptcode) }
+    @non_construction_day_unapproved_rate = data.filter_map { |d| ((d.others_real_unapproved / d.others_need.to_f) * 100).round(0) rescue 0 if @non_construction_company_or_department_codes.include?(d.deptcode) }
     @non_construction_day_rate = data.filter_map { |d| ((d.others_real / d.others_need.to_f) * 100).round(0) rescue 0 if @non_construction_company_or_department_codes.include?(d.deptcode) }
   end
 
