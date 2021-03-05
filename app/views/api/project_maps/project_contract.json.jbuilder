@@ -28,7 +28,9 @@ json.payPlans @sc.pay_plans do |item| # 付款条件
   json.collRatio item.collratio
   json.collMoney item.collmoney
 end
-json.files @sc.files do |item| # 合同附件
-  json.title item.enclosurename
-  json.url item.attachmentaddress
+if policy(Bi::NewMapInfo).allow_download?
+  json.files @sc.files do |item| # 合同附件
+    json.title item.enclosurename
+    json.url item.attachmentaddress
+  end
 end

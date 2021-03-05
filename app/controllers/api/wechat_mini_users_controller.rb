@@ -6,7 +6,12 @@ module API
 
     def show
       @wechat_user = current_wechat_user
-      @insider = has_auth
+      @identities = []
+      if @wechat_user.user_id.present? && user = User.find(@wechat_user.user_id)
+        @wechat_user.nick_name = user.chinese_name
+        @identities.push 'insider'
+        @identities.push 'commercial' if has_auth
+      end
     end
 
     def update

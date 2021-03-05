@@ -6,7 +6,6 @@ module API
     before_action :make_sure_auth
 
     def show
-      authorize Bi::NewMapInfo
       city = params[:city].presence || '所有'
       province = params[:province].presence || '所有'
       client = params[:client].presence
@@ -20,7 +19,7 @@ module API
       project_type = params[:project_type].presence
       keywords = params[:keywords].presence
 
-      map_infos = policy_scope(Bi::NewMapInfo).where.not(coordinate: nil).includes(:project_items)
+      map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:project_items)
       map_infos = map_infos.where(tracestate: trace_state)
       map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) unless year == '所有'
       map_infos = map_infos.where('company LIKE ?', "%#{city}%") unless city == '所有'
@@ -112,7 +111,7 @@ module API
     end
 
     def query_config
-      @tracestates = policy_scope(Bi::NewMapInfo).all_tracestates
+      @tracestates = Bi::NewMapInfo.all_tracestates
       @tracestates = @tracestates.map { |item| item }
       @tracestates.shift
       @createddate_years = Bi::NewMapInfo.all_createddate_year
@@ -133,7 +132,6 @@ module API
     end
 
     def project_contract
-      authorize Bi::NewMapInfo, :allow_download?
       @sc = Bi::SaContract.find_by salescontractid: params[:id]
     end
   end
