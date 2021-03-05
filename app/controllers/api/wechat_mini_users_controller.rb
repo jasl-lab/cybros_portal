@@ -8,9 +8,10 @@ module API
       @wechat_user = current_wechat_user
       @identities = []
       if @wechat_user.user_id.present? && user = User.find(@wechat_user.user_id)
+        sign_in user
         @wechat_user.nick_name = user.chinese_name
         @identities.push 'insider'
-        @identities.push 'commercial' if has_auth
+        @identities.push 'commercial' if policy(Bi::NewMapInfo).show?
       end
     end
 
