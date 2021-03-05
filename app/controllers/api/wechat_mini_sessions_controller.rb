@@ -17,12 +17,15 @@ module API
         wechat_user.user_id = user.present? ? user.id : nil
       end
       wechat_user.session_key = session_key
-      raise Pundit::NotAuthorizedError.new '保存用户信息失败' unless wechat_user.save
-      user_encoder = Warden::JWTAuth::UserEncoder.new
-      payload = user_encoder.helper.payload_for_user(wechat_user, 'wechat_user')
-      payload['exp'] = Time.now.to_i + 1.year
-      payload['aud'] = 'cybros'
-      @jwt = Warden::JWTAuth::TokenEncoder.new.call(payload)
+      if wechat_user.save
+        user_encoder = Warden::JWTAuth::UserEncoder.new
+        payload = user_encoder.helper.payload_for_user(wechat_user, 'wechat_user')
+        payload['exp'] = Time.now.to_i + 1.year
+        payload['aud'] = 'cybros'
+        @jwt = Warden::JWTAuth::TokenEncoder.new.call(payload)
+      else
+        render json: { errMsg: wechat_user.errors.full_messages, errCode: 400 }, status: :bad_request
+      end
     end
   end
 end
