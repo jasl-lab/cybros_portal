@@ -27,8 +27,11 @@
     data-subsidiary-daily-workloadings-view_deptcode_sum="<%= @view_deptcode_sum -%>"
     data-subsidiary-daily-workloadings-is_non_construction="<%= @is_non_construction -%>"
     data-subsidiary-daily-workloadings-day_rate="<%= @day_rate.to_json -%>"
+    data-subsidiary-daily-workloadings-planning_day_unapproved_rate="<%= @planning_day_unapproved_rate.to_json -%>"
     data-subsidiary-daily-workloadings-planning_day_rate="<%= @planning_day_rate.to_json -%>"
+    data-subsidiary-daily-workloadings-building_day_unapproved_rate="<%= @building_day_unapproved_rate.to_json -%>"
     data-subsidiary-daily-workloadings-building_day_rate="<%= @building_day_rate.to_json -%>"
+    data-subsidiary-daily-workloadings-non_construction_day_unapproved_rate="<%= @non_construction_day_unapproved_rate.to_json -%>"
     data-subsidiary-daily-workloadings-non_construction_day_rate="<%= @non_construction_day_rate.to_json -%>">
     <h3 class="page-title">
       <%= t(".title", company: @short_company_name) %>
