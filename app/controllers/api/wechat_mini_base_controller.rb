@@ -9,7 +9,7 @@ module API
     rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
 
     def make_sure_auth
-      raise Pundit::NotAuthorizedError.new '仅限天华人员访问' unless User.find(current_wechat_user.user_id)
+      raise Pundit::NotAuthorizedError.new '仅限天华人员访问' unless user = User.find(current_wechat_user.user_id)
       sign_in user
     end
 
