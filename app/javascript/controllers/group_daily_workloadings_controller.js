@@ -21,10 +21,13 @@ export default class extends Controller {
     const currentUserCompaniesShortNames = JSON.parse(this.data.get("current_user_companies_short_names"));
     const dayRateData = JSON.parse(this.data.get("day_rate"));
     const dayRateDataRef = this.data.get("day_rate_ref");
+    const planningDayUnapprovedRateData = JSON.parse(this.data.get("planning_day_unapproved_rate"));
     const planningDayRateData = JSON.parse(this.data.get("planning_day_rate"));
     const planningDayRateDataRef = this.data.get("planning_day_rate_ref");
+    const buildingDayUnapprovedRateData = JSON.parse(this.data.get("building_day_unapproved_rate"));
     const buildingDayRateData = JSON.parse(this.data.get("building_day_rate"));
     const buildingDayRateDataRef = this.data.get("building_day_rate_ref");
+    const nonConstructionDayUnapprovedRateData = JSON.parse(this.data.get("non_construction_day_unapproved_rate"));
     const nonConstructionDayRateData = JSON.parse(this.data.get("non_construction_day_rate"));
 
     const day_option = {
@@ -140,7 +143,33 @@ export default class extends Controller {
             formatter: '{value} %'
           }
         },
+        legend: {
+            data: ['未确认方案饱和度','方案饱和度'],
+            align: 'left'
+        },
         series: [{
+          name: '未确认方案饱和度',
+          type: 'line',
+          symbol: 'circle',
+          symbolSize: function(val) {
+            if (val < planningDayRateDataRef) {
+              return 8;
+            } else {
+              return 16;
+            }
+          },
+          data: planningDayUnapprovedRateData,
+          itemStyle: {
+            color: '#69B0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        },{
           name: '方案饱和度',
           type: 'line',
           symbol: 'circle',
@@ -216,11 +245,37 @@ export default class extends Controller {
             formatter: '{value} %'
           }
         },
+        legend: {
+            data: ['未确认施工图饱和度','施工图饱和度'],
+            align: 'left'
+        },
         series: [{
+          name: '未确认施工图饱和度',
+          type: 'line',
+          symbol: 'square',
+          symbolSize:  function(val) {
+            if (val < buildingDayRateDataRef) {
+              return 8;
+            } else {
+              return 16;
+            }
+          },
+          data: buildingDayUnapprovedRateData,
+          itemStyle: {
+            color: '#69B0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        },{
           name: '施工图饱和度',
           type: 'line',
           symbol: 'square',
-          symbolSize:  function(val, params) {
+          symbolSize:  function(val) {
             if (val < buildingDayRateDataRef) {
               return 8;
             } else {
@@ -229,7 +284,7 @@ export default class extends Controller {
           },
           data: buildingDayRateData,
           itemStyle: {
-            color: '#6AB0B8'
+            color: '#334B5C'
           },
           label: {
             normal: {
@@ -292,7 +347,27 @@ export default class extends Controller {
             formatter: '{value} %'
           }
         },
+        legend: {
+            data: ['未确认规划/景观/室内/VR饱和度','规划/景观/室内/VR饱和度'],
+            align: 'left'
+        },
         series: [{
+          name: '未确认规划/景观/室内/VR饱和度',
+          type: 'line',
+          symbol: 'triangle',
+          symbolSize: 12,
+          data: nonConstructionDayUnapprovedRateData,
+          itemStyle: {
+            color: '#69B0B8'
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',
+              formatter: '{c}%'
+            }
+          }
+        },{
           name: '规划/景观/室内/VR饱和度',
           type: 'line',
           symbol: 'triangle',
