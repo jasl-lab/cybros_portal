@@ -7,7 +7,7 @@ module API
     include ActionView::Layouts
 
     def make_sure_auth
-      raise Pundit::NotAuthorizedError.new '仅限天华人员访问' unless current_wechat_user.user_id.present? && user = User.find(current_wechat_user.user_id)
+      raise Pundit::NotAuthorizedError.new '仅限天华人员访问' unless User.exists?(current_wechat_user&.user_id)
       sign_in user
     end
 
