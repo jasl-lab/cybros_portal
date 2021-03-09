@@ -18,12 +18,45 @@ module API
         '跟踪成功'
       end
       year = params[:year].presence && params[:year].strip
-      default_business_type = all_business_types.collect{|item| item[:value]}.uniq
-      default_project_type = all_business_types.collect{|item| item[:project_types]}.flatten.collect{|item| item[:value]}.uniq
-      default_service_stage = all_business_types.collect{|item| item[:project_types]}.flatten.collect{|item| item[:service_stages]}.flatten.uniq
-      business_type = params[:business_type].presence && params[:business_type].strip || default_business_type.join('|')
-      project_type = params[:project_type].presence && params[:project_type].strip || default_project_type.join('|')
-      service_stage = params[:service_stage].presence && params[:service_stage].strip || default_service_stage.join('|')
+
+      business_type = params[:business_type].presence
+      cur_business_types = if business_type.present?
+        all_business_types.select do |item|
+          item[:value].is_a?(Array) ? item[:value].include(business_type) : item[:value] === business_type
+        end
+      else
+        all_business_types
+      end
+      business_type = cur_business_types.collect{|item| item[:value]}.flatten.uniq.join('|')
+
+      project_type = params[:project_type].presence && params[:project_type].strip
+      cur_project_types = if project_type.present?
+        cur_business_types.collect{|item| item[:project_types]}.flatten.select do |item|
+          item[:value].is_a?(Array) ? item[:value].include(project_type) : item[:value] === project_type
+        end
+      else
+        cur_business_types.collect{|item| item[:project_types]}.flatten
+      end
+      project_type = cur_project_types.collect{|item| item[:value]}.flatten.uniq.join('|')
+
+      service_stage = params[:service_stage].presence && params[:service_stage].strip
+      cur_service_stages = if service_stage.present?
+        cur_project_types.collect{|item| item[:service_stages]}.flatten.select do |item|
+          item[:value].is_a?(Array) ? item[:value].include(service_stage) : item[:value] === service_stage
+        end
+      else
+        cur_project_types.collect{|item| item[:service_stages]}.flatten
+      end
+      service_stage = cur_service_stages.collect{|item| item[:value]}.flatten.uniq.join('|')
+
+      project_process = params[:project_process].presence && params[:project_process].strip
+
+      big_stage = if project_process.present?
+        all_project_processes.select{|item| item[:value] === project_process}.collect{|item| item[:big_stage]}.join('|')
+      else
+        cur_service_stages.collect{|item| item[:big_stages]}.flatten.collect{|item| item[:value]}.flatten.uniq.join('|')
+      end
+
       company = params[:company].presence && params[:company].strip
       department = params[:department].presence && params[:department].strip
       scales = params[:scales].presence && params[:scales].strip
@@ -35,7 +68,7 @@ module API
         map_infos = map_infos.where('province LIKE ?', "%#{province}%")
         map_infos = map_infos.where('company LIKE ?', "%#{city}%") if city.present?
       end
-      map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{service_stage}))|(,(#{business_type})-(#{project_type})-(#{service_stage}))")
+      map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{big_stage}))|(,(#{business_type})-(#{project_type})-(#{big_stage}))")
       map_infos = map_infos.where('developercompanyname LIKE ?', "%#{client}%") if client.present?
       if scales.present? && scales.match(/^\d+(\.\d*)?,\d+(\.\d*)?$/)
         scales = scales.split(',')
@@ -143,16 +176,33 @@ module API
             value: '土建',
             project_types: [
               {
-                value: '公建',
-                service_stages: ['方案', '施工图', '咨询', '标准化'],
-              },
-              {
-                value: '住宅',
-                service_stages: ['方案', '施工图', '咨询', '标准化'],
-              },
-              {
-                value: '工业',
-                service_stages: ['方案', '施工图', '咨询', '标准化'],
+                value: ['公建', '住宅', '工业'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: '前端' },
+                    ]
+                  },
+                  {
+                    value: '施工图',
+                    big_stages: [
+                      { value: '后端' },
+                    ]
+                  },
+                  {
+                    value: '咨询',
+                    big_stages: [
+                      { value: '咨询' },
+                    ]
+                  },
+                  {
+                    value: '标准化',
+                    big_stages: [
+                      { value: '标准化' },
+                    ]
+                  },
+                ],
               },
             ]
           },
@@ -161,11 +211,25 @@ module API
             project_types: [
               {
                 value: '法定规划',
-                service_stages: ['方案'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: ['城市总体规划', '控制性详细规划', '修建性详细规划'] },
+                    ]
+                  }
+                ],
               },
               {
                 value: '非法定规划',
-                service_stages: ['方案'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: ['策划咨询', '专项研究', '概念规划', '城市设计'] },
+                    ]
+                  }
+                ],
               },
             ]
           },
@@ -173,28 +237,61 @@ module API
             value: '室内',
             project_types: [
               {
-                value: '住宅公区',
-                service_stages: ['方案', '施工图', '咨询'],
-              },
-              {
-                value: '商办公区',
-                service_stages: ['方案', '施工图', '咨询'],
-              },
-              {
-                value: '酒店',
-                service_stages: ['方案', '施工图', '咨询'],
-              },
-              {
-                value: '精装修',
-                service_stages: ['方案', '施工图', '咨询'],
+                value: ['住宅公区', '商办公区', '酒店', '精装修'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: '前端' },
+                    ]
+                  },
+                  {
+                    value: '施工图',
+                    big_stages: [
+                      { value: '后端' },
+                    ]
+                  },
+                  {
+                    value: '咨询',
+                    big_stages: [
+                      { value: '咨询' },
+                    ]
+                  },
+                ],
               },
               {
                 value: '租赁办公',
-                service_stages: ['方案', '咨询'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: '办公设计' }
+                    ]
+                  },
+                  {
+                    value: '咨询',
+                    big_stages: [
+                      { value: '咨询' }
+                    ]
+                  },
+                ],
               },
               {
                 value: '租赁商业',
-                service_stages: ['方案', '咨询'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: '商业设计' }
+                    ]
+                  },
+                  {
+                    value: '咨询',
+                    big_stages: [
+                      { value: '咨询' }
+                    ]
+                  },
+                ],
               },
             ]
           },
@@ -202,16 +299,21 @@ module API
             value: '景观',
             project_types: [
               {
-                value: '住宅',
-                service_stages: ['方案', '咨询'],
-              },
-              {
-                value: '公建',
-                service_stages: ['方案', '咨询'],
-              },
-              {
-                value: '市政',
-                service_stages: ['方案', '咨询'],
+                value: ['住宅', '公建', '市政'],
+                service_stages: [
+                  {
+                    value: '方案',
+                    big_stages: [
+                      { value: '前端' }
+                    ]
+                  },
+                  {
+                    value: '咨询',
+                    big_stages: [
+                      { value: '后端' }
+                    ]
+                  },
+                ],
               },
             ]
           },
@@ -219,7 +321,18 @@ module API
       end
 
       def all_project_processes
-        ['土建-前端-方案报批通过、竣工验收', '土建-后端-审图通过、竣工验收']
+        [
+          {
+            value: '土建-前端-方案报批通过、竣工验收',
+            business_type: '土建',
+            big_stage: '前端',
+          },
+          {
+            value: '土建-后端-审图通过、竣工验收',
+            business_type: '土建',
+            big_stage: '后端'
+          }
+        ]
       end
       def all_companies
         companies = Bi::OrgReportDeptOrder.where('是否显示 = 1').order(组织: :asc, 显示顺序: :asc).all
