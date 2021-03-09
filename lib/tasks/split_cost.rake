@@ -295,6 +295,8 @@ namespace :split_cost do
       next if scs.amount.zero?
 
       user = scs.user
+      next if user.position_users.count.zero?
+
       user_mpts = user.user_monthly_part_time_split_rates.where(month: cyearperiod_month_start,
         user_salary_classification_id: scs.user_salary_classification_id)
       if user_mpts.present?
