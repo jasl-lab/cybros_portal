@@ -27,34 +27,34 @@ module API
       else
         all_business_types
       end
-      business_type = cur_business_types.collect{|item| item[:value]}.flatten.uniq.join('|')
+      business_type = cur_business_types.collect { |item| item[:value] }.flatten.uniq.join('|')
 
       project_type = params[:project_type].presence && params[:project_type].strip
       cur_project_types = if project_type.present?
-        cur_business_types.collect{|item| item[:project_types]}.flatten.select do |item|
+        cur_business_types.collect { |item| item[:project_types] }.flatten.select do |item|
           item[:value].is_a?(Array) ? item[:value].include(project_type) : item[:value] === project_type
         end
       else
-        cur_business_types.collect{|item| item[:project_types]}.flatten
+        cur_business_types.collect { |item| item[:project_types] }.flatten
       end
-      project_type = cur_project_types.collect{|item| item[:value]}.flatten.uniq.join('|')
+      project_type = cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
 
       service_stage = params[:service_stage].presence && params[:service_stage].strip
       cur_service_stages = if service_stage.present?
-        cur_project_types.collect{|item| item[:service_stages]}.flatten.select do |item|
+        cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
           item[:value].is_a?(Array) ? item[:value].include(service_stage) : item[:value] === service_stage
         end
       else
-        cur_project_types.collect{|item| item[:service_stages]}.flatten
+        cur_project_types.collect { |item| item[:service_stages] }.flatten
       end
-      service_stage = cur_service_stages.collect{|item| item[:value]}.flatten.uniq.join('|')
+      service_stage = cur_service_stages.collect { |item| item[:value] }.flatten.uniq.join('|')
 
       project_process = params[:project_process].presence && params[:project_process].strip
 
       big_stage = if project_process.present?
-        all_project_processes.select{|item| item[:value] === project_process}.collect{|item| item[:big_stage]}.join('|')
+        all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.join('|')
       else
-        cur_service_stages.collect{|item| item[:big_stages]}.flatten.collect{|item| item[:value]}.flatten.uniq.join('|')
+        cur_service_stages.collect { |item| item[:big_stages] }.flatten.collect { |item| item[:value] }.flatten.uniq.join('|')
       end
 
       company = params[:company].presence && params[:company].strip
@@ -170,6 +170,7 @@ module API
     end
 
     private
+
       def all_business_types
         [
           {
