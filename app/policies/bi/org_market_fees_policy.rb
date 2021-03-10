@@ -3,10 +3,11 @@
 module Bi
   class OrgMarketFeesPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? &&
-        (user.chinese_name.in?(%w(郭颖杰 余慧 陆文娟 周聪睿 蒋磊 吴悠 毕赢 孙涛 陈一恺 陈玲)) ||
-         user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_财务分析部管理员 CW_上海所级管理者]) } ||
-         user.admin?)
+      return false unless user.present?
+
+      user.chinese_name.in?(%w[章静 聂琳]) ||
+        user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_财务分析部管理员]) } ||
+        user.admin?
     end
   end
 end
