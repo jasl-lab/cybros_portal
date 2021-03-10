@@ -22,7 +22,7 @@ module API
       business_type = params[:business_type].presence
       cur_business_types = if business_type.present?
         all_business_types.select do |item|
-          item[:value].is_a?(Array) ? item[:value].include(business_type) : item[:value] === business_type
+          item[:value].is_a?(Array) ? item[:value].include?(business_type) : item[:value] === business_type
         end
       else
         all_business_types
@@ -32,7 +32,7 @@ module API
       project_type = params[:project_type].presence && params[:project_type].strip
       cur_project_types = if project_type.present?
         cur_business_types.collect { |item| item[:project_types] }.flatten.select do |item|
-          item[:value].is_a?(Array) ? item[:value].include(project_type) : item[:value] === project_type
+          item[:value].is_a?(Array) ? item[:value].include?(project_type) : item[:value] === project_type
         end
       else
         cur_business_types.collect { |item| item[:project_types] }.flatten
@@ -42,7 +42,7 @@ module API
       service_stage = params[:service_stage].presence && params[:service_stage].strip
       cur_service_stages = if service_stage.present?
         cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
-          item[:value].is_a?(Array) ? item[:value].include(service_stage) : item[:value] === service_stage
+          item[:value].is_a?(Array) ? item[:value].include?(service_stage) : item[:value] === service_stage
         end
       else
         cur_project_types.collect { |item| item[:service_stages] }.flatten
