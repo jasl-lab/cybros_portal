@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.list @list do |point|
+  json.id point[:project_code].split('').collect{ |item| item.match(/^\d$/) ? item : item.getbyte(0).to_s }.reduce(:+).to_i
   json.code point[:project_code]
   json.title point[:title]
   json.lat point[:lat]
