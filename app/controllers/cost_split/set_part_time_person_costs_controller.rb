@@ -49,7 +49,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
                    .where(position_users: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
                else
                  cu.where(position_users: { positions: { departments: { company_code: ac.org_code } } })
-          end)
+               end)
         end
       end
       cu.where(id: users_ids)

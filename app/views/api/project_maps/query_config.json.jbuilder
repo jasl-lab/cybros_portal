@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 if @tracestates.present?
   json.traceStates @tracestates
 end
