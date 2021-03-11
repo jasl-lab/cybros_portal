@@ -7,6 +7,7 @@ json.traceState @project.tracestate
 json.scaleArea @project.scalearea
 json.province @project.province
 json.city @project.company
+json.amountTotal @project.amounttotal
 json.businessTypeDeptnames @project.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname].join(' | ') }.uniq
 json.items @project_items do |item|
   json.code item.projectitemcode # 项目编号
