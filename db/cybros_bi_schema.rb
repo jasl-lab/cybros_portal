@@ -414,6 +414,25 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "org_type", limit: 45
   end
 
+  create_table "ORG_REPORT_DEPT_CHANGE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "编号", limit: 20
+    t.string "部门", limit: 100
+    t.string "上级部门编号", limit: 20
+    t.string "上级部门", limit: 100
+    t.string "组织编号", limit: 20
+    t.string "组织", limit: 100
+    t.date "开始时间"
+    t.date "结束时间"
+    t.string "部门类型", limit: 20
+    t.string "部门类别", limit: 20
+    t.string "是否启用", limit: 20
+    t.bigint "部门排名"
+    t.bigint "显示顺序"
+    t.string "是否显示", limit: 20
+    t.string "部门属性", limit: 20
+    t.string "虚拟所", limit: 20
+  end
+
   create_table "ORG_REPORT_DEPT_ORDER", primary_key: "index", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "编号", limit: 45
     t.string "部门", limit: 45
@@ -431,6 +450,24 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "是否显示", limit: 53
     t.string "部门属性", limit: 45
     t.index ["index"], name: "index_UNIQUE", unique: true
+  end
+
+  create_table "ORG_REPORT_DEPT_ORDER_TEST", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "上级部门"
+    t.text "上级部门编号"
+    t.datetime "开始时间"
+    t.text "是否启用"
+    t.text "是否显示"
+    t.bigint "显示顺序"
+    t.text "组织"
+    t.text "组织编号"
+    t.datetime "结束时间"
+    t.text "编号"
+    t.text "部门"
+    t.text "部门属性"
+    t.text "部门排名"
+    t.text "部门类别"
+    t.text "部门类型"
   end
 
   create_table "ORG_REPORT_RELATION_ORDER", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1258,6 +1295,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "maindeptnamedet"
     t.text "tracestate"
     t.text "ischecked"
+    t.float "amounttotal", limit: 53
   end
 
   create_table "V_TH_NEWMAPINFO_REL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1550,7 +1588,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptcode_sum", limit: 100
     t.string "deptcode", limit: 100
     t.integer "iswork", limit: 1
-    t.string "state", limit: 10, default: "Y"
     t.index ["date", "orgcode"], name: "idx_work_hours_count_combine_date"
   end
 

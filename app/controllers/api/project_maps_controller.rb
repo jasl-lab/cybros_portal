@@ -330,15 +330,20 @@ module API
       def all_project_processes
         [
           {
-            value: '土建-前端-方案报批通过、竣工验收',
+            value: '方案报批通过',
             business_type: '土建',
             big_stage: '前端',
           },
           {
-            value: '土建-后端-审图通过、竣工验收',
+            value: '审图通过',
             business_type: '土建',
             big_stage: '后端'
-          }
+          },
+          {
+            value: '竣工验收',
+            business_type: '土建',
+            big_stage: ['前端', '后端'],
+          },
         ]
       end
 
