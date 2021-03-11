@@ -27,6 +27,7 @@ module API
           scale_area: m.scalearea, # 规模
           province: m.province, # 省
           city: m.company, # 市
+          amounttotal: m.amounttotal, # 合同总金额
           business_type_deptnames: business_type_deptnames }
       end
     end
@@ -52,6 +53,7 @@ module API
           scale_area: m.scalearea, # 规模
           province: m.province, # 省
           city: m.company, # 市
+          amounttotal: m.amounttotal, # 合同总金额
           business_type_deptnames: business_type_deptnames }
       end
 
