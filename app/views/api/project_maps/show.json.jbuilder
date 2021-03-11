@@ -12,5 +12,4 @@ json.array! @valid_map_points do |point|
   json.province point[:province]
   json.city point[:city]
   json.amountTotal point[:amounttotal]
-  json.businessTypeDeptnames point[:business_type_deptnames].collect { |item| item.join(' | ') }
 end

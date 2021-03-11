@@ -16,9 +16,9 @@ module API
         if lng >= 180 || lng <= -180
           Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
         end
-        business_type_deptnames = m.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
 
-        { title: m.marketinfoname, # 项目名称
+        {
+          title: m.marketinfoname, # 项目名称
           lat: lat,
           lng: lng,
           project_frame_name: m.projectframename, # 案名
@@ -28,12 +28,12 @@ module API
           province: m.province, # 省
           city: m.company, # 市
           amounttotal: m.amounttotal, # 合同总金额
-          business_type_deptnames: business_type_deptnames }
+        }
       end
     end
 
     def list
-      @list = @map_infos.page(params[:page]).per(params[:per_page]).collect do |m|
+      @list = @map_infos.includes(:project_items).page(params[:page]).per(params[:per_page]).collect do |m|
         lat = m.coordinate.split(',')[1].to_f
         if lat >= 85.051128 || lat <= -85.051128
           Rails.logger.error "coordinate lat error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
@@ -44,7 +44,8 @@ module API
         end
         business_type_deptnames = m.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
 
-        { title: m.marketinfoname, # 项目名称
+        {
+          title: m.marketinfoname, # 项目名称
           lat: lat,
           lng: lng,
           project_frame_name: m.projectframename, # 案名
@@ -54,7 +55,8 @@ module API
           province: m.province, # 省
           city: m.company, # 市
           amounttotal: m.amounttotal, # 合同总金额
-          business_type_deptnames: business_type_deptnames }
+          business_type_deptnames: business_type_deptnames
+        }
       end
 
       @total = @map_infos.count
@@ -148,7 +150,7 @@ module API
         scales = params[:scales].presence && params[:scales].strip
         keywords = params[:keywords].presence && params[:keywords].strip
 
-        map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:project_items)
+        map_infos = Bi::NewMapInfo.where.not(coordinate: nil)
         map_infos = map_infos.where('instr(coordinate, ?) > 0', ',')
         if province.present?
           map_infos = map_infos.where('province LIKE ?', "%#{province}%")
