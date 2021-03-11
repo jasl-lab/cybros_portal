@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_073434) do
+ActiveRecord::Schema.define(version: 2021_03_11_074808) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073434) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "seg_name"
     t.string "seg_function"
+    t.string "seg_project_code"
     t.index ["user_id"], name: "index_cad_operations_on_user_id"
   end
 
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_073434) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "begin_operation"
     t.string "end_operation"
+    t.string "jwt_aud"
     t.index ["user_id"], name: "index_cad_sessions_on_user_id"
   end
 

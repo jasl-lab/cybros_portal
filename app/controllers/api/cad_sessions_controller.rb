@@ -5,6 +5,7 @@ module API
     before_action :authenticate_user!
 
     def create
+      jwt_aud = request.env["HTTP_JWT_AUD"]
       sessions_params = cad_sessions_params
       previous_begin_session = find_previous_begin_session(sessions_params)
 
@@ -12,7 +13,7 @@ module API
         previous_begin_session.update(operation: sessions_params[:operation], end_operation: sessions_params[:operation])
         head :created
       else
-        cad_session = current_user.cad_sessions.create(sessions_params)
+        cad_session = current_user.cad_sessions.create(sessions_params.merge(jwt_aud: jwt_aud))
         if cad_session.persisted?
           cad_session.update(begin_operation: 'Begin') if sessions_params[:operation] == 'Begin'
           head :created

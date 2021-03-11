@@ -17,13 +17,30 @@ module API
         seg_function_pair['Value']
       end
 
-      cad_operation = current_user.cad_operations.create(
+      seg_user_pair = seg.find { |s| s['Key'] == '用户' }
+      seg_pre_sso_id = if seg_user_pair.present?
+        seg_user_pair['Value']
+      end
+
+      seg_project_pair = seg.find { |s| s['Key'] == '项目' }
+      seg_project_code = if seg_project_pair.present?
+        seg_project_pair['Value']
+      end
+
+      user = if seg_pre_sso_id.present?
+        User.find_by(pre_sso_id: seg_pre_sso_id) || current_user
+      else
+        current_user
+      end
+
+      cad_operation = user.cad_operations.create(
         session_id: params[:session_id],
         cmd_name: params[:cmd_name],
         cmd_seconds: params[:cmd_seconds],
         cmd_data: params[:cmd_data].to_json,
         seg_name: seg_name,
-        seg_function: seg_function
+        seg_function: seg_function,
+        seg_project_code: seg_project_code
       )
       if cad_operation.persisted?
         head :created
