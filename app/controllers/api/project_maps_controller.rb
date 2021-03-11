@@ -4,90 +4,7 @@ module API
   class ProjectMapsController < WechatMiniBaseController
     before_action :authenticate_wechat_user!
     before_action :make_sure_auth
-    before_action only: [:show, :list] do
-      is_commercial = policy(Bi::NewMapInfo).show?
-      province = params[:province].presence && params[:province].strip
-      city = params[:city].presence && params[:city].strip
-      client = params[:client].presence && params[:client].strip
-      trace_state = params[:trace_state].presence && params[:trace_state].strip
-      trace_state = if is_commercial && trace_state.blank?
-        all_tracestates
-      elsif is_commercial && trace_state.present?
-        params[:trace_state]
-      else
-        '跟踪成功'
-      end
-      year = params[:year].presence && params[:year].strip
-
-      business_type = params[:business_type].presence
-      cur_business_types = if business_type.present?
-        all_business_types.select do |item|
-          item[:value].is_a?(Array) ? item[:value].include?(business_type) : item[:value] === business_type
-        end
-      else
-        all_business_types
-      end
-      business_type = cur_business_types.collect { |item| item[:value] }.flatten.uniq.join('|')
-
-      project_type = params[:project_type].presence && params[:project_type].strip
-      cur_project_types = if project_type.present?
-        cur_business_types.collect { |item| item[:project_types] }.flatten.select do |item|
-          item[:value].is_a?(Array) ? item[:value].include?(project_type) : item[:value] === project_type
-        end
-      else
-        cur_business_types.collect { |item| item[:project_types] }.flatten
-      end
-      project_type = cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
-
-      service_stage = params[:service_stage].presence && params[:service_stage].strip
-      cur_service_stages = if service_stage.present?
-        cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
-          item[:value].is_a?(Array) ? item[:value].include?(service_stage) : item[:value] === service_stage
-        end
-      else
-        cur_project_types.collect { |item| item[:service_stages] }.flatten
-      end
-      service_stage = cur_service_stages.collect { |item| item[:value] }.flatten.uniq.join('|')
-
-      project_process = params[:project_process].presence && params[:project_process].strip
-
-      big_stage = if project_process.present?
-        all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.join('|')
-      else
-        cur_service_stages.collect { |item| item[:big_stages] }.flatten.collect { |item| item[:value] }.flatten.uniq.join('|')
-      end
-
-      company = params[:company].presence && params[:company].strip
-      department = params[:department].presence && params[:department].strip
-      scales = params[:scales].presence && params[:scales].strip
-      keywords = params[:keywords].presence && params[:keywords].strip
-
-      map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:project_items)
-      map_infos = map_infos.where('instr(coordinate, ?) > 0', ',')
-      if province.present?
-        map_infos = map_infos.where('province LIKE ?', "%#{province}%")
-        map_infos = map_infos.where('company LIKE ?', "%#{city}%") if city.present?
-      end
-      map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{big_stage}))|(,(#{business_type})-(#{project_type})-(#{big_stage}))")
-      map_infos = map_infos.where('developercompanyname LIKE ?', "%#{client}%") if client.present?
-      if scales.present? && scales.match(/^\d+(\.\d*)?,\d+(\.\d*)?$/)
-        scales = scales.split(',')
-        map_infos = map_infos.where(scalearea: scales[0].to_f..scales[1].to_f)
-      end
-      if company.present?
-        map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
-      end
-      map_infos = map_infos.where(tracestate: trace_state)
-      if is_commercial
-        map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if is_commercial && year.present?
-      end
-      if keywords.present?
-        map_infos = map_infos
-          .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
-            "%#{keywords}%", "%#{keywords}%", "%#{keywords}%")
-      end
-      @map_infos = map_infos
-    end
+    before_action :set_map_infos, only: [:show, :list]
 
     def show
       @valid_map_points = @map_infos.collect do |m|
@@ -170,6 +87,91 @@ module API
     end
 
     private
+
+      def set_map_infos
+        is_commercial = policy(Bi::NewMapInfo).show?
+        province = params[:province].presence && params[:province].strip
+        city = params[:city].presence && params[:city].strip
+        client = params[:client].presence && params[:client].strip
+        trace_state = params[:trace_state].presence && params[:trace_state].strip
+        trace_state = if is_commercial && trace_state.blank?
+          all_tracestates
+        elsif is_commercial && trace_state.present?
+          params[:trace_state]
+        else
+          '跟踪成功'
+        end
+        year = params[:year].presence && params[:year].strip
+
+        business_type = params[:business_type].presence
+        cur_business_types = if business_type.present?
+          all_business_types.select do |item|
+            item[:value].is_a?(Array) ? item[:value].include?(business_type) : item[:value] === business_type
+          end
+        else
+          all_business_types
+        end
+        business_type = cur_business_types.collect { |item| item[:value] }.flatten.uniq.join('|')
+
+        project_type = params[:project_type].presence && params[:project_type].strip
+        cur_project_types = if project_type.present?
+          cur_business_types.collect { |item| item[:project_types] }.flatten.select do |item|
+            item[:value].is_a?(Array) ? item[:value].include?(project_type) : item[:value] === project_type
+          end
+        else
+          cur_business_types.collect { |item| item[:project_types] }.flatten
+        end
+        project_type = cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
+
+        service_stage = params[:service_stage].presence && params[:service_stage].strip
+        cur_service_stages = if service_stage.present?
+          cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
+            item[:value].is_a?(Array) ? item[:value].include?(service_stage) : item[:value] === service_stage
+          end
+        else
+          cur_project_types.collect { |item| item[:service_stages] }.flatten
+        end
+        service_stage = cur_service_stages.collect { |item| item[:value] }.flatten.uniq.join('|')
+
+        project_process = params[:project_process].presence && params[:project_process].strip
+
+        big_stage = if project_process.present?
+          all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.join('|')
+        else
+          cur_service_stages.collect { |item| item[:big_stages] }.flatten.collect { |item| item[:value] }.flatten.uniq.join('|')
+        end
+
+        company = params[:company].presence && params[:company].strip
+        department = params[:department].presence && params[:department].strip
+        scales = params[:scales].presence && params[:scales].strip
+        keywords = params[:keywords].presence && params[:keywords].strip
+
+        map_infos = Bi::NewMapInfo.where.not(coordinate: nil).includes(:project_items)
+        map_infos = map_infos.where('instr(coordinate, ?) > 0', ',')
+        if province.present?
+          map_infos = map_infos.where('province LIKE ?', "%#{province}%")
+          map_infos = map_infos.where('company LIKE ?', "%#{city}%") if city.present?
+        end
+        map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{big_stage}))|(,(#{business_type})-(#{project_type})-(#{big_stage}))")
+        map_infos = map_infos.where('developercompanyname LIKE ?', "%#{client}%") if client.present?
+        if scales.present? && scales.match(/^\d+(\.\d*)?,\d+(\.\d*)?$/)
+          scales = scales.split(',')
+          map_infos = map_infos.where(scalearea: scales[0].to_f..scales[1].to_f)
+        end
+        if company.present?
+          map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
+        end
+        map_infos = map_infos.where(tracestate: trace_state)
+        if is_commercial
+          map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if is_commercial && year.present?
+        end
+        if keywords.present?
+          map_infos = map_infos
+            .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
+              "%#{keywords}%", "%#{keywords}%", "%#{keywords}%")
+        end
+        @map_infos = map_infos
+      end
 
       def all_business_types
         [
@@ -335,6 +337,7 @@ module API
           }
         ]
       end
+
       def all_companies
         companies = Bi::OrgReportDeptOrder.where('是否显示 = 1').order(组织: :asc, 显示顺序: :asc).all
         companies.collect do |company|
@@ -344,6 +347,7 @@ module API
           }
         end
       end
+
       def all_tracestates
         %w[跟踪中 跟踪成功 仅投标拿地协议 跟踪失败]
       end
