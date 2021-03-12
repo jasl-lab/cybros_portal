@@ -177,6 +177,7 @@ class User < ApplicationRecord
 
     兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
+      .select(:stname, :zjname, :orgcode, :deptcode_sum, :stname, :zjname).distinct
     兼职_access_codes = 兼职.collect { |c| [User.calculate_operation_access_code(c.stname, c.zjname.to_i, c.orgcode, chinese_name), c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, nil] }
 
     手工_access_codes = manual_operation_access_codes.collect { |m| [m.code, m.org_code, m.dept_code, m.title, m.job_level, m.id] }
@@ -191,6 +192,7 @@ class User < ApplicationRecord
 
     兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
+      .select(:orgcode, :deptcode_sum, :stname, :zjname, :name).distinct
     兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, c.name] }
 
     @_hr_access_codes = 主职_access_codes + 兼职_access_codes
@@ -204,6 +206,7 @@ class User < ApplicationRecord
 
     兼职 = Hrdw::StfreinstateVirtual
       .where(endflag: 'N', lastflag: 'Y', clerkcode: clerk_code, pocname: ['内部兼职人员', '其他人员'])
+      .select(:orgcode, :deptcode_sum, :stname, :zjname, :name).distinct
     兼职_access_codes = 兼职.collect { |c| [c.orgcode, c.deptcode_sum, c.stname, c.zjname.to_i, c.name] }
 
     @_cw_access_codes = 主职_access_codes + 兼职_access_codes
