@@ -31,6 +31,6 @@ end
 if policy(Bi::NewMapInfo).allow_download?
   json.files @sc.files do |item| # 合同附件
     json.title item.enclosurename
-    json.url item.attachmentaddress
+    json.url item.attachmentaddress.sub('http://pmmobile.thape.com.cn:8090', 'https://pmmobile-file.thape.com.cn')
   end
 end

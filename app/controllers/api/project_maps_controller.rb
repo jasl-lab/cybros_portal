@@ -140,7 +140,7 @@ module API
         project_process = params[:project_process].presence && params[:project_process].strip
 
         big_stage = if project_process.present?
-          all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.join('|')
+          all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.flatten.join('|')
         else
           cur_service_stages.collect { |item| item[:big_stages] }.flatten.collect { |item| item[:value] }.flatten.uniq.join('|')
         end
@@ -157,6 +157,7 @@ module API
           map_infos = map_infos.where('company LIKE ?', "%#{city}%") if city.present?
         end
         map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{big_stage}))|(,(#{business_type})-(#{project_type})-(#{big_stage}))")
+        map_infos = map_infos.where('milestonesname LIKE ?', "%#{project_process}%") if project_process.present?
         map_infos = map_infos.where('developercompanyname LIKE ?', "%#{client}%") if client.present?
         if scales.present? && scales.match(/^\d+(\.\d*)?,\d+(\.\d*)?$/)
           scales = scales.split(',')
@@ -166,9 +167,7 @@ module API
           map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
         end
         map_infos = map_infos.where(tracestate: trace_state)
-        if is_commercial
-          map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if is_commercial && year.present?
-        end
+        map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if is_commercial && year.present?
         if keywords.present?
           map_infos = map_infos
             .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
@@ -348,13 +347,18 @@ module API
       end
 
       def all_companies
-        companies = Bi::OrgReportDeptOrder.where('是否显示 = 1').order(组织: :asc, 显示顺序: :asc).all
-        companies.collect do |company|
-          {
-            company: company.组织,
-            department: company.部门,
-          }
+        companies = Bi::OrgReportRelationOrder.where(isbusinessunit: 'Y').where.not(order_nc: nil).where('`order_nc` < 1000').where(depttype: '普通').where('`name` <> `upname`').where('`startdate` <= curdate()').where('(`enddate` >= curdate() or `enddate` is null)').order(order_nc: :asc).all
+        company_codes = companies.collect { |item| item.code }
+        departments = Bi::OrgReportRelationOrder.where(isbusinessunit: 'N').where.not(order: nil).where('`order` < 1000').where(depttype: '普通').where(upcode: company_codes).where('`startdate` <= curdate()').where('(`enddate` >= curdate() or `enddate` is null)').order(order: :asc).all
+        company_departments = companies.collect do |company|
+          departments.select { |department| department.upcode == company.code }.collect do |department|
+            {
+              company: company.name,
+              department: department.name,
+            }
+          end
         end
+        company_departments.flatten
       end
 
       def all_tracestates
