@@ -350,15 +350,20 @@ module API
         companies = Bi::OrgReportRelationOrder.where(isbusinessunit: 'Y').where.not(order_nc: nil).where('`order_nc` < 1000').where(depttype: '普通').where('`name` <> `upname`').where('`startdate` <= curdate()').where('(`enddate` >= curdate() or `enddate` is null)').order(order_nc: :asc).all
         company_codes = companies.collect { |item| item.code }
         departments = Bi::OrgReportRelationOrder.where(isbusinessunit: 'N').where.not(order: nil).where('`order` < 1000').where(depttype: '普通').where(upcode: company_codes).where('`startdate` <= curdate()').where('(`enddate` >= curdate() or `enddate` is null)').order(order: :asc).all
-        company_departments = companies.collect do |company|
-          departments.select { |department| department.upcode == company.code }.collect do |department|
-            {
-              company: company.name,
-              department: department.name,
-            }
-          end
+        short_names = Bi::OrgShortName.where(code: company_codes).where(isbusinessunit: 'Y').all
+        companies.collect do |company|
+          company_short_name = short_names.detect { |item| item.code == company.code }
+          {
+            label: company_short_name.present? && company_short_name.shortname.present? ? company_short_name.shortname : company.name,
+            value: company.name,
+            departments: departments.select { |department| department.upcode == company.code }.collect do |department|
+              {
+                label: department.name,
+                value: department.name,
+              }
+            end
+          }
         end
-        company_departments.flatten
       end
 
       def all_tracestates
