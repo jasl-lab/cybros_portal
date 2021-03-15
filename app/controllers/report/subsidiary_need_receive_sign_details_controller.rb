@@ -21,7 +21,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @all_org_names = all_org_short_names.zip(all_org_long_names)
     @org_name = params[:org_name]&.strip
-    @total_sign_receive_great_than = params[:total_sign_receive_great_than] || 200
+    @total_sign_receive_great_than = params[:total_sign_receive_great_than]
     @over_amount_great_than = params[:over_amount_great_than] || 1
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
     @show_hide_item = params[:show_hide_item] == 'true' && @can_hide_item
