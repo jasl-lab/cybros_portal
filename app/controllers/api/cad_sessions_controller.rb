@@ -5,7 +5,7 @@ module API
     before_action :authenticate_user!
 
     def create
-      jwt_aud = request.env["HTTP_JWT_AUD"]
+      jwt_aud = request.env['HTTP_JWT_AUD']
       sessions_params = cad_sessions_params
       previous_begin_session = find_previous_begin_session(sessions_params)
 
