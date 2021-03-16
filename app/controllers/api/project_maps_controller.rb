@@ -27,7 +27,7 @@ module API
           scale_area: m.scalearea, # 规模
           province: m.province, # 省
           city: m.company, # 市
-          amounttotal: m.amounttotal, # 合同总金额
+          amounttotal: @is_commercial ? m.amounttotal : nil, # 合同总金额
         }
       end
     end
@@ -54,7 +54,7 @@ module API
           scale_area: m.scalearea, # 规模
           province: m.province, # 省
           city: m.company, # 市
-          amounttotal: m.amounttotal, # 合同总金额
+          amounttotal: @is_commercial ? m.amounttotal : nil, # 合同总金额
           business_type_deptnames: business_type_deptnames
         }
       end
@@ -80,6 +80,7 @@ module API
     end
 
     def project_contracts
+      raise Pundit::NotAuthorizedError.new '仅限商务人员访问' unless policy(Bi::NewMapInfo).show?
       @sas = Bi::SaContract.where(projectcode: params[:project_code]).order(salescontractcode: :asc)
       if @sas.blank?
         @opportunities = Bi::SaProjectOpportunity.where(projectcode: params[:project_code])
@@ -87,20 +88,21 @@ module API
     end
 
     def project_contract
+      raise Pundit::NotAuthorizedError.new '仅限商务人员访问' unless policy(Bi::NewMapInfo).show?
       @sc = Bi::SaContract.find_by salescontractid: params[:id]
     end
 
     private
 
       def set_map_infos
-        is_commercial = policy(Bi::NewMapInfo).show?
+        @is_commercial = policy(Bi::NewMapInfo).show?
         province = params[:province].presence && params[:province].strip
         city = params[:city].presence && params[:city].strip
         client = params[:client].presence && params[:client].strip
         trace_state = params[:trace_state].presence && params[:trace_state].strip
-        trace_state = if is_commercial && trace_state.blank?
+        trace_state = if @is_commercial && trace_state.blank?
           all_tracestates
-        elsif is_commercial && trace_state.present?
+        elsif @is_commercial && trace_state.present?
           params[:trace_state]
         else
           '跟踪成功'
@@ -167,7 +169,7 @@ module API
           map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
         end
         map_infos = map_infos.where(tracestate: trace_state)
-        map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if is_commercial && year.present?
+        map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if @is_commercial && year.present?
         if keywords.present?
           map_infos = map_infos
             .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
