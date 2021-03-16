@@ -3,7 +3,9 @@
 module Bi
   class NationalMarketSharesPolicy < Struct.new(:user, :dashboard)
     def show?
-      user.present? && user.admin?
+      return false unless user.present?
+
+      user.admin?
     end
   end
 end
