@@ -21,17 +21,26 @@ module Bi
     end
 
     def show?
-      user.present? && (user.admin? || ALLOW_SHOW_TITLES.any? { |title| user.position_title.include?(title) } || user.roles.pluck(:project_map_viewer).any?)
+      return false unless user.present?
+
+      user.admin? || \
+        ALLOW_SHOW_TITLES.any? { |title| user.position_title.include?(title) } || \
+        user.roles.pluck(:project_map_viewer).any?
     end
 
     def index?
-      user.present? && (user.admin? || ALLOW_SHOW_TITLES.any? { |title| user.position_title.include?(title) } || user.roles.pluck(:project_map_viewer).any?)
+      return false unless user.present?
+
+      user.admin? || \
+        ALLOW_SHOW_TITLES.any? { |title| user.position_title.include?(title) } || \
+        user.roles.pluck(:project_map_viewer).any?)
     end
 
     def allow_download?
-      user.admin? || (user.in_tianhua_hq? && ALLOW_DOWNLOAD_HQ_TITLES.any? { |title| user.position_title.include?(title) }) \
-        || (!user.in_tianhua_hq? && ALLOW_DOWNLOAD_SUBSIDIARY_TITLES.any? { |title| user.position_title.include?(title) }) \
-        || user.roles.pluck(:project_map_contract_download).any?
+      user.admin? || \
+        (user.in_tianhua_hq? && ALLOW_DOWNLOAD_HQ_TITLES.any? { |title| user.position_title.include?(title) }) || \
+        (!user.in_tianhua_hq? && ALLOW_DOWNLOAD_SUBSIDIARY_TITLES.any? { |title| user.position_title.include?(title) }) || \
+        user.roles.pluck(:project_map_contract_download).any?
     end
   end
 end
