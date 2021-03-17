@@ -137,6 +137,7 @@ Rails.application.routes.draw do
     resource :business_target_org_show, only: %i[show]
     resource :business_target_dept, only: %i[show]
     resource :business_target_dept_show, only: %i[show]
+    resource :business_target_sub_dept, only: %i[show]
     resource :operation_summary_org, only: %i[show]
     resource :operation_summary_dept, only: %i[show]
 

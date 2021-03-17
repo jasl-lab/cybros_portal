@@ -85,6 +85,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Account::BusinessTargetSubDept").show? %>
+        <%= nav_item controller: 'account/business_target_sub_dept', html_options: { class: "nav-item" } do %>
+          <%= link_to account_business_target_sub_dept_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-building"></i>
+            <%= t("layouts.sidebar.account_report.account_business_target_sub_dept") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(:"Account::OperationSummaryOrg").show? %>
         <%= nav_item controller: 'account/operation_summary_orgs', html_options: { class: "nav-item" } do %>
           <%= link_to account_operation_summary_org_path, class: "nav-link" do %>
