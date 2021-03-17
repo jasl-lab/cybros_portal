@@ -26,7 +26,7 @@ json.items @project_items do |item|
   json.address item.projectaddress # 项目地址
   json.comCode item.projectitemcomcode # 公司编号
   json.comName item.projectitemcomname # 公司全称
-  json.comShortName item.projectitemcomname # 公司简称
+  json.comShortName item.projectitemcomshortname # 公司简称
   json.deptCode item.projectitemdeptcode # 部分编号
   json.deptName item.projectitemdeptname # 部门名称
   json.paName item.projectpaname # 主创/设总
