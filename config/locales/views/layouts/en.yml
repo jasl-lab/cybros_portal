@@ -142,6 +142,7 @@ en:
         account_business_target_org_show: "Organization business target"
         account_business_target_dept: "Company business target"
         account_business_target_dept_show: "Company business target"
+        account_business_target_sub_dept: "Company business sub company target"
         account_operation_summary_org: "Organization operation summary"
         account_operation_summary_dept: "Company operation summary"
       account_split_setting:

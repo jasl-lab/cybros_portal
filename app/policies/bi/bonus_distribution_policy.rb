@@ -5,8 +5,9 @@ module Bi
     def show?
       return scope.none unless user.present?
 
-      user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_财务分析部管理员 CW_所级管理者1]) } ||
-        user.admin?
+      user.admin? || \
+        user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_财务分析部管理员]) } || \
+        (user.user_company_orgcodes.include?('000101') && user.roles.pluck(:role_name).any? { |r| r.in?(%w[CW_所级管理者1]) })
     end
   end
 end
