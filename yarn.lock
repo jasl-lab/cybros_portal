@@ -879,9 +879,9 @@
     strip-json-comments "^3.1.1"
 
 "@fortawesome/fontawesome-free@^5.15.1":
-  version "5.15.2"
-  resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.15.2.tgz#218cd7276ab4f9ab57cc3d2efa2697e6a579f25d"
-  integrity sha1-IYzXJ2q0+atXzD0u+iaX5qV58l0=
+  version "5.15.3"
+  resolved "https://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.15.3.tgz#c36ffa64a2a239bf948541a97b6ae8d729e09a9a"
+  integrity sha1-w2/6ZKKiOb+UhUGpe2ro1yngmpo=
 
 "@npmcli/move-file@^1.0.1":
   version "1.1.2"
@@ -1229,7 +1229,7 @@ ajv-keywords@^3.1.0, ajv-keywords@^3.4.1, ajv-keywords@^3.5.2:
 
 ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5:
   version "6.12.6"
-  resolved "https://registry.npm.taobao.org/ajv/download/ajv-6.12.6.tgz?cache=0&sync_timestamp=1615825226119&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
+  resolved "https://registry.npm.taobao.org/ajv/download/ajv-6.12.6.tgz?cache=0&sync_timestamp=1615926862474&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha1-uvWmLoArB9l3A0WG+MO69a3ybfQ=
   dependencies:
     fast-deep-equal "^3.1.1"
@@ -1239,7 +1239,7 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5:
 
 ajv@^7.0.2:
   version "7.2.1"
-  resolved "https://registry.npm.taobao.org/ajv/download/ajv-7.2.1.tgz?cache=0&sync_timestamp=1615825226119&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-7.2.1.tgz#a5ac226171912447683524fa2f1248fcf8bac83d"
+  resolved "https://registry.npm.taobao.org/ajv/download/ajv-7.2.1.tgz?cache=0&sync_timestamp=1615926862474&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-7.2.1.tgz#a5ac226171912447683524fa2f1248fcf8bac83d"
   integrity sha1-pawiYXGRJEdoNST6LxJI/Pi6yD0=
   dependencies:
     fast-deep-equal "^3.1.1"
@@ -1903,9 +1903,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001181:
-  version "1.0.30001200"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001200.tgz?cache=0&sync_timestamp=1615764895581&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001200.tgz#25435af6ba907c2a9c86d21ce84950d4824e6620"
-  integrity sha1-JUNa9rqQfCqchtIc6ElQ1IJOZiA=
+  version "1.0.30001202"
+  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001202.tgz?cache=0&sync_timestamp=1615872807364&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001202.tgz#4cb3bd5e8a808e8cd89e4e66c549989bc8137201"
+  integrity sha1-TLO9XoqAjozYnk5mxUmYm8gTcgE=
 
 cardinal@^1.0.0:
   version "1.0.0"
@@ -2744,9 +2744,9 @@ detect-file@^1.0.0:
   integrity sha1-8NZtA2cqglyxtzvbP+YjEMjlUrc=
 
 detect-node@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.npm.taobao.org/detect-node/download/detect-node-2.0.4.tgz#014ee8f8f669c5c58023da64b8179c083a28c46c"
-  integrity sha1-AU7o+PZpxcWAI9pkuBecCDooxGw=
+  version "2.0.5"
+  resolved "https://registry.npm.taobao.org/detect-node/download/detect-node-2.0.5.tgz?cache=0&sync_timestamp=1615921320304&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdetect-node%2Fdownload%2Fdetect-node-2.0.5.tgz#9d270aa7eaa5af0b72c4c9d9b814e7f4ce738b79"
+  integrity sha1-nScKp+qlrwtyxMnZuBTn9M5zi3k=
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -2853,9 +2853,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.649:
-  version "1.3.688"
-  resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.688.tgz?cache=0&sync_timestamp=1615835028651&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.688.tgz#0ba54a3e77fca6561a337e6cca959b75db8683b0"
-  integrity sha1-C6VKPnf8plYaM35sypWbdduGg7A=
+  version "1.3.690"
+  resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.690.tgz?cache=0&sync_timestamp=1615922040838&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.690.tgz#54df63ec42fba6b8e9e05fe4be52caeeedb6e634"
+  integrity sha1-VN9j7EL7prjp4F/kvlLK7u225jQ=
 
 element-closest@^2.0.2:
   version "2.0.2"
@@ -4327,7 +4327,7 @@ is-string@^1.0.5:
 
 is-svg@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/is-svg/download/is-svg-3.0.0.tgz?cache=0&sync_timestamp=1615468662871&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-svg%2Fdownload%2Fis-svg-3.0.0.tgz#9321dbd29c212e5ca99c4fa9794c714bcafa2f75"
+  resolved "https://registry.npm.taobao.org/is-svg/download/is-svg-3.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fis-svg%2Fdownload%2Fis-svg-3.0.0.tgz#9321dbd29c212e5ca99c4fa9794c714bcafa2f75"
   integrity sha1-kyHb0pwhLlypnE+peUxxS8r6L3U=
   dependencies:
     html-comment-regex "^1.1.0"
