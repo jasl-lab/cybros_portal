@@ -453,21 +453,21 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "ORG_REPORT_DEPT_ORDER_TEST", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "上级部门"
-    t.text "上级部门编号"
-    t.datetime "开始时间"
-    t.text "是否启用"
-    t.text "是否显示"
-    t.bigint "显示顺序"
-    t.text "组织"
-    t.text "组织编号"
-    t.datetime "结束时间"
     t.text "编号"
     t.text "部门"
+    t.datetime "开始时间"
+    t.datetime "结束时间"
+    t.text "上级部门"
+    t.text "上级部门编号"
+    t.text "组织"
+    t.text "组织编号"
+    t.text "是否启用"
     t.text "部门属性"
-    t.text "部门排名"
     t.text "部门类别"
     t.text "部门类型"
+    t.text "部门排名"
+    t.bigint "显示顺序"
+    t.text "是否显示"
   end
 
   create_table "ORG_REPORT_RELATION_ORDER", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -791,19 +791,38 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "deptname_sum", limit: 45
     t.string "deptcode", limit: 45
     t.string "deptname", limit: 45
-    t.float "amounttotal"
-    t.float "sign_receive"
+    t.float "amounttotal", limit: 53
+    t.float "sign_receive", limit: 53
     t.datetime "contracttime"
-    t.text "contractpropertyname"
-    t.float "overamount"
-    t.float "kpmoney"
-    t.float "tpmoney"
-    t.float "collectionamount"
-    t.float "accneedreceive"
+    t.string "contractpropertyname", limit: 45
+    t.float "overamount", limit: 53, default: 0.0
+    t.float "kpmoney", limit: 53
+    t.float "tpmoney", limit: 53
+    t.float "collectionamount", limit: 53, default: 0.0
+    t.float "accneedreceive", limit: 53, default: 0.0
     t.datetime "collectiondate"
     t.date "date", null: false
     t.integer "need_hide", limit: 1
+    t.float "sign_receive1", limit: 53
+    t.float "sign_receive2", limit: 53
+    t.float "sign_receive3", limit: 53
+    t.float "sign_receive4", limit: 53
     t.index ["date"], name: "idx_sub_company_need_receive_sign_detail_date"
+  end
+
+  create_table "SUB_COMPANY_NEED_RECEIVE_SIGN_ORIGIN", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "合同编号"
+    t.text "合同名称"
+    t.text "项目编号"
+    t.text "项目名称"
+    t.float "项目产值", limit: 53
+    t.text "里程碑"
+    t.float "里程碑产值", limit: 53
+    t.text "里程碑进度"
+    t.datetime "里程碑完成时间"
+    t.text "合同状态"
+    t.float "业务应收款", limit: 53
+    t.text "date"
   end
 
   create_table "SUB_COMPANY_NEED_RECEIVE_UNSIGN_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -954,6 +973,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "iswork", limit: 10
     t.bigint "datetype"
     t.text "remark"
+    t.string "weekday", limit: 1
   end
 
   create_table "TH_DEPTPLANVALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1291,11 +1311,11 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "buildinggenrename"
     t.text "coordinate"
     t.text "maindeptname"
-    t.text "businessdirectorname"
     t.text "maindeptnamedet"
     t.text "tracestate"
     t.text "ischecked"
     t.float "amounttotal", limit: 53
+    t.text "milestonesname"
   end
 
   create_table "V_TH_NEWMAPINFO_REL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
