@@ -12,7 +12,7 @@
           </div>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".ncworkno") -%>：</label>
-            <%= select_tag 'ncworkno', options_from_collection_for_select(User.where(clerk_code: @ncworkno), "clerk_code", "chinese_name"), class: 'form-control-plaintext form-control', id: 'ncworkno-select', data: { controller: 'ui--ncworkno-select', 'ui--ncworkno-select-url-value': '/cost_split/set_part_time_person_costs/part_time_people.json' } -%>
+            <%= select_tag 'ncworkno', options_from_collection_for_select(User.where(clerk_code: @ncworkno), "clerk_code", "chinese_name"), class: 'form-control-plaintext form-control', id: 'ncworkno-select', data: { controller: 'ui--ncworkno-select', 'ui--ncworkno-select-url-value': '/ui/ncworkno_select.json' } -%>
           </div>
           <div>
             <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
