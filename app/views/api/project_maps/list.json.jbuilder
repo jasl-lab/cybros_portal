@@ -13,5 +13,6 @@ json.list @list do |point|
   json.city point[:city]
   json.amountTotal point[:amounttotal]
   json.businessTypeDeptnames point[:business_type_deptnames].collect { |item| item.join(' | ') }
+  json.isBoutique point[:is_boutique]
 end
 json.total @total

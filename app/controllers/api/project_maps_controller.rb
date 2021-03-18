@@ -59,6 +59,15 @@ module API
         }
       end
 
+      if @list.present?
+        boutique_project_items = Edoc2::ProjectInfo.where(projectcode: @list.collect{ |item| item[:project_code] }).where(isboutiqueproject: '是').all
+
+        @list = @list.collect do |m|
+          m[:is_boutique] = boutique_project_items.any?{ |item| item.projectcode == m[:project_code] }
+          m
+        end
+      end
+
       @total = @map_infos.count
     end
 
@@ -98,16 +107,26 @@ module API
         @is_commercial = policy(Bi::NewMapInfo).show?
         province = params[:province].presence && params[:province].strip
         city = params[:city].presence && params[:city].strip
+        city = if city.present?
+          city.split(',').uniq.join('|')
+        else
+          city
+        end
         client = params[:client].presence && params[:client].strip
         trace_state = params[:trace_state].presence && params[:trace_state].strip
         trace_state = if @is_commercial && trace_state.blank?
           all_tracestates
         elsif @is_commercial && trace_state.present?
-          params[:trace_state]
+          params[:trace_state].split(',')
         else
           '跟踪成功'
         end
         year = params[:year].presence && params[:year].strip
+        year = if year.blank?
+          year
+        else
+          year.split(',')
+        end
 
         business_type = params[:business_type].presence
         cur_business_types = if business_type.present?
@@ -127,12 +146,17 @@ module API
         else
           cur_business_types.collect { |item| item[:project_types] }.flatten
         end
-        project_type = cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
+
+        project_type = if project_type.present?
+          project_type
+        else
+          cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
+        end
 
         service_stage = params[:service_stage].presence && params[:service_stage].strip
         cur_service_stages = if service_stage.present?
           cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
-            item[:value].is_a?(Array) ? item[:value].include?(service_stage) : item[:value] === service_stage
+            item[:value].is_a?(Array) ? item[:value].any?{ |it| service_stage.split(',').include?(it) } : service_stage.split(',').include?(item[:value])
           end
         else
           cur_project_types.collect { |item| item[:service_stages] }.flatten
@@ -156,7 +180,7 @@ module API
         map_infos = map_infos.where('instr(coordinate, ?) > 0', ',')
         if province.present?
           map_infos = map_infos.where('province LIKE ?', "%#{province}%")
-          map_infos = map_infos.where('company LIKE ?', "%#{city}%") if city.present?
+          map_infos = map_infos.where('company REGEXP ?', city) if city.present?
         end
         map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{big_stage}))|(,(#{business_type})-(#{project_type})-(#{big_stage}))")
         map_infos = map_infos.where('milestonesname LIKE ?', "%#{project_process}%") if project_process.present?
@@ -169,13 +193,13 @@ module API
           map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
         end
         map_infos = map_infos.where(tracestate: trace_state)
-        map_infos = map_infos.where('YEAR(CREATEDDATE) = ?', year) if @is_commercial && year.present?
+        map_infos = map_infos.where('YEAR(CREATEDDATE) IN ?', year) if @is_commercial && year.present?
         if keywords.present?
           map_infos = map_infos
             .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
               "%#{keywords}%", "%#{keywords}%", "%#{keywords}%")
         end
-        @map_infos = map_infos
+        @map_infos = map_infos.order(CREATEDDATE: :desc)
       end
 
       def all_business_types
