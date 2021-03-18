@@ -46,6 +46,7 @@ namespace :import_export do
     CSV.foreach(csv_file_path, headers: true) do |row|
       email = row['email']
       position_title = row['position_title']
+      gender = row['gender']
       clerk_code = row['clerk_code']
       pre_sso_id = row['pre_sso_id']
       wecom_id = row['wecom_id']
@@ -60,6 +61,7 @@ namespace :import_export do
 
       user = User.find_or_create_by(email: email)
       user.position_title = position_title
+      user.gender = gender
       user.clerk_code = clerk_code
       user.pre_sso_id = pre_sso_id
       user.wecom_id = wecom_id
