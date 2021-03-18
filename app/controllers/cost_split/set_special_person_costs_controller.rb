@@ -6,7 +6,8 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
 
   def index
     prepare_meta_tags title: t('.title')
-    @ncworkno = params[:ncworkno] || User.first.clerk_code
+    noone_user = User.find 11229
+    @ncworkno = params[:ncworkno] || noone_user.clerk_code
     @all_month_names = policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first || Time.zone.now.to_s(:month_and_year)
     beginning_of_month = Date.parse(@month_name).beginning_of_month
@@ -14,10 +15,10 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
     @target_user = if @ncworkno.present?
       User.find_by(clerk_code: @ncworkno)
     else
-      User.first
+      noone_user
     end
 
-    @mpts_job_types = if @target_user != User.first
+    @mpts_job_types = if @target_user != noone_user
       policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType).where(user: @target_user)
     else
       policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType)
