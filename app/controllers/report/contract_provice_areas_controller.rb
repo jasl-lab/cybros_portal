@@ -45,7 +45,13 @@ class Report::ContractProviceAreasController < Report::BaseController
       Date.civil(@beginning_of_year.year - 1).beginning_of_year,
       (@end_of_month - 1.year),
       @orgs_options, @service_phase)
-    @sum_previous_scope = filter_province_new_area_scope((@end_of_month - 1.year))
+
+    previous_year = (@end_of_month - 1.year)
+    @sum_previous_scope = if previous_year.year == 2017 && previous_year.month == 2
+      filter_province_new_area_scope(Date.new(2017, 3, 31))
+    else
+      filter_province_new_area_scope(previous_year)
+    end
 
     @total_previous_new_area = 0
     @total_previous_scale = 0
