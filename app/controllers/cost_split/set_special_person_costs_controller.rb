@@ -24,6 +24,7 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
       policy_scope(SplitCost::UserMonthlyPartTimeSpecialJobType)
     end.where(month: beginning_of_month)
 
+    @default_user_job_type_id = @target_user.position_users.pluck(:user_job_type_id).first
     @new_mpts = SplitCost::UserMonthlyPartTimeSpecialJobType.new(month: beginning_of_month, user_id: @target_user.id)
   end
 
