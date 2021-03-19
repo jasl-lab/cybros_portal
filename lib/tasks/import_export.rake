@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 namespace :import_export do
+  desc 'Filling the comment for comment_on_sales_contract_code'
+  task :filling_comment_on_sales_contract_code, [:csv_file] => [:environment] do |task, args|
+    csv_file_path = args[:csv_file]
+    CSV.foreach(csv_file_path, headers: true) do |row|
+      Bi::CommentOnSalesContractCode.create(
+        sales_contract_code: row['合同编号'],
+        comment: row['情况说明及处理方法'],
+        record_month: Date.today.end_of_month
+      )
+    end
+  end
+
   desc 'Clean the PositionUser and DepartmentUser record'
   task clean_position_department_user: :environment do
     position_user_ids = SplitCost::UserMonthlyPartTimeSpecialJobType.all.distinct.pluck(:position_user_id)
