@@ -90,6 +90,7 @@ module API
 
     def project_contracts
       raise Pundit::NotAuthorizedError.new '仅限商务人员访问' unless policy(Bi::NewMapInfo).show?
+      @company_short_names = Bi::OrgShortName.company_short_names
       @sas = Bi::SaContract.where(projectcode: params[:project_code]).order(salescontractcode: :asc)
       if @sas.blank?
         @opportunities = Bi::SaProjectOpportunity.where(projectcode: params[:project_code])

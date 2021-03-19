@@ -7,7 +7,7 @@ if @sas.present?
     json.propertyName item.contractpropertyname # 合同类型
     json.title item.salescontractname # 合同名称
     json.amountTotal item.amounttotal # 合同总金额
-    json.ltdName item.businessltdname # 商务责任公司
+    json.ltdName @company_short_names[item.businessltdname] # 商务责任公司
     json.deptsName item.businessdepartmentsname # 商务责任部门
   end
 end
