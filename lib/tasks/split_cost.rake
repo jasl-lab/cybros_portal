@@ -285,6 +285,21 @@ namespace :split_cost do
     end
   end
 
+  desc 'Generate part time split settings'
+  task :copy_user_monthly_part_time_splits, [:cyearperiod, :from_yearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+
+    from_yearperiod = args[:from_yearperiod]
+    from_yearperiod_year = from_yearperiod[0..3]
+    from_yearperiod_month = from_yearperiod[4..5]
+    from_yearperiod_month_start = Date.parse("#{from_yearperiod_year}-#{from_yearperiod_month}-01")
+
+    puts "Copy data from #{from_yearperiod_month_start} to #{cyearperiod_month_start}"
+  end
+
   desc 'Generate user split classify salary per months from user_split_classify_salaries'
   task :user_split_classify_salary_per_months, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
