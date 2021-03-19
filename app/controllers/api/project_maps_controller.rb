@@ -128,7 +128,7 @@ module API
           year.split(',')
         end
 
-        business_type = params[:business_type].presence
+        business_type = params[:business_type].presence && params[:business_type].strip
         cur_business_types = if business_type.present?
           all_business_types.select do |item|
             item[:value].is_a?(Array) ? item[:value].include?(business_type) : item[:value] === business_type
@@ -136,7 +136,7 @@ module API
         else
           all_business_types
         end
-        business_type = cur_business_types.collect { |item| item[:value] }.flatten.uniq.join('|')
+        # business_type = cur_business_types.collect { |item| item[:value] }.flatten.uniq.join('|')
 
         project_type = params[:project_type].presence && params[:project_type].strip
         cur_project_types = if project_type.present?
@@ -147,11 +147,11 @@ module API
           cur_business_types.collect { |item| item[:project_types] }.flatten
         end
 
-        project_type = if project_type.present?
-          project_type
-        else
-          cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
-        end
+        # project_type = if project_type.present?
+        #   project_type
+        # else
+        #   cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
+        # end
 
         service_stage = params[:service_stage].presence && params[:service_stage].strip
         cur_service_stages = if service_stage.present?
@@ -161,14 +161,16 @@ module API
         else
           cur_project_types.collect { |item| item[:service_stages] }.flatten
         end
-        service_stage = cur_service_stages.collect { |item| item[:value] }.flatten.uniq.join('|')
+        # service_stage = cur_service_stages.collect { |item| item[:value] }.flatten.uniq.join('|')
 
         project_process = params[:project_process].presence && params[:project_process].strip
 
         big_stage = if project_process.present?
           all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.flatten.join('|')
-        else
+        elsif service_stage.present?
           cur_service_stages.collect { |item| item[:big_stages] }.flatten.collect { |item| item[:value] }.flatten.uniq.join('|')
+        else
+          ''
         end
 
         company = params[:company].presence && params[:company].strip
@@ -182,7 +184,8 @@ module API
           map_infos = map_infos.where('province LIKE ?', "%#{province}%")
           map_infos = map_infos.where('company REGEXP ?', city) if city.present?
         end
-        map_infos = map_infos.where('projecttype REGEXP ?', "(^(#{business_type})-(#{project_type})-(#{big_stage}))|(,(#{business_type})-(#{project_type})-(#{big_stage}))")
+        projecttype_reg = "(#{business_type || '[^-]+'})-(#{project_type || '[^-]+'})-(#{big_stage || '[^-]+'})"
+        map_infos = map_infos.where('projecttype REGEXP ?', "(^#{projecttype_reg})|(,#{projecttype_reg})")
         map_infos = map_infos.where('milestonesname LIKE ?', "%#{project_process}%") if project_process.present?
         map_infos = map_infos.where('developercompanyname LIKE ?', "%#{client}%") if client.present?
         if scales.present? && scales.match(/^\d+(\.\d*)?,\d+(\.\d*)?$/)
