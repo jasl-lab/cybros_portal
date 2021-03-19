@@ -274,7 +274,7 @@ namespace :split_cost do
     cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
 
     user_ids = PositionUser.where(main_position: false).pluck(:user_id).uniq
-    User.where(id: user_ids).each do |user|
+    User.where(id: user_ids).where(locked_at: nil).each do |user|
       user.position_users.each do |pu|
         SplitCost::UserSalaryClassification.all.each do |sc|
           ptsr = SplitCost::UserMonthlyPartTimeSplitRate.find_or_initialize_by(user_id: user.id, month: cyearperiod_month_start,
@@ -298,6 +298,23 @@ namespace :split_cost do
     from_yearperiod_month_start = Date.parse("#{from_yearperiod_year}-#{from_yearperiod_month}-01")
 
     puts "Copy data from #{from_yearperiod_month_start} to #{cyearperiod_month_start}"
+    user_ids = PositionUser.where(main_position: false).pluck(:user_id).uniq
+    User.where(id: user_ids).where(locked_at: nil).each do |user|
+      new_position_ids = user.position_users.pluck(:position_id).uniq.sort
+      previous_position_ids = SplitCost::UserMonthlyPartTimeSplitRate.where(user_id: user.id, month: from_yearperiod_month_start).pluck(:position_id).uniq.sort
+
+      user.position_users.each do |pu|
+        SplitCost::UserSalaryClassification.all.each do |sc|
+          prev_ptsr = SplitCost::UserMonthlyPartTimeSplitRate.find_by(user_id: user.id, month: from_yearperiod_month_start, position_id: pu.position.id, user_salary_classification_id: sc.id)
+          ptsr = SplitCost::UserMonthlyPartTimeSplitRate.find_or_initialize_by(user_id: user.id, month: cyearperiod_month_start, position_id: pu.position.id, user_salary_classification_id: sc.id)
+          ptsr.update(main_position: pu.main_position, salary_classification_split_rate: prev_ptsr.salary_classification_split_rate)
+        end
+      end
+
+      if new_position_ids != previous_position_ids
+        puts "User position changed: #{user.id}:#{user.chinese_name}"
+      end
+    end
   end
 
   desc 'Generate user split classify salary per months from user_split_classify_salaries'
