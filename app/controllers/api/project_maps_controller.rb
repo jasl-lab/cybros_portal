@@ -136,7 +136,6 @@ module API
         else
           all_business_types
         end
-        # business_type = cur_business_types.collect { |item| item[:value] }.flatten.uniq.join('|')
 
         project_type = params[:project_type].presence && params[:project_type].strip
         cur_project_types = if project_type.present?
@@ -147,12 +146,6 @@ module API
           cur_business_types.collect { |item| item[:project_types] }.flatten
         end
 
-        # project_type = if project_type.present?
-        #   project_type
-        # else
-        #   cur_project_types.collect { |item| item[:value] }.flatten.uniq.join('|')
-        # end
-
         service_stage = params[:service_stage].presence && params[:service_stage].strip
         cur_service_stages = if service_stage.present?
           cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
@@ -161,7 +154,6 @@ module API
         else
           cur_project_types.collect { |item| item[:service_stages] }.flatten
         end
-        # service_stage = cur_service_stages.collect { |item| item[:value] }.flatten.uniq.join('|')
 
         project_process = params[:project_process].presence && params[:project_process].strip
 
@@ -196,7 +188,7 @@ module API
           map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
         end
         map_infos = map_infos.where(tracestate: trace_state)
-        map_infos = map_infos.where('YEAR(CREATEDDATE) IN ?', year) if @is_commercial && year.present?
+        map_infos = map_infos.where('YEAR(CREATEDDATE) IN (?)', year) if @is_commercial && year.present?
         if keywords.present?
           map_infos = map_infos
             .where('marketinfoname LIKE ? OR projectframename LIKE ? OR ID LIKE ?',
