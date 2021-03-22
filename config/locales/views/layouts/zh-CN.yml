@@ -152,6 +152,9 @@ zh-CN:
         fund_daily_fill: "资金日报填报表"
         fund_daily_fill_missing: "资金日报填报缺失人员"
         summary_fund_daily: "资金日报汇总表"
+        summary_fund_week: "资金周报汇总表"
+        summary_fund_month: "资金月报汇总表"
+        summary_fund_sum: "集团资金汇总表"        
       cost_split:
         header: "费用分摊"
         human_resources: "人员成本分摊设置"

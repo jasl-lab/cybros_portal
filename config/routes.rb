@@ -148,7 +148,10 @@ Rails.application.routes.draw do
     resource :report, only: %i[show]
     resource :fund_daily_fill, only: %i[show]
     resource :fund_daily_fill_missing, only: %i[show create]
+    resource :summary_fund_sum, only: %i[show]
     resource :summary_fund_daily, only: %i[show]
+    resource :summary_fund_week, only: %i[show]
+    resource :summary_fund_month, only: %i[show]
     resource :salary_query, only: %i[show]
   end
 
