@@ -52,7 +52,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
                end)
         end
       end
-      cu.where(id: users_ids)
+      cu.where(id: users_ids).distinct # because users table joins.
     else
       User.where(id: users_ids)
     end.where(id: @mpts_rates.collect(&:user_id))
