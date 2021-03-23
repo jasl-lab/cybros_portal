@@ -3,9 +3,9 @@ import { Controller } from "stimulus"
 let subsidiaryNeedReceiveSignDetailsFixedHeader;
 
 export default class extends Controller {
-  connect() {
-    const canHideItem = this.data.get("can_hide_item") == "true";
+  static values = { endOfDate: String, canHideItem: Boolean }
 
+  connect() {
     const normalColumns = [
       {"data": "org_dept_name"},
       {"data": "business_director_name"},
@@ -29,7 +29,7 @@ export default class extends Controller {
       "autoWidth": false,
       "ajax": $('#subsidiary-need-receive-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",
-      "columns": (canHideItem ? adminColumns : normalColumns),
+      "columns": (this.canHideItemValue ? adminColumns : normalColumns),
       "order": [[ 8, 'desc' ]],
       stateSave: true,
       drawCallback: function () {
