@@ -15,6 +15,7 @@
   <div class="col-lg-12"
     data-controller="subsidiary-department-receives"
     data-action="resize@window->subsidiary-department-receives#layout"
+    data-subsidiary-department-receives-end-of-date-value="<%= @need_data_last_available_date -%>"
     data-subsidiary-department-receives-sum_dept_names="<%= @sum_dept_names.to_json -%>"
     data-subsidiary-department-receives-in_iframe="<%= params[:in_iframe] -%>"
     data-subsidiary-department-receives-view_deptcode_sum="<%= @view_deptcode_sum -%>"

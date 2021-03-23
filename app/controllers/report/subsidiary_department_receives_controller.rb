@@ -85,11 +85,11 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
         .select('SUM(total) total').first.total
     @sum_real_receives = ((sum_real_markettotals.to_f + sum_real_receives.to_f) / 100_00_00_00.0).round(1)
 
-    need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
+    @need_data_last_available_date = policy_scope(Bi::SubCompanyNeedReceive).last_available_date(@end_of_month)
     need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
-      .where(date: need_data_last_available_date)
-      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', need_data_last_available_date)
-      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', need_data_last_available_date)
+      .where(date: @need_data_last_available_date)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @need_data_last_available_date)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @need_data_last_available_date)
 
     need_data = if @view_deptcode_sum
       need_data.where(orgcode_sum: [Bi::OrgReportRelationOrder.up_codes[selected_orgcode], selected_orgcode])
@@ -114,14 +114,20 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     end
 
     @need_dept_codes = need_data.collect(&:deptcode)
-    @need_company_short_names = @need_dept_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(need_data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
+    @need_company_short_names = @need_dept_codes.collect { |c| Bi::OrgReportDeptOrder.department_names(@need_data_last_available_date).fetch(c, Bi::PkCodeName.mapping2deptcode.fetch(c, c)) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_00.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_00.0).round(0) }
-    @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
+
+
+    @need_should_receives = if @need_data_last_available_date <= Time.new(2021, 3, 1)
+      need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_00.0).round(0) }
+    else
+      need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f - (d.long_account_receive || 0) - (d.short_account_receive || 0)) / 100_00.0).round(0) }
+    end
 
     sum_need_total = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve)
       .select('SUM(account_need_receive) account_need_receive, SUM(account_longbill) long_account_receive, SUM(busi_unsign_receive)+SUM(busi_sign_receive) business_receive')
-      .where(date: need_data_last_available_date).where(orgcode: selected_orgcode)
+      .where(date: @need_data_last_available_date).where(orgcode: selected_orgcode)
     @sum_need_should_receives = sum_need_total
       .collect { |d| ((d.account_need_receive || 0) / 100_00.0).round(0) }.first
     @sum_need_long_account_receives = sum_need_total
