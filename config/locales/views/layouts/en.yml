@@ -152,6 +152,9 @@ en:
         fund_daily_fill: "Fund daily fill"
         fund_daily_fill_missing: "Missing fill fund daily"
         summary_fund_daily: "Summary fund daily"
+        summary_fund_daily: "Summary fund week"
+        summary_fund_daily: "Summary fund month"
+        summary_fund_daily: "Summary group fund"
       cost_split:
         header: "Cost split"
         human_resources: "Staff cost allocation settings"
