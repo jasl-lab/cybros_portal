@@ -98,7 +98,7 @@ GEM
     bcrypt (3.1.16)
     bindata (2.4.8)
     bindex (0.8.1)
-    bootsnap (1.7.2)
+    bootsnap (1.7.3)
       msgpack (~> 1.0)
     brakeman (5.0.0)
     browser (5.3.1)
@@ -361,7 +361,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.1)
       parser (>= 2.7.1.5)
-    rubocop-performance (1.10.1)
+    rubocop-performance (1.10.2)
       rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     rubocop-rails (2.9.1)
@@ -512,4 +512,4 @@ RUBY VERSION
    ruby 2.7.1p83
 
 BUNDLED WITH
-   2.2.14
+   2.2.15
