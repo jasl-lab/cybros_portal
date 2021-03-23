@@ -1526,6 +1526,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
 
   create_table "V_TH_SACONTRACTCOLLPLAN", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractid"
+    t.float "srl", limit: 53
     t.text "collratio"
     t.float "collmoney", limit: 53
     t.text "paymentsign"
