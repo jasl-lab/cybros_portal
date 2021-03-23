@@ -1,5 +1,10 @@
 <thead>
   <tr>
+    <th colspan="8"></th>
+    <th colspan="6">应收款金额（万元）</th>
+    <th colspan="<%= @can_hide_item ? 2 : 1 -%>"></th>
+  </tr>
+  <tr>
     <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.org_dept_name_tip") -%>">
       <%= t(".table.org_dept_name") -%>
     </th>
@@ -14,15 +19,27 @@
     </th>
     <th><%= t(".table.contract_property_name") -%></th>
     <th><%= t(".table.contract_time") -%></th>
-    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.total_need_receive_tip") -%>">
-      <%= t(".table.total_need_receive") -%>
-    </th>
+
+
     <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.sign_receive_tip") -%>">
       <%= t(".table.sign_receive") -%>
     </th>
-    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.over_amount_tip") -%>">
-      <%= t(".table.over_amount") -%>
+    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_lt3_months_tip") -%>">
+      <%= t(".table.aging_amount_lt3_months") -%>
     </th>
+    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_4to12_months_tip") -%>">
+      <%= t(".table.aging_amount_4to12_months") -%>
+    </th>
+    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_1to2_years_tip") -%>">
+      <%= t(".table.aging_amount_1to2_years") -%>
+    </th>
+    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_gt2_years_tip") -%>">
+      <%= t(".table.aging_amount_gt2_years") -%>
+    </th>
+    <th style="width: 80px" data-toggle="tooltip" data-placement="top" title="<%= t(".table.acc_need_receive_tip") -%>">
+      <%= t(".table.acc_need_receive") -%>
+    </th>
+
     <th><%= t(".table.comment_on_sales_contract_code") -%></th>
     <% if @can_hide_item -%>
       <th><%= t(".table.admin_action") -%></th>

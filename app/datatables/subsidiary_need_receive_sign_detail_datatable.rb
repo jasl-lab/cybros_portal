@@ -30,6 +30,10 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       acc_need_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive', orderable: true },
       sign_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.sign_receive', orderable: true },
       over_amount: { source: 'Bi::SubCompanyNeedReceiveSignDetail.overamount', orderable: true },
+      aging_amount_lt3_months: { source: 'Bi::SubCompanyNeedReceiveSignDetail.aging_amount_lt3_months', orderable: true },
+      aging_amount_4to12_months: { source: 'Bi::SubCompanyNeedReceiveSignDetail.aging_amount_4to12_months', orderable: true },
+      aging_amount_1to2_years: { source: 'Bi::SubCompanyNeedReceiveSignDetail.aging_amount_1to2_years', orderable: true },
+      aging_amount_gt2_years: { source: 'Bi::SubCompanyNeedReceiveSignDetail.aging_amount_gt2_years', orderable: true },
       comment_on_sales_contract_code: { source: nil, searchable: false, orderable: false },
       admin_action: { source: nil, searchable: false, orderable: false }
     }
@@ -57,6 +61,10 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: 'text-center'),
+        aging_amount_lt3_months: tag.div((r.aging_amount_lt3_months.to_f / 10000.0)&.round(0), class: 'text-center'),
+        aging_amount_4to12_months: tag.div((r.aging_amount_4to12_months.to_f / 10000.0)&.round(0), class: 'text-center'),
+        aging_amount_1to2_years: tag.div((r.aging_amount_1to2_years.to_f / 10000.0)&.round(0), class: 'text-center'),
+        aging_amount_gt2_years: tag.div((r.aging_amount_gt2_years.to_f / 10000.0)&.round(0), class: 'text-center'),
         comment_on_sales_contract_code: if @can_hide_item
                                           render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc, coc_history: display_coc_history })
                                         else

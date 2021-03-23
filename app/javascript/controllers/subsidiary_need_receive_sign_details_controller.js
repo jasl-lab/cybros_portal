@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = { endOfDate: String, canHideItem: Boolean }
 
   connect() {
-    const normalColumns = [
+    const before202103Columns = [
       {"data": "org_dept_name"},
       {"data": "business_director_name"},
       {"data": "first_party_name"},
@@ -15,11 +15,37 @@ export default class extends Controller {
       {"data": "amount_total"},
       {"data": "contract_property_name"},
       {"data": "contract_time"},
-      {"data": "acc_need_receive"},
       {"data": "sign_receive"},
       {"data": "over_amount"},
+      {"data": "acc_need_receive"},
       {"data": "comment_on_sales_contract_code"},
     ];
+
+    const after202103Columns = [
+      {"data": "org_dept_name"},
+      {"data": "business_director_name"},
+      {"data": "first_party_name"},
+      {"data": "sales_contract_code"},
+      {"data": "sales_contract_name"},
+      {"data": "amount_total"},
+      {"data": "contract_property_name"},
+      {"data": "contract_time"},
+      {"data": "sign_receive"},
+      {"data": "aging_amount_lt3_months"},
+      {"data": "aging_amount_4to12_months"},
+      {"data": "aging_amount_1to2_years"},
+      {"data": "aging_amount_gt2_years"},
+      {"data": "acc_need_receive"},
+      {"data": "comment_on_sales_contract_code"},
+    ];
+
+    let normalColumns;
+
+    if (Date.parse(this.endOfDateValue+"T00:00:00") < Date.parse('2021-03-01T00:00:00')) {
+      normalColumns = before202103Columns;
+    } else {
+      normalColumns = after202103Columns;
+    }
 
     const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
 
