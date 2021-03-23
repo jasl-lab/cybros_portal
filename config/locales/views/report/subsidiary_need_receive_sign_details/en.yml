@@ -11,6 +11,7 @@ en:
         show_hide_item: "Show hide item"
         company_name: "Company name"
         confirm: "Confirm"
+      pre_202103_head:
         table:
           org_dept_name: "Org & Dept name"
           org_dept_name_tip: "Org & Dept name"
