@@ -803,10 +803,10 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.datetime "collectiondate"
     t.date "date", null: false
     t.integer "need_hide", limit: 1
-    t.float "sign_receive1", limit: 53
-    t.float "sign_receive2", limit: 53
-    t.float "sign_receive3", limit: 53
-    t.float "sign_receive4", limit: 53
+    t.float "aging_amount_lt3_months", limit: 53
+    t.float "aging_amount_4to12_months", limit: 53
+    t.float "aging_amount_1to2_years", limit: 53
+    t.float "aging_amount_gt2_years", limit: 53
     t.index ["date"], name: "idx_sub_company_need_receive_sign_detail_date"
   end
 
