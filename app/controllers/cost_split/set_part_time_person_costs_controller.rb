@@ -17,6 +17,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
 
     users_ids = User.joins(:position_users).includes(user_monthly_part_time_split_rates: :position)
       .where(position_users: { main_position: false }).pluck(:id).uniq
+    users_ids << 222 # 荆哲璐 must setting as he is leaving before online
 
     @mpts_rates = if @parttime_company_code.present? && @main_company_code.present?
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
