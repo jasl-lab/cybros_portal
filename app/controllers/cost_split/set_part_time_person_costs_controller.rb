@@ -15,9 +15,9 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     @main_company_code = params[:main_company_code].presence
     @parttime_company_code = params[:parttime_company_code].presence
 
-    users_ids = User.joins(:position_users).includes(user_monthly_part_time_split_rates: :position)
-      .where(position_users: { main_position: false }).pluck(:id).uniq
-    users_ids << 222 # 荆哲璐 must setting as he is leaving before online
+    users_ids = User.includes(user_monthly_part_time_split_rates: :position)
+      .where(user_monthly_part_time_split_rates: { month: beginning_of_month })
+      .pluck(:id).uniq
 
     @mpts_rates = if @parttime_company_code.present? && @main_company_code.present?
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
@@ -35,21 +35,21 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
     end.where(month: beginning_of_month)
 
     @users = if current_user.part_time_split_access_codes.present?
-      cu = User.joins(position_users: { position: :department })
+      cu = User.joins(user_monthly_part_time_split_rates: { position: :department })
       current_user.part_time_split_access_codes.each_with_index do |ac, index|
         if index == 0
           cu = if ac.dept_category.present?
-            cu.where(position_users: { main_position: true })
-              .where(position_users: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
+            cu.where(user_monthly_part_time_split_rates: { main_position: true })
+              .where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
           else
-            cu.where(position_users: { positions: { departments: { company_code: ac.org_code } } })
+            cu.where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code } } })
           end
         else
           cu = cu.or(if ac.dept_category.present?
-                 cu.where(position_users: { main_position: true })
-                   .where(position_users: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
+                 cu.where(user_monthly_part_time_split_rates: { main_position: true })
+                   .where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
                else
-                 cu.where(position_users: { positions: { departments: { company_code: ac.org_code } } })
+                 cu.where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code } } })
                end)
         end
       end
