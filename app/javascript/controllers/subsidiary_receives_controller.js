@@ -6,6 +6,7 @@ let subsidiaryRealReceivesStaffChart;
 let subsidiaryNeedReceivesStaffChart;
 
 export default class extends Controller {
+  static values = { endOfDate: String }
 
   connect() {
     const sumOrgNames = JSON.parse(this.data.get("sum_org_names"));
@@ -106,12 +107,20 @@ export default class extends Controller {
         }]
     };
 
+    let labelBizReceivables;
+
+    if (Date.parse(this.endOfDateValue+"T00:00:00") < Date.parse('2021-03-01T00:00:00')) {
+      labelBizReceivables = '业务应收款';
+    } else {
+      labelBizReceivables = '扣除帐龄的业务应收款';
+    }
+
     const need_option = {
         title: {
           text: '应收款（财务+业务）'
         },
         legend: {
-            data: ['超长帐龄','扣除超长帐龄以外的财务应收','业务应收款'],
+            data: ['超长帐龄','扣除超长帐龄以外的财务应收',labelBizReceivables],
             align: 'left'
         },
         tooltip: {
@@ -181,7 +190,7 @@ export default class extends Controller {
             }
           }
         },{
-          name: '业务应收款',
+          name: labelBizReceivables,
           type: 'bar',
           stack: '应收',
           data: needShouldReceives,
