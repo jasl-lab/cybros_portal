@@ -87,7 +87,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_company_short_names = need_data.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c.orgcode, c.orgcode) }
     @need_long_account_receives = need_data.collect { |d| ((d.long_account_receive || 0) / 100_0000.0).round(0) }
     @need_short_account_receives = need_data.collect { |d| ((d.short_account_receive || 0) / 100_0000.0).round(0) }
-    @need_should_receives = need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
+    @need_should_receives = if @need_data_last_available_date <= Time.new(2021, 3, 1)
+      need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f) / 100_0000.0).round(0) }
+    else
+      need_data.collect { |d| ((d.unsign_receive.to_f + d.sign_receive.to_f - (d.long_account_receive || 0) - (d.short_account_receive || 0)) / 100_0000.0).round(0) }
+    end
 
     fix_need_data = policy_scope(Bi::SubCompanyNeedReceive, :group_resolve).where(date: @need_data_last_available_date)
       .select('SUM(account_longbill) long_account_receive, SUM(busi_unsign_receive)+SUM(busi_sign_receive) business_receive').first
