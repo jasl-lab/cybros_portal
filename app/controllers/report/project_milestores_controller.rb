@@ -55,16 +55,18 @@ class Report::ProjectMilestoresController < Report::BaseController
     scope_of_drill_down = nil
 
     loop do
-      scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no).where(date: start_date)
+      scope_of_drill_down = Bi::ShRefreshRateDetail.where(projectpacode: work_no).where(date: start_date).select(:projectitemcode)
       break if scope_of_drill_down.present?
       start_date -= 1.day
     end
 
     project_item_codes = scope_of_drill_down.pluck(:projectitemcode).uniq
-    @name = Bi::ShRefreshRateDetail.find_by(projectpacode: work_no).projectpaname
-    @rows = project_item_codes.collect do |project_item_code|
-      scope_of_drill_down.order(date: :desc).find_by(projectitemcode: project_item_code)
-    end
+    @rows = Bi::ShRefreshRateDetail.where(projectpacode: work_no)
+      .where(date: start_date)
+      .where(projectitemcode: project_item_codes)
+      .order(date: :desc)
+      .select(:projectitemcode, :projectitemname, :projectpaname, :projectprocess, :hours, :begindate)
+
     render
   end
 
