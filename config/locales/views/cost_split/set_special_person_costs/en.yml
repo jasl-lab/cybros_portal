@@ -26,4 +26,5 @@ en:
           position_user_job_type: "Salary classification"
           user_job_type: "User job type"
       create:
+        create_need_user: "Need input a user first"
         create_success: "Create success"

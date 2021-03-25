@@ -26,6 +26,7 @@ zh-CN:
           position_user_job_type: "岗位类别"
           user_job_type: "特殊成本类别"
       create:
+        create_need_user: "请先输入一个用户，点击搜索确保能找到。"
         create_success: "添加成功"
       destroy:
         destroy_success: "删除成功"

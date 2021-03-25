@@ -7,7 +7,13 @@ module SplitCost
     belongs_to :user_job_type
 
     def self.all_month_names
-      SplitCost::UserMonthlyPartTimeSpecialJobType.order(month: :desc).select(:month).distinct.pluck(:month).collect { |d| d.to_s(:month_and_year) }.uniq
+      current_date = Date.today
+      dates = [current_date]
+      while current_date > Date.new(2021, 2, 1) do
+        current_date = current_date.prev_month
+        dates << current_date
+      end
+      dates.collect { |d| d.to_s(:month_and_year) }
     end
   end
 end

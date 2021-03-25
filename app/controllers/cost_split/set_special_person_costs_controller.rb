@@ -40,8 +40,12 @@ class CostSplit::SetSpecialPersonCostsController < CostSplit::BaseController
   end
 
   def create
-    SplitCost::UserMonthlyPartTimeSpecialJobType.create(user_monthly_part_time_special_job_type_params)
-    redirect_to cost_split_set_special_person_costs_path, notice: t('.create_success')
+    mpts_job_type = SplitCost::UserMonthlyPartTimeSpecialJobType.create(user_monthly_part_time_special_job_type_params)
+    if mpts_job_type.errors.present?
+      redirect_to cost_split_set_special_person_costs_path, notice: t('.create_need_user')
+    else
+      redirect_to cost_split_set_special_person_costs_path, notice: t('.create_success')
+    end
   end
 
   def destroy
