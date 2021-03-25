@@ -148,7 +148,7 @@ class Report::ContractHoldsController < Report::BaseController
             t('report.contract_holds.show.table.workhour_cost'),
             t('report.contract_holds.show.table.unsign_hold_value')
           ]
-          policy_scope(Bi::ContractHoldUnsignDetail).order(:orgcode, :deptcode).where(date: last_available_date).find_each do |r|
+          policy_scope(Bi::ContractHoldUnsignDetail).where(date: last_available_date).each do |r|
             values = []
             values << company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode)
             values << Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode)
