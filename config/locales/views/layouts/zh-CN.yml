@@ -37,6 +37,7 @@ zh-CN:
         users: "用户"
         roles: "角色"
         manual_operation_access_codes: "市场运营手工访问码"
+        bi_dept_structures: "BI组织架构表"
         bi_view_histories: "BI历史访问情况"
       company:
         header: "公司首页"
