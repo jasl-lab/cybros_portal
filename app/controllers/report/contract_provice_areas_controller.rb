@@ -34,7 +34,11 @@ class Report::ContractProviceAreasController < Report::BaseController
       cp_r = sum_cp.find { |pr| pr.provincename == r.province }
       @total_new_area += r.new_area.to_i
       @total_scale += cp_r&.scale.to_f
-      new_area_rate = ((cp_r&.scale.to_f / r.new_area) * 0.01).round(2)
+      new_area_rate = if r.new_area.present?
+        ((cp_r&.scale.to_f / r.new_area) * 0.01).round(2)
+      else
+        Float::NAN
+      end
       { province: r.province, new_area_rate: new_area_rate }
     end
 
