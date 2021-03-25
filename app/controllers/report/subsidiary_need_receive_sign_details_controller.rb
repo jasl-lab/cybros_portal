@@ -21,6 +21,8 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @all_org_names = all_org_short_names.zip(all_org_long_names)
     @org_name = params[:org_name]&.strip
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织": @org_name).pluck(:"部门", :"编号")
+    @dept_code = params[:dept_code]
     @total_sign_receive_great_than = params[:total_sign_receive_great_than]
     @over_amount_great_than = params[:over_amount_great_than]
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
@@ -34,6 +36,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
           subsidiary_need_receive_sign_details: subsidiary_need_receive_sign_details,
           end_of_date: @end_of_date,
           org_name: @org_name,
+          dept_code: @dept_code,
           total_sign_receive_great_than: @total_sign_receive_great_than.to_i * 10000,
           over_amount_great_than: @over_amount_great_than.to_i * 10000,
           can_hide_item: @can_hide_item,
@@ -55,6 +58,11 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     sales_contract_code = params[:sales_contract_code]
     Bi::SubCompanyNeedReceiveSignDetail.where(salescontractcode: sales_contract_code).update_all(need_hide: nil)
     redirect_to report_subsidiary_need_receive_sign_detail_path(show_hide_item: true)
+  end
+
+  def org_name_change
+    org_name = params[:org_name]
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织": org_name).pluck(:"部门", :"编号")
   end
 
   private

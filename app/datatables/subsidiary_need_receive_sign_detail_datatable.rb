@@ -12,6 +12,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     @total_sign_receive_great_than = opts[:total_sign_receive_great_than]
     @end_of_date = opts[:end_of_date]
     @org_name = opts[:org_name]
+    @dept_code = opts[:dept_code]
     @can_hide_item = opts[:can_hide_item]
     @show_hide = opts[:show_hide]
     super
@@ -88,6 +89,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     rr = rr.where('sign_receive + accneedreceive > ?', @total_sign_receive_great_than) unless @total_sign_receive_great_than.zero?
     rr = rr.where('overamount > ?', @over_amount_great_than) unless @over_amount_great_than.zero?
     rr = rr.where(orgname: @org_name) if @org_name.present?
+    rr = rr.where(deptcode: @dept_code) if @dept_code.present?
     rr
   end
 end
