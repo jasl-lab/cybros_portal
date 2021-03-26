@@ -42,7 +42,7 @@
           <% end -%>
         <table id="subsidiary-need-receive-sign-details-datatable"
           class="table table-hover table-bordered table-responsive"
-          data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json, org_name: @org_name, dept_code: @dept_code, sign_receive_great_than: @sign_receive_great_than, over_amount_great_than: @over_amount_great_than,
+          data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json, org_name: @org_name, dept_code: @dept_code, total_sign_receive_great_than: @total_sign_receive_great_than, over_amount_great_than: @over_amount_great_than,
             month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
           <% if @end_of_date <= Time.new(2021,3,1) %>
             <%= render partial: 'pre_202103_head' %>

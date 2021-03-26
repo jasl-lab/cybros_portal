@@ -58,7 +58,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         sales_contract_name: r.salescontractname,
         amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: 'text-center'),
         contract_property_name: r.contractpropertyname,
-        contract_time: r.contracttime.to_date,
+        contract_time: r.contracttime&.to_date,
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: 'text-center'),
