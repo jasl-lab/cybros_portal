@@ -86,7 +86,15 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
     else
       @subsidiary_need_receive_sign_details.where('NEED_HIDE != 1 OR NEED_HIDE IS NULL')
     end.where(date: @end_of_date)
-    rr = rr.where('sign_receive + accneedreceive > ?', @total_sign_receive_great_than) unless @total_sign_receive_great_than.zero?
+    rr = if @total_sign_receive_great_than.zero?
+      rr
+    else
+      if @end_of_date <= Time.new(2021, 3, 1)
+        rr.where('sign_receive + accneedreceive > ?', @total_sign_receive_great_than)
+      else
+        rr.where('sign_receive > ?', @total_sign_receive_great_than)
+      end
+    end
     rr = rr.where('overamount > ?', @over_amount_great_than) unless @over_amount_great_than.zero?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr = rr.where(deptcode: @dept_code) if @dept_code.present?
