@@ -20,8 +20,8 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
 
   def view_columns
     @view_columns ||= {
-      org_dept_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.deptname', cond: :string_eq, searchable: true, orderable: true },
-      business_director_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname', cond: :string_eq, searchable: true, orderable: true },
+      org_dept_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.deptname', cond: :like, searchable: true, orderable: true },
+      business_director_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.businessdirectorname', cond: :like, searchable: true, orderable: true },
       first_party_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.firstpartyname', cond: :like, searchable: true, orderable: true },
       sales_contract_code: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractcode', cond: :like, searchable: true, orderable: true },
       sales_contract_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractname', cond: :like, searchable: true, orderable: true },
