@@ -900,29 +900,36 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@rails/actioncable@^6.1.3":
-  version "6.1.3"
-  resolved "https://registry.npm.taobao.org/@rails/actioncable/download/@rails/actioncable-6.1.3.tgz#c8a67ec4d22ecd6931f7ebd98143fddbc815419a"
-  integrity sha1-yKZ+xNIuzWkx9+vZgUP928gVQZo=
+"@rails/actioncable@^6.1.3-1":
+  version "6.1.3-1"
+  resolved "https://registry.npm.taobao.org/@rails/actioncable/download/@rails/actioncable-6.1.3-1.tgz#eb00a8a97dfdd5991064ee73b2d28a1caf2d85ee"
+  integrity sha1-6wCoqX391ZkQZO5zstKKHK8the4=
 
-"@rails/actiontext@^6.1.3":
-  version "6.1.3"
-  resolved "https://registry.npm.taobao.org/@rails/actiontext/download/@rails/actiontext-6.1.3.tgz#2b6c6c6ab735512c10e1769d7d3d5d8ac367acb1"
-  integrity sha1-K2xsarc1USwQ4XadfT1disNnrLE=
+"@rails/actiontext@^6.1.3-1":
+  version "6.1.3-1"
+  resolved "https://registry.npm.taobao.org/@rails/actiontext/download/@rails/actiontext-6.1.3-1.tgz#207b2f6616c335dc59ba5b824b5dee7d2de81640"
+  integrity sha1-IHsvZhbDNdxZuluCS13ufS3oFkA=
   dependencies:
     "@rails/activestorage" "^6.0.0-alpha"
 
-"@rails/activestorage@^6.0.0-alpha", "@rails/activestorage@^6.1.3":
+"@rails/activestorage@^6.0.0-alpha":
   version "6.1.3"
   resolved "https://registry.npm.taobao.org/@rails/activestorage/download/@rails/activestorage-6.1.3.tgz#d76ce0fe59b5778e05b967c22c61b2964fde112a"
   integrity sha1-12zg/lm1d44FuWfCLGGylk/eESo=
   dependencies:
     spark-md5 "^3.0.0"
 
-"@rails/ujs@^6.1.3":
-  version "6.1.3"
-  resolved "https://registry.npm.taobao.org/@rails/ujs/download/@rails/ujs-6.1.3.tgz#90ef26caa0925492b1a3b1495db09cfbe49e745e"
-  integrity sha1-kO8myqCSVJKxo7FJXbCc++SedF4=
+"@rails/activestorage@^6.1.3-1":
+  version "6.1.3-1"
+  resolved "https://registry.npm.taobao.org/@rails/activestorage/download/@rails/activestorage-6.1.3-1.tgz#3304eaf597279c5943f793068b0147cb639239ed"
+  integrity sha1-MwTq9ZcnnFlD95MGiwFHy2OSOe0=
+  dependencies:
+    spark-md5 "^3.0.0"
+
+"@rails/ujs@^6.1.3-1":
+  version "6.1.3-1"
+  resolved "https://registry.npm.taobao.org/@rails/ujs/download/@rails/ujs-6.1.3-1.tgz#c25ca8473a40298ecab7b0020214e77c0e6f5188"
+  integrity sha1-wlyoRzpAKY7Kt7ACAhTnfA5vUYg=
 
 "@rails/webpacker@^5.2.1":
   version "5.2.1"
