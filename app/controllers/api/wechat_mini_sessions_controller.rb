@@ -10,7 +10,7 @@ module API
       openid = res['openid']
       session_key = res['session_key']
       wechat_user = WechatUser.find_or_initialize_by open_id: openid, app_id: appid
-      qyres = Wechat.api.convert_to_userid openid
+      qyres = Wechat.api('mini_corp').convert_to_userid openid
       if qyres.present? && qyres['errcode'] === 0
         username = qyres['userid']
         user = User.where('wecom_id = ? OR email = ?', username, "#{username}@thape.com.cn").take

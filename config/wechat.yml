@@ -79,3 +79,19 @@ mini_test:
 
 mini_production:
   <<: *mini_account
+
+mini_corp_account: &mini_corp_account
+  corpid: <%= Rails.application.credentials.wechat_corpid! %>
+  corpsecret: <%= Rails.application.credentials.wechat_mini_corpsecret! %>
+  agentid: <%= Rails.application.credentials.wechat_mini_corp_agentid! %>
+  access_token: "tmp/wechat_mini_corp_access_token"
+  jsapi_ticket: "tmp/wechat_mini_corp_jsapi_ticket"
+
+mini_corp_development:
+  <<: *mini_corp_account
+
+mini_corp_test:
+  <<: *mini_corp_account
+
+mini_corp_production:
+  <<: *mini_corp_account
