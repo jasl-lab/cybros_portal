@@ -12,4 +12,5 @@ json.array! @valid_map_points do |point|
   json.province point[:province]
   json.city point[:city]
   json.amountTotal point[:amounttotal]
+  json.isBoutique point[:is_boutique]
 end

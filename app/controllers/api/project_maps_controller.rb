@@ -28,6 +28,7 @@ module API
           province: m.province, # 省
           city: m.company, # 市
           amounttotal: @is_commercial ? m.amounttotal : nil, # 合同总金额
+          is_boutique: !m.isboutiqueproject.nil? && m.isboutiqueproject > 0
         }
       end
     end
@@ -56,16 +57,8 @@ module API
           city: m.company, # 市
           amounttotal: @is_commercial ? m.amounttotal : nil, # 合同总金额
           business_type_deptnames: business_type_deptnames
+          is_boutique: !m.isboutiqueproject.nil? && m.isboutiqueproject > 0
         }
-      end
-
-      if @list.present?
-        boutique_project_items = Edoc2::ProjectInfo.where(projectcode: @list.collect{ |item| item[:project_code] }).where(isboutiqueproject: '是').all
-
-        @list = @list.collect do |m|
-          m[:is_boutique] = boutique_project_items.any?{ |item| item.projectcode == m[:project_code] }
-          m
-        end
       end
 
       @total = @map_infos.count
