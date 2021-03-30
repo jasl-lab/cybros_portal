@@ -28,7 +28,7 @@ module API
           province: m.province, # 省
           city: m.company, # 市
           amounttotal: @is_commercial ? m.amounttotal : nil, # 合同总金额
-          is_boutique: !m.isboutiqueproject.nil? && m.isboutiqueproject > 0
+          is_boutique: m.isboutiqueproject.to_i > 0,
         }
       end
     end
@@ -56,8 +56,8 @@ module API
           province: m.province, # 省
           city: m.company, # 市
           amounttotal: @is_commercial ? m.amounttotal : nil, # 合同总金额
-          business_type_deptnames: business_type_deptnames
-          is_boutique: !m.isboutiqueproject.nil? && m.isboutiqueproject > 0
+          business_type_deptnames: business_type_deptnames,
+          is_boutique: m.isboutiqueproject.to_i > 0,
         }
       end
 

@@ -9,7 +9,7 @@ json.province @project.province
 json.city @project.company
 json.amountTotal @project.amounttotal
 json.businessTypeDeptnames @project.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname].join(' | ') }.uniq
-json.isBoutique !@project.isboutiqueproject.nil? && @project.isboutiqueproject > 0
+json.isBoutique @project.isboutiqueproject.to_i > 0
 json.items @project_items do |item|
   json.code item.projectitemcode # 项目编号
   json.title item.projectitemname # 项目名称
