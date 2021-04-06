@@ -4,8 +4,6 @@ json.list @list do |point|
   json.id point[:project_code].split('').collect { |item| item.match?(/^\d$/) ? item : item.getbyte(0).to_s }.reduce(:+).to_i
   json.code point[:project_code]
   json.title point[:title]
-  json.lat point[:lat]
-  json.lng point[:lng]
   json.frameName point[:project_frame_name]
   json.traceState point[:trace_state]
   json.scaleArea point[:scale_area]

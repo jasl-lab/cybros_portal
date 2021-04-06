@@ -1306,6 +1306,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "ischecked"
     t.float "amounttotal", limit: 53
     t.text "milestonesname"
+    t.text "isboutiqueproject"
   end
 
   create_table "V_TH_NEWMAPINFO_REL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

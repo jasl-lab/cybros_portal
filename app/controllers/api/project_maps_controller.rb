@@ -17,10 +17,12 @@ module API
           Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
         end
 
+        lng_lat = CoordConvert.convert('bd09', 'gcj02', lng, lat);
+
         {
           title: m.marketinfoname, # 项目名称
-          lat: lat,
-          lng: lng,
+          lat: lng_lat[1],
+          lng: lng_lat[0],
           project_frame_name: m.projectframename, # 案名
           project_code: m.id, # 项目编号
           trace_state: m.tracestate, # 项目状态
@@ -35,20 +37,10 @@ module API
 
     def list
       @list = @map_infos.includes(:project_items).page(params[:page]).per(params[:per_page]).collect do |m|
-        lat = m.coordinate.split(',')[1].to_f
-        if lat >= 85.051128 || lat <= -85.051128
-          Rails.logger.error "coordinate lat error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
-        end
-        lng = m.coordinate.split(',')[0].to_f
-        if lng >= 180 || lng <= -180
-          Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
-        end
         business_type_deptnames = m.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
 
         {
           title: m.marketinfoname, # 项目名称
-          lat: lat,
-          lng: lng,
           project_frame_name: m.projectframename, # 案名
           project_code: m.id, # 项目编号
           trace_state: m.tracestate, # 项目状态
