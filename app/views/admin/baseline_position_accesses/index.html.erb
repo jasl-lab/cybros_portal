@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+  <div class="col-lg-12">
+    <div class="container">
+      <h3 class="page-title">
+        <%= t(".title") %>
+      </h3>
+      <div class="table-responsive mt-3">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th><%= t(".table.b_postcode") %></th>
+            <th><%= t(".table.b_postname") %></th>
+            <th><%= t(".table.contract_map_access") %></th>
+          </tr>
+          </thead>
+          <tbody>
+            <% @baseline_position_accesses.each do |baseline_position_access| %>
+              <tr>
+                <td><%= baseline_position_access.id %></td>
+                <td><%= baseline_position_access.b_postcode %></td>
+                <td><%= baseline_position_access.b_postname %></td>
+                <td><%= baseline_position_access.contract_map_access %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

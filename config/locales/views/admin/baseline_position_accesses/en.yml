@@ -4,3 +4,7 @@ en:
     baseline_position_accesses:
       index:
         title: "Baseline position access"
+        table:
+          b_postcode: "Base post code"
+          b_postname: "Base post name"
+          contract_map_access: "Contract map access"

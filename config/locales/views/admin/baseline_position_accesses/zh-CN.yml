@@ -4,3 +4,7 @@ zh-CN:
     baseline_position_accesses:
       index:
         title: "基准岗位访问权限控制"
+        table:
+          b_postcode: "岗位编码"
+          b_postname: "岗位名称"
+          contract_map_access: "项目地图权限"
