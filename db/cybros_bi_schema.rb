@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "ysk", limit: 53
     t.text "ysdate"
     t.float "bjsr", limit: 53
+    t.float "zsbl", limit: 53
+    t.float "pj", limit: 53
+    t.float "sxf", limit: 53
+    t.float "fykp", limit: 53
+    t.float "hz", limit: 53
+    t.float "bjsr20", limit: 53
+    t.float "bjsr19", limit: 53
     t.text "tpdate"
     t.text "khfar"
     t.text "khjt"
@@ -452,24 +459,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.index ["index"], name: "index_UNIQUE", unique: true
   end
 
-  create_table "ORG_REPORT_DEPT_ORDER_TEST", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "编号"
-    t.text "部门"
-    t.datetime "开始时间"
-    t.datetime "结束时间"
-    t.text "上级部门"
-    t.text "上级部门编号"
-    t.text "组织"
-    t.text "组织编号"
-    t.text "是否启用"
-    t.text "部门属性"
-    t.text "部门类别"
-    t.text "部门类型"
-    t.text "部门排名"
-    t.bigint "显示顺序"
-    t.text "是否显示"
-  end
-
   create_table "ORG_REPORT_RELATION_ORDER", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "code", limit: 45
     t.string "depttype", limit: 45
@@ -721,6 +710,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "hours", limit: 53, default: 0.0
     t.datetime "begindate"
     t.date "date"
+    t.index ["date"], name: "idx_SH_REFRESH_RATE_DETAIL_on_date"
   end
 
   create_table "SH_STAFF_COUNT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
