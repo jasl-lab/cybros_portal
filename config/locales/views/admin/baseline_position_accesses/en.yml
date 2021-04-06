@@ -8,3 +8,9 @@ en:
           b_postcode: "Base post code"
           b_postname: "Base post name"
           contract_map_access: "Contract map access"
+      td_baseline_position_access:
+        action:
+          edit: "Edit"
+      change_baseline_position_access:
+        action:
+          cancel: "取消"

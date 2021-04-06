@@ -1,0 +1,10 @@
+<%= form_with model: baseline_position_access, url: admin_baseline_position_access_path(id: baseline_position_access.id), class: 'form-inline' do |f| %>
+  <div class="form-group">
+    <%= f.select :contract_map_access, BaselinePositionAccess.contract_map_access_options, {}, class: 'form-control form-control-sm',onchange: 'Rails.fire(this.form, "submit")' %>
+  </div>
+  <div class="form-group ml-2">
+    <%= link_to admin_baseline_position_access_path(id: baseline_position_access.id), remote: true do -%>
+      <i class="fas fa-window-close" data-toggle="tooltip" data-placement="top" title="<%= t('.action.cancel') -%>"></i>
+    <% end %>
+  </div>
+<% end %>
