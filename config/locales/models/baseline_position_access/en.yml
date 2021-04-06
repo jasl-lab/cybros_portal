@@ -1,0 +1,10 @@
+---
+en:
+  activerecord:
+    enums:
+      baseline_position_access:
+        contract_map_access:
+          no_access: "No access"
+          project_detail_with_download: "Project detail with download"
+          view_project_details: "View project details"
+          view_project_only: "View project only"

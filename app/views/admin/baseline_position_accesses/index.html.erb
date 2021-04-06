@@ -17,10 +17,10 @@
           <tbody>
             <% @baseline_position_accesses.each do |baseline_position_access| %>
               <tr>
-                <td><%= baseline_position_access.id %></td>
-                <td><%= baseline_position_access.b_postcode %></td>
-                <td><%= baseline_position_access.b_postname %></td>
-                <td><%= baseline_position_access.contract_map_access %></td>
+                <td><%= baseline_position_access.id -%></td>
+                <td><%= baseline_position_access.b_postcode -%></td>
+                <td><%= baseline_position_access.b_postname -%></td>
+                <td><%= baseline_position_access.contract_map_access_name -%></td>
               </tr>
             <% end %>
           </tbody>

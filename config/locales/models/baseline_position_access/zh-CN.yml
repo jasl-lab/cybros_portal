@@ -1,0 +1,10 @@
+---
+zh-CN:
+  activerecord:
+    enums:
+      baseline_position_access:
+        contract_map_access:
+          no_access: "无访问权限"
+          project_detail_with_download: "能下载合同附件"
+          view_project_details: "能看合同明细，无法下载合同附件"
+          view_project_only: "仅能看项目信息"

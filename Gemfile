@@ -42,6 +42,8 @@ gem 'http'
 gem 'image_processing', '~> 1.12'
 gem 'mini_magick'
 
+gem 'enumize'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
 
