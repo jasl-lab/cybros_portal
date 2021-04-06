@@ -1,0 +1,6 @@
+---
+zh-CN:
+  admin:
+    baseline_position_accesses:
+      index:
+        title: "基准岗位访问权限控制"

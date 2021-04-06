@@ -2,6 +2,7 @@
 
 class Admin::ManualOperationAccessCodesController < Admin::ApplicationController
   def index
+    prepare_meta_tags title: t('.title')
     @code_1 = ManualOperationAccessCode.where(code: User::ALL_OF_ALL)
     @code_2 = ManualOperationAccessCode.where(code: User::ALL_EXCEPT_OTHER_COMPANY_DETAILS)
     @code_3 = ManualOperationAccessCode.where(code: User::MY_COMPANY_ALL_DETAILS)

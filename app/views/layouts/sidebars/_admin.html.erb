@@ -25,6 +25,12 @@
           <%= t("layouts.sidebar.admin.manual_operation_access_codes") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'admin/baseline_position_accesses', html_options: {class: "nav-item"} do %>
+        <%= link_to admin_baseline_position_accesses_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.admin.baseline_position_accesses") %>
+        <% end %>
+      <% end %>
       <%= nav_item controller: 'admin/bi_dept_structures', html_options: {class: "nav-item"} do %>
         <%= link_to admin_bi_dept_structures_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-user-circle"></i>

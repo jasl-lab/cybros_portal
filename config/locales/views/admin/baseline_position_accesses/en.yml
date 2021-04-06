@@ -1,0 +1,6 @@
+---
+en:
+  admin:
+    baseline_position_accesses:
+      index:
+        title: "Baseline position access"

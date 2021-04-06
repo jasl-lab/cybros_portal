@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     end
 
     resources :manual_operation_access_codes, only: %i[index destroy]
+    resources :baseline_position_accesses, only: %i[index edit update]
     resource :bi_dept_structures, only: %i[show]
     resource :bi_view_histories, only: %i[show]
   end
