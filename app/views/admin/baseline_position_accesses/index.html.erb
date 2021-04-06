@@ -4,6 +4,21 @@
       <h3 class="page-title">
         <%= t(".title") %>
       </h3>
+      <%= form_tag admin_baseline_position_accesses_path, method: :get, class: 'form-inline' do -%>
+        <div class="form-group mr-2">
+          <label for="text-b-postcode"><%= t(".table.b_postcode") -%>：</label>
+          <%= text_field_tag 'b_postcode', @b_postcode, class: 'form-control form-control2', id: 'text-b-postcode' %>
+        </div>
+        <div class="form-group mx-2">
+          <label for="text-b-postname"><%= t(".table.b_postname") -%>：</label>
+          <%= text_field_tag 'b_postname', @b_postname, class: 'form-control', id: 'text-b-postname' %>
+        </div>
+        <div class="form-group mx-2">
+          <label for="select-contract-map-access"><%= t(".table.contract_map_access") -%>：</label>
+          <%= select_tag :contract_map_access, options_for_select(BaselinePositionAccess.contract_map_access_options, @contract_map_access), include_blank: true, class: 'form-control form-control-plain', id: 'select-contract-map-access' %>
+        </div>
+        <div><%= submit_tag t(".action.search"), class: 'btn btn-primary' %></div>
+      <% end -%>
       <div class="table-responsive mt-3">
         <table class="table table-striped">
           <thead>

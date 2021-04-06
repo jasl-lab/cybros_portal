@@ -5,7 +5,13 @@ class Admin::BaselinePositionAccessesController < Admin::ApplicationController
 
   def index
     prepare_meta_tags title: t('.title')
+    @b_postcode = params[:b_postcode]
+    @b_postname = params[:b_postname]
+    @contract_map_access = params[:contract_map_access]
     @baseline_position_accesses = BaselinePositionAccess.all
+    @baseline_position_accesses = @baseline_position_accesses.where(b_postcode: @b_postcode) if @b_postcode.present?
+    @baseline_position_accesses = @baseline_position_accesses.where('b_postname LIKE ?', "%#{@b_postname}%") if @b_postname.present?
+    @baseline_position_accesses = @baseline_position_accesses.where(contract_map_access: @contract_map_access) if @contract_map_access.present?
   end
 
   def edit

@@ -8,6 +8,8 @@ zh-CN:
           b_postcode: "岗位编码"
           b_postname: "岗位名称"
           contract_map_access: "项目地图权限"
+        action:
+          search: "搜索"
       td_baseline_position_access:
         action:
           edit: "编辑"
