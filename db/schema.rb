@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_024816) do
+ActiveRecord::Schema.define(version: 2021_04_06_072555) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 2021_04_06_024816) do
     t.bigint "user_id", null: false
     t.index ["jti"], name: "index_allowlisted_jwts_on_jti", unique: true
     t.index ["user_id"], name: "index_allowlisted_jwts_on_user_id"
+  end
+
+  create_table "baseline_position_accesses", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "b_postcode"
+    t.string "b_postname"
+    t.integer "contract_map_access", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "cad_operations", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
