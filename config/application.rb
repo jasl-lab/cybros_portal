@@ -27,14 +27,6 @@ Dir[Pathname.new(File.dirname(__FILE__)).realpath.parent.join('lib', 'monkey_pat
   require file
 end
 
-# Require monkey patches
-Dir[Pathname.new(File.dirname(__FILE__)).realpath.parent.join('lib', 'monkey_patches', '*.rb')].map do |file|
-  require file
-end
-
-# Require map CoordConvert
-require Pathname.new(File.dirname(__FILE__)).realpath.parent.join('lib', 'coord_convert.rb')
-
 module CybrosCore
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -85,3 +77,4 @@ module CybrosCore
 end
 
 require Rails.root.join('lib', 'aes_encrypt_decrypt.rb')
+require Rails.root.join('lib', 'coord_convert.rb')

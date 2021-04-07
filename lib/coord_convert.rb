@@ -1,3 +1,4 @@
+# https://gist.github.com/fcce/e191fccad127b094b64ef61ffc8b72af
 class CoordConvert
   class << self
     PI = 3.14159265358979324
