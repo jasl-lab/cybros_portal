@@ -46,7 +46,10 @@ export default class extends Controller {
         type: 'category',
         silent: true,
         boundaryGap: true,
-        width: 50,
+        axisLabel: {
+          interval: 0,
+          rotate: -40
+        },
         data: orgNames
       },
       yAxis: [{
