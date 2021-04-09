@@ -17,4 +17,36 @@
       </div>
     </div>
   </div>
+  <div class="col-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th rowspan="3">公司</th>
+          <th colspan="2">上海地区属地服务</th>
+          <th rowspan="2">体系专家费用</th>
+          <th rowspan="3">合计</th>
+        </tr>
+        <tr>
+          <th>上海天华费用</th>
+          <th>上海区域其他子公司费用（含子公司驻上海区域创作中心）</th>
+        </tr>
+        <tr>
+          <th>金额</th>
+          <th>金额</th>
+          <th>金额</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @split_cost_item_details.each_with_index do |d| %>
+          <tr>
+            <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.to_split_company_code, d.to_split_company_code) %></td>
+            <td><%= d.group_cost %></td>
+            <td><%= d.shanghai_area_cost %></td>
+            <td><%= d.shanghai_hq_cost %></td>
+            <td><%= d.group_cost+d.shanghai_area_cost+d.shanghai_hq_cost %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
