@@ -173,7 +173,12 @@ module API
           map_infos = map_infos.where(scalearea: scales[0].to_f..scales[1].to_f)
         end
         if company.present?
-          map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department || '.+'}")
+          department_reg = if department.present?
+            "(#{department.split(',').map{|item| "(#{item})"}.join('|')})"
+          else
+            '.+'
+          end
+          map_infos = map_infos.where('maindeptname REGEXP ?', "#{company}-?#{department_reg}")
         end
         map_infos = map_infos.where(tracestate: trace_state)
         map_infos = map_infos.where('YEAR(CREATEDDATE) IN (?)', year) if @is_commercial && year.present?
