@@ -4,3 +4,5 @@ en:
     cost_allocation_monthly_flows:
       index:
         title: "Monthly approval record for group expense allocation"
+        month_name: "Month"
+        confirm: "Confirm"
