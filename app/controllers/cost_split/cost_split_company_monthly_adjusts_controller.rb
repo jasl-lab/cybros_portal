@@ -2,8 +2,10 @@
 
 class CostSplit::CostSplitCompanyMonthlyAdjustsController < CostSplit::BaseController
   def create
-    SplitCost::CostSplitCompanyMonthlyAdjust
-      .create(split_cost_cost_split_company_monthly_adjust_params.merge(user_id: current_user.id))
+    to_split_company_code = split_cost_cost_split_company_monthly_adjust_params.delete(:to_split_company_code)
+    month = split_cost_cost_split_company_monthly_adjust_params.delete(:month)
+    adj = SplitCost::CostSplitCompanyMonthlyAdjust.find_or_create_by(to_split_company_code: to_split_company_code, month: month)
+    adj.update(split_cost_cost_split_company_monthly_adjust_params.merge(user_id: current_user.id))
   end
 
   private

@@ -54,23 +54,23 @@
       <tbody>
         <% @split_cost_item_details.each_with_index do |d| %>
           <% ca = @current_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } %>
-          <% na = @next_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } || SplitCost::CostSplitCompanyMonthlyAdjust.new(month: @beginning_of_month, to_split_company_code: d.to_split_company_code) %>
+          <% na = @next_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } || SplitCost::CostSplitCompanyMonthlyAdjust.new(month: @beginning_of_month.next_month.beginning_of_month, to_split_company_code: d.to_split_company_code) %>
           <tr>
             <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.to_split_company_code, d.to_split_company_code) %></td>
-            <td><%= d.group_cost %></td>
-            <td><%= d.shanghai_area_cost %></td>
-            <td><%= d.shanghai_hq_cost %></td>
-            <td><%= d.group_cost+d.shanghai_area_cost+d.shanghai_hq_cost %></td>
-            <td><%= ca&.group_cost_adjust || 0 %></td>
-            <td><%= ca&.shanghai_area_cost_adjust || 0 %></td>
-            <td><%= ca&.shanghai_hq_cost_adjust || 0 %></td>
-            <%= form_with model: na, url: cost_split_cost_split_company_monthly_adjusts_path do |f| %>
+            <td class="py-3"><%= d.group_cost %></td>
+            <td class="py-3"><%= d.shanghai_area_cost %></td>
+            <td class="py-3"><%= d.shanghai_hq_cost %></td>
+            <td class="py-3"><%= d.group_cost+d.shanghai_area_cost+d.shanghai_hq_cost %></td>
+            <td class="py-3"><%= ca&.group_cost_adjust || 0 %></td>
+            <td class="py-3"><%= ca&.shanghai_area_cost_adjust || 0 %></td>
+            <td class="py-3"><%= ca&.shanghai_hq_cost_adjust || 0 %></td>
+            <%= form_with model: na, url: cost_split_cost_split_company_monthly_adjusts_path, method: :post do |f| %>
               <%= f.hidden_field :to_split_company_code %>
               <%= f.hidden_field :month %>
-              <td><%= f.text_field :group_cost_adjust, class: 'form-control' -%></td>
-              <td><%= f.text_field :shanghai_area_cost_adjust, class: 'form-control' -%></td>
-              <td><%= f.text_field :shanghai_hq_cost_adjust, class: 'form-control' -%></td>
-              <td><%= f.submit '保存', class: 'btn btn-primary' -%></td>
+              <td><%= f.text_field :group_cost_adjust, class: 'form-control mt-1' -%></td>
+              <td><%= f.text_field :shanghai_area_cost_adjust, class: 'form-control mt-1' -%></td>
+              <td><%= f.text_field :shanghai_hq_cost_adjust, class: 'form-control mt-1' -%></td>
+              <td><%= f.submit '保存', class: 'btn btn-primary mt-1' -%></td>
             <% end %>
           </tr>
         <% end %>
