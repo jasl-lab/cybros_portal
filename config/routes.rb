@@ -193,6 +193,7 @@ Rails.application.routes.draw do
         get :drill_down_expenditure
       end
     end
+    resources :cost_allocation_monthly_flows, only: %i[index]
   end
 
   namespace :ui do

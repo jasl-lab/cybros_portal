@@ -154,9 +154,9 @@ en:
         fund_daily_fill: "Fund daily fill"
         fund_daily_fill_missing: "Missing fill fund daily"
         summary_fund_daily: "Summary fund daily"
-        summary_fund_daily: "Summary fund week"
-        summary_fund_daily: "Summary fund month"
-        summary_fund_daily: "Summary group fund"
+        summary_fund_week: "Summary fund week"
+        summary_fund_month: "Summary fund month"
+        summary_fund_sum: "Summary group fund"
       cost_split:
         header: "Cost split"
         human_resources: "Staff cost allocation settings"
@@ -166,4 +166,5 @@ en:
         split_cost_items: "Split cost items"
         allocation_bases: "Allocation bases"
         cost_allocation_summaries: "Group cost allocation summary"
+        cost_allocation_monthly_flows: "Monthly Approval Record for Cost Allocation"
         cost_allocation_summary_tables: "Group cost allocation summary table"

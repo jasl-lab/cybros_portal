@@ -156,7 +156,7 @@ zh-CN:
         summary_fund_daily: "资金日报汇总表"
         summary_fund_week: "资金周报汇总表"
         summary_fund_month: "资金月报汇总表"
-        summary_fund_sum: "集团资金汇总表"        
+        summary_fund_sum: "集团资金汇总表"
       cost_split:
         header: "费用分摊"
         human_resources: "人员成本分摊设置"
@@ -166,4 +166,5 @@ zh-CN:
         split_cost_items: "资产及费用分摊设置"
         allocation_bases: "分摊分子基数设置"
         cost_allocation_summaries: "集团性费用分摊汇总"
+        cost_allocation_monthly_flows: "费用分摊每月审批记录"
         cost_allocation_summary_tables: "集团费用分摊汇总表"

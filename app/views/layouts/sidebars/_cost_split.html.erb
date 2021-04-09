@@ -40,8 +40,16 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(SplitCost::UserSplitCostDetail).show? %>
+        <%= nav_item controller: 'cost_split/cost_allocation_monthly_flows', html_options: { class: "nav-item" } do %>
+          <%= link_to cost_split_cost_allocation_monthly_flows_path, class: "nav-link", data: { turbolinks: false } do %>
+            <i class="nav-icon fas fa-sliders-h"></i>
+            <%= t("layouts.sidebar.cost_split.cost_allocation_monthly_flows") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <%= nav_item controller: 'report/cost_allocation_summary_tables', html_options: { class: "nav-item" } do %>
-        <%= link_to report_cost_allocation_summary_table_path, class: "nav-link", data: { turbolinks: false } do %>
+        <%= link_to report_cost_allocation_summary_table_path, class: "nav-link" do %>
           <i class="nav-icon fas fa-table"></i>
           <%= t("layouts.sidebar.cost_split.cost_allocation_summary_tables") %>
         <% end %>
