@@ -194,7 +194,7 @@ Rails.application.routes.draw do
       end
     end
     resources :cost_allocation_monthly_flows, only: %i[index]
-    resources :cost_split_company_monthly_adjusts, only: %i[create update]
+    resources :cost_split_company_monthly_adjusts, only: %i[create]
   end
 
   namespace :ui do

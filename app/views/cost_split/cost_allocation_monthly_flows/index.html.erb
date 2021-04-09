@@ -54,7 +54,7 @@
       <tbody>
         <% @split_cost_item_details.each_with_index do |d| %>
           <% ca = @current_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } %>
-          <% na = @next_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } || SplitCost::CostSplitCompanyMonthlyAdjust.new %>
+          <% na = @next_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } || SplitCost::CostSplitCompanyMonthlyAdjust.new(month: @beginning_of_month, to_split_company_code: d.to_split_company_code) %>
           <tr>
             <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.to_split_company_code, d.to_split_company_code) %></td>
             <td><%= d.group_cost %></td>
@@ -65,6 +65,8 @@
             <td><%= ca&.shanghai_area_cost_adjust || 0 %></td>
             <td><%= ca&.shanghai_hq_cost_adjust || 0 %></td>
             <%= form_with model: na, url: cost_split_cost_split_company_monthly_adjusts_path do |f| %>
+              <%= f.hidden_field :to_split_company_code %>
+              <%= f.hidden_field :month %>
               <td><%= f.text_field :group_cost_adjust, class: 'form-control' -%></td>
               <td><%= f.text_field :shanghai_area_cost_adjust, class: 'form-control' -%></td>
               <td><%= f.text_field :shanghai_hq_cost_adjust, class: 'form-control' -%></td>
