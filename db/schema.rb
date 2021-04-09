@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_072555) do
+ActiveRecord::Schema.define(version: 2021_04_09_062915) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -123,6 +123,18 @@ ActiveRecord::Schema.define(version: 2021_04_06_072555) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "pmonth", null: false
+  end
+
+  create_table "cost_split_company_monthly_adjusts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "to_split_company_code"
+    t.date "month"
+    t.decimal "group_cost_adjust", precision: 10, default: "0"
+    t.decimal "shanghai_area_cost_adjust", precision: 10, default: "0"
+    t.decimal "shanghai_hq_cost_adjust", precision: 10, default: "0"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_cost_split_company_monthly_adjusts_on_user_id"
   end
 
   create_table "department_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class CostSplitCompanyMonthlyAdjust < ApplicationRecord
+end
