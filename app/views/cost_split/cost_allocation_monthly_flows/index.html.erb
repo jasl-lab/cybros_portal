@@ -22,15 +22,29 @@
       <thead>
         <tr>
           <th rowspan="3">公司</th>
-          <th colspan="2">上海地区属地服务</th>
+          <th colspan="2" class="align-middle text-center">上海地区属地服务</th>
           <th rowspan="2">体系专家费用</th>
           <th rowspan="3">合计</th>
+          <th colspan="3" class="align-middle text-center"><%= @beginning_of_month.month -%>月调整</th>
+          <th colspan="3" class="align-middle text-center">下月调整</th>
         </tr>
         <tr>
           <th>上海天华费用</th>
           <th>上海区域其他子公司费用（含子公司驻上海区域创作中心）</th>
+          <th>上海天华费用</th>
+          <th>上海区域其他子公司费用（含子公司驻上海区域创作中心）</th>
+          <th>体系专家费用</th>
+          <th>上海天华费用</th>
+          <th>上海区域其他子公司费用（含子公司驻上海区域创作中心）</th>
+          <th>体系专家费用</th>
         </tr>
         <tr>
+          <th>金额</th>
+          <th>金额</th>
+          <th>金额</th>
+          <th>金额</th>
+          <th>金额</th>
+          <th>金额</th>
           <th>金额</th>
           <th>金额</th>
           <th>金额</th>
@@ -38,12 +52,20 @@
       </thead>
       <tbody>
         <% @split_cost_item_details.each_with_index do |d| %>
+          <% ca = @current_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } %>
+          <% na = @next_adjusts.find {|adj| adj.to_split_company_code == d.to_split_company_code } %>
           <tr>
             <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.to_split_company_code, d.to_split_company_code) %></td>
             <td><%= d.group_cost %></td>
             <td><%= d.shanghai_area_cost %></td>
             <td><%= d.shanghai_hq_cost %></td>
             <td><%= d.group_cost+d.shanghai_area_cost+d.shanghai_hq_cost %></td>
+            <td><%= ca&.group_cost_adjust %></td>
+            <td><%= ca&.shanghai_area_cost_adjust %></td>
+            <td><%= ca&.shanghai_hq_cost_adjust %></td>
+            <td><%= na&.group_cost_adjust %></td>
+            <td><%= na&.shanghai_area_cost_adjust %></td>
+            <td><%= na&.shanghai_hq_cost_adjust %></td>
           </tr>
         <% end %>
       </tbody>
