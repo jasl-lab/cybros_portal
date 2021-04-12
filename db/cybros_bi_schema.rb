@@ -380,6 +380,65 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "provincename", limit: 45
   end
 
+  create_table "CRM_DEPTPLANVALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "salescontractcode"
+    t.text "salescontractname"
+    t.text "businessltdcode"
+    t.text "businessltdname"
+    t.text "businessdepartmentscode"
+    t.text "businessdepartmentsname"
+    t.text "contractstatus"
+    t.text "contractstatusname"
+    t.text "filingtime"
+    t.text "contractcategory"
+    t.text "contractcategoryname"
+    t.text "contractproperty"
+    t.text "contractpropertyname"
+    t.float "realamounttotal", limit: 53
+    t.text "projectitemcode"
+    t.text "projectitemname"
+    t.text "businesstype"
+    t.text "businesstypecnname"
+    t.text "projectcategory"
+    t.text "projectcategorycnname"
+    t.text "projectbigstage"
+    t.text "projectbigstagecnname"
+    t.text "projectstage"
+    t.text "projectstagecnname"
+    t.text "professioncomcode"
+    t.text "professioncomname"
+    t.text "professiondeptcode"
+    t.text "professiondeptname"
+    t.float "deptvalue", limit: 53
+    t.float "marketbouns", limit: 53
+    t.float "clientbouns", limit: 53
+    t.float "heji", limit: 53
+    t.text "crmunitcode"
+    t.text "crmunitname"
+    t.text "crmcode"
+    t.text "crmshort"
+    t.text "cricyear"
+    t.float "cricrank", limit: 53
+    t.bigint "crmthrank"
+    t.text "clientproperty"
+  end
+
+  create_table "CRM_TOP50", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "年份"
+    t.bigint "排名"
+    t.text "客户编码"
+    t.text "客户集团名称"
+    t.bigint "客户分类"
+  end
+
+  create_table "CRM_YEAR_REPORT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "year"
+    t.float "top20", limit: 53
+    t.float "top20to50", limit: 53
+    t.float "gt50", limit: 53
+    t.float "others", limit: 53
+  end
+
   create_table "CW_CASHFLOW_FILL", primary_key: "deptcode", id: { type: :string, limit: 45 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.date "createdate"
     t.string "deptleader", limit: 45
