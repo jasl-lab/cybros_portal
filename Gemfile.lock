@@ -136,7 +136,7 @@ GEM
     childprocess (3.0.0)
     chronic (0.10.2)
     concurrent-ruby (1.1.8)
-    config (3.0.0)
+    config (3.1.0)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
     connection_pool (2.2.3)
@@ -515,4 +515,4 @@ RUBY VERSION
    ruby 2.7.1p83
 
 BUNDLED WITH
-   2.2.15
+   2.2.16
