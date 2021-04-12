@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_062915) do
+ActiveRecord::Schema.define(version: 2021_04_12_074347) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(version: 2021_04_09_062915) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_expense_share_plan_approval_id"
+    t.index ["group_expense_share_plan_approval_id"], name: "idx_monthly_adjusts_on_group_expense_share_plan_approval_id"
     t.index ["user_id"], name: "index_cost_split_company_monthly_adjusts_on_user_id"
   end
 
@@ -169,6 +171,17 @@ ActiveRecord::Schema.define(version: 2021_04_09_062915) do
     t.string "question"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "group_expense_share_plan_approvals", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "begin_task_id"
+    t.boolean "backend_in_processing", default: false
+    t.string "status"
+    t.string "bpm_message"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_group_expense_share_plan_approvals_on_user_id"
   end
 
   create_table "knowledge_likes", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -751,6 +764,7 @@ ActiveRecord::Schema.define(version: 2021_04_09_062915) do
   add_foreign_key "copy_of_business_license_applies", "users"
   add_foreign_key "direct_question_answers", "direct_questions"
   add_foreign_key "direct_question_answers", "knowledges"
+  add_foreign_key "group_expense_share_plan_approvals", "users"
   add_foreign_key "knowledge_likes", "users"
   add_foreign_key "manual_hr_access_codes", "users"
   add_foreign_key "manual_operation_access_codes", "users"
