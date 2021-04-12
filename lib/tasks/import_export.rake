@@ -89,6 +89,7 @@ namespace :import_export do
       user.password_confirmation = random_password
       user.save
 
+      puts "Updating user: #{user.id}"
       combine_departments.each do |cd|
         cds = cd.split('@')
         id = cds[0]
