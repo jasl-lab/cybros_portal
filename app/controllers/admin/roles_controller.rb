@@ -16,10 +16,10 @@ class Admin::RolesController < Admin::ApplicationController
     @users = @role.users.includes(:departments)
     @users_auto = case @role.id
                   when 6  # 查看项目地图并允许下载合同
-                    position_ids = Position.joins(:baseline_position_access).where(baseline_position_access: { contract_map_access: 1 }).pluck(:id)
+                    position_ids = Position.joins(:baseline_position_access).where(baseline_position_access: { contract_map_access: BaselinePositionAccess.contract_map_accesses[:project_detail_with_download] }).pluck(:id)
                     User.joins(:position_users).where(position_users: { position_id: position_ids }).distinct
                   when 30 # 查看项目地图与合同信息
-                    position_ids = Position.joins(:baseline_position_access).where(baseline_position_access: { contract_map_access: [1, 2] }).pluck(:id)
+                    position_ids = Position.joins(:baseline_position_access).where(baseline_position_access: { contract_map_access: [BaselinePositionAccess.contract_map_accesses[:project_detail_with_download], BaselinePositionAccess.contract_map_accesses[:view_project_details]] }).pluck(:id)
                     User.joins(:position_users).where(position_users: { position_id: position_ids }).distinct
                   else
                     []
