@@ -193,7 +193,11 @@ Rails.application.routes.draw do
         get :drill_down_expenditure
       end
     end
-    resources :cost_allocation_monthly_flows, only: %i[index]
+    resources :cost_allocation_monthly_flows, only: %i[index show] do
+      member do
+        patch :start_approve
+      end
+    end
     resources :cost_split_company_monthly_adjusts, only: %i[create]
   end
 

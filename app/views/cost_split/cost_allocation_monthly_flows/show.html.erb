@@ -5,7 +5,7 @@
     </h3>
     <div class="row">
       <div class="col-lg-12">
-        <%= form_tag cost_split_cost_allocation_summary_path, method: :get, class: 'form-inline' do -%>
+        <%= form_tag cost_split_cost_allocation_monthly_flows_path, method: :get, class: 'form-inline' do -%>
           <div class="form-group mr-3">
             <label class="mr-1"><%= t(".month_name") -%>：</label>
             <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>

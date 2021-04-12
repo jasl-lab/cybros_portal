@@ -5,10 +5,16 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
 
   def index
     prepare_meta_tags title: t('.title')
-    @all_month_names = policy_scope(SplitCost::UserSplitCostDetail).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.first
-    @beginning_of_month = Date.parse(@month_name).beginning_of_month
+    all_month_names = policy_scope(SplitCost::UserSplitCostDetail).all_month_names
+    month_name = params[:month_name]&.strip || all_month_names.first
 
+    redirect_to cost_split_cost_allocation_monthly_flow_path(id: month_name)
+  end
+
+  def show
+    @month_name = params[:id]
+    @all_month_names = policy_scope(SplitCost::UserSplitCostDetail).all_month_names
+    @beginning_of_month = Date.parse(@month_name).beginning_of_month
     @split_cost_item_details = SplitCost::SplitCostItemDetail
       .where(month: @beginning_of_month)
       .order(:to_split_company_code)
