@@ -12,12 +12,13 @@
           </div>
           <div>
             <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+            <%= link_to t('.start_approve'), start_approve_cost_split_cost_allocation_monthly_flow_path(id: @month_name), method: :patch, class: 'btn btn-secondary' -%>
           </div>
         <% end -%>
       </div>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-12 mt-2">
     <table class="table table-bordered">
       <thead>
         <tr>

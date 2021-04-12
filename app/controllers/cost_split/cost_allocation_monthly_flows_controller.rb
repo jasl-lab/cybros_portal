@@ -24,4 +24,11 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
     @current_adjusts = SplitCost::CostSplitCompanyMonthlyAdjust.where(month: @beginning_of_month)
     @next_adjusts = SplitCost::CostSplitCompanyMonthlyAdjust.where(month: @beginning_of_month.next_month.beginning_of_month)
   end
+
+  def start_approve
+    month_name = params[:id]
+    beginning_of_month = Date.parse(month_name).beginning_of_month
+
+    redirect_to cost_split_cost_allocation_monthly_flow_path(id: month_name), notice: t('.approve_success')
+  end
 end

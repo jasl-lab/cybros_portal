@@ -6,3 +6,6 @@ en:
         title: "Monthly approval record for group expense allocation"
         month_name: "Month"
         confirm: "Confirm"
+        start_approve: "Initiation process"
+      start_approve:
+        approve_success: "approve start successfully."
