@@ -68,6 +68,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
 
       {
         company_code: d.to_split_company_code,
+        company_name: Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.to_split_company_code, d.to_split_company_code),
         group_cost: d.group_cost,
         shanghai_area_cost: d.shanghai_area_cost,
         shanghai_hq_cost: d.shanghai_hq_cost,
