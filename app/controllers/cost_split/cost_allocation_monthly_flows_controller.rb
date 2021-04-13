@@ -84,6 +84,8 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
 
     bizData = {
       sender: 'Cybros',
+      approval_id: gespa.id,
+      approval_month: gespa.month.to_s(:short_date),
       approval_contents: approval_contents
     }
 
