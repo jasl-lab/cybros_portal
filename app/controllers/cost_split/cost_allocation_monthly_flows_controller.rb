@@ -42,8 +42,49 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
       return
     end
 
+    split_cost_item_details = SplitCost::SplitCostItemDetail
+      .where(month: beginning_of_month)
+      .order(:to_split_company_code)
+      .group(:to_split_company_code)
+      .select('to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
+
+    current_adjusts = SplitCost::CostSplitCompanyMonthlyAdjust
+      .where(month: beginning_of_month, group_expense_share_plan_approval_id: gespa.id)
+
+    user_split_cost_details = SplitCost::UserSplitCostDetail.where(month: beginning_of_month)
+      .select('to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
+      .group(:to_split_company_code)
+      .order(:to_split_company_code)
+
+    split_cost_item_details = SplitCost::SplitCostItemDetail.where(month: beginning_of_month)
+      .select('split_cost_item_category, to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
+      .group(:split_cost_item_category, :to_split_company_code)
+      .order(:split_cost_item_category, :to_split_company_code)
+
+    approval_contents = split_cost_item_details.collect do |d|
+      ca = current_adjusts.find { |adj| adj.to_split_company_code == d.to_split_company_code }
+      uscd = user_split_cost_details.find { |usd| usd.to_split_company_code == d.to_split_company_code }
+      scids = split_cost_item_details.find_all { |scd| scd.to_split_company_code == d.to_split_company_code }
+
+      {
+        company_code: d.to_split_company_code,
+        group_cost: d.group_cost,
+        shanghai_area_cost: d.shanghai_area_cost,
+        shanghai_hq_cost: d.shanghai_hq_cost,
+        group_cost_adjust: ca&.group_cost_adjust,
+        shanghai_area_cost_adjust: ca&.shanghai_area_cost_adjust,
+        shanghai_hq_cost_adjust: ca&.shanghai_hq_cost_adjust,
+        user_split_cost_details_wages: uscd.group_cost.to_i + uscd.shanghai_area_cost.to_i + uscd.shanghai_hq_cost.to_i,
+        split_cost_item_fixed_assets: scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost),
+        split_cost_item_intangible_assets: scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost),
+        split_cost_item_operational_expenditure_budget: scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_hq_cost)
+      }
+    end
+    Rails.logger.debug "CostAllocationMonthlyFlows approval_contents: #{approval_contents}"
+
     bizData = {
-      sender: 'Cybros'
+      sender: 'Cybros',
+      approval_contents: approval_contents
     }
 
     gespa.update_columns(backend_in_processing: true)
