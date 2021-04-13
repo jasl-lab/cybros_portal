@@ -29,6 +29,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
     month_name = params[:id]
     beginning_of_month = Date.parse(month_name).beginning_of_month
 
+
     redirect_to cost_split_cost_allocation_monthly_flow_path(id: month_name), notice: t('.approve_success')
   end
 end
