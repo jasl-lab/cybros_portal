@@ -37,6 +37,28 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
       cscma.update(group_expense_share_plan_approval_id: gespa.id)
     end
 
-    redirect_to cost_split_cost_allocation_monthly_flow_path(id: gespa.id), notice: t('.approve_success')
+    if gespa.begin_task_id.present? || gespa.backend_in_processing
+      redirect_to cost_split_cost_allocation_monthly_flow_path(id: gespa.id), notice: t('.repeated_approve_request')
+      return
+    end
+
+    bizData = {
+      sender: 'Cybros'
+    }
+
+    gespa.update_columns(backend_in_processing: true)
+    response = HTTP.post("#{Rails.application.credentials[Rails.env.to_sym][:bpm_core_process_handler]}/Submit/GroupExpenseSharePlanApproval/Begin/1",
+      json: { userCode: current_user.clerk_code, comments: '', taskId: '', bizData: bizData.to_json })
+    Rails.logger.debug "CostAllocationMonthlyFlows response: #{response}"
+    result = JSON.parse(response.body.to_s)
+    gespa.update_columns(backend_in_processing: false)
+
+    if result['isSuccess'] == '1'
+      gespa.update_columns(begin_task_id: result['BeginTaskId'])
+      redirect_to cost_split_cost_allocation_monthly_flow_path(id: gespa.id), notice: t('.approve_success')
+    else
+      gespa.update_columns(bpm_message: result['message'])
+      redirect_to cost_split_cost_allocation_monthly_flow_path(id: gespa.id), notice: t('.approve_failed', message: result['message'])
+    end
   end
 end

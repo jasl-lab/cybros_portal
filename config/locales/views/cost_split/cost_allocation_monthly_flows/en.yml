@@ -8,4 +8,6 @@ en:
         confirm: "Confirm"
         start_approve: "Initiation process"
       start_approve:
-        approve_success: "approve start successfully."
+        approve_success: "The monthly approval application process for group cost sharing was successfully initiated."
+        approve_failed: "The monthly appropriation and application initiation process failed for group expense sharing, BPM returned：%{message}"
+        repeated_approve_request: "Proof of employment apply process is already initialized."

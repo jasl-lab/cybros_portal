@@ -8,4 +8,6 @@ zh-CN:
         confirm: "确认"
         start_approve: "发起流程"
       start_approve:
-        approve_success: "流程发起成功"
+        approve_success: "集团性费用分摊每月审批申请流程发起成功."
+        approve_failed: "集团性费用分摊每月审批申请发起流程失败，BPM返回：%{message}."
+        repeated_approve_request: "The monthly approval application process for group cost sharing has been initiated."
