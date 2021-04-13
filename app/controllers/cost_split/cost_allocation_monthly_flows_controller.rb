@@ -12,9 +12,10 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
   end
 
   def show
-    @month_name = params[:id]
+    gespa = SplitCost::GroupExpenseSharePlanApproval.find_by id: params[:id]
+    @month_name = gespa&.month || params[:id]
     @all_month_names = policy_scope(SplitCost::UserSplitCostDetail).all_month_names
-    @beginning_of_month = Date.parse(@month_name).beginning_of_month
+    @beginning_of_month = @month_name.is_a?(Date) ? @month_name : Date.parse(@month_name).beginning_of_month
     @split_cost_item_details = SplitCost::SplitCostItemDetail
       .where(month: @beginning_of_month)
       .order(:to_split_company_code)
@@ -29,7 +30,10 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
     month_name = params[:id]
     beginning_of_month = Date.parse(month_name).beginning_of_month
 
+    gespa = SplitCost::GroupExpenseSharePlanApproval.find_or_initialize_by(month: beginning_of_month)
+    gespa.user_id = current_user.id
+    gespa.save
 
-    redirect_to cost_split_cost_allocation_monthly_flow_path(id: month_name), notice: t('.approve_success')
+    redirect_to cost_split_cost_allocation_monthly_flow_path(id: gespa.id), notice: t('.approve_success')
   end
 end
