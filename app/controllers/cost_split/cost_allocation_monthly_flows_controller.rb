@@ -33,6 +33,9 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
     gespa = SplitCost::GroupExpenseSharePlanApproval.find_or_initialize_by(month: beginning_of_month)
     gespa.user_id = current_user.id
     gespa.save
+    SplitCost::CostSplitCompanyMonthlyAdjust.where(month: gespa.month).each do |cscma|
+      cscma.update(group_expense_share_plan_approval_id: gespa.id)
+    end
 
     redirect_to cost_split_cost_allocation_monthly_flow_path(id: gespa.id), notice: t('.approve_success')
   end
