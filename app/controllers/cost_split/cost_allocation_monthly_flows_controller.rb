@@ -16,8 +16,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
     @month_name = gespa&.month || params[:id]
     @all_month_names = policy_scope(SplitCost::UserSplitCostDetail).all_month_names
     @beginning_of_month = @month_name.is_a?(Date) ? @month_name : Date.parse(@month_name).beginning_of_month
-    @split_cost_item_details = SplitCost::SplitCostItemDetail
-      .where(month: @beginning_of_month)
+    @split_cost_item_details = SplitCost::SplitCostItemDetail.where(month: @beginning_of_month)
       .order(:to_split_company_code)
       .group(:to_split_company_code)
       .select('to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
@@ -42,8 +41,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
       return
     end
 
-    split_cost_item_details = SplitCost::SplitCostItemDetail
-      .where(month: beginning_of_month)
+    split_cost_items = SplitCost::SplitCostItemDetail.where(month: beginning_of_month)
       .order(:to_split_company_code)
       .group(:to_split_company_code)
       .select('to_split_company_code, SUM(IFNULL(group_cost,0)) group_cost, SUM(IFNULL(shanghai_area_cost,0)) shanghai_area_cost, SUM(IFNULL(shanghai_hq_cost,0)) shanghai_hq_cost')
@@ -61,7 +59,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
       .group(:split_cost_item_category, :to_split_company_code)
       .order(:split_cost_item_category, :to_split_company_code)
 
-    approval_contents = split_cost_item_details.collect do |d|
+    approval_contents = split_cost_items.collect do |d|
       ca = current_adjusts.find { |adj| adj.to_split_company_code == d.to_split_company_code }
       uscd = user_split_cost_details.find { |usd| usd.to_split_company_code == d.to_split_company_code }
       scids = split_cost_item_details.find_all { |scd| scd.to_split_company_code == d.to_split_company_code }
