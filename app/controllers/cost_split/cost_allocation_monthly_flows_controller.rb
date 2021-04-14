@@ -64,19 +64,28 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
       uscd = user_split_cost_details.find { |usd| usd.to_split_company_code == d.to_split_company_code }
       scids = split_cost_item_details.find_all { |scd| scd.to_split_company_code == d.to_split_company_code }
 
+      user_split_cost_details_wages = uscd.group_cost.to_i + uscd.shanghai_area_cost.to_i + uscd.shanghai_hq_cost.to_i
+      split_cost_item_fixed_assets = scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost)
+      split_cost_item_intangible_assets = scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost)
+      split_cost_item_operational_expenditure_budget = scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_hq_cost)
+      split_cost_item_wages_assets_total = user_split_cost_details_wages.to_i + split_cost_item_fixed_assets.to_i + split_cost_item_intangible_assets.to_i + split_cost_item_operational_expenditure_budget.to_i
       {
         company_code: d.to_split_company_code,
         company_name: Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.to_split_company_code, d.to_split_company_code),
         group_cost: d.group_cost,
         shanghai_area_cost: d.shanghai_area_cost,
         shanghai_hq_cost: d.shanghai_hq_cost,
+        before_adjust_total_cost: d.group_cost.to_i + d.shanghai_area_cost.to_i + d.shanghai_hq_cost.to_i,
         group_cost_adjust: ca&.group_cost_adjust,
         shanghai_area_cost_adjust: ca&.shanghai_area_cost_adjust,
         shanghai_hq_cost_adjust: ca&.shanghai_hq_cost_adjust,
-        user_split_cost_details_wages: uscd.group_cost.to_i + uscd.shanghai_area_cost.to_i + uscd.shanghai_hq_cost.to_i,
-        split_cost_item_fixed_assets: scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost),
-        split_cost_item_intangible_assets: scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost),
-        split_cost_item_operational_expenditure_budget: scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '业务性支出预算' }.sum(&:shanghai_hq_cost)
+        user_split_cost_details_wages: user_split_cost_details_wages,
+        split_cost_item_fixed_assets: split_cost_item_fixed_assets,
+        split_cost_item_intangible_assets: split_cost_item_intangible_assets,
+        split_cost_item_operational_expenditure_budget: split_cost_item_operational_expenditure_budget,
+        split_cost_item_wages_assets_total: split_cost_item_wages_assets_total,
+        split_cost_item_wages_assets_tax: 0.06,
+        split_cost_item_wages_assets_total_with_tax: split_cost_item_wages_assets_total*0.06
       }
     end
     Rails.logger.debug "CostAllocationMonthlyFlows approval_contents: #{approval_contents}"
