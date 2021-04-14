@@ -380,6 +380,27 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "provincename", limit: 45
   end
 
+  create_table "CRM_CLIENT_ONEYEAR", primary_key: "crmcode", id: { type: :string, limit: 20 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.float "avgamount", limit: 53
+    t.float "avgarea", limit: 53
+    t.float "avgsignday", limit: 53
+    t.float "contractalter", limit: 53
+    t.float "landhrcost", limit: 53
+  end
+
+  create_table "CRM_CLIENT_SUM", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "cricyear"
+    t.string "crmcode", limit: 20
+    t.text "crmshort"
+    t.float "heji", limit: 53
+    t.float "cricrank", limit: 53
+    t.string "clientproperty", limit: 50
+    t.text "topthreegroup"
+    t.float "designvalue", limit: 53
+    t.float "constructionvalue", limit: 53
+    t.float "fullvalue", limit: 53
+  end
+
   create_table "CRM_DEPTPLANVALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.text "salescontractcode"
     t.text "salescontractname"
@@ -425,18 +446,20 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
 
   create_table "CRM_TOP50", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "年份"
-    t.bigint "排名"
-    t.text "客户编码"
+    t.integer "排名"
+    t.string "客户编码", limit: 10
     t.text "客户集团名称"
-    t.bigint "客户分类"
+    t.string "客户分类", limit: 50
   end
 
-  create_table "CRM_YEAR_REPORT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "year"
+  create_table "CRM_YEAR_REPORT", primary_key: ["year", "orgcode"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "year", limit: 5, null: false
+    t.string "orgcode", limit: 45, null: false
     t.float "top20", limit: 53
     t.float "top20to50", limit: 53
     t.float "gt50", limit: 53
     t.float "others", limit: 53
+    t.float "heji", limit: 53
   end
 
   create_table "CW_CASHFLOW_FILL", primary_key: "deptcode", id: { type: :string, limit: 45 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1584,29 +1607,52 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "V_TH_SACONTRACTPRICE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "projectcode"
+    t.text "projectname"
+    t.text "salescontractcode"
+    t.text "salescontractname"
+    t.text "contractstatus"
+    t.text "contractstatusname"
+    t.text "contractcategory"
+    t.text "contractcategoryname"
+    t.text "contractproperty"
+    t.text "contractpropertyname"
+    t.text "belongcompanyname"
+    t.float "realamounttotal", limit: 53
+    t.text "scaletype"
+    t.text "scaletypecnname"
+    t.float "scalearea", limit: 53
+    t.text "area"
+    t.text "provincecode"
+    t.text "provincename"
+    t.text "city"
+    t.text "cityname"
+    t.text "proareacode"
+    t.text "areaname"
+    t.text "filingtime"
+    t.text "businessltd"
+    t.text "businessltdcode"
+    t.text "businessltdname"
+    t.text "businessdepartments"
+    t.text "businessdepartmentscode"
+    t.text "businessdepartmentsname"
     t.text "operationgenre"
     t.text "operationgenrename"
-    t.text "projectitemgenre"
-    t.text "projectitemgenrename"
+    t.text "projectgener"
+    t.text "projectgenername"
     t.text "buildinggenre"
     t.text "buildinggenrename"
     t.text "projectbigstage"
-    t.text "bigstagename"
+    t.text "projectbigstagename"
     t.text "stage"
     t.text "stagename"
-    t.text "major"
-    t.text "isneedcheck"
-    t.text "istargetstage"
     t.float "scale", limit: 53
-    t.float "univalence", limit: 53
-    t.text "unitsname"
-    t.float "discountprice", limit: 53
-    t.text "settlementrate"
     t.text "units"
+    t.text "unitsname"
+    t.float "univalence", limit: 53
+    t.float "discountprice", limit: 53
+    t.float "discounttotal", limit: 53
     t.float "subtotal", limit: 53
-    t.text "salescontractid"
-    t.datetime "createddate"
-    t.datetime "redatedate"
   end
 
   create_table "V_TH_SALESFILES", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
