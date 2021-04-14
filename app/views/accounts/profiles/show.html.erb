@@ -1,27 +1,47 @@
 <div class="row justify-content-center">
   <div class="col-lg-12">
     <div class="container">
+      <%= form_with(model: @user, url: account_profile_path, html: { method: :put }) do |f| %>
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-md-4">
           <h5>
-            <%= t(".section.email.title") %>
+            <%= t(".section.open_in_new_tab.title") %>
           </h5>
           <p class="text-muted">
-            <%= t(".section.email.description") %>
+            <%= t(".section.open_in_new_tab.description") %>
           </p>
         </div>
-        <div class="col-lg-8">
-          <%= form_with(model: @user, url: account_profile_path, html: {method: :put}, local: true) do |f| %>
+        <div class="col-md-8">
             <div class="form-group text-left">
-              <%= f.label :email %>
-              <%= f.email_field :email, id: "user_email", autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>
-              <%= f.error_message :email, class: "invalid-feedback" %>
+              <%= f.label :open_in_new_tab %>
+              <%= f.text_field :open_in_new_tab, autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>
+              <%= f.error_message :open_in_new_tab, class: "invalid-feedback" %>
             </div>
-
-            <%= f.submit t(".submit"), class: "btn btn-block btn-primary" %>
-          <% end %>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h5>
+            <%= t(".section.per_page.title") %>
+          </h5>
+          <p class="text-muted">
+            <%= t(".section.per_page.description") %>
+          </p>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group text-left">
+              <%= f.label :per_page %>
+              <%= f.text_field :per_page, class: "form-control", class_for_error: "is-invalid" %>
+              <%= f.error_message :per_page, class: "invalid-feedback" %>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <%= f.submit t(".submit"), class: "btn btn-block btn-primary" %>
+        </div>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

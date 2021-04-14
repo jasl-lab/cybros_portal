@@ -1,3 +1,4 @@
+---
 en:
   accounts:
     profiles:
@@ -6,6 +7,9 @@ en:
         submit: "Submit"
         updated: "Profile update successfully"
         section:
-          email:
-            title: "Email"
-            description: "After a successful email update, you should use new email on next log in."
+          open_in_new_tab:
+            title: "Unit"
+            description: "How do i call you?"
+          per_page:
+            title: "Per page number"
+            description: "How many items in single page?"

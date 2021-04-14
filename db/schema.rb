@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_13_014611) do
+ActiveRecord::Schema.define(version: 2021_04_14_060237) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -713,6 +713,8 @@ ActiveRecord::Schema.define(version: 2021_04_13_014611) do
     t.string "mobile"
     t.date "entry_company_date"
     t.boolean "gender", default: true
+    t.integer "per_page", default: 12
+    t.boolean "open_in_new_tab", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
