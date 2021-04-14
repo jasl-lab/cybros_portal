@@ -154,7 +154,7 @@ GEM
     devise-jwt (0.8.1)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.5)
-    devise_invitable (2.0.3)
+    devise_invitable (2.0.4)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     domain_name (0.5.20190701)
