@@ -64,6 +64,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
       uscd = user_split_cost_details.find { |usd| usd.to_split_company_code == d.to_split_company_code }
       scids = split_cost_item_details.find_all { |scd| scd.to_split_company_code == d.to_split_company_code }
 
+      before_adjust_total_cost = d.group_cost.to_i + d.shanghai_area_cost.to_i + d.shanghai_hq_cost.to_i
       user_split_cost_details_wages = uscd.group_cost.to_i + uscd.shanghai_area_cost.to_i + uscd.shanghai_hq_cost.to_i
       split_cost_item_fixed_assets = scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '固定资产' }.sum(&:shanghai_hq_cost)
       split_cost_item_intangible_assets = scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:group_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_area_cost) + scids.filter { |u| u.split_cost_item_category == '无形资产' }.sum(&:shanghai_hq_cost)
@@ -75,17 +76,17 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
         group_cost: d.group_cost,
         shanghai_area_cost: d.shanghai_area_cost,
         shanghai_hq_cost: d.shanghai_hq_cost,
-        before_adjust_total_cost: d.group_cost.to_i + d.shanghai_area_cost.to_i + d.shanghai_hq_cost.to_i,
         group_cost_adjust: ca&.group_cost_adjust,
         shanghai_area_cost_adjust: ca&.shanghai_area_cost_adjust,
         shanghai_hq_cost_adjust: ca&.shanghai_hq_cost_adjust,
+        after_adjust_total_cost: before_adjust_total_cost + ca&.group_cost_adjust.to_i + ca&.shanghai_area_cost_adjust.to_i + ca&.shanghai_hq_cost_adjust.to_i,
         user_split_cost_details_wages: user_split_cost_details_wages,
         split_cost_item_fixed_assets: split_cost_item_fixed_assets,
         split_cost_item_intangible_assets: split_cost_item_intangible_assets,
         split_cost_item_operational_expenditure_budget: split_cost_item_operational_expenditure_budget,
         split_cost_item_wages_assets_total: split_cost_item_wages_assets_total,
         split_cost_item_wages_assets_tax: 0.06,
-        split_cost_item_wages_assets_total_with_tax: split_cost_item_wages_assets_total*0.06
+        split_cost_item_wages_assets_total_with_tax: split_cost_item_wages_assets_total*1.06
       }
     end
     Rails.logger.debug "CostAllocationMonthlyFlows approval_contents: #{approval_contents}"
