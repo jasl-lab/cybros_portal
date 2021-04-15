@@ -151,4 +151,5 @@ namespace :report do
   resource :contract_provice_area, only: %i[show]
   resource :customer_analysis, only: %i[show]
   resource :year_report_history, only: %i[show]
+  resource :crm_year_report, only: %i[show]
 end
