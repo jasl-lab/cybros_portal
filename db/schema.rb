@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_060237) do
+ActiveRecord::Schema.define(version: 2021_04_15_060718) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 2021_04_14_060237) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "group_expense_share_plan_approval_id"
+    t.string "approval_message"
+    t.string "status"
     t.index ["group_expense_share_plan_approval_id"], name: "idx_monthly_adjusts_on_group_expense_share_plan_approval_id"
     t.index ["user_id"], name: "index_cost_split_company_monthly_adjusts_on_user_id"
   end

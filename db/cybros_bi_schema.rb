@@ -50,6 +50,20 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "savedate"
   end
 
+  create_table "BI_KPI_INFO", primary_key: ["指标代码", "开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "指标代码", null: false, auto_increment: true
+    t.date "开始时间", null: false
+    t.text "一级分类"
+    t.text "二级分类"
+    t.text "指标名称"
+    t.text "指标定义"
+    t.text "计算公式"
+    t.text "原子指标"
+    t.text "其他修饰词"
+    t.text "时间周期"
+    t.text "备注"
+  end
+
   create_table "BI_MESSAGE_BOX", primary_key: "MESSAGEID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "title", limit: 200, null: false, comment: "文档标题"
     t.text "text"

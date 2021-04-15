@@ -15,7 +15,7 @@ module API
       if name_card_apply.save(validate: false)
         render json: { is_success: true }, status: :ok
       else
-        render json: { is_success: 400, error_message: name_card_apply.errors.full_messages, status: :bad_request }
+        render json: { is_success: 400, error_message: name_card_apply.errors.full_messages }, status: :bad_request
       end
     end
   end
