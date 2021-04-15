@@ -3,6 +3,7 @@
 module API
   class GroupExpenseSharePlanApprovalsController < ActionController::API
     def create
+      return render json: { is_success: 403, error_message: '此 API 仅允许内网调用。' }, status: :forbidden unless request.remote_ip.start_with?('172.16.') || request.remote_ip == '127.0.0.1'
       gespa = SplitCost::GroupExpenseSharePlanApproval.find_by id: params[:approval_id]
       return render json: { is_success: 404, error_message: '找不到审批ID对应的审批记录。' }, status: :not_found unless gespa.present?
 
