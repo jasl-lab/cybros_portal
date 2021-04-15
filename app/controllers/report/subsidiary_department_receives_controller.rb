@@ -161,7 +161,12 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = worker_per_dept_code.fetch(d.deptcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
-      should_receives_per_staff = ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
+
+      should_receives_per_staff = if @end_of_month <= Time.new(2021, 3, 1)
+        ((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
+      else
+        (d.unsign_receive.to_f + d.sign_receive.to_f) / 10000.0
+      end
       total_should_receives_per_staff += should_receives_per_staff
       (should_receives_per_staff / staff_number.to_f).round(0)
     end

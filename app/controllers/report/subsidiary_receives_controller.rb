@@ -123,7 +123,11 @@ class Report::SubsidiaryReceivesController < Report::BaseController
     @need_should_receives_per_staff = need_data.collect do |d|
       staff_number = worker_per_orgcode.fetch(d.orgcode, Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM)
       staff_number = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_number.zero?
-      (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
+      if @need_data_last_available_date <= Time.new(2021, 3, 1)
+        (((d.long_account_receive || 0) + (d.short_account_receive || 0) + d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
+      else
+        ((d.unsign_receive.to_f + d.sign_receive.to_f) / (staff_number * 10000.0).to_f).round(0)
+      end
     end
 
     real_rate_sum = policy_scope(Bi::SubCompanyRealRateSum, :group_resolve)
