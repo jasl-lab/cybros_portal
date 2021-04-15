@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   devise_for :wechat_users, skip: :all
   namespace :api do
     resource :name_card, only: %i[create]
+    resource :group_expense_share_plan_approval, only: %i[create]
     resource :official_seal_usage, only: %i[create]
 
     match 'me' => 'application#user_info', via: :options
