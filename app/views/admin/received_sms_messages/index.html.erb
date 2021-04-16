@@ -11,6 +11,7 @@
             <th><%= t(".table.id") %></th>
             <th><%= t(".table.receive_id") %></th>
             <th><%= t(".table.content") %></th>
+            <th><%= t(".table.receive_at") %></th>
           </tr>
           </thead>
           <tbody>
@@ -19,6 +20,7 @@
                 <td><%= received_sms_message.id -%></td>
                 <td><%= received_sms_message.receive_id %></td>
                 <td><%= received_sms_message.content %></td>
+                <td><%= received_sms_message.created_at.to_s(:db_short) %></td>
               </tr>
             <% end %>
           </tbody>

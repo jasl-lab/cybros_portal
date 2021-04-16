@@ -8,3 +8,4 @@ en:
           id: "ID"
           receive_id: "Receive ID"
           content: "Content"
+          receive_at: "收到时间"
