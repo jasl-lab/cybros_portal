@@ -3,7 +3,7 @@
 module API
   class ReceivedSmsMessagesController < ActionController::API
     def create
-      return render json: { is_success: 403, error_message: '此 API 仅允许内网调用。' }, status: :forbidden unless request.remote_ip.start_with?('172.16.') || request.remote_ip.start_with?('10.35.') || request.remote_ip == '127.0.0.1'
+      return render json: { is_success: 403, error_message: '此 API 仅允许内网调用。' }, status: :forbidden unless request.remote_ip.start_with?('172.') || request.remote_ip.start_with?('10.') || request.remote_ip == '127.0.0.1'
 
       receive_id = params[:receiveId]
       content = params[:content]
