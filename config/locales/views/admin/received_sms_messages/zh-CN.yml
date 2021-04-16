@@ -1,0 +1,6 @@
+---
+zh-CN:
+  admin:
+    received_sms_messages:
+      index:
+        title: "收到的短信验证码"

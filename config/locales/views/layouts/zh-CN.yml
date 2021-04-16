@@ -40,6 +40,7 @@ zh-CN:
         baseline_position_accesses: "基准岗位访问权限控制"
         bi_dept_structures: "BI组织架构表"
         bi_view_histories: "BI历史访问情况"
+        received_sms_messages: "收到的短信验证码"
       company:
         header: "公司首页"
         knowledges: "智能问答知识库"

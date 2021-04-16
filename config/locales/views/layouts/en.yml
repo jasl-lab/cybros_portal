@@ -40,6 +40,7 @@ en:
         baseline_position_accesses: "Baseline position access"
         bi_dept_structures: "BI dept structures"
         bi_view_histories: "BI PV report"
+        received_sms_messages: "SMS verification code received"
       company:
         header: "Company Home"
         knowledges: "Knowledges"

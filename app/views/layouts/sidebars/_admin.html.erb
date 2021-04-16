@@ -43,6 +43,12 @@
           <%= t("layouts.sidebar.admin.bi_view_histories") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'admin/received_sms_messages', html_options: {class: "nav-item"} do %>
+        <%= link_to admin_received_sms_messages_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-user-circle"></i>
+          <%= t("layouts.sidebar.admin.received_sms_messages") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

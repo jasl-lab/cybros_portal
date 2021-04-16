@@ -1,0 +1,6 @@
+---
+en:
+  admin:
+    received_sms_messages:
+      index:
+        title: "SMS verification code received"
