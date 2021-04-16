@@ -50,18 +50,42 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "savedate"
   end
 
-  create_table "BI_KPI_INFO", primary_key: ["指标代码", "开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "指标代码", null: false, auto_increment: true
+  create_table "BI_KPI_CLASS1", primary_key: "一级编码", id: { type: :string, limit: 4 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "一级分类", limit: 200
+  end
+
+  create_table "BI_KPI_CLASS2", primary_key: "二级编码", id: { type: :string, limit: 3 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "二级分类", limit: 200
+  end
+
+  create_table "BI_KPI_DIMENSION", primary_key: ["维度编码", "开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "维度编码", limit: 4, null: false
+    t.date "开始时间", default: "2000-01-01", null: false
+    t.string "维度名称", limit: 200
+    t.string "表", limit: 200
+    t.string "字段", limit: 200
+    t.text "备注"
+  end
+
+  create_table "BI_KPI_INFO", primary_key: ["指标编码", "开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "一级编码", limit: 3
+    t.string "二级编码", limit: 3
+    t.string "三级编码", limit: 4
+    t.string "指标编码", limit: 10, null: false
     t.date "开始时间", null: false
-    t.text "一级分类"
-    t.text "二级分类"
-    t.text "指标名称"
+    t.string "指标名称", limit: 200
     t.text "指标定义"
     t.text "计算公式"
-    t.text "原子指标"
-    t.text "其他修饰词"
-    t.text "时间周期"
+    t.string "原子指标", limit: 200
+    t.string "其他修饰词", limit: 200
+    t.string "时间周期", limit: 200
     t.text "备注"
+  end
+
+  create_table "BI_KPI_NICKNAME", primary_key: ["指标编码", "指标别称"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "指标编码", limit: 10, null: false
+    t.string "指标别称", limit: 200, null: false
+    t.integer "是否使用", limit: 1, default: 1
   end
 
   create_table "BI_MESSAGE_BOX", primary_key: "MESSAGEID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
