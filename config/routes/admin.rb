@@ -31,7 +31,7 @@ namespace :admin do
 
   resources :manual_operation_access_codes, only: %i[index destroy]
   resources :baseline_position_accesses, only: %i[index edit update show]
-  resources :received_sms_messages, only: %i[index]
+  resources :received_sms_messages, only: %i[index destroy]
   resource :bi_dept_structures, only: %i[show]
   resource :bi_view_histories, only: %i[show]
 end

@@ -12,6 +12,7 @@
             <th><%= t(".table.receive_id") %></th>
             <th><%= t(".table.content") %></th>
             <th><%= t(".table.receive_at") %></th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -21,6 +22,9 @@
                 <td><%= received_sms_message.receive_id %></td>
                 <td><%= received_sms_message.content %></td>
                 <td><%= received_sms_message.created_at.to_s(:db_short) %></td>
+                <td>
+                  <%= link_to '移除', admin_received_sms_message_path(id: received_sms_message.id), method: :delete %>
+                </td>
               </tr>
             <% end %>
           </tbody>
