@@ -4,3 +4,7 @@ zh-CN:
     received_sms_messages:
       index:
         title: "收到的短信验证码"
+        table:
+          id: "ID"
+          receive_id: "接收 ID"
+          content: "内容"

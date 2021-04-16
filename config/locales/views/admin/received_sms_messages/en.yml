@@ -4,3 +4,7 @@ en:
     received_sms_messages:
       index:
         title: "SMS verification code received"
+        table:
+          id: "ID"
+          receive_id: "Receive ID"
+          content: "Content"
