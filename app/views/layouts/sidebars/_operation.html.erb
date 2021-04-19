@@ -100,6 +100,14 @@
             <% end %>
           <% end %>
         <% end %>
+        <% if current_user.present? && policy(Bi::CrmYearReport).show? %>
+          <%= nav_item controller: 'report/crm_year_reports', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= link_to report_crm_year_report_path(view_orgcode_sum: true), class: "nav-link" do %>
+              <i class="nav-icon fas fa-yen-sign"></i>
+              <%= t("layouts.sidebar.operation.crm_year_report") %>
+            <% end %>
+          <% end %>
+        <% end %>
         <li class="nav-item nav-dropdown <%= %w[report/group_daily_workloadings report/complete_values report/group_contract_holds report/group_predict_contracts].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>

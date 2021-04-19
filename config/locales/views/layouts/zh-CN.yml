@@ -94,6 +94,7 @@ zh-CN:
         subsidiary_department_receive: "本年累计收款"
         subsidiary_design_cash_flow: "所级设计现金流"
         design_cash_flow: "设计现金流"
+        crm_year_report: "客户年报"
         group_predict_contract: "集团跟踪合同额"
         predict_contract: "跟踪合同额"
         project_milestore: "项目进度填报情况"

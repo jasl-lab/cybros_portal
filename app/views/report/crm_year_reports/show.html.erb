@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-lg-12"
+    data-controller="contract-provice-area"
+    data-action="resize@window->contract-provice-area#layout"
+    data-contract-provice-area-province_sum="<%= @new_area_省市.to_json -%>"
+    data-contract-provice-area-year_rate_sum="<%= @year_rate_省市.to_json -%>"
+    data-contract-provice-area-previous_year_rate_sum="<%= @previous_year_rate_省市.to_json -%>">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group mr-1">
+        <label class="mr-1"><%= t(".org_names") -%>：</label>
+        <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), { include_blank: true, multiple: true, class: 'form-control' } %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
+    <% end -%>
+  </div>
+</div>

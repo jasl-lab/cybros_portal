@@ -7,6 +7,16 @@ class Report::CrmYearReportsController < Report::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @orgs_options = params[:orgs]
+
+    all_company_orgcodes = policy_scope(Bi::CrmYearReport)
+      .select(:orgcode, :"ORG_ORDER.org_order")
+      .joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = CRM_YEAR_REPORT.orgcode')
+      .order('ORG_ORDER.org_order ASC')
+      .pluck(:orgcode).uniq
+    all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
+
+    @organization_options = all_company_short_names.zip(all_company_orgcodes)
   end
 
   protected
