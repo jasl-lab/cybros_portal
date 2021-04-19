@@ -62,7 +62,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
 
   def org_name_change
     org_name = params[:org_name]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织": org_name).order(:显示顺序).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织": org_name).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   private

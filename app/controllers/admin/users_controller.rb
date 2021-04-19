@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::ApplicationController
   def show
     prepare_meta_tags title: @user.email
     @org_codes = Bi::OrgShortName.org_options
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": @org_codes.first[1]).order(:显示顺序).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": @org_codes.first[1]).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   def new
@@ -89,17 +89,17 @@ class Admin::UsersController < Admin::ApplicationController
 
   def operation_org_code_change
     org_code = params[:manual_operation_access_code][:org_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:显示顺序).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   def hr_org_code_change
     org_code = params[:manual_hr_access_code][:org_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:显示顺序).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   def cw_org_code_change
     org_code = params[:manual_cw_access_code][:org_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:显示顺序).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   private
