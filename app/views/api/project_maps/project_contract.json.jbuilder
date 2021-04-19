@@ -19,7 +19,7 @@ json.partybName @sc.partybname # 乙方名称
 json.prices @sc.prices do |item| # 分项单价
   json.operationGenreName item.operationgenrename
   json.buildingGenreName item.buildinggenrename
-  json.bigStageName item.bigstagename
+  json.bigStageName item.projectbigstagename
   json.univalence item.univalence
   json.scale item.scale
 end
