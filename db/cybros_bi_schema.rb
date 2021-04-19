@@ -50,6 +50,22 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.date "savedate"
   end
 
+  create_table "BI_DIMENSION_INFO", primary_key: ["维度编码", "维度开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "维度编码", limit: 10, null: false
+    t.date "维度开始时间", null: false
+    t.string "维度主体编码", limit: 5
+    t.string "维度主体", limit: 200
+    t.string "维度明细编码", limit: 5
+    t.string "维度属性", limit: 200
+    t.text "维度定义"
+    t.text "值集"
+    t.text "数据来源"
+    t.string "数据库", limit: 200
+    t.string "数据表", limit: 200
+    t.string "数据字段", limit: 200
+    t.text "备注"
+  end
+
   create_table "BI_KPI_CLASS1", primary_key: "一级编码", id: { type: :string, limit: 4 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "一级分类", limit: 200
   end
@@ -95,6 +111,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "status", limit: 200
     t.string "creater", limit: 200
     t.datetime "create_time"
+  end
+
+  create_table "BI_REPORT_INFO", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "编号"
+    t.text "菜单名"
+    t.text "表名"
+    t.text "显示名称"
+    t.text "网址链接"
+    t.text "责任部门"
+    t.text "备注"
   end
 
   create_table "BI_VIEW_HISTORIES", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1645,6 +1671,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "V_TH_SACONTRACTPRICE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "salescontractid"
     t.text "projectcode"
     t.text "projectname"
     t.text "salescontractcode"
