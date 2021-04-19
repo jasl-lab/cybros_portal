@@ -100,7 +100,7 @@ class Admin::UsersController < Admin::ApplicationController
   def cw_org_code_change
     org_code = params[:manual_cw_access_code][:org_code]
     @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:显示顺序).pluck(:"部门", :"编号")
-  end.order(:显示顺序)
+  end
 
   private
 
