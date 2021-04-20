@@ -108,7 +108,23 @@ export default class extends Controller {
       }]
     };
 
+    function drill_down_crm_year_chart_detail(params) {
+      if (params.componentType === 'series') {
+        if (params.seriesType === 'bar') {
+          console.log(params);
+          const sent_data = { year: params.name, series_name: params.seriesName };
+
+          const drill_down_url = "/report/crm_year_report/drill_down";
+
+          $.ajax(drill_down_url, {
+            data: sent_data,
+            dataType: 'script'
+          });
+        }
+      }
+    }
     crmYearReportChart.setOption(option, false);
+    crmYearReportChart.on('click', drill_down_crm_year_chart_detail);
 
     setTimeout(() => {
       crmYearReportChart.resize();

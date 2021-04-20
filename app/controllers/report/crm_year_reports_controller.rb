@@ -33,6 +33,11 @@ class Report::CrmYearReportsController < Report::BaseController
     @others = @data.collect { |d| (d.others / 100_0000.0).round(1) }
   end
 
+  def drill_down
+    @year = params[:year]
+    @series_name = params[:series_name]
+  end
+
   protected
 
     def set_page_layout_data

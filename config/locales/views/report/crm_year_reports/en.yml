@@ -12,3 +12,5 @@ en:
           gt50: "Non-TOP 50 Customers"
           other: "Other"
           total: "Total"
+      modal:
+        close: "Close"
