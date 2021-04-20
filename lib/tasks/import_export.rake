@@ -63,6 +63,8 @@ namespace :import_export do
       pre_sso_id = row['pre_sso_id']
       wecom_id = row['wecom_id']
       job_level = row['job_level']
+      major_code = row['major_code']
+      major_name = row['major_name']
       entry_company_date = row['entry_company_date']
       locked_at = row['locked_at']
       chinese_name = row['chinese_name']
@@ -78,6 +80,8 @@ namespace :import_export do
       user.pre_sso_id = pre_sso_id
       user.wecom_id = wecom_id
       user.job_level = job_level
+      user.major_code = major_code
+      user.major_name = major_name
       user.entry_company_date = entry_company_date
       user.locked_at = locked_at
       user.chinese_name = chinese_name
