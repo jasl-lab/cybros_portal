@@ -17,6 +17,10 @@ class Report::CrmYearReportsController < Report::BaseController
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
+
+    @all_years = policy_scope(Bi::CrmClientSum).select(:cricyear).distinct.order(cricyear: :desc).pluck(:cricyear)
+    @year = params[:year]
+
     data = policy_scope(Bi::CrmYearReport)
     @data = if @orgs_options.present?
       data.where(orgcode: @orgs_options)

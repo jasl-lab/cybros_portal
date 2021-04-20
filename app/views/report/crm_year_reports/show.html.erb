@@ -1,16 +1,17 @@
-<div class="row">
-  <div class="col-12"
-    data-controller="crm-year-report"
-    data-action="resize@window->crm-year-report#layout"
-    data-crm-year-report-x_axis="<%= @years.to_json -%>"
-    data-crm-year-report-top20s="<%= @top20s.to_json -%>"
-    data-crm-year-report-top20to50s="<%= @top20to50s.to_json -%>"
-    data-crm-year-report-gt50s="<%= @gt50s.to_json -%>"
-    data-crm-year-report-others="<%= @others.to_json -%>">
+<div class="row"
+  data-controller="crm-year-report"
+  data-action="resize@window->crm-year-report#layout"
+  data-crm-year-report-x_axis="<%= @years.to_json -%>"
+  data-crm-year-report-top20s="<%= @top20s.to_json -%>"
+  data-crm-year-report-top20to50s="<%= @top20to50s.to_json -%>"
+  data-crm-year-report-gt50s="<%= @gt50s.to_json -%>"
+  data-crm-year-report-others="<%= @others.to_json -%>">
+  <div class="col-12">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
     <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
+      <%= hidden_field_tag 'year', @year -%>
       <div class="form-group mr-1">
         <label class="mr-1"><%= t(".org_names") -%>：</label>
         <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), { include_blank: true, multiple: true, class: 'form-control' } %>
@@ -19,7 +20,7 @@
     <% end -%>
   </div>
   <div class="col-6">
-    <div id="crm-year-report-chart" style="width: 100%;height: 400px;">
+    <div id="crm-year-report-chart" style="width: 100%;height: 370px;">
     </div>
   </div>
   <div class="col-6 table-responsive">
@@ -47,6 +48,16 @@
         <% end %>
       </tbody>
     </table>
+  </div>
+  <div class="col-12 table-responsive">
+    <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
+      <%= hidden_field_tag 'orgs', @orgs_options -%>
+      <div class="form-group mr-1">
+        <label class="mr-1"><%= t(".year") -%>：</label>
+        <%= select_tag 'year', options_for_select(@all_years, @year), { class: 'form-control form-control-plain', id: 'select-year' } %>
+      </div>
+      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
+    <% end -%>
   </div>
 </div>
 

@@ -5,6 +5,7 @@ zh-CN:
       show:
         title: "各类客户生产合同额及占比"
         org_names: "显示子公司"
+        year: "年份"
         confirm: "确认"
         table:
           top20: "TOP 20"
