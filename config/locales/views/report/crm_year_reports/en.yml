@@ -6,3 +6,9 @@ en:
         title: "Cost allocation summary table"
         org_names: "ORG names"
         confirm: "Confirm"
+        table:
+          top20: "TOP 20"
+          top20to50: "TOP 20 - 50"
+          gt50: "Non-TOP 50 Customers"
+          other: "Other"
+          total: "Total"

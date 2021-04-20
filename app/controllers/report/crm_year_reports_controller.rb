@@ -18,7 +18,7 @@ class Report::CrmYearReportsController < Report::BaseController
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
     data = policy_scope(Bi::CrmYearReport)
-    data = if @orgs_options.present?
+    @data = if @orgs_options.present?
       data.where(orgcode: @orgs_options)
     else
       data
@@ -26,11 +26,11 @@ class Report::CrmYearReportsController < Report::BaseController
        .group(:year)
        .order(:year)
 
-    @years = data.collect(&:year)
-    @top20s = data.collect { |d| (d.top20 / 100_0000.0).round(1) }
-    @top20to50s = data.collect { |d| (d.top20to50 / 100_0000.0).round(1) }
-    @gt50s = data.collect { |d| (d.gt50 / 100_0000.0).round(1) }
-    @others = data.collect { |d| (d.others / 100_0000.0).round(1) }
+    @years = @data.collect(&:year)
+    @top20s = @data.collect { |d| (d.top20 / 100_0000.0).round(1) }
+    @top20to50s = @data.collect { |d| (d.top20to50 / 100_0000.0).round(1) }
+    @gt50s = @data.collect { |d| (d.gt50 / 100_0000.0).round(1) }
+    @others = @data.collect { |d| (d.others / 100_0000.0).round(1) }
   end
 
   protected
