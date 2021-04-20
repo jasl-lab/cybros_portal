@@ -14,3 +14,7 @@ zh-CN:
           total: "合计"
       modal:
         close: "关闭"
+        table:
+          rank: "排名"
+          customer_code: "客户编码"
+          customer_name: "客户集团名称"

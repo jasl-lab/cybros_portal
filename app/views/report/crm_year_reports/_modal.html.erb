@@ -8,6 +8,26 @@
       </a>
     </div>
     <div class="modal-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t(".table.rank") %></th>
+              <th><%= t(".table.customer_code") %></th>
+              <th><%= t(".table.customer_name") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% crm_tops.each do |c| %>
+              <tr>
+                <td><%= c.排名 -%></td>
+                <td><%= c.客户编码 -%></td>
+                <td><%= c.客户集团名称 -%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>

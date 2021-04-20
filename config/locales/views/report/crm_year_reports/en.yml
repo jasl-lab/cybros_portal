@@ -14,3 +14,7 @@ en:
           total: "Total"
       modal:
         close: "Close"
+        table:
+          rank: "Rank"
+          customer_code: "Customer code"
+          customer_name: "Customer name"

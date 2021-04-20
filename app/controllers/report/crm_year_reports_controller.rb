@@ -36,6 +36,18 @@ class Report::CrmYearReportsController < Report::BaseController
   def drill_down
     @year = params[:year]
     @series_name = params[:series_name]
+
+    category = case @series_name
+               when 'TOP 20 房企'
+                 '20'
+               when 'TOP 20-50 房企'
+                 '50'
+               when '非 TOP 50 大客户'
+                 '100'
+               when '其他'
+                 '其他'
+    end
+    @crm_tops = Bi::CrmTop50.where(年份: @year, 客户分类: category).order(:排名)
   end
 
   protected
