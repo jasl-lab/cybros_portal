@@ -26,7 +26,7 @@ export default class extends Controller {
       grid: {
         left: 65,
         right: 0,
-        top: 50,
+        top: 48,
         bottom: 60
       },
       toolbox: {
