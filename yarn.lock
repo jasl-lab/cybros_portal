@@ -2864,9 +2864,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.712:
-  version "1.3.717"
-  resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.717.tgz#78d4c857070755fb58ab64bcc173db1d51cbc25f"
-  integrity sha1-eNTIVwcHVftYq2S8wXPbHVHLwl8=
+  version "1.3.718"
+  resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.718.tgz#a192981ced608978410ebc011e24ecab1bb4beb3"
+  integrity sha1-oZKYHO1giXhBDrwBHiTsqxu0vrM=
 
 element-closest@^2.0.2:
   version "2.0.2"
