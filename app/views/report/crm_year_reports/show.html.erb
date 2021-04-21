@@ -49,7 +49,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-12 table-responsive">
+  <div class="col-12 overflow-auto" style="height: 95vh;">
     <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag 'orgs', @orgs_options -%>
       <div class="form-group mr-1">
@@ -58,9 +58,9 @@
       </div>
       <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
-    <table class="table table-bordered mt-2">
+    <table class="table table-bordered mt-2 position-relative">
       <thead>
-        <tr>
+        <tr class="table-fix-head-row-1">
           <th rowspan="2"><%= t('.table.index') -%></th>
           <th rowspan="2"><%= t('.table.customer_group') -%></th>
           <th rowspan="2"><%= t('.table.kerrey_trading_area_ranking') -%></th>
@@ -75,7 +75,7 @@
           <th rowspan="2"><%= t('.table.proportion_of_contract_amount_modification_fee') -%></th>
           <th rowspan="2"><%= t('.table.proportion_of_labor_cost_of_bidding_land_acquisition') -%></th>
         </tr>
-        <tr>
+        <tr class="table-fix-head-row-2">
           <th><%= t('.table.last_year') -%></th>
           <th><%= t('.table.this_year') -%></th>
           <th><%= t('.table.scheme') -%></th>
