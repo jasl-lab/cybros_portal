@@ -58,6 +58,34 @@
       </div>
       <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
+    <table class="table table-bordered mt-2">
+      <thead>
+        <tr>
+          <th rowspan="2"><%= t('.table.index') -%></th>
+          <th rowspan="2"><%= t('.table.customer_group') -%></th>
+          <th rowspan="2"><%= t('.table.kerrey_trading_area_ranking') -%></th>
+          <th rowspan="2"><%= t('.table.customer_ownership') -%></th>
+          <th colspan="2"><%= t('.table.production_contract_value') -%></th>
+          <th rowspan="2"><%= t('.table.total_contract_value_of_the_group_percent') -%></th>
+          <th rowspan="2"><%= t('.table.the_top_three_teams_in_cooperation') -%></th>
+          <th colspan="3"><%= t('.table.production_contract_value_at_each_stage') -%></th>
+          <th rowspan="2"><%= t('.table.average_contract_value_of_single_project_in_the_past_year') -%></th>
+          <th rowspan="2"><%= t('.table.average_scale_of_single_project_in_the_past_year') -%></th>
+          <th rowspan="2"><%= t('.table.nearly_one_year_contract_average_contract_period') -%></th>
+          <th rowspan="2"><%= t('.table.proportion_of_contract_amount_modification_fee') -%></th>
+          <th rowspan="2"><%= t('.table.proportion_of_labor_cost_of_bidding_land_acquisition') -%></th>
+        </tr>
+        <tr>
+          <th><%= t('.table.last_year') -%></th>
+          <th><%= t('.table.this_year') -%></th>
+          <th><%= t('.table.scheme') -%></th>
+          <th><%= t('.table.construction_drawing') -%></th>
+          <th><%= t('.table.whole_process') -%></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
   </div>
 </div>
 
