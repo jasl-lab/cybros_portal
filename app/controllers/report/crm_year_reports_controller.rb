@@ -35,6 +35,8 @@ class Report::CrmYearReportsController < Report::BaseController
     @top20to50s = @data.collect { |d| (d.top20to50 / 100_0000.0).round(1) }
     @gt50s = @data.collect { |d| (d.gt50 / 100_0000.0).round(1) }
     @others = @data.collect { |d| (d.others / 100_0000.0).round(1) }
+
+    @detail_data = policy_scope(Bi::CrmClientSum).where(cricyear: @year)
   end
 
   def drill_down
