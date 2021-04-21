@@ -61,7 +61,7 @@
       <% operation_entry_show = policy(:"OperationEntry::CostStructureEntry").show? || policy(:"OperationEntry::CashFlowDeptEntry").show? %>
       <% account_split_settings_show = policy(SplitCost::MonthlySalarySplitRule).show? || policy(SplitCost::UserMonthlyPartTimeSplitRate).show? || policy(SplitCost::UserMonthlyPartTimeSpecialJobType).show? %>
       <% if account_report_show || financial_management_show || operation_entry_show || account_split_settings_show %>
-      <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) ? 'open' : '' %>">
+      <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) && !current_user.admin? ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.financial_analysis") -%></a>
         <ul class="nav-dropdown-items">
@@ -104,7 +104,7 @@
       <% capital_report_show = policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show? %>
       <% salary_query_show = policy(:"Capital::SalaryQuery").show? %>
       <% if capital_report_show || salary_query_show %>
-      <li class="nav-item nav-dropdown <%= (capital_report_show || salary_query_show) ? 'open' : '' %>">
+      <li class="nav-item nav-dropdown <%= (capital_report_show || salary_query_show) && !current_user.admin? ? 'open' : '' %>">
         <a class="nav-link nav-dropdown-toggle" href="#">
         <i class="nav-icon fas fa-map"></i> <%= t("layouts.sidebar.application.capital_dept") -%></a>
         <ul class="nav-dropdown-items">
