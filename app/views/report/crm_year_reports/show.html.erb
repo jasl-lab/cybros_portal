@@ -49,7 +49,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-12 overflow-auto" style="height: 95vh;">
+  <div class="col-12 overflow-auto" style="height: 89vh;">
     <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag 'orgs', @orgs_options -%>
       <div class="form-group mr-1">
@@ -87,7 +87,7 @@
         <% @detail_data.each_with_index do |dd, index| %>
           <tr>
             <td><%= index + 1 -%></td>
-            <td><%= dd.crmshort -%></td>
+            <td><%= link_to dd.crmshort, drill_down_dept_value_report_crm_year_report_path(crmcode: dd.crmcode), remote: true -%></td>
             <td><%= dd.cricrank -%></td>
             <td><%= dd.clientproperty -%></td>
             <td><%= (dd.heji_last.to_f / 10000.0).round(0) -%></td>

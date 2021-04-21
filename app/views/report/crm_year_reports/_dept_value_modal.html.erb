@@ -1,0 +1,19 @@
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div>
+        <h5 class="modal-title"><%=  %>生产合同额明细</h5>
+      </div>
+      <a class="close" href="<%= drill_down_dept_value_report_crm_year_report_path(format: 'csv', crmcode: crmcode) -%>">
+        <i class="fas fa-file-export"></i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
+    </div>
+  </div>
+</div

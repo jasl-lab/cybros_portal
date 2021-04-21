@@ -56,6 +56,10 @@ class Report::CrmYearReportsController < Report::BaseController
     @crm_tops = Bi::CrmTop50.where(年份: @year, 客户分类: category).order(:排名)
   end
 
+  def drill_down_dept_value
+
+  end
+
   protected
 
     def set_page_layout_data

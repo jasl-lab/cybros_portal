@@ -38,3 +38,6 @@ zh-CN:
           rank: "排名"
           customer_code: "客户编码"
           customer_name: "客户集团名称"
+
+      dept_value_modal:
+        close: "关闭"

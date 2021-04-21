@@ -38,3 +38,6 @@ en:
           rank: "Rank"
           customer_code: "Customer code"
           customer_name: "Customer name"
+
+      dept_value_modal:
+        close: "Close"
