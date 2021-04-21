@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-xl" role="document">
+<div class="modal-dialog modal-2xl" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <div>
@@ -17,6 +17,9 @@
               <th><%= t(".table.salescontractname") %></th>
               <th><%= t(".table.contractstatusname") %></th>
               <th><%= t(".table.filingtime") %></th>
+              <th><%= t(".table.realamounttotal") %></th>
+              <th><%= t(".table.professioncomname") %></th>
+              <th><%= t(".table.professiondeptname") %></th>
               <th><%= t(".table.deptvalue") %></th>
             </tr>
           </thead>
@@ -27,6 +30,9 @@
                 <td><%= d.salescontractname -%></td>
                 <td><%= d.contractstatusname -%></td>
                 <td><%= d.filingtime -%></td>
+                <td><%= d.realamounttotal -%></td>
+                <td><%= d.professioncomname -%></td>
+                <td><%= d.professiondeptname -%></td>
                 <td><%= d.deptvalue -%></td>
               </tr>
             <% end %>
