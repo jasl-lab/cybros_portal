@@ -97,11 +97,11 @@
             <td><%= dd.designvalue -%></td>
             <td><%= dd.constructionvalue -%></td>
             <td><%= dd.fullvalue -%></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:avgamount, 0) -%></td>
+            <td><%= Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:avgarea, 0) -%></td>
+            <td><%= Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:avgsignday, 0) -%></td>
+            <td><%= Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:contractalter, 0) -%></td>
+            <td><%= Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:landhrcost, 0) -%></td>
           </tr>
         <% end %>
       </tbody>
