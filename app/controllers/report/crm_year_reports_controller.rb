@@ -57,7 +57,10 @@ class Report::CrmYearReportsController < Report::BaseController
   end
 
   def drill_down_dept_value
-
+    crmcode = params[:crmcode]
+    @crmname = params[:crmname]
+    year = params[:year]
+    @plan_values = Ocdm::ThDeptPlanValue.where(bizorgcode: crmcode)
   end
 
   protected

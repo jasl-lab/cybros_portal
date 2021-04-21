@@ -1,2 +1,2 @@
-$("#crm-year-report-modal").html('<%= j render partial: "dept_value_modal", locals: { crmcode:  params[:crmcode] } -%>');
+$("#crm-year-report-modal").html('<%= j render partial: "dept_value_modal", locals: { crmcode: params[:crmcode], plan_values: @plan_values } -%>');
 $("#crm-year-report-modal").modal();

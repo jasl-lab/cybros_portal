@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <div>
-        <h5 class="modal-title"><%=  %>生产合同额明细</h5>
+        <h5 class="modal-title"><%= @crmname -%>生产合同额明细</h5>
       </div>
       <a class="close" href="<%= drill_down_dept_value_report_crm_year_report_path(format: 'csv', crmcode: crmcode) -%>">
         <i class="fas fa-file-export"></i>
@@ -10,6 +10,28 @@
     </div>
     <div class="modal-body">
       <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t(".table.salescontractcode") %></th>
+              <th><%= t(".table.salescontractname") %></th>
+              <th><%= t(".table.contractstatusname") %></th>
+              <th><%= t(".table.filingtime") %></th>
+              <th><%= t(".table.deptvalue") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% plan_values.each do |d| %>
+              <tr>
+                <td><%= c.salescontractcode -%></td>
+                <td><%= c.salescontractname -%></td>
+                <td><%= c.contractstatusname -%></td>
+                <td><%= c.filingtime -%></td>
+                <td><%= c.deptvalue -%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="modal-footer">

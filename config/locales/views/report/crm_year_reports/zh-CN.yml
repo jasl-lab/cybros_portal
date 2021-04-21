@@ -41,3 +41,9 @@ zh-CN:
 
       dept_value_modal:
         close: "关闭"
+        table:
+          salescontractcode: "合同编号"
+          salescontractname: "合同名称"
+          contractstatusname: "合同状态"
+          filingtime: "归档时间"
+          deptvalue: "实际合同额"

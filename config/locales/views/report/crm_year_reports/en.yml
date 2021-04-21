@@ -41,3 +41,9 @@ en:
 
       dept_value_modal:
         close: "Close"
+        table:
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          contractstatusname: "Contract status name"
+          filingtime: "Filing time"
+          deptvalue: "Dept value"
