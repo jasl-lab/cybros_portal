@@ -71,6 +71,7 @@ zh-CN:
         organization_charts: "天华组织架构图"
       index_library:
         header: "天华指标库"
+        index_summary_tables: "指标汇总表"
       operation:
         header: "天华市场运营分析"
         overall_operating_status: "历年经营情况总览"

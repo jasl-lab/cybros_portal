@@ -7,6 +7,12 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
+      <%= nav_item controller: 'index_library/index_summary_tables', html_options: { class: "nav-item" } do %>
+        <%= link_to index_library_index_summary_table_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-chair"></i>
+          <%= t("layouts.sidebar.index_library.index_summary_tables") %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
   <button class="sidebar-minimizer" type="button"></button>

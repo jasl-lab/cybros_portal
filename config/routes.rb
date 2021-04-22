@@ -97,6 +97,8 @@ Rails.application.routes.draw do
 
   namespace :index_library do
     root to: 'home#show'
+
+    resource :index_summary_table, only: %i[show]
   end
 
   namespace :account do
