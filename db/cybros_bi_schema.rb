@@ -74,13 +74,11 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "二级分类", limit: 200
   end
 
-  create_table "BI_KPI_DIMENSION", primary_key: ["维度编码", "开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.string "维度编码", limit: 4, null: false
-    t.date "开始时间", default: "2000-01-01", null: false
-    t.string "维度名称", limit: 200
-    t.string "表", limit: 200
-    t.string "字段", limit: 200
-    t.text "备注"
+  create_table "BI_KPI_DIMENSION", primary_key: ["指标编码", "维度编码"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "指标编码", limit: 20, null: false
+    t.string "维度编码", limit: 20, null: false
+    t.datetime "填报时间"
+    t.string "填报人", limit: 200
   end
 
   create_table "BI_KPI_INFO", primary_key: ["指标编码", "开始时间"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -90,18 +88,30 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "指标编码", limit: 10, null: false
     t.date "开始时间", null: false
     t.string "指标名称", limit: 200
+    t.text "指标别称"
     t.text "指标定义"
     t.text "计算公式"
     t.string "原子指标", limit: 200
     t.string "其他修饰词", limit: 200
     t.string "时间周期", limit: 200
+    t.string "负责部门", limit: 200
     t.text "备注"
+    t.datetime "修改时间"
+    t.string "指标状态", limit: 200
+    t.string "创建人", limit: 200
   end
 
   create_table "BI_KPI_NICKNAME", primary_key: ["指标编码", "指标别称"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "指标编码", limit: 10, null: false
     t.string "指标别称", limit: 200, null: false
     t.integer "是否使用", limit: 1, default: 1
+  end
+
+  create_table "BI_KPI_REPORT", primary_key: ["指标编码", "报表编码"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "指标编码", limit: 20, null: false
+    t.string "报表编码", limit: 20, null: false
+    t.datetime "填报时间"
+    t.string "填报人", limit: 200
   end
 
   create_table "BI_MESSAGE_BOX", primary_key: "MESSAGEID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -114,13 +124,20 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "BI_REPORT_INFO", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "编号"
-    t.text "菜单名"
-    t.text "表名"
-    t.text "显示名称"
-    t.text "网址链接"
-    t.text "责任部门"
-    t.text "备注"
+    t.string "一级编码", limit: 10
+    t.text "一级菜单"
+    t.string "二级编码", limit: 10
+    t.text "二级菜单"
+    t.string "三级编码", limit: 10
+    t.text "三级菜单"
+    t.string "四级编码", limit: 10
+    t.text "四级菜单"
+    t.string "五级编码", limit: 10
+    t.text "五级菜单"
+    t.string "报表编码", limit: 20
+    t.text "报表名称"
+    t.text "报表链接"
+    t.string "责任部门", limit: 200
   end
 
   create_table "BI_VIEW_HISTORIES", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -457,6 +474,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "crmcode", limit: 20
     t.text "crmshort"
     t.float "heji", limit: 53
+    t.float "heji_last", limit: 53
+    t.decimal "heji_per", precision: 10, scale: 9
     t.float "cricrank", limit: 53
     t.string "clientproperty", limit: 50
     t.text "topthreegroup"

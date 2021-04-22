@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_20_092118) do
+ActiveRecord::Schema.define(version: 2021_04_22_021959) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -125,20 +125,27 @@ ActiveRecord::Schema.define(version: 2021_04_20_092118) do
     t.string "pmonth", null: false
   end
 
+  create_table "cost_split_company_monthly_adjust_approve_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "clerk_code"
+    t.string "chinese_name"
+    t.string "approval_message"
+    t.bigint "cost_split_company_monthly_adjust_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cost_split_company_monthly_adjust_id"], name: "idx_company_monthly_adjust_approve_details_on_adjust_id"
+  end
+
   create_table "cost_split_company_monthly_adjusts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "to_split_company_code"
     t.date "month"
     t.decimal "group_cost_adjust", precision: 10, default: "0"
     t.decimal "shanghai_area_cost_adjust", precision: 10, default: "0"
     t.decimal "shanghai_hq_cost_adjust", precision: 10, default: "0"
-    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "group_expense_share_plan_approval_id"
-    t.string "approval_message"
     t.string "status"
     t.index ["group_expense_share_plan_approval_id"], name: "idx_monthly_adjusts_on_group_expense_share_plan_approval_id"
-    t.index ["user_id"], name: "index_cost_split_company_monthly_adjusts_on_user_id"
   end
 
   create_table "department_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -776,6 +783,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_092118) do
   add_foreign_key "allowlisted_jwts", "users", on_delete: :cascade
   add_foreign_key "cad_operations", "users"
   add_foreign_key "copy_of_business_license_applies", "users"
+  add_foreign_key "cost_split_company_monthly_adjust_approve_details", "cost_split_company_monthly_adjusts"
   add_foreign_key "direct_question_answers", "direct_questions"
   add_foreign_key "direct_question_answers", "knowledges"
   add_foreign_key "group_expense_share_plan_approvals", "users"
