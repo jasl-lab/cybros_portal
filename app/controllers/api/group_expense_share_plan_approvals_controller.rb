@@ -4,10 +4,10 @@ module API
   class GroupExpenseSharePlanApprovalsController < ActionController::API
     def create
       return render json: { is_success: 403, error_message: '此 API 仅允许内网调用。' }, status: :forbidden unless request.remote_ip.start_with?('172.') || request.remote_ip.start_with?('10.') || request.remote_ip == '127.0.0.1'
-      gespa = SplitCost::GroupExpenseSharePlanApproval.find_by id: approval_params[:approval_id]
+      gespa = SplitCost::GroupExpenseSharePlanApproval.find_by id: params[:approval_id]
       return render json: { is_success: 404, error_message: '找不到审批ID对应的审批记录。' }, status: :not_found unless gespa.present?
 
-      comments = approval_params[:comments]
+      comments = params[:comments]
       comments.each do |result|
         company_code = result[:company_code]
         approval_message = result[:opinion]
@@ -23,7 +23,7 @@ module API
         cmad.biz_id = biz_id
         cmad.save
 
-        cma.status = if approval_params[:approval_result].to_i == 1
+        cma.status = if params[:approval_result].to_i == 1
           '同意'
         else
           '否决'
@@ -33,11 +33,5 @@ module API
 
       render json: { is_success: true }, status: :ok
     end
-
-    private
-
-      def approval_params
-        params.fetch(:group_expense_share_plan_approval, {}).permit(:approval_id, :approval_result, comments: [])
-      end
   end
 end

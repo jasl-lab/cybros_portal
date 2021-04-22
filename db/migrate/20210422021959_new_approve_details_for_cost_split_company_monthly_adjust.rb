@@ -3,7 +3,7 @@ class NewApproveDetailsForCostSplitCompanyMonthlyAdjust < ActiveRecord::Migratio
     create_table :cost_split_company_monthly_adjust_approve_details do |t|
       t.references :cost_split_company_monthly_adjust, null: false, foreign_key: true, index: { name: 'idx_company_monthly_adjust_approve_details_on_adjust_id'}
       t.string :clerk_code
-      t.string :chinese_name
+      t.string :chinese_name, null: false
       t.string :approval_message
       t.string :biz_id
       t.string :step_label

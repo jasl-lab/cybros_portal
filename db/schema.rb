@@ -127,11 +127,13 @@ ActiveRecord::Schema.define(version: 2021_04_22_021959) do
 
   create_table "cost_split_company_monthly_adjust_approve_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "clerk_code"
-    t.string "chinese_name"
+    t.string "chinese_name", null: false
     t.string "approval_message"
     t.bigint "cost_split_company_monthly_adjust_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "biz_id"
+    t.string "step_label"
     t.index ["cost_split_company_monthly_adjust_id"], name: "idx_company_monthly_adjust_approve_details_on_adjust_id"
   end
 
