@@ -25,6 +25,12 @@
           <%= t("layouts.sidebar.application.report") %>
         <% end %>
       <% end %>
+      <%= nav_item controller: 'index_library/home', html_options: {class: "nav-item"} do %>
+        <%= link_to index_library_root_path, class: "nav-link" do %>
+          <i class="nav-icon fas fa-chart-bar"></i>
+          <%= t("layouts.sidebar.application.index_library") %>
+        <% end %>
+      <% end %>
       <% if policy(:"Bi::OrganizationChart").show? %>
         <%= nav_item controller: 'report/organization_chart', html_options: { class: "nav-item" } do %>
           <%= link_to report_organization_chart_path, class: "nav-link" do %>

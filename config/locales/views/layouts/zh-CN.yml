@@ -15,6 +15,7 @@ zh-CN:
         company: "公司"
         person: "个人事务"
         report: "IT报告报表"
+        index_library: "天华指标库"
         operation: "天华市场运营分析"
         human_resource: "天华人力资源分析"
         financial_analysis: "财务分析"
@@ -68,6 +69,8 @@ zh-CN:
         cim_tools: "天华效率工具"
         key_customer_details: "天华核心客户分析"
         organization_charts: "天华组织架构图"
+      index_library:
+        header: "天华指标库"
       operation:
         header: "天华市场运营分析"
         overall_operating_status: "历年经营情况总览"

@@ -15,6 +15,7 @@ en:
         company: "Company"
         person: "Person"
         report: "IT Report"
+        index_library: "Thape index library"
         operation: "Operation"
         human_resource: "Human resource"
         financial_analysis: "Financial analysis"
@@ -68,6 +69,8 @@ en:
         cim_tools: "CIM tools"
         key_customer_details: "Key customer detail"
         organization_charts: "Organization chart"
+      index_library:
+        header: "Thape index library"
       operation:
         header: "Operation Home"
         overall_operating_status: "Overall operating status"

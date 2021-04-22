@@ -95,6 +95,10 @@ Rails.application.routes.draw do
     resource :cash_flow_dept_entry, only: %i[show]
   end
 
+  namespace :index_library do
+    root to: 'home#show'
+  end
+
   namespace :account do
     resource :report, only: %i[show]
     resource :org_year_fill, only: %i[show]
