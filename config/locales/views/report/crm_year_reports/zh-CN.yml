@@ -57,3 +57,10 @@ zh-CN:
           contractpropertyname: "合同性质"
           businessltdname: "商务责任公司"
           businessdepartmentsname: "商务责任部门"
+
+      top_group_modal:
+        close: "关闭"
+        table:
+          rank: "排名"
+          design_group: "合作团队"
+          design_value: "生产合同额（万元）"

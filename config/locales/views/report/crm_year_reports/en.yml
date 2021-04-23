@@ -57,3 +57,10 @@ en:
           contractpropertyname: "Contract property"
           businessltdname: "Business company"
           businessdepartmentsname: "Business dept"
+
+      top_group_modal:
+        close: "Close"
+        table:
+          rank: "Rank"
+          design_group: "Design group"
+          design_value: "Design value"

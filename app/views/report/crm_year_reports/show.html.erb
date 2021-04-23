@@ -93,7 +93,7 @@
             <td><%= (dd.heji_last.to_f / 10000.0).round(0) -%></td>
             <td><%= (dd.heji.to_f / 10000.0).round(0) -%></td>
             <td><%= (dd.heji_per.to_f * 100.0).round(1) -%>%</td>
-            <td><%= dd.topthreegroup -%></td>
+            <td><%= dd.topthreegroup -%> <%= link_to '查看更多', drill_down_top_group_report_crm_year_report_path(crmcode: dd.crmcode, year: @year), remote: true -%></td>
             <td><%= (dd.designvalue.to_f / 10000.0).round(0) -%></td>
             <td><%= (dd.constructionvalue.to_f / 10000.0).round(0) -%></td>
             <td><%= (dd.fullvalue.to_f / 10000.0).round(0) -%></td>

@@ -62,6 +62,11 @@ class Report::CrmYearReportsController < Report::BaseController
     @plan_values = Bi::CrmDeptPlanValue.where(crmcode: crmcode, cricyear: year)
   end
 
+  def drill_down_top_group
+    crmcode = params[:crmcode]
+    year = params[:year]
+  end
+
   protected
 
     def set_page_layout_data

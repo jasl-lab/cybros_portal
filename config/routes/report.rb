@@ -154,5 +154,6 @@ namespace :report do
   resource :crm_year_report, only: %i[show] do
     get :drill_down
     get :drill_down_dept_value
+    get :drill_down_top_group
   end
 end
