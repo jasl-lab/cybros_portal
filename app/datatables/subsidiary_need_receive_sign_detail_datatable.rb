@@ -27,6 +27,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       sales_contract_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractname', cond: :like, searchable: true, orderable: true },
       amount_total: { source: 'Bi::SubCompanyNeedReceiveSignDetail.amounttotal', cond: :gteq, searchable: true, orderable: true },
       acc_need_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive', orderable: true },
+      acc_need_receive_gt3_months: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive_gt3_months', orderable: true },
       sign_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.sign_receive', orderable: true },
       over_amount: { source: 'Bi::SubCompanyNeedReceiveSignDetail.overamount', orderable: true },
       aging_amount_lt3_months: { source: 'Bi::SubCompanyNeedReceiveSignDetail.aging_amount_lt3_months', orderable: true },
@@ -58,6 +59,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime&.to_date,
         acc_need_receive: tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center'),
+        acc_need_receive_gt3_months: tag.div((r.accneedreceive_gt3_months.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: tag.div((r.sign_receive.to_f / 10000.0)&.round(0), class: 'text-center'),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: 'text-center'),
         comment_on_sales_contract_code: if @can_hide_item

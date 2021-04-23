@@ -30,6 +30,7 @@ export default class extends Controller {
       {"data": "amount_total"},
       {"data": "over_amount"},
       {"data": "acc_need_receive"},
+      {"data": "acc_need_receive_gt3_months"},
       {"data": "comment_on_sales_contract_code"},
     ];
 

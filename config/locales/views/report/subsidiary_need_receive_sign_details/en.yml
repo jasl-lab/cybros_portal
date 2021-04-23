@@ -47,5 +47,7 @@ en:
           over_amount_tip: "Over amount"
           acc_need_receive: "Account need receive"
           acc_need_receive_tip: "Account need receive"
+          acc_need_receive_gt3_months: "Account need receive gt3 months"
+          acc_need_receive_gt3_months_tip: "Account need receive gt3 months"
           comment_on_sales_contract_code: "Remarks"
           admin_action: "Admin action"
