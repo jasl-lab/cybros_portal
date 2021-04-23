@@ -102,7 +102,7 @@
         <% end %>
         <% if current_user.present? && policy(Bi::CrmYearReport).show? %>
           <%= nav_item controller: 'report/crm_year_reports', action: 'show', html_options: { class: "nav-item" } do %>
-            <%= link_to report_crm_year_report_path(view_orgcode_sum: true), class: "nav-link" do %>
+            <%= link_to report_crm_year_report_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-yen-sign"></i>
               <%= t("layouts.sidebar.operation.crm_year_report") %>
             <% end %>
