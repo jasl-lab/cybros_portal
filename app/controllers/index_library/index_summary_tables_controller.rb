@@ -7,6 +7,7 @@ class IndexLibrary::IndexSummaryTablesController < IndexLibrary::BaseController
   before_action :prepare_encrypt_uid
 
   def show
+    authorize :"IndexLibrary::IndexSummaryTables"
     prepare_meta_tags title: t('.title')
     @redirect_url = 'view/report?op=write&viewlet=BI/DataLibrary/DATA_TABLE.cpt&ref_t=design'
     @hide_app_footer = true
