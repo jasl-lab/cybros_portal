@@ -1,7 +1,7 @@
 <thead>
   <tr>
     <th colspan="6"></th>
-    <th colspan="6">应收款金额（万元）</th>
+    <th colspan="2">应收款金额（万元）</th>
     <th colspan="<%= @can_hide_item ? 2 : 1 -%>"></th>
   </tr>
   <tr>
@@ -18,23 +18,8 @@
       <%= t(".table.amount_total") -%>
     </th>
 
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.sign_receive_tip") -%>">
-      <%= t(".table.sign_receive") -%>
-    </th>
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_lt3_months_tip") -%>">
-      <%= t(".table.aging_amount_lt3_months") -%>
-    </th>
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_4to12_months_tip") -%>">
-      <%= t(".table.aging_amount_4to12_months") -%>
-    </th>
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_1to2_years_tip") -%>">
-      <%= t(".table.aging_amount_1to2_years") -%>
-    </th>
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.aging_amount_gt2_years_tip") -%>">
-      <%= t(".table.aging_amount_gt2_years") -%>
-    </th>
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.acc_need_receive_tip") -%>">
-      <%= t(".table.acc_need_receive") -%>
+    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.over_amount") -%>">
+      <%= t(".table.over_amount") -%>
     </th>
 
     <th><%= t(".table.comment_on_sales_contract_code") -%></th>

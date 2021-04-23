@@ -28,11 +28,7 @@ export default class extends Controller {
       {"data": "sales_contract_code"},
       {"data": "sales_contract_name"},
       {"data": "amount_total"},
-      {"data": "sign_receive"},
-      {"data": "aging_amount_lt3_months"},
-      {"data": "aging_amount_4to12_months"},
-      {"data": "aging_amount_1to2_years"},
-      {"data": "aging_amount_gt2_years"},
+      {"data": "over_amount"},
       {"data": "acc_need_receive"},
       {"data": "comment_on_sales_contract_code"},
     ];
