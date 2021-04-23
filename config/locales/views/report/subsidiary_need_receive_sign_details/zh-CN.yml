@@ -41,8 +41,6 @@ zh-CN:
           sales_contract_name: "合同名称"
           amount_total: "合同额"
           amount_total_tip: "合同额（单位：万元）"
-          contract_property_name: "合同性质"
-          contract_time: "归档日期"
           sign_receive: "总金额"
           sign_receive_tip: "合同业务应收金额（万元）"
           aging_amount_lt3_months: "<= 3个月"

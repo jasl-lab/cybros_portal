@@ -28,8 +28,6 @@ export default class extends Controller {
       {"data": "sales_contract_code"},
       {"data": "sales_contract_name"},
       {"data": "amount_total"},
-      {"data": "contract_property_name"},
-      {"data": "contract_time"},
       {"data": "sign_receive"},
       {"data": "aging_amount_lt3_months"},
       {"data": "aging_amount_4to12_months"},

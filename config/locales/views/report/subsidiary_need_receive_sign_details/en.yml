@@ -41,8 +41,6 @@ en:
           sales_contract_name: "Sales contract name"
           amount_total: "Amount total"
           amount_total_tip: "Amount total"
-          contract_property_name: "Contract property name"
-          contract_time: "Contract time"
           sign_receive: "Sign receive"
           sign_receive_tip: "Sign receive"
           aging_amount_lt3_months: "<= 3 months"
