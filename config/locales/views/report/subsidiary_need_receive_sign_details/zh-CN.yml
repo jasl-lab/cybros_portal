@@ -6,7 +6,7 @@ zh-CN:
         title: "已签约项目业务应收"
         month_name: "查询年月"
         org_name: "商务责任公司"
-        dept_code: "商务责任部门"
+        dept_codes: "商务责任部门"
         total_sign_receive_great_than: "合同总应收大于等于（万元）"
         over_amount_great_than: "帐龄三个月以上金额大于等于（万元）"
         show_hide_item: "显示隐藏项目"
