@@ -37,6 +37,7 @@ namespace :company do
       get :project
     end
   end
+  resources :joint_review_sms, only: %i[index]
   resource :zhaofeng_map, only: %i[show]
   resource :km_map, only: %i[show] do
     collection do
