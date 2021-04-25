@@ -1,0 +1,19 @@
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div>
+        <h5 class="modal-title"><%= @plan_values[0].crmshort -%>主要合作团队-<%= @plan_values[0].professioncomname -%><%= @plan_values[0].professiondeptname -%></h5>
+      </div>
+      <a class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
+    </div>
+  </div>
+</div

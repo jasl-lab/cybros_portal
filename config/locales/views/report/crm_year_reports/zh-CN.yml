@@ -60,7 +60,12 @@ zh-CN:
 
       top_group_modal:
         close: "关闭"
+        group_detail: "查看更多"
         table:
           rank: "排名"
           design_group: "合作团队"
           design_value: "生产合同额（万元）"
+
+      group_detail_modal:
+        close: "关闭"
+

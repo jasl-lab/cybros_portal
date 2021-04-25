@@ -22,7 +22,7 @@
             <% plan_values.each_with_index do |d, index| %>
               <tr>
                 <td><%= index + 1 -%></td>
-                <td><%= d.crmunitname -%></td>
+                <td><%= d.crmunitname -%> <%= link_to t('.group_detail'), drill_down_group_detail_report_crm_year_report_path(professioncomcode: d.professioncomcode, crmcode: d.crmcode, year: @year), remote: true -%></td>
                 <td><%= d.heji -%></td>
               </tr>
             <% end %>

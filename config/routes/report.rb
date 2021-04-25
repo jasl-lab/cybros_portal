@@ -155,5 +155,6 @@ namespace :report do
     get :drill_down
     get :drill_down_dept_value
     get :drill_down_top_group
+    get :drill_down_group_detail
   end
 end

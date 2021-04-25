@@ -60,7 +60,11 @@ en:
 
       top_group_modal:
         close: "Close"
+        group_detail: "See details"
         table:
           rank: "Rank"
           design_group: "Design group"
           design_value: "Design value"
+
+      group_detail_modal:
+        close: "Close"
