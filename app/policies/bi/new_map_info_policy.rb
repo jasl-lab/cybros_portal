@@ -8,7 +8,11 @@ module Bi
         return scope.none unless user.present?
 
         if user.admin? || \
-            user.positions.any? { |position| position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download view_project_details]) } || \
+            user.positions.any? do |position|
+              return false unless position.baseline_position_access.present?
+
+              position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download view_project_details])
+            end || \
             user.roles.pluck(:project_map_viewer).any?
           scope.all
         else
@@ -21,7 +25,11 @@ module Bi
       return false unless user.present?
 
       user.admin? || \
-        user.positions.any? { |position| position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download view_project_details]) } || \
+        user.positions.any? do |position|
+          return false unless position.baseline_position_access.present?
+
+          position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download view_project_details])
+        end || \
         user.roles.pluck(:project_map_viewer).any?
     end
 
@@ -29,7 +37,11 @@ module Bi
       return false unless user.present?
 
       user.admin? || \
-        user.positions.any? { |position| position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download view_project_details]) } || \
+        user.positions.any? do |position|
+          return false unless position.baseline_position_access.present?
+
+          position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download view_project_details])
+        end || \
         user.roles.pluck(:project_map_viewer).any?
     end
 
@@ -37,7 +49,11 @@ module Bi
       return false unless user.present?
 
       user.admin? || \
-        user.positions.any? { |position| position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download]) } || \
+        user.positions.any? do |position|
+          return false unless position.baseline_position_access.present?
+
+          position.baseline_position_access.contract_map_access.in?(%w[project_detail_with_download])
+        end || \
         user.roles.pluck(:project_map_contract_download).any?
     end
   end
