@@ -13,7 +13,7 @@ class CostSplit::CostAllocationSummariesController < CostSplit::BaseController
     all_dept_codes = xy_axis_data.collect(&:v_wata_dept_code).uniq
     to_split_company_codes = xy_axis_data.collect(&:to_split_company_code).uniq
 
-    @ordered_depts = Bi::OrgReportDeptOrder.where(编号: all_dept_codes).order(:部门排名)
+    @ordered_depts = Bi::OrgReportDeptOrder.where(编号: all_dept_codes).order(:显示顺序)
       .select(:编号, :部门).reduce({}) do |h, s|
         h[s.部门] = s.编号
         h
