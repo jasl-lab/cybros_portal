@@ -1,0 +1,9 @@
+<% @received_sms_messages.each do |rsm| %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">号码：<%= rsm.receive_id -%></h5>
+      <h6 class="card-subtitle mb-2 text-muted"><%= rsm.created_at.to_s(:db_short) -%></h6>
+      <p class="card-text"><%= rsm.content -%></p>
+    </div>
+  </div>
+<% end %>

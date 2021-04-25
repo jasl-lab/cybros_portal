@@ -191,7 +191,7 @@ body:not(.sidebar-minimized) {
   }
 
   @include media-breakpoint-down(md) {
-    padding-left: 0;
+    padding-left: 4px;
 
     .navbar-brand {
       position: relative;
