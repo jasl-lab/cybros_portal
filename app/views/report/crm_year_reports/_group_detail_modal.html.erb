@@ -10,6 +10,44 @@
     </div>
     <div class="modal-body">
       <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t(".table.salescontractcode") %></th>
+              <th><%= t(".table.salescontractname") %></th>
+              <th><%= t(".table.contractstatusname") %></th>
+              <th><%= t(".table.filingtime") %></th>
+              <th><%= t(".table.realamounttotal") %></th>
+              <th><%= t(".table.deptvalue") %></th>
+              <th><%= t(".table.marketbouns") %></th>
+              <th><%= t(".table.clientbouns") %></th>
+              <th><%= t(".table.heji") %></th>
+              <th><%= t(".table.contractcategoryname") %></th>
+              <th><%= t(".table.contractpropertyname") %></th>
+              <th><%= t(".table.businessltdname") %></th>
+              <th><%= t(".table.businessdepartmentsname") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% plan_values.each do |d| %>
+              <tr>
+                <td><%= d.salescontractcode -%></td>
+                <td><%= d.salescontractname -%></td>
+                <td><%= d.contractstatusname -%></td>
+                <td><%= d.filingtime -%></td>
+                <td><%= d.realamounttotal -%></td>
+                <td><%= d.deptvalue -%></td>
+                <td><%= d.marketbouns -%></td>
+                <td><%= d.clientbouns -%></td>
+                <td><%= d.heji -%></td>
+                <td><%= d.contractcategoryname -%></td>
+                <td><%= d.contractpropertyname -%></td>
+                <td><%= d.businessltdname -%></td>
+                <td><%= d.businessdepartmentsname -%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
     <div class="modal-footer">

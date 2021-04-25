@@ -68,3 +68,19 @@ en:
 
       group_detail_modal:
         close: "Close"
+        table:
+          salescontractcode: "Sales contract code"
+          salescontractname: "Sales contract name"
+          contractstatusname: "Contract status name"
+          filingtime: "Filing time"
+          realamounttotal: "Real amount total"
+          professioncomname: "Profession com name"
+          professiondeptname: "Profession dept name"
+          deptvalue: "Dept value"
+          marketbouns: "Market bonus"
+          clientbouns: "Client bonus"
+          heji: "Total"
+          contractcategoryname: "Contract category"
+          contractpropertyname: "Contract property"
+          businessltdname: "Business company"
+          businessdepartmentsname: "Business dept"
