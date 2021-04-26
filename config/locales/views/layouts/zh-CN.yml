@@ -44,6 +44,7 @@ zh-CN:
         received_sms_messages: "收到的短信验证码"
       company:
         header: "公司首页"
+        sms_phone_configurations: "手机号配置维护"
         knowledges: "智能问答知识库"
         knowledge_maintains: "知识库维护"
         pending_questions: "无法回答的问题"

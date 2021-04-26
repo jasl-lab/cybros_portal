@@ -7,6 +7,14 @@
   </div>
   <nav class="sidebar-nav">
     <ul class="nav">
+      <% if policy(Company::ReceivedSmsMessage).index? %>
+        <%= nav_item controller: 'company/sms_phone_configurations', html_options: {class: "nav-item"} do %>
+          <%= link_to company_sms_phone_configurations_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-alt"></i>
+            <%= t("layouts.sidebar.company.sms_phone_configurations") %>
+          <% end %>
+        <% end %>
+      <% end %>
       <% if policy(Company::Knowledge).update? %>
         <%= nav_item controller: 'company/knowledge_maintains', html_options: {class: "nav-item"} do %>
           <%= link_to company_knowledge_maintains_path, class: "nav-link" do %>

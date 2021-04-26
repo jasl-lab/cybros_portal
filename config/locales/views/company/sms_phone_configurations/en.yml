@@ -1,0 +1,6 @@
+---
+en:
+  company:
+    sms_phone_configurations:
+      index:
+        title: "Mobile phone number configuration maintenance"

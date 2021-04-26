@@ -1,0 +1,6 @@
+---
+zh-CN:
+  company:
+    sms_phone_configurations:
+      index:
+        title: "手机号配置维护"

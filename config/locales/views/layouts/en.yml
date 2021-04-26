@@ -44,6 +44,7 @@ en:
         received_sms_messages: "SMS verification code received"
       company:
         header: "Company Home"
+        sms_phone_configurations: "Mobile phone number configuration maintenance"
         knowledges: "Knowledges"
         knowledge_maintains: "Knowledge maintains"
         pending_questions: "Pending knowledge questions"
