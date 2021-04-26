@@ -1916,9 +1916,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001214:
-  version "1.0.30001214"
-  resolved "https://registry.nlark.com/caniuse-lite/download/caniuse-lite-1.0.30001214.tgz#70f153c78223515c6d37a9fde6cd69250da9d872"
-  integrity sha1-cPFTx4IjUVxtN6n95s1pJQ2p2HI=
+  version "1.0.30001216"
+  resolved "https://registry.nlark.com/caniuse-lite/download/caniuse-lite-1.0.30001216.tgz?cache=0&sync_timestamp=1619419148352&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001216.tgz#47418a082a4f952d14d8964ae739e25efb2060a9"
+  integrity sha1-R0GKCCpPlS0U2JZK5zniXvsgYKk=
 
 cardinal@^1.0.0:
   version "1.0.0"
@@ -8258,7 +8258,7 @@ yargs-parser@^13.1.2:
 
 yargs@^13.3.2:
   version "13.3.2"
-  resolved "https://registry.nlark.com/yargs/download/yargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
+  resolved "https://registry.nlark.com/yargs/download/yargs-13.3.2.tgz?cache=0&sync_timestamp=1619404265836&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fyargs%2Fdownload%2Fyargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
   integrity sha1-rX/+/sGqWVZayRX4Lcyzipwxot0=
   dependencies:
     cliui "^5.0.0"
