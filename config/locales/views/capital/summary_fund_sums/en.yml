@@ -1,6 +1,6 @@
 ---
 en:
   capital:
-    summary_fund_dailies:
+    summary_fund_sums:
       show:
         title: "Summary group fund"
