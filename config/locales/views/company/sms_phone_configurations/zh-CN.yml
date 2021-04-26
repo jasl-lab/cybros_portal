@@ -4,3 +4,7 @@ zh-CN:
     sms_phone_configurations:
       index:
         title: "手机号配置维护"
+        table:
+          receive_id: "接收手机号"
+          user_name: "接收人"
+          user_mobile: "接收人手机（仅转接电话用）"

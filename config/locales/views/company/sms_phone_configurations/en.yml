@@ -4,3 +4,7 @@ en:
     sms_phone_configurations:
       index:
         title: "Mobile phone number configuration maintenance"
+        table:
+          receive_id: "Receive ID"
+          user_name: "User name"
+          user_mobile: "User mobile"

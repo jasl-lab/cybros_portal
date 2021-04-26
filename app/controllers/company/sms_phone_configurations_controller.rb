@@ -6,6 +6,7 @@ class Company::SmsPhoneConfigurationsController < ApplicationController
 
   def index
     prepare_meta_tags title: t('.title')
+    @sms_phone_mappings = Company::SmsPhoneMapping.all
   end
 
   protected
