@@ -1,0 +1,3 @@
+$("#sms-phone-mapping-modal").html('');
+$("#sms-phone-mapping-modal").modal('hide');
+$("#sms-phone-mapping-row-<%= @sms_phone_mapping.id -%>").html('<%= j render partial: "sms_phone_mapping_row", locals: { s: @sms_phone_mapping } -%>');

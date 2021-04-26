@@ -1,0 +1,8 @@
+<td><%= s.receive_id -%></td>
+<td><%= s.user&.chinese_name -%></td>
+<td><%= s.user_mobile -%></td>
+<td>
+  <%= link_to edit_company_sms_phone_configuration_path(id: s.id), remote: true do %>
+    <i class="fa fa-edit"></i>
+  <% end %>
+</td>
