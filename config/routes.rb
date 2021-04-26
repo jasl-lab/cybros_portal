@@ -134,6 +134,7 @@ Rails.application.routes.draw do
 
   namespace :ui do
     resource :ncworkno_select, only: %i[show]
+    resource :userid_select, only: %i[show]
   end
 
   devise_for :users, skip: %i[registrations invitations], controllers: {

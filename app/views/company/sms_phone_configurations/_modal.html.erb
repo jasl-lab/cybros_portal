@@ -10,6 +10,13 @@
     <div class="modal-body">
 
   <div class="form-group row">
+    <label class="col-6 col-form-label"><%= f.label :user_id, t('.user_name') -%></label>
+    <div class="col-6">
+      <%= f.select :user_id, options_from_collection_for_select(User.where(id: sms_phone_mapping.id), "id", "chinese_name"), {}, class: 'form-control-plaintext form-control', id: 'userid-select', data: { controller: 'ui--userid-select', 'ui--userid-select-url-value': '/ui/userid_select.json' } -%>
+    </div>
+  </div>
+
+  <div class="form-group row">
     <label class="col-6 col-form-label"><%= f.label :user_mobile, t('.user_mobile') -%></label>
     <div class="col-6">
       <%= f.text_field :user_mobile, class: 'form-control' %>
