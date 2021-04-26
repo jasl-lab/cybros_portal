@@ -8,3 +8,8 @@ en:
           receive_id: "Receive ID"
           user_name: "User name"
           user_mobile: "User mobile"
+      modal:
+        close: "Close"
+        submit: "Submit"
+        user_name: "User name"
+        user_mobile: "User mobile"

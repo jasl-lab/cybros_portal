@@ -1,0 +1,28 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"><%= sms_phone_mapping.receive_id -%> 维护</h5>
+      <a class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
+    </div>
+<%= form_with(model: sms_phone_mapping, local: false, url: company_sms_phone_configuration_path(sms_phone_mapping), class: 'form-horizontal') do |f| %>
+    <div class="modal-body">
+
+  <div class="form-group row">
+    <label class="col-6 col-form-label"><%= f.label :user_mobile, t('.user_mobile') -%></label>
+    <div class="col-6">
+      <%= f.text_field :user_mobile, class: 'form-control' %>
+    </div>
+  </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('.close') -%></button>
+      <button class="btn btn-primary" type="submit">
+        <%= t('.submit') -%>
+      </button>
+    </div>
+<% end %>
+  </div>
+</div

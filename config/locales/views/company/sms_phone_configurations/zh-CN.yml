@@ -8,3 +8,8 @@ zh-CN:
           receive_id: "接收手机号"
           user_name: "接收人"
           user_mobile: "接收人手机（仅转接电话用）"
+      modal:
+        close: "关闭"
+        submit: "递交"
+        user_name: "接收人"
+        user_mobile: "接收人手机（仅转接电话用）"
