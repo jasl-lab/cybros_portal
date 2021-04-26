@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   create_table "BI_KPI_REPORT", primary_key: ["指标编码", "报表编码"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "指标编码", limit: 20, null: false
     t.string "报表编码", limit: 20, null: false
-    t.datetime "填报时间"
     t.string "填报人", limit: 200
+    t.datetime "填报时间"
   end
 
   create_table "BI_MESSAGE_BOX", primary_key: "MESSAGEID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -605,6 +605,25 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "虚拟所", limit: 20
   end
 
+  create_table "ORG_REPORT_DEPT_CHANGE1", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "编号", limit: 20
+    t.string "部门", limit: 100
+    t.string "上级部门编号", limit: 20
+    t.string "上级部门", limit: 100
+    t.string "组织编号", limit: 20
+    t.string "组织", limit: 100
+    t.date "开始时间"
+    t.date "结束时间"
+    t.string "部门类型", limit: 20
+    t.string "部门类别", limit: 20
+    t.string "是否启用", limit: 20
+    t.bigint "部门排名"
+    t.bigint "显示顺序"
+    t.string "是否显示", limit: 20
+    t.string "部门属性", limit: 20
+    t.string "虚拟所", limit: 20
+  end
+
   create_table "ORG_REPORT_DEPT_ORDER", primary_key: "index", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "编号", limit: 45
     t.string "部门", limit: 45
@@ -617,11 +636,29 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "部门类型"
     t.text "部门类别"
     t.float "是否启用", limit: 53
-    t.integer "部门排名", default: 9999
-    t.integer "显示顺序", default: 9999
+    t.integer "部门排名"
+    t.integer "显示顺序"
     t.float "是否显示", limit: 53
     t.string "部门属性", limit: 45
     t.index ["index"], name: "index_UNIQUE", unique: true
+  end
+
+  create_table "ORG_REPORT_DEPT_ORDER_TEST", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "上级部门"
+    t.text "上级部门编号"
+    t.datetime "开始时间"
+    t.text "是否启用"
+    t.text "是否显示"
+    t.bigint "显示顺序"
+    t.text "组织"
+    t.text "组织编号"
+    t.datetime "结束时间"
+    t.text "编号"
+    t.text "部门"
+    t.text "部门属性"
+    t.float "部门排名", limit: 53
+    t.text "部门类别"
+    t.text "部门类型"
   end
 
   create_table "ORG_REPORT_RELATION_ORDER", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -962,6 +999,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "aging_amount_4to12_months", limit: 53
     t.float "aging_amount_1to2_years", limit: 53
     t.float "aging_amount_gt2_years", limit: 53
+    t.float "accneedreceive_gt3_months", limit: 53
     t.index ["date"], name: "idx_sub_company_need_receive_sign_detail_date"
   end
 
