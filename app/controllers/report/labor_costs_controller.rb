@@ -7,7 +7,10 @@ class Report::LaborCostsController < Report::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
-    authorize SplitCost::MonthlySalarySplitRule
+    authorize SplitCost::UserSplitClassifySalaryPerMonth
+    @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
+    @month_name = params[:month_name]&.strip || @all_month_names.second
+    @beginning_of_month = Date.parse(@month_name).beginning_of_month
   end
 
   protected

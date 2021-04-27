@@ -4,3 +4,5 @@ en:
     key_customer_details:
       show:
         title: "Labor cost report"
+        month_name: "Month name"
+        confirm: "Confirm"
