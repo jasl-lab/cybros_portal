@@ -8,5 +8,6 @@ en:
         department: "Department"
         clerk_code: "Clerk code"
         chinese_name: "Chinese name"
+        user_cost_type: "User cost type"
         month_name: "Month name"
         confirm: "Confirm"

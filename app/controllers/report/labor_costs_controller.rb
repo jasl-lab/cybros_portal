@@ -11,6 +11,7 @@ class Report::LaborCostsController < Report::BaseController
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     @beginning_of_month = Date.parse(@month_name).beginning_of_month
+    @user_cost_types = SplitCost::UserCostType.all.order(:code)
   end
 
   protected

@@ -24,6 +24,10 @@
         <label class="mr-1"><%= t(".month_name") -%>：</label>
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
       </div>
+      <div class="form-group m-1">
+        <label class="mr-1"><%= t(".user_cost_type") -%>：</label>
+        <%= select_tag 'user_cost_type', options_from_collection_for_select(@user_cost_types, "id", "name", @user_cost_type), class: 'form-control' %>
+      </div>
       <div class="m-1">
         <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
       </div>
