@@ -335,13 +335,11 @@ namespace :split_cost do
         user_mpts.each do |mpts|
           next if mpts.salary_classification_split_rate.zero?
 
-          # If user is not belongs to the position already, should remove the rules.
-          position_user = user.position_users.find_by!(position_id: mpts.position_id, main_position: mpts.main_position)
-          query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user.position_id,
+          query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, mpts.position_id,
             scs.user_job_type_id, mpts.user_salary_classification_id)
           SplitCost::UserSplitClassifySalaryPerMonth.find_or_create_by!(month: cyearperiod_month_start,
-            user_id: user.id, position_id: position_user.position_id,
-            user_job_type_id: query_job_type_id, main_position: position_user.main_position,
+            user_id: user.id, position_id: mpts.position_id,
+            user_job_type_id: query_job_type_id, main_position: mpts.main_position,
             user_cost_type_id: final_cost_type_id, amount: (scs.amount * (mpts.salary_classification_split_rate / 100.0)))
         end
       else
