@@ -9,7 +9,7 @@ class Report::LaborCostsController < Report::BaseController
     prepare_meta_tags title: t('.title')
     authorize SplitCost::UserSplitClassifySalaryPerMonth
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
-    @month_name = params[:month_name]&.strip || @all_month_names.second
+    @month_name = params[:month_name]&.strip || @all_month_names.first
     @beginning_of_month = Date.parse(@month_name).beginning_of_month
   end
 

@@ -4,11 +4,27 @@
       <%= t(".title") %>
     </h3>
     <%= form_tag report_labor_cost_path, method: :get, class: 'form-inline' do -%>
-      <div class="form-group">
+      <div class="form-group m-1">
+        <label class="mr-1"><%= t(".company_name") -%>：</label>
+        <%= text_field_tag 'company_name', nil, class: 'form-control' -%>
+      </div>
+      <div class="form-group m-1">
+        <label class="mr-1"><%= t(".department") -%>：</label>
+        <%= text_field_tag 'department', nil, class: 'form-control' -%>
+      </div>
+      <div class="form-group m-1">
+        <label class="mr-1"><%= t(".clerk_code") -%>：</label>
+        <%= text_field_tag 'clerk_code', nil, class: 'form-control' -%>
+      </div>
+      <div class="form-group m-1">
+        <label class="mr-1"><%= t(".chinese_name") -%>：</label>
+        <%= text_field_tag 'chinese_name', nil, class: 'form-control' -%>
+      </div>
+      <div class="form-group m-1">
         <label class="mr-1"><%= t(".month_name") -%>：</label>
         <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
       </div>
-      <div>
+      <div class="m-1">
         <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
       </div>
     <% end -%>

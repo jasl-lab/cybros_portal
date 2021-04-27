@@ -4,5 +4,9 @@ en:
     key_customer_details:
       show:
         title: "Labor cost report"
+        company_name: "Company name"
+        department: "Department"
+        clerk_code: "Clerk code"
+        chinese_name: "Chinese name"
         month_name: "Month name"
         confirm: "Confirm"
