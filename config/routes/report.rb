@@ -15,6 +15,7 @@ namespace :report do
   resource :departmental_market_fees, only: %i[show]
   resource :org_market_fees, only: %i[show]
   resource :bonus_distribution, only: %i[show]
+  resource :labor_cost, only: %i[show]
 
   resource :human_resource, only: %i[show]
 
