@@ -9,5 +9,6 @@ en:
         clerk_code: "Clerk code"
         chinese_name: "Chinese name"
         user_cost_type: "User cost type"
+        amount: "Amount"
         month_name: "Month name"
         confirm: "Confirm"
