@@ -6,7 +6,7 @@ module IndexLibrary
       return false unless user.present?
 
       user.admin? ||
-        user.chinese_name.in?(%w[张晓辉 陈建 王星灿 叶馨 朱谊 陆文娟 周聪睿 郭颖杰 吴悠 袁士捷 毕赢 余慧 王旭冉])
+        user.roles.any? { |r| r.role_name == '天华指标库访问' }
     end
   end
 end
