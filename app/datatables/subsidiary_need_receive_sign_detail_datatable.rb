@@ -26,6 +26,8 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       sales_contract_code: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractcode', cond: :like, searchable: true, orderable: true },
       sales_contract_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractname', cond: :like, searchable: true, orderable: true },
       amount_total: { source: 'Bi::SubCompanyNeedReceiveSignDetail.amounttotal', cond: :gteq, searchable: true, orderable: true },
+      contract_property_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname', cond: :eq, searchable: true, orderable: true },
+      contract_time:  { source: 'Bi::SubCompanyNeedReceiveSignDetail.contracttime', cond: :eq, searchable: true, orderable: true },
       acc_need_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive', orderable: true },
       acc_need_receive_gt3_months: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive_gt3_months', orderable: true },
       sign_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.sign_receive', orderable: true },
