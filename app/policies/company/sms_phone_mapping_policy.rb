@@ -4,7 +4,7 @@ module Company
   class SmsPhoneMappingPolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        if user.admin? || user.chinese_name.in?(%w[陈建])
+        if user.admin? || user.chinese_name.in?(%w[陈建 杜平])
           scope.all
         else
           scope.where(user_id: user.id)
@@ -15,7 +15,7 @@ module Company
     def index?
       return false unless user.present?
 
-      user.admin? || user.chinese_name.in?(%w[陈建])
+      user.admin? || user.chinese_name.in?(%w[陈建 杜平])
     end
 
     def edit?
@@ -25,7 +25,7 @@ module Company
     def update?
       return false unless user.present?
 
-      user.admin? || user.chinese_name.in?(%w[陈建])
+      user.admin? || user.chinese_name.in?(%w[陈建 杜平])
     end
   end
 end
