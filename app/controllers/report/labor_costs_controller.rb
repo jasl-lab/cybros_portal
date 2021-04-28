@@ -19,10 +19,10 @@ class Report::LaborCostsController < Report::BaseController
       cspms.where(user_cost_type_id: @user_cost_type_id)
     else
       cspms
-    end.select('users.clerk_code, users.chinese_name, positions.department_id, user_cost_types.name, sum(amount) total')
-      .joins(:user, :position, :user_cost_type)
-      .group(:"users.clerk_code", :"users.chinese_name", :"positions.department_id", :"user_cost_types.name")
-      .order(:"users.clerk_code", :"users.chinese_name", :"positions.department_id", :"user_cost_types.name")
+    end.select('users.clerk_code, users.chinese_name, departments.name department_name, departments.company_name, user_cost_types.name user_cost_type_name, sum(amount) total')
+      .joins(:user, { position: :department }, :user_cost_type)
+      .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
+      .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
   end
 
   protected
