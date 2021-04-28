@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_032216) do
+ActiveRecord::Schema.define(version: 2021_04_28_091705) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -126,14 +126,14 @@ ActiveRecord::Schema.define(version: 2021_04_26_032216) do
   end
 
   create_table "cost_split_company_monthly_adjust_approve_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "cost_split_company_monthly_adjust_id", null: false
     t.string "clerk_code"
     t.string "chinese_name", null: false
     t.string "approval_message"
-    t.bigint "cost_split_company_monthly_adjust_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "biz_id"
     t.string "step_label"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["cost_split_company_monthly_adjust_id"], name: "idx_company_monthly_adjust_approve_details_on_adjust_id"
   end
 
@@ -635,7 +635,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_032216) do
     t.bigint "user_cost_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "amount", precision: 10
+    t.decimal "amount", precision: 10, scale: 2
     t.index ["position_id"], name: "index_user_split_classify_salary_per_months_on_position_id"
     t.index ["user_cost_type_id"], name: "index_user_split_classify_salary_per_months_on_user_cost_type_id"
     t.index ["user_id"], name: "index_user_split_classify_salary_per_months_on_user_id"
