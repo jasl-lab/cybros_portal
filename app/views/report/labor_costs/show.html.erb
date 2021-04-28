@@ -6,19 +6,19 @@
     <%= form_tag report_labor_cost_path, method: :get, class: 'form-inline' do -%>
       <div class="form-group m-1">
         <label class="mr-1"><%= t(".company_name") -%>：</label>
-        <%= text_field_tag 'company_name', nil, class: 'form-control' -%>
+        <%= text_field_tag 'company_name', @company_name, class: 'form-control' -%>
       </div>
       <div class="form-group m-1">
         <label class="mr-1"><%= t(".department") -%>：</label>
-        <%= text_field_tag 'department', nil, class: 'form-control' -%>
+        <%= text_field_tag 'department', @department_name, class: 'form-control' -%>
       </div>
       <div class="form-group m-1">
         <label class="mr-1"><%= t(".clerk_code") -%>：</label>
-        <%= text_field_tag 'clerk_code', nil, class: 'form-control' -%>
+        <%= text_field_tag 'clerk_code', @clerk_code, class: 'form-control' -%>
       </div>
       <div class="form-group m-1">
         <label class="mr-1"><%= t(".chinese_name") -%>：</label>
-        <%= text_field_tag 'chinese_name', nil, class: 'form-control' -%>
+        <%= text_field_tag 'chinese_name', @chinese_name, class: 'form-control' -%>
       </div>
       <div class="form-group m-1">
         <label class="mr-1"><%= t(".month_name") -%>：</label>
@@ -51,8 +51,8 @@
               <tr>
                 <td><%= cspm.clerk_code -%></td>
                 <td><%= cspm.chinese_name -%></td>
-                <td><%= cspm.department_name -%></td>
                 <td><%= cspm.company_name -%></td>
+                <td><%= cspm.department_name -%></td>
                 <td><%= cspm.user_cost_type_name -%></td>
                 <td><%= @month_name -%></td>
                 <td><%= cspm.total -%></td>

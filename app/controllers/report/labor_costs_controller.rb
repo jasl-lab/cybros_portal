@@ -8,6 +8,11 @@ class Report::LaborCostsController < Report::BaseController
   def show
     prepare_meta_tags title: t('.title')
     authorize SplitCost::UserSplitClassifySalaryPerMonth
+    @company_name = params[:company_name]
+    @department_name = params[:department]
+    @clerk_code = params[:clerk_code]
+    @chinese_name = params[:chinese_name]
+
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     beginning_of_month = Date.parse(@month_name).beginning_of_month
@@ -15,6 +20,31 @@ class Report::LaborCostsController < Report::BaseController
     @user_cost_type_id = params[:user_cost_type_id]
 
     cspms = SplitCost::UserSplitClassifySalaryPerMonth.where(month: beginning_of_month)
+
+    cspms = if @company_name.present?
+      cspms.where('departments.company_name LIKE ?', "%#{@company_name}%")
+    else
+      cspms
+    end
+
+    cspms = if @department_name.present?
+      cspms.where('departments.name LIKE ?', "%#{@department_name}%")
+    else
+      cspms
+    end
+
+    cspms = if @clerk_code.present?
+      cspms.where('users.clerk_code LIKE ?', "%#{@clerk_code}%")
+    else
+      cspms
+    end
+
+    cspms = if @chinese_name.present?
+      cspms.where('users.chinese_name LIKE ?', "%#{@chinese_name}%")
+    else
+      cspms
+    end
+
     @cspms = if @user_cost_type_id.present?
       cspms.where(user_cost_type_id: @user_cost_type_id)
     else
