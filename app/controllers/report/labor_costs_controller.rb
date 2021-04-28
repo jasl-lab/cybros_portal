@@ -10,8 +10,18 @@ class Report::LaborCostsController < Report::BaseController
     authorize SplitCost::UserSplitClassifySalaryPerMonth
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
-    @beginning_of_month = Date.parse(@month_name).beginning_of_month
+    beginning_of_month = Date.parse(@month_name).beginning_of_month
     @user_cost_types = SplitCost::UserCostType.all.order(:code)
+    @user_cost_type_id = params[:user_cost_type_id]
+
+    cspms = SplitCost::UserSplitClassifySalaryPerMonth.where(month: beginning_of_month)
+    @cspms = if @user_cost_type_id.present?
+      cspms.where(user_cost_type_id: @user_cost_type_id)
+    else
+      cspms
+    end.select('user_id, position_id, user_cost_type_id, sum(amount) total')
+      .group(:user_id, :position_id, :user_cost_type_id)
+      .order(:user_id, :position_id, :user_cost_type_id)
   end
 
   protected
