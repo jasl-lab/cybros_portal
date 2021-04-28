@@ -4,7 +4,7 @@ module Admin
   class ReceivedSmsMessagesController < ApplicationController
     def index
       prepare_meta_tags title: t('.title')
-      @received_sms_messages = Company::ReceivedSmsMessage.all
+      @received_sms_messages = Company::ReceivedSmsMessage.where(created_at: 5.minutes.ago..)
     end
 
     def destroy
