@@ -6,6 +6,6 @@ class Company::JointReviewSmsController < ApplicationController
 
   def index
     prepare_meta_tags title: t('.title')
-    @received_sms_messages = Company::ReceivedSmsMessage.all.order(id: :desc)
+    @received_sms_messages = Company::ReceivedSmsMessage.where(created_at: 5.minutes.ago..).order(id: :desc)
   end
 end
