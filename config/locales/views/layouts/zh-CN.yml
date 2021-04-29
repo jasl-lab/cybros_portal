@@ -27,7 +27,7 @@ zh-CN:
         capital_report: "财务部-资金日报"
         salary_query: "财务部-薪资查询"
         operation_entry: "财务分析-填报"
-        cost_report: "财务分析-成本报告"
+        cost_report: "财务分析-成本计提表"
         cost_split: "集团费用分摊"
       accounts:
         header: "用户设置"
