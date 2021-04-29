@@ -65,7 +65,7 @@
       <% account_report_show = policy(:"Account::OrgYearFill").show? || policy(:"Account::OrgMonthFill").show? || policy(:"Account::InteriorFill").show? || policy(:"Account::DeptYearFill").show? || policy(:"Account::DeptMonthFill").show? || policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetOrg").show? || policy(:"Account::BusinessTargetDept").show? || policy(:"Account::BusinessTargetDeptShow").show? || policy(:"Account::OperationSummaryOrg").show? || policy(:"Account::OperationSummaryDept").show? %>
       <% financial_management_show = policy(:"Bi::DeptHomepage").show? || policy(:"Bi::ContractInformationForm").show? || policy(:"Bi::ProjectContractSummary").show? || policy(:"Bi::SingleProjectOverviews").show? || policy(:"Bi::DepartmentalMarketFees").show? || policy(:"Bi::OrgMarketFees").show? || policy(:"Bi::BonusDistribution").show? %>
       <% operation_entry_show = policy(:"OperationEntry::CostStructureEntry").show? || policy(:"OperationEntry::CashFlowDeptEntry").show? %>
-      <% cost_report_show = policy(:"OperationEntry::CostReportShow").show? %>
+      <% cost_report_show = policy(:"Account::CostReportShow").show? %>
       <% account_split_settings_show = policy(SplitCost::MonthlySalarySplitRule).show? || policy(SplitCost::UserMonthlyPartTimeSplitRate).show? || policy(SplitCost::UserMonthlyPartTimeSpecialJobType).show? %>
       <% if account_report_show || financial_management_show || operation_entry_show || cost_report_show || account_split_settings_show %>
       <li class="nav-item nav-dropdown <%= (account_report_show || financial_management_show) && !current_user.admin? ? 'open' : '' %>">
