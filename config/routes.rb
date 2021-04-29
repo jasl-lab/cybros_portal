@@ -117,6 +117,7 @@ Rails.application.routes.draw do
     resource :operation_summary_dept, only: %i[show]
 
     resource :split_setting, only: %i[show]
+    resource :cost_report, only: %i[show]
   end
 
   namespace :capital do

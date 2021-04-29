@@ -95,6 +95,14 @@
               <% end %>
             <% end %>
           <% end %>
+          <% if operation_entry_show %>
+            <%= nav_item controller: 'account/cost_reports', html_options: { class: "nav-item" } do %>
+              <%= link_to account_cost_report_path, class: "nav-link" do %>
+                <i class="nav-icon fas fa-pen-square"></i>
+                <%= t("layouts.sidebar.application.cost_report") %>
+              <% end %>
+            <% end %>
+          <% end %>
           <% if account_split_settings_show %>
             <%= nav_item controller: 'report/labor_costs', html_options: { class: "nav-item" } do %>
               <%= link_to report_labor_cost_path, class: "nav-link" do %>
