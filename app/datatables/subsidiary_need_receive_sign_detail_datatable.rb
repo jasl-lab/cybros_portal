@@ -9,6 +9,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
   def initialize(params, opts = {})
     @subsidiary_need_receive_sign_details = opts[:subsidiary_need_receive_sign_details]
     @over_amount_great_than = opts[:over_amount_great_than]
+    @accneedreceive_gt3_months_great_than = opts[:accneedreceive_gt3_months_great_than]
     @total_sign_receive_great_than = opts[:total_sign_receive_great_than]
     @end_of_date = opts[:end_of_date]
     @org_name = opts[:org_name]
@@ -93,7 +94,16 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         rr.where('sign_receive > ?', @total_sign_receive_great_than)
       end
     end
-    rr = rr.where('overamount > ? OR accneedreceive_gt3_months > 0', @over_amount_great_than) unless @over_amount_great_than.zero?
+
+    rr = if !@over_amount_great_than.zero? && !@accneedreceive_gt3_months_great_than.zero?
+      rr.where('overamount > ? OR accneedreceive_gt3_months > ?', @over_amount_great_than, @accneedreceive_gt3_months_great_than)
+    elsif !@over_amount_great_than.zero?
+      rr.where('overamount > ?', @over_amount_great_than)
+    elsif !@accneedreceive_gt3_months_great_than.zero?
+      rr.where('accneedreceive_gt3_months > ?', @accneedreceive_gt3_months_great_than)
+    else
+      rr
+    end
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr = rr.where(deptcode: @dept_codes) if @dept_codes.present?
     rr

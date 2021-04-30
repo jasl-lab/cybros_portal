@@ -27,7 +27,11 @@
             </div>
             <div class="form-group mx-1">
               <label><%= t(".over_amount_great_than") -%>：</label>
-              <%= text_field_tag 'over_amount_great_than', @over_amount_great_than, class: 'form-control' %>
+              <%= text_field_tag 'over_amount_great_than', @over_amount_great_than, class: "form-control form-control2" %>
+            </div>
+            <div class="form-group mx-1">
+              <label><%= t(".accneedreceive_gt3_months_great_than") -%>：</label>
+              <%= text_field_tag 'accneedreceive_gt3_months_great_than', @accneedreceive_gt3_months_great_than, class: "form-control form-control2" %>
             </div>
             <% if @can_hide_item -%>
               <div class="form-group mx-1">
@@ -43,6 +47,7 @@
         <table id="subsidiary-need-receive-sign-details-datatable"
           class="table table-hover table-bordered table-responsive"
           data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json, org_name: @org_name, dept_codes: @dept_codes, total_sign_receive_great_than: @total_sign_receive_great_than, over_amount_great_than: @over_amount_great_than,
+            accneedreceive_gt3_months_great_than: @accneedreceive_gt3_months_great_than,
             month_name: params[:month_name], show_hide_item: @show_hide_item) %>">
           <% if @end_of_date <= Time.new(2021,3,1) %>
             <%= render partial: 'pre_202103_head' %>

@@ -25,6 +25,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     @dept_codes = params[:dept_codes]
     @total_sign_receive_great_than = params[:total_sign_receive_great_than]
     @over_amount_great_than = params[:over_amount_great_than]
+    @accneedreceive_gt3_months_great_than = params[:accneedreceive_gt3_months_great_than]
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
     @show_hide_item = params[:show_hide_item] == 'true' && @can_hide_item
 
@@ -39,6 +40,7 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
           dept_codes: @dept_codes,
           total_sign_receive_great_than: @total_sign_receive_great_than.to_i * 10000,
           over_amount_great_than: @over_amount_great_than.to_i * 10000,
+          accneedreceive_gt3_months_great_than: @accneedreceive_gt3_months_great_than.to_i * 10000,
           can_hide_item: @can_hide_item,
           show_hide: @show_hide_item,
           view_context: view_context)

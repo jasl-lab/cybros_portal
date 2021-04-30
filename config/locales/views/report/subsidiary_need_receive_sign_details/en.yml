@@ -9,6 +9,7 @@ en:
         dept_codes: "Department name"
         total_sign_receive_great_than: "Total sign receive greater than"
         over_amount_great_than: "Over amount greater than"
+        accneedreceive_gt3_months_great_than: "Over-long aging financial accounts receivable is greater than or equal to"
         show_hide_item: "Show hide item"
         confirm: "Confirm"
       pre_202103_head:
