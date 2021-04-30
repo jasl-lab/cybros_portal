@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "指标别称"
     t.text "指标定义"
     t.text "计算公式"
+    t.text "指标取数逻辑"
     t.string "原子指标", limit: 200
     t.string "其他修饰词", limit: 200
     t.string "时间周期", limit: 200
@@ -966,6 +967,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "pmbillno", limit: 200
     t.string "fpbillno", limit: 45
     t.date "date"
+    t.index ["contractcode", "date"], name: "idx_real_receive_origin_contractcode_date"
   end
 
   create_table "SUB_COMPANY_NEED_RECEIVE_SIGN_DETAIL", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

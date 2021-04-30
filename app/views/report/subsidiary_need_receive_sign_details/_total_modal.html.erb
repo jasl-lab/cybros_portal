@@ -12,13 +12,24 @@
         <thead>
           <tr>
             <th><%= t(".table.invoice_amount") -%></th>
-            <th><%= t(".table.invoice_company_dept") -%></th>
+            <th><%= t(".table.customer_jt") -%></th>
             <th><%= t(".table.invoice_date") -%></th>
             <th><%= t(".table.financial_receivables_amount") -%></th>
-            <th><%= t(".table.financial_receivables_aging") -%></th>
+            <th><%= t(".table.bill_due_date") -%></th>
+            <th><%= t(".table.bill_receive_date") -%></th>
           </tr>
         </thead>
         <tbody>
+          <% details.each do |d| %>
+            <tr>
+              <td><%= d.need_amount -%></td>
+              <td><%= d.customer_jt -%></td>
+              <td><%= d.billdate -%></td>
+              <td><%= d.receive_amount -%></td>
+              <td><%= d.bill_due_date -%></td>
+              <td><%= d.bill_receive_date -%></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

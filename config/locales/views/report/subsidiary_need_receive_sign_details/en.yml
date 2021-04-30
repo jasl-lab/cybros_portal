@@ -55,10 +55,11 @@ en:
       total_modal:
         table:
           invoice_amount: "Invoice amount"
-          invoice_company_dept: "Invoice company dept"
+          customer_jt: "Customer group"
           invoice_date: "Invoice date"
           financial_receivables_amount: "Financial receivables amount"
-          financial_receivables_aging: "Financial receivables aging"
+          bill_due_date: "Bill due date"
+          bill_receive_date: "Bill receive date"
         close: "Close"
       financial_modal:
         table:
