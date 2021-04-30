@@ -8,7 +8,7 @@ zh-CN:
         org_name: "商务责任公司"
         dept_codes: "商务责任部门"
         total_sign_receive_great_than: "合同总应收大于等于（万元）"
-        over_amount_great_than: "帐龄三个月以上金额大于等于（万元）"
+        over_amount_great_than: "帐龄三个月以上金额大于等于（万元）或者存在超长账龄财务应收"
         show_hide_item: "显示隐藏项目"
         confirm: "确认"
       pre_202103_head:

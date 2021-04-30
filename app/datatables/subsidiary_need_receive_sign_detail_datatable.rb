@@ -93,7 +93,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         rr.where('sign_receive > ?', @total_sign_receive_great_than)
       end
     end
-    rr = rr.where('overamount > ?', @over_amount_great_than) unless @over_amount_great_than.zero?
+    rr = rr.where('overamount > ? OR accneedreceive_gt3_months > 0', @over_amount_great_than) unless @over_amount_great_than.zero?
     rr = rr.where(orgname: @org_name) if @org_name.present?
     rr = rr.where(deptcode: @dept_codes) if @dept_codes.present?
     rr

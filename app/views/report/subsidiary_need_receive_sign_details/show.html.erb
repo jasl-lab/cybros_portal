@@ -27,15 +27,15 @@
             </div>
             <div class="form-group mx-1">
               <label><%= t(".over_amount_great_than") -%>：</label>
-              <%= text_field_tag 'over_amount_great_than', @over_amount_great_than, class: 'form-control form-control2' %>
+              <%= text_field_tag 'over_amount_great_than', @over_amount_great_than, class: 'form-control' %>
             </div>
             <% if @can_hide_item -%>
-            <div class="form-group mx-1">
-              <div class="form-check mt-4">
-                <%= check_box_tag 'show_hide_item', true, @show_hide_item, class: 'form-check-input' %>
-                <label class="form-check-label"> <%= t(".show_hide_item") -%></label>
+              <div class="form-group mx-1">
+                <div class="form-check mt-4">
+                  <%= check_box_tag 'show_hide_item', true, @show_hide_item, class: 'form-check-input' %>
+                  <label class="form-check-label"> <%= t(".show_hide_item") -%></label>
+                </div>
               </div>
-            </div>
             <% end %>
             <%= submit_tag t(".confirm"), class: 'btn btn-thape-color my-4' %>
           </div>
