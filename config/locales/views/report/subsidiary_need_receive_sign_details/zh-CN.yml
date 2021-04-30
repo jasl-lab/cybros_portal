@@ -52,3 +52,21 @@ zh-CN:
           acc_need_receive_gt3_months_tip: "账龄超过3个月的财务应收款"
           comment_on_sales_contract_code: "备注"
           admin_action: "管理员操作"
+      total_modal:
+        table:
+          invoice_amount: "开票金额"
+          invoice_company_dept: "开票公司+部门"
+          invoice_date: "开票日期"
+          financial_receivables_amount: "财务应收款金额"
+          financial_receivables_aging: "账龄"
+        close: "关闭"
+      financial_modal:
+        table:
+          projectitemcode: "项目编号"
+          projectitemname: "项目名称"
+          milestone: "里程碑"
+          milestone_value: "里程碑产值"
+          milestone_percent: "里程碑进度"
+          milestone_completed_at: "里程碑完成时间"
+          business_receivables: "业务应收款"
+        close: "关闭"

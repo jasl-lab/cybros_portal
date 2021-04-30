@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"><%= @company_name -%></h5>
+      <p><%= @drill_down_subtitle -%></p>
+      <a class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fas fa-window-close"></i>
+      </a>
+    </div>
+    <div class="modal-body">
+      <table class="table table-striped table-bordered table-fix-head">
+        <thead>
+          <tr>
+            <th><%= t(".table.invoice_amount") -%></th>
+            <th><%= t(".table.invoice_company_dept") -%></th>
+            <th><%= t(".table.invoice_date") -%></th>
+            <th><%= t(".table.financial_receivables_amount") -%></th>
+            <th><%= t(".table.financial_receivables_aging") -%></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal"><%= t('.close') -%></button>
+    </div>
+  </div>
+</div

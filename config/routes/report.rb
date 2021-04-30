@@ -138,6 +138,8 @@ namespace :report do
   resource :subsidiary_need_receive_sign_detail, only: %i[show] do
     collection do
       get :org_name_change
+      get :total_receivables_drill_down
+      get :financial_receivables_drill_down
     end
     member do
       patch :hide

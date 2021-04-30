@@ -52,3 +52,21 @@ en:
           acc_need_receive_gt3_months_tip: "Account need receive gt3 months"
           comment_on_sales_contract_code: "Remarks"
           admin_action: "Admin action"
+      total_modal:
+        table:
+          invoice_amount: "Invoice amount"
+          invoice_company_dept: "Invoice company dept"
+          invoice_date: "Invoice date"
+          financial_receivables_amount: "Financial receivables amount"
+          financial_receivables_aging: "Financial receivables aging"
+        close: "Close"
+      financial_modal:
+        table:
+          projectitemcode: "Project code"
+          projectitemname: "Project name"
+          milestone: "Milestone"
+          milestone_value: "Milestone value"
+          milestone_percent: "Milestone %"
+          milestone_completed_at: "Milestone completed at"
+          business_receivables: "Business receivables"
+        close: "Close"

@@ -67,6 +67,12 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
     @dept_codes = Bi::OrgReportDeptOrder.where("组织": org_name).order(:"部门排名").pluck(:"部门", :"编号")
   end
 
+  def total_receivables_drill_down
+  end
+
+  def financial_receivables_drill_down
+  end
+
   private
 
     def set_breadcrumbs
