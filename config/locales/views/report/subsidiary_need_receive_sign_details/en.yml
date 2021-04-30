@@ -54,15 +54,6 @@ en:
           admin_action: "Admin action"
       total_modal:
         table:
-          invoice_amount: "Invoice amount"
-          customer_jt: "Customer group"
-          invoice_date: "Invoice date"
-          financial_receivables_amount: "Financial receivables amount"
-          bill_due_date: "Bill due date"
-          bill_receive_date: "Bill receive date"
-        close: "Close"
-      financial_modal:
-        table:
           projectitemcode: "Project code"
           projectitemname: "Project name"
           milestone: "Milestone"
@@ -70,4 +61,13 @@ en:
           milestone_percent: "Milestone %"
           milestone_completed_at: "Milestone completed at"
           business_receivables: "Business receivables"
+        close: "Close"
+      financial_modal:
+        table:
+          invoice_amount: "Invoice amount"
+          customer_jt: "Customer group"
+          invoice_date: "Invoice date"
+          financial_receivables_amount: "Financial receivables amount"
+          bill_due_date: "Bill due date"
+          bill_receive_date: "Bill receive date"
         close: "Close"

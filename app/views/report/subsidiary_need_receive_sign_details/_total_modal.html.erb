@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-xl" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title"><%= @company_name -%></h5>
+      <h5 class="modal-title">总应收明细表</h5>
       <p><%= @drill_down_subtitle -%></p>
       <a class="close" data-dismiss="modal" aria-label="Close">
         <i class="fas fa-window-close"></i>
@@ -11,25 +11,16 @@
       <table class="table table-striped table-bordered table-fix-head">
         <thead>
           <tr>
-            <th><%= t(".table.invoice_amount") -%></th>
-            <th><%= t(".table.customer_jt") -%></th>
-            <th><%= t(".table.invoice_date") -%></th>
-            <th><%= t(".table.financial_receivables_amount") -%></th>
-            <th><%= t(".table.bill_due_date") -%></th>
-            <th><%= t(".table.bill_receive_date") -%></th>
+            <th><%= t(".table.projectitemcode") -%></th>
+            <th><%= t(".table.projectitemname") -%></th>
+            <th><%= t(".table.milestone") -%></th>
+            <th><%= t(".table.milestone_value") -%></th>
+            <th><%= t(".table.milestone_percent") -%></th>
+            <th><%= t(".table.milestone_completed_at") -%></th>
+            <th><%= t(".table.business_receivables") -%></th>
           </tr>
         </thead>
         <tbody>
-          <% details.each do |d| %>
-            <tr>
-              <td><%= d.need_amount -%></td>
-              <td><%= d.customer_jt -%></td>
-              <td><%= d.billdate -%></td>
-              <td><%= d.receive_amount -%></td>
-              <td><%= d.bill_due_date -%></td>
-              <td><%= d.bill_receive_date -%></td>
-            </tr>
-          <% end %>
         </tbody>
       </table>
     </div>

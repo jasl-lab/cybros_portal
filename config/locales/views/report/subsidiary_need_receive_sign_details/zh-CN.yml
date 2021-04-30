@@ -54,15 +54,6 @@ zh-CN:
           admin_action: "管理员操作"
       total_modal:
         table:
-          invoice_amount: "开票金额"
-          customer_jt: "客户集团"
-          invoice_date: "开票日期"
-          financial_receivables_amount: "财务应收款金额"
-          bill_due_date: "帐单到期日"
-          bill_receive_date: "接收帐单日"
-        close: "关闭"
-      financial_modal:
-        table:
           projectitemcode: "项目编号"
           projectitemname: "项目名称"
           milestone: "里程碑"
@@ -70,4 +61,13 @@ zh-CN:
           milestone_percent: "里程碑进度"
           milestone_completed_at: "里程碑完成时间"
           business_receivables: "业务应收款"
+        close: "关闭"
+      financial_modal:
+        table:
+          invoice_amount: "开票金额"
+          customer_jt: "客户集团"
+          invoice_date: "开票日期"
+          financial_receivables_amount: "财务应收款金额"
+          bill_due_date: "帐单到期日"
+          bill_receive_date: "接收帐单日"
         close: "关闭"

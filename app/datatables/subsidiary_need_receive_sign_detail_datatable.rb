@@ -60,12 +60,12 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         first_party_name: r.firstpartyname,
         sales_contract_code: r.salescontractcode,
         sales_contract_name: r.salescontractname,
-        amount_total: (link_to total_receivables_drill_down_report_subsidiary_need_receive_sign_detail_path(end_of_date: @end_of_date.to_s(:db_short), contractcode: r.salescontractcode), remote: true do
+        amount_total: (link_to total_receivables_drill_down_report_subsidiary_need_receive_sign_detail_path(), remote: true do
                         tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: 'text-center')
                       end),
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime&.to_date,
-        acc_need_receive: (link_to financial_receivables_drill_down_report_subsidiary_need_receive_sign_detail_path, remote: true do
+        acc_need_receive: (link_to financial_receivables_drill_down_report_subsidiary_need_receive_sign_detail_path(end_of_date: @end_of_date.to_s(:db_short), contractcode: r.salescontractcode), remote: true do
                             tag.div((r.accneedreceive.to_f / 10000.0)&.round(0), class: 'text-center')
                           end),
         acc_need_receive_gt3_months: tag.div((r.accneedreceive_gt3_months.to_f / 10000.0)&.round(0), class: 'text-center'),
