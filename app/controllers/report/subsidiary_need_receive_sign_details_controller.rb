@@ -68,6 +68,9 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
   end
 
   def total_receivables_drill_down
+    contractcode = params[:contractcode]
+    end_of_date = params[:end_of_date]
+    @details = Bi::SubCompanyNeedReceiveSignOrigin.where(合同编号: contractcode, date: end_of_date)
   end
 
   def financial_receivables_drill_down

@@ -21,6 +21,17 @@
           </tr>
         </thead>
         <tbody>
+          <% details.each do |d| %>
+            <tr>
+              <td><%= d.项目编号 -%></td>
+              <td><%= d.项目名称 -%></td>
+              <td><%= d.里程碑 -%></td>
+              <td><%= d.里程碑产值 -%></td>
+              <td><%= d.里程碑进度 -%></td>
+              <td><%= d.里程碑完成时间&.to_s(:short_date) -%></td>
+              <td><%= d.业务应收款 -%></td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
