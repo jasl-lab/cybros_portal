@@ -4,6 +4,7 @@ module SplitCost
   class UserMonthlyPartTimeSplitRate < ApplicationRecord
     belongs_to :user
     belongs_to :position
+    belongs_to :user_job_type, class_name: 'SplitCost::UserJobType', optional: true
     belongs_to :user_salary_classification
 
     def self.all_month_names
