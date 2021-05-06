@@ -1,3 +1,7 @@
+<%- content_for :head do %>
+ <meta http-equiv="refresh" content="3; URL=<%= company_joint_review_sms_url -%>">
+<% end %>
+
 <% @received_sms_messages.each do |rsm| %>
   <div class="card">
     <div class="card-body">
