@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_28_091705) do
+ActiveRecord::Schema.define(version: 2021_05_06_063641) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -501,6 +501,7 @@ ActiveRecord::Schema.define(version: 2021_04_28_091705) do
     t.string "user_mobile"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "phone_registrant"
   end
 
   create_table "split_cost_item_details", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

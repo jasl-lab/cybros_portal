@@ -4,7 +4,9 @@ en:
     sms_phone_configurations:
       index:
         title: "Mobile phone number configuration maintenance"
+        new: "Register a new phone"
         table:
+          phone_registrant: "Phone registrant"
           receive_id: "Receive ID"
           user_name: "User name"
           user_mobile: "User mobile"
@@ -13,3 +15,10 @@ en:
         submit: "Submit"
         user_name: "User name"
         user_mobile: "User mobile"
+      new:
+        form_header: "Register a new phone"
+        phone_registrant: "Phone registrant"
+        receive_id: "Receive ID"
+        submit: "Submit"
+      create:
+        create_success: "Create succss"

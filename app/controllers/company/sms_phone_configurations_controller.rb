@@ -17,6 +17,15 @@ class Company::SmsPhoneConfigurationsController < ApplicationController
     @sms_phone_mapping.update(sms_phone_mapping_params)
   end
 
+  def new
+    @sms_phone_mapping = Company::SmsPhoneMapping.new
+  end
+
+  def create
+    Company::SmsPhoneMapping.create(sms_phone_mapping_params)
+    redirect_to company_sms_phone_configurations_path, notice: t('.create_success')
+  end
+
   protected
 
     def set_page_layout_data
@@ -31,6 +40,6 @@ class Company::SmsPhoneConfigurationsController < ApplicationController
     end
 
     def sms_phone_mapping_params
-      params.require(:company_sms_phone_mapping).permit(:user_id, :user_mobile)
+      params.require(:company_sms_phone_mapping).permit(:phone_registrant, :receive_id, :user_id, :user_mobile)
     end
 end

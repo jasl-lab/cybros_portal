@@ -16,7 +16,7 @@ namespace :company do
       get :list
     end
   end
-  resources :sms_phone_configurations, only: %i[index edit update]
+  resources :sms_phone_configurations, only: %i[index edit update new create]
   resources :pending_questions, only: %i[index create destroy update]
   resources :direct_questions, only: %i[index create destroy]
   resource :drill_down_question, only: %i[show]

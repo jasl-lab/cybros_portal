@@ -1,0 +1,43 @@
+<%- content_for :action_bar do %>
+  <ol>
+    <li class="action_bar-item">
+      <%= link_to t("shared.actions.back"), company_sms_phone_configurations_path, class: "btn text-primary" %>
+    </li>
+  </ol>
+<% end %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <strong><%= t('.form_header') %></strong>
+      </div>
+      <%= form_with model: @sms_phone_mapping, url: company_sms_phone_configurations_path, class: 'form-horizontal', local: true do |f| %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-8">
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input-phone-registrant"><%= t('.phone_registrant') %></label>
+                <div class="col-md-9">
+                  <%= f.text_field :phone_registrant, class: 'form-control', id: 'text-input-phone-registrant' %>
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input-receive-id"><%= t('.receive_id') %></label>
+                <div class="col-md-9">
+                  <%= f.text_field :receive_id, class: 'form-control', id: 'text-input-receive-id' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <%= f.submit t('.submit'), class: 'btn btn-sm btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

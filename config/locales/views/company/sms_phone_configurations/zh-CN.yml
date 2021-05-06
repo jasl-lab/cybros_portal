@@ -4,7 +4,9 @@ zh-CN:
     sms_phone_configurations:
       index:
         title: "手机号配置维护"
+        new: "注册新手机"
         table:
+          phone_registrant: "手机注册人"
           receive_id: "接收手机号"
           user_name: "接收人"
           user_mobile: "接收人手机（仅转接电话用）"
@@ -13,3 +15,10 @@ zh-CN:
         submit: "递交"
         user_name: "接收人"
         user_mobile: "接收人手机（仅转接电话用）"
+      new:
+        form_header: "注册新手机"
+        phone_registrant: "手机注册人"
+        receive_id: "手机号码"
+        submit: "注册"
+      create:
+        create_success: "注册新手机成功"
