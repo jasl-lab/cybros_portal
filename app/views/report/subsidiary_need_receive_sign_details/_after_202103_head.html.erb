@@ -1,6 +1,6 @@
 <thead>
   <tr>
-    <th colspan="5"></th>
+    <th colspan="6"></th>
     <th colspan="2">总应收款（万元）</th>
     <th colspan="2">财务应收款（万元）</th>
     <th colspan="<%= @can_hide_item ? 2 : 1 -%>"></th>
@@ -15,9 +15,10 @@
     </th>
     <th><%= t(".table.sales_contract_code") -%></th>
     <th><%= t(".table.sales_contract_name") -%></th>
+    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.amount_total_tip") -%>"><%= t(".table.amount_total") -%></th>
 
-    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.amount_total_tip") -%>">
-      <%= t(".table.amount_total") -%>
+    <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.sign_receive_tip") -%>">
+      <%= t(".table.sign_receive") -%>
     </th>
     <th data-toggle="tooltip" data-placement="top" title="<%= t(".table.over_amount") -%>">
       <%= t(".table.over_amount") -%>
