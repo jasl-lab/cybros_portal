@@ -149,6 +149,8 @@ en:
         account_dept_year_fill: "Subcompany year fill"
         account_dept_month_fill: "Subcompany month fill"
         account_interior_fill: "Interior company fill"
+        mergereport_account_fill: "Mergereport account fill"
+        mergereport_analyzer_fill: "Mergereport analyzer fill"
         account_business_target_org: "Organization business target"
         account_business_target_org_show: "Organization business target"
         account_business_target_dept: "Company business target"
@@ -156,6 +158,7 @@ en:
         account_business_target_sub_dept: "Company business sub company target"
         account_operation_summary_org: "Organization operation summary"
         account_operation_summary_dept: "Company operation summary"
+        mergereport_final_check: "Mergereport final check"
       account_split_setting:
         header: "Account-cost split settings"
       capital_report:

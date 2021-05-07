@@ -149,6 +149,8 @@ zh-CN:
         account_interior_fill: "室内公司月度填报"
         account_dept_year_fill: "上海年度数据填报"
         account_dept_month_fill: "上海月度数据填报"
+        mergereport_account_fill: "合并报表财务填报"
+        mergereport_analyzer_fill: "合并报表财务分析填报"
         account_business_target_org: "集团营业目标完成情况（存档表）"
         account_business_target_org_show: "集团营业目标完成情况"
         account_business_target_dept: "上海营业目标完成情况（存档表）"
@@ -156,6 +158,7 @@ zh-CN:
         account_business_target_sub_dept: "子公司营业目标完成情况（测试中）"
         account_operation_summary_org: "集团经营情况汇总（测试中）"
         account_operation_summary_dept: "公司经营情况汇总（测试中）"
+        mergereport_final_check: "合并报表确认表（测试中）"
       account_split_setting:
         header: "财务分析-人力成本设置"
       capital_report:

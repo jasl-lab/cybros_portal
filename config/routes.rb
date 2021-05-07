@@ -108,6 +108,8 @@ Rails.application.routes.draw do
     resource :interior_fill, only: %i[show]
     resource :dept_year_fill, only: %i[show]
     resource :dept_month_fill, only: %i[show]
+    resource :mergereport_account_fill, only: %i[show]
+    resource :mergereport_analyzer_fill, only: %i[show]
     resource :business_target_org, only: %i[show]
     resource :business_target_org_show, only: %i[show]
     resource :business_target_dept, only: %i[show]
@@ -115,7 +117,7 @@ Rails.application.routes.draw do
     resource :business_target_sub_dept, only: %i[show]
     resource :operation_summary_org, only: %i[show]
     resource :operation_summary_dept, only: %i[show]
-
+    resource :mergereport_final_check, only: %i[show]
     resource :split_setting, only: %i[show]
     resource :cost_report, only: %i[show]
   end

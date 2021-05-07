@@ -1,0 +1,6 @@
+---
+en:
+  account:
+    mergereport_analyzer_fills:
+      show:
+        title: "Mergereport analyzer fill"
