@@ -17,7 +17,7 @@ module API
           Rails.logger.error "coordinate lng error: #{m.id} #{m.marketinfoname} #{m.coordinate}"
         end
 
-        lng_lat = CoordConvert.convert('bd09', 'gcj02', lng, lat);
+        lng_lat = CoordConvert.convert('bd09', 'gcj02', lng, lat)
 
         {
           title: m.marketinfoname, # 项目名称
@@ -137,7 +137,7 @@ module API
         service_stage = params[:service_stage].presence && params[:service_stage].strip
         cur_service_stages = if service_stage.present?
           cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
-            item[:value].is_a?(Array) ? item[:value].any?{ |it| service_stage.split(',').include?(it) } : service_stage.split(',').include?(item[:value])
+            item[:value].is_a?(Array) ? item[:value].any? { |it| service_stage.split(',').include?(it) } : service_stage.split(',').include?(item[:value])
           end
         else
           cur_project_types.collect { |item| item[:service_stages] }.flatten
@@ -174,7 +174,7 @@ module API
         end
         if company.present?
           department_reg = if department.present?
-            "(#{department.split(',').map{|item| "(#{item})"}.join('|')})"
+            "(#{department.split(',').map { |item| "(#{item})" }.join('|')})"
           else
             '.+'
           end

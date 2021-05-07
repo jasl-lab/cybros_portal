@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class IndexLibrary::BaseController < ApplicationController
-
   protected
 
     def prepare_encrypt_uid

@@ -86,7 +86,7 @@ class CostSplit::CostAllocationMonthlyFlowsController < CostSplit::BaseControlle
         split_cost_item_operational_expenditure_budget: split_cost_item_operational_expenditure_budget,
         split_cost_item_wages_assets_total: split_cost_item_wages_assets_total,
         split_cost_item_wages_assets_tax: 0.06,
-        split_cost_item_wages_assets_total_with_tax: split_cost_item_wages_assets_total*1.06
+        split_cost_item_wages_assets_total_with_tax: split_cost_item_wages_assets_total * 1.06
       }
     end
     Rails.logger.debug "CostAllocationMonthlyFlows approval_contents: #{approval_contents}"

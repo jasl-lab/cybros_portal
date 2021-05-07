@@ -2,7 +2,6 @@
 
 module Bi
   class NewMapInfoPolicy < BasePolicy
-
     class Scope < Scope
       def resolve
         return scope.none unless user.present?

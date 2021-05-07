@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :cost_split do
   root to: 'home#show'
 
