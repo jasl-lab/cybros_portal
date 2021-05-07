@@ -64,10 +64,11 @@ en:
         close: "Close"
       financial_modal:
         table:
+          billno: "Bill no"
+          invoice_org_dept: "Invoice org and department"
           invoice_amount: "Invoice amount"
           customer_jt: "Customer group"
           invoice_date: "Invoice date"
           financial_receivables_amount: "Financial receivables amount"
-          bill_due_date: "Bill due date"
-          bill_receive_date: "Bill receive date"
+          bill_age: "Bill age"
         close: "Close"

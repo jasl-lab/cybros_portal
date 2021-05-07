@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-2xl" role="document">
+<div class="modal-dialog modal-xl" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <h5 class="modal-title">财务应收明细表</h5>
@@ -11,23 +11,25 @@
       <table class="table table-striped table-bordered table-fix-head">
         <thead>
           <tr>
+            <th><%= t(".table.billno") -%></th>
+            <th><%= t(".table.invoice_org_dept") -%></th>
             <th><%= t(".table.invoice_amount") -%></th>
             <th><%= t(".table.customer_jt") -%></th>
             <th><%= t(".table.invoice_date") -%></th>
             <th><%= t(".table.financial_receivables_amount") -%></th>
-            <th><%= t(".table.bill_due_date") -%></th>
-            <th><%= t(".table.bill_receive_date") -%></th>
+            <th><%= t(".table.bill_age") -%></th>
           </tr>
         </thead>
         <tbody>
           <% details.each do |d| %>
             <tr>
+              <td><%= d.billno -%></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode) -%> - <%= Bi::OrgReportDeptOrder.all_department_names[d.deptcode] -%></td>
               <td><%= d.need_amount -%></td>
               <td><%= d.customer_jt -%></td>
               <td><%= d.billdate -%></td>
               <td><%= d.receive_amount -%></td>
-              <td><%= d.bill_due_date -%></td>
-              <td><%= d.bill_receive_date -%></td>
+              <td><%= (Date.today - d.billdate).to_i -%></td>
             </tr>
           <% end %>
         </tbody>

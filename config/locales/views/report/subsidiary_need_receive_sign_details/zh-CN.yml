@@ -64,10 +64,11 @@ zh-CN:
         close: "关闭"
       financial_modal:
         table:
+          billno: "发票号"
+          invoice_org_dept: "开票公司+部门"
           invoice_amount: "开票金额"
           customer_jt: "客户集团"
           invoice_date: "开票日期"
           financial_receivables_amount: "财务应收款金额"
-          bill_due_date: "帐单到期日"
-          bill_receive_date: "接收帐单日"
+          bill_age: "帐龄"
         close: "关闭"
