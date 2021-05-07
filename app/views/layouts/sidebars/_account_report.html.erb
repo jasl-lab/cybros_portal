@@ -127,7 +127,7 @@
       <% end %>
       <% if policy(:"Account::MergereportFinalCheck").show? %>
         <%= nav_item controller: 'account/mergereport_final_checks', html_options: { class: "nav-item" } do %>
-          <%= link_to mergereport_final_check_path, class: "nav-link" do %>
+          <%= link_to account_mergereport_final_check_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-building"></i>
             <%= t("layouts.sidebar.account_report.mergereport_final_check") %>
           <% end %>
