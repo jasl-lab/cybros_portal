@@ -6,7 +6,7 @@ class Capital::SummaryFundSumsController < Capital::BaseController
   before_action :prepare_encrypt_uid
 
   def show
-    authorize :"Capital::SummaryFundDaily"
+    authorize :"Capital::SummaryFundSum"
     prepare_meta_tags title: t('.title')
     @redirect_url = 'view/report?op=write&viewlet=FR/Finance/CWDailyFillSum.cpt&ref_t=design'
     @hide_app_footer = true
