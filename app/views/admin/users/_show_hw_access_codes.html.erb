@@ -16,8 +16,8 @@
       <% @user.manual_hr_access_codes.each do |ac| %>
         <tr>
           <td><%= ac.hr_rolename -%></td>
-          <td><%= ac.org_code -%></td>
-          <td><%= ac.dept_code -%></td>
+          <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(ac.org_code, ac.org_code) -%></td>
+          <td><%= Bi::PkCodeName.mapping2deptcode.fetch(ac.dept_code, ac.dept_code) -%></td>
           <td>
             <% if ac.auto_generated_role %>
               <span class="badge badge-info"><%= ac.auto_generated_role -%></span>

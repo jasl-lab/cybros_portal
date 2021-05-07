@@ -24,7 +24,7 @@
           <% details.each do |d| %>
             <tr>
               <td><%= d.billno -%></td>
-              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode) -%> - <%= Bi::OrgReportDeptOrder.all_department_names[d.deptcode] -%></td>
+              <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(d.orgcode, d.orgcode) -%> - <%= Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode) -%></td>
               <td><%= d.need_amount -%></td>
               <td><%= d.customer_jt -%></td>
               <td><%= d.billdate -%></td>

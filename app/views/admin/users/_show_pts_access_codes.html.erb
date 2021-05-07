@@ -14,7 +14,7 @@
     <tbody>
       <% @user.part_time_split_access_codes.each do |ac| %>
         <tr>
-          <td><%= ac.org_code -%></td>
+          <td><%= Bi::OrgShortName.company_short_names_by_orgcode.fetch(ac.org_code, ac.org_code) -%></td>
           <td><%= ac.dept_category -%></td>
           <td>
             <% if ac.auto_generated_role? %>
