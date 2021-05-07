@@ -110,6 +110,10 @@ class User < ApplicationRecord
     @user_company_orgcodes ||= (operation_access_codes.collect { |c| c[1] } + departments.collect(&:company_code)).uniq
   end
 
+  def user_cw_access_orgcodes
+    @user_cw_access_orgcodes ||= manual_cw_access_codes.collect { |c| c.org_code }
+  end
+
   def user_company_orgcode
     Bi::OrgShortName.org_code_by_short_name.fetch(user_company_short_name, user_company_short_name)
   end
