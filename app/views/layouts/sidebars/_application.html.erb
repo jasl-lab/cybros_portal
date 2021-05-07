@@ -122,7 +122,7 @@
       </li>
       <% end %>
 
-      <% capital_report_show = policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show? %>
+      <% capital_report_show = policy(:"Capital::FundDailyFill").show? || policy(:"Capital::SummaryFundDaily").show? || policy(:"Capital::SummaryFundMonth").show? || policy(:"Capital::SummaryFundSum").show? %>
       <% salary_query_show = policy(:"Capital::SalaryQuery").show? %>
       <% if capital_report_show || salary_query_show %>
       <li class="nav-item nav-dropdown <%= (capital_report_show || salary_query_show) && !current_user.admin? ? 'open' : '' %>">
