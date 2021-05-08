@@ -5,6 +5,7 @@
     </h3>
     <div class="row">
       <div class="col-lg-12" data-controller="subsidiary-need-receive-sign-details"
+        data-subsidiary-need-receive-sign-details-page-length-value="<%= my_per_page -%>"
         data-subsidiary-need-receive-sign-details-end-of-date-value="<%= @end_of_date -%>"
         data-subsidiary-need-receive-sign-details-can-hide-item-value="<%= @can_hide_item -%>">
           <%= form_tag report_subsidiary_need_receive_sign_detail_path, method: :get do -%>

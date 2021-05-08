@@ -52,6 +52,7 @@ require('datatables.net-select-bs4')(window, $);
 require("devise-jwt");
 
 $.extend( $.fn.dataTable.defaults, {
+  lengthMenu: [ 12, 25, 50, 75, 100 ],
   language: {
     "emptyTable":     "表中数据为空",
     "info":           "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",

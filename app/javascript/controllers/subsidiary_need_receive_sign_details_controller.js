@@ -3,7 +3,7 @@ import { Controller } from "stimulus"
 let subsidiaryNeedReceiveSignDetailsFixedHeader;
 
 export default class extends Controller {
-  static values = { endOfDate: String, canHideItem: Boolean }
+  static values = { pageLength: Number, endOfDate: String, canHideItem: Boolean }
 
   connect() {
     const before202103Columns = [
@@ -48,6 +48,7 @@ export default class extends Controller {
     const subsidiaryNeedReceiveSignDetailsDatatable = $('#subsidiary-need-receive-sign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#subsidiary-need-receive-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",

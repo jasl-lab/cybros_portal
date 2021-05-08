@@ -3,6 +3,8 @@ import { Controller } from "stimulus"
 let cimToolsSessionsFixedHeader;
 
 export default class extends Controller {
+  static values = { pageLength: Number }
+
   connect() {
     const normalColumns = [
       {"data": "user_name"},
@@ -18,6 +20,7 @@ export default class extends Controller {
     const cimToolsSessionsDatatable = $('#cim-tools-sessions-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#cim-tools-sessions-datatable').data('source'),
       "pagingType": "full_numbers",

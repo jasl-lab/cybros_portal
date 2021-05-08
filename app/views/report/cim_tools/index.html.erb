@@ -18,7 +18,8 @@
       <%= t(".title") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="cim-tools-sessions">
+      <div class="col-lg-12" data-controller="cim-tools-sessions"
+        data-cim-tools-sessions-page-length-value="<%= my_per_page -%>">
         <table id="cim-tools-sessions-datatable"
           class="table table-hover table-bordered table-responsive"
           data-source="<%= report_cim_tools_path(format: :json) %>">

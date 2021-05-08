@@ -3,6 +3,8 @@ import { Controller } from "stimulus"
 let companyContractsFixedHeader;
 
 export default class extends Controller {
+  static values = { pageLength: Number }
+
   connect() {
     const normalColumns = [
       {"data": "project_no_and_name" },
@@ -13,11 +15,11 @@ export default class extends Controller {
     const companyContractsDatatable = $('#company-contracts-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#company-contracts-datatable').data('source'),
       "pagingType": "full_numbers",
       "lengthChange": false,
-      "pageLength": 20,
       "searching": false,
       "columns": normalColumns,
       "order": [[ 0, 'desc' ]],
