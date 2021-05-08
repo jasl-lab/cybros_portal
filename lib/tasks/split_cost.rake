@@ -242,27 +242,28 @@ namespace :split_cost do
       belong_company_name = cs.orgname
       belong_department_name = nil
       job_position = cs.postname
+      user_job_type_id = SplitCost::UserJobType.find_by!(code: cs.classify_post).id
 
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 基本工资_classification_id,
-        belong_company_name, belong_department_name, job_position, cs.基本工资)
+        belong_company_name, belong_department_name, job_position, cs.基本工资, user_job_type_id)
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 预发设计费_classification_id,
-        belong_company_name, belong_department_name, job_position, cs.预发设计费)
+        belong_company_name, belong_department_name, job_position, cs.预发设计费, user_job_type_id)
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 岗位补贴_classification_id,
-        belong_company_name, belong_department_name, job_position, cs.公司补贴)
+        belong_company_name, belong_department_name, job_position, cs.公司补贴, user_job_type_id)
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 资质补贴_classification_id,
-        belong_company_name, belong_department_name, job_position, cs.资质补贴)
+        belong_company_name, belong_department_name, job_position, cs.资质补贴, user_job_type_id)
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 预发待扣_classification_id,
-        belong_company_name, belong_department_name, job_position, cs.预发待扣)
+        belong_company_name, belong_department_name, job_position, cs.预发待扣, user_job_type_id)
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 其他_classification_id,
-        belong_company_name, belong_department_name, job_position, cs.其他)
+        belong_company_name, belong_department_name, job_position, cs.其他, user_job_type_id)
     end
   end
 
-  def upsert_user_split_classify_salary(user_id, month, user_salary_classification_id, belong_company_name, belong_department_name, job_position, amount)
+  def upsert_user_split_classify_salary(user_id, month, user_salary_classification_id, belong_company_name, belong_department_name, job_position, amount, user_job_type_id)
     classify_salary = SplitCost::UserSplitClassifySalary.find_or_initialize_by(user_id: user_id, month: month,
                                user_salary_classification_id: user_salary_classification_id)
     classify_salary.update(belong_company_name: belong_company_name, belong_department_name: belong_department_name,
-        job_position: job_position, amount: amount)
+        job_position: job_position, amount: amount, user_job_type_id: user_job_type_id)
   end
 
   desc 'Generate part time split settings'
@@ -347,7 +348,7 @@ namespace :split_cost do
       else
         position_user = user.position_users.find_by(main_position: true) || user.position_users.last
         query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user.id,
-          position_user.user_job_type_id, scs.user_salary_classification_id)
+          scs.user_job_type_id, scs.user_salary_classification_id)
         SplitCost::UserSplitClassifySalaryPerMonth.create(month: cyearperiod_month_start,
           user_id: user.id, position_id: position_user.position_id,
           user_job_type_id: query_job_type_id, main_position: position_user.main_position,
