@@ -111,7 +111,7 @@ export default class extends Controller {
 
     const option_worker = {
         legend: {
-            data: ['预计一线人均还将完成产值（万元）','本年累计一线人均完成产值（万元）','预计全员人均还将完成产值（万元）','本年累计全员人均完成产值（万元）'],
+            data: ['预计一线人均全年完成产值（万元）','本年累计一线人均完成产值（万元）','预计全员人均全年完成产值（万元）','本年累计全员人均完成产值（万元）'],
             align: 'left'
         },
         tooltip: {
@@ -172,7 +172,7 @@ export default class extends Controller {
             }
           }
         },{
-          name: '预计一线人均还将完成产值（万元）',
+          name: '预计一线人均全年完成产值（万元）',
           type: 'bar',
           stack: '一线人均',
           data: completeValueGapPerWorker,
@@ -181,7 +181,9 @@ export default class extends Controller {
           },
           label: {
             normal: {
-              show: false
+              show: true,
+              position: 'top',
+              color: '#000000'
             }
           }
         },{
@@ -201,7 +203,7 @@ export default class extends Controller {
             }
           }
         },{
-          name: '预计全员人均还将完成产值（万元）',
+          name: '预计全员人均全年完成产值（万元）',
           type: 'bar',
           stack: '全员人均',
           data: completeValueGapPerStaff,
@@ -210,7 +212,9 @@ export default class extends Controller {
           },
           label: {
             normal: {
-              show: false
+              show: true,
+              position: 'top',
+              color: '#000000'
             }
           }
         }]
