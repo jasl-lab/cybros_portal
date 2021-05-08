@@ -25,7 +25,7 @@ class Company::KnowledgesController < ApplicationController
     end
     knowledges = knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
     knowledges = knowledges.where('question LIKE ?', "%#{params[:question]}%") if params[:question].present?
-    @knowledges = knowledges.page(params[:page]).per(params[:per_page])
+    @knowledges = knowledges.page(params[:page]).per(my_per_page)
   end
 
   def modal

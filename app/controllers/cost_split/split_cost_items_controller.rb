@@ -8,7 +8,7 @@ class CostSplit::SplitCostItemsController < CostSplit::BaseController
     prepare_meta_tags title: t('.title')
     @split_cost_items = SplitCost::SplitCostItem.where(end_date: nil)
     @split_cost_items = @split_cost_items.where(split_cost_item_no: params[:split_cost_item_no]) if params[:split_cost_item_no].present?
-    @split_cost_items = @split_cost_items.page(params[:page]).per(params[:per_page])
+    @split_cost_items = @split_cost_items.page(params[:page]).per(my_per_page)
     @new_split_cost_item = SplitCost::SplitCostItem.new
   end
 

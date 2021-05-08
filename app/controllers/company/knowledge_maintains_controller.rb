@@ -18,7 +18,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
     knowledges = knowledges.where(category_2: params[:category_2]) if params[:category_2].present?
     knowledges = knowledges.where(category_3: params[:category_3]) if params[:category_3].present?
     knowledges = knowledges.where('question LIKE ?', "%#{params[:question]}%") if params[:question].present?
-    @knowledges = knowledges.page(params[:page]).per(params[:per_page])
+    @knowledges = knowledges.page(params[:page]).per(my_per_page)
   end
 
   def new

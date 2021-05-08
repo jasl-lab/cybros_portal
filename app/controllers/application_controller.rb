@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+    def my_per_page
+      params[:per_page].presence || current_user&.per_page
+    end
+
     def render_csv_header(filename = nil)
       filename ||= params[:action]
       filename += '.csv'

@@ -60,7 +60,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
 
     @users = @users.where('chinese_name LIKE ?', "%#{@chinese_name}%") if @chinese_name.present?
 
-    @users = @users.page(params[:page]).per(params[:per_page])
+    @users = @users.page(params[:page]).per(my_per_page)
 
     @user_salary_classifications = SplitCost::UserSalaryClassification.all.order(:code)
   end
