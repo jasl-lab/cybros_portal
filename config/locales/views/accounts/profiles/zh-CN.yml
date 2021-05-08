@@ -13,3 +13,4 @@ zh-CN:
           per_page:
             title: "每页数量"
             description: "每页显示多少项目?"
+        open_in_new_tab: "从新标签打开"

@@ -13,3 +13,4 @@ en:
           per_page:
             title: "Per page number"
             description: "How many items in single page?"
+        open_in_new_tab: "Open in new tab"

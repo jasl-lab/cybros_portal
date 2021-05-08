@@ -12,11 +12,15 @@
           </p>
         </div>
         <div class="col-md-8">
-            <div class="form-group text-left">
-              <%= f.label :open_in_new_tab %>
-              <%= f.text_field :open_in_new_tab, autofocus: true, required: "required", class: "form-control", class_for_error: "is-invalid" %>
-              <%= f.error_message :open_in_new_tab, class: "invalid-feedback" %>
+          <div class="form-group">
+            <div class="form-check form-check-inline">
+              <label class="switch switch-pill switch-primary">
+                <%= f.check_box :open_in_new_tab, class: "switch-input" %>
+                <span class="switch-slider"></span>
+              </label>
+              <label class="form-check-label ml-3 mb-2"><%= t('.open_in_new_tab') -%></label>
             </div>
+          </div>
         </div>
       </div>
       <div class="row">

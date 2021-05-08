@@ -7,7 +7,6 @@ en:
         current_password: "Current password"
         roles: "Roles"
         email: "Email"
-        open_in_new_tab: "Open in new tab"
         per_page: "Per page"
         position_title: "Position title"
         clerk_code: "Clerk code"
