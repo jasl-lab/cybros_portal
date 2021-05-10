@@ -219,8 +219,9 @@ namespace :split_cost do
   # Steps to generate labor_cost
   # 1. run split_cost:nc_v_classify_salary_import
   # 2. run split_cost:generate_user_monthly_part_time_splits
-  # 3. run split_cost:copy_user_monthly_part_time_splits
-  # 4. run split_cost:user_split_classify_salary_per_months
+  # 3. run split_cost:copy_user_monthly_part_time_split_rates
+  # 4. run split_cost:copy_special_person_costs
+  # 5. run split_cost:user_split_classify_salary_per_months
   desc 'Import NC V_CLASSIFY_SALARY into cybros'
   task :nc_v_classify_salary_import, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
@@ -290,8 +291,8 @@ namespace :split_cost do
     end
   end
 
-  desc 'Generate part time split settings'
-  task :copy_user_monthly_part_time_splits, [:cyearperiod, :from_yearperiod] => [:environment] do |task, args|
+  desc 'Copy user monthly part time splits rate from previous month'
+  task :copy_user_monthly_part_time_split_rates, [:cyearperiod, :from_yearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
     cyearperiod_year = cyearperiod[0..3]
     cyearperiod_month = cyearperiod[4..5]
@@ -302,7 +303,7 @@ namespace :split_cost do
     from_yearperiod_month = from_yearperiod[4..5]
     from_yearperiod_month_start = Date.parse("#{from_yearperiod_year}-#{from_yearperiod_month}-01")
 
-    puts "Copy data from #{from_yearperiod_month_start} to #{cyearperiod_month_start}"
+    puts "Copy part time split rates from #{from_yearperiod_month_start} to #{cyearperiod_month_start}"
     user_ids = PositionUser.where(main_position: false).pluck(:user_id).uniq
     User.where(id: user_ids).where(locked_at: nil).each do |user|
       new_position_ids = user.position_users.pluck(:position_id).uniq.sort
@@ -320,6 +321,22 @@ namespace :split_cost do
         puts "User position changed: #{user.id}:#{user.chinese_name}"
       end
     end
+  end
+
+  desc 'Copy special person costs from previous month'
+  task :copy_special_person_costs, [:cyearperiod, :from_yearperiod] => [:environment] do |task, args|
+    cyearperiod = args[:cyearperiod]
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+
+    from_yearperiod = args[:from_yearperiod]
+    from_yearperiod_year = from_yearperiod[0..3]
+    from_yearperiod_month = from_yearperiod[4..5]
+    from_yearperiod_month_start = Date.parse("#{from_yearperiod_year}-#{from_yearperiod_month}-01")
+
+    puts "Copy special person costs from #{from_yearperiod_month_start} to #{cyearperiod_month_start}"
+
   end
 
   desc 'Generate user split classify salary per months from user_split_classify_salaries'
