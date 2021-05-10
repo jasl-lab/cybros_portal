@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <% @users.each do |user| %>
-            <% position_ids = user.user_monthly_part_time_split_rates.order(main_position: :desc, position_id: :asc).collect(&:position_id).uniq %>
+            <% position_ids = user.user_monthly_part_time_split_rates.where(month: @beginning_of_month).order(main_position: :desc, position_id: :asc).collect(&:position_id).uniq %>
             <% position_ids.each_with_index do |position_id, index| %>
               <% mpts_rates = user.user_monthly_part_time_split_rates.find_all { |r| r.position_id == position_id } %>
               <tr class="<%= index.zero? ? 'bg-secondary' : '' -%>">
