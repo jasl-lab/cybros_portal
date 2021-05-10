@@ -45,7 +45,7 @@ class Report::LaborCostsController < Report::BaseController
       cspms
     end
 
-    @cspms = if @user_cost_type_id.present?
+    cspms = if @user_cost_type_id.present?
       cspms.where(user_cost_type_id: @user_cost_type_id)
     else
       cspms
@@ -53,6 +53,8 @@ class Report::LaborCostsController < Report::BaseController
       .joins(:user, { position: :department }, :user_cost_type)
       .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
       .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
+
+    @cspms = cspms.page(params[:page]).per(my_per_page)
   end
 
   protected
