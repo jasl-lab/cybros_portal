@@ -337,7 +337,7 @@ namespace :split_cost do
           next if mpts.salary_classification_split_rate.zero?
 
           query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, mpts.position_id,
-            mpts.user_job_type_id, mpts.user_salary_classification_id)
+            (mpts.user_job_type_id || scs.user_job_type_id), mpts.user_salary_classification_id)
           per_month_amount = scs.amount * (mpts.salary_classification_split_rate / 100.0)
           # puts "#{user.id} mpts.position_id #{mpts.position_id} scs.amount #{scs.amount} final_cost_type_id: #{final_cost_type_id} mpts.salary_classification_split_rate #{mpts.salary_classification_split_rate} per_month_amount #{per_month_amount}"
           SplitCost::UserSplitClassifySalaryPerMonth.create(month: cyearperiod_month_start,
