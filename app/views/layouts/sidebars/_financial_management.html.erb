@@ -9,7 +9,7 @@
     <ul class="nav">
       <% if policy(:"Bi::DeptHomepage").show? %>
         <%= nav_item controller: 'report/dept_homepage', html_options: { class: "nav-item" } do %>
-          <%= link_to report_dept_homepage_path, class: "nav-link" do %>
+          <%= report_link_to report_dept_homepage_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-chart-line"></i>
             <%= t("layouts.sidebar.financial_management.dept_homepage") %>
           <% end %>
@@ -17,7 +17,7 @@
       <% end %>
       <% if policy(:"Bi::ContractInformationForm").show? %>
         <%= nav_item controller: 'report/contract_information_form', html_options: { class: "nav-item" } do %>
-          <%= link_to report_contract_information_form_path, class: "nav-link" do %>
+          <%= report_link_to report_contract_information_form_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-file-contract"></i>
             <%= t("layouts.sidebar.financial_management.contract_information_form") %>
           <% end %>
@@ -25,7 +25,7 @@
       <% end %>
       <% if policy(:"Bi::ProjectContractSummary").show? %>
         <%= nav_item controller: 'report/project_contract_summary', html_options: { class: "nav-item" } do %>
-          <%= link_to report_project_contract_summary_path, class: "nav-link" do %>
+          <%= report_link_to report_project_contract_summary_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-project-diagram"></i>
             <%= t("layouts.sidebar.financial_management.project_contract_summary") %>
           <% end %>
@@ -33,7 +33,7 @@
       <% end %>
       <% if policy(:"Bi::SingleProjectOverviews").show? %>
         <%= nav_item controller: 'report/single_project_overview', html_options: { class: "nav-item" } do %>
-          <%= link_to report_single_project_overview_path, class: "nav-link" do %>
+          <%= report_link_to report_single_project_overview_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-project-diagram"></i>
             <%= t("layouts.sidebar.financial_management.single_project_overview") %>
           <% end %>
@@ -41,7 +41,7 @@
       <% end %>
       <% if policy(:"Bi::DepartmentalMarketFees").show? %>
         <%= nav_item controller: 'report/departmental_market_fees', html_options: { class: "nav-item" } do %>
-          <%= link_to report_departmental_market_fees_path, class: "nav-link" do %>
+          <%= report_link_to report_departmental_market_fees_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-comment-dollar"></i>
             <%= t("layouts.sidebar.financial_management.departmental_market_fees") %>
           <% end %>
@@ -49,7 +49,7 @@
       <% end %>
       <% if policy(:"Bi::OrgMarketFees").show? %>
         <%= nav_item controller: 'report/org_market_fees', html_options: { class: "nav-item" } do %>
-          <%= link_to report_org_market_fees_path, class: "nav-link" do %>
+          <%= report_link_to report_org_market_fees_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-comment-dollar"></i>
             <%= t("layouts.sidebar.financial_management.org_market_fees") %>
           <% end %>
@@ -57,13 +57,12 @@
       <% end %>
       <% if policy(:"Bi::BonusDistribution").show? %>
         <%= nav_item controller: 'report/bonus_distribution', html_options: { class: "nav-item" } do %>
-          <%= link_to report_bonus_distribution_path, class: "nav-link" do %>
+          <%= report_link_to report_bonus_distribution_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-money-check"></i>
             <%= t("layouts.sidebar.financial_management.bonus_distribution") %>
           <% end %>
         <% end %>
       <% end %>
-
     </ul>
   </nav>
 </div>

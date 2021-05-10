@@ -13,7 +13,7 @@
           <ul class="nav-dropdown-items">
             <% if policy(:"Account::OrgYearFill").show? %>
               <%= nav_item controller: 'account/org_year_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_org_year_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_org_year_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-university"></i>
                   <%= t("layouts.sidebar.account_report.account_org_year_fill") %>
                 <% end %>
@@ -21,7 +21,7 @@
             <% end %>
             <% if policy(:"Account::OrgMonthFill").show? %>
               <%= nav_item controller: 'account/org_month_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_org_month_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_org_month_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-university"></i>
                   <%= t("layouts.sidebar.account_report.account_org_month_fill") %>
                 <% end %>
@@ -29,7 +29,7 @@
             <% end %>
             <% if policy(:"Account::InteriorFill").show? %>
               <%= nav_item controller: 'account/interior_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_interior_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_interior_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-igloo"></i>
                   <%= t("layouts.sidebar.account_report.account_interior_fill") %>
                 <% end %>
@@ -37,7 +37,7 @@
             <% end %>
             <% if policy(:"Account::DeptYearFill").show? %>
               <%= nav_item controller: 'account/dept_year_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_dept_year_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_dept_year_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-building"></i>
                   <%= t("layouts.sidebar.account_report.account_dept_year_fill") %>
                 <% end %>
@@ -45,7 +45,7 @@
             <% end %>
             <% if policy(:"Account::DeptMonthFill").show? %>
               <%= nav_item controller: 'account/dept_month_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_dept_month_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_dept_month_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-building"></i>
                   <%= t("layouts.sidebar.account_report.account_dept_month_fill") %>
                 <% end %>
@@ -53,7 +53,7 @@
             <% end %>
             <% if policy(:"Account::MergereportAccountFill").show? %>
               <%= nav_item controller: 'account/mergereport_account_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_mergereport_account_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_mergereport_account_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-building"></i>
                   <%= t("layouts.sidebar.account_report.mergereport_account_fill") %>
                 <% end %>
@@ -61,7 +61,7 @@
             <% end %>
             <% if policy(:"Account::MergereportAnalyzerFill").show? %>
               <%= nav_item controller: 'account/mergereport_analyzer_fills', html_options: { class: "nav-item" } do %>
-                <%= link_to account_mergereport_analyzer_fill_path, class: "nav-link ml-1" do %>
+                <%= report_link_to account_mergereport_analyzer_fill_path, class: "nav-link ml-1" do %>
                   <i class="nav-icon fas fa-building"></i>
                   <%= t("layouts.sidebar.account_report.mergereport_analyzer_fill") %>
                 <% end %>
@@ -71,7 +71,7 @@
         </li>
       <% if policy(:"Account::BusinessTargetOrg").show? %>
         <%= nav_item controller: 'account/business_target_orgs', html_options: { class: "nav-item" } do %>
-          <%= link_to account_business_target_org_path, class: "nav-link" do %>
+          <%= report_link_to account_business_target_org_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_org") %>
           <% end %>
@@ -79,7 +79,7 @@
       <% end %>
       <% if policy(:"Account::BusinessTargetOrg").show? %>
         <%= nav_item controller: 'account/business_target_org_shows', html_options: { class: "nav-item" } do %>
-          <%= link_to account_business_target_org_show_path, class: "nav-link" do %>
+          <%= report_link_to account_business_target_org_show_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_org_show") %>
           <% end %>
@@ -87,7 +87,7 @@
       <% end %>
       <% if policy(:"Account::BusinessTargetDept").show? %>
         <%= nav_item controller: 'account/business_target_depts', html_options: { class: "nav-item" } do %>
-          <%= link_to account_business_target_dept_path, class: "nav-link" do %>
+          <%= report_link_to account_business_target_dept_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-building"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_dept") %>
           <% end %>
@@ -95,7 +95,7 @@
       <% end %>
       <% if policy(:"Account::BusinessTargetDeptShow").show? %>
         <%= nav_item controller: 'account/business_target_dept_shows', html_options: { class: "nav-item" } do %>
-          <%= link_to account_business_target_dept_show_path, class: "nav-link" do %>
+          <%= report_link_to account_business_target_dept_show_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-building"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_dept_show") %>
           <% end %>
@@ -103,7 +103,7 @@
       <% end %>
       <% if policy(:"Account::BusinessTargetSubDept").show? %>
         <%= nav_item controller: 'account/business_target_sub_dept', html_options: { class: "nav-item" } do %>
-          <%= link_to account_business_target_sub_dept_path, class: "nav-link" do %>
+          <%= report_link_to account_business_target_sub_dept_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-building"></i>
             <%= t("layouts.sidebar.account_report.account_business_target_sub_dept") %>
           <% end %>
@@ -111,7 +111,7 @@
       <% end %>
       <% if policy(:"Account::OperationSummaryOrg").show? %>
         <%= nav_item controller: 'account/operation_summary_orgs', html_options: { class: "nav-item" } do %>
-          <%= link_to account_operation_summary_org_path, class: "nav-link" do %>
+          <%= report_link_to account_operation_summary_org_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.account_report.account_operation_summary_org") %>
           <% end %>
@@ -119,7 +119,7 @@
       <% end %>
       <% if policy(:"Account::OperationSummaryDept").show? %>
         <%= nav_item controller: 'account/operation_summary_depts', html_options: { class: "nav-item" } do %>
-          <%= link_to account_operation_summary_dept_path, class: "nav-link" do %>
+          <%= report_link_to account_operation_summary_dept_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-building"></i>
             <%= t("layouts.sidebar.account_report.account_operation_summary_dept") %>
           <% end %>
@@ -127,7 +127,7 @@
       <% end %>
       <% if policy(:"Account::MergereportFinalCheck").show? %>
         <%= nav_item controller: 'account/mergereport_final_checks', html_options: { class: "nav-item" } do %>
-          <%= link_to account_mergereport_final_check_path, class: "nav-link" do %>
+          <%= report_link_to account_mergereport_final_check_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-building"></i>
             <%= t("layouts.sidebar.account_report.mergereport_final_check") %>
           <% end %>

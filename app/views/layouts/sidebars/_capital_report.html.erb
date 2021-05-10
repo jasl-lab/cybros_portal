@@ -9,7 +9,7 @@
     <ul class="nav">
       <% if policy(:"Capital::FundDailyFill").show? %>
         <%= nav_item controller: 'capital/fund_daily_fills', html_options: { class: "nav-item" } do %>
-          <%= link_to capital_fund_daily_fill_path, class: "nav-link" do %>
+          <%= report_link_to capital_fund_daily_fill_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.capital_report.fund_daily_fill") %>
           <% end %>
@@ -17,7 +17,7 @@
       <% end %>
       <% if policy(Ocdm::ThCwtbDay).show? %>
         <%= nav_item controller: 'capital/fund_daily_fill_missings', html_options: { class: "nav-item" } do %>
-          <%= link_to capital_fund_daily_fill_missing_path, class: "nav-link" do %>
+          <%= report_link_to capital_fund_daily_fill_missing_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.capital_report.fund_daily_fill_missing") %>
           <% end %>
@@ -25,7 +25,7 @@
       <% end %>
       <% if policy(:"Capital::SummaryFundDaily").show? %>
         <%= nav_item controller: 'capital/summary_fund_dailies', html_options: { class: "nav-item" } do %>
-          <%= link_to capital_summary_fund_daily_path, class: "nav-link" do %>
+          <%= report_link_to capital_summary_fund_daily_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.capital_report.summary_fund_daily") %>
           <% end %>
@@ -33,7 +33,7 @@
       <% end %>
       <% if policy(:"Capital::SummaryFundWeek").show? %>
         <%= nav_item controller: 'capital/summary_fund_weeks', html_options: { class: "nav-item" } do %>
-          <%= link_to capital_summary_fund_week_path, class: "nav-link" do %>
+          <%= report_link_to capital_summary_fund_week_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.capital_report.summary_fund_week") %>
           <% end %>
@@ -41,7 +41,7 @@
       <% end %>
       <% if policy(:"Capital::SummaryFundMonth").show? %>
         <%= nav_item controller: 'capital/summary_fund_months', html_options: { class: "nav-item" } do %>
-          <%= link_to capital_summary_fund_month_path, class: "nav-link" do %>
+          <%= report_link_to capital_summary_fund_month_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.capital_report.summary_fund_month") %>
           <% end %>
@@ -49,7 +49,7 @@
       <% end %>
       <% if policy(:"Capital::SummaryFundSum").show? %>
         <%= nav_item controller: 'capital/summary_fund_sums', html_options: { class: "nav-item" } do %>
-          <%= link_to capital_summary_fund_sum_path, class: "nav-link" do %>
+          <%= report_link_to capital_summary_fund_sum_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-university"></i>
             <%= t("layouts.sidebar.capital_report.summary_fund_sum") %>
           <% end %>

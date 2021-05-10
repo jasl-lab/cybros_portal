@@ -9,7 +9,7 @@
     <ul class="nav">
       <% if policy(:"OperationEntry::CostStructureEntry").show? %>
         <%= nav_item controller: 'operation_entry/cost_structure_entries', html_options: { class: "nav-item" } do %>
-          <%= link_to operation_entry_cost_structure_entry_path, class: "nav-link" do %>
+          <%= report_link_to operation_entry_cost_structure_entry_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-pen"></i>
             <%= t("layouts.sidebar.operation_entry.cost_structure_entries") %>
           <% end %>
@@ -17,7 +17,7 @@
       <% end %>
       <% if policy(:"OperationEntry::CashFlowDeptEntry").show? %>
         <%= nav_item controller: 'operation_entry/cash_flow_dept_entries', html_options: { class: "nav-item" } do %>
-          <%= link_to operation_entry_cash_flow_dept_entry_path, class: "nav-link" do %>
+          <%= report_link_to operation_entry_cash_flow_dept_entry_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-pencil-alt"></i>
             <%= t("layouts.sidebar.operation_entry.cash_flow_dept_entries") %>
           <% end %>

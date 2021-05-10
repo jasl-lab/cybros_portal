@@ -9,7 +9,7 @@
     <ul class="nav">
       <% if policy(SplitCost::MonthlySalarySplitRule).show? %>
         <%= nav_item controller: 'cost_split/set_baseline_job_types', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
+          <%= report_link_to cost_split_set_baseline_job_types_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-desktop"></i>
             <%= t("layouts.sidebar.cost_split.set_baseline_job_types") %>
           <% end %>
@@ -17,7 +17,7 @@
       <% end %>
       <% if policy(SplitCost::UserMonthlyPartTimeSplitRate).show? %>
         <%= nav_item controller: 'cost_split/set_part_time_person_costs', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_part_time_person_costs_path, class: "nav-link" do %>
+          <%= report_link_to cost_split_set_part_time_person_costs_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-thumbs-up"></i>
             <%= t("layouts.sidebar.cost_split.set_part_time_person_costs") %>
           <% end %>
@@ -25,7 +25,7 @@
       <% end %>
       <% if policy(SplitCost::UserMonthlyPartTimeSpecialJobType).show? %>
         <%= nav_item controller: 'cost_split/set_special_person_costs', html_options: { class: "nav-item" } do %>
-          <%= link_to cost_split_set_special_person_costs_path, class: "nav-link" do %>
+          <%= report_link_to cost_split_set_special_person_costs_path, class: "nav-link" do %>
             <i class="nav-icon fas fa-hiking"></i>
             <%= t("layouts.sidebar.cost_split.set_special_person_costs") %>
           <% end %>

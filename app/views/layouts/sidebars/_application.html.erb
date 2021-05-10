@@ -106,7 +106,7 @@
           <% end %>
           <% if account_split_settings_show %>
             <%= nav_item controller: 'report/labor_costs', html_options: { class: "nav-item" } do %>
-              <%= link_to report_labor_cost_path, class: "nav-link" do %>
+              <%= report_link_to report_labor_cost_path, class: "nav-link" do %>
                 <i class="nav-icon fas fa-pen-square"></i>
                 <%= t("layouts.sidebar.application.labor_costs") %>
               <% end %>
