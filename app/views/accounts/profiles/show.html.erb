@@ -35,8 +35,7 @@
         <div class="col-md-8">
             <div class="form-group text-left">
               <%= f.label :per_page %>
-              <%= f.text_field :per_page, class: "form-control", class_for_error: "is-invalid" %>
-              <%= f.error_message :per_page, class: "invalid-feedback" %>
+              <%= f.select :per_page, [ 12, 25, 50, 75, 100 ], { include_blank: false }, class: 'form-control-plaintext form-control' %>
             </div>
         </div>
       </div>
