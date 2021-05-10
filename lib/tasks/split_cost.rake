@@ -337,6 +337,10 @@ namespace :split_cost do
 
     puts "Copy special person costs from #{from_yearperiod_month_start} to #{cyearperiod_month_start}"
 
+    SplitCost::UserMonthlyPartTimeSpecialJobType.where(month: from_yearperiod_month_start).each do |previous_ptsjt|
+      ptsjt = SplitCost::UserMonthlyPartTimeSpecialJobType.find_or_initialize_by(user_id: previous_ptsjt.user_id, month: cyearperiod_month_start, position_user_id: previous_ptsjt.position_user_id)
+      ptsjt.update(user_job_type_id: previous_ptsjt.user_job_type_id)
+    end
   end
 
   desc 'Generate user split classify salary per months from user_split_classify_salaries'
