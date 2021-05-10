@@ -339,6 +339,7 @@ namespace :split_cost do
         user_salary_classification_id: scs.user_salary_classification_id)
       if user_mpts.present?
         user_mpts.each do |mpts|
+          next if mpts.salary_classification_split_rate.nil?
           next if mpts.salary_classification_split_rate.zero?
 
           query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, mpts.position_id,
