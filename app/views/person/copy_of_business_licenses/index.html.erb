@@ -12,7 +12,8 @@
       <%= t(".title") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="copy-of-business-licenses-lists">
+      <div class="col-lg-12" data-controller="copy-of-business-licenses-lists"
+        data-copy-of-business-licenses-lists-page-length-value="<%= my_per_page -%>">
         <table id="copy-of-business-licenses-lists-datatable"
           class="table table-hover table-bordered table-responsive"
           data-source="<%= person_copy_of_business_licenses_path(format: :json) %>">

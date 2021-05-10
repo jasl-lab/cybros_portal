@@ -3,6 +3,8 @@ import { Controller } from "stimulus"
 let nameCardsListsFixedHeader;
 
 export default class extends Controller {
+  static values = { pageLength: Number }
+
   connect() {
     const normalColumns = [
       {"data": "name"},
@@ -24,6 +26,7 @@ export default class extends Controller {
     const nameCardsListsDatatable = $('#name-cards-lists-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#name-cards-lists-datatable').data('source'),
       "pagingType": "full_numbers",

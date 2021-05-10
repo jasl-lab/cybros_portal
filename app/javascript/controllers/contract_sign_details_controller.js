@@ -3,6 +3,8 @@ import { Controller } from "stimulus"
 let contractSignDetailsFixedHeader;
 
 export default class extends Controller {
+  static values = { pageLength: Number }
+
   connect() {
     const canHideItem = this.data.get("can_hide_item") == "true";
 
@@ -26,6 +28,7 @@ export default class extends Controller {
     const contractSignDetailsDatatable = $('#contract-sign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#contract-sign-details-datatable').data('source'),
       "pagingType": "full_numbers",

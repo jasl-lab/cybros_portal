@@ -21,7 +21,8 @@
       <%= t(".title") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="name-cards-lists">
+      <div class="col-lg-12" data-controller="name-cards-lists"
+        data-name-cards-lists-page-length-value="<%= my_per_page -%>">
         <table id="name-cards-lists-datatable"
           class="table table-hover table-bordered table-responsive"
           data-source="<%= person_name_cards_path(only_see_approved: @only_see_approved,format: :json) %>">

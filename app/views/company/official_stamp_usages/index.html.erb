@@ -12,7 +12,8 @@
       <%= t(".title") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="official-stamp-usages-lists">
+      <div class="col-lg-12" data-controller="official-stamp-usages-lists"
+        data-official-stamp-usages-lists-page-length-value="<%= my_per_page -%>">
         <table id="official-stamp-usages-lists-datatable"
           class="table table-hover table-bordered table-responsive"
           data-source="<%= company_official_stamp_usages_path(format: :json) %>">

@@ -3,6 +3,8 @@ import { Controller } from "stimulus"
 let subsidiaryNeedReceiveUnsignDetailsFixedHeader;
 
 export default class extends Controller {
+  static values = { pageLength: Number }
+
   connect() {
     const canHideItem = this.data.get("can_hide_item") == "true";
 
@@ -23,6 +25,7 @@ export default class extends Controller {
     const subsidiaryNeedReceiveUnsignDetailsDatatable = $('#subsidiary-need-receive-unsign-details-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#subsidiary-need-receive-unsign-details-datatable').data('source'),
       "pagingType": "full_numbers",

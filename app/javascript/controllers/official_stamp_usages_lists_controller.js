@@ -1,6 +1,8 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
+  static values = { pageLength: Number }
+
   connect() {
     const normalColumns = [
       {"data": "employee_name"},
@@ -18,6 +20,7 @@ export default class extends Controller {
     $('#official-stamp-usages-lists-datatable').dataTable({
       "processing": true,
       "serverSide": true,
+      "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#official-stamp-usages-lists-datatable').data('source'),
       "pagingType": "full_numbers",

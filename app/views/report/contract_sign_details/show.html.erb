@@ -5,6 +5,7 @@
     </h3>
     <div class="row">
       <div class="col-lg-12" data-controller="contract-sign-details"
+        data-contract-sign-details-page-length-value="<%= my_per_page -%>"
         data-contract-sign-details-can_hide_item="<%= @can_hide_item -%>">
           <%= form_tag report_contract_sign_detail_path, method: :get, class: 'form-inline' do -%>
             <div class="form-group mr-3">

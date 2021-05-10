@@ -12,7 +12,8 @@
       <%= t(".title") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="proof-of-incomes-lists">
+      <div class="col-lg-12" data-controller="proof-of-incomes-lists"
+        data-proof-of-incomes-lists-page-length-value="<%= my_per_page -%>">
         <table id="proof-of-incomes-lists-datatable"
           class="table table-hover table-bordered table-responsive"
           data-source="<%= person_proof_of_incomes_path(format: :json) %>">
