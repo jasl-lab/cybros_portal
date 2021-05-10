@@ -216,6 +216,11 @@ namespace :split_cost do
     end
   end
 
+  # Steps to generate labor_cost
+  # 1. run split_cost:nc_v_classify_salary_import
+  # 2. run split_cost:generate_user_monthly_part_time_splits
+  # 3. run split_cost:copy_user_monthly_part_time_splits
+  # 4. run split_cost:user_split_classify_salary_per_months
   desc 'Import NC V_CLASSIFY_SALARY into cybros'
   task :nc_v_classify_salary_import, [:cyearperiod] => [:environment] do |task, args|
     cyearperiod = args[:cyearperiod]
