@@ -54,7 +54,29 @@ class Report::LaborCostsController < Report::BaseController
       .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
       .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
 
-    @cspms = cspms.page(params[:page]).per(my_per_page)
+    respond_to do |format|
+      format.html do
+        @cspms = cspms.page(params[:page]).per(my_per_page)
+      end
+      format.csv do
+        render_csv_header 'Labor cost report'
+        csv_res = CSV.generate do |csv|
+          csv << ['工号', '姓名', '所属公司', '所属部门', '成本性质', '查询年月', '金额']
+          cspms.each do |d|
+            values = []
+            values << d.clerk_code
+            values << d.chinese_name
+            values << d.company_name
+            values << d.department_name
+            values << d.user_cost_type_name
+            values << @month_name
+            values << d.total
+            csv << values
+          end
+        end
+        send_data "\xEF\xBB\xBF#{csv_res}"
+      end
+    end
   end
 
   protected

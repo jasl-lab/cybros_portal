@@ -30,6 +30,7 @@
       </div>
       <div class="m-1">
         <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+        <%= link_to t('.export'), report_labor_cost_path(month_name: @month_name, format: :csv), class: 'btn' %>
       </div>
     <% end -%>
     <div class="row mt-3">
