@@ -5,8 +5,9 @@ function ifAddTo100(usc_id, index, is100) {
   let sum = 0;
   for (let i = 0; i < textFields.length; i++) {
     let item = textFields[i];
-    sum += parseInt(item.value);
+    sum += parseFloat(item.value);
   }
+  sum = Math.round((sum + Number.EPSILON) * 100) / 100
   document.getElementById(`sum-user-salary-classification-${usc_id}`).innerHTML = `${sum}%`
   is100[index] = sum;
 }
