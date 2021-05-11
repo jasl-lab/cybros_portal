@@ -142,7 +142,14 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     last_available_date = policy_scope(Bi::ContractSignDetailAmount).last_available_date(end_of_month)
-    @data = policy_scope(Bi::ContractSignDetailAmount).where(deptname: @department_name).or(policy_scope(Bi::ContractSignDetailAmount).where(deptcode: department_code))
+
+    data = if @view_deptcode_sum
+      policy_scope(Bi::ContractSignDetailAmount).where(deptname_sum: @department_name).or(policy_scope(Bi::ContractSignDetailAmount).where(deptcode_sum: department_code))
+    else
+      policy_scope(Bi::ContractSignDetailAmount).where(deptname: @department_name).or(policy_scope(Bi::ContractSignDetailAmount).where(deptcode: department_code))
+    end
+
+    @data = data
       .where(date: last_available_date)
       .where(orgname: @company_name)
       .where(filingtime: beginning_of_year..end_of_year)
@@ -152,7 +159,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
 
   def drill_down_date
     @company_name = params[:company_name]
+    @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @department_name = [params[:department_name]]
+    department_code = params[:department_code]
     month_name = params[:month_name]&.strip
     end_of_month = Date.parse(month_name).end_of_month
 
@@ -161,8 +170,13 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       @department_name += belong_deparments.pluck(:部门).reject { |dept_name| dept_name.include?('撤销') }
     end
 
-    @data = policy_scope(Bi::ContractSignDetailDate)
-      .where(orgname: @company_name, deptname: @department_name)
+    data = if @view_deptcode_sum
+      policy_scope(Bi::ContractSignDetailDate).where(orgname: @company_name, deptcode_sum: department_code)
+    else
+      policy_scope(Bi::ContractSignDetailDate).where(orgname: @company_name, deptcode: department_code)
+    end
+
+    @data = data
       .where(filingtime: end_of_month.beginning_of_year..end_of_month)
       .order(filingtime: :asc)
     authorize @data.first if @data.present?
