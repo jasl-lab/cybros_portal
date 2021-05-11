@@ -36,7 +36,7 @@ module API
     end
 
     def list
-      @list = @map_infos.includes(:project_items).page(params[:page]).per(my_per_page).collect do |m|
+      @list = @map_infos.includes(:project_items).page(params[:page]).per(params[:per_page]).collect do |m|
         business_type_deptnames = m.project_items.collect { |c| [c.businesstypecnname, c.projectitemdeptname] }.uniq
 
         {
