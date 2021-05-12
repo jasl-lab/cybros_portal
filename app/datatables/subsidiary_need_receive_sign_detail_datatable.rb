@@ -69,7 +69,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         acc_need_receive_gt3_months: tag.div((r.accneedreceive_gt3_months.to_f / 10000.0)&.round(0), class: 'text-center'),
         sign_receive: (link_to total_receivables_drill_down_report_subsidiary_need_receive_sign_detail_path(end_of_date: @end_of_date.to_s(:db_short), contractcode: r.salescontractcode), remote: true do
                          tag.div(
-                          ((r.accneedreceive > r.sign_receive ? r.accneedreceive.to_f : r.sign_receive.to_f) / 10000.0)&.round(0),
+                          ((r.accneedreceive.to_f > r.sign_receive.to_f ? r.accneedreceive.to_f : r.sign_receive.to_f) / 10000.0)&.round(0),
                          class: 'text-center')
                        end),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: 'text-center'),
