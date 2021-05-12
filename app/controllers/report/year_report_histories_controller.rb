@@ -10,7 +10,7 @@ class Report::YearReportHistoriesController < Report::BaseController
     @year_options = policy_scope(Bi::YearReportHistory).year_options
     @year_names = params[:year_names]
     @month_names = policy_scope(Bi::YearReportHistory).month_names
-    @month_name = params[:month_name]&.strip || Time.now.month == 1 ? 12 : Time.now.month - 1
+    @month_name = params[:month_name]&.strip || (Time.now.month == 1 ? 1 : Time.now.month - 1)
     @orgs_options = params[:orgs]
     @view_orgcode_sum = params[:view_orgcode_sum] == 'true'
 
