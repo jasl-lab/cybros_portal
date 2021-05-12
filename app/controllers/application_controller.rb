@@ -16,19 +16,18 @@ class ApplicationController < ActionController::Base
     end
     helper_method :my_per_page
 
-    def render_csv_header(filename = nil)
-      filename ||= params[:action]
-      filename += '.csv'
+    def render_csv_header(filename)
+      file_name = "#{filename.parameterize}.csv"
 
       if /msie/i.match?(request.env['HTTP_USER_AGENT'])
-        headers['Pragma'] = 'public'
-        headers['Content-type'] = 'text/plain'
-        headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-        headers['Expires'] = '0'
+        response.set_header('Pragma', 'public')
+        response.set_header('Content-type', 'text/plain')
+        response.set_header('Cache-Control', 'no-cache, must-revalidate, post-check=0, pre-check=0')
+        response.set_header('Content-Disposition', "attachment; filename=\"#{file_name}\"")
+        response.set_header('Expires', '0')
       else
-        headers['Content-Type'] ||= 'text/csv'
-        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+        response.set_header('Content-Type', 'text/csv')
+        response.set_header('Content-Disposition', "attachment; filename=\"#{file_name}\"")
       end
     end
 
