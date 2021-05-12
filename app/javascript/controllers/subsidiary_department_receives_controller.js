@@ -135,7 +135,7 @@ export default class extends Controller {
     if (Date.parse(this.endOfDateValue+"T00:00:00") < Date.parse('2021-03-01T00:00:00')) {
       labelBizReceivables = '业务应收款';
     } else {
-      labelBizReceivables = '扣除帐龄的业务应收款';
+      labelBizReceivables = '扣除财务应收的业务应收款';
     }
 
     const need_option = {
