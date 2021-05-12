@@ -88,7 +88,7 @@
           <tr>
             <td><%= index + 1 -%></td>
             <td><%= link_to dd.crmshort, drill_down_dept_value_report_crm_year_report_path(crmcode: dd.crmcode, year: @year), remote: true -%></td>
-            <td><%= dd.cricrank -%></td>
+            <td><%= dd.cricrank&.round(0) -%></td>
             <td><%= dd.clientproperty -%></td>
             <td><%= (dd.heji_last.to_f / 10000.0).round(0) -%></td>
             <td><%= (dd.heji.to_f / 10000.0).round(0) -%></td>
