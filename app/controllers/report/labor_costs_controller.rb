@@ -70,7 +70,7 @@ class Report::LaborCostsController < Report::BaseController
             values << d.department_name
             values << d.user_cost_type_name
             values << @month_name
-            values << d.total
+            values << number_with_precision(d.total, precision: 2)
             csv << values
           end
         end
