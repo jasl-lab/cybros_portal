@@ -56,7 +56,10 @@
         <label class="mr-1"><%= t(".year") -%>：</label>
         <%= select_tag 'year', options_for_select(@all_years, @year), { class: 'form-control form-control-plain', id: 'select-year' } %>
       </div>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
+      <div>
+        <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+        <%= link_to t('.export'), export_report_crm_year_report_path(year: @year, format: :csv), class: 'btn' %>
+      </div>
     <% end -%>
     <table class="table table-bordered mt-2 position-relative">
       <thead>
