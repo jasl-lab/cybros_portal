@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_11_030342) do
+ActiveRecord::Schema.define(version: 2021_05_12_072614) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -596,7 +596,7 @@ ActiveRecord::Schema.define(version: 2021_05_11_030342) do
     t.bigint "position_id", null: false
     t.boolean "main_position"
     t.bigint "user_salary_classification_id", null: false
-    t.decimal "salary_classification_split_rate", precision: 8, scale: 2
+    t.decimal "salary_classification_split_rate", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_job_type_id"
