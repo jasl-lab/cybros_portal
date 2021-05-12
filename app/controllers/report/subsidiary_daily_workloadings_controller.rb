@@ -182,7 +182,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
         csv << values
       end
     end
-    send_data "\xEF\xBB\xBF#{csv_res}"
+    send_data "\xEF\xBB\xBF#{csv_res}", filename: 'subsidiary people workloading.csv'
   end
 
   private

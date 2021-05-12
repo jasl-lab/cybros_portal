@@ -45,7 +45,7 @@ class Report::CimToolsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'CAD session report.csv'
       end
     end
   end
@@ -74,7 +74,7 @@ class Report::CimToolsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'CAD operation report.csv'
       end
     end
   end
@@ -142,7 +142,7 @@ class Report::CimToolsController < Report::BaseController
             end
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'CAD usage detail report.csv'
       end
     end
   end

@@ -43,7 +43,7 @@ class Report::YingjiankeLoginsController < Report::BaseController
             csv << [idx + 1] + r
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'Yingjianke_Logins.csv'
       end
     end
   end

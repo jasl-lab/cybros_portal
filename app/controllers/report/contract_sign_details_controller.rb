@@ -77,7 +77,7 @@ class Report::ContractSignDetailsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: '已归档合同签约周期明细.csv'
       end
     end
   end

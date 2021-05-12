@@ -87,7 +87,7 @@ class Report::CrmYearReportsController < Report::BaseController
         csv << values
       end
     end
-    send_data "\xEF\xBB\xBF#{csv_res}"
+    send_data "\xEF\xBB\xBF#{csv_res}", filename: "#{year}客户生产合同额及占比.csv"
   end
 
   def drill_down

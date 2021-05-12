@@ -88,7 +88,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'Knowledge Report.csv'
       end
     end
   end

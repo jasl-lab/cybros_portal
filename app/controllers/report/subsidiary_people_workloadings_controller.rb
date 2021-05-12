@@ -61,7 +61,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
     respond_to do |format|
       format.html
       format.csv do
-        render_csv_header 'subsidiary people workloading'
+        render_csv_header 'Subsidiary people workloading'
         csv_res = CSV.generate do |csv|
           csv << ['NC 工号', '姓名', '实填工时', '应填工时', '填报率', '饱和度', '可发放加班餐补次数', '专业']
           @data.each do |d|
@@ -85,7 +85,7 @@ class Report::SubsidiaryPeopleWorkloadingsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'Subsidiary people workloading.csv'
       end
     end
   end

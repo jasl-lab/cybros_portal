@@ -163,7 +163,7 @@ class Report::ContractHoldsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: "Unsign #{last_available_date.to_date} details.csv"
       end
     end
   end
@@ -222,7 +222,7 @@ class Report::ContractHoldsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: "Sign #{last_available_date.to_date} details.csv"
       end
     end
   end

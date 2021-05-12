@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
       if /msie/i.match?(request.env['HTTP_USER_AGENT'])
         response.set_header('Pragma', 'public')
-        response.set_header('Content-type', 'text/plain')
+        response.set_header('Content-Type', 'text/plain')
         response.set_header('Cache-Control', 'no-cache, must-revalidate, post-check=0, pre-check=0')
         response.set_header('Content-Disposition', "attachment; filename=\"#{file_name}\"")
         response.set_header('Expires', '0')

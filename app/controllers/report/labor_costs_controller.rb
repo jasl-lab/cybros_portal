@@ -76,7 +76,7 @@ class Report::LaborCostsController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: "Labor cost #{@month_name}.csv"
       end
     end
   end

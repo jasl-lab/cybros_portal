@@ -277,7 +277,7 @@ class Report::SubsidiaryDepartmentReceivesController < Report::BaseController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'Need receives pay rates report.csv'
       end
     end
   end

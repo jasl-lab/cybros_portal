@@ -56,7 +56,7 @@ class Person::NameCardsController < ApplicationController
             csv << values
           end
         end
-        send_data "\xEF\xBB\xBF#{csv_res}"
+        send_data "\xEF\xBB\xBF#{csv_res}", filename: 'name card applies.csv'
       end
     end
   end
