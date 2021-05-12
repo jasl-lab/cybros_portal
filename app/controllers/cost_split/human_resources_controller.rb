@@ -13,9 +13,16 @@ class CostSplit::HumanResourcesController < CostSplit::BaseController
     else
       current_user.departments.collect(&:dept_code)
     end
+    @chinese_name = params[:chinese_name]
 
-    @users = User.includes(:departments).where(departments: { dept_code: @depts })
+    users = User.includes(:departments).where(departments: { dept_code: @depts })
       .select(:id, :clerk_code, :chinese_name, :position_title, :company_code, :dept_code, :position_title)
+
+    @users = if @chinese_name.present?
+      users.where('users.chinese_name LIKE ?', "%#{@chinese_name}%")
+    else
+      users
+    end
   end
 
   def change_company

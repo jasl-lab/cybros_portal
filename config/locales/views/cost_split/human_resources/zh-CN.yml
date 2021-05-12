@@ -6,6 +6,7 @@ zh-CN:
         title: "部门人员人力成本及房租分摊规则设置"
         company_name: "公司名字"
         dept_name: "部门名称"
+        chinese_name: "姓名"
         confirm: "搜索"
         table:
           clerk_people: "人员"

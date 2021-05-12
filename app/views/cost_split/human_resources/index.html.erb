@@ -9,8 +9,12 @@
         <%= select_tag 'company_name', options_for_select(@all_company_names, @company_name), class: 'form-control-plaintext form-control', data: { remote: true, type: :script, url: url_for(controller: 'cost_split/human_resources', action: 'change_company', format: 'js')} -%>
       </div>
       <div class="form-group mr-3">
-        <label class="mr-1"><%= t(".dept_name") -%>：</label>
+        <label class="mx-2"><%= t(".dept_name") -%>：</label>
           <%= select_tag 'depts', options_for_select(@dept_options, @depts), { id: 'hr-depts-select', include_blank: true, multiple: true, class: 'form-control' } %>
+      </div>
+      <div class="form-group mr-3">
+        <label class="mx-2"><%= t(".chinese_name") -%>：</label>
+        <%= text_field_tag 'chinese_name', @chinese_name, class: 'form-control form-control2', autocomplete: "off" -%>
       </div>
       <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
