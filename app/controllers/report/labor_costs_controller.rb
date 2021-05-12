@@ -61,7 +61,7 @@ class Report::LaborCostsController < Report::BaseController
         @cspms = cspms.page(params[:page]).per(my_per_page)
       end
       format.csv do
-        render_csv_header 'Labor cost report'
+        render_csv_header "Labor cost #{@month_name}"
         csv_res = CSV.generate do |csv|
           csv << ['工号', '姓名', '所属公司', '所属部门', '成本性质', '查询年月', '金额']
           cspms.each do |d|
