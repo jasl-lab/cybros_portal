@@ -3,14 +3,14 @@
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.16.0'
 
-set :application, 'cybros'
+set :application, 'cybros_bi'
 set :repo_url, 'git@e.coding.net:sew/cybros_portal.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-# Default deploy_to directory is /var/www/cybros
-# set :deploy_to, "/var/www/cybros"
+# Default deploy_to directory is /var/www/cybros_bi
+# set :deploy_to, "/var/www/cybros_bi"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
