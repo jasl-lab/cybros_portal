@@ -56,7 +56,7 @@ namespace :generate do
     if Gem::Platform.local.os == 'darwin'
       "#{Dir.home}/Library/Fonts/SourceHanSansCN-Normal.ttf"
     else
-      '/usr/share/fonts/default/SourceHanSansCN-Normal.ttf'
+      '/usr/share/fonts/truetype/SourceHanSansCN-Normal.ttf'
     end
   end
 end
