@@ -14,7 +14,7 @@ zh-CN:
           gt50: "非 TOP 50 大客户"
           other: "其他"
           total: "合计"
-          index: "序号"
+          rank: "排序"
           customer_group: "客户集团"
           kerrey_trading_area_ranking: "克尔瑞操盘面积排名"
           customer_ownership: "客户性质"

@@ -14,7 +14,7 @@ en:
           gt50: "Non-TOP 50 Customers"
           other: "Other"
           total: "Total"
-          index: "Index"
+          rank: "Rank"
           customer_group: "Customer group"
           kerrey_trading_area_ranking: "Kerrey training area ranking"
           customer_ownership: "Customer ownership"
