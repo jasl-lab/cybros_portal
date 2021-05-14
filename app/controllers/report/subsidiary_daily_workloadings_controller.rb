@@ -14,14 +14,14 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     @begin_date = params[:begin_date]&.strip || last_available_date.beginning_of_month
     @end_date = params[:end_date]&.strip || last_available_date.end_of_day
     beginning_of_day = if @begin_date.is_a?(String)
-      Date.parse(@begin_date).beginning_of_day
+      Date.parse(@begin_date)
     else
-      @begin_date.beginning_of_day
+      @begin_date
     end
     end_of_day = if @end_date.is_a?(String)
-      Date.parse(@end_date).end_of_day
+      Date.parse(@end_date)
     else
-      @end_date.end_of_day
+      @end_date
     end
     @view_deptcode_sum = params[:view_deptcode_sum] == 'true'
     @selected_company_code = params[:company_code].presence || current_user.can_access_org_codes.first || current_user.user_company_orgcode
@@ -43,7 +43,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     data = policy_scope(Bi::WorkHoursDayCountDept).where(date: beginning_of_day..end_of_day)
       .where(orgcode: @selected_company_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_day)
-      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', beginning_of_day)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', end_of_day)
 
     data = if @view_deptcode_sum
       data
