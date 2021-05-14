@@ -43,7 +43,7 @@ class Report::SubsidiaryDailyWorkloadingsController < Report::BaseController
     data = policy_scope(Bi::WorkHoursDayCountDept).where(date: beginning_of_day..end_of_day)
       .where(orgcode: @selected_company_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_day)
-      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', end_of_day)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', beginning_of_day)
 
     data = if @view_deptcode_sum
       data
