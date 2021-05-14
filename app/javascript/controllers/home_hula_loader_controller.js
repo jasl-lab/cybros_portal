@@ -10,7 +10,7 @@ export default class extends Controller {
       dataType: 'json'
     }).done(function(response) {
       const template = {'<>':'div','class':'col-sm-12 col-md-6 col-lg-4 col-xl-3',
-       'html':'<div class="card"><img src="https://portal.thape.com.cn${cover}" class="card-img-top"><div class="card-body"><p class="card-text">${title}</p><a href="${url}" target="_blank" class="card-link">查看</a></div></div>'};
+       'html':'<div class="card"><img src="${cover}" class="card-img-top"><div class="card-body"><p class="card-text">${title}</p><a href="${url}" target="_blank" class="card-link">查看</a></div></div>'};
 
       const data = response.data;
 
