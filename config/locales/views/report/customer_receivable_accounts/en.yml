@@ -4,3 +4,6 @@ en:
     customer_receivable_accounts:
       show:
         title: "Customer accounts receivable"
+        org_code: "Org code"
+        client_name: "Client name"
+        confirm: "Confrim"

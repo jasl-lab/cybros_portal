@@ -7,6 +7,9 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @all_org_options = Bi::CrmClientReceive.all_org_options
+    @org_code = params[:org_code]&.strip
+    @client_name = params[:client_name]
   end
 
   private

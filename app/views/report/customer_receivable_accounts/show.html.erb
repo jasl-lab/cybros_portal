@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <div class="row">
+      <div class="col-lg-12" data-controller="customer-receivable-account"
+        data-customer-receivable-account-page-length-value="<%= my_per_page -%>">
+          <%= form_tag report_customer_receivable_accounts_path, method: :get, class: 'form-inline' do -%>
+            <div class="form-group mr-1">
+              <label class="mr-1"><%= t(".org_code") -%>：</label>
+              <%= select_tag 'org_code', options_for_select(@all_org_options, @org_code), include_blank: true, class: 'form-control' %>
+            </div>
+            <div class="form-group mr-1">
+              <label class="mr-1"><%= t(".client_name") -%>：</label>
+              <%= text_field_tag 'client_name', @client_name, class: 'form-control' %>
+            </div>
+            <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
+          <% end -%>
+        <table id="subsidiary-need-receive-sign-details-datatable"
+          class="table table-hover table-bordered table-responsive mt-3"
+          data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json) -%>">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

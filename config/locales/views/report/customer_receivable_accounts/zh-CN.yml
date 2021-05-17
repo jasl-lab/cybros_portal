@@ -4,3 +4,6 @@ zh-CN:
     customer_receivable_accounts:
       show:
         title: "客户应收款情况"
+        org_code: "选择公司"
+        client_name: "客户名称"
+        confirm: "确认"
