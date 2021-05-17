@@ -1,5 +1,7 @@
 import { Controller } from "stimulus"
 
+let crmReceivableAccountTableFixedHeader;
+
 export default class extends Controller {
   static values = { pageLength: Number }
 
@@ -20,7 +22,7 @@ export default class extends Controller {
       {"data": "unsign_receive"}
     ];
 
-    $('#customer-receivable-account-datatable').dataTable({
+    const crmReceivableAccountDatatable = $('#customer-receivable-account-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "pageLength": this.pageLengthValue,
@@ -37,9 +39,17 @@ export default class extends Controller {
         return JSON.parse(localStorage.getItem('DataTables_customer-receivable-account'));
         }
     });
+
+    crmReceivableAccountTableFixedHeader = new $.fn.dataTable.FixedHeader(crmReceivableAccountDatatable, {
+      header: true,
+      footer: false,
+      headerOffset: 50,
+      footerOffset: 0
+    });
   }
 
   disconnect() {
+    crmReceivableAccountTableFixedHeader.destroy();
     $('#customer-receivable-account-datatable').DataTable().destroy();
   }
 }
