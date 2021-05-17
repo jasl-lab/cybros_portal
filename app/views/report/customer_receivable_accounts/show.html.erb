@@ -17,9 +17,9 @@
             </div>
             <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
           <% end -%>
-        <table id="subsidiary-need-receive-sign-details-datatable"
+        <table id="customer-receivable-account-datatable"
           class="table table-hover table-bordered table-responsive mt-3"
-          data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json) -%>">
+          data-source="<%= report_customer_receivable_accounts_path(org_code: @org_code, client_name: @client_name, format: :json) -%>">
           <thead>
             <tr>
               <th rowspan="2"><%= t('.table.crmthrank') -%></th>
@@ -43,23 +43,6 @@
             </tr>
           </thead>
           <tbody>
-            <% @crm_client_receives.each do |c| %>
-              <tr>
-                <td><%= c.crmthrank -%></td>
-                <td><%= c.crmshort -%></td>
-                <td><%= c.cricrank -%></td>
-                <td><%= c.clientproperty -%></td>
-                <td><%= c.sum_receive -%></td>
-                <td><%= c.sum_receive_gt1_years -%></td>
-                <td><%= c.aging_amount_lt3_months -%></td>
-                <td><%= c.aging_amount_4to12_months -%></td>
-                <td><%= c.aging_amount_gt1_years -%></td>
-                <td><%= c.sign_receive -%></td>
-                <td><%= c.unsign_receive_gt1_years -%></td>
-                <td><%= (c.unsign_receive - c.unsign_receive_gt1_years) if c.unsign_receive.present? && c.unsign_receive_gt1_years.present? -%></td>
-                <td><%= c.unsign_receive -%></td>
-              </tr>
-            <% end %>
           </tbody>
         </table>
       </div>

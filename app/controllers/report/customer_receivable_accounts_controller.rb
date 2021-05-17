@@ -6,23 +6,22 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    prepare_meta_tags title: t('.title')
-    @all_org_options = Bi::CrmClientReceive.all_org_options
     @org_code = params[:org_code]&.strip
     @client_name = params[:client_name]
 
-    crm_client_receives = if @org_code.present?
-      Bi::CrmClientReceive.where(orgcode_sum: @org_code)
-    else
-      Bi::CrmClientReceive.all
+    respond_to do |format|
+      format.html do
+        prepare_meta_tags title: t('.title')
+        @all_org_options = policy_scope(Bi::CrmClientReceive).all_org_options
+      end
+      format.json do
+        render json: Report::CrmClientReceiveDatatable.new(params,
+          crm_client_receives: policy_scope(Bi::CrmClientReceive),
+          org_code: @org_code,
+          client_name: @client_name,
+          view_context: view_context)
+      end
     end
-
-    @crm_client_receives = if @client_name.present?
-      crm_client_receives.where('crmshort LIKE ?', "%#{@client_name}%")
-    else
-      crm_client_receives
-    end
-
   end
 
   private
