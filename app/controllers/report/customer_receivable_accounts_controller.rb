@@ -6,7 +6,7 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
-    @org_code = params[:org_code]&.strip
+    @org_codes = params[:orgs].presence
     @client_name = params[:client_name]
 
     respond_to do |format|
@@ -17,7 +17,7 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
       format.json do
         render json: Report::CrmClientReceiveDatatable.new(params,
           crm_client_receives: policy_scope(Bi::CrmClientReceive),
-          org_code: @org_code,
+          org_codes: @org_codes,
           client_name: @client_name,
           view_context: view_context)
       end

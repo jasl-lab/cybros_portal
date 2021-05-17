@@ -4,7 +4,7 @@ module Report
   class CrmClientReceiveDatatable < ApplicationDatatable
     def initialize(params, opts = {})
       @crm_client_receives = opts[:crm_client_receives]
-      @org_code = opts[:org_code]
+      @org_codes = opts[:org_codes]
       @client_name = opts[:client_name]
       super
     end
@@ -50,7 +50,7 @@ module Report
 
     def get_raw_records
       rr = @crm_client_receives
-      rr = rr.where(orgcode_sum: @org_code) if @org_code.present?
+      rr = rr.where(orgcode_sum: @org_codes) if @org_codes.present?
       rr = rr.where('crmshort LIKE ?', "%#{@client_name}%") if @client_name.present?
       rr
     end

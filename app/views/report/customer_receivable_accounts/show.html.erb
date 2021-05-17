@@ -9,7 +9,7 @@
           <%= form_tag report_customer_receivable_accounts_path, method: :get, class: 'form-inline' do -%>
             <div class="form-group mr-1">
               <label class="mr-1"><%= t(".org_code") -%>：</label>
-              <%= select_tag 'org_code', options_for_select(@all_org_options, @org_code), include_blank: true, class: 'form-control' %>
+              <%= select_tag 'orgs', options_for_select(@all_org_options, @org_codes), include_blank: true, multiple: true, class: 'form-control' %>
             </div>
             <div class="form-group mr-1">
               <label class="mr-1"><%= t(".client_name") -%>：</label>
@@ -19,7 +19,7 @@
           <% end -%>
         <table id="customer-receivable-account-datatable"
           class="table table-hover table-bordered table-responsive mt-3"
-          data-source="<%= report_customer_receivable_accounts_path(org_code: @org_code, client_name: @client_name, format: :json) -%>">
+          data-source="<%= report_customer_receivable_accounts_path(orgs: @org_codes, client_name: @client_name, format: :json) -%>">
           <thead>
             <tr>
               <th rowspan="2"><%= t('.table.crmthrank') -%></th>
