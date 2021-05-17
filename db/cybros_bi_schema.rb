@@ -470,8 +470,25 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "landhrcost", limit: 53
   end
 
+  create_table "CRM_CLIENT_RECEIVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "crmcode", limit: 20
+    t.string "crmshort", limit: 200
+    t.float "sign_receive", limit: 53
+    t.float "aging_amount_lt3_months", limit: 53
+    t.float "aging_amount_4to12_months", limit: 53
+    t.float "aging_amount_gt1_years", limit: 53
+    t.float "unsign_receive", limit: 53
+    t.float "unsign_receive_gt1_years", limit: 53
+    t.float "sum_receive", limit: 53
+    t.float "sum_receive_gt1_years", limit: 53
+    t.string "cricrank", limit: 20
+    t.string "crmthrank", limit: 20
+    t.string "clientproperty", limit: 50
+    t.string "orgcode_sum", limit: 45
+  end
+
   create_table "CRM_CLIENT_SUM", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "cricyear"
+    t.integer "cricyear", null: false
     t.string "crmcode", limit: 20
     t.text "crmshort"
     t.float "heji", limit: 53
@@ -483,6 +500,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "designvalue", limit: 53
     t.float "constructionvalue", limit: 53
     t.float "fullvalue", limit: 53
+    t.string "rank", limit: 45
   end
 
   create_table "CRM_DEPTPLANVALUE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -526,6 +544,58 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "cricrank", limit: 53
     t.bigint "crmthrank"
     t.text "clientproperty"
+  end
+
+  create_table "CRM_SACONTRACTPRICE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.text "salescontractid"
+    t.string "projectcode", limit: 50
+    t.text "projectname"
+    t.string "salescontractcode", limit: 50
+    t.text "salescontractname"
+    t.string "contractstatus", limit: 50
+    t.string "contractstatusname", limit: 200
+    t.string "contractcategory", limit: 50
+    t.string "contractcategoryname", limit: 200
+    t.string "contractproperty", limit: 50
+    t.string "contractpropertyname", limit: 200
+    t.string "belongcompanyname", limit: 200
+    t.string "clientproperty", limit: 50
+    t.float "realamounttotal", limit: 53
+    t.string "scaletype", limit: 50
+    t.string "scaletypecnname", limit: 200
+    t.float "scalearea", limit: 53
+    t.string "area", limit: 200
+    t.string "provincecode", limit: 50
+    t.string "provincename", limit: 200
+    t.string "city", limit: 50
+    t.string "cityname", limit: 200
+    t.text "proareacode"
+    t.string "areaname", limit: 200
+    t.date "filingtime"
+    t.string "businessltd", limit: 50
+    t.string "businessltdcode", limit: 50
+    t.string "businessltdname", limit: 200
+    t.string "businessdepartments", limit: 50
+    t.string "businessdepartmentscode", limit: 50
+    t.string "businessdepartmentsname", limit: 200
+    t.string "operationgenre", limit: 50
+    t.string "operationgenrename", limit: 200
+    t.string "projectgener", limit: 50
+    t.string "projectgenername", limit: 200
+    t.string "buildinggenre", limit: 50
+    t.string "buildinggenrename", limit: 200
+    t.string "projectbigstage", limit: 50
+    t.string "projectbigstagename", limit: 200
+    t.text "stage"
+    t.text "stagename"
+    t.float "scale", limit: 53
+    t.string "units", limit: 50
+    t.string "unitsname", limit: 200
+    t.float "univalence", limit: 53
+    t.float "discountprice", limit: 53
+    t.float "discounttotal", limit: 53
+    t.float "subtotal", limit: 53
+    t.date "savedate"
   end
 
   create_table "CRM_TOP50", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1271,57 +1341,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "clientsshort"
   end
 
-  create_table "TH_SACONTRACTPRICE_SAVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.text "salescontractid"
-    t.string "projectcode", limit: 50
-    t.text "projectname"
-    t.string "salescontractcode", limit: 50
-    t.text "salescontractname"
-    t.string "contractstatus", limit: 50
-    t.string "contractstatusname", limit: 200
-    t.string "contractcategory", limit: 50
-    t.string "contractcategoryname", limit: 200
-    t.string "contractproperty", limit: 50
-    t.string "contractpropertyname", limit: 200
-    t.string "belongcompanyname", limit: 200
-    t.float "realamounttotal", limit: 53
-    t.string "scaletype", limit: 50
-    t.string "scaletypecnname", limit: 200
-    t.float "scalearea", limit: 53
-    t.string "area", limit: 200
-    t.string "provincecode", limit: 50
-    t.string "provincename", limit: 200
-    t.string "city", limit: 50
-    t.string "cityname", limit: 200
-    t.text "proareacode"
-    t.string "areaname", limit: 200
-    t.date "filingtime"
-    t.string "businessltd", limit: 50
-    t.string "businessltdcode", limit: 50
-    t.string "businessltdname", limit: 200
-    t.string "businessdepartments", limit: 50
-    t.string "businessdepartmentscode", limit: 50
-    t.string "businessdepartmentsname", limit: 200
-    t.string "operationgenre", limit: 50
-    t.string "operationgenrename", limit: 200
-    t.string "projectgener", limit: 50
-    t.string "projectgenername", limit: 200
-    t.string "buildinggenre", limit: 50
-    t.string "buildinggenrename", limit: 200
-    t.string "projectbigstage", limit: 50
-    t.string "projectbigstagename", limit: 200
-    t.text "stage"
-    t.text "stagename"
-    t.float "scale", limit: 53
-    t.string "units", limit: 50
-    t.string "unitsname", limit: 200
-    t.float "univalence", limit: 53
-    t.float "discountprice", limit: 53
-    t.float "discounttotal", limit: 53
-    t.float "subtotal", limit: 53
-    t.date "savedate"
-  end
-
   create_table "TRACK_CONTRACT", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode", limit: 20
     t.string "deptcode", limit: 20
@@ -1793,6 +1812,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "contractproperty"
     t.text "contractpropertyname"
     t.text "belongcompanyname"
+    t.text "clientproperty"
     t.float "realamounttotal", limit: 53
     t.text "scaletype"
     t.text "scaletypecnname"
