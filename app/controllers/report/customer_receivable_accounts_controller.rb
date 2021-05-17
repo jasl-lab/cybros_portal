@@ -10,6 +10,19 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
     @all_org_options = Bi::CrmClientReceive.all_org_options
     @org_code = params[:org_code]&.strip
     @client_name = params[:client_name]
+
+    crm_client_receives = if @org_code.present?
+      Bi::CrmClientReceive.where(orgcode_sum: @org_code)
+    else
+      Bi::CrmClientReceive.all
+    end
+
+    @crm_client_receives = if @client_name.present?
+      crm_client_receives.where('crmshort LIKE ?', "%#{@client_name}%")
+    else
+      crm_client_receives
+    end
+
   end
 
   private

@@ -20,7 +20,46 @@
         <table id="subsidiary-need-receive-sign-details-datatable"
           class="table table-hover table-bordered table-responsive mt-3"
           data-source="<%= report_subsidiary_need_receive_sign_detail_path(format: :json) -%>">
+          <thead>
+            <tr>
+              <th rowspan="2"><%= t('.table.crmthrank') -%></th>
+              <th rowspan="2"><%= t('.table.crmshort') -%></th>
+              <th rowspan="2"><%= t('.table.cricrank') -%></th>
+              <th rowspan="2"><%= t('.table.clientproperty') -%></th>
+              <th colspan="2">应收款情况</th>
+              <th colspan="4">累计已签约项目应收款</th>
+              <th colspan="3">累计未签约项目应收款</th>
+            </tr>
+            <tr>
+              <th><%= t('.table.sum_receive') -%></th>
+              <th><%= t('.table.sum_receive_gt1_years') -%></th>
+              <th><%= t('.table.aging_amount_lt3_months') -%></th>
+              <th><%= t('.table.aging_amount_4to12_months') -%></th>
+              <th><%= t('.table.aging_amount_gt1_years') -%></th>
+              <th><%= t('.table.sign_receive') -%></th>
+              <th><%= t('.table.unsign_receive_gt1_years') -%></th>
+              <th><%= t('.table.unsign_receive_lteq1_years') -%></th>
+              <th><%= t('.table.unsign_receive') -%></th>
+            </tr>
+          </thead>
           <tbody>
+            <% @crm_client_receives.each do |c| %>
+              <tr>
+                <td><%= c.crmthrank -%></td>
+                <td><%= c.crmshort -%></td>
+                <td><%= c.cricrank -%></td>
+                <td><%= c.clientproperty -%></td>
+                <td><%= c.sum_receive -%></td>
+                <td><%= c.sum_receive_gt1_years -%></td>
+                <td><%= c.aging_amount_lt3_months -%></td>
+                <td><%= c.aging_amount_4to12_months -%></td>
+                <td><%= c.aging_amount_gt1_years -%></td>
+                <td><%= c.sign_receive -%></td>
+                <td><%= c.unsign_receive_gt1_years -%></td>
+                <td><%= (c.unsign_receive - c.unsign_receive_gt1_years) if c.unsign_receive.present? && c.unsign_receive_gt1_years.present? -%></td>
+                <td><%= c.unsign_receive -%></td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
       </div>
