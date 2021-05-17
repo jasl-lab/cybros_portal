@@ -11,26 +11,26 @@ module Report
 
     def view_columns
       @view_columns ||= {
-        crmthrank: { source: 'Bi::CrmClientReceive.crmthrank', cond: :string_eq, searchable: true, orderable: true },
-        crmshort: { source: 'Bi::CrmClientReceive.crmshort', orderable: true },
-        cricrank: { source: 'Bi::CrmClientReceive.cricrank', orderable: true },
-        clientproperty: { source: 'Bi::CrmClientReceive.clientproperty', orderable: true },
-        sum_receive: { source: 'Bi::CrmClientReceive.sum_receive', cond: :string_eq, searchable: true, orderable: true },
-        sum_receive_gt1_years: { source: 'Bi::CrmClientReceive.sum_receive_gt1_years', cond: :like, searchable: true, orderable: true },
+        crmthrank: { source: 'client_rank', searchable: false, orderable: true },
+        crmshort: { source: 'Bi::CrmClientReceive.crmshort', cond: :like, searchable: true, orderable: true },
+        cricrank: { source: 'Bi::CrmClientReceive.cricrank', searchable: false, orderable: true },
+        clientproperty: { source: 'Bi::CrmClientReceive.clientproperty', cond: :string_eq, searchable: true, orderable: true },
+        sum_receive: { source: 'sum_receive', cond: :string_eq, searchable: true, orderable: true },
+        sum_receive_gt1_years: { source: 'sum_receive_gt1_years', cond: :like, searchable: true, orderable: true },
 
-        aging_amount_lt3_months: { source: 'Bi::CrmClientReceive.aging_amount_lt3_months', orderable: true },
-        aging_amount_4to12_months: { source: 'Bi::CrmClientReceive.aging_amount_4to12_months', orderable: true },
-        aging_amount_gt1_years: { source: 'Bi::CrmClientReceive.aging_amount_gt1_years', orderable: true },
-        sign_receive: { source: 'Bi::CrmClientReceive.sign_receive', orderable: true },
-        unsign_receive_gt1_years: { source: 'Bi::CrmClientReceive.unsign_receive_gt1_years', orderable: true },
+        aging_amount_lt3_months: { source: 'aging_amount_lt3_months', orderable: true },
+        aging_amount_4to12_months: { source: 'aging_amount_4to12_months', orderable: true },
+        aging_amount_gt1_years: { source: 'aging_amount_gt1_years', orderable: true },
+        sign_receive: { source: 'sign_receive', orderable: true },
+        unsign_receive_gt1_years: { source: 'unsign_receive_gt1_years', orderable: true },
         unsign_receive_lteq1_years: { source: nil, orderable: false },
-        unsign_receive: { source: 'Bi::CrmClientReceive.unsign_receive', orderable: true }
+        unsign_receive: { source: 'unsign_receive', orderable: true }
       }
     end
 
     def data
       records.map do |r|
-        { crmthrank: r.crmthrank,
+        { crmthrank: r.client_rank,
           crmshort: r.crmshort,
           cricrank: r.cricrank,
           clientproperty: r.clientproperty,
@@ -52,7 +52,8 @@ module Report
       rr = @crm_client_receives
       rr = rr.where(orgcode_sum: @org_codes) if @org_codes.present?
       rr = rr.where('crmshort LIKE ?', "%#{@client_name}%") if @client_name.present?
-      rr
+      rr.select('crmshort, cricrank, clientproperty, DENSE_RANK() OVER (ORDER BY SUM(sum_receive) DESC) client_rank, SUM(sum_receive) sum_receive, SUM(sum_receive_gt1_years) sum_receive_gt1_years, SUM(aging_amount_lt3_months) aging_amount_lt3_months, SUM(aging_amount_4to12_months) aging_amount_4to12_months, SUM(aging_amount_gt1_years) aging_amount_gt1_years, SUM(sign_receive) sign_receive, SUM(unsign_receive_gt1_years) unsign_receive_gt1_years, SUM(unsign_receive) unsign_receive')
+        .group('crmshort, cricrank, clientproperty')
     end
   end
 end
