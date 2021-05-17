@@ -161,4 +161,5 @@ namespace :report do
     get :drill_down_group_detail
     get :export
   end
+  resource :customer_receivable_accounts
 end

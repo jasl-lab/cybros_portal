@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bi
-  class CrmClientSumPolicy < BasePolicy
+  class CrmClientReceivePolicy < BasePolicy
     class Scope < Scope
       def resolve
         return scope.none unless user.present?

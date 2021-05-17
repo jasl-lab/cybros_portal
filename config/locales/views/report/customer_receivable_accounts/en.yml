@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    customer_receivable_accounts:
+      show:
+        title: "Customer accounts receivable"

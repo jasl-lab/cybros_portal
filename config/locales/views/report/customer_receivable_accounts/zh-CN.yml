@@ -1,0 +1,6 @@
+---
+zh-CN:
+  report:
+    customer_receivable_accounts:
+      show:
+        title: "客户应收款情况"
