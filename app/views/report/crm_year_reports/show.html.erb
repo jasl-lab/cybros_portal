@@ -1,6 +1,7 @@
 <div class="row"
   data-controller="crm-year-report"
   data-action="resize@window->crm-year-report#layout"
+  data-crm-year-report-page-length-value="<%= my_per_page -%>"
   data-crm-year-report-x_axis="<%= @years.to_json -%>"
   data-crm-year-report-top20s="<%= @top20s.to_json -%>"
   data-crm-year-report-top20to50s="<%= @top20to50s.to_json -%>"
