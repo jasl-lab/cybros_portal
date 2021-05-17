@@ -162,7 +162,7 @@ export default class extends Controller {
       "ajax": $('#crm-year-report-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": normalColumns,
-      "order": [[ 2, 'desc' ]],
+      "order": [[ 2, 'asc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {
           localStorage.setItem('DataTables_crm_year_report', JSON.stringify(data));
