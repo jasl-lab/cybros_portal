@@ -14,7 +14,7 @@ zh-CN:
           org_dept_name: "生产主责公司与部门"
           project_manager_name: "项目经理"
           project_item_code_name_status: "项目编号、名称及状态"
-          created_fill_min_timecard_date: "立项日期、开始日期、累计人力2万日期"
+          created_fill_min_timecard_date: "立项日期<br>开始日期<br>累计人力2万日期"
           created_fill_min_timecard_date_tip: "开始投入人力时间、累计项目人力成本到达2万元的时间"
           predict_amount: "预计合同额"
           unsign_receive: "未签约业务应收"
