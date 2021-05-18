@@ -137,10 +137,8 @@ export default class extends Controller {
           color: '#675BBA',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           markLine: {
             label: {
@@ -163,10 +161,8 @@ export default class extends Controller {
           color: '#334B5C',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
@@ -223,10 +219,8 @@ export default class extends Controller {
           color: '#334B5C',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         },{
           name: '本年计划生产合同额',
@@ -236,10 +230,8 @@ export default class extends Controller {
           color: '#738496',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
@@ -294,10 +286,8 @@ export default class extends Controller {
           stack: '一线人均',
           data: productionAmountsPerWorkerWithColor,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           markLine: {
             label: {
@@ -322,10 +312,8 @@ export default class extends Controller {
             color: '#7E91A5'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
