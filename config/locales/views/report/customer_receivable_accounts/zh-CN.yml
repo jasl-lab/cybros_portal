@@ -18,6 +18,4 @@ zh-CN:
           aging_amount_4to12_months: "4-12 月账龄金额 / 万元"
           aging_amount_gt1_years: "1 年以上账龄金额 / 万元"
           sign_receive: "总计 / 万元"
-          unsign_receive_gt1_years: "≤1 年账龄金额 / 万元"
-          unsign_receive_lteq1_years: ">1 年账龄金额 / 万元"
           unsign_receive: "总计 / 万元"

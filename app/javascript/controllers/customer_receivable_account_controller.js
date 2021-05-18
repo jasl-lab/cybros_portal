@@ -17,8 +17,6 @@ export default class extends Controller {
       {"data": "aging_amount_4to12_months"},
       {"data": "aging_amount_gt1_years"},
       {"data": "sign_receive"},
-      {"data": "unsign_receive_gt1_years"},
-      {"data": "unsign_receive_lteq1_years"},
       {"data": "unsign_receive"}
     ];
 

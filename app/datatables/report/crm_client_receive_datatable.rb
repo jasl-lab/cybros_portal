@@ -22,8 +22,6 @@ module Report
         aging_amount_4to12_months: { source: 'aging_amount_4to12_months', orderable: true },
         aging_amount_gt1_years: { source: 'aging_amount_gt1_years', orderable: true },
         sign_receive: { source: 'sign_receive', orderable: true },
-        unsign_receive_gt1_years: { source: 'unsign_receive_gt1_years', orderable: true },
-        unsign_receive_lteq1_years: { source: nil, orderable: false },
         unsign_receive: { source: 'unsign_receive', orderable: true }
       }
     end
@@ -41,8 +39,6 @@ module Report
           aging_amount_4to12_months: (r.aging_amount_4to12_months.to_f / 10000.0).round(0),
           aging_amount_gt1_years: (r.aging_amount_gt1_years.to_f / 10000.0).round(0),
           sign_receive: (r.sign_receive.to_f / 10000.0).round(0),
-          unsign_receive_gt1_years: (r.unsign_receive_gt1_years.to_f / 10000.0).round(0),
-          unsign_receive_lteq1_years: (r.unsign_receive.present? && r.unsign_receive_gt1_years.present? ? ((r.unsign_receive - r.unsign_receive_gt1_years) / 10000.0).round(0) : nil),
           unsign_receive: (r.unsign_receive.to_f / 10000.0).round(0)
        }
       end

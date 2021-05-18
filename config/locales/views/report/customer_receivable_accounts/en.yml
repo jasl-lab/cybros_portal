@@ -18,6 +18,4 @@ en:
           aging_amount_4to12_months: "4 ~ 12 month aging amount"
           aging_amount_gt1_years: "Aging amount > 1 year"
           sign_receive: "Sign receive"
-          unsign_receive_gt1_years: "Unsign receive < 1 year"
-          unsign_receive_lteq1_years: "Unsign receive >= 1 year"
           unsign_receive: "Unsign receive"
