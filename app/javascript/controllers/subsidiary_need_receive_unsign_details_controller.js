@@ -17,10 +17,11 @@ export default class extends Controller {
       {"data": "unsign_receive"},
       {"data": "f_date"},
       {"data": "min_timecard_fill"},
-      {"data": "days_to_min_timecard_fill"}
+      {"data": "days_to_min_timecard_fill"},
+      {"data": "comment_on_project_item_code", bSortable: false}
     ];
 
-    const adminColumns = normalColumns.concat([{"data": "comment_on_project_item_code", bSortable: false}, {"data": "admin_action", bSortable: false}]);
+    const adminColumns = normalColumns.concat([{"data": "admin_action", bSortable: false}]);
 
     const subsidiaryNeedReceiveUnsignDetailsDatatable = $('#subsidiary-need-receive-unsign-details-datatable').dataTable({
       "processing": true,
