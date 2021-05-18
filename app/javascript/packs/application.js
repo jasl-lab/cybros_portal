@@ -37,7 +37,9 @@ require("@rails/actiontext")
 import "turbolinks/coreui";
 
 import echarts from 'echarts'
-require("echarts/map/js/china")
+$.get('/china.geojson', function (chinaJson) {
+  echarts.registerMap('china', chinaJson);
+});
 global.echarts = echarts;
 
 import "controllers";
