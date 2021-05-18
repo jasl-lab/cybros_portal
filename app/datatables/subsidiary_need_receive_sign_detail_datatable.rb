@@ -74,7 +74,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
                        end),
         over_amount: tag.div((r.overamount.to_f / 10000.0)&.round(0), class: 'text-center'),
         comment_on_sales_contract_code: if @can_hide_item
-                                          render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc, coc_history: display_coc_history })
+                                          render(partial: 'report/subsidiary_need_receive_sign_details/can_hide_comment', locals: { coc: coc, coc_history: display_coc_history })
                                         else
                                           coc.comment
                                         end,
