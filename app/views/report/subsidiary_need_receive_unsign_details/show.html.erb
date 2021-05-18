@@ -26,12 +26,12 @@
               <%= text_field_tag 'days_to_min_timecard_fill_great_than', @days_to_min_timecard_fill_great_than, class: 'form-control form-control2' %>
             </div>
             <% if @can_hide_item -%>
-            <div class="form-group mx-1">
-              <div class="form-check mt-4">
-                <%= check_box_tag 'show_hide_item', true, @show_hide_item, class: 'form-check-input' %>
-                <label class="form-check-label"><%= t(".show_hide_item") -%></label>
+              <div class="form-group mx-1">
+                <div class="form-check mt-4">
+                  <%= check_box_tag 'show_hide_item', true, @show_hide_item, class: 'form-check-input' %>
+                  <label class="form-check-label"><%= t(".show_hide_item") -%></label>
+                </div>
               </div>
-            </div>
             <% end %>
             <%= submit_tag t(".confirm"), class: 'btn btn-thape-color my-4' %>
           </div>
