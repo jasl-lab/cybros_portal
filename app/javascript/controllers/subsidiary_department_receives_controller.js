@@ -120,12 +120,10 @@ export default class extends Controller {
           itemStyle: {
             color: '#738496'
           },
-          barMaxWidth: 38,
+          barMaxWidth: 48,
           label: {
-            normal: {
-              show: true,
-              position: 'inside'
-            }
+            show: true,
+            position: 'inside'
           }
         }]
     };
@@ -196,10 +194,8 @@ export default class extends Controller {
             color: '#FA9291'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop'
-            }
+            show: true,
+            position: 'insideTop'
           }
         },{
           name: '扣除超长帐龄以外的财务应收',
@@ -210,10 +206,8 @@ export default class extends Controller {
             color: '#A1D189'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop'
-            }
+            show: true,
+            position: 'insideTop'
           }
         },{
           name: labelBizReceivables,
@@ -223,12 +217,10 @@ export default class extends Controller {
           itemStyle: {
             color: '#738496'
           },
-          barMaxWidth: 38,
+          barMaxWidth: 48,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
@@ -281,14 +273,12 @@ export default class extends Controller {
         name: '一线人均实收产值（万元）',
         type: 'bar',
         data: realReceivesPerWorkerWithColor,
-        barMaxWidth: 38,
+        barMaxWidth: 48,
         label: {
-          normal: {
-            show: true,
-            position: 'insideTop',
-            fontWeight: 'bold',
-            color: '#000000'
-          }
+          show: true,
+          position: 'insideTop',
+          fontWeight: 'bold',
+          color: '#000000'
         },
         markLine: {
           label: {
@@ -377,13 +367,11 @@ export default class extends Controller {
           type: 'bar',
           data: needShouldReceivesPerStaff,
           color: '#738496',
-          barMaxWidth: 38,
+          barMaxWidth: 48,
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              color: '#3E3E3E'
-            }
+            show: true,
+            position: 'top',
+            color: '#3E3E3E'
           }
         },{
           name: '本年回款率',
@@ -392,14 +380,12 @@ export default class extends Controller {
           symbol: 'circle',
           symbolSize: 8,
           data: paybackRatesWithColor,
-          barMaxWidth: 38,
+          barMaxWidth: 48,
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              distance: 20,
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            distance: 20,
+            formatter: '{c}%'
           }
         }]
     };
