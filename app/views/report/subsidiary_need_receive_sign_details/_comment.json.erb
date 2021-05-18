@@ -1,0 +1,11 @@
+<%# Must end as json as it's called from json %>
+<div>
+  <%= coc.comment %>
+  <% if coc_history.present? %>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="popover" data-placement="bottom"
+      title="备注历史"
+      data-content="<%= coc_history.join('<br />') -%>">
+      <span class="fas fa-history"></span>
+    </button>
+  <% end %>
+</div>

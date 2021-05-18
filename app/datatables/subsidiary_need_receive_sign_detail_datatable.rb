@@ -76,7 +76,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         comment_on_sales_contract_code: if @can_hide_item
                                           render(partial: 'report/subsidiary_need_receive_sign_details/can_hide_comment', locals: { coc: coc, coc_history: display_coc_history })
                                         else
-                                          coc.comment
+                                          render(partial: 'report/subsidiary_need_receive_sign_details/comment', locals: { coc: coc, coc_history: display_coc_history })
                                         end,
         admin_action: if @show_hide
                         link_to(un_hide_icon, un_hide_report_subsidiary_need_receive_sign_detail_path(sales_contract_code: r.salescontractcode), method: :patch)
