@@ -114,12 +114,10 @@ export default class extends Controller {
           data: deptAmountRate,
           color: '#5993d2',
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%',
-              color: '#0000FF'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%',
+            color: '#0000FF'
           },
         },{
           name: '生产合同额',
@@ -131,12 +129,10 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              fontWeight: 'bold',
-              position: 'top'
-            }
+            show: true,
+            color: '#353535',
+            fontWeight: 'bold',
+            position: 'top'
           }
           }, {
           name: '上月累计生产合同额',
@@ -147,9 +143,7 @@ export default class extends Controller {
             color: '#738496'
           },
           label: {
-            normal: {
-              show: false
-            }
+            show: false
           }
         },{
           name: '当月生产合同额',
@@ -160,11 +154,9 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: (isThisMonthDeptAmountAllZero ? false : true),
-              position: 'inside',
-              color: '#738496'
-            }
+            show: (isThisMonthDeptAmountAllZero ? false : true),
+            position: 'inside',
+            color: '#738496'
           }
         }]
     };
@@ -232,10 +224,8 @@ export default class extends Controller {
           color: '#675BBA',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         },{
           name: '一线人均生产合同额',
@@ -243,10 +233,8 @@ export default class extends Controller {
           data: avgWorkDeptAmount,
           barWidth: 30,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           itemStyle: {
             color: '#738496'
@@ -257,10 +245,8 @@ export default class extends Controller {
           data: avgStaffDeptAmount,
           barWidth: 30,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           itemStyle: {
             color: '#6AB0B8'
@@ -330,12 +316,10 @@ export default class extends Controller {
           data: contractAmountRate,
           color: '#5993d2',
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%',
-              color: '#0000FF'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%',
+            color: '#0000FF'
           },
         },{
           name: '商务合同额',
@@ -347,12 +331,10 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              fontWeight: 'bold',
-              position: 'top'
-            }
+            show: true,
+            color: '#353535',
+            fontWeight: 'bold',
+            position: 'top'
           }
           }, {
           name: '上月累计商务合同额',
@@ -363,9 +345,7 @@ export default class extends Controller {
             color: '#738496'
           },
           label: {
-            normal: {
-              show: false
-            }
+            show: false
           }
         },{
           name: '当月商务合同额',
@@ -376,11 +356,9 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: (isThisMonthContractAmountAllZero ? false : true),
-              position: 'inside',
-              color: '#738496'
-            }
+            show: (isThisMonthContractAmountAllZero ? false : true),
+            position: 'inside',
+            color: '#738496'
           }
         }]
     };
@@ -448,10 +426,8 @@ export default class extends Controller {
           color: '#675BBA',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         },{
           name: '一线人均商务合同额',
@@ -459,10 +435,8 @@ export default class extends Controller {
           data: avgWorkContractAmount,
           barWidth: 30,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           itemStyle: {
             color: '#738496'
@@ -473,10 +447,8 @@ export default class extends Controller {
           data: avgStaffContractAmount,
           barWidth: 30,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           itemStyle: {
             color: '#6AB0B8'
@@ -546,12 +518,10 @@ export default class extends Controller {
           data: realAmountRate,
           color: '#5993d2',
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%',
-              color: '#0000FF'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%',
+            color: '#0000FF'
           },
         },{
           name: '实收款',
@@ -563,12 +533,10 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              fontWeight: 'bold',
-              position: 'top'
-            }
+            show: true,
+            color: '#353535',
+            fontWeight: 'bold',
+            position: 'top'
           }
           }, {
           name: '上月累计实收款',
@@ -579,9 +547,7 @@ export default class extends Controller {
             color: '#738496'
           },
           label: {
-            normal: {
-              show: false
-            }
+            show: false
           }
         },{
           name: '当月实收款',
@@ -592,11 +558,9 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: (isThisMonthRealAmountAllZero ? false : true),
-              position: 'inside',
-              color: '#738496'
-            }
+            show: (isThisMonthRealAmountAllZero ? false : true),
+            position: 'inside',
+            color: '#738496'
           }
         }]
     };
@@ -664,10 +628,8 @@ export default class extends Controller {
           color: '#675BBA',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         },{
           name: '一线人均实收款',
@@ -675,10 +637,8 @@ export default class extends Controller {
           data: avgWorkRealAmount,
           barWidth: 30,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           itemStyle: {
             color: '#738496'
@@ -689,10 +649,8 @@ export default class extends Controller {
           data: avgStaffRealAmount,
           barWidth: 30,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           itemStyle: {
             color: '#6AB0B8'
