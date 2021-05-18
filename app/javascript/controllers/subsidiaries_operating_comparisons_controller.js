@@ -19,10 +19,8 @@ function set_chart(chart, amounts, amounts_names, head_count_title, head_count, 
         type: 'bar',
         data: amounts[year],
         label: {
-          normal: {
-            show: true,
-            position: 'top'
-          }
+          show: true,
+          position: 'top'
         },
         itemStyle: {
           color: predefine_color[index%4]

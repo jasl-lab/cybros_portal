@@ -6,6 +6,7 @@ let contractProviceAreaChinaChart;
 
 export default class extends Controller {
   connect() {
+
     contractProviceAreaChinaChart = echarts.init(document.getElementById('contract-provice-area-china-chart'));
 
     const provinceSum = JSON.parse(this.data.get("province_sum"));
@@ -143,22 +144,17 @@ export default class extends Controller {
           show: true,
           map: 'china',
           label: {
-              normal: {
-                  show: false
-              },
-              emphasis: {
-                  show: false,
-              }
+            show: false
           },
           roam: false,
+          emphasis: {
+            itemStyle: {
+              areaColor: '#4499d0',
+            }
+          },
           itemStyle: {
-              normal: {
-                  areaColor: '#023677',
-                  borderColor: '#1180c7',
-              },
-              emphasis: {
-                  areaColor: '#4499d0',
-              }
+            areaColor: '#023677',
+            borderColor: '#1180c7'
           }
       },
       series: [{
@@ -167,38 +163,36 @@ export default class extends Controller {
         coordinateSystem: 'geo',
         data: scatter_data,
         symbolSize: 10,
-        label: {
-          normal: {
-            formatter: '{b}',
-            position: 'right',
-            color: 'black',
-            show: true
-          },
-          emphasis: {
+        emphasis: {
+          label: {
             color: 'red',
             show: true
           }
         },
+        label: {
+          formatter: '{b}',
+          position: 'right',
+          color: 'black',
+          show: true,
+        },
         itemStyle: {
-          normal: {
-            color: function(p) {
-              var rate = p.value[2];
-              if (rate >= 10) {
-                return '#441704';
-              } else if (rate >= 5) {
-                return '#C14107';
-              } else if (rate >= 3) {
-                return '#E55F46';
-              } else if (rate >= 1) {
-                return '#FFCBB2';
-              } else {
-                return '#FFFFFF';
-              }
+          color: function(p) {
+            var rate = p.value[2];
+            if (rate >= 10) {
+              return '#441704';
+            } else if (rate >= 5) {
+              return '#C14107';
+            } else if (rate >= 3) {
+              return '#E55F46';
+            } else if (rate >= 1) {
+              return '#FFCBB2';
+            } else {
+              return '#FFFFFF';
             }
           }
         },
         tooltip: {
-          formatter: function ( p ) { 
+          formatter: function ( p ) {
             return `${p.seriesName}：${p.value[2]}%<br />上年同期：${p.value[3]}%`;
           },
         }
@@ -208,23 +202,21 @@ export default class extends Controller {
           geoIndex: 0,
           aspectScale: 0.75, //长宽比
           showLegendSymbol: false, // 存在legend时显示
-          label: {
-            normal: {
-              show: true
-            },
-            emphasis: {
+          emphasis: {
+            label: {
               show: false
+            },
+            itemStyle: {
+              areaColor: '#2B91B7'
             }
+          },
+          label: {
+            show: true
           },
           roam: true,
           itemStyle: {
-            normal: {
-              areaColor: '#031525',
-              borderColor: '#3B5077',
-            },
-            emphasis: {
-              areaColor: '#2B91B7'
-            }
+            areaColor: '#031525',
+            borderColor: '#3B5077',
           },
           animation: false,
           data: map_data
