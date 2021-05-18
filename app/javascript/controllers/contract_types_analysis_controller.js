@@ -67,19 +67,19 @@ export default class extends Controller {
         radius: ['30%', '60%'],
         avoidLabelOverlap: true,
         label: {
-            formatter: '{b|{b}} {c}',
-            rich: {
-                b: {
-                    fontSize: 12,
-                    lineHeight: 20
-                },
-                per: {
-                    color: '#eee',
-                    backgroundColor: '#334455',
-                    padding: [1, 2],
-                    borderRadius: 2
-                }
+          formatter: '{b|{b}} {c}',
+          rich: {
+            b: {
+              fontSize: 12,
+              lineHeight: 20
+            },
+            per: {
+              color: '#eee',
+              backgroundColor: '#334455',
+              padding: [1, 2],
+              borderRadius: 2
             }
+          }
         },
         emphasis: {
           label: {
@@ -89,7 +89,7 @@ export default class extends Controller {
           }
         },
         labelLine: {
-            show: true
+          show: true
         },
         data: planData
       },{
@@ -139,29 +139,29 @@ export default class extends Controller {
         radius: ['30%', '60%'],
         avoidLabelOverlap: true,
         label: {
-            formatter: '{b|{b}} {c}',
-            rich: {
-                b: {
-                    fontSize: 12,
-                    lineHeight: 20
-                },
-                per: {
-                    color: '#eee',
-                    backgroundColor: '#334455',
-                    padding: [1, 2],
-                    borderRadius: 2
-                }
+          formatter: '{b|{b}} {c}',
+          rich: {
+            b: {
+              fontSize: 12,
+              lineHeight: 20
+            },
+            per: {
+              color: '#eee',
+              backgroundColor: '#334455',
+              padding: [1, 2],
+              borderRadius: 2
             }
+          }
         },
         emphasis: {
-            label: {
-                show: true,
-                fontSize: '16',
-                fontWeight: 'bold'
-            }
+          label: {
+            show: true,
+            fontSize: '16',
+            fontWeight: 'bold'
+          }
         },
         labelLine: {
-            show: true
+          show: true
         },
         data: workingDrawingData
       },{
@@ -170,18 +170,18 @@ export default class extends Controller {
         radius: ['30%', '60%'],
         avoidLabelOverlap: true,
         label: {
-            formatter: piePercentFormater,
-            position: 'inner'
+          formatter: piePercentFormater,
+          position: 'inner'
         },
         emphasis: {
-            label: {
-                show: true,
-                fontSize: '16',
-                fontWeight: 'bold'
-            }
+          label: {
+            show: true,
+            fontSize: '16',
+            fontWeight: 'bold'
+          }
         },
         labelLine: {
-            show: true
+          show: true
         },
         data: workingDrawingData
       }]
@@ -244,11 +244,9 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              position: 'right'
-            }
+            show: true,
+            color: '#353535',
+            position: 'right'
           }
         },{
           name: '住宅前端',
