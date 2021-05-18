@@ -12,12 +12,10 @@ export default class extends Controller {
       {"data": "org_dept_name"},
       {"data": "project_manager_name"},
       {"data": "project_item_code_name"},
-      {"data": "created_date"},
+      {"data": "created_fill_min_timecard_date"},
+      {"data": "days_to_min_timecard_fill"},
       {"data": "predict_amount"},
       {"data": "unsign_receive"},
-      {"data": "f_date"},
-      {"data": "min_timecard_fill"},
-      {"data": "days_to_min_timecard_fill"},
       {"data": "comment_on_project_item_code", bSortable: false}
     ];
 

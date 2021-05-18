@@ -21,11 +21,9 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       org_dept_name: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.deptname', cond: :string_eq, searchable: true, orderable: true },
       project_manager_name: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.projectmanagername', cond: :string_eq, searchable: true, orderable: true },
       project_item_code_name: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.projectitemname', cond: :like, searchable: true, orderable: true },
-      created_date: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.createddate', cond: :string_eq, searchable: true, orderable: true },
+      created_fill_min_timecard_date: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.createddate', cond: :string_eq, searchable: true, orderable: true },
       predict_amount: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.predictamount', orderable: true },
       unsign_receive: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.unsign_receive', orderable: true },
-      f_date: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.fdate', orderable: true },
-      min_timecard_fill: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.mintimecardfill', orderable: true },
       days_to_min_timecard_fill: { source: 'Bi::SubCompanyNeedReceiveUnsignDetail.days_to_mintimecardfill', orderable: true },
       comment_on_project_item_code: { source: nil, searchable: false, orderable: false },
       admin_action: { source: nil, searchable: false, orderable: false }
@@ -46,11 +44,9 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       { org_dept_name: "#{Bi::OrgShortName.company_short_names.fetch(r.orgname, r.orgname)}<br />#{r.deptname}".html_safe,
         project_manager_name: r.projectmanagername,
         project_item_code_name: "#{r.projectitemcode}<br />#{r.projectitemname}<br />#{r.projectstatus}".html_safe,
-        created_date: r.createddate.to_date,
+        created_fill_min_timecard_date: "#{r.createddate.to_date}<br />#{r.fdate}<br />#{r.mintimecardfill}".html_safe,
         predict_amount: tag.div((r.predictamount / 10000)&.round(0), class: 'text-center'),
         unsign_receive: tag.div((r.unsign_receive / 10000)&.round(0), class: 'text-center'),
-        f_date: r.fdate,
-        min_timecard_fill: r.mintimecardfill,
         days_to_min_timecard_fill: tag.div(r.days_to_mintimecardfill, class: 'text-center'),
         comment_on_project_item_code: if @show_hide
                                         render(partial: 'report/subsidiary_need_receive_unsign_details/can_hide_comment', locals: { cop: cop, cop_history: display_cop_history })
