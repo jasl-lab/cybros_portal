@@ -313,7 +313,7 @@ namespace :split_cost do
         SplitCost::UserSalaryClassification.all.each do |sc|
           prev_ptsr = SplitCost::UserMonthlyPartTimeSplitRate.find_by(user_id: user.id, month: from_yearperiod_month_start, position_id: pu.position.id, user_salary_classification_id: sc.id)
           ptsr = SplitCost::UserMonthlyPartTimeSplitRate.find_or_initialize_by(user_id: user.id, month: cyearperiod_month_start, position_id: pu.position.id, user_salary_classification_id: sc.id)
-          ptsr.update(main_position: pu.main_position, salary_classification_split_rate: prev_ptsr.salary_classification_split_rate)
+          ptsr.update(main_position: pu.main_position, salary_classification_split_rate: prev_ptsr&.salary_classification_split_rate || 0)
         end
       end
 
