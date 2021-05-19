@@ -6,7 +6,7 @@ module Bi
       def resolve
         return scope.none unless user.present?
 
-        if user.admin? || user.chinese_name.in?(%w[王俐雯 王旭冉])
+        if user.admin? || user.chinese_name.in?(%w[王俐雯 王旭冉 朱谊])
           scope.all
         else
           scope.none
@@ -17,7 +17,7 @@ module Bi
     def show?
       return false unless user.present?
 
-      user.admin? || user.chinese_name.in?(%w[王俐雯 王旭冉])
+      user.admin? || user.chinese_name.in?(%w[王俐雯 王旭冉 朱谊])
     end
   end
 end
