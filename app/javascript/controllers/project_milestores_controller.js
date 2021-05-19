@@ -60,11 +60,9 @@ export default class extends Controller {
           color: '#738496',
           symbolSize: 10,
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         }]
     };

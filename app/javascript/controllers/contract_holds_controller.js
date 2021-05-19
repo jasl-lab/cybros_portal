@@ -65,7 +65,6 @@ export default class extends Controller {
         series: [{
           name: '业务保有量合计（万元）',
           type: 'bar',
-          barWidth: '30%',
           barGap: '-100%',
           data: bizRetentTotals,
           itemStyle: {
@@ -73,11 +72,9 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              position: 'top'
-            }
+            show: true,
+            color: '#353535',
+            position: 'top'
           }
         }, {
           name: '已签约的业务保有量（万元）',
@@ -89,10 +86,8 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop'
-            }
+            show: true,
+            position: 'insideTop'
           }
         },{
           name: '未签约的业务保有量（万元）',
@@ -104,9 +99,7 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: false
-            }
+            show: false
           }
         }]
     };
@@ -166,11 +159,9 @@ export default class extends Controller {
         },
         barWidth: 20,
         label: {
-          normal: {
-            show: true,
-            color: '#353535',
-            position: 'top'
-          }
+          show: true,
+          color: '#353535',
+          position: 'top'
         }
       }]
     };

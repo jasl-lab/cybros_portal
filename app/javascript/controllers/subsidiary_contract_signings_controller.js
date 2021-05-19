@@ -48,7 +48,7 @@ export default class extends Controller {
 
     const option = {
         legend: {
-            data: ['签约周期','本年累计签约合同额'],
+            data: ['签约周期','商务合同额'],
             align: 'left'
         },
         tooltip: {
@@ -118,10 +118,8 @@ export default class extends Controller {
           color: '#675BBA',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           markLine: {
             label: {
@@ -144,10 +142,8 @@ export default class extends Controller {
           color: '#738496',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
@@ -203,10 +199,8 @@ export default class extends Controller {
           color: '#738496',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
@@ -262,10 +256,8 @@ export default class extends Controller {
           data: contractAmountsPerStaffWithColor,
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           },
           markLine: {
             label: {

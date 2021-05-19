@@ -76,11 +76,9 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              position: 'top'
-            }
+            show: true,
+            color: '#353535',
+            position: 'top'
           }
           }, {
           name: '累计完成产值（万元）',
@@ -92,12 +90,10 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop',
-              fontWeight: 'bold',
-              color: '#000000'
-            }
+            show: true,
+            position: 'insideTop',
+            fontWeight: 'bold',
+            color: '#000000'
           }
         },{
           name: '预计将完成产值（万元）',
@@ -110,9 +106,7 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: false
-            }
+            show: false
           }
         }]
     };
@@ -172,11 +166,9 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              color: '#353535',
-              position: 'top'
-            }
+            show: true,
+            color: '#353535',
+            position: 'top'
           }
         },{
           name: '本年累计人均完成产值（万元）',
@@ -188,12 +180,10 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop',
-              fontWeight: 'bold',
-              color: '#000000'
-            }
+            show: true,
+            position: 'insideTop',
+            fontWeight: 'bold',
+            color: '#000000'
           }
         },{
           name: '预计人均将完成产值（万元）',
@@ -205,9 +195,7 @@ export default class extends Controller {
           },
           barWidth: 20,
           label: {
-            normal: {
-              show: false
-            }
+            show: false
           }
         }]
     };

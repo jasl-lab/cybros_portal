@@ -98,11 +98,9 @@ export default class extends Controller {
             color: '#738496'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         }]
     };
@@ -161,11 +159,9 @@ export default class extends Controller {
             color: '#69B0B8'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         },{
           name: '方案饱和度',
@@ -177,11 +173,9 @@ export default class extends Controller {
             color: '#334B5C'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         }]
     };
@@ -240,11 +234,9 @@ export default class extends Controller {
             color: '#69B0B8'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         },{
           name: '施工图饱和度',
@@ -256,11 +248,9 @@ export default class extends Controller {
             color: '#334B5C'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         }]
     };
@@ -319,11 +309,9 @@ export default class extends Controller {
             color: '#69B0B8'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         },{
           name: '饱和度',
@@ -335,11 +323,9 @@ export default class extends Controller {
             color: '#334B5C'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              formatter: '{c}%'
-            }
+            show: true,
+            position: 'top',
+            formatter: '{c}%'
           }
         }]
     };

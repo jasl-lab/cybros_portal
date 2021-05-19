@@ -117,10 +117,8 @@ export default class extends Controller {
           data: orgMoney,
           color: '#675BBA',
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         },{
           name: '折算月份',
@@ -130,10 +128,8 @@ export default class extends Controller {
           color: '#738496',
           barWidth: 20,
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };
