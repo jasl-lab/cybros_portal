@@ -29,15 +29,15 @@ export default class extends Controller {
 
     const option = {
       title: {
-          show: true,
-          x: "center",
-          bottom: "6%",
-          text: datas.title,
-          textStyle: {
-              fontWeight: "700",
-              fontSize: 16,
-              color: fontColor
-          }
+        show: true,
+        x: "center",
+        bottom: "6%",
+        text: datas.title,
+        textStyle: {
+          fontWeight: "700",
+          fontSize: 16,
+          color: fontColor
+        }
       },
       tooltip: {
           show: false
@@ -202,28 +202,27 @@ export default class extends Controller {
             endAngle: 0,
             center: center,
             axisLine: {
-                lineStyle: {
-                    color: nqColor,
-                    width: 25,
-                    opacity: 0.9
-                }
+              lineStyle: {
+                color: nqColor,
+                width: 25,
+                opacity: 0.9
+              }
             },
             splitNumber: 5,
             min: 0,
             max: 5,
             axisTick: {
-                show: false
+              show: false
             },
 
             axisLabel: {
-                show: false
+              show: false
             },
             pointer: {
-                show: false
+              show: false
             },
-
             detail: {
-                show: 0
+              show: 0
             }
           }
       ]
