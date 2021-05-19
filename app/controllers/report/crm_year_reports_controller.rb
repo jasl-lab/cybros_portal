@@ -6,6 +6,7 @@ class Report::CrmYearReportsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    authorize Bi::CrmYearReport
     @all_years = policy_scope(Bi::CrmClientSum).select(:cricyear).distinct.order(cricyear: :desc).pluck(:cricyear)
     @year = params[:year] || @all_years.first
 

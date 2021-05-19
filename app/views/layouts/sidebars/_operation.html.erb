@@ -103,7 +103,7 @@
         <% if current_user.present? && policy(Bi::CrmYearReport).show? %>
           <%= nav_item controller: 'report/crm_year_reports', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_crm_year_report_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-yen-sign"></i>
+              <i class="nav-icon fas fa-podcast"></i>
               <%= t("layouts.sidebar.operation.crm_year_report") %>
             <% end %>
           <% end %>
@@ -111,7 +111,7 @@
         <% if current_user.present? && policy(Bi::CrmClientReceive).show? %>
           <%= nav_item controller: 'report/customer_receivable_accounts', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_customer_receivable_accounts_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-yen-sign"></i>
+              <i class="nav-icon fas fa-rss-square"></i>
               <%= t("layouts.sidebar.operation.customer_receivable_account") %>
             <% end %>
           <% end %>

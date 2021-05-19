@@ -6,6 +6,7 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
   before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
+    authorize Bi::CrmClientReceive
     @org_codes = params[:orgs].presence
     @client_name = params[:client_name]
 

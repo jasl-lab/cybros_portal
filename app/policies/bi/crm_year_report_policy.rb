@@ -15,7 +15,9 @@ module Bi
     end
 
     def show?
-      user.admin?
+      return false unless user.present?
+
+      user.admin? || user.chinese_name.in?(%w[王俐雯 王旭冉])
     end
   end
 end
