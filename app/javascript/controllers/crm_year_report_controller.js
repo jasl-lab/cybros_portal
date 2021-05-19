@@ -67,10 +67,8 @@ export default class extends Controller {
           color: '#4F81BE'
         },
         label: {
-          normal: {
-            show: true,
-            position: 'inside'
-          }
+          show: true,
+          position: 'inside'
         }
       },{
         name: 'TOP 20-50 房企',
@@ -81,10 +79,8 @@ export default class extends Controller {
           color: '#8FB4E3'
         },
         label: {
-          normal: {
-            show: true,
-            position: 'inside'
-          }
+          show: true,
+          position: 'inside'
         }
       },{
         name: '非 TOP 50 大客户',
@@ -103,10 +99,8 @@ export default class extends Controller {
           color: '#94CCDD'
         },
         label: {
-          normal: {
-            show: true,
-            position: 'inside'
-          }
+          show: true,
+          position: 'inside'
         }
       }]
     };

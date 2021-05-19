@@ -21,7 +21,7 @@ export default class extends Controller {
 
     const company_options = {
       legend: {
-          data: ['公司','折算月份'],
+          data: ['折算月份'],
           align: 'left'
       },
       tooltip: {
@@ -70,10 +70,8 @@ export default class extends Controller {
           data: orgRateValid,
           color: '#738496',
           label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
+            show: true,
+            position: 'top'
           }
         }]
     };

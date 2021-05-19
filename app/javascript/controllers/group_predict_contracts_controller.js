@@ -14,7 +14,7 @@ export default class extends Controller {
 
     const option = {
       legend: {
-        data: ['跟踪合同额','跟踪合同额（成功率小于80%）','流转中合同额（成功率等于80%）'],
+        data: ['跟踪合同额（万元）','跟踪合同额（成功率小于80%）','流转中合同额（成功率等于80%）'],
         align: 'left'
       },
       tooltip: {
@@ -68,11 +68,9 @@ export default class extends Controller {
           color: '#DDDDDD'
         },
         label: {
-          normal: {
-            show: true,
-            color: '#353535',
-            position: 'top'
-          }
+          show: true,
+          color: '#353535',
+          position: 'top'
         }
       },{
         name: '跟踪合同额（成功率小于80%）',
@@ -84,10 +82,8 @@ export default class extends Controller {
           color: '#738496'
         },
         label: {
-          normal: {
-            show: true,
-            position: 'insideTop'
-          }
+          show: true,
+          position: 'insideTop'
         }
       },{
         name: '流转中合同额（成功率等于80%）',
@@ -99,9 +95,7 @@ export default class extends Controller {
           color: '#334B5C'
         },
         label: {
-          normal: {
-            show: false
-          }
+          show: false
         }
       }]
     };

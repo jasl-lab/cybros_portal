@@ -76,12 +76,10 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              fontWeight: 'bold',
-              color: '#000000'
-            }
+            show: true,
+            position: 'top',
+            fontWeight: 'bold',
+            color: '#000000'
           }
         },{
           name: '本年累计完成产值（百万元）',
@@ -92,10 +90,8 @@ export default class extends Controller {
             color: '#738496'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'inside'
-            }
+            show: true,
+            position: 'inside'
           }
         },{
           name: '全年剩余需完成产值（百万元）',
@@ -164,12 +160,10 @@ export default class extends Controller {
             color: '#60A0A8'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop',
-              fontWeight: 'bold',
-              color: '#000000'
-            }
+            show: true,
+            position: 'insideTop',
+            fontWeight: 'bold',
+            color: '#000000'
           }
         },{
           name: '预计一线人均全年完成产值（万元）',
@@ -180,11 +174,9 @@ export default class extends Controller {
             color: '#CCCCCC'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              color: '#000000'
-            }
+            show: true,
+            position: 'top',
+            color: '#000000'
           }
         },{
           name: '本年累计全员人均完成产值（万元）',
@@ -195,12 +187,10 @@ export default class extends Controller {
             color: '#7E91A5'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'insideTop',
-              fontWeight: 'bold',
-              color: '#000000'
-            }
+            show: true,
+            position: 'insideTop',
+            fontWeight: 'bold',
+            color: '#000000'
           }
         },{
           name: '预计全员人均全年完成产值（万元）',
@@ -211,11 +201,9 @@ export default class extends Controller {
             color: '#DDDDDD'
           },
           label: {
-            normal: {
-              show: true,
-              position: 'top',
-              color: '#000000'
-            }
+            show: true,
+            position: 'top',
+            color: '#000000'
           }
         }]
     };
