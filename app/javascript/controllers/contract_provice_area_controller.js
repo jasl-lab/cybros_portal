@@ -15,216 +15,221 @@ export default class extends Controller {
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
 
-    const mapFeatures = echarts.getMap('china').geoJson.features;
+    function setOption4ContractProviceAreaChinaChart() {
 
-    let geoCoordMap = {};
+      const mapFeatures = echarts.getMap('china').geoJson.features;
 
-    mapFeatures.forEach(function(v) {
-      // 地区名称
-      var name = v.properties.name;
-      // 地区经纬度
-      geoCoordMap[name] = v.properties.cp;
-    });
+      let geoCoordMap = {};
 
-    function convertData(data) {
-      var res = [];
-      for (var i = 0; i < data.length; i++) {
-        var geoCoord = geoCoordMap[data[i].name];
-        if (geoCoord) {
-          res.push({
-            name: data[i].name,
-            value: geoCoord.concat([yearRateSum[i], previousYearRateSum[i]])
-          });
+      mapFeatures.forEach(function(v) {
+        // 地区名称
+        var name = v.properties.name;
+        // 地区经纬度
+        geoCoordMap[name] = v.properties.cp;
+      });
+
+      function convertData(data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+          var geoCoord = geoCoordMap[data[i].name];
+          if (geoCoord) {
+            res.push({
+              name: data[i].name,
+              value: geoCoord.concat([yearRateSum[i], previousYearRateSum[i]])
+            });
+          }
         }
+        return res;
       }
-      return res;
-    }
 
-    const scatter_data = convertData(map_data);
-    const map_option = {
-      title: [{
-        text: '全国开工面积 省份分布',
-        subtext: '单位：元/万平米',
-        sublink: '',
-        left: 'right'
-      },{
-        text: '新开工面积（万㎡）',
-        textStyle: {
-          color: '#2D3E53',
-          fontSize: 12
-        },
-        right: '4%',
-        top: '90%'
-      },{
-        text: '市场占有率（%）',
-        textStyle: {
-          color: '#2D3E53',
-          fontSize: 12
-        },
-        right: '68%',
-        top: '68%'
-      },{
-        text: '>= 10% ●',
-        textStyle: {
-          color: '#441704',
-          fontSize: 12
-        },
-        right: '73%',
-        top: '71%'
-      },{
-        text: '5% ~ 10% ●',
-        textStyle: {
-          color: '#C14107',
-          fontSize: 12
-        },
-        right: '73.2%',
-        top: '74%'
-      },{
-        text: '3% ~ 5% ●',
-        textStyle: {
-          color: '#E55F46',
-          fontSize: 12
-        },
+      const scatter_data = convertData(map_data);
+      const map_option = {
+        title: [{
+          text: '全国开工面积 省份分布',
+          subtext: '单位：元/万平米',
+          sublink: '',
+          left: 'right'
+        },{
+          text: '新开工面积（万㎡）',
+          textStyle: {
+            color: '#2D3E53',
+            fontSize: 12
+          },
+          right: '4%',
+          top: '90%'
+        },{
+          text: '市场占有率（%）',
+          textStyle: {
+            color: '#2D3E53',
+            fontSize: 12
+          },
+          right: '68%',
+          top: '68%'
+        },{
+          text: '>= 10% ●',
+          textStyle: {
+            color: '#441704',
+            fontSize: 12
+          },
+          right: '73%',
+          top: '71%'
+        },{
+          text: '5% ~ 10% ●',
+          textStyle: {
+            color: '#C14107',
+            fontSize: 12
+          },
+          right: '73.2%',
+          top: '74%'
+        },{
+          text: '3% ~ 5% ●',
+          textStyle: {
+            color: '#E55F46',
+            fontSize: 12
+          },
 
-        right: '73.5%',
-        top: '77%'
-      },{
-        text: '1% ~ 3% ●',
-        textStyle: {
-          color: '#FFCBB2',
-          fontSize: 12
-        },
-        right: '73%',
-        top: '80%'
-      },{
-        text: '0% ~ 1% ◯',
-        textStyle: {
-          color: '#000000',
-          fontSize: 12
-        },
-        right: '72.2%',
-        top: '83%'
-      }],
-      grid: {
-        left: '0',
-        right: '0'
-      },
-      tooltip: {
-        trigger: 'item',
-        showDelay: 30,
-        transitionDuration: 0.2,
-        formatter: function (params) {
-          var value = (params.value + '').split('.');
-          value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
-          return params.name + ': ' + value;
-        }
-      },
-      visualMap: {
-        show: true,
-        left: 'right',
-        min: Math.min(...provinceSum)*0.05,
-        max: Math.max(...provinceSum),
-        inRange: {
-          color: ['#DFF0FA', '#2394CF', '#092838']
-        },
-        seriesIndex: [1],
-        calculable: true
-      },
-      toolbox: {
-        show: true,
-        left: 'left',
-        top: 'top',
-        feature: {
-          dataView: { readOnly: false },
-          restore: {},
-          saveAsImage: {}
-        }
-      },
-      geo: {
-          show: true,
-          map: 'china',
-          label: {
-            show: false
+          right: '73.5%',
+          top: '77%'
+        },{
+          text: '1% ~ 3% ●',
+          textStyle: {
+            color: '#FFCBB2',
+            fontSize: 12
           },
-          roam: false,
-          emphasis: {
-            itemStyle: {
-              areaColor: '#4499d0',
-            }
+          right: '73%',
+          top: '80%'
+        },{
+          text: '0% ~ 1% ◯',
+          textStyle: {
+            color: '#000000',
+            fontSize: 12
           },
-          itemStyle: {
-            areaColor: '#023677',
-            borderColor: '#1180c7'
-          }
-      },
-      series: [{
-        name: '占有率',
-        type: 'scatter',
-        coordinateSystem: 'geo',
-        data: scatter_data,
-        symbolSize: 10,
-        emphasis: {
-          label: {
-            color: 'red',
-            show: true
-          }
-        },
-        label: {
-          formatter: '{b}',
-          position: 'right',
-          color: 'black',
-          show: true,
-        },
-        itemStyle: {
-          color: function(p) {
-            var rate = p.value[2];
-            if (rate >= 10) {
-              return '#441704';
-            } else if (rate >= 5) {
-              return '#C14107';
-            } else if (rate >= 3) {
-              return '#E55F46';
-            } else if (rate >= 1) {
-              return '#FFCBB2';
-            } else {
-              return '#FFFFFF';
-            }
-          }
+          right: '72.2%',
+          top: '83%'
+        }],
+        grid: {
+          left: '0',
+          right: '0'
         },
         tooltip: {
-          formatter: function ( p ) {
-            return `${p.seriesName}：${p.value[2]}%<br />上年同期：${p.value[3]}%`;
+          trigger: 'item',
+          showDelay: 30,
+          transitionDuration: 0.2,
+          formatter: function (params) {
+            var value = (params.value + '').split('.');
+            value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
+            return params.name + ': ' + value;
+          }
+        },
+        visualMap: {
+          show: true,
+          left: 'right',
+          min: Math.min(...provinceSum)*0.05,
+          max: Math.max(...provinceSum),
+          inRange: {
+            color: ['#DFF0FA', '#2394CF', '#092838']
           },
-        }
-      },{
-          type: 'map',
-          map: 'china',
-          geoIndex: 0,
-          aspectScale: 0.75, //长宽比
-          showLegendSymbol: false, // 存在legend时显示
-          emphasis: {
+          seriesIndex: [1],
+          calculable: true
+        },
+        toolbox: {
+          show: true,
+          left: 'left',
+          top: 'top',
+          feature: {
+            dataView: { readOnly: false },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        geo: {
+            show: true,
+            map: 'china',
             label: {
               show: false
             },
+            roam: false,
+            emphasis: {
+              itemStyle: {
+                areaColor: '#4499d0',
+              }
+            },
             itemStyle: {
-              areaColor: '#2B91B7'
+              areaColor: '#023677',
+              borderColor: '#1180c7'
+            }
+        },
+        series: [{
+          name: '占有率',
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          data: scatter_data,
+          symbolSize: 10,
+          emphasis: {
+            label: {
+              color: 'red',
+              show: true
             }
           },
           label: {
-            show: true
+            formatter: '{b}',
+            position: 'right',
+            color: 'black',
+            show: true,
           },
-          roam: true,
           itemStyle: {
-            areaColor: '#031525',
-            borderColor: '#3B5077',
+            color: function(p) {
+              var rate = p.value[2];
+              if (rate >= 10) {
+                return '#441704';
+              } else if (rate >= 5) {
+                return '#C14107';
+              } else if (rate >= 3) {
+                return '#E55F46';
+              } else if (rate >= 1) {
+                return '#FFCBB2';
+              } else {
+                return '#FFFFFF';
+              }
+            }
           },
-          animation: false,
-          data: map_data
-        }],
-    };
+          tooltip: {
+            formatter: function ( p ) {
+              return `${p.seriesName}：${p.value[2]}%<br />上年同期：${p.value[3]}%`;
+            },
+          }
+        },{
+            type: 'map',
+            map: 'china',
+            geoIndex: 0,
+            aspectScale: 0.75, //长宽比
+            showLegendSymbol: false, // 存在legend时显示
+            emphasis: {
+              label: {
+                show: false
+              },
+              itemStyle: {
+                areaColor: '#2B91B7'
+              }
+            },
+            label: {
+              show: true
+            },
+            roam: true,
+            itemStyle: {
+              areaColor: '#031525',
+              borderColor: '#3B5077',
+            },
+            animation: false,
+            data: map_data
+          }],
+      };
 
-    contractProviceAreaChinaChart.setOption(map_option, false);
+      contractProviceAreaChinaChart.setOption(map_option, false);
 
+    }
+
+    setOption4ContractProviceAreaChinaChart();
     setTimeout(() => {
       contractProviceAreaChinaChart.resize();
     }, 200);
