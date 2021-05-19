@@ -47,10 +47,12 @@ export default class extends Controller {
       },
       series: [{
         type: 'map',
-        mapType: 'zhaofeng',
+        map: 'zhaofeng',
         roam: true,
-        itemStyle:{
-            emphasis:{label:{show:true}}
+        emphasis: {
+          label: {
+            show:true
+          }
         },
         data: [
           { name: "第六人民医院", value: 9 },

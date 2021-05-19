@@ -91,10 +91,10 @@ export default class extends Controller {
       },
       series: [{
         type: 'map',
-        mapType: 'china',
+        map: 'china',
         roam: false,
-        itemStyle:{
-          emphasis:{ label: { show:true } }
+        emphasis: {
+          label: { show:true }
         },
         data: map_data
       }],
