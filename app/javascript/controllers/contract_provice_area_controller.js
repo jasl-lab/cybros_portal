@@ -151,6 +151,9 @@ export default class extends Controller {
             emphasis: {
               itemStyle: {
                 areaColor: '#4499d0',
+              },
+              label: {
+                show: false
               }
             },
             itemStyle: {
@@ -238,7 +241,6 @@ export default class extends Controller {
       setOption4ContractProviceAreaChinaChart(mapFeatures);
     }
 
-    setOption4ContractProviceAreaChinaChart();
     setTimeout(() => {
       contractProviceAreaChinaChart.resize();
     }, 200);
