@@ -15,10 +15,9 @@ export default class extends Controller {
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
 
-    function setOption4ContractProviceAreaChinaChart() {
+    const mapChina = echarts.getMap('china');
 
-      const mapFeatures = echarts.getMap('china').geoJson.features;
-
+    function setOption4ContractProviceAreaChinaChart(mapFeatures) {
       let geoCoordMap = {};
 
       mapFeatures.forEach(function(v) {
@@ -226,7 +225,17 @@ export default class extends Controller {
       };
 
       contractProviceAreaChinaChart.setOption(map_option, false);
+    }
 
+    if (mapChina === null) {
+      $.get('/china.geojson', function (chinaJson) {
+        echarts.registerMap('china', chinaJson);
+        const mapFeatures = echarts.getMap('china').geoJson.features;
+        setOption4ContractProviceAreaChinaChart(mapFeatures);
+      });
+    } else {
+      const mapFeatures = echarts.getMap('china').geoJson.features;
+      setOption4ContractProviceAreaChinaChart(mapFeatures);
     }
 
     setOption4ContractProviceAreaChinaChart();
