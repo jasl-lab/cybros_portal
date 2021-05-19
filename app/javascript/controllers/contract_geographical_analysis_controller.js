@@ -24,6 +24,7 @@ export default class extends Controller {
     const northEastChinaYears = JSON.parse(this.data.get("north_east_china_years"));
     const northChinaYears = JSON.parse(this.data.get("north_china_years"));
     const northWestChinaYears = JSON.parse(this.data.get("north_west_china_years"));
+    const provinceSum = JSON.parse(this.data.get("province_sum"));
 
     function buildAreaBarSeries(year, index) {
       const series = [southWestChinaYears[index], eastChinaYears[index],southChinaYears[index],centreChinaYears[index],northEastChinaYears[index],northChinaYears[index],northWestChinaYears[index]]
@@ -40,8 +41,6 @@ export default class extends Controller {
         };
     }
     const areaBarSeries = yearCategory.reverse().map(buildAreaBarSeries);
-
-    const provinceSum = JSON.parse(this.data.get("province_sum"));
 
     const map_data = provinceSum.map(mapProvinceSum2MapData);
 
@@ -215,7 +214,16 @@ export default class extends Controller {
       series: areaBarSeries
     };
 
-    contractGeographicalAnalysisChinaChart.setOption(map_option, false);
+    const mapFeatures = echarts.getMap('china');
+
+    if (mapFeatures === null) {
+      $.get('/china.geojson', function (chinaJson) {
+        echarts.registerMap('china', chinaJson);
+        contractGeographicalAnalysisChinaChart.setOption(map_option, false);
+      });
+    } else {
+      contractGeographicalAnalysisChinaChart.setOption(map_option, false);
+    }
     contractGeographicalAnalysisYearCitylevelStackChart.setOption(year_city_level_stack_option, false);
     contractGeographicalAnalysisAreaBarChart.setOption(area_bar_option, false);
 
