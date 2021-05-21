@@ -2,7 +2,7 @@
 
 module Bi
   class ContractPrice < BiLocalTimeRecord
-    self.table_name = 'CONTRACT_PRICE'
+    self.table_name = 'CRM_SACONTRACTPRICE'
 
     def self.all_year_names
       Bi::ContractPrice.order(filingtime: :desc).where('filingtime >= ?', Date.new(2018, 1, 1))
@@ -15,7 +15,7 @@ module Bi
     end
 
     def self.all_city_levels
-      @all_city_levels ||= Bi::ContractPrice.all.select(:citylevel, :cityname).reduce({}) do |h, d|
+      @all_city_levels ||= Bi::ContractPrice.all.select(:citylevel, :cityname).distinct.reduce({}) do |h, d|
         h[d.cityname] = d.citylevel
         h
       end

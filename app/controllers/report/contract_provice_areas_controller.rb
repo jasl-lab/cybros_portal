@@ -17,9 +17,11 @@ class Report::ContractProviceAreasController < Report::BaseController
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve)
       .select(:businessltdcode, :"ORG_ORDER.org_order")
-      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRICE.businessltdcode')
+      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CRM_SACONTRACTPRICE.businessltdcode')
       .order('ORG_ORDER.org_order ASC')
-      .where(filingtime: @beginning_of_year..@end_of_month).pluck(:businessltdcode).uniq
+      .where(filingtime: @beginning_of_year..@end_of_month)
+      .where(savedate: @end_of_month)
+      .pluck(:businessltdcode).uniq
     all_company_short_names = all_company_orgcodes.collect { |c| Bi::OrgShortName.company_short_names_by_orgcode.fetch(c, c) }
 
     @organization_options = all_company_short_names.zip(all_company_orgcodes)
@@ -242,6 +244,7 @@ class Report::ContractProviceAreasController < Report::BaseController
         .where(businessltdcode: orgs_options)
         .where('scale > 0')
         .where(filingtime: beginning_of_year..end_of_year)
+        .where(savedate: end_of_year)
     end
 
     def set_breadcrumbs

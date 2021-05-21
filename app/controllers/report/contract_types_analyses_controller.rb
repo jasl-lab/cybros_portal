@@ -16,12 +16,13 @@ class Report::ContractTypesAnalysesController < Report::BaseController
       .group(:businessltdcode)
       .select('businessltdcode, SUM(frontpart) frontpart, SUM(rearpart) rearpart')
       .where(filingtime: @beginning_of_year..end_of_year_month)
+      .where(savedate: end_of_year_month)
 
     @orgs_options = params[:orgs]
 
     all_company_orgcodes = policy_scope(Bi::ContractPrice, :overview_resolve)
       .select('businessltdcode')
-      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CONTRACT_PRICE.businessltdcode')
+      .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = CRM_SACONTRACTPRICE.businessltdcode')
       .where('ORG_ORDER.org_order is not null')
       .where("ORG_ORDER.org_type = '创意板块'")
       .order('ORG_ORDER.org_order ASC')
@@ -64,6 +65,7 @@ class Report::ContractTypesAnalysesController < Report::BaseController
         .group('YEAR(filingtime), projectstage, projecttype')
         .where('YEAR(filingtime) >= ?', begin_of_year)
         .where('YEAR(filingtime) <= ?', end_of_year)
+        .where(savedate: end_of_year)
         .where(businessltdcode: orgs_options)
       years_name = (begin_of_year..end_of_year).to_a
       years_sum_住宅方案 = []
