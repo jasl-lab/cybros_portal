@@ -54,18 +54,18 @@ class Report::ContractTypesAnalysesController < Report::BaseController
     @contract_price_施工图_合同总金额 = @contract_price_施工图_合同总金额.map { |d| (d / 10000_00.0).round(2) }
 
     @years_category, @years_sum_住宅方案, @years_sum_住宅施工图, @years_sum_公建方案, @years_sum_公建施工图 \
-      = 住宅公建_contract_price(Time.now.year - 2, Time.now.year, @orgs_options)
+      = 住宅公建_contract_price(Time.now.year - 2, Time.now.year, end_of_year_month, @orgs_options)
   end
 
   private
 
-    def 住宅公建_contract_price(begin_of_year, end_of_year, orgs_options)
+    def 住宅公建_contract_price(begin_of_year, end_of_year, end_of_year_month, orgs_options)
       sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
         .select('YEAR(filingtime) year_name, projectstage, projecttype, SUM(frontpart) frontpart, SUM(rearpart) rearpart')
         .group('YEAR(filingtime), projectstage, projecttype')
         .where('YEAR(filingtime) >= ?', begin_of_year)
         .where('YEAR(filingtime) <= ?', end_of_year)
-        .where(savedate: end_of_year)
+        .where(savedate: end_of_year_month)
         .where(businessltdcode: orgs_options)
       years_name = (begin_of_year..end_of_year).to_a
       years_sum_住宅方案 = []
