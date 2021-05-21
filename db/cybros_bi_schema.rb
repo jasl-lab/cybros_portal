@@ -471,6 +471,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "CRM_CLIENT_RECEIVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "orgcode_sum", limit: 45
     t.string "crmcode", limit: 20
     t.string "crmshort", limit: 200
     t.float "sign_receive", limit: 53
@@ -480,11 +481,9 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "unsign_receive", limit: 53
     t.float "unsign_receive_gt1_years", limit: 53
     t.float "sum_receive", limit: 53
-    t.float "sum_receive_gt1_years", limit: 53
-    t.string "cricrank", limit: 20
+    t.integer "cricrank"
     t.string "crmthrank", limit: 20
     t.string "clientproperty", limit: 50
-    t.string "orgcode_sum", limit: 45
   end
 
   create_table "CRM_CLIENT_SUM", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
