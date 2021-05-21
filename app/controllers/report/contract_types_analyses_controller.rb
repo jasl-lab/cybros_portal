@@ -60,14 +60,21 @@ class Report::ContractTypesAnalysesController < Report::BaseController
   private
 
     def 住宅公建_contract_price(begin_of_year, end_of_year, end_of_year_month, orgs_options)
+      years_name = (begin_of_year..end_of_year).to_a
+      query_savedate = years_name.collect do |year|
+        if end_of_year_month.year == year
+          end_of_year_month
+        else
+          Date.new(year, 12, 31)
+        end
+      end
       sum_scope = policy_scope(Bi::ContractPrice, :overview_resolve)
         .select('YEAR(filingtime) year_name, projectstage, projecttype, SUM(frontpart) frontpart, SUM(rearpart) rearpart')
         .group('YEAR(filingtime), projectstage, projecttype')
         .where('YEAR(filingtime) >= ?', begin_of_year)
         .where('YEAR(filingtime) <= ?', end_of_year)
-        .where(savedate: end_of_year_month)
+        .where(savedate: query_savedate)
         .where(businessltdcode: orgs_options)
-      years_name = (begin_of_year..end_of_year).to_a
       years_sum_住宅方案 = []
       years_sum_住宅施工图 = []
       years_sum_公建方案 = []
