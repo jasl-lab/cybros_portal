@@ -45,7 +45,7 @@ export default class extends Controller {
             {
                 name: item.name,
                 type: 'pie',
-                clockWise: false,
+                clockwise: false,
                 radius: [30, 40],
                 itemStyle:  {
                     normal: {
@@ -60,7 +60,9 @@ export default class extends Controller {
                         },
                     }
                 },
-                hoverAnimation: false,
+                emphasis: {
+                  scale: false
+                },
                 center: [index * 32 + 17 +'%', '35%'],
                 data: [{
                     value: item.value,
