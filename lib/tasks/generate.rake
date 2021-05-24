@@ -4,7 +4,7 @@ namespace :generate do
   desc 'Generate user default name card'
   task user_default_name_card: :environment do
     User.where.not(mobile: nil, chinese_name: nil, clerk_code: nil, position_title: nil, email: nil)
-      .where("created_at > '2020-12-16'").each do |user|
+      .where(id: 23).each do |user|
       generate_name_card(user)
     end
   end
@@ -13,6 +13,13 @@ namespace :generate do
     final_image_file_name = "#{Rails.public_path}/default_name_card/#{user.clerk_code}.png"
 
     origin_image = MiniMagick::Image.open("#{Rails.public_path}/system/name-card.png")
+
+    with_name_email_mobile_web = generate_name_card_by_user_profile(user, origin_image)
+    with_name_email_mobile_web.write(final_image_file_name)
+    File.chmod(0604, final_image_file_name)
+  end
+
+  def generate_name_card_by_user_profile(user, origin_image)
     origin_image.combine_options do |c|
       c.font source_han_sans_font_path
       c.pointsize 64
@@ -47,11 +54,8 @@ namespace :generate do
       c.draw "text 120,710 'W: https://www.thape.com/'"
       c.fill 'black'
     end
-
-    with_name_email_mobile_web.write(final_image_file_name)
-    File.chmod(0604, final_image_file_name)
+    with_name_email_mobile_web
   end
-
   def source_han_sans_font_path
     if Gem::Platform.local.os == 'darwin'
       "#{Dir.home}/Library/Fonts/SourceHanSansCN-Normal.ttf"
