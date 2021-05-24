@@ -30,7 +30,7 @@ module Report
       records.map do |r|
         { crmthrank: r.client_rank,
           crmshort: r.crmshort,
-          cricrank: r.cricrank,
+          cricrank: (r.cricrank == 999999 ? '' : r.cricrank),
           clientproperty: r.clientproperty,
           sum_receive: (r.sum_receive.to_f / 10000.0).round(0),
           sum_receive_gt1_years: "#{((r.aging_amount_gt1_years.to_f/r.sum_receive.to_f)*100.0).round(0)} %",
