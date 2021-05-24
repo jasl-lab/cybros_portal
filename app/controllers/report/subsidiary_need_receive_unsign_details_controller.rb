@@ -20,6 +20,9 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
     all_org_short_names = all_org_long_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
     @all_org_names = all_org_short_names.zip(all_org_long_names)
     @org_name = params[:org_name]&.strip
+    @dept_codes_options = Bi::OrgReportDeptOrder.where("组织": @org_name).order(:"部门排名").pluck(:"部门", :"编号")
+    @dept_codes = params[:dept_codes]
+
     @unsign_receive_great_than = params[:unsign_receive_great_than] || 100
     @days_to_min_timecard_fill_great_than = params[:days_to_min_timecard_fill_great_than] || 100
     @can_hide_item = pundit_user.roles.pluck(:report_reviewer).any?
@@ -33,6 +36,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
           subsidiary_need_receive_unsign_details: subsidiary_need_receive_unsign_details,
           end_of_date: @end_of_date,
           org_name: @org_name,
+          dept_codes: @dept_codes,
           unsign_receive_great_than: @unsign_receive_great_than.to_i * 10000,
           days_to_min_timecard_fill_great_than: @days_to_min_timecard_fill_great_than.to_i,
           can_hide_item: @can_hide_item,
@@ -54,6 +58,11 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
     project_item_code = params[:project_item_code]
     Bi::SubCompanyNeedReceiveUnsignDetail.where(projectitemcode: project_item_code).update_all(need_hide: nil)
     redirect_to report_subsidiary_need_receive_unsign_detail_path(show_hide_item: true)
+  end
+
+  def org_name_change
+    org_name = params[:org_name]
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织": org_name).order(:"部门排名").pluck(:"部门", :"编号")
   end
 
   private

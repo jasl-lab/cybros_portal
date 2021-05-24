@@ -10,6 +10,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
     @subsidiary_need_receive_unsign_details = opts[:subsidiary_need_receive_unsign_details]
     @end_of_date = opts[:end_of_date]
     @org_name = opts[:org_name]
+    @dept_codes = opts[:dept_codes]
     @unsign_receive_great_than = opts[:unsign_receive_great_than]
     @days_to_min_timecard_fill_great_than = opts[:days_to_min_timecard_fill_great_than]
     @can_hide_item = opts[:can_hide_item]
@@ -70,6 +71,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
       @subsidiary_need_receive_unsign_details.where('NEED_HIDE != 1 OR NEED_HIDE IS NULL')
     end.where(date: @end_of_date)
     rr = rr.where(orgname: @org_name) if @org_name.present?
+    rr = rr.where(deptcode: @dept_codes) if @dept_codes.present?
     rr = rr.where('unsign_receive > ?', @unsign_receive_great_than) unless @unsign_receive_great_than.zero?
     rr = rr.where('days_to_mintimecardfill > ?', @days_to_min_timecard_fill_great_than) unless @days_to_min_timecard_fill_great_than.zero?
     rr

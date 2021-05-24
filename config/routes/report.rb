@@ -128,6 +128,9 @@ namespace :report do
     end
   end
   resource :subsidiary_need_receive_unsign_detail, only: %i[show] do
+    collection do
+      get :org_name_change
+    end
     member do
       patch :hide
       patch :un_hide
