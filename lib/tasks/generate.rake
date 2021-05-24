@@ -74,28 +74,28 @@ namespace :generate do
     with_title = origin_image.combine_options do |c|
       c.font source_han_sans_font_path
       c.pointsize 32
-      c.draw "text 120,320 '#{name_card_apply.department_name} #{name_card_apply.title}'"
+      c.draw "text 120,320 '#{name_card_apply.department_name} #{name_card_apply.title.tr("'", '')}'"
       c.fill 'black'
     end
 
     with_title_english = with_title.combine_options do |c|
       c.font source_han_sans_font_path
       c.pointsize 24
-      c.draw "text 120,360 '#{name_card_apply.en_department_name} #{name_card_apply.en_title}'"
+      c.draw "text 120,360 '#{name_card_apply.en_department_name.tr("'", '')} #{name_card_apply.en_title.tr("'", '')}'"
       c.fill 'black'
     end
 
     with_title_english_professional = with_title_english.combine_options do |c|
       c.font source_han_sans_font_path
       c.pointsize 24
-      c.draw "text 120,400 '#{name_card_apply.professional_title}'"
+      c.draw "text 120,400 '#{name_card_apply.professional_title.tr("'", '')}'"
       c.fill 'black'
     end
 
     with_title_english_professional_english = with_title_english_professional.combine_options do |c|
       c.font source_han_sans_font_path
       c.pointsize 24
-      c.draw "text 120,440 '#{name_card_apply.en_professional_title}'"
+      c.draw "text 120,440 '#{name_card_apply.en_professional_title.tr("'", '')}'"
       c.fill 'black'
     end
 
