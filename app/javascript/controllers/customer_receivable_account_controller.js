@@ -26,7 +26,7 @@ export default class extends Controller {
       "pageLength": this.pageLengthValue,
       "autoWidth": false,
       "ajax": $('#customer-receivable-account-datatable').data('source'),
-      "pagingType": "full_numbers",
+      "pagingType": "numbers",
       "columns": normalColumns,
       "order": [[ 4, 'desc' ]],
       stateSave: true,
