@@ -12,6 +12,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
     @org_name = opts[:org_name]
     @unsign_receive_great_than = opts[:unsign_receive_great_than]
     @days_to_min_timecard_fill_great_than = opts[:days_to_min_timecard_fill_great_than]
+    @can_hide_item = opts[:can_hide_item]
     @show_hide = opts[:show_hide]
     super
   end
@@ -48,7 +49,7 @@ class SubsidiaryNeedReceiveUnsignDetailDatatable < ApplicationDatatable
         predict_amount: tag.div((r.predictamount / 10000)&.round(0), class: 'text-center'),
         unsign_receive: tag.div((r.unsign_receive / 10000)&.round(0), class: 'text-center'),
         days_to_min_timecard_fill: tag.div(r.days_to_mintimecardfill, class: 'text-center'),
-        comment_on_project_item_code: if @show_hide
+        comment_on_project_item_code: if @can_hide_item
                                         render(partial: 'report/subsidiary_need_receive_unsign_details/can_hide_comment', locals: { cop: cop, cop_history: display_cop_history })
                                       else
                                         render(partial: 'report/subsidiary_need_receive_unsign_details/comment', locals: { cop: cop, cop_history: display_cop_history })

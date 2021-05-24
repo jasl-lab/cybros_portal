@@ -35,6 +35,7 @@ class Report::SubsidiaryNeedReceiveUnsignDetailsController < Report::BaseControl
           org_name: @org_name,
           unsign_receive_great_than: @unsign_receive_great_than.to_i * 10000,
           days_to_min_timecard_fill_great_than: @days_to_min_timecard_fill_great_than.to_i,
+          can_hide_item: @can_hide_item,
           show_hide: @show_hide_item,
           view_context: view_context)
       end
