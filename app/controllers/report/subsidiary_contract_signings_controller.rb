@@ -75,7 +75,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.to_f.round(0) }
-    @contract_amount_max = @contract_amounts.max&.round(-1)
+    @contract_amount_max = @contract_amounts.max&.round(-2) + 100
     @avg_period_mean = data.collect do |d|
       mean = d.sum_contract_period.to_f / d.sum_contract_amount_count.to_f
       mean.nan? ? 0 : mean.round(0)
