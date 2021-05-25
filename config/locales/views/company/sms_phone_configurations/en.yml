@@ -10,6 +10,7 @@ en:
           receive_id: "Receive ID"
           user_name: "User name"
           user_mobile: "User mobile"
+          updated_at: "Last updated at"
       modal:
         close: "Close"
         submit: "Submit"
