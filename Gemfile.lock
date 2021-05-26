@@ -302,7 +302,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
-    rack-oauth2 (1.16.0)
+    rack-oauth2 (1.17.0)
       activesupport
       attr_required
       httpclient
@@ -516,4 +516,4 @@ RUBY VERSION
    ruby 2.7.1p83
 
 BUNDLED WITH
-   2.2.17
+   2.2.18
