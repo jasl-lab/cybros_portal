@@ -16,6 +16,7 @@ en:
           service_stage: "Service stage"
           project_progress: "Project progress"
           scale: "Scale"
+          is_boutique: "Boutique only"
           query: "Query"
       table:
         project_item_code: "Project item code"

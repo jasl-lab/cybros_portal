@@ -16,6 +16,7 @@ zh-CN:
           service_stage: "方案/施工图"
           project_progress: "项目进度"
           scale: "规模"
+          is_boutique: "仅精品项目"
           query: "查询"
       table:
         project_item_code: "项目编号"

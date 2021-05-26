@@ -34,11 +34,19 @@
       <%= text_field_tag 'scale', @scale, placeholder: t(".form.scale"), class: 'form-control' %>
     </div>
     <div class="col-auto my-1">
-      <span>查得<%= @valid_map_point.count -%>记录</span>
+      <div class="form-check">
+        <%= check_box_tag 'is_boutique', 'on', @is_boutique, id: 'chk-is-boutique', class: 'form-check-input' -%>
+        <label class="form-check-label" for="chk-is-boutique">
+          <%= t(".form.is_boutique") -%>
+        </label>
+      </div>
+    </div>
+    <div class="col-auto my-1">
       <button type="submit" class="btn btn-primary"><%= t(".form.query") -%></button>
     </div>
     <div class="col-auto my-1">
-      <%= link_to '重置', company_km_map_path, class: 'btn btn-secondary' %>
+      <%= link_to '重置', company_km_map_path, class: 'btn btn-secondary mr-1' %>
+      <span>查得<%= @valid_map_point.count -%>记录</span>
     </div>
   </div>
 <% end %>

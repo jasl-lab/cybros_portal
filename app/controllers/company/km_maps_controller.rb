@@ -15,7 +15,7 @@ class Company::KmMapsController < ApplicationController
     @department = params[:department]&.strip
     @service_stage = params[:service_stage]&.strip
     @project_progress = params[:project_progress]&.strip
-
+    @is_boutique = params[:is_boutique].presence
     @available_departments = Edoc2::ProjectInfo.project_item_dept_name(@company_name)
 
     data = Edoc2::ProjectInfo.where.not(coordinate: nil)
@@ -54,6 +54,7 @@ class Company::KmMapsController < ApplicationController
     data = data.where(projectitemdeptname: @department) if @department.present?
     data = data.where(projectbigstagename: @service_stage) if @service_stage.present?
     data = data.where(milestonesname: @project_progress) if @project_progress.present?
+    data = data.where(isboutiqueproject: '是') if @is_boutique
 
     valid_map_infos = data.reject { |m| !m.coordinate.include?(',') }
 
