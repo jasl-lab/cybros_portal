@@ -24,6 +24,8 @@ class Company::ContractsMapsController < ApplicationController
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
     @project_item_genre_name = params[:project_item_genre_name].presence
+    @is_boutique = params[:is_boutique].presence
+
     @query_text = params[:query_text].presence
 
     @need_locate_to_shanghai = @city.include?('上海') && @tracestate == '所有' && @client.nil? && @query_text.nil?
@@ -35,6 +37,7 @@ class Company::ContractsMapsController < ApplicationController
     map_infos = map_infos.where('company LIKE ?', "%#{@city}%") unless @city == '所有'
     map_infos = map_infos.where('projecttype LIKE ?', "%#{@project_item_genre_name}%") if @project_item_genre_name.present?
     map_infos = map_infos.where('developercompanyname LIKE ?', "%#{@client}%") if @client.present?
+    map_infos = map_infos.where('(isboutiqueproject IS NOT NULL AND isboutiqueproject > 0)') if @is_boutique
     map_infos = map_infos.none if @show_empty.present?
     if @query_text.present?
       map_infos = map_infos

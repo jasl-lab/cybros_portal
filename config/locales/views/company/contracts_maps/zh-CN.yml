@@ -13,6 +13,7 @@ zh-CN:
           project_item_genre_name_placeholder: "公建/住宅"
           query_text: "模糊查询条件"
           query_text_hint: "模糊查询可以查询工程名称、案名和工程编号"
+          is_boutique: "仅精品项目"
           query: "查询"
       detail:
         title: "%{project_id}合同明细"

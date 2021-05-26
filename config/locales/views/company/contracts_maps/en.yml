@@ -13,6 +13,7 @@ en:
           project_item_genre_name_placeholder: "公建/住宅"
           query_text: "Query text"
           query_text_hint: "Fuzzy query can query project number, project name and Party A group"
+          is_boutique: "Boutique only"
           query: "Query"
       detail:
         title: "%{project_id} contract detail"
