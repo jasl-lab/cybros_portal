@@ -11,6 +11,7 @@ zh-CN:
           createddate_year: "跟踪创建年份"
           project_item_genre_name: "项目类型"
           project_item_genre_name_placeholder: "公建/住宅"
+          is_boutique: "仅精品"
           query_text: "模糊查询条件"
           query: "查询"
         table:

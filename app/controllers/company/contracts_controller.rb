@@ -18,6 +18,7 @@ class Company::ContractsController < ApplicationController
     @all_createddate_years = Bi::NewMapInfo.all_createddate_year
     @createddate_year = params[:createddate_year].presence || '所有'
     @project_item_genre_name = params[:project_item_genre_name].presence
+    @is_boutique = params[:is_boutique] == 'on'
     @query_text = params[:query_text].presence
 
     map_infos = policy_scope(Bi::NewMapInfo)
@@ -30,6 +31,7 @@ class Company::ContractsController < ApplicationController
           tracestate: @tracestate,
           createddate_year: @createddate_year,
           project_item_genre_name: @project_item_genre_name,
+          is_boutique: @is_boutique,
           query_text: @query_text,
           view_context: view_context)
       end

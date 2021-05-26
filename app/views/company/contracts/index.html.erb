@@ -19,6 +19,14 @@
                 placeholder: t(".form.project_item_genre_name_placeholder"), class: 'form-control form-control2' %>
             </div>
             <div class="col-auto my-1">
+              <div class="form-check">
+                <%= check_box_tag 'is_boutique', 'on', @is_boutique, id: 'chk-is-boutique', class: 'form-check-input' -%>
+                <label class="form-check-label" for="chk-is-boutique">
+                  <%= t(".form.is_boutique") -%>
+                </label>
+              </div>
+            </div>
+            <div class="col-auto my-1">
               <label class="mr-sm-2 sr-only"><%= t(".form.query_text") -%></label>
               <%= text_field_tag 'query_text', @query_text, placeholder: t(".form.query_text"), class: 'form-control form-control2' %>
             </div>
@@ -39,7 +47,7 @@
           class="table table-hover table-bordered table-responsive"
           data-source="<%= company_contracts_path(format: :json,
             city: @city, client: @client, tracestate: @tracestate,
-            createddate_year: @createddate_year, project_item_genre_name: @project_item_genre_name,
+            createddate_year: @createddate_year, project_item_genre_name: @project_item_genre_name, is_boutique: @is_boutique,
             query_text: @query_text) -%>">
           <thead>
             <tr>
