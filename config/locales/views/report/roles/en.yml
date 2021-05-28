@@ -20,3 +20,7 @@ en:
         action:
           delete: "Remove"
           delete_confirm: "Confirm remove user “%{user_name}” from role “%{role_name}”？"
+      update:
+        update_succss: "Add success"
+      user:
+        remove_succss: "Remove success"

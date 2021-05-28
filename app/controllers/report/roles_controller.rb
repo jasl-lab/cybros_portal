@@ -32,6 +32,18 @@ class Report::RolesController < Report::BaseController
     end
   end
 
+  def update
+    to_add_user = User.find_by(clerk_code: params[:ncworkno])
+    @role.role_users.find_or_create_by(user: to_add_user)
+    redirect_to report_role_path(id: @role.id), notice: t('.update_succss')
+  end
+
+  def user
+    to_remove_user = User.find(params[:user_id])
+    @role.role_users.find_by(user_id: to_remove_user.id)&.destroy
+    redirect_to report_role_path(id: @role.id), notice: t('.remove_succss')
+  end
+
   protected
 
     def set_page_layout_data
