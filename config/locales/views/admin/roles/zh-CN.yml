@@ -28,3 +28,7 @@ zh-CN:
         action:
           delete: "移除"
           delete_confirm: "确认从角色“%{role_name}”移除用户“%{user_name}”？"
+      update:
+        update_succss: "添加成功"
+      user:
+        remove_succss: "删除成功"

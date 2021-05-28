@@ -30,14 +30,14 @@ class Admin::RolesController < Admin::ApplicationController
 
   def update
     to_add_user = User.find_by(clerk_code: params[:ncworkno])
-    @role.role_users.create(user: to_add_user)
-    redirect_to admin_role_path(id: @role.id)
+    @role.role_users.find_or_create_by(user: to_add_user)
+    redirect_to admin_role_path(id: @role.id), notice: t('.update_succss')
   end
 
   def user
     to_remove_user = User.find(params[:user_id])
     @role.role_users.find_by(user_id: to_remove_user.id)&.destroy
-    redirect_to admin_role_path(id: @role.id)
+    redirect_to admin_role_path(id: @role.id), notice: t('.remove_succss')
   end
 
   private
