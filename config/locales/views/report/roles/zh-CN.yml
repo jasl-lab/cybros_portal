@@ -4,3 +4,19 @@ zh-CN:
     roles:
       index:
         title: "管理角色"
+      show:
+        title: "角色：%{role_name} 下的用户"
+        ncworkno: "用户姓名"
+        add: "添加"
+        table:
+          id: "Id"
+          email: "邮箱"
+          position: "职位"
+          company: "公司"
+          clerk_code: "员工号"
+          chinese_name: "姓名"
+          auto_generated: "自动生成"
+          action: "动作"
+        action:
+          delete: "移除"
+          delete_confirm: "确认从角色“%{role_name}”移除用户“%{user_name}”？"

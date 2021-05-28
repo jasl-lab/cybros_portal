@@ -4,3 +4,19 @@ en:
     roles:
       index:
         title: "Role management"
+      show:
+        title: "Role: %{role_name} users"
+        ncworkno: "Chinese name"
+        add: "Add"
+        table:
+          id: "Id"
+          email: "Email"
+          position: "Position"
+          company: "Company"
+          clerk_code: "Clerk code"
+          chinese_name: "Chinese name"
+          auto_generated: "Auto generated"
+          action: "Action"
+        action:
+          delete: "Remove"
+          delete_confirm: "Confirm remove user “%{user_name}” from role “%{role_name}”？"

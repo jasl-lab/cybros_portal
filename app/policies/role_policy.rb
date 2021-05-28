@@ -14,4 +14,12 @@ class RolePolicy < ApplicationPolicy
   def index?
     user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[HR_IT和人力管理员]) }
   end
+
+  def show?
+    if user.roles.pluck(:role_name).any? { |r| r.in?(%w[HR_IT和人力管理员]) }
+      return record.role_name.start_with? 'HR_'
+    end
+
+    user.admin?
+  end
 end
