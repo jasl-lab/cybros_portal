@@ -49,7 +49,7 @@ class Report::RolesController < Report::BaseController
   protected
 
     def set_page_layout_data
-      @_sidebar_name = 'human_resource'
+      @_sidebar_name = 'company'
     end
 
     def set_breadcrumbs
