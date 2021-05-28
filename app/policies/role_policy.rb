@@ -22,4 +22,12 @@ class RolePolicy < ApplicationPolicy
 
     user.admin?
   end
+
+  def update?
+    show?
+  end
+
+  def user?
+    show?
+  end
 end
