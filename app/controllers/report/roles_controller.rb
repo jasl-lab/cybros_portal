@@ -7,6 +7,8 @@ class Report::RolesController < Report::BaseController
 
   def index
     authorize Role
+    prepare_meta_tags title: t('.title')
+    @roles = policy_scope(Role).all
   end
 
   protected

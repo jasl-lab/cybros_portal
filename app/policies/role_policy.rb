@@ -5,8 +5,8 @@ class RolePolicy < ApplicationPolicy
     def resolve
       if user.admin?
         scope.all
-      else
-        scope.where(user_id: user.id).or(scope.where(email: user.email))
+      elsif user.roles.pluck(:role_name).any? { |r| r.in?(%w[HR_IT和人力管理员]) }
+        scope.where('role_name LIKE "HR_%"')
       end
     end
   end
