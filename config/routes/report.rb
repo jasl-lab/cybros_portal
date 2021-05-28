@@ -165,4 +165,10 @@ namespace :report do
     get :export
   end
   resource :customer_receivable_accounts
+
+  resources :roles, only: %i[index show update] do
+    member do
+      delete :user
+    end
+  end
 end

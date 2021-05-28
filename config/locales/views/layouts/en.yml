@@ -72,6 +72,7 @@ en:
         cim_tools: "CIM tools"
         key_customer_details: "Key customer detail"
         organization_charts: "Organization chart"
+        roles: "Roles"
       index_library:
         header: "Thape index library"
         index_summary_tables: "Index summary table"

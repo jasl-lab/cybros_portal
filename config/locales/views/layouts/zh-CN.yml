@@ -72,6 +72,7 @@ zh-CN:
         cim_tools: "天华效率工具"
         key_customer_details: "天华核心客户分析"
         organization_charts: "天华组织架构图"
+        roles: "角色"
       index_library:
         header: "天华指标库"
         index_summary_tables: "指标汇总表"

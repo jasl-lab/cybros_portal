@@ -130,6 +130,15 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if policy(:"Role").index? %>
+        <li class="nav-title">角色人员管理</li>
+        <%= nav_item controller: 'report/roles', html_options: { class: "nav-item" } do %>
+          <%= link_to report_roles_path, class: "nav-link" do %>
+            <i class="nav-icon fas fa-user-circle"></i>
+            <%= t("layouts.sidebar.report.roles") %>
+          <% end %>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
 </div>
