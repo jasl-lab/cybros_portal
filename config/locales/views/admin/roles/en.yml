@@ -23,7 +23,7 @@ en:
           company: "Company"
           clerk_code: "Clerk code"
           chinese_name: "Chinese name"
-          auto_generated: "Auto generated"
+          status: "Status"
           action: "Action"
         action:
           delete: "Remove"

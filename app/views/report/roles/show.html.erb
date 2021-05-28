@@ -21,7 +21,7 @@
               <th><%= t(".table.company") %></th>
               <th><%= t(".table.clerk_code") %></th>
               <th><%= t(".table.chinese_name") %></th>
-              <th><%= t(".table.auto_generated") %></th>
+              <th><%= t(".table.status") %></th>
               <th><%= t(".table.action") %></th>
             </tr>
           </thead>
@@ -35,8 +35,15 @@
               <td><%= user.clerk_code %></td>
               <td><%= user.chinese_name %></td>
               <td>
-                <% if @role.role_users.find { |ru| ru.user_id == user.id }.auto_generated %>
-                  <span class="badge badge-info">true</span>
+                <% if user.admin? %>
+                    <span class="badge badge-success">
+                      <%= t("admin.users.shared.status.admin") %>
+                    </span>
+                <% end %>
+                <% if user.access_locked? %>
+                    <span class="badge badge-danger">
+                      <%= t("admin.users.shared.status.locked") %>
+                    </span>
                 <% end %>
               </td>
               <td><%= link_to t(".action.delete"), user_admin_role_path(@role, user_id: user.id), method: :delete, data: { confirm: t(".action.delete_confirm", role_name: @role.role_name, user_name: user.chinese_name) } %></td>
@@ -51,7 +58,17 @@
               <td><%= user.clerk_code %></td>
               <td><%= user.chinese_name %></td>
               <td>
-                <span class="badge badge-info">true</span>
+                <span class="badge badge-info">自动生成</span>
+                <% if user.admin? %>
+                    <span class="badge badge-success">
+                      <%= t("admin.users.shared.status.admin") %>
+                    </span>
+                <% end %>
+                <% if user.access_locked? %>
+                    <span class="badge badge-danger">
+                      <%= t("admin.users.shared.status.locked") %>
+                    </span>
+                <% end %>
               </td>
               <td></td>
             </tr>

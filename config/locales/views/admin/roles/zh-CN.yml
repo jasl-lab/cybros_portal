@@ -23,7 +23,7 @@ zh-CN:
           company: "公司"
           clerk_code: "员工号"
           chinese_name: "姓名"
-          auto_generated: "自动生成"
+          status: "状态"
           action: "动作"
         action:
           delete: "移除"
