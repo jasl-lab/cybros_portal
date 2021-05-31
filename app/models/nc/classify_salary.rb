@@ -2,6 +2,6 @@
 
 module Nc
   class ClassifySalary < NcLocalTimeRecord
-    self.table_name = 'NC6337.V_CLASSIFY_SALARY'
+    self.table_name = 'NC6337.V_CLASSIFY_SALARY_0527'
   end
 end
