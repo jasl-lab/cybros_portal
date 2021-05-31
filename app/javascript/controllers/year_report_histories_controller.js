@@ -47,6 +47,7 @@ export default class extends Controller {
 
     const contractAmountRate = contractAmount.map(calculate_yearly_rate);
     const workHeadCount = JSON.parse(this.data.get("work_head_count"));
+    const staffHeadCount = JSON.parse(this.data.get("staff_head_count"));
     const avgStaffRealAmount = JSON.parse(this.data.get("avg_staff_real_amount"));
     const avgWorkRealAmount = JSON.parse(this.data.get("avg_work_real_amount"));
     const avgStaffContractAmount = JSON.parse(this.data.get("avg_staff_contract_amount"));
@@ -163,7 +164,7 @@ export default class extends Controller {
 
     const option_avg_dept_amount = {
         legend: {
-            data: ['一线人均生产合同额','全员人均生产合同额','一线人数'],
+            data: ['一线人均生产合同额','全员人均生产合同额','一线人数','全员人数'],
             align: 'left'
         },
         grid: {
@@ -200,7 +201,7 @@ export default class extends Controller {
           }
         },{
           type: 'value',
-          name: '一线人数（人）',
+          name: '一线/全员人数（人）',
           position: 'right',
           axisLine: {
             lineStyle: {
@@ -215,11 +216,24 @@ export default class extends Controller {
           }
         }],
         series: [{
+          name: '全员人数',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'triangle',
+          symbolSize: 8,
+          data: staffHeadCount,
+          color: '#675BBA',
+          barWidth: 20,
+          label: {
+            show: true,
+            position: 'top'
+          }
+        },{
           name: '一线人数',
           type: 'line',
           yAxisIndex: 1,
           symbol: 'circle',
-          symbolSize: 8,
+          symbolSize: 6,
           data: workHeadCount,
           color: '#675BBA',
           barWidth: 20,
@@ -365,7 +379,7 @@ export default class extends Controller {
 
     const option_avg_contract_amount = {
         legend: {
-            data: ['一线人均商务合同额','全员人均商务合同额','一线人数'],
+            data: ['一线人均商务合同额','全员人均商务合同额','一线人数','全员人数'],
             align: 'left'
         },
         grid: {
@@ -402,7 +416,7 @@ export default class extends Controller {
           }
         },{
           type: 'value',
-          name: '一线人数（人）',
+          name: '一线/全员人数（人）',
           position: 'right',
           axisLine: {
             lineStyle: {
@@ -417,11 +431,24 @@ export default class extends Controller {
           }
         }],
         series: [{
+          name: '全员人数',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'triangle',
+          symbolSize: 8,
+          data: staffHeadCount,
+          color: '#675BBA',
+          barWidth: 20,
+          label: {
+            show: true,
+            position: 'top'
+          }
+        },{
           name: '一线人数',
           type: 'line',
           yAxisIndex: 1,
           symbol: 'circle',
-          symbolSize: 8,
+          symbolSize: 6,
           data: workHeadCount,
           color: '#675BBA',
           barWidth: 20,
@@ -567,7 +594,7 @@ export default class extends Controller {
 
     const option_avg_real_amount = {
         legend: {
-            data: ['一线人均实收款','全员人均实收款','一线人数'],
+            data: ['一线人均实收款','全员人均实收款','一线人数','全员人数'],
             align: 'left'
         },
         grid: {
@@ -604,7 +631,7 @@ export default class extends Controller {
           }
         },{
           type: 'value',
-          name: '一线人数（人）',
+          name: '一线/全员人数（人）',
           position: 'right',
           axisLine: {
             lineStyle: {
@@ -619,11 +646,24 @@ export default class extends Controller {
           }
         }],
         series: [{
+          name: '全员人数',
+          type: 'line',
+          yAxisIndex: 1,
+          symbol: 'triangle',
+          symbolSize: 8,
+          data: staffHeadCount,
+          color: '#675BBA',
+          barWidth: 20,
+          label: {
+            show: true,
+            position: 'top'
+          }
+        },{
           name: '一线人数',
           type: 'line',
           yAxisIndex: 1,
           symbol: 'circle',
-          symbolSize: 8,
+          symbolSize: 6,
           data: workHeadCount,
           color: '#675BBA',
           barWidth: 20,
