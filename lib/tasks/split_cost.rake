@@ -238,7 +238,7 @@ namespace :split_cost do
 
     Nc::ClassifySalary.where(ym: cyearperiod).each do |cs|
       next if cs.classify_post.blank?
-      user_id = User.find_by(clerk_code: cs.clerkcode)&.id
+      user_id = User.joins(:department_users).find_by(clerk_code: cs.clerkcode)&.id
       if user_id.blank?
         puts "clerkcode #{cs.clerkcode} not existing"
         next
