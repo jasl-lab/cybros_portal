@@ -610,6 +610,69 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "frontpart", limit: 53
     t.float "rearpart", limit: 53
     t.float "parttotal", limit: 53
+    t.string "crmcode", limit: 45
+    t.string "crmshort", limit: 45
+    t.integer "cricyear"
+    t.string "crmbusiunitcode", limit: 45
+    t.string "crmbusiunitname", limit: 200
+  end
+
+  create_table "CRM_SACONTRACTPRICE_BAT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "salescontractid", limit: 50
+    t.string "projectcode", limit: 50
+    t.string "projectname", limit: 200
+    t.string "salescontractcode", limit: 50
+    t.string "salescontractname", limit: 200
+    t.string "contractstatus", limit: 50
+    t.string "contractstatusname", limit: 50
+    t.string "contractcategory", limit: 50
+    t.string "contractcategoryname", limit: 50
+    t.string "contractproperty", limit: 50
+    t.string "contractpropertyname", limit: 50
+    t.string "belongcompanyname", limit: 50
+    t.string "clientproperty", limit: 50
+    t.float "realamounttotal", limit: 53
+    t.string "scaletype", limit: 50
+    t.string "scaletypecnname", limit: 50
+    t.float "scalearea", limit: 53
+    t.string "area", limit: 50
+    t.string "provincecode", limit: 50
+    t.string "provincename", limit: 50
+    t.string "city", limit: 50
+    t.string "cityname", limit: 50
+    t.string "proareacode", limit: 50
+    t.string "areaname", limit: 50
+    t.date "filingtime"
+    t.string "businessltd", limit: 50
+    t.string "businessltdcode", limit: 50
+    t.string "businessltdname", limit: 50
+    t.string "businessdepartments", limit: 50
+    t.string "businessdepartmentscode", limit: 50
+    t.string "businessdepartmentsname", limit: 50
+    t.string "operationgenre", limit: 50
+    t.string "operationgenrename", limit: 50
+    t.string "projectgener", limit: 50
+    t.string "projectgenername", limit: 50
+    t.string "buildinggenre", limit: 50
+    t.string "buildinggenrename", limit: 50
+    t.string "projectbigstage", limit: 50
+    t.string "projectbigstagename", limit: 50
+    t.string "stage", limit: 50
+    t.string "stagename", limit: 200
+    t.float "scale", limit: 53
+    t.string "units", limit: 50
+    t.string "unitsname", limit: 50
+    t.float "univalence", limit: 53
+    t.float "discountprice", limit: 53
+    t.float "discounttotal", limit: 53
+    t.float "subtotal", limit: 53
+    t.date "savedate"
+    t.string "citylevel", limit: 50
+    t.string "projecttype", limit: 50
+    t.string "projectstage", limit: 50
+    t.float "frontpart", limit: 53
+    t.float "rearpart", limit: 53
+    t.float "parttotal", limit: 53
   end
 
   create_table "CRM_TOP50", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -641,6 +704,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "orgcode", limit: 50
     t.string "deptcode_sum", limit: 50
     t.string "deptcode", limit: 50, null: false
+    t.date "savedate", null: false
     t.float "staff_now", limit: 53
     t.float "staff_pro", limit: 53
     t.float "staff_art", limit: 53
@@ -654,7 +718,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "realdate_art", limit: 53
     t.float "predict_staff_in", limit: 53
     t.float "deptdate", limit: 53
-    t.date "savedate", null: false
     t.float "dept_sum_turn_in", limit: 53
     t.float "dept_sum_turn_out", limit: 53
     t.float "org_turn_in", limit: 53
