@@ -118,7 +118,7 @@ namespace :import_export do
         dept_code = cps[3]
         dept_name = cps[4]
         org_code = cps[5]
-        pk_poststd = cps[6]
+        nc_pk_post = cps[6]
         b_postcode = cps[7]
         b_postname = cps[8]
         dept_category = cps[9]
@@ -138,7 +138,7 @@ namespace :import_export do
           position.name = position_name
         end
         pos.update(functional_category: functional_category, name: position_name, department_id: dept.id,
-          pk_poststd: pk_poststd, b_postcode: b_postcode, b_postname: b_postname)
+          nc_pk_post: nc_pk_post, b_postcode: b_postcode, b_postname: b_postname)
 
         pu = PositionUser.find_or_create_by!(user_id: user.id, position_id: pos.id)
         ujt = SplitCost::UserJobType.find_by(code: job_type_code)

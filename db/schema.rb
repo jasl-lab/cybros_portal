@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_054732) do
+ActiveRecord::Schema.define(version: 2021_06_02_031324) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -374,9 +374,9 @@ ActiveRecord::Schema.define(version: 2021_05_27_054732) do
     t.bigint "department_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "pk_poststd"
     t.string "b_postcode"
     t.string "b_postname"
+    t.string "nc_pk_post"
     t.index ["department_id"], name: "index_positions_on_department_id"
   end
 
