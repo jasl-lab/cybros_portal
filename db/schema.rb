@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_060714) do
+ActiveRecord::Schema.define(version: 2021_06_02_070633) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -564,6 +564,12 @@ ActiveRecord::Schema.define(version: 2021_06_02_060714) do
     t.string "split_cost_item_name"
     t.string "split_cost_item_category"
     t.string "from_dept_code"
+  end
+
+  create_table "tian_zhen_login_counts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.integer "login_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "user_cost_types", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|

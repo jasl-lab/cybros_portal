@@ -24,4 +24,8 @@ every 1.day, at: '4:50' do
   rake 'sync_nc:all'
 end
 
+every :hour do
+  runner 'Company::TianZhenLoginCount.record_count'
+end
+
 # Learn more: http://github.com/javan/whenever
