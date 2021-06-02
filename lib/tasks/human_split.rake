@@ -122,7 +122,6 @@ namespace :human_split do
 
       user = scs.user
       # next unless user.id == 178
-      next if user.position_users.count.zero?
 
       user_mpts = user.user_monthly_part_time_split_rates.where(month: cyearperiod_month_start,
         user_salary_classification_id: scs.user_salary_classification_id)
@@ -142,11 +141,14 @@ namespace :human_split do
         end
       else
         position_user = user.position_users.find_by(main_position: true) || user.position_users.last
-        query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user.id,
+        position_user_id = position_user&.id
+        position_id = position_user&.position_id || Position.find_by(nc_pk_post: scs.nc_pk_post)&.id
+        main_position = position_user&.main_position || true
+        query_job_type_id, final_cost_type_id = get_user_cost_type_id(cyearperiod_month_start, user.id, position_user_id,
           scs.user_job_type_id, scs.user_salary_classification_id)
         SplitCost::UserSplitClassifySalaryPerMonth.create(month: cyearperiod_month_start,
-          user_id: user.id, position_id: position_user.position_id,
-          user_job_type_id: query_job_type_id, main_position: position_user.main_position,
+          user_id: user.id, position_id: position_id,
+          user_job_type_id: query_job_type_id, main_position: main_position,
           user_cost_type_id: final_cost_type_id, amount: scs.amount)
       end
     end
