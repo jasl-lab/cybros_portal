@@ -26,10 +26,10 @@ namespace :human_split do
       user_id = User.find_by(clerk_code: cs.clerkcode)&.id if user_id.blank?
 
       if user_id.blank?
-        puts "clerkcode #{cs.clerkcode} not existing"
+        puts "#{cs.psnname} clerkcode #{cs.clerkcode} not existing"
         next
       else
-        puts "#{cs.clerkcode}: #{cs.classify_post} #{cs.基本工资}  #{cs.预发设计费}  #{cs.公司补贴}  #{cs.资质补贴}  #{cs.预发待扣}  #{cs.其他}"
+        # puts "#{cs.clerkcode}: #{cs.classify_post} #{cs.基本工资}  #{cs.预发设计费}  #{cs.公司补贴}  #{cs.资质补贴}  #{cs.预发待扣}  #{cs.其他}"
       end
       belong_company_name = cs.orgname
       belong_department_name = nil
@@ -123,7 +123,7 @@ namespace :human_split do
       next if scs.amount.zero?
 
       user = scs.user
-      # next unless user.id == 178
+      # next unless user.id == 7464
 
       user_mpts = user.user_monthly_part_time_split_rates.where(month: cyearperiod_month_start,
         user_salary_classification_id: scs.user_salary_classification_id)
