@@ -76,41 +76,18 @@
 <% end %>
       </div>
       <div class="col-lg-12">
-        <p>说明：</p>
+        <h6>待更新进度的项目：</h6>
         <p>
-<% if browser.firefox? || browser.safari? %>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
-  <mi mathvariant="bold-italic" mathcolor="#000000">项目里程碑更新率</mi>
-  <mo mathcolor="#000000">=</mo>
-  <mfrac mathcolor="#000000">
-    <mrow>
-      <mi mathcolor="#000000">已签约</mi>
-      <mo mathcolor="#000000">&amp;</mo>
-      <mi mathcolor="#000000">正常运行</mi>
-      <mo mathcolor="#000000">&amp;</mo>
-      <mi mathcolor="#000000">当月填报工时</mi>
-      <mo mathcolor="#000000">&gt;</mo>
-      <mn mathcolor="#000000">200小时</mn>
-      <mo mathcolor="#000000">&amp;</mo>
-      <mi mathcolor="#000000">里程碑在当月更新</mi>
-    </mrow>
-    <mrow>
-      <mi mathcolor="#000000">已签约</mi>
-      <mo mathcolor="#000000">&amp;</mo>
-      <mi mathcolor="#000000">正常运行</mi>
-      <mo mathcolor="#000000">&amp;</mo>
-      <mi mathcolor="#000000">当月填报工时</mi>
-      <mo mathcolor="#000000">&gt;</mo>
-      <mn mathcolor="#000000">200小时</mn>
-    </mrow>
-  </mfrac>
-  <mtext mathcolor="#000000"> （不计算里程碑100%进度的项目）</mtext>
-</math>
-<% else %>
-  <%= image_tag 'project_milestore_formula.png', width: '90%' %>
-<% end %>
+          <ol>
+            <li>项目进度<80%，且距离上次进度更新后新增填报工时大于200小时；</li>
+            <li>80%≤项目进度<90%，且距离上次进度更新时间大于半年；</li>
+            <li>项目进度≥90%，且距离上次进度更新时间大于一年；</li>
+            <li>项目的已结算产值>完成产值。</li>
+          </ol>
         </p>
-        <p>表格（）内为更新里程碑项目数/总项目数，标记黄色的为本月末更新过项目里程碑的主创/设总。</p>
+        <h6>待更新项目仅显示已签约、正常运行，且项目进度不等于100%的项目。</h6>
+        <h6>表格（）内为本月已更新进度的项目数/本月需要更新进度的项目数，标记黄色的为本月未更新完项目进度的主创/设总。</h6>
+        <h6>项目进度更新率 = (本月已更新进度的项目数) / (本月需要更新进度的项目数)</h6>
       </div>
     </div>
   </div>
