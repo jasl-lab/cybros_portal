@@ -52,7 +52,8 @@ class Report::LaborCostsController < Report::BaseController
     else
       cspms
     end.select('users.clerk_code, users.chinese_name, departments.name department_name, departments.company_name, user_cost_types.name user_cost_type_name, sum(amount) total')
-      .joins(:user, { position: :department }, :user_cost_type)
+      .joins(:user, :position, :user_cost_type)
+      .joins("LEFT JOIN `departments` ON `departments`.`id` = `positions`.`department_id` ")
       .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
       .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"user_cost_types.name")
 
