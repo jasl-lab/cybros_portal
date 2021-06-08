@@ -100,22 +100,6 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if current_user.present? && policy(Bi::CrmYearReport).show? %>
-          <%= nav_item controller: 'report/crm_year_reports', action: 'show', html_options: { class: "nav-item" } do %>
-            <%= report_link_to report_crm_year_report_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-podcast"></i>
-              <%= t("layouts.sidebar.operation.crm_year_report") %>
-            <% end %>
-          <% end %>
-        <% end %>
-        <% if current_user.present? && policy(Bi::CrmClientReceive).show? %>
-          <%= nav_item controller: 'report/customer_receivable_accounts', action: 'show', html_options: { class: "nav-item" } do %>
-            <%= report_link_to report_customer_receivable_accounts_path, class: "nav-link" do %>
-              <i class="nav-icon fas fa-rss-square"></i>
-              <%= t("layouts.sidebar.operation.customer_receivable_account") %>
-            <% end %>
-          <% end %>
-        <% end %>
         <li class="nav-item nav-dropdown <%= %w[report/group_daily_workloadings report/complete_values report/group_contract_holds report/group_predict_contracts].include?(params[:controller]) && params[:action] == 'show' ? 'open' : '' %>">
           <a class="nav-link nav-dropdown-toggle" href="#">
           <i class="nav-icon fas fa-map"></i> 子公司运营情况总览</a>
@@ -154,7 +138,26 @@
             <% end %>
           </ul>
         </li>
-      <% end %>
+    <% end %>
+    <% if current_user.present? && (policy(Bi::CrmYearReport).show? || policy(Bi::CrmClientReceive).show?) %>
+      <li class="nav-title">客户分析</li>
+        <% if current_user.present? && policy(Bi::CrmYearReport).show? %>
+          <%= nav_item controller: 'report/crm_year_reports', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= report_link_to report_crm_year_report_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-podcast"></i>
+              <%= t("layouts.sidebar.operation.crm_year_report") %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if current_user.present? && policy(Bi::CrmClientReceive).show? %>
+          <%= nav_item controller: 'report/customer_receivable_accounts', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= report_link_to report_customer_receivable_accounts_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-rss-square"></i>
+              <%= t("layouts.sidebar.operation.customer_receivable_account") %>
+            <% end %>
+          <% end %>
+        <% end %>
+    <% end %>
       <li class="nav-title">子公司所级签约情况</li>
         <% if current_user.present? && policy(Bi::ContractSignDept).show? %>
           <%= nav_item controller: 'report/subsidiary_contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
