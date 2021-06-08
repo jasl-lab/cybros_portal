@@ -305,7 +305,7 @@ export default class extends Controller {
           }
         },
         legend: {
-            data: ['人均应收款（财务+业务）（万元）'],
+            data: ['人均应收款（财务+业务）（万元）','本年回款率'],
             align: 'left'
         },
         grid: {
