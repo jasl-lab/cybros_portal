@@ -42,10 +42,10 @@ namespace :human_split do
       basics_post = cs.basics_post
 
       position = Position.find_by(nc_pk_post: nc_pk_post)
-      if position.present?
+      if position.present? && nc_deptcode.present?
         Position.update(name: postname, b_postcode: basics_postcode, b_postname: basics_post,
           department_id: Department.find_by(dept_code: nc_deptcode)&.id)
-      else
+      elsif position.blank?
         Position.create(name: postname, b_postcode: basics_postcode, b_postname: basics_post,
           nc_pk_post: nc_pk_post, department_id: Department.find_by(dept_code: nc_deptcode)&.id)
       end
