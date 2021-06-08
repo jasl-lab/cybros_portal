@@ -139,9 +139,11 @@
           </ul>
         </li>
     <% end %>
-    <% if current_user.present? && (policy(Bi::CrmYearReport).show? || policy(Bi::CrmClientReceive).show?) %>
+    <% show_crm_year_report = policy(Bi::CrmYearReport).show? %>
+    <% show_crm_client_receive = policy(Bi::CrmClientReceive).show? %>
+    <% if current_user.present? && (show_crm_year_report || show_crm_client_receive) %>
       <li class="nav-title">客户分析</li>
-        <% if current_user.present? && policy(Bi::CrmYearReport).show? %>
+        <% if show_crm_year_report %>
           <%= nav_item controller: 'report/crm_year_reports', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_crm_year_report_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-podcast"></i>
@@ -149,7 +151,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if current_user.present? && policy(Bi::CrmClientReceive).show? %>
+        <% if show_crm_client_receive %>
           <%= nav_item controller: 'report/customer_receivable_accounts', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_customer_receivable_accounts_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-rss-square"></i>
@@ -158,8 +160,12 @@
           <% end %>
         <% end %>
     <% end %>
+    <% show_contract_sign_dept = policy(Bi::ContractSignDept).show? %>
+    <% show_contract_sign_detail_date = policy(Bi::ContractSignDetailDate).show? %>
+    <% show_track_contract = policy(Bi::TrackContract).show? %>
+    <% if current_user.present? && (show_contract_sign_dept || show_contract_sign_detail_date || show_track_contract) %>
       <li class="nav-title">子公司所级签约情况</li>
-        <% if current_user.present? && policy(Bi::ContractSignDept).show? %>
+        <% if show_contract_sign_dept %>
           <%= nav_item controller: 'report/subsidiary_contract_signings', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_subsidiary_contract_signing_path(view_deptcode_sum: true, company_name: current_user.user_company_short_name), class: "nav-link" do %>
               <i class="nav-icon fas fa-file-contract"></i>
@@ -167,7 +173,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if current_user.present? && policy(Bi::ContractSignDetailDate).show? %>
+        <% if show_contract_sign_detail_date %>
           <%= nav_item controller: 'report/contract_sign_details', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_contract_sign_detail_path, class: "nav-link" do %>
               <i class="nav-icon fas fa-list"></i>
@@ -175,7 +181,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <% if current_user.present? && policy(Bi::TrackContract).show? %>
+        <% if show_track_contract %>
           <%= nav_item controller: 'report/predict_contracts', action: 'show', html_options: { class: "nav-item" } do %>
             <%= report_link_to report_predict_contract_path(view_deptcode_sum: true), class: "nav-link" do %>
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -183,6 +189,7 @@
             <% end %>
           <% end %>
         <% end %>
+    <% end %>
       <li class="nav-title">子公司所级收款情况</li>
         <% if current_user.present? && policy(Bi::SubCompanyRealReceive).show? %>
           <%= nav_item controller: 'report/subsidiary_department_receives', action: 'show', html_options: { class: "nav-item" } do %>
