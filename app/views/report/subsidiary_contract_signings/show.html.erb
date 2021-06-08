@@ -34,32 +34,39 @@
     <h3 class="page-title">
       <%= t(".title", company: @company_name) %>
     </h3>
-    <%= form_tag report_subsidiary_contract_signing_path, method: :get, class: 'form-inline' do -%>
+    <%= form_tag report_subsidiary_contract_signing_path, method: :get do -%>
       <%= hidden_field_tag :view_deptcode_sum, @view_deptcode_sum %>
       <% if params[:in_iframe].present? %>
         <%= hidden_field_tag :in_iframe, true -%>
       <% end %>
-      <div class="form-group">
-        <label class="mr-1"><%= t(".company_name") -%>：</label>
-        <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control' %>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label class="mr-1"><%= t(".month_name") -%>：</label>
+          <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="mr-1"><%= t(".company_name") -%>：</label>
+          <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="mr-1"><%= t(".period_mean_ref") -%>：</label>
+          <%= text_field_tag 'period_mean_ref', @period_mean_ref, class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="mr-1"><%= t(".contract_amounts_per_staff_ref") -%>：</label>
+          <%= text_field_tag 'cp_contract_amounts_per_staff_ref', @cp_contract_amounts_per_staff_ref, class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="mr-1"><%= t(".manual_set_staff_ref") -%></label>
+          <%= check_box_tag 'manual_set_staff_ref', @manual_set_staff_ref, @manual_set_staff_ref, class: 'form-control' %>
+        </div>
+        <div class="form-group col-md-1">
+          <label class="mr-1">&nbsp;</label>
+          <div class="form-control form-button">
+            <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label class="mr-1"><%= t(".period_mean_ref") -%>：</label>
-        <%= text_field_tag 'period_mean_ref', @period_mean_ref, class: 'form-control form-control2' %>
-      </div>
-      <div class="form-group">
-        <label class="mr-1"><%= t(".contract_amounts_per_staff_ref") -%>：</label>
-        <%= text_field_tag 'cp_contract_amounts_per_staff_ref', @cp_contract_amounts_per_staff_ref, class: 'form-control form-control2' %>
-      </div>
-      <div class="form-group mx-2">
-        <%= check_box_tag 'manual_set_staff_ref', @manual_set_staff_ref, @manual_set_staff_ref, class: 'form-control' %>
-        <label class="mr-1"> <%= t(".manual_set_staff_ref") -%></label>
-      </div>
-      <div class="form-group">
-        <label class="mr-1"><%= t(".month_name") -%>：</label>
-        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
-      </div>
-      <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
     <% end -%>
 
     <% unless params[:in_iframe].present? %>
