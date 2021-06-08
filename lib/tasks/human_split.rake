@@ -35,13 +35,19 @@ namespace :human_split do
       belong_department_name = nil
       job_position = cs.postname
       user_job_type_id = SplitCost::UserJobType.find_by!(code: cs.classify_post).id
+      nc_deptcode = cs.nc_deptcode
       nc_pk_post = cs.nc_pk_post
       postname = cs.postname
       basics_postcode = cs.basics_postcode
       basics_post = cs.basics_post
 
-      if Position.find_by(nc_pk_post: nc_pk_post).blank?
-        Position.create(name: postname, b_postcode: basics_postcode, b_postname: basics_post, nc_pk_post: nc_pk_post)
+      position = Position.find_by(nc_pk_post: nc_pk_post)
+      if position.present?
+        Position.update(name: postname, b_postcode: basics_postcode, b_postname: basics_post,
+          department_id: Department.find_by(dept_code: nc_deptcode)&.id)
+      else
+        Position.create(name: postname, b_postcode: basics_postcode, b_postname: basics_post,
+          nc_pk_post: nc_pk_post, department_id: Department.find_by(dept_code: nc_deptcode)&.id)
       end
 
       upsert_user_split_classify_salary(user_id, cyearperiod_month_start, 基本工资_classification_id,
