@@ -10,7 +10,7 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
     authorize Bi::CompleteValueDept
     current_user_companies = current_user.user_company_names
     current_company = current_user_companies.first
-    if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
+    short_company_name = if current_user.roles.pluck(:report_view_all).any? || current_user.admin?
       all_orgcodes = Bi::CompleteValueDept
         .joins('LEFT JOIN ORG_ORDER on ORG_ORDER.org_code = COMPLETE_VALUE_DEPT.orgcode')
         .where('ORG_ORDER.org_order is not null')
@@ -20,13 +20,15 @@ class Report::SubsidiaryCompleteValuesController < Report::BaseController
       all_company_names = all_orgcodes.collect do |c|
         Bi::OrgShortName.company_long_names_by_orgcode.fetch(c, c)
       end
-      @selected_company_name = params[:company_name]&.strip || current_company
+      params[:company_name].presence || current_company
     else
       all_company_names = current_user_companies
-      @selected_company_name = params[:company_name]&.strip || current_company
+      params[:company_name].presence || current_company
     end
+
     @all_short_company_names = all_company_names.collect { |c| Bi::OrgShortName.company_short_names.fetch(c, c) }
-    @selected_company_name = Bi::OrgShortName.company_long_names.fetch(@selected_company_name, @selected_company_name)
+    @selected_company_name = Bi::OrgShortName.company_long_names.fetch(short_company_name, short_company_name)
+
     prepare_meta_tags title: t('.title', company: @selected_company_name)
     orgcode = Bi::OrgShortName.org_code_by_long_name.fetch(@selected_company_name, @selected_company_name)
     @selected_short_company_name = Bi::OrgShortName.company_short_names.fetch(@selected_company_name, @selected_company_name)
