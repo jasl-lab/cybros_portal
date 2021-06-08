@@ -45,7 +45,7 @@
               <th><%= t('.position_name') -%></th>
               <th><%= t('.functional_category') -%></th>
               <th><%= t('.user_status.title') -%></th>
-              <th><%= t('.user_cost_type') -%></th>
+              <th><%= t('.user_job_type') -%></th>
               <th class="text-right"><%= t('.amount') -%></th>
             </tr>
           </thead>
@@ -65,7 +65,7 @@
                     </span>
                   <% end %>
                 </td>
-                <td><%= cspm.user_cost_type_name -%></td>
+                <td><%= cspm.user_job_type_name -%></td>
                 <td class="text-right"><%= number_with_precision(cspm.total, precision: 0) -%></td>
               </tr>
             <% end %>

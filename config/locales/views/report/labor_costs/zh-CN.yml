@@ -13,7 +13,7 @@ zh-CN:
           locked: "已离职"
         clerk_code: "工号"
         chinese_name: "姓名"
-        user_cost_type: "成本性质"
+        user_job_type: "岗位类别"
         amount: "金额"
         month_name: "查询年月"
         confirm: "确认"
