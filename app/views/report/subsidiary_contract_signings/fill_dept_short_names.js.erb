@@ -1,0 +1,6 @@
+var selectize_ctl = $("#select-subsidiary-contract-signing-dept-code")[0].selectize;
+selectize_ctl.clear();
+selectize_ctl.clearOptions(true);
+<% @dept_short_names.each do |d| %>
+  selectize_ctl.addOption({text: '<%= d.first -%>', value: '<%= d.second -%>'});
+<% end %>

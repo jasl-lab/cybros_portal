@@ -77,6 +77,7 @@ namespace :report do
       get :drill_down_amount
       get :drill_down_date
       get :cp_drill_down
+      get :fill_dept_short_names
     end
   end
   resource :complete_value, only: %i[show]

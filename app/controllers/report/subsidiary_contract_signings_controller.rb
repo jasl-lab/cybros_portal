@@ -230,6 +230,33 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     authorize @data.first if @data.present?
   end
 
+  def fill_dept_short_names
+    view_deptcode_sum = params[:view_deptcode_sum] == 'true'
+    month_name = params[:month_name]
+    end_of_month = Date.parse(month_name).end_of_month
+    beginning_of_year = Date.parse(month_name).beginning_of_year
+    short_company_name = params[:company_name]
+    org_code = Bi::OrgShortName.org_code_by_short_name.fetch(short_company_name, short_company_name)
+
+    @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept, :group_resolve).last_available_date(end_of_month)
+    orig_cp_data = policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: beginning_of_year..end_of_month).where(date: @last_available_production_dept_date)
+      .where(orgcode: org_code)
+      .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', end_of_month)
+      .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', end_of_month)
+
+    @dept_short_names = if view_deptcode_sum
+      orig_cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum'))
+    else
+      orig_cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
+        .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode')
+        .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode')
+        .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode'))
+    end.collect { |r| [Bi::PkCodeName.mapping2deptcode.fetch(r.deptcode, r.deptcode), r.deptcode] }
+  end
+
   private
 
     def set_breadcrumbs

@@ -42,7 +42,7 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label class="mr-1"><%= t(".company_name") -%>：</label>
-          <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control' %>
+          <%= select_tag 'company_name', options_for_select(@company_short_names, @short_company_name), class: 'form-control-plaintext form-control', data: { remote: true, type: :script, url: url_for(controller: 'report/subsidiary_contract_signings', action: 'fill_dept_short_names', format: 'js', params: { month_name: @month_name, view_deptcode_sum: @view_deptcode_sum }) } %>
         </div>
         <div class="form-group col-md-2">
           <label class="mr-1"><%= t(".month_name") -%>：</label>
@@ -64,7 +64,7 @@
       <div class="form-inline">
         <div class="form-group">
           <label class="mr-1"><%= t(".dept_names") -%>：</label>
-          <%= select_tag 'depts', options_for_select(@department_options, @depts_options), {include_blank: true, multiple: true, class: 'form-control' } %>
+          <%= select_tag 'depts', options_for_select(@department_options, @depts_options), {include_blank: true, multiple: true, class: 'form-control', id: 'select-subsidiary-contract-signing-dept-code' } %>
         </div>
         <div class="form-control form-button">
           <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
