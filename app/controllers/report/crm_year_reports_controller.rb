@@ -33,6 +33,8 @@ class Report::CrmYearReportsController < Report::BaseController
            .group(:year)
            .order(:year)
 
+        @orgs_options = all_company_orgcodes if @orgs_options.blank?
+
         @years = @data.collect(&:year)
         @top20s = @data.collect { |d| (d.top20 / 100_0000.0).round(1) }
         @top20to50s = @data.collect { |d| (d.top20to50 / 100_0000.0).round(1) }
