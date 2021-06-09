@@ -43,7 +43,6 @@
               <th><%= t('.company_name') -%></th>
               <th><%= t('.department') -%></th>
               <th><%= t('.position_name') -%></th>
-              <th><%= t('.functional_category') -%></th>
               <th><%= t('.user_status.title') -%></th>
               <th><%= t('.user_job_type') -%></th>
               <th class="text-right"><%= t('.amount') -%></th>
@@ -57,7 +56,6 @@
                 <td><%= cspm.company_name -%></td>
                 <td><%= cspm.department_name -%></td>
                 <td><%= cspm.position_name -%></td>
-                <td><%= cspm.functional_category -%></td>
                 <td>
                   <% if cspm.locked_at.present? %>
                     <span class="badge badge-danger">

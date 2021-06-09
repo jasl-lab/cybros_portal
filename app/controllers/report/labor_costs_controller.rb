@@ -66,7 +66,7 @@ class Report::LaborCostsController < Report::BaseController
       format.csv do
         render_csv_header "Labor cost #{@month_name}"
         csv_res = CSV.generate do |csv|
-          csv << %w(工号 姓名 所属公司 所属部门 岗位 成本类别 是否在职 成本性质 查询年月 金额)
+          csv << %w(工号 姓名 所属公司 所属部门 岗位 是否在职 成本性质 查询年月 金额)
           cspms.each do |d|
             values = []
             values << d.clerk_code
@@ -74,7 +74,6 @@ class Report::LaborCostsController < Report::BaseController
             values << d.company_name
             values << d.department_name
             values << d.position_name
-            values << d.functional_category
             values << (d.locked_at.present? ? '已离职' : '')
             values << d.user_job_type_name
             values << @month_name

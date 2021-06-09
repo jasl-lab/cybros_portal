@@ -7,7 +7,6 @@ en:
         company_name: "Company name"
         department: "Department"
         position_name: "Position name"
-        functional_category: "Function category"
         user_status:
           title: "User status"
           locked: "Resigned"
