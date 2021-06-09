@@ -11,6 +11,8 @@ en:
         period_mean_ref: "Period mean ref"
         contract_amounts_per_staff_ref: "Contract amounts per staff ref"
         manual_set_staff_ref: "Manual set staff ref"
+        company_name: "Company name"
+        dept_names: "Department names"
         confirm: "Confirm"
       amount_modal:
         table:

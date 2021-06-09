@@ -12,6 +12,7 @@ zh-CN:
         contract_amounts_per_staff_ref: "人均合同额预警"
         manual_set_staff_ref: "手工设置预警"
         company_name: "公司名"
+        dept_names: "部门名称"
         confirm: "确认"
       amount_modal:
         table:

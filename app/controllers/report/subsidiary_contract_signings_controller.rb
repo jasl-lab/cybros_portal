@@ -46,33 +46,44 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       .collect { |r| Bi::OrgShortName.company_short_names_by_orgcode.fetch(r.orgcode, r.orgcode) }
 
     org_code = Bi::OrgShortName.org_code_by_long_name.fetch(@company_name, @company_name)
+    @short_company_name = Bi::OrgShortName.company_short_names_by_orgcode.fetch(org_code, org_code)
 
-    data = policy_scope(Bi::ContractSignDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_sign_dept_date)
+    orig_data = policy_scope(Bi::ContractSignDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_sign_dept_date)
       .where(orgcode: org_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @end_of_month)
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @end_of_month)
 
-    data = if @view_deptcode_sum
-      data.select('CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count')
+    orig_data = if @view_deptcode_sum
+      orig_data.select('CONTRACT_SIGN_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode_sum')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum')
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode_sum'))
     else
-      data.select('CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count')
+      orig_data.select('CONTRACT_SIGN_DEPT.deptcode, ROUND(SUM(IFNULL(contract_amount,0))/10000, 2) sum_contract_amount, SUM(IFNULL(contract_period,0)) sum_contract_period, SUM(count) sum_contract_amount_count')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_SIGN_DEPT.deptcode')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode')
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_SIGN_DEPT.deptcode'))
     end
 
-    @all_department_codes = data.collect(&:deptcode)
-
-    @department_names = @all_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
+    @depts_options = params[:depts]
+    @all_department_codes = orig_data.collect(&:deptcode)
+    real_department_short_names = @all_department_codes.collect { |d| Bi::OrgReportDeptOrder.department_names(@last_available_sign_dept_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    @depts_options = @all_department_codes if @depts_options.blank?
+    @department_options = real_department_short_names.zip(@all_department_codes)
 
     @staff_per_dept_code = if org_code == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_count_per_dept_code_by_date(@end_of_month)
     else
       Bi::YearAvgWorker.worker_per_dept_code_by_date_and_sum(org_code, @end_of_month, @view_deptcode_sum)
     end
+
+    data = if @view_deptcode_sum
+      orig_data.where(deptcode_sum: @depts_options)
+    else
+      orig_data.where(deptcode: @depts_options)
+    end
+
+    @department_names = data.collect { |d| Bi::PkCodeName.mapping2deptcode.fetch(d.deptcode, d.deptcode) }
 
     @contract_amounts = data.collect { |d| d.sum_contract_amount.to_f.round(0) }
     @contract_amount_max = @contract_amounts.max&.round(-2) + 100
@@ -93,22 +104,29 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     @last_available_production_dept_date = policy_scope(Bi::ContractProductionDept, :group_resolve).last_available_date(@end_of_month)
-    cp_data = policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_production_dept_date)
+    orig_cp_data = policy_scope(Bi::ContractProductionDept, :group_resolve).where(filingtime: @beginning_of_year..@end_of_month).where(date: @last_available_production_dept_date)
       .where(orgcode: org_code)
       .where("ORG_REPORT_DEPT_ORDER.是否显示 = '1'").where('ORG_REPORT_DEPT_ORDER.开始时间 <= ?', @end_of_month)
       .where('ORG_REPORT_DEPT_ORDER.结束时间 IS NULL OR ORG_REPORT_DEPT_ORDER.结束时间 >= ?', @end_of_month)
 
-    cp_data = if @view_deptcode_sum
-      cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
+    orig_cp_data = if @view_deptcode_sum
+      orig_cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode_sum deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode_sum')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum')
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode_sum'))
     else
-      cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
+      orig_cp_data.select('CONTRACT_PRODUCTION_DEPT.deptcode, ROUND(SUM(IFNULL(total,0))/10000, 2) cp_amount')
         .joins('LEFT JOIN ORG_REPORT_DEPT_ORDER on ORG_REPORT_DEPT_ORDER.编号 = CONTRACT_PRODUCTION_DEPT.deptcode')
         .group('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode')
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode'))
     end
+
+    cp_data = if @view_deptcode_sum
+      orig_cp_data.where(deptcode_sum: @depts_options)
+    else
+      orig_cp_data.where(deptcode: @depts_options)
+    end
+
     @all_cp_department_codes = cp_data.collect(&:deptcode)
     @cp_department_names = @all_cp_department_codes.collect { |c| Bi::PkCodeName.mapping2deptcode.fetch(c, c) }
     @cp_contract_amounts = cp_data.collect { |d| d.cp_amount.round(0) }
