@@ -66,10 +66,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
     end
 
     @depts_options = params[:depts]
-    @all_department_codes = orig_data.collect(&:deptcode)
-    real_department_short_names = @all_department_codes.collect { |d| Bi::OrgReportDeptOrder.department_names(@last_available_sign_dept_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
-    @depts_options = @all_department_codes if @depts_options.blank?
-    @department_options = real_department_short_names.zip(@all_department_codes)
+    all_orig_department_codes = orig_data.collect(&:deptcode)
+    real_department_short_names = all_orig_department_codes.collect { |d| Bi::OrgReportDeptOrder.department_names(@last_available_sign_dept_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+    @depts_options = all_orig_department_codes if @depts_options.blank?
 
     @staff_per_dept_code = if org_code == '000101' && @end_of_month.year < 2020
       Bi::ShStaffCount.staff_count_per_dept_code_by_date(@end_of_month)
@@ -121,6 +120,9 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
         .order(Arel.sql('ORG_REPORT_DEPT_ORDER.部门排名, CONTRACT_PRODUCTION_DEPT.deptcode'))
     end
 
+    all_orig_cp_department_codes = orig_cp_data.collect(&:deptcode)
+    cp_department_short_names = all_orig_cp_department_codes.collect { |d| Bi::OrgReportDeptOrder.department_names(@last_available_production_dept_date).fetch(d, Bi::PkCodeName.mapping2deptcode.fetch(d, d)) }
+
     cp_data = if @view_deptcode_sum
       orig_cp_data.where(deptcode_sum: @depts_options)
     else
@@ -140,6 +142,8 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       staff_count = Bi::BiLocalTimeRecord::DEFAULT_PEOPLE_NUM if staff_count.nil? || staff_count.zero?
       @cp_contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
+
+    @department_options = (real_department_short_names+cp_department_short_names).uniq.zip((all_orig_department_codes+all_orig_cp_department_codes).uniq)
   end
 
   def drill_down_amount
