@@ -52,12 +52,12 @@ class Report::LaborCostsController < Report::BaseController
     else
       cspms
     end.select('users.clerk_code, users.chinese_name, departments.name department_name, departments.company_name,
-      positions.name position_name, positions.functional_category, users.locked_at, user_job_types.name user_job_type_name,
+      positions.name position_name, user_cost_types.name user_cost_type_name, users.locked_at, user_job_types.name user_job_type_name,
       sum(amount) total')
-      .joins(:user, :position, :user_job_type)
+      .joins(:user, :position, :user_job_type, :user_cost_type)
       .joins("LEFT JOIN `departments` ON `departments`.`id` = `positions`.`department_id` ")
-      .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"positions.functional_category", :"users.locked_at", :"user_job_types.name")
-      .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"positions.functional_category", :"users.locked_at", :"user_job_types.name")
+      .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"user_cost_types.name", :"users.locked_at", :"user_job_types.name")
+      .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"user_cost_types.name", :"users.locked_at", :"user_job_types.name")
 
     respond_to do |format|
       format.html do
@@ -66,7 +66,7 @@ class Report::LaborCostsController < Report::BaseController
       format.csv do
         render_csv_header "Labor cost #{@month_name}"
         csv_res = CSV.generate do |csv|
-          csv << %w(工号 姓名 所属公司 所属部门 岗位 是否在职 成本性质 查询年月 金额)
+          csv << %w(工号 姓名 所属公司 所属部门 岗位 成本类别 成本性质 查询年月 金额 是否在职)
           cspms.each do |d|
             values = []
             values << d.clerk_code
@@ -74,10 +74,11 @@ class Report::LaborCostsController < Report::BaseController
             values << d.company_name
             values << d.department_name
             values << d.position_name
-            values << (d.locked_at.present? ? '已离职' : '')
+            values << d.user_cost_type_name
             values << d.user_job_type_name
             values << @month_name
             values << number_with_precision(d.total, precision: 0)
+            values << (d.locked_at.present? ? '已离职' : '')
             csv << values
           end
         end

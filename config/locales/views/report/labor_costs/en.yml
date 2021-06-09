@@ -12,6 +12,7 @@ en:
           locked: "Resigned"
         clerk_code: "Clerk code"
         chinese_name: "Chinese name"
+        user_cost_type: "User cost type"
         user_job_type: "User job type"
         amount: "Amount"
         month_name: "Month name"
