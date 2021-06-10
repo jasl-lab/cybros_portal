@@ -59,7 +59,7 @@
   <div class="col-12">
     <table id="crm-year-report-datatable"
       class="table table-bordered mt-2 position-relative"
-      data-source="<%= report_crm_year_report_path(month_name: @month_name, format: :json) -%>">
+      data-source="<%= report_crm_year_report_path(month_name: @month_name, orgs: @orgs_options, format: :json) -%>">
       <thead>
         <tr>
           <th rowspan="2"><%= t('.table.rank') -%></th>
