@@ -12,7 +12,7 @@
       <%= t(".title") %>
     </h3>
     <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
-      <%= hidden_field_tag 'year', @year -%>
+      <%= hidden_field_tag 'month_name', @month_name -%>
       <div class="form-group mr-1">
         <label class="mr-1"><%= t(".org_names") -%>：</label>
         <%= select_tag 'orgs', options_for_select(@organization_options, @orgs_options), { include_blank: true, multiple: true, class: 'form-control' } %>
@@ -54,17 +54,17 @@
     <%= form_tag report_crm_year_report_path, method: :get, class: 'form-inline' do -%>
       <%= hidden_field_tag 'orgs', @orgs_options -%>
       <div class="form-group mr-1">
-        <label class="mr-1"><%= t(".year") -%>：</label>
-        <%= select_tag 'year', options_for_select(@all_years, @year), { class: 'form-control form-control-plain', id: 'select-year' } %>
+        <label class="mr-1"><%= t(".month_name") -%>：</label>
+        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), { class: 'form-control form-control-plain', id: 'select-year' } %>
       </div>
       <div>
         <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
-        <%= link_to t('.export'), export_report_crm_year_report_path(year: @year, format: :csv), class: 'btn' %>
+        <%= link_to t('.export'), export_report_crm_year_report_path(month_name: @month_name, format: :csv), class: 'btn' %>
       </div>
     <% end -%>
     <table id="crm-year-report-datatable"
       class="table table-bordered mt-2 position-relative"
-      data-source="<%= report_crm_year_report_path(year: @year, format: :json) -%>">
+      data-source="<%= report_crm_year_report_path(month_name: @month_name, format: :json) -%>">
       <thead>
         <tr>
           <th rowspan="2"><%= t('.table.rank') -%></th>

@@ -487,9 +487,9 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "CRM_CLIENT_SUM", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.integer "cricyear", null: false
     t.string "crmcode", limit: 20
     t.text "crmshort"
+    t.date "savedate"
     t.float "heji", limit: 53
     t.float "heji_last", limit: 53
     t.decimal "heji_per", precision: 10, scale: 9
@@ -499,8 +499,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "designvalue", limit: 53
     t.float "constructionvalue", limit: 53
     t.float "fullvalue", limit: 53
-    t.string "rank", limit: 45
-    t.date "savedate"
   end
 
   create_table "CRM_CONCRACT_INFO", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
