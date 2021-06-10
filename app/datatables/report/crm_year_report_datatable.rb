@@ -7,7 +7,7 @@ module Report
 
     def initialize(params, opts = {})
       @crm_client_sum = opts[:crm_client_sum]
-      @month_name = opts[:month_name]
+      @end_of_month = Date.parse(opts[:month_name]).end_of_month
       super
     end
 
@@ -39,7 +39,7 @@ module Report
     def data
       records.map do |r|
         { rank: r.heji_rank,
-          customer_group: (link_to r.crmshort, drill_down_dept_value_report_crm_year_report_path(crmcode: r.crmcode, year: @year), remote: true),
+          customer_group: (link_to r.crmshort, drill_down_dept_value_report_crm_year_report_path(crmcode: r.crmcode, year: @end_of_month.year), remote: true),
           kerrey_trading_area_ranking: r.cricrank&.round(0),
           customer_ownership: r.clientproperty,
           production_contract_value_last_year: (r.heji_last_b.to_f / 10000.0).round(0),
@@ -51,7 +51,7 @@ module Report
           construction_drawing_production_contract_value_at_each_stage: (r.constructionvalue_d.to_f / 10000.0).round(0),
           whole_process_production_contract_value_at_each_stage: (r.fullvalue_e.to_f / 10000.0).round(0),
           total_contract_value_of_the_group_percent: (r.heji_per.to_f * 100.0).round(1),
-          the_top_three_teams_in_cooperation: "#{r.topthreegroup} #{link_to('查看更多', drill_down_top_group_report_crm_year_report_path(crmcode: r.crmcode, year: @year), remote: true)}".html_safe,
+          the_top_three_teams_in_cooperation: "#{r.topthreegroup} #{link_to('查看更多', drill_down_top_group_report_crm_year_report_path(crmcode: r.crmcode, year: @end_of_month.year), remote: true)}".html_safe,
 
           average_contract_value_of_single_project_in_the_past_year: (Bi::CrmClientOneYear.by_crmcode.fetch(r.crmcode, nil)&.fetch(:avgamount, 0).to_f / 10000.0).round(0),
           average_scale_of_single_project_in_the_past_year: (Bi::CrmClientOneYear.by_crmcode.fetch(r.crmcode, nil)&.fetch(:avgarea, 0).to_f / 10000.0).round(0),
@@ -63,7 +63,7 @@ module Report
     end
 
     def get_raw_records
-      @crm_client_sum.where(savedate: @month_name.is_a?(Date) ? @month_name : Date.parse(@month_name).end_of_month)
+      @crm_client_sum.where(savedate: @end_of_month)
     end
   end
 end

@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <div>
-        <h5 class="modal-title"><%= @plan_values[0].crmshort -%>主要合作团队</h5>
+        <h5 class="modal-title"><%= @plan_values[0]&.crmshort -%>主要合作团队</h5>
       </div>
       <a class="close" data-dismiss="modal" aria-label="Close">
         <i class="fas fa-window-close"></i>
