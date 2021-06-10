@@ -137,11 +137,11 @@ export default class extends Controller {
       {"data": "group_production_contract_value_last_year"},
       {"data": "group_production_contract_value_this_year"},
 
-      {"data": "total_contract_value_of_the_group_percent"},
-      {"data": "the_top_three_teams_in_cooperation"},
       {"data": "scheme_production_contract_value_at_each_stage"},
       {"data": "construction_drawing_production_contract_value_at_each_stage"},
       {"data": "whole_process_production_contract_value_at_each_stage"},
+      {"data": "total_contract_value_of_the_group_percent"},
+      {"data": "the_top_three_teams_in_cooperation"},
 
       {"data": "average_contract_value_of_single_project_in_the_past_year"},
       {"data": "average_scale_of_single_project_in_the_past_year"},
