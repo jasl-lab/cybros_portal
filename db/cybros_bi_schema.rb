@@ -500,6 +500,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "constructionvalue", limit: 53
     t.float "fullvalue", limit: 53
     t.string "rank", limit: 45
+    t.date "savedate"
   end
 
   create_table "CRM_CONCRACT_INFO", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -615,6 +616,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.integer "cricyear"
     t.string "crmbusiunitcode", limit: 45
     t.string "crmbusiunitname", limit: 200
+    t.integer "cricrank"
+    t.string "crmthrank", limit: 45
   end
 
   create_table "CRM_SACONTRACTPRICE_BAT", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -675,10 +678,10 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "parttotal", limit: 53
   end
 
-  create_table "CRM_TOP50", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "年份"
+  create_table "CRM_TOP50", primary_key: ["年份", "客户编码"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "年份", null: false
     t.integer "排名"
-    t.string "客户编码", limit: 10
+    t.string "客户编码", limit: 10, null: false
     t.text "客户集团名称"
     t.string "客户分类", limit: 50
   end
@@ -814,8 +817,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "name", limit: 200
     t.string "upcode", limit: 45
     t.string "upname", limit: 200
-    t.datetime "startdate"
-    t.datetime "enddate"
+    t.date "startdate"
+    t.date "enddate"
     t.string "depttype", limit: 45
     t.string "glbdef1", limit: 45
     t.integer "inuse"
@@ -1586,6 +1589,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.text "billingcode"
     t.text "savedate"
     t.datetime "refreshdate"
+    t.date "begindate"
+    t.string "paymentsign", limit: 45
   end
 
   create_table "V_TH_CRM_RPOPPORTUNITY", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -1634,30 +1639,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   end
 
   create_table "V_TH_DEPTMONEYFLOW_SAVE", primary_key: ["checkdate", "deptid"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.string "compid", limit: 200
-    t.string "comp", limit: 200
-    t.string "compname", limit: 200
-    t.string "deptid", limit: 200, null: false
-    t.string "dept", limit: 200
-    t.string "deptname", limit: 200
-    t.date "checkdate", null: false
-    t.float "openingmoney", limit: 53
-    t.float "nextbonusamount", limit: 53
-    t.float "nextamount", limit: 53
-    t.float "covertmoney", limit: 53
-    t.float "nexthrpaymoney", limit: 53
-    t.float "nextdeptprocost", limit: 53
-    t.float "nextdeptcost", limit: 53
-    t.float "changemoney", limit: 53
-    t.float "allocationmoney", limit: 53
-    t.float "deptmoney", limit: 53
-    t.float "allowancemoney", limit: 53
-    t.float "allowancesetmoney", limit: 53
-    t.float "endmoney", limit: 53
-    t.datetime "refresh_date"
-  end
-
-  create_table "V_TH_DEPTMONEYFLOW_SAVE1", primary_key: ["deptid", "checkdate"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "compid", limit: 200
     t.string "comp", limit: 200
     t.string "compname", limit: 200
