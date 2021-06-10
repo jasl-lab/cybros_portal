@@ -143,7 +143,7 @@ class Report::SubsidiaryContractSigningsController < Report::BaseController
       @cp_contract_amounts_per_staff << (contract_amount / staff_count.to_f).round(0)
     end
 
-    @department_options = (real_department_short_names+cp_department_short_names).uniq.zip((all_orig_department_codes+all_orig_cp_department_codes).uniq)
+    @department_options = (real_department_short_names + cp_department_short_names).uniq.zip((all_orig_department_codes + all_orig_cp_department_codes).uniq)
   end
 
   def drill_down_amount

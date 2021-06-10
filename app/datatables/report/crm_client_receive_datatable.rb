@@ -33,7 +33,7 @@ module Report
           cricrank: (r.cricrank == 999999 ? '' : r.cricrank),
           clientproperty: r.clientproperty,
           sum_receive: (r.sum_receive.to_f / 10000.0).round(0),
-          sum_receive_gt1_years: "#{((r.aging_amount_gt1_years.to_f/r.sum_receive.to_f)*100.0).round(0)} %",
+          sum_receive_gt1_years: "#{((r.aging_amount_gt1_years.to_f / r.sum_receive.to_f) * 100.0).round(0)} %",
 
           aging_amount_lt3_months: (r.aging_amount_lt3_months.to_f / 10000.0).round(0),
           aging_amount_4to12_months: (r.aging_amount_4to12_months.to_f / 10000.0).round(0),
