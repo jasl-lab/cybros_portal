@@ -42,8 +42,15 @@ class Report::CrmYearReportsController < Report::BaseController
         @others = @data.collect { |d| (d.others / 100_0000.0).round(1) }
       end
       format.json do
+        ar_crm_client_sum = policy_scope(Bi::CrmClientSum)
+          .joins("RIGHT JOIN (select crmcode, sum(subtotal) heji_a FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
+          .joins("RIGHT JOIN (select crmcode, sum(subtotal) heji_last_b FROM CRM_SACONTRACTPRICE where savedate='2020-12-31' group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
+          .joins("RIGHT JOIN (select crmcode,sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
+          .joins("RIGHT JOIN (select crmcode,sum(rearpart) constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
+          .joins("RIGHT JOIN (select crmcode,sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
+          .select('`CRM_CLIENT_SUM`.crmcode, `CRM_CLIENT_SUM`.rank, `CRM_CLIENT_SUM`.crmshort, `CRM_CLIENT_SUM`.cricrank, `CRM_CLIENT_SUM`.clientproperty, A.heji_a, B.heji_last_b, `CRM_CLIENT_SUM`.heji_per, `CRM_CLIENT_SUM`.topthreegroup, C.designvalue_c, D.constructionvalue_d, E.fullvalue_e')
         render json: Report::CrmYearReportDatatable.new(params,
-          crm_client_sum: policy_scope(Bi::CrmClientSum),
+          crm_client_sum: ar_crm_client_sum,
           year: @year,
           view_context: view_context)
       end
