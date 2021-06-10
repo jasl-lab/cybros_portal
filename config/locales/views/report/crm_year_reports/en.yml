@@ -4,8 +4,8 @@ en:
     crm_year_reports:
       show:
         title: "Cost allocation summary table"
+        month_name: "Month name"
         org_names: "ORG names"
-        year: "Year"
         confirm: "Confirm"
         export: "Export"
         table:
