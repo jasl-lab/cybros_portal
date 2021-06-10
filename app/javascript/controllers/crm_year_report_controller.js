@@ -134,6 +134,8 @@ export default class extends Controller {
       {"data": "customer_ownership"},
       {"data": "production_contract_value_last_year"},
       {"data": "production_contract_value_this_year"},
+      {"data": "group_production_contract_value_last_year"},
+      {"data": "group_production_contract_value_this_year"},
 
       {"data": "total_contract_value_of_the_group_percent"},
       {"data": "the_top_three_teams_in_cooperation"},

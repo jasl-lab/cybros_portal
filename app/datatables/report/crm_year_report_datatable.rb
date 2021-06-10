@@ -19,6 +19,8 @@ module Report
         customer_ownership: { source: 'Bi::CrmClientSum.clientproperty', cond: :string_eq, searchable: true, orderable: true },
         production_contract_value_last_year: { source: 'heji_last_b', searchable: false, orderable: true },
         production_contract_value_this_year: { source: 'heji_a', searchable: false, orderable: true },
+        group_production_contract_value_last_year: { source: 'Bi::CrmClientSum.heji_last', searchable: false, orderable: true },
+        group_production_contract_value_this_year: { source: 'Bi::CrmClientSum.heji', searchable: false, orderable: true },
 
         total_contract_value_of_the_group_percent: { source: 'Bi::CrmClientSum.heji_per', searchable: false, orderable: true },
         the_top_three_teams_in_cooperation: { source: 'Bi::CrmClientSum.topthreegroup', cond: :like, searchable: true, orderable: true },
@@ -42,6 +44,8 @@ module Report
           customer_ownership: r.clientproperty,
           production_contract_value_last_year: (r.heji_last_b.to_f / 10000.0).round(0),
           production_contract_value_this_year: (r.heji_a.to_f / 10000.0).round(0),
+          group_production_contract_value_last_year: (r.heji_last.to_f / 10000.0).round(0),
+          group_production_contract_value_this_year: (r.heji.to_f / 10000.0).round(0),
 
           total_contract_value_of_the_group_percent: (r.heji_per.to_f * 100.0).round(1),
           the_top_three_teams_in_cooperation: "#{r.topthreegroup} #{link_to('查看更多', drill_down_top_group_report_crm_year_report_path(crmcode: r.crmcode, year: @year), remote: true)}".html_safe,
