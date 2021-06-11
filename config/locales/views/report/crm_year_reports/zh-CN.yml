@@ -3,7 +3,7 @@ zh-CN:
   report:
     crm_year_reports:
       show:
-        title: "各类客户生产合同额及占比"
+        title: "各类客户商务合同额及占比"
         month_name: "查询年月"
         org_names: "显示子公司"
         confirm: "确认"
