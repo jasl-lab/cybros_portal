@@ -1,0 +1,19 @@
+<div class="row"
+  data-controller="customer-actual-payment"
+  data-action="resize@window->customer-actual-payment#layout"
+  data-customer-actual-payment-page-length-value="<%= my_per_page -%>">
+  <div class="col-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag report_customer_actual_payments_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group mr-1">
+        <label class="mr-1"><%= t(".month_name") -%>：</label>
+        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), { class: 'form-control form-control-plain', id: 'select-year' } %>
+      </div>
+      <div>
+        <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+      </div>
+    <% end -%>
+  </div>
+</div>

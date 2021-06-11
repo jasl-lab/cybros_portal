@@ -4,3 +4,5 @@ zh-CN:
     customer_actual_payments:
       show:
         title: "客户实收款情况"
+        month_name: "查询年月"
+        confirm: "确认"

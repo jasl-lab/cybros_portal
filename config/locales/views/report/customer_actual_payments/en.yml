@@ -4,3 +4,5 @@ en:
     customer_actual_payments:
       show:
         title: "Customer's actual payment situation"
+        month_name: "Month name"
+        confirm: "Confirm"

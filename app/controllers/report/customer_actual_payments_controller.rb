@@ -7,6 +7,9 @@ class Report::CustomerActualPaymentsController < Report::BaseController
 
   def show
     prepare_meta_tags title: t('.title')
+    @all_month_names = policy_scope(Bi::CrmClientSum).all_month_names
+    @month_name = params[:month_name] || @all_month_names.first
+
   end
 
   private
