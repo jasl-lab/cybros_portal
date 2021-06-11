@@ -44,6 +44,8 @@ import "controllers";
 // Load Datatables
 require('datatables.net-bs4')(window, $);
 require('datatables.net-buttons-bs4')(window, $);
+require('datatables.net-colreorder-bs4')(window, $);
+require('datatables.net-buttons/js/buttons.colVis')(window, $);
 require('datatables.net-fixedheader-bs4')(window, $);
 require('datatables.net-select-bs4')(window, $);
 // require('yadcf')(window, $); // Uncomment if you use yadcf (need a recent version of yadcf)
@@ -63,6 +65,10 @@ $.extend( $.fn.dataTable.defaults, {
     "processing":     "处理中...",
     "search":         "搜索:",
     "zeroRecords":    "没有匹配结果",
+    "buttons": {
+      "colvis": "列可见性",
+      "colvisRestore": "恢复列可见性",
+    },
     "thousands": ",",
     "paginate": {
       "first":    "第一页",
