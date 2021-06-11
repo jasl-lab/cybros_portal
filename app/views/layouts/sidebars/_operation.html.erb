@@ -159,6 +159,12 @@
             <% end %>
           <% end %>
         <% end %>
+          <%= nav_item controller: 'report/customer_actual_payments', action: 'show', html_options: { class: "nav-item" } do %>
+            <%= report_link_to report_customer_actual_payments_path, class: "nav-link" do %>
+              <i class="nav-icon fas fa-rss-square"></i>
+              <%= t("layouts.sidebar.operation.customer_actual_payment") %>
+            <% end %>
+          <% end %>
     <% end %>
     <% show_contract_sign_dept = policy(Bi::ContractSignDept).show? %>
     <% show_contract_sign_detail_date = policy(Bi::ContractSignDetailDate).show? %>

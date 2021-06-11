@@ -86,6 +86,7 @@ en:
         contract_provice_area: "Contract provice area"
         customer_analysis: "Customer analysis"
         customer_receivable_account: "Customer accounts receivable"
+        customer_actual_payment: "Customer's actual payments"
         group_daily_workloading: "Group daily workloading"
         subsidiary_daily_workloading: "Subsidiary daily workloading"
         subsidiary_people_workloading: "Subsidiary people workloading"

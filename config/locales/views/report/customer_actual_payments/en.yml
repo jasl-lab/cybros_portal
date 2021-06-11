@@ -1,0 +1,6 @@
+---
+en:
+  report:
+    customer_actual_payments:
+      show:
+        title: "Customer's actual payment situation"
