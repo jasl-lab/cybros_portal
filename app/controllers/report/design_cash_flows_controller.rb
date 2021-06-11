@@ -9,6 +9,10 @@ class Report::DesignCashFlowsController < Report::BaseController
     prepare_meta_tags title: t('.title')
     @all_month_names = Bi::DeptMoneyFlow.all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.second
+    if @month_name.blank?
+      flash[:alert] = I18n.t('not_data_authorized')
+      raise Pundit::NotAuthorizedError
+    end
     @end_of_month = Date.parse(@month_name).end_of_month
     beginning_of_month = @end_of_month.beginning_of_month
     @orgs_options = params[:orgs]
