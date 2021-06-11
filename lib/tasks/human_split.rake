@@ -8,10 +8,7 @@ namespace :human_split do
   # 4. run user_split_classify_salary_per_months
   desc 'Import NC V_CLASSIFY_SALARY into cybros'
   task :nc_v_classify_salary_import, [:cyearperiod] => [:environment] do |task, args|
-    cyearperiod = args[:cyearperiod]
-    cyearperiod_year = cyearperiod[0..3]
-    cyearperiod_month = cyearperiod[4..5]
-    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+    cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
 
     基本工资_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '10').id
     预发设计费_classification_id = SplitCost::UserSalaryClassification.find_by!(code: '20').id
@@ -73,10 +70,7 @@ namespace :human_split do
 
   desc 'Copy user monthly part time splits rate from previous month'
   task :copy_user_monthly_part_time_split_rates, [:cyearperiod, :from_yearperiod] => [:environment] do |task, args|
-    cyearperiod = args[:cyearperiod]
-    cyearperiod_year = cyearperiod[0..3]
-    cyearperiod_month = cyearperiod[4..5]
-    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+    cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
 
     from_yearperiod = args[:from_yearperiod]
     from_yearperiod_year = from_yearperiod[0..3]
@@ -105,10 +99,7 @@ namespace :human_split do
 
   desc 'Copy special person costs from previous month'
   task :copy_special_person_costs, [:cyearperiod, :from_yearperiod] => [:environment] do |task, args|
-    cyearperiod = args[:cyearperiod]
-    cyearperiod_year = cyearperiod[0..3]
-    cyearperiod_month = cyearperiod[4..5]
-    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+    cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
 
     from_yearperiod = args[:from_yearperiod]
     from_yearperiod_year = from_yearperiod[0..3]
@@ -125,10 +116,8 @@ namespace :human_split do
 
   desc 'Generate user split classify salary per months from user_split_classify_salaries'
   task :user_split_classify_salary_per_months, [:cyearperiod] => [:environment] do |task, args|
-    cyearperiod = args[:cyearperiod]
-    cyearperiod_year = cyearperiod[0..3]
-    cyearperiod_month = cyearperiod[4..5]
-    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+    cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
+
     SplitCost::UserSplitClassifySalary.where(month: cyearperiod_month_start).find_each do |scs|
       next if scs.amount.zero?
 
@@ -177,10 +166,7 @@ namespace :human_split do
 
   desc 'Generate part time split settings'
   task :generate_user_monthly_part_time_splits, [:cyearperiod] => [:environment] do |task, args|
-    cyearperiod = args[:cyearperiod]
-    cyearperiod_year = cyearperiod[0..3]
-    cyearperiod_month = cyearperiod[4..5]
-    cyearperiod_month_start = Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
+    cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
 
     user_ids = PositionUser.where(main_position: false).pluck(:user_id).uniq
     User.where(id: user_ids).where(locked_at: nil).each do |user|
@@ -192,5 +178,16 @@ namespace :human_split do
         end
       end
     end
+  end
+
+  desc 'Fix position for classify_salary_per_months'
+  task :fix_position_for_classify_salary, [:cyearperiod] => [:environment] do |task, args|
+    cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
+  end
+
+  def get_cyearperiod_month_start(cyearperiod)
+    cyearperiod_year = cyearperiod[0..3]
+    cyearperiod_month = cyearperiod[4..5]
+    Date.parse("#{cyearperiod_year}-#{cyearperiod_month}-01")
   end
 end
