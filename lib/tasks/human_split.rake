@@ -181,8 +181,30 @@ namespace :human_split do
   end
 
   desc 'Fix position for classify_salary_per_months'
-  task :fix_position_for_classify_salary, [:cyearperiod] => [:environment] do |task, args|
+  task :fix_position_for_classify_salary, [:cyearperiod, :csv_file] => [:environment] do |task, args|
     cyearperiod_month_start = get_cyearperiod_month_start(args[:cyearperiod])
+
+    csv_file_path = args[:csv_file]
+    CSV.foreach(csv_file_path, headers: true) do |row|
+      clerk_code = row['clerk_code']
+      user = User.find_by(clerk_code: clerk_code)
+
+      position_id = row['position_id']
+      to_update_data = SplitCost::UserSplitClassifySalaryPerMonth.where(month: cyearperiod_month_start, user_id: user.id, position_id: position_id)
+
+      target_nc_pk_post = row['target_nc_pk_post']
+      position = Position.find_by(nc_pk_post: target_nc_pk_post)
+
+      if position.present? && to_update_data.present?
+        to_update_data.update_all(position_id: position.id)
+      elsif to_update_data.present?
+        puts "#{clerk_code} #{target_nc_pk_post}, target_nc_pk_post blank!"
+      elsif position.present?
+        puts "#{clerk_code} #{position_id}, position_id blank!"
+      else
+        puts 'position and to_update_data blank!'
+      end
+    end
   end
 
   def get_cyearperiod_month_start(cyearperiod)
