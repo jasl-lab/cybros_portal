@@ -5,6 +5,7 @@ module Report
     def initialize(params, opts = {})
       @crm_client_receives = opts[:crm_client_receives]
       @org_codes = opts[:org_codes]
+      @client_name = opts[:client_name]
       super
     end
 
@@ -46,6 +47,11 @@ module Report
     def get_raw_records
       rr = @crm_client_receives
       rr = rr.where(orgcode_sum: @org_codes) if @org_codes.present?
+      rr = if @client_name.present?
+        rr.where(crmcode: Bi::CrmClientInfo.crmcode_from_query_names(@client_name))
+      else
+        rr
+      end
       rr.select('crmcode, cricrank, clientproperty, DENSE_RANK() OVER (ORDER BY SUM(sum_receive) DESC) client_rank, SUM(sum_receive) sum_receive, SUM(aging_amount_lt3_months) aging_amount_lt3_months, SUM(aging_amount_4to12_months) aging_amount_4to12_months, SUM(aging_amount_gt1_years) aging_amount_gt1_years, SUM(sign_receive) sign_receive, SUM(unsign_receive_gt1_years) unsign_receive_gt1_years, SUM(unsign_receive) unsign_receive')
         .group('crmcode, cricrank, clientproperty')
     end

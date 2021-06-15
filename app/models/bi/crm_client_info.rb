@@ -10,5 +10,11 @@ module Bi
         h
       end
     end
+
+    def self.crmcode_from_query_names(client_name)
+      all.where('clientsshort LIKE ?', "%#{client_name}%")
+        .or(all.where('clientsname LIKE ?', "%#{client_name}%"))
+        .pluck(:clients)
+    end
   end
 end
