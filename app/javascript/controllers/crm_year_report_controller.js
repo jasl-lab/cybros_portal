@@ -63,9 +63,6 @@ export default class extends Controller {
         type: 'bar',
         stack: '生产合同额',
         data: top20s,
-        itemStyle: {
-          color: '#4F81BE'
-        },
         label: {
           show: true,
           position: 'inside'
@@ -75,9 +72,6 @@ export default class extends Controller {
         type: 'bar',
         stack: '生产合同额',
         data: top20to50,
-        itemStyle: {
-          color: '#8FB4E3'
-        },
         label: {
           show: true,
           position: 'inside'
@@ -87,17 +81,11 @@ export default class extends Controller {
         type: 'bar',
         stack: '生产合同额',
         data: gt50s,
-        itemStyle: {
-          color: '#94CCDD'
-        }
       },{
         name: '其他',
         type: 'bar',
         stack: '生产合同额',
         data: others,
-        itemStyle: {
-          color: '#94CCDD'
-        },
         label: {
           show: true,
           position: 'inside'
