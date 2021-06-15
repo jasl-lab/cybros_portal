@@ -473,7 +473,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
   create_table "CRM_CLIENT_RECEIVE", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "orgcode_sum", limit: 45
     t.string "crmcode", limit: 20
-    t.string "crmshort", limit: 200
     t.float "sign_receive", limit: 53
     t.float "aging_amount_lt3_months", limit: 53
     t.float "aging_amount_4to12_months", limit: 53
@@ -486,19 +485,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.string "clientproperty", limit: 50
   end
 
-  create_table "CRM_CLIENT_SUM", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.string "crmcode", limit: 20
-    t.text "crmshort"
-    t.date "savedate"
+  create_table "CRM_CLIENT_SUM", primary_key: ["savedate", "crmcode"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "crmcode", limit: 20, null: false
+    t.date "savedate", null: false
     t.float "heji", limit: 53
     t.float "heji_last", limit: 53
     t.decimal "heji_per", precision: 10, scale: 9
     t.float "cricrank", limit: 53
     t.string "clientproperty", limit: 50
     t.text "topthreegroup"
-    t.float "designvalue", limit: 53
-    t.float "constructionvalue", limit: 53
-    t.float "fullvalue", limit: 53
+    t.string "cricyear", limit: 45
   end
 
   create_table "CRM_CONCRACT_INFO", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
