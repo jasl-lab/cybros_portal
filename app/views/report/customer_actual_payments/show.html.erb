@@ -16,4 +16,35 @@
       </div>
     <% end -%>
   </div>
+  <div class="col-12">
+    <table id="customer-actual-payments-datatable"
+      class="table table-bordered mt-2 position-relative"
+      data-source="<%= report_customer_actual_payments_path(month_name: @month_name, format: :json) -%>">
+      <thead>
+        <tr>
+          <th rowspan="2"><%= t('.table.rank') -%></th>
+          <th rowspan="2"><%= t('.table.customer_group') -%></th>
+          <th rowspan="2"><%= t('.table.kerrey_trading_area_ranking') -%></th>
+          <th rowspan="2"><%= t('.table.customer_ownership') -%></th>
+
+          <th colspan="2"><%= t('.table.receive_amount') -%></th>
+          <th colspan="5"><%= t('.table.real_time_receive_amount') -%></th>
+        </tr>
+        <tr>
+          <th><%= t('.table.receive_amount_last_year') -%></th>
+          <th><%= t('.table.receive_amount_this_year') -%></th>
+
+          <th><%= t('.table.receive_amount_3_months') -%></th>
+          <th><%= t('.table.receive_amount_1_year') -%></th>
+          <th><%= t('.table.receive_amount_1_year_repayment_rate') -%></th>
+          <th><%= t('.table.receive_amount_1_year_payback_rate') -%></th>
+          <th><%= t('.table.receive_amount_year_on_year_change_rate') -%></th>
+        </tr>
+
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
 </div>
