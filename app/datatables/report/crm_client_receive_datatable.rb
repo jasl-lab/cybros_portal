@@ -5,14 +5,13 @@ module Report
     def initialize(params, opts = {})
       @crm_client_receives = opts[:crm_client_receives]
       @org_codes = opts[:org_codes]
-      @client_name = opts[:client_name]
       super
     end
 
     def view_columns
       @view_columns ||= {
         crmthrank: { source: 'client_rank', searchable: false, orderable: true },
-        crmshort: { source: 'Bi::CrmClientReceive.crmshort', searchable: false, orderable: true },
+        crmshort: { source: nil, searchable: false, orderable: false },
         cricrank: { source: 'Bi::CrmClientReceive.cricrank', searchable: false, orderable: true },
         clientproperty: { source: 'Bi::CrmClientReceive.clientproperty', cond: :string_eq, searchable: true, orderable: true },
         sum_receive: { source: 'sum_receive', searchable: false, orderable: true },
@@ -29,7 +28,7 @@ module Report
     def data
       records.map do |r|
         { crmthrank: r.client_rank,
-          crmshort: r.crmshort,
+          crmshort: Bi::CrmClientInfo.crm_short_names.fetch(r.crmcode, nil),
           cricrank: (r.cricrank == 999999 ? '' : r.cricrank),
           clientproperty: r.clientproperty,
           sum_receive: (r.sum_receive.to_f / 10000.0).round(0),
@@ -47,9 +46,8 @@ module Report
     def get_raw_records
       rr = @crm_client_receives
       rr = rr.where(orgcode_sum: @org_codes) if @org_codes.present?
-      rr = rr.where('crmshort LIKE ?', "%#{@client_name}%") if @client_name.present?
-      rr.select('crmshort, cricrank, clientproperty, DENSE_RANK() OVER (ORDER BY SUM(sum_receive) DESC) client_rank, SUM(sum_receive) sum_receive, SUM(aging_amount_lt3_months) aging_amount_lt3_months, SUM(aging_amount_4to12_months) aging_amount_4to12_months, SUM(aging_amount_gt1_years) aging_amount_gt1_years, SUM(sign_receive) sign_receive, SUM(unsign_receive_gt1_years) unsign_receive_gt1_years, SUM(unsign_receive) unsign_receive')
-        .group('crmshort, cricrank, clientproperty')
+      rr.select('crmcode, cricrank, clientproperty, DENSE_RANK() OVER (ORDER BY SUM(sum_receive) DESC) client_rank, SUM(sum_receive) sum_receive, SUM(aging_amount_lt3_months) aging_amount_lt3_months, SUM(aging_amount_4to12_months) aging_amount_4to12_months, SUM(aging_amount_gt1_years) aging_amount_gt1_years, SUM(sign_receive) sign_receive, SUM(unsign_receive_gt1_years) unsign_receive_gt1_years, SUM(unsign_receive) unsign_receive')
+        .group('crmcode, cricrank, clientproperty')
     end
   end
 end
