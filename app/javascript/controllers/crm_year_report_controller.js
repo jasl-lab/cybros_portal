@@ -146,12 +146,6 @@ export default class extends Controller {
       "ajax": $('#crm-year-report-datatable').data('source'),
       "pagingType": "full_numbers",
       "columns": normalColumns,
-      "dom":
-        "<'row'<'col-sm-12 col-md-2'B><'col-sm-12 col-md-7'l><'col-sm-12 col-md-3'f>>" +
-        "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-      "colReorder": true,
-      "buttons": ['colvis'],
       "order": [[ 2, 'asc' ]],
       stateSave: true,
       stateSaveCallback: function(settings, data) {

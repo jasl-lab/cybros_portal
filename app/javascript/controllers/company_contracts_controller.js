@@ -19,6 +19,11 @@ export default class extends Controller {
       "autoWidth": false,
       "ajax": $('#company-contracts-datatable').data('source'),
       "pagingType": "full_numbers",
+      "dom": // original setting from node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js
+        "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+      "colReorder": false,
       "lengthChange": false,
       "searching": false,
       "columns": normalColumns,

@@ -54,6 +54,12 @@ require("devise-jwt");
 
 $.extend( $.fn.dataTable.defaults, {
   lengthMenu: [ 12, 25, 50, 75, 100 ],
+  dom:
+    "<'row'<'col-sm-12 col-md-2'B><'col-sm-12 col-md-7'l><'col-sm-12 col-md-3'f>>" +
+    "<'row'<'col-sm-12'tr>>" +
+    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+  colReorder: true,
+  buttons: ['colvis'],
   language: {
     "emptyTable":     "表中数据为空",
     "info":           "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
