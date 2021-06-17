@@ -3,6 +3,7 @@
 module SplitCost
   class UserSplitClassifySalaryPerMonth < ApplicationRecord
     belongs_to :user
+    belongs_to :adjust_user, class_name: 'User', optional: true
     belongs_to :position
     belongs_to :user_job_type
     belongs_to :user_cost_type
