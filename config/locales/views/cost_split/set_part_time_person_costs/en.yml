@@ -5,6 +5,7 @@ en:
       index:
         title: "Part-time person salary item cost classification setting"
         month_name: "Month name"
+        clerk_code: "Clerk code"
         chinese_name: "Employee name"
         main_company_code: "Main company name"
         parttime_company_code: "Part time company name"

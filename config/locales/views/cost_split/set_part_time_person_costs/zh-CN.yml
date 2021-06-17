@@ -5,6 +5,7 @@ zh-CN:
       index:
         title: "兼职人员薪资项目比例设置"
         month_name: "年月"
+        clerk_code: "工号"
         chinese_name: "员工姓名"
         main_company_code: "主职公司"
         parttime_company_code: "兼职公司"

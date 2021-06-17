@@ -5,6 +5,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
 
   def index
     prepare_meta_tags title: t('.title')
+    @clerk_code = params[:clerk_code]
     @chinese_name = params[:chinese_name]
 
     @all_month_names = policy_scope(SplitCost::UserMonthlyPartTimeSplitRate).all_month_names
@@ -58,6 +59,7 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
       User.where(id: users_ids)
     end.where(id: @mpts_rates.collect(&:user_id))
 
+    @users = @users.where(clerk_code: @clerk_code) if @clerk_code.present?
     @users = @users.where('chinese_name LIKE ?', "%#{@chinese_name}%") if @chinese_name.present?
 
     @users = @users.page(params[:page]).per(my_per_page)
