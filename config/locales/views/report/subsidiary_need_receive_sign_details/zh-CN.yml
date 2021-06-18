@@ -42,6 +42,8 @@ zh-CN:
           sales_contract_name: "合同名称"
           amount_total: "合同额"
           amount_total_tip: "合同额（单位：万元）"
+          collection_amount: "实收款"
+          collection_amount_tip: "合同已收款（单位：万元）"
           sign_receive: "总应收款"
           sign_receive_tip: "合同业务应收金额（万元）"
           over_amount: "3个月业务应收款"

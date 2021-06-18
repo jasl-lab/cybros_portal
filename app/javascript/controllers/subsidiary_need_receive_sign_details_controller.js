@@ -28,6 +28,7 @@ export default class extends Controller {
       {"data": "sales_contract_code"},
       {"data": "sales_contract_name"},
       {"data": "amount_total"},
+      {"data": "collection_amount"},
       {"data": "sign_receive"},
       {"data": "over_amount"},
       {"data": "acc_need_receive"},

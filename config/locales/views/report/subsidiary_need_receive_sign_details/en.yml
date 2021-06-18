@@ -22,6 +22,8 @@ en:
           sales_contract_name: "Sales contract name"
           amount_total: "Amount total"
           amount_total_tip: "Amount total"
+          collection_amount: "Collection amount"
+          collection_amount_tip: "Collection amount"
           contract_property_name: "Contract property name"
           contract_time: "Contract time"
           sign_receive: "Sign receive"

@@ -29,6 +29,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
       sales_contract_code: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractcode', cond: :like, searchable: true, orderable: true },
       sales_contract_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.salescontractname', cond: :like, searchable: true, orderable: true },
       amount_total: { source: 'Bi::SubCompanyNeedReceiveSignDetail.amounttotal', cond: :gteq, searchable: true, orderable: true },
+      collection_amount: { source: 'Bi::SubCompanyNeedReceiveSignDetail.collectionamount', cond: :gteq, searchable: true, orderable: true },
       contract_property_name: { source: 'Bi::SubCompanyNeedReceiveSignDetail.contractpropertyname', cond: :eq, searchable: true, orderable: true },
       contract_time:  { source: 'Bi::SubCompanyNeedReceiveSignDetail.contracttime', cond: :eq, searchable: true, orderable: true },
       acc_need_receive: { source: 'Bi::SubCompanyNeedReceiveSignDetail.accneedreceive', orderable: true },
@@ -61,6 +62,7 @@ class SubsidiaryNeedReceiveSignDetailDatatable < ApplicationDatatable
         sales_contract_code: r.salescontractcode,
         sales_contract_name: r.salescontractname,
         amount_total: tag.div((r.amounttotal.to_f / 10000.0)&.round(0), class: 'text-center'),
+        collection_amount: tag.div((r.collectionamount.to_f / 10000.0)&.round(0), class: 'text-center'),
         contract_property_name: r.contractpropertyname,
         contract_time: r.contracttime&.to_date,
         acc_need_receive: (link_to financial_receivables_drill_down_report_subsidiary_need_receive_sign_detail_path(end_of_date: @end_of_date.to_s(:db_short), contractcode: r.salescontractcode), remote: true do
