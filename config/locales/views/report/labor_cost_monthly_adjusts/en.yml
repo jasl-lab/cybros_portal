@@ -4,3 +4,17 @@ en:
     labor_cost_monthly_adjusts:
       show:
         title: "Labor cost report"
+        company_name: "Company name"
+        department: "Department"
+        position_name: "Position name"
+        user_status:
+          title: "User status"
+          locked: "Resigned"
+        clerk_code: "Clerk code"
+        chinese_name: "Chinese name"
+        user_cost_type: "User cost type"
+        user_job_type: "User job type"
+        amount: "Amount"
+        adjust_user: "Adjuster"
+        month_name: "Month name"
+        confirm: "Confirm"

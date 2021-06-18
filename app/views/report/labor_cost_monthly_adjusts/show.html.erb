@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3 class="page-title">
+      <%= t(".title") %>
+    </h3>
+    <%= form_tag report_labor_cost_monthly_adjust_path, method: :get, class: 'form-inline' do -%>
+      <div class="form-group m-1">
+        <label class="mr-1"><%= t(".month_name") -%>：</label>
+        <%= select_tag 'month_name', options_for_select(@all_month_names, @month_name), class: 'form-control' %>
+      </div>
+      <div class="m-1">
+        <%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %>
+      </div>
+    <% end -%>
+    <div class="row mt-3">
+      <div class="col-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= t('.clerk_code') -%></th>
+              <th><%= t('.chinese_name') -%></th>
+              <th><%= t('.company_name') -%></th>
+              <th><%= t('.department') -%></th>
+              <th><%= t('.position_name') -%></th>
+
+              <th><%= t('.user_cost_type') -%></th>
+              <th><%= t('.user_job_type') -%></th>
+              <th><%= t('.amount') -%></th>
+              <th><%= t('.user_status.title') -%></th>
+              <th><%= t('.adjust_user') -%></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cspms.each do |cspm| %>
+              <tr>
+                <td><%= cspm.clerk_code -%></td>
+                <td><%= cspm.chinese_name -%></td>
+                <td><%= cspm.company_name -%></td>
+                <td><%= cspm.department_name -%></td>
+                <td><%= cspm.position_name -%></td>
+
+                <td><%= cspm.user_cost_type_name -%></td>
+                <td><%= cspm.user_job_type_name -%></td>
+                <td><%= cspm.amount -%></td>
+                <td>
+                  <% if cspm.locked_at.present? %>
+                    <span class="badge badge-danger">
+                      <%= t(".user_status.locked") %>
+                    </span>
+                  <% end %>
+                </td>
+                <td><%= cspm.adjust_user_name -%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-12">
+        <%= paginate @cspms %>
+      </div>
+    </div>
+  </div>
+</div>

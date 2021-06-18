@@ -4,3 +4,17 @@ zh-CN:
     labor_cost_monthly_adjusts:
       show:
         title: "财务分析-人力成功调整"
+        company_name: "所属公司"
+        department: "所属部门"
+        position_name: "岗位"
+        user_status:
+          title: "是否在职"
+          locked: "已离职"
+        clerk_code: "工号"
+        chinese_name: "姓名"
+        user_cost_type: "成本类别"
+        user_job_type: "岗位类别"
+        amount: "金额"
+        adjust_user: "调整人"
+        month_name: "查询年月"
+        confirm: "确认"

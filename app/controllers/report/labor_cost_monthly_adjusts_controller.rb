@@ -13,6 +13,20 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
     beginning_of_month = Date.parse(@month_name).beginning_of_month
+
+    cspms = SplitCost::UserSplitClassifySalaryPerMonth
+      .where.not(adjust_user_id: nil)
+      .where(month: beginning_of_month)
+
+    @cspms = cspms
+      .select('users.clerk_code, users.chinese_name, departments.name department_name, departments.company_name,
+               positions.name position_name, user_cost_types.name user_cost_type_name,
+               users.locked_at, user_job_types.name user_job_type_name,
+               amount, adjust_users.chinese_name adjust_user_name')
+      .joins(:user, :position, :user_job_type, :user_cost_type)
+      .joins('INNER JOIN `users` adjust_users ON `adjust_users`.`id` = `user_split_classify_salary_per_months`.`adjust_user_id`')
+      .joins('LEFT JOIN `departments` ON `departments`.`id` = `positions`.`department_id`')
+      .page(params[:page]).per(my_per_page)
   end
 
   protected
