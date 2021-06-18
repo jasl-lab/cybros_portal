@@ -17,7 +17,12 @@ export default class extends Controller {
       {"data": "aging_amount_4to12_months"},
       {"data": "aging_amount_gt1_years"},
       {"data": "sign_receive"},
-      {"data": "unsign_receive"}
+      {"data": "unsign_receive_gt1_years"},
+      {"data": "unsign_receive"},
+      {"data": "acc_receive_lt3_months"},
+      {"data": "acc_receive_4to12_months"},
+      {"data": "acc_receive_gt1_years"},
+      {"data": "acc_receive"}
     ];
 
     const crmReceivableAccountDatatable = $('#customer-receivable-account-datatable').dataTable({
