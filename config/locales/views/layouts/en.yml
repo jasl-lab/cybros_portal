@@ -23,6 +23,7 @@ en:
         financial_management: "Financial management"
         account_report: "Account report"
         labor_costs: "Account split - labor cost report"
+        labor_cost_monthly_adjusts: "Account split - labor cost adjust"
         split_setting: "Account split - setting"
         capital_report: "Capital report"
         salary_query: "Salary query"
