@@ -76,7 +76,9 @@ class Report::SubsidiaryNeedReceiveSignDetailsController < Report::BaseControlle
   def financial_receivables_drill_down
     contractcode = params[:contractcode]
     end_of_date = params[:end_of_date]
-    @details = Bi::SubCompanyNeedReceiveAccountDetail.where(contractcode: contractcode, date: end_of_date)
+    @details = Bi::SubCompanyNeedReceiveAccountDetail
+      .where('need_receive > 0')
+      .where(contractcode: contractcode, date: end_of_date)
   end
 
   private
