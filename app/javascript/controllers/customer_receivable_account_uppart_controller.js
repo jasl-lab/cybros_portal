@@ -25,12 +25,12 @@ export default class extends Controller {
       {"data": "acc_receive"}
     ];
 
-    const crmReceivableAccountDatatable = $('#customer-receivable-account-datatable').dataTable({
+    const crmReceivableAccountDatatable = $('#customer-receivable-account-uppart-datatable').dataTable({
       "processing": true,
       "serverSide": true,
       "pageLength": this.pageLengthValue,
       "autoWidth": false,
-      "ajax": $('#customer-receivable-account-datatable').data('source'),
+      "ajax": $('#customer-receivable-account-uppart-datatable').data('source'),
       "pagingType": "numbers",
       "columns": normalColumns,
       "order": [[ 4, 'desc' ]],
@@ -53,6 +53,6 @@ export default class extends Controller {
 
   disconnect() {
     crmReceivableAccountTableFixedHeader.destroy();
-    $('#customer-receivable-account-datatable').DataTable().destroy();
+    $('#customer-receivable-account-uppart-datatable').DataTable().destroy();
   }
 }

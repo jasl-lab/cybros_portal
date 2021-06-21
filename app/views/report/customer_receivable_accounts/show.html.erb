@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-12">
     <h3 class="page-title">
-      <%= t(".title") %>
+      <%= t(".title1") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="customer-receivable-account"
-        data-customer-receivable-account-page-length-value="<%= my_per_page -%>">
+      <div class="col-lg-12" data-controller="customer-receivable-account-uppart"
+        data-customer-receivable-account-uppart-page-length-value="<%= my_per_page -%>">
           <%= form_tag report_customer_receivable_accounts_path, method: :get, class: 'form-inline' do -%>
             <div class="form-group mr-1">
               <label class="mr-1"><%= t(".org_code") -%>：</label>
@@ -17,7 +17,7 @@
             </div>
             <div><%= submit_tag t(".confirm"), class: 'btn btn-thape-color' %></div>
           <% end -%>
-        <table id="customer-receivable-account-datatable"
+        <table id="customer-receivable-account-uppart-datatable"
           class="table table-hover table-bordered table-responsive mt-3"
           data-source="<%= report_customer_receivable_accounts_path(orgs: @org_codes, client_name: @client_name, format: :json) -%>">
           <thead>
@@ -51,5 +51,11 @@
         </table>
       </div>
     </div>
+  </div>
+  <hr />
+  <div class="col-12">
+    <h3 class="page-title">
+      <%= t(".title2") %>
+    </h3>
   </div>
 </div>

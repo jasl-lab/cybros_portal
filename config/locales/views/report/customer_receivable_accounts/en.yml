@@ -3,7 +3,7 @@ en:
   report:
     customer_receivable_accounts:
       show:
-        title: "Customer accounts receivable"
+        title1: "Customer accounts receivable"
         org_code: "Org code"
         client_name: "Client name"
         confirm: "Confrim"
@@ -24,3 +24,4 @@ en:
           acc_receive_4to12_months: "4 ~ 12 month aging amount"
           acc_receive_gt1_years: "Aging amount > 1 year"
           acc_receive: "Acc receive"
+        title2: "Customer receivable form"
