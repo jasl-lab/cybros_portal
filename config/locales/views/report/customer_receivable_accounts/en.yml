@@ -29,3 +29,10 @@ en:
         table2:
           crmthrank: "Rank"
           crmshort: "CRM short name"
+          col1: "Have bounced tickets or initiated a lawyer's letter"
+          col2: "(Cash non-recourse factoring)"
+          col3: "(Factoring acceptance bills with recourse)"
+          col4: "(Cash factoring acceptance bills)"
+          col5: "(Payment by house) Proportion"
+          col6: "(Bounced tickets) Proportion"
+          col7: "Time of the most recent lawyer's letter"
