@@ -26,6 +26,10 @@ class Report::CustomerReceivableAccountsController < Report::BaseController
     end
   end
 
+  def downpart
+    render json: []
+  end
+
   private
 
     def set_breadcrumbs

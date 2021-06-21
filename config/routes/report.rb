@@ -166,8 +166,10 @@ namespace :report do
     get :drill_down_group_detail
     get :export
   end
-  resource :customer_receivable_accounts
-  resource :customer_actual_payments
+  resource :customer_receivable_accounts, only: %i[show] do
+    get :downpart
+  end
+  resource :customer_actual_payments, only: %i[show]
 
   resources :roles, only: %i[index show update] do
     member do

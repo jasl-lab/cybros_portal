@@ -4,7 +4,7 @@
       <%= t(".title1") %>
     </h3>
     <div class="row">
-      <div class="col-lg-12" data-controller="customer-receivable-account-uppart"
+      <div class="col-12" data-controller="customer-receivable-account-uppart"
         data-customer-receivable-account-uppart-page-length-value="<%= my_per_page -%>">
           <%= form_tag report_customer_receivable_accounts_path, method: :get, class: 'form-inline' do -%>
             <div class="form-group mr-1">
@@ -22,28 +22,28 @@
           data-source="<%= report_customer_receivable_accounts_path(orgs: @org_codes, client_name: @client_name, format: :json) -%>">
           <thead>
             <tr>
-              <th rowspan="2"><%= t('.table.crmthrank') -%></th>
-              <th rowspan="2"><%= t('.table.crmshort') -%></th>
-              <th rowspan="2"><%= t('.table.cricrank') -%></th>
-              <th rowspan="2"><%= t('.table.clientproperty') -%></th>
+              <th rowspan="2"><%= t('.table1.crmthrank') -%></th>
+              <th rowspan="2"><%= t('.table1.crmshort') -%></th>
+              <th rowspan="2"><%= t('.table1.cricrank') -%></th>
+              <th rowspan="2"><%= t('.table1.clientproperty') -%></th>
               <th colspan="2">应收款情况</th>
               <th colspan="4">累计已签约项目应收款</th>
               <th colspan="2">累计未签约项目应收款</th>
               <th colspan="4">累计已签约财务应收款</th>
             </tr>
             <tr>
-              <th><%= t('.table.sum_receive') -%></th>
-              <th><%= t('.table.sum_receive_gt1_years') -%></th>
-              <th><%= t('.table.aging_amount_lt3_months') -%></th>
-              <th><%= t('.table.aging_amount_4to12_months') -%></th>
-              <th><%= t('.table.aging_amount_gt1_years') -%></th>
-              <th><%= t('.table.sign_receive') -%></th>
-              <th><%= t('.table.unsign_receive_gt1_years') -%></th>
-              <th><%= t('.table.unsign_receive') -%></th>
-              <th><%= t('.table.acc_receive_lt3_months') -%></th>
-              <th><%= t('.table.acc_receive_4to12_months') -%></th>
-              <th><%= t('.table.acc_receive_gt1_years') -%></th>
-              <th><%= t('.table.acc_receive') -%></th>
+              <th><%= t('.table1.sum_receive') -%></th>
+              <th><%= t('.table1.sum_receive_gt1_years') -%></th>
+              <th><%= t('.table1.aging_amount_lt3_months') -%></th>
+              <th><%= t('.table1.aging_amount_4to12_months') -%></th>
+              <th><%= t('.table1.aging_amount_gt1_years') -%></th>
+              <th><%= t('.table1.sign_receive') -%></th>
+              <th><%= t('.table1.unsign_receive_gt1_years') -%></th>
+              <th><%= t('.table1.unsign_receive') -%></th>
+              <th><%= t('.table1.acc_receive_lt3_months') -%></th>
+              <th><%= t('.table1.acc_receive_4to12_months') -%></th>
+              <th><%= t('.table1.acc_receive_gt1_years') -%></th>
+              <th><%= t('.table1.acc_receive') -%></th>
             </tr>
           </thead>
           <tbody>
@@ -57,5 +57,22 @@
     <h3 class="page-title">
       <%= t(".title2") %>
     </h3>
+    <div class="row">
+      <div class="col-12" data-controller="customer-receivable-account-downpart"
+        data-customer-receivable-account-downpart-page-length-value="<%= my_per_page -%>">
+        <table id="customer-receivable-account-downpart-datatable"
+          class="table table-hover table-bordered table-responsive mt-3"
+          data-source="<%= downpart_report_customer_receivable_accounts_path(orgs: @org_codes, client_name: @client_name, format: :json) -%>">
+          <thead>
+            <tr>
+              <th><%= t('.table2.crmthrank') -%></th>
+              <th><%= t('.table2.crmshort') -%></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
