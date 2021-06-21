@@ -10,6 +10,16 @@ class Report::CustomerActualPaymentsController < Report::BaseController
     @all_month_names = policy_scope(Bi::CrmClientSum).all_month_names
     @month_name = params[:month_name] || @all_month_names.first
 
+    @data = policy_scope(Bi::CrmYearReport)
+      .select('year, sum(top20) top20, sum(top20to50) top20to50, sum(gt50) gt50, sum(others) others')
+      .group(:year)
+      .order(:year)
+
+    @years = @data.collect(&:year)
+    @top20s = @data.collect { |d| (d.top20 / 100_0000.0).round(1) }
+    @top20to50s = @data.collect { |d| (d.top20to50 / 100_0000.0).round(1) }
+    @gt50s = @data.collect { |d| (d.gt50 / 100_0000.0).round(1) }
+    @others = @data.collect { |d| (d.others / 100_0000.0).round(1) }
   end
 
   private
