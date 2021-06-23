@@ -41,6 +41,7 @@ class Admin::RolesController < Admin::ApplicationController
   end
 
   def generate
+    GenerateRoleAllWorker.perform_in(5.seconds)
     Role.first.update_columns(in_generating: true)
     redirect_to admin_roles_path, notice: t('.generate_pending')
   end

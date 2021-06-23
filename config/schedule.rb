@@ -16,10 +16,6 @@ every 1.day, at: '21:55' do
   command 'RAILS_ENV=production; cd /var/www/cybros/current/ && bundle exec pumactl -S /var/www/cybros/shared/tmp/pids/puma.state -F /var/www/cybros/shared/puma.rb restart'
 end
 
-every 1.day, at: ['16:49', '2:02', '4:02', '6:02', '9:02'] do
-  rake 'role:all'
-end
-
 every 1.day, at: '4:50' do
   rake 'sync_nc:all'
 end
