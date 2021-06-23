@@ -5,6 +5,7 @@ en:
       index:
         title: "Role Management"
         generate: "Generate roles"
+        generationg: "In generating"
         table:
           id: "ID"
           role_name: "Role"

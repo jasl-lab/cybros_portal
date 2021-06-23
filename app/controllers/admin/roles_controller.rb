@@ -41,6 +41,7 @@ class Admin::RolesController < Admin::ApplicationController
   end
 
   def generate
+    Role.first.update_columns(in_generating: true)
     redirect_to admin_roles_path, notice: t('.generate_pending')
   end
 

@@ -5,6 +5,7 @@ zh-CN:
       index:
         title: "角色管理"
         generate: "生成角色"
+        generationg: "正在生成角色"
         table:
           id: "ID"
           role_name: "角色"

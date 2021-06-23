@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_075748) do
+ActiveRecord::Schema.define(version: 2021_06_23_081435) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -493,6 +493,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_075748) do
     t.boolean "group_report_viewer", default: false
     t.boolean "org_viewer", default: false
     t.boolean "project_map_contract_download", default: false, null: false
+    t.boolean "in_generating", default: false, null: false
   end
 
   create_table "sms_phone_mappings", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
