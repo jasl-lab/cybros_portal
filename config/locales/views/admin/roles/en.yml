@@ -4,6 +4,7 @@ en:
     roles:
       index:
         title: "Role Management"
+        generate: "Generate roles"
         table:
           id: "ID"
           role_name: "Role"
@@ -32,3 +33,5 @@ en:
         update_succss: "Add success"
       user:
         remove_succss: "Remove success"
+      generate:
+        generate_pending: "Generate pending"

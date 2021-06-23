@@ -4,6 +4,7 @@ zh-CN:
     roles:
       index:
         title: "角色管理"
+        generate: "生成角色"
         table:
           id: "ID"
           role_name: "角色"
@@ -32,3 +33,5 @@ zh-CN:
         update_succss: "添加成功"
       user:
         remove_succss: "删除成功"
+      generate:
+        generate_pending: "正在生成"

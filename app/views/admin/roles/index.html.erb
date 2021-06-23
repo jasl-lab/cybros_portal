@@ -3,6 +3,7 @@
     <div class="container">
       <h3 class="page-title">
         <%= t(".title") %>
+        <%= link_to t('.generate'), generate_admin_roles_path, remote: true, method: :post, class: 'btn btn-secondary float-right' -%>
       </h3>
       <div class="table-responsive mt-3">
         <table class="table table-striped">

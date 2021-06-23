@@ -40,6 +40,10 @@ class Admin::RolesController < Admin::ApplicationController
     redirect_to admin_role_path(id: @role.id), notice: t('.remove_succss')
   end
 
+  def generate
+    redirect_to admin_roles_path, notice: t('.generate_pending')
+  end
+
   private
 
     def set_role

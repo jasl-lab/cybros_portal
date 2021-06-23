@@ -24,6 +24,9 @@ namespace :admin do
   end
 
   resources :roles, only: %i[index show update] do
+    collection do
+      post :generate
+    end
     member do
       delete :user
     end
