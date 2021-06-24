@@ -32,6 +32,8 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": @org_codes.first[1]).order(:部门排名).pluck(:"部门", :"编号")
     department_id = Department.find_by(dept_code: @dept_codes.first[1])
     @position_codes = Position.where(department_id: department_id).pluck(:name, :id)
+    @user_cost_types = SplitCost::UserCostType.all.order(:code)
+    @user_cost_type_id = params[:user_cost_type_id]
   end
 
   def create

@@ -100,8 +100,8 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label class="col-form-label" for="text-input-out-user-cost-type"><%= t('.adjust_form.out_user_cost_type') %></label>
-                <%= text_field_tag :out_user_cost_type, @out_user_cost_type, class: 'form-control', id: 'text-input-out-user-cost-type' -%>
+                <label class="col-form-label" for="select-out-user-cost-type"><%= t('.adjust_form.out_user_cost_type_id') %></label>
+                <%= select_tag 'out_user_cost_type_id', options_from_collection_for_select(@user_cost_types, "id", "name", @user_cost_type_id), class: 'form-control-plaintext form-control' %>
               </div>
             </div>
           </div>
@@ -124,8 +124,8 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label class="col-form-label" for="text-input-in-user-cost-type"><%= t('.adjust_form.in_user_cost_type') %></label>
-                <%= text_field_tag :in_user_cost_type, @in_user_cost_type, class: 'form-control', id: 'text-input-in-user-cost-type' -%>
+                <label class="col-form-label" for="select-in-user-cost-type"><%= t('.adjust_form.in_user_cost_type_id') %></label>
+                <%= select_tag 'in_user_cost_type_id', options_from_collection_for_select(@user_cost_types, "id", "name", @user_cost_type_id), class: 'form-control-plaintext form-control' %>
               </div>
             </div>
           </div>
