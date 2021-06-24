@@ -49,15 +49,21 @@ module Company
     end
 
     def print_all?
-      user.present? && (user.admin? || user.chinese_name.in?(%w[陈建 冯可]))
+      return false unless user.present?
+
+      user.admin? || user.chinese_name.in?(%w[陈建 冯可])
     end
 
     def update?
-      user.present? && (user.roles.pluck(:knowledge_maintainer).any? || user.admin?)
+      return false unless user.present?
+
+      user.admin? || user.roles.pluck(:knowledge_maintainer).any?
     end
 
     def destroy?
-      user.present? && (user.admin? || user.chinese_name.in?(%w[陈建 冯可]))
+      return false unless user.present?
+
+      user.admin? || user.chinese_name.in?(%w[陈建 冯可])
     end
   end
 end
