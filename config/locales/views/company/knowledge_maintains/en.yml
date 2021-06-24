@@ -8,6 +8,7 @@ en:
           new: "New knowledge"
           report: "Export all knowledge"
           list: "List all questions"
+          print_all: "Print all"
         table:
           category_1: "Category 1"
           category_2: "Category 2"

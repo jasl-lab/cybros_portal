@@ -14,6 +14,7 @@ namespace :company do
     collection do
       get :export
       get :list
+      get :print_all
     end
   end
   resources :sms_phone_configurations, only: %i[index edit update new create]

@@ -100,6 +100,12 @@ class Company::KnowledgeMaintainsController < ApplicationController
     @knowledges = @knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
   end
 
+  def print_all
+    authorize Company::Knowledge
+    @knowledges = Company::Knowledge.all
+    render layout: false
+  end
+
   protected
 
     def set_page_layout_data

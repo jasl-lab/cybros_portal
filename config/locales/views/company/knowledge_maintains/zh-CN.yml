@@ -8,6 +8,7 @@ zh-CN:
           new: "新建知识条目"
           report: "导出所有条目"
           list: "列出所有问题"
+          print_all: "打印全部"
         table:
           category_1: "类别 1"
           category_2: "类别 2"

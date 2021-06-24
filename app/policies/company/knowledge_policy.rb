@@ -48,6 +48,10 @@ module Company
       update?
     end
 
+    def print_all?
+      user.present? && (user.admin? || user.chinese_name.in?(%w[陈建 冯可]))
+    end
+
     def update?
       user.present? && (user.roles.pluck(:knowledge_maintainer).any? || user.admin?)
     end
