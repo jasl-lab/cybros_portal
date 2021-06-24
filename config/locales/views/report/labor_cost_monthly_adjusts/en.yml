@@ -23,7 +23,6 @@ en:
           clerk_code: "Clerk code"
           chinese_name: "Chinese name"
           out_company_code: "Out company"
-          out_department: "Out department"
           out_position: "Out position"
           out_user_cost_type: "Out user cost type"
           in_company: "In company"
@@ -33,3 +32,5 @@ en:
           adjustment_amount: "Adjustment amount"
           adjustment_reason: "Adjustment reason"
           submit: "Submit adjust"
+      out_department_code_select:
+        out_department_code: "Out department"

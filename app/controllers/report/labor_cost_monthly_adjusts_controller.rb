@@ -29,6 +29,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       .page(params[:page]).per(my_per_page)
 
     @org_codes = Bi::OrgShortName.org_options
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": @org_codes.first[1]).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   def create
