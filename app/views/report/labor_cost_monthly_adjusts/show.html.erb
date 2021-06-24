@@ -108,20 +108,18 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label class="col-form-label" for="text-input-in-company"><%= t('.adjust_form.in_company') %></label>
-                <%= text_field_tag :in_company, @in_company, class: 'form-control', id: 'text-input-in-company' -%>
+                <label class="col-form-label" for="select-in-company-code"><%= t('.adjust_form.in_company_code') %></label>
+                <%= select_tag :in_company_code, options_for_select(@org_codes), class: 'form-control-plaintext form-control', id: 'select-in-company-code', data: { remote: true, type: :script, url: url_for(controller: 'report/labor_cost_monthly_adjusts', action: 'in_company_code_change', format: 'js')} %>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
-                <label class="col-form-label" for="text-input-in-department"><%= t('.adjust_form.in_department') %></label>
-                <%= text_field_tag :in_department, @in_department, class: 'form-control', id: 'text-input-in-department' -%>
+              <div class="form-group" id="in-department-code-container">
+                <%= render partial: 'in_department_code_select', locals: { dept_codes: @dept_codes } %>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
-                <label class="col-form-label" for="text-input-in-position"><%= t('.adjust_form.in_position') %></label>
-                <%= text_field_tag :in_position, @in_position, class: 'form-control', id: 'text-input-in-position' -%>
+              <div class="form-group" id="in-position-code-container">
+                <%= render partial: 'in_position_code_select', locals: { position_codes: @position_codes } %>
               </div>
             </div>
             <div class="col-md-3">

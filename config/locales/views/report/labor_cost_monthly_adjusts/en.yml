@@ -25,9 +25,7 @@ en:
           out_company_code: "Out company"
           out_position: "Out position"
           out_user_cost_type: "Out user cost type"
-          in_company: "In company"
-          in_department: "In department"
-          in_position: "In position"
+          in_company_code: "In company"
           in_user_cost_type: "In user cost type"
           adjustment_amount: "Adjustment amount"
           adjustment_reason: "Adjustment reason"
@@ -36,3 +34,7 @@ en:
         out_department_code: "Out department"
       out_position_code_select:
         out_position_code: "Out position"
+      in_department_code_select:
+        in_department_code: "In department"
+      in_position_code_select:
+        in_position_code: "In position"

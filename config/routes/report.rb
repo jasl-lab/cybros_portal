@@ -20,6 +20,8 @@ namespace :report do
     collection do
       get :out_company_code_change
       get :out_department_code_change
+      get :in_company_code_change
+      get :in_department_code_change
     end
   end
 

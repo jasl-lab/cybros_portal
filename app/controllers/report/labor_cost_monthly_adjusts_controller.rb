@@ -48,6 +48,17 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     @position_codes = Position.where(department_id: department_id).pluck(:name, :id)
   end
 
+  def in_company_code_change
+    org_code = params[:in_company_code]
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
+  end
+
+  def in_department_code_change
+    department_code = params[:in_department_code]
+    department_id = Department.find_by(dept_code: department_code)
+    @position_codes = Position.where(department_id: department_id).pluck(:name, :id)
+  end
+
   protected
 
     def set_page_layout_data
