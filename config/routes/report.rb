@@ -19,6 +19,7 @@ namespace :report do
   resource :labor_cost_monthly_adjust, only: %i[show create] do
     collection do
       get :out_company_code_change
+      get :out_department_code_change
     end
   end
 
