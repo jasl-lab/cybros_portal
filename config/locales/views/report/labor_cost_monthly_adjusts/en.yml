@@ -18,3 +18,12 @@ en:
         adjust_user: "Adjuster"
         month_name: "Month name"
         confirm: "Confirm"
+        adjust_form:
+          header: "Labor cost adjustment manual adjustment table"
+          clerk_code: "Clerk code"
+          chinese_name: "Chinese name"
+          out_company: "Out company"
+          out_department: "Out department"
+          out_position: "Out position"
+          out_user_cost_type: "Out user cost type"
+          submit: "Submit adjust"

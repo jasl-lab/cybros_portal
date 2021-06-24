@@ -29,6 +29,9 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       .page(params[:page]).per(my_per_page)
   end
 
+  def create
+  end
+
   protected
 
     def set_page_layout_data

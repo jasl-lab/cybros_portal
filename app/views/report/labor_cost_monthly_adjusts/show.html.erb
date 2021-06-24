@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-12">
     <h3 class="page-title">
       <%= t(".title") %>
     </h3>
@@ -58,6 +58,61 @@
       <div class="col-12">
         <%= paginate @cspms %>
       </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <strong><%= t('.adjust_form.header') %></strong>
+      </div>
+      <%= form_with url: report_labor_cost_monthly_adjust_path, class: 'form-horizontal', local: true do |f| %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-clerk-code"><%= t('.adjust_form.clerk_code') %></label>
+                <%= text_field_tag :clerk_code, @clerk_code, class: 'form-control', id: 'text-input-clerk-code' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-chinese-name"><%= t('.adjust_form.chinese_name') %></label>
+                <%= text_field_tag :chinese_name, @chinese_name, class: 'form-control', id: 'text-input-chinese-name' -%>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-out-company"><%= t('.adjust_form.out_company') %></label>
+                <%= text_field_tag :out_company, @out_company, class: 'form-control', id: 'text-input-out-company' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-out-department"><%= t('.adjust_form.out_department') %></label>
+                <%= text_field_tag :out_department, @out_department, class: 'form-control', id: 'text-input-out-department' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-out-position"><%= t('.adjust_form.out_position') %></label>
+                <%= text_field_tag :out_position, @out_position, class: 'form-control', id: 'text-input-out-position' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-out-user-cost-type"><%= t('.adjust_form.out_user_cost_type') %></label>
+                <%= text_field_tag :out_user_cost_type, @out_user_cost_type, class: 'form-control', id: 'text-input-out-user-cost-type' -%>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <%= f.submit t('.adjust_form.submit'), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

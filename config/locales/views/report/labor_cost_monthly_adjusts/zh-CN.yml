@@ -3,7 +3,7 @@ zh-CN:
   report:
     labor_cost_monthly_adjusts:
       show:
-        title: "财务分析-人力成功调整"
+        title: "财务分析-人力成本调整"
         company_name: "所属公司"
         department: "所属部门"
         position_name: "岗位"
@@ -18,3 +18,12 @@ zh-CN:
         adjust_user: "调整人"
         month_name: "查询年月"
         confirm: "确认"
+        adjust_form:
+          header: "人力成本调整手工调整表"
+          clerk_code: "员工编号"
+          chinese_name: "员工名称"
+          out_company: "调出公司"
+          out_department: "调出部门"
+          out_position: "调出岗位"
+          out_user_cost_type: "调整前成本类别"
+          submit: "递交调整"
