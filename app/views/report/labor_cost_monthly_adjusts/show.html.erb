@@ -107,6 +107,46 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-in-company"><%= t('.adjust_form.in_company') %></label>
+                <%= text_field_tag :in_company, @in_company, class: 'form-control', id: 'text-input-in-company' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-in-department"><%= t('.adjust_form.in_department') %></label>
+                <%= text_field_tag :in_department, @in_department, class: 'form-control', id: 'text-input-in-department' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-in-position"><%= t('.adjust_form.in_position') %></label>
+                <%= text_field_tag :in_position, @in_position, class: 'form-control', id: 'text-input-in-position' -%>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-in-user-cost-type"><%= t('.adjust_form.in_user_cost_type') %></label>
+                <%= text_field_tag :in_user_cost_type, @in_user_cost_type, class: 'form-control', id: 'text-input-in-user-cost-type' -%>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-adjustment-amount"><%= t('.adjust_form.adjustment_amount') %></label>
+                <%= text_field_tag :adjustment_amount, @adjustment_amount, class: 'form-control', id: 'text-input-adjustment-amount' -%>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label" for="text-input-adjustment-reason"><%= t('.adjust_form.adjustment_reason') %></label>
+                <%= text_field_tag :adjustment_reason, @adjustment_reason, class: 'form-control', id: 'text-input-adjustment-reason' -%>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="card-footer">
