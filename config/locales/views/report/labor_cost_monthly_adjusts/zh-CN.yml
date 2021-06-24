@@ -23,7 +23,6 @@ zh-CN:
           clerk_code: "员工编号"
           chinese_name: "员工名称"
           out_company_code: "调出公司"
-          out_position: "调出岗位"
           out_user_cost_type: "调整前成本类别"
           in_company: "调入公司"
           in_department: "调入部门"
@@ -34,3 +33,5 @@ zh-CN:
           submit: "递交调整"
       out_department_code_select:
         out_department_code: "调出部门"
+      out_position_code_select:
+        out_position_code: "调出岗位"

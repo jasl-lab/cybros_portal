@@ -95,8 +95,7 @@
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label class="col-form-label" for="text-input-out-position"><%= t('.adjust_form.out_position') %></label>
-                <%= text_field_tag :out_position, @out_position, class: 'form-control', id: 'text-input-out-position' -%>
+                <%= render partial: 'out_position_code_select', locals: { position_codes: @position_codes } %>
               </div>
             </div>
             <div class="col-md-3">
