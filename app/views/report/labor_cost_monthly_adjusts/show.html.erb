@@ -28,6 +28,7 @@
               <th><%= t('.amount') -%></th>
               <th><%= t('.user_status.title') -%></th>
               <th><%= t('.adjust_user') -%></th>
+              <th><%= t('.adjust_reason') -%></th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +51,7 @@
                   <% end %>
                 </td>
                 <td><%= cspm.adjust_user_name -%></td>
+                <td><%= cspm.adjust_reason -%></td>
               </tr>
             <% end %>
           </tbody>

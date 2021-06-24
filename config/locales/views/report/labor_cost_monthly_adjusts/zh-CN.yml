@@ -16,6 +16,7 @@ zh-CN:
         user_job_type: "岗位类别"
         amount: "金额"
         adjust_user: "调整人"
+        adjust_reason: "调整原因"
         month_name: "查询年月"
         confirm: "确认"
         adjust_form:

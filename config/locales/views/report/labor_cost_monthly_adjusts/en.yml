@@ -16,6 +16,7 @@ en:
         user_job_type: "User job type"
         amount: "Amount"
         adjust_user: "Adjuster"
+        adjust_reason: "Adjust reason"
         month_name: "Month name"
         confirm: "Confirm"
         adjust_form:

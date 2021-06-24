@@ -22,7 +22,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       .select('users.clerk_code, users.chinese_name, departments.name department_name, departments.company_name,
                positions.name position_name, user_cost_types.name user_cost_type_name,
                users.locked_at, user_job_types.name user_job_type_name,
-               amount, adjust_users.chinese_name adjust_user_name')
+               amount, adjust_users.chinese_name adjust_user_name, adjust_reason, user_split_classify_salary_per_months.id')
       .joins(:user, :position, :user_job_type, :user_cost_type)
       .joins('INNER JOIN `users` adjust_users ON `adjust_users`.`id` = `user_split_classify_salary_per_months`.`adjust_user_id`')
       .joins('LEFT JOIN `departments` ON `departments`.`id` = `positions`.`department_id`')
@@ -84,11 +84,11 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     SplitCost::UserSplitClassifySalaryPerMonth.create(user_id: user.id, adjust_user_id: current_user.id,
       position_id: out_position.id, month: beginning_of_month,
       user_job_type_id: out_user_job_type_id, user_cost_type_id: out_user_cost_type_id,
-      amount: -adjustment_amount)
+      amount: -adjustment_amount, adjust_reason: adjustment_reason)
     SplitCost::UserSplitClassifySalaryPerMonth.create(user_id: user.id, adjust_user_id: current_user.id,
       position_id: in_position.id, month: beginning_of_month,
       user_job_type_id: in_user_job_type_id, user_cost_type_id: in_user_cost_type_id,
-      amount: adjustment_amount)
+      amount: adjustment_amount, adjust_reason: adjustment_reason)
     redirect_to report_labor_cost_monthly_adjust_path(month_name: month_name), notice: '成功创建人力成本调整记录'
   end
 
