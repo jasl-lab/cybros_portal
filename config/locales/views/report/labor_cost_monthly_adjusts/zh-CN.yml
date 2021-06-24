@@ -22,7 +22,7 @@ zh-CN:
           header: "人力成本调整手工调整表"
           clerk_code: "员工编号"
           chinese_name: "员工名称"
-          out_company: "调出公司"
+          out_company_code: "调出公司"
           out_department: "调出部门"
           out_position: "调出岗位"
           out_user_cost_type: "调整前成本类别"

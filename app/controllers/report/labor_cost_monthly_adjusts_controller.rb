@@ -27,9 +27,16 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       .joins('INNER JOIN `users` adjust_users ON `adjust_users`.`id` = `user_split_classify_salary_per_months`.`adjust_user_id`')
       .joins('LEFT JOIN `departments` ON `departments`.`id` = `positions`.`department_id`')
       .page(params[:page]).per(my_per_page)
+
+    @org_codes = Bi::OrgShortName.org_options
   end
 
   def create
+  end
+
+  def out_company_code_change
+    org_code = params[:out_company_code]
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
   end
 
   protected

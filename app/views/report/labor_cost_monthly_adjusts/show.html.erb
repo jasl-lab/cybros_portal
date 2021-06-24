@@ -84,8 +84,8 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label class="col-form-label" for="text-input-out-company"><%= t('.adjust_form.out_company') %></label>
-                <%= text_field_tag :out_company, @out_company, class: 'form-control', id: 'text-input-out-company' -%>
+                <label class="col-form-label" for="text-input-out-company-code"><%= t('.adjust_form.out_company_code') %></label>
+                <%= select_tag :out_company_code, options_for_select(@org_codes), class: 'form-control-plaintext form-control', id: 'select-input-out-company-code', data: { remote: true, type: :script, url: url_for(controller: 'report/labor_cost_monthly_adjusts', action: 'out_company_code_change', format: 'js')} %>
               </div>
             </div>
             <div class="col-md-3">

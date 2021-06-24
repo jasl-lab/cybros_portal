@@ -22,7 +22,7 @@ en:
           header: "Labor cost adjustment manual adjustment table"
           clerk_code: "Clerk code"
           chinese_name: "Chinese name"
-          out_company: "Out company"
+          out_company_code: "Out company"
           out_department: "Out department"
           out_position: "Out position"
           out_user_cost_type: "Out user cost type"
