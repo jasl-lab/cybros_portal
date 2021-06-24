@@ -103,6 +103,7 @@ class Company::KnowledgeMaintainsController < ApplicationController
   def print_all
     authorize Company::Knowledge
     @knowledges = Company::Knowledge.all
+    @knowledges = @knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
     render layout: false
   end
 
