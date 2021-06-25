@@ -2015,7 +2015,7 @@ colorette@^1.2.1, colorette@^1.2.2:
 
 commander@^2.20.0:
   version "2.20.3"
-  resolved "https://registry.nlark.com/commander/download/commander-2.20.3.tgz?cache=0&sync_timestamp=1622954303803&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcommander%2Fdownload%2Fcommander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  resolved "https://registry.nlark.com/commander/download/commander-2.20.3.tgz?cache=0&sync_timestamp=1624609510051&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcommander%2Fdownload%2Fcommander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha1-/UhehMA+tIgcIHIrpIA16FMa6zM=
 
 commondir@^1.0.1:
