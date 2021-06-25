@@ -79,14 +79,8 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <label class="col-form-label" for="text-input-clerk-code"><%= t('.adjust_form.clerk_code') %></label>
-                <%= text_field_tag :clerk_code, @clerk_code, class: 'form-control', id: 'text-input-clerk-code' -%>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label class="col-form-label" for="text-input-chinese-name"><%= t('.adjust_form.chinese_name') %></label>
-                <%= text_field_tag :chinese_name, @chinese_name, class: 'form-control', id: 'text-input-chinese-name' -%>
+                <label class="mr-1"><%= t(".adjust_form.ncworkno") -%>：</label>
+                <%= select_tag 'ncworkno', options_from_collection_for_select(User.where(clerk_code: @ncworkno), "clerk_code", "chinese_name"), class: 'form-control-plaintext form-control', id: 'ncworkno-select', data: { controller: 'ui--ncworkno-select', 'ui--ncworkno-select-url-value': '/ui/ncworkno_select.json' } -%>
               </div>
             </div>
           </div>

@@ -41,7 +41,6 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     month_name = params[:month_name]&.strip
     beginning_of_month = Date.parse(month_name).beginning_of_month
 
-    chinese_name = params[:chinese_name]
     out_company_code = params[:out_company_code]
     out_department_code = params[:out_department_code]
     out_position_code = params[:out_position_code]
@@ -55,9 +54,9 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     adjustment_amount = params[:adjustment_amount].to_f
     adjustment_reason = params[:adjustment_reason]
 
-    user = User.find_by(clerk_code: params[:clerk_code])
-    if user.blank? || user.chinese_name != chinese_name
-      return redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '用户姓名与工号不匹配，或者任意一个为空'
+    user = User.find_by(clerk_code: params[:ncworkno])
+    if user.blank?
+      return redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '用户不能为空'
     end
 
     out_position = Position.find_by(id: out_position_code)

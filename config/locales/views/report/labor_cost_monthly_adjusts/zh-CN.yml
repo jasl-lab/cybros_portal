@@ -22,8 +22,7 @@ zh-CN:
         confirm: "确认"
         adjust_form:
           header: "人力成本调整手工调整表"
-          clerk_code: "员工编号"
-          chinese_name: "员工名称"
+          ncworkno: "调整员工"
           out_company_code: "调出公司"
           out_user_cost_type_id: "调整前成本类别"
           in_company_code: "调入公司"

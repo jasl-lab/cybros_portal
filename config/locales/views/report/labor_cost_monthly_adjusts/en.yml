@@ -22,8 +22,7 @@ en:
         confirm: "Confirm"
         adjust_form:
           header: "Labor cost adjustment manual adjustment table"
-          clerk_code: "Clerk code"
-          chinese_name: "Chinese name"
+          ncworkno: "NC workno"
           out_company_code: "Out company"
           out_position: "Out position"
           out_user_cost_type: "Out user cost type"
