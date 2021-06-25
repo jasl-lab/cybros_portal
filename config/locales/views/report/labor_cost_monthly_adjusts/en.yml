@@ -2,7 +2,7 @@
 en:
   report:
     labor_cost_monthly_adjusts:
-      show:
+      index:
         title: "Labor cost report"
         company_name: "Company name"
         department: "Department"

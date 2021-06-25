@@ -7,7 +7,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
   before_action :set_page_layout_data, if: -> { request.format.html? }
   before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
 
-  def show
+  def index
     prepare_meta_tags title: t('.title')
     authorize SplitCost::UserSplitClassifySalaryPerMonth
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
@@ -56,12 +56,12 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
     user = User.find_by(clerk_code: params[:clerk_code])
     if user.blank? || user.chinese_name != chinese_name
-      return redirect_to report_labor_cost_monthly_adjust_path(month_name: month_name), notice: '用户姓名与工号不匹配，或者任意一个为空'
+      return redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '用户姓名与工号不匹配，或者任意一个为空'
     end
 
     out_position = Position.find_by(id: out_position_code)
     if out_position.blank?
-      return redirect_to report_labor_cost_monthly_adjust_path(month_name: month_name), notice: '调出岗位不存在，请检查'
+      return redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '调出岗位不存在，请检查'
     end
     out_position_user = PositionUser.find_by(position_id: out_position.id, user_id: user.id)
     out_user_job_type_id = if out_position_user.blank?
@@ -72,7 +72,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
     in_position = Position.find_by(id: in_position_code)
     if in_position.blank?
-      return redirect_to report_labor_cost_monthly_adjust_path(month_name: month_name), notice: '调入岗位不存在，请检查'
+      return redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '调入岗位不存在，请检查'
     end
     in_position_user = PositionUser.find_by(position_id: out_position.id, user_id: user.id)
     in_user_job_type_id = if in_position_user.blank?
@@ -89,7 +89,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       position_id: in_position.id, month: beginning_of_month,
       user_job_type_id: in_user_job_type_id, user_cost_type_id: in_user_cost_type_id,
       amount: adjustment_amount, adjust_reason: adjustment_reason)
-    redirect_to report_labor_cost_monthly_adjust_path(month_name: month_name), notice: '成功创建人力成本调整记录'
+    redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '成功创建人力成本调整记录'
   end
 
   def out_company_code_change

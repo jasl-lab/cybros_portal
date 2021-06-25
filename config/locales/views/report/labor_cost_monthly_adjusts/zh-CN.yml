@@ -2,7 +2,7 @@
 zh-CN:
   report:
     labor_cost_monthly_adjusts:
-      show:
+      index:
         title: "财务分析-人力成本调整"
         company_name: "所属公司"
         department: "所属部门"
