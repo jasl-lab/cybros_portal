@@ -50,6 +50,7 @@ module Bi
       joins('INNER JOIN ORG_ORDER on ORG_ORDER.org_code = ORG_SHORTNAME.code')
       .where('ORG_ORDER.org_order is not null')
       .where('ORG_SHORTNAME.shortname is not null')
+      .where('ORG_ORDER.org_code NOT LIKE "H%"')
       .order('ORG_ORDER.org_order ASC')
       .collect { |o| [o.shortname, o.code] }
     end
