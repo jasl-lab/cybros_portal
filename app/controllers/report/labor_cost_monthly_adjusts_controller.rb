@@ -106,24 +106,24 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
   def out_company_code_change
     org_code = params[:out_company_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号").uniq
   end
 
   def out_department_code_change
     department_code = params[:out_department_code]
     department_id = Department.find_by(dept_code: department_code)
-    @position_codes = Position.where(department_id: department_id).pluck(:name, :id)
+    @position_codes = Position.where(department_id: department_id).pluck(:name, :id).uniq
   end
 
   def in_company_code_change
     org_code = params[:in_company_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号").uniq
   end
 
   def in_department_code_change
     department_code = params[:in_department_code]
     department_id = Department.find_by(dept_code: department_code)
-    @position_codes = Position.where(department_id: department_id).pluck(:name, :id)
+    @position_codes = Position.where(department_id: department_id).pluck(:name, :id).uniq
   end
 
   protected
