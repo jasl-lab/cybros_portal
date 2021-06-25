@@ -16,7 +16,7 @@ namespace :report do
   resource :org_market_fees, only: %i[show]
   resource :bonus_distribution, only: %i[show]
   resource :labor_cost, only: %i[show]
-  resources :labor_cost_monthly_adjusts, only: %i[index create] do
+  resources :labor_cost_monthly_adjusts, only: %i[index create destroy] do
     collection do
       get :out_company_code_change
       get :out_department_code_change

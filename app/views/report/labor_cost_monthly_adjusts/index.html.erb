@@ -29,6 +29,7 @@
               <th><%= t('.user_status.title') -%></th>
               <th><%= t('.adjust_user') -%></th>
               <th><%= t('.adjust_reason') -%></th>
+              <th><%= t('.admin_action') -%></th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +53,11 @@
                 </td>
                 <td><%= cspm.adjust_user_name -%></td>
                 <td><%= cspm.adjust_reason -%></td>
+                <td>
+                  <%= link_to report_labor_cost_monthly_adjust_path(id: cspm.id, month_name: @month_name), method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>

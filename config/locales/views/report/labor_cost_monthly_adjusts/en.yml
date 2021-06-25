@@ -17,6 +17,7 @@ en:
         amount: "Amount"
         adjust_user: "Adjuster"
         adjust_reason: "Adjust reason"
+        admin_action: "Admin action"
         month_name: "Month name"
         confirm: "Confirm"
         adjust_form:

@@ -20,5 +20,13 @@ module SplitCost
       user.admin? \
       || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
     end
+
+    def create?
+      index?
+    end
+
+    def destroy?
+      index?
+    end
   end
 end

@@ -37,6 +37,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
   end
 
   def create
+    authorize SplitCost::UserSplitClassifySalaryPerMonth
     month_name = params[:month_name]&.strip
     beginning_of_month = Date.parse(month_name).beginning_of_month
 
@@ -90,6 +91,18 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       user_job_type_id: in_user_job_type_id, user_cost_type_id: in_user_cost_type_id,
       amount: adjustment_amount, adjust_reason: adjustment_reason)
     redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '成功创建人力成本调整记录'
+  end
+
+  def destroy
+    authorize SplitCost::UserSplitClassifySalaryPerMonth
+    month_name = params[:month_name]
+    uscspm = SplitCost::UserSplitClassifySalaryPerMonth.find_by(id: params[:id])
+    if uscspm.present?
+      uscspm.destroy
+      redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '成功删除人力成本调整记录'
+    else
+      redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '无此条人力成本调整记录'
+    end
   end
 
   def out_company_code_change

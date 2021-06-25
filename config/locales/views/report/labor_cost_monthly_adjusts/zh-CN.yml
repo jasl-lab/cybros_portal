@@ -17,6 +17,7 @@ zh-CN:
         amount: "金额"
         adjust_user: "调整人"
         adjust_reason: "调整原因"
+        admin_action: "管理动作"
         month_name: "查询年月"
         confirm: "确认"
         adjust_form:
