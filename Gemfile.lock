@@ -463,7 +463,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter
   ajax-datatables-rails
   auto_strip_attributes
-  bootsnap (>= 1.5.1)
+  bootsnap (>= 1.7.5)
   brakeman
   browser
   byebug
@@ -508,7 +508,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
-  webpacker (~> 5.2)
+  webpacker (~> 5.4)
   wechat!
   whenever
 

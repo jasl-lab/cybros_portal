@@ -24,7 +24,7 @@ gem 'sidekiq'
 # Use Puma as the app server
 gem 'puma'
 # Use development version of Webpacker
-gem 'webpacker', '~> 5.2'
+gem 'webpacker', '~> 5.4'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5.2'
@@ -45,7 +45,7 @@ gem 'mini_magick'
 gem 'enumize'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.5.1', require: false
+gem 'bootsnap', '>= 1.7.5', require: false
 
 gem 'config'
 
