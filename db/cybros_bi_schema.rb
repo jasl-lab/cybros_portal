@@ -488,6 +488,12 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.integer "cricrank"
     t.string "crmthrank", limit: 20
     t.string "clientproperty", limit: 50
+    t.string "warnings", limit: 45, default: "N", comment: "跳票或律师函警告"
+    t.float "bounced_cheque", limit: 53, comment: "跳票金额"
+    t.float "cash_receive", limit: 53
+    t.float "recourse_factoring", limit: 53, comment: "追索权保理"
+    t.float "non_recourse_factoring", limit: 53, comment: "无追索权保理"
+    t.float "pledge", limit: 53
   end
 
   create_table "CRM_CLIENT_SUM", primary_key: ["savedate", "crmcode"], charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -693,6 +699,11 @@ ActiveRecord::Schema.define(version: 2020_10_09_011647) do
     t.float "gt50", limit: 53
     t.float "others", limit: 53
     t.float "heji", limit: 53
+    t.float "receive_top20", limit: 53
+    t.float "receive_top20to50", limit: 53
+    t.float "receive_gt50", limit: 53
+    t.float "receive_others", limit: 53
+    t.float "receive_heji", limit: 53
   end
 
   create_table "CW_CASHFLOW_FILL", primary_key: "deptcode", id: { type: :string, limit: 45 }, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
