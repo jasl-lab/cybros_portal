@@ -14,7 +14,7 @@ module SplitCost
       end
     end
 
-    def index?
+    def show?
       return false unless user.present?
 
       user.admin? \
