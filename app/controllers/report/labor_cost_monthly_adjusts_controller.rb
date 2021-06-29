@@ -74,7 +74,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     if in_position.blank?
       return redirect_to report_labor_cost_monthly_adjusts_path(month_name: month_name), notice: '调入岗位不存在，请检查'
     end
-    in_position_user = PositionUser.find_by(position_id: out_position.id, user_id: user.id)
+    in_position_user = PositionUser.find_by(position_id: in_position.id, user_id: user.id)
     in_user_job_type_id = if in_position_user.blank?
       PositionUser.find_by(position_id: in_position.id)&.user_job_type_id
     else
