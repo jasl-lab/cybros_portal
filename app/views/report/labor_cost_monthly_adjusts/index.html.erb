@@ -155,3 +155,18 @@
     </div>
   </div>
 </div>
+<%= javascript_tag do -%>
+  $("#select-in-department-code").selectize({ onChange: function(value) {
+    $.ajax('/report/labor_cost_monthly_adjusts/in_department_code_change.js', {
+      data: { in_department_code: value }
+    });
+  } });
+
+<% end %>
+<%= javascript_tag do -%>
+ $("#select-out-department-code").selectize({ onChange: function(value) {
+  $.ajax('/report/labor_cost_monthly_adjusts/out_department_code_change.js', {
+    data: { out_department_code: value }
+  });
+ } });
+<% end %>

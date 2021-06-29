@@ -1,2 +1,2 @@
 <label class="col-form-label" for="select-out-department-code"><%= t('.out_department_code') %></label>
-<%= select_tag :out_department_code, options_for_select(dept_codes), class: 'form-control-plaintext form-control', id: 'select-out-department-code', data: { remote: true, type: :script, url: url_for(controller: 'report/labor_cost_monthly_adjusts', action: 'out_department_code_change', format: 'js')} -%>
+<%= select_tag :out_department_code, options_for_select(dept_codes), class: 'form-control-plaintext form-control', id: 'select-out-department-code' -%>
