@@ -27,12 +27,16 @@ module SplitCost
       || user.part_time_split_access_codes.present?
     end
 
+    def index?
+      show?
+    end
+
     def create?
-      index?
+      show?
     end
 
     def destroy?
-      index?
+      show?
     end
   end
 end
