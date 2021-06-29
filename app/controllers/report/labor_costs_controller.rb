@@ -21,7 +21,7 @@ class Report::LaborCostsController < Report::BaseController
     @user_cost_types = SplitCost::UserCostType.all.order(:code)
     @user_cost_type_id = params[:user_cost_type_id]
 
-    cspms = SplitCost::UserSplitClassifySalaryPerMonth.where(month: beginning_of_month)
+    cspms = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).where(month: beginning_of_month)
 
     cspms = if @company_name.present?
       cspms.where('departments.company_name LIKE ?', "%#{@company_name}%")
