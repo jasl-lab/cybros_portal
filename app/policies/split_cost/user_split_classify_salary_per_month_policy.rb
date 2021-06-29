@@ -8,6 +8,11 @@ module SplitCost
 
         if user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
           scope.all
+        elsif user.part_time_split_access_codes.present?
+          can_access_user_ids = Users::AccessCode::PartTimeSplitUser
+            .call(current_user: user, to_filter_users_ids: nil)
+            .data[:access_users].pluck(:id)
+          scope.where(user_id: can_access_user_ids)
         else
           scope.none
         end
@@ -18,7 +23,8 @@ module SplitCost
       return false unless user.present?
 
       user.admin? \
-      || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
+      || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) } \
+      || user.part_time_split_access_codes.present?
     end
 
     def create?
