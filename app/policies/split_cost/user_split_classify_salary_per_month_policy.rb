@@ -9,10 +9,9 @@ module SplitCost
         if user.admin? || user.roles.pluck(:role_name).any? { |r| r.in?(%w[财务分析-薪资分摊设置管理员]) }
           scope.all
         elsif user.part_time_split_access_codes.present?
-          can_access_user_ids = Users::AccessCode::LaborCostUser
+          SplitCost::UserSplitClassifySalaryPerMonths::Scope::LaborCostUser
             .call(current_user: user)
-            .data[:access_users].pluck(:id)
-          scope.where(user_id: can_access_user_ids)
+            .data[:user_split_classify_salary_per_months]
         else
           scope.none
         end
