@@ -24,15 +24,9 @@ module Users::AccessCode
                  end)
           end
         end
-        if to_filter_users_ids.present?
-          cu.where(id: to_filter_users_ids).distinct # because users table joins.
-        else
-          cu.distinct
-        end
-      elsif to_filter_users_ids.present?
-        User.where(id: to_filter_users_ids)
+        cu.where(id: to_filter_users_ids).distinct # because users table joins.
       else
-        User
+        User.where(id: to_filter_users_ids)
       end
 
       Success result: { access_users: access_users }
