@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '>= 2.7'
 
 gem 'rails', '~> 6.1.4'
+gem 'u-case', require: 'u-case/with_activemodel_validation'
 gem 'rails-i18n'
 
 gem 'auto_strip_attributes'

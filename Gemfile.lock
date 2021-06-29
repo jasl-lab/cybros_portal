@@ -241,6 +241,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    kind (5.7.0)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -410,6 +411,11 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2021.1)
       tzinfo (>= 1.0.0)
+    u-attributes (2.7.0)
+      kind (>= 4.0, < 6.0)
+    u-case (4.5.1)
+      kind (>= 5.6, < 6.0)
+      u-attributes (>= 2.7, < 3.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -506,6 +512,7 @@ DEPENDENCIES
   simple_calendar
   turbolinks (~> 5.2)
   tzinfo-data
+  u-case
   web-console
   webdrivers
   webpacker (~> 5.4)

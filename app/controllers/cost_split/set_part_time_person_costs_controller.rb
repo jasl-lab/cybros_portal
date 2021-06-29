@@ -35,29 +35,9 @@ class CostSplit::SetPartTimePersonCostsController < CostSplit::BaseController
       policy_scope(SplitCost::UserMonthlyPartTimeSplitRate)
     end.where(month: @beginning_of_month)
 
-    @users = if current_user.part_time_split_access_codes.present?
-      cu = User.joins(user_monthly_part_time_split_rates: { position: :department })
-      current_user.part_time_split_access_codes.each_with_index do |ac, index|
-        if index == 0
-          cu = if ac.dept_category.present?
-            cu.where(user_monthly_part_time_split_rates: { main_position: true })
-              .where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
-          else
-            cu.where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code } } })
-          end
-        else
-          cu = cu.or(if ac.dept_category.present?
-                 cu.where(user_monthly_part_time_split_rates: { main_position: true })
-                   .where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code, dept_category: ac.dept_category } } })
-               else
-                 cu.where(user_monthly_part_time_split_rates: { positions: { departments: { company_code: ac.org_code } } })
-               end)
-        end
-      end
-      cu.where(id: users_ids).distinct # because users table joins.
-    else
-      User.where(id: users_ids)
-    end.where(id: @mpts_rates.collect(&:user_id))
+    @users = Users::AccessCode::PartTimeSplitUser
+      .call(current_user: current_user, to_filter_users_ids: users_ids)
+      .data[:access_users].where(id: @mpts_rates.collect(&:user_id))
 
     @users = @users.where(clerk_code: @clerk_code) if @clerk_code.present?
     @users = @users.where('chinese_name LIKE ?', "%#{@chinese_name}%") if @chinese_name.present?
