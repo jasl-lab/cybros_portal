@@ -29,7 +29,9 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       .page(params[:page]).per(my_per_page)
 
     @org_codes = Bi::OrgShortName.org_options
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": @org_codes.first[1]).order(:部门排名).pluck(:"部门", :"编号")
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": @org_codes.first[1]).order(:部门排名).select(:"部门", :"编号").collect do |c|
+      ["#{c.部门}(#{c.编号})", c.编号]
+    end.uniq
     department_id = Department.find_by(dept_code: @dept_codes.first[1])
     @position_codes = Position.where(department_id: department_id).pluck(:name, :id)
     @user_cost_types = SplitCost::UserCostType.all.order(:code)
@@ -106,7 +108,9 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
   def out_company_code_change
     org_code = params[:out_company_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号").uniq
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).select(:"部门", :"编号").select(:"部门", :"编号").collect do |c|
+      ["#{c.部门}(#{c.编号})", c.编号]
+    end.uniq
   end
 
   def out_department_code_change
@@ -117,7 +121,9 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
   def in_company_code_change
     org_code = params[:in_company_code]
-    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).pluck(:"部门", :"编号").uniq
+    @dept_codes = Bi::OrgReportDeptOrder.where("组织编号": org_code).order(:部门排名).select(:"部门", :"编号").select(:"部门", :"编号").collect do |c|
+      ["#{c.部门}(#{c.编号})", c.编号]
+    end.uniq
   end
 
   def in_department_code_change
