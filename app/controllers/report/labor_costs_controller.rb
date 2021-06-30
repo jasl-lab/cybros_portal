@@ -69,7 +69,7 @@ class Report::LaborCostsController < Report::BaseController
           csv << %w(工号 姓名 所属公司 所属部门 岗位 成本类别 成本性质 查询年月 金额 是否在职)
           cspms.each do |d|
             values = []
-            values << "'#{d.clerk_code}'"
+            values << "'#{d.clerk_code}"
             values << d.chinese_name
             values << d.company_name
             values << d.department_name
