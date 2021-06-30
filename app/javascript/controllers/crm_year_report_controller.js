@@ -45,10 +45,10 @@ export default class extends Controller {
         silent: true,
         axisLabel: {
           interval: 0,
-          rotate: -40
+          fontSize: 14
         },
         splitLine: {
-            show: false
+          show: false
         }
       },
       yAxis: [{
@@ -63,6 +63,7 @@ export default class extends Controller {
         type: 'bar',
         stack: '生产合同额',
         data: top20s,
+        barMaxWidth: 68,
         label: {
           show: true,
           position: 'inside'
@@ -72,6 +73,7 @@ export default class extends Controller {
         type: 'bar',
         stack: '生产合同额',
         data: top20to50,
+        barMaxWidth: 68,
         label: {
           show: true,
           position: 'inside'
@@ -81,11 +83,17 @@ export default class extends Controller {
         type: 'bar',
         stack: '生产合同额',
         data: gt50s,
+        barMaxWidth: 68,
+        label: {
+          show: true,
+          position: 'inside'
+        }
       },{
         name: '其他',
         type: 'bar',
         stack: '生产合同额',
         data: others,
+        barMaxWidth: 68,
         label: {
           show: true,
           position: 'inside'
