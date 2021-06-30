@@ -52,6 +52,27 @@ namespace :import_export do
     end
   end
 
+  desc 'Create not existing position from CSV'
+  task :create_new_position, [:csv_file] => [:environment] do |task, args|
+    csv_file_path = args[:csv_file]
+    CSV.foreach(csv_file_path, headers: true) do |row|
+      dept_code = row['dept_code']
+      nc_pk_post = row['nc_pk_post']
+
+      position = Position.find_or_initialize_by(nc_pk_post: nc_pk_post)
+      position.name = row['name']
+      position.functional_category = row['functional_category']
+
+      department = Department.find_by(dept_code: dept_code)
+      position.department_id = department&id
+
+      position.b_postcode = row['b_postcode']
+      position.b_postname = row['b_postname']
+      position.save
+      puts "Position nc_pk_post: #{nc_pk_post}"
+    end
+  end
+
   desc 'Create not existing user from CSV exported from oauth2id'
   task :create_new_user, [:csv_file] => [:environment] do |task, args|
     csv_file_path = args[:csv_file]
