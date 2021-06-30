@@ -10,10 +10,10 @@ class Report::LaborCostsController < Report::BaseController
   def show
     prepare_meta_tags title: t('.title')
     authorize SplitCost::UserSplitClassifySalaryPerMonth
-    @company_name = params[:company_name]
-    @department_name = params[:department]
-    @clerk_code = params[:clerk_code]
-    @chinese_name = params[:chinese_name]
+    @company_name = params[:company_name]&.strip
+    @department_name = params[:department]&.strip
+    @clerk_code = params[:clerk_code]&.strip
+    @chinese_name = params[:chinese_name]&.strip
 
     @all_month_names = policy_scope(SplitCost::UserSplitClassifySalaryPerMonth).all_month_names
     @month_name = params[:month_name]&.strip || @all_month_names.first
