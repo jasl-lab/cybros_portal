@@ -64,7 +64,7 @@ namespace :import_export do
       position.functional_category = row['functional_category']
 
       department = Department.find_by(dept_code: dept_code)
-      position.department_id = department&id
+      position.department_id = department&.id
 
       position.b_postcode = row['b_postcode']
       position.b_postname = row['b_postname']
