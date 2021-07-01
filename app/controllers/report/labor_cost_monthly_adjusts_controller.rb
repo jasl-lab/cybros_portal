@@ -142,7 +142,7 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
       @_breadcrumbs = [
       { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t('layouts.sidebar.financial_management.header'),
-        link: report_financial_management_path }]
+      { text: t('layouts.sidebar.application.labor_cost_monthly_adjusts'),
+        link: report_labor_cost_monthly_adjusts_path }]
     end
 end

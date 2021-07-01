@@ -5,7 +5,7 @@ class Report::LaborCostsController < Report::BaseController
 
   before_action :authenticate_user!
   before_action :set_page_layout_data, if: -> { request.format.html? }
-  before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :set_breadcrumbs, only: %i[show], if: -> { request.format.html? }
 
   def show
     prepare_meta_tags title: t('.title')
@@ -97,7 +97,7 @@ class Report::LaborCostsController < Report::BaseController
       @_breadcrumbs = [
       { text: t('layouts.sidebar.application.header'),
         link: root_path },
-      { text: t('layouts.sidebar.financial_management.header'),
-        link: report_financial_management_path }]
+      { text: t('layouts.sidebar.application.labor_costs'),
+        link: report_labor_cost_path }]
     end
 end
