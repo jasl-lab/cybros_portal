@@ -52,13 +52,15 @@ import {
   GridComponent,
   ToolboxComponent,
   LegendComponent,
+  VisualMapComponent,
+  MarkLineComponent,
 } from 'echarts/components';
 import {
   CanvasRenderer
 } from 'echarts/renderers';
 
 echarts.use(
-  [TitleComponent, TooltipComponent, GridComponent, ToolboxComponent, LegendComponent,
+  [TitleComponent, TooltipComponent, GridComponent, ToolboxComponent, LegendComponent, VisualMapComponent, MarkLineComponent,
    BarChart, LineChart, GaugeChart, PieChart, PictorialBarChart, MapChart, ScatterChart,
    CanvasRenderer]
 );
