@@ -145,7 +145,7 @@ export default class extends Controller {
       {"data": "proportion_of_labor_cost_of_bidding_land_acquisition"},
     ];
 
-    const crmYearReportDatatable = $('#crm-year-report-datatable').dataTable({
+    const crmYearReportDatatable = $('#crm-year-report-datatable').DataTable({
       "processing": true,
       "serverSide": true,
       "pageLength": this.pageLengthValue,
@@ -161,6 +161,13 @@ export default class extends Controller {
       stateLoadCallback: function(settings) {
         return JSON.parse(localStorage.getItem('DataTables_crm_year_report'));
         }
+    });
+
+    crmYearReportDatatable.on('draw.dt', function () {
+      const pageInfo = crmYearReportDatatable.page.info();
+      crmYearReportDatatable.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+        cell.innerHTML = i + 1 + pageInfo.start;
+      });
     });
 
     crmYearTableFixedHeader = new $.fn.dataTable.FixedHeader(crmYearReportDatatable, {

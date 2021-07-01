@@ -13,7 +13,7 @@ module Report
 
     def view_columns
       @view_columns ||= {
-        rank: { source: 'heji_rank', searchable: false, orderable: true },
+        rank: { source: nil, searchable: false, orderable: false },
         customer_group: { source: nil, searchable: false, orderable: false },
         kerrey_trading_area_ranking: { source: 'Bi::CrmClientSum.cricrank', searchable: false, orderable: true },
         customer_ownership: { source: 'Bi::CrmClientSum.clientproperty', cond: :string_eq, searchable: true, orderable: true },
@@ -38,7 +38,7 @@ module Report
 
     def data
       records.map do |r|
-        { rank: r.heji_rank,
+        { rank: '',
           customer_group: (link_to Bi::CrmClientInfo.crm_short_names.fetch(r.crmcode, nil), drill_down_dept_value_report_crm_year_report_path(crmcode: r.crmcode, year: @end_of_month.year), remote: true),
           kerrey_trading_area_ranking: r.cricrank&.round(0),
           customer_ownership: r.clientproperty,
