@@ -150,3 +150,11 @@
   left: 200px;
   position: sticky;
 }
+
+tr.even td.sorting_1 {
+  background-color: $gray-200;
+}
+
+tr.odd td.sorting_1 {
+  background-color: $gray-200;
+}
