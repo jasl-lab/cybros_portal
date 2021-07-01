@@ -36,7 +36,7 @@ require("@rails/actiontext")
 
 import "turbolinks/coreui";
 
-import * as echarts from 'echarts/core';
+import * as echarts from 'echarts/lib/export/core';
 import {
   BarChart,
   LineChart,
