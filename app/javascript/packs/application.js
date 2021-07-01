@@ -36,7 +36,19 @@ require("@rails/actiontext")
 
 import "turbolinks/coreui";
 
-import * as echarts from 'echarts';
+var echarts = require('echarts/lib/echarts');
+require('echarts/lib/chart/bar');
+require('echarts/lib/chart/line');
+require('echarts/lib/chart/gauge');
+require('echarts/lib/chart/pie');
+require('echarts/lib/chart/pictorialBar');
+require('echarts/lib/chart/map');
+require('echarts/lib/chart/scatter');
+require('echarts/lib/component/grid');
+require('echarts/lib/component/toolbox');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/legend');
+require('echarts/lib/component/title');
 global.echarts = echarts;
 
 import "controllers";

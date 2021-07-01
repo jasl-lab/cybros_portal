@@ -7,7 +7,9 @@ module.exports = {
     "globals": {
         "$": "readonly",
         "JQuery": "readonly",
-        "echarts": "readonly"
+        "echarts": "readonly",
+        "require": "readonly",
+        "global": "readonly",
     },
     "parserOptions": {
       "ecmaVersion": 12,
