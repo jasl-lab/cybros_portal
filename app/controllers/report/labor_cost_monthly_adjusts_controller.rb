@@ -115,8 +115,8 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
   def out_department_code_change
     department_code = params[:out_department_code]
-    department_id = Department.find_by(dept_code: department_code)
-    @position_codes = Position.where(department_id: department_id).pluck(:name, :id).uniq
+    department = Department.find_by(dept_code: department_code)
+    @position_codes = Position.where(department_id: department&.id).pluck(:name, :id).uniq
   end
 
   def in_company_code_change
@@ -128,8 +128,8 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
 
   def in_department_code_change
     department_code = params[:in_department_code]
-    department_id = Department.find_by(dept_code: department_code)
-    @position_codes = Position.where(department_id: department_id).pluck(:name, :id).uniq
+    department = Department.find_by(dept_code: department_code)
+    @position_codes = Position.where(department_id: department&.id).pluck(:name, :id).uniq
   end
 
   protected
