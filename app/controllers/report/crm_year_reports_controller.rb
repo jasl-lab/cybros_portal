@@ -59,24 +59,33 @@ class Report::CrmYearReportsController < Report::BaseController
   end
 
   def export
-    year = params[:year]
-    detail_data = policy_scope(Bi::CrmClientSum).where(cricyear: year)
+    end_of_month = Date.parse(params[:month_name]).end_of_month
+    detail_data = policy_scope(Bi::CrmClientSum)
+      .joins("LEFT JOIN (select crmcode, sum(subtotal)  heji_a FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(subtotal)  heji_last_b FROM CRM_SACONTRACTPRICE where savedate='2020-12-31' group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
+      .select('`CRM_CLIENT_SUM`.crmcode, `CRM_CLIENT_SUM`.cricrank, `CRM_CLIENT_SUM`.clientproperty, A.heji_a, B.heji_last_b, `CRM_CLIENT_SUM`.heji, `CRM_CLIENT_SUM`.heji_last, `CRM_CLIENT_SUM`.heji_per, `CRM_CLIENT_SUM`.topthreegroup, C.designvalue_c, D.constructionvalue_d, E.fullvalue_e')
+      .where(savedate: end_of_month)
 
-    render_csv_header "#{year}客户生产合同额及占比"
+    render_csv_header "#{end_of_month.year}年#{end_of_month.month}月客户生产合同额及占比明细"
     csv_res = CSV.generate do |csv|
       csv << [
-        I18n.t('report.crm_year_reports.show.table.index'),
         I18n.t('report.crm_year_reports.show.table.customer_group'),
         I18n.t('report.crm_year_reports.show.table.kerrey_trading_area_ranking'),
         I18n.t('report.crm_year_reports.show.table.customer_ownership'),
-        I18n.t('report.crm_year_reports.show.table.production_contract_value_last_year'),
-        I18n.t('report.crm_year_reports.show.table.production_contract_value_this_year'),
+        I18n.t('report.crm_year_reports.show.table.contract_value_last_year'),
+        I18n.t('report.crm_year_reports.show.table.contract_value_this_year'),
+        I18n.t('report.crm_year_reports.show.table.group_contract_value_last_year'),
+        I18n.t('report.crm_year_reports.show.table.group_contract_value_this_year'),
 
-        I18n.t('report.crm_year_reports.show.table.total_contract_value_of_the_group_percent'),
         I18n.t('report.crm_year_reports.show.table.the_top_three_teams_in_cooperation'),
         I18n.t('report.crm_year_reports.show.table.scheme_production_contract_value_at_each_stage'),
         I18n.t('report.crm_year_reports.show.table.construction_drawing_production_contract_value_at_each_stage'),
+        I18n.t('report.crm_year_reports.show.table.total_contract_value_of_the_group_percent'),
         I18n.t('report.crm_year_reports.show.table.whole_process_production_contract_value_at_each_stage'),
+
         I18n.t('report.crm_year_reports.show.table.average_contract_value_of_single_project_in_the_past_year'),
         I18n.t('report.crm_year_reports.show.table.average_scale_of_single_project_in_the_past_year'),
         I18n.t('report.crm_year_reports.show.table.nearly_one_year_contract_average_contract_period'),
@@ -85,19 +94,20 @@ class Report::CrmYearReportsController < Report::BaseController
       ]
       detail_data.each_with_index do |dd, index|
         values = []
-        values << index + 1
-        values << dd.crmshort
+        values << Bi::CrmClientInfo.crm_short_names.fetch(dd.crmcode, nil)
         values << dd.cricrank&.round(0)
         values << dd.clientproperty
+        values << (dd.heji_last_b.to_f / 10000.0).round(0)
+        values << (dd.heji_a.to_f / 10000.0).round(0)
         values << (dd.heji_last.to_f / 10000.0).round(0)
-
         values << (dd.heji.to_f / 10000.0).round(0)
-        values << (dd.heji_per.to_f * 100.0).round(1)
-        values << dd.topthreegroup
-        values << (dd.designvalue.to_f / 10000.0).round(0)
-        values << (dd.constructionvalue.to_f / 10000.0).round(0)
 
-        values << (dd.fullvalue.to_f / 10000.0).round(0)
+        values << dd.topthreegroup
+        values << (dd.designvalue_c.to_f / 10000.0).round(0)
+        values << (dd.constructionvalue_d.to_f / 10000.0).round(0)
+        values << (dd.heji_per.to_f * 100.0).round(1)
+        values << (dd.fullvalue_e.to_f / 10000.0).round(0)
+
         values << (Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:avgamount, 0).to_f / 10000.0).round(0)
         values << (Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:avgarea, 0).to_f / 10000.0).round(0)
         values << Bi::CrmClientOneYear.by_crmcode.fetch(dd.crmcode, nil)&.fetch(:avgsignday, 0)&.round(0)
@@ -106,7 +116,7 @@ class Report::CrmYearReportsController < Report::BaseController
         csv << values
       end
     end
-    send_data "\xEF\xBB\xBF#{csv_res}", filename: "#{year}客户生产合同额及占比.csv"
+    send_data "\xEF\xBB\xBF#{csv_res}", filename: "#{end_of_month.year}年#{end_of_month.month}月客户生产合同额及占比明细.csv"
   end
 
   def drill_down
