@@ -44,11 +44,11 @@ class Report::CrmYearReportsController < Report::BaseController
       format.json do
         str_orgs = ActiveRecord::Base.sanitize_sql(@orgs_options.collect { |d| "'#{d}'" }.join(','))
         ar_crm_client_sum = policy_scope(Bi::CrmClientSum)
-          .joins("LEFT JOIN (select crmcode, sum(subtotal)  heji_a FROM CRM_SACONTRACT where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(subtotal)  heji_last_b FROM CRM_SACONTRACT where savedate='2020-12-31' AND businessltdcode in (#{str_orgs}) group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACT where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACT where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACT where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_a FROM CRM_SACONTRACT where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_last_b FROM CRM_SACONTRACT where savedate='2020-12-31' AND businessltdcode in (#{str_orgs}) group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' AND businessltdcode in (#{str_orgs}) and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
           .select('`CRM_CLIENT_SUM`.crmcode, `CRM_CLIENT_SUM`.cricrank, `CRM_CLIENT_SUM`.clientproperty, A.heji_a, B.heji_last_b, `CRM_CLIENT_SUM`.heji, `CRM_CLIENT_SUM`.heji_last, `CRM_CLIENT_SUM`.heji_per, `CRM_CLIENT_SUM`.topthreegroup, C.designvalue_c, D.constructionvalue_d, E.fullvalue_e')
         render json: Report::CrmYearReportDatatable.new(params,
           crm_client_sum: ar_crm_client_sum,
