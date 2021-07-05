@@ -146,10 +146,10 @@ class Report::CrmYearReportsController < Report::BaseController
   def drill_down_top_group
     crmcode = params[:crmcode]
     @year = params[:year]
-    @plan_values = policy_scope(Bi::CrmDeptPlanValue).where(crmcode: crmcode, cricyear: @year)
-      .group(:professioncomcode, :crmcode, :crmshort, :crmunitname)
-      .order('SUM(heji) DESC')
-      .select('professioncomcode, crmcode, crmshort, crmunitname, SUM(heji) heji')
+    @plan_values = policy_scope(Bi::ContractPrice).where(crmcode: crmcode, cricyear: @year)
+      .group(:crmbusiunitcode, :crmcode, :crmshort, :crmbusiunitname)
+      .order('SUM(discounttotal) DESC')
+      .select('crmbusiunitcode, crmcode, crmshort, crmbusiunitname, SUM(discounttotal) discounttotal')
   end
 
   def drill_down_group_detail
