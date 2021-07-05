@@ -139,7 +139,7 @@ class Report::CrmYearReportsController < Report::BaseController
   def drill_down_dept_value
     @crmcode = params[:crmcode]
     year = params[:year]
-    @plan_values = policy_scope(Bi::CrmSacontract)
+    @plan_values = policy_scope(Bi::VCrmSacontract)
       .where(crmcode: @crmcode, cricyear: year)
   end
 
