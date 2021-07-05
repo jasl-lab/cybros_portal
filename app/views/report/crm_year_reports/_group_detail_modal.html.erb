@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <div>
-        <h5 class="modal-title"><%= @plan_values[0]&.crmshort -%>主要合作团队-<%= @plan_values[0]&.professioncomname -%><%= @plan_values[0].professiondeptname -%></h5>
+        <h5 class="modal-title"><%= @plan_values[0]&.crmshort -%>主要合作团队-<%= @plan_values[0]&.crmbusiunitcode -%><%= @plan_values[0].crmbusiunitname -%></h5>
       </div>
       <a class="close" data-dismiss="modal" aria-label="Close">
         <i class="fas fa-window-close"></i>
@@ -18,10 +18,7 @@
               <th><%= t(".table.contractstatusname") %></th>
               <th><%= t(".table.filingtime") %></th>
               <th><%= t(".table.realamounttotal") %></th>
-              <th><%= t(".table.deptvalue") %></th>
-              <th><%= t(".table.marketbouns") %></th>
-              <th><%= t(".table.clientbouns") %></th>
-              <th><%= t(".table.heji") %></th>
+              <th><%= t(".table.discounttotal") %></th>
               <th><%= t(".table.contractcategoryname") %></th>
               <th><%= t(".table.contractpropertyname") %></th>
               <th><%= t(".table.businessltdname") %></th>
@@ -36,10 +33,7 @@
                 <td><%= d.contractstatusname -%></td>
                 <td><%= d.filingtime -%></td>
                 <td><%= d.realamounttotal -%></td>
-                <td><%= d.deptvalue -%></td>
-                <td><%= d.marketbouns -%></td>
-                <td><%= d.clientbouns -%></td>
-                <td><%= d.heji -%></td>
+                <td><%= d.discounttotal -%></td>
                 <td><%= d.contractcategoryname -%></td>
                 <td><%= d.contractpropertyname -%></td>
                 <td><%= d.businessltdname -%></td>
