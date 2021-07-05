@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <div>
-        <h5 class="modal-title"><%= @plan_values.first.crmshort -%>生产合同额明细</h5>
+        <h5 class="modal-title"><%= Bi::CrmClientInfo.crm_short_names.fetch(crmcode, nil) -%>生产合同额明细</h5>
       </div>
       <a class="close" href="<%= drill_down_dept_value_report_crm_year_report_path(format: 'csv', crmcode: crmcode) -%>">
         <i class="fas fa-file-export"></i>
@@ -18,12 +18,6 @@
               <th><%= t(".table.contractstatusname") %></th>
               <th><%= t(".table.filingtime") %></th>
               <th><%= t(".table.realamounttotal") %></th>
-              <th><%= t(".table.professioncomname") %></th>
-              <th><%= t(".table.professiondeptname") %></th>
-              <th><%= t(".table.deptvalue") %></th>
-              <th><%= t(".table.marketbouns") %></th>
-              <th><%= t(".table.clientbouns") %></th>
-              <th><%= t(".table.heji") %></th>
               <th><%= t(".table.contractcategoryname") %></th>
               <th><%= t(".table.contractpropertyname") %></th>
               <th><%= t(".table.businessltdname") %></th>
@@ -35,17 +29,11 @@
               <tr>
                 <td><%= d.salescontractcode -%></td>
                 <td><%= d.salescontractname -%></td>
-                <td><%= d.contractstatusname -%></td>
+                <td><%= d.contractstatuscnname -%></td>
                 <td><%= d.filingtime -%></td>
                 <td><%= d.realamounttotal -%></td>
-                <td><%= d.professioncomname -%></td>
-                <td><%= d.professiondeptname -%></td>
-                <td><%= d.deptvalue -%></td>
-                <td><%= d.marketbouns -%></td>
-                <td><%= d.clientbouns -%></td>
-                <td><%= d.heji -%></td>
-                <td><%= d.contractcategoryname -%></td>
-                <td><%= d.contractpropertyname -%></td>
+                <td><%= d.contractcategorycnname -%></td>
+                <td><%= d.contractpropertycnname -%></td>
                 <td><%= d.businessltdname -%></td>
                 <td><%= d.businessdepartmentsname -%></td>
               </tr>
