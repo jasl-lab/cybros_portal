@@ -52,7 +52,7 @@
           <tbody>
             <% @cspms.each do |cspm| %>
               <tr>
-                <td><%= cspm.clerk_code -%></td>
+                <td><%= link_to cspm.clerk_code || cspm.email, admin_user_path(id: cspm.user_id) -%></td>
                 <td><%= cspm.chinese_name -%></td>
                 <td><%= cspm.company_name -%></td>
                 <td><%= cspm.department_name -%></td>

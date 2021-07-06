@@ -52,12 +52,12 @@ class Report::LaborCostsController < Report::BaseController
     else
       cspms
     end.select('users.clerk_code, users.chinese_name, departments.name department_name, departments.company_name,
-      positions.name position_name, user_cost_types.name user_cost_type_name, users.locked_at, user_job_types.name user_job_type_name,
+      positions.name position_name, user_cost_types.name user_cost_type_name, users.locked_at, user_job_types.name user_job_type_name, users.id user_id, users.email,
       sum(amount) total')
       .joins(:user, :position, :user_job_type, :user_cost_type)
       .joins('LEFT JOIN `departments` ON `departments`.`id` = `positions`.`department_id`')
-      .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"user_cost_types.name", :"users.locked_at", :"user_job_types.name")
-      .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"user_cost_types.name", :"users.locked_at", :"user_job_types.name")
+      .group(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"user_cost_types.name", :"users.locked_at", :"user_job_types.name", :"users.id", :"users.email")
+      .order(:"users.clerk_code", :"users.chinese_name", :"departments.name", :"departments.company_name", :"positions.name", :"user_cost_types.name", :"users.locked_at", :"user_job_types.name", :"users.id", :"users.email")
 
     respond_to do |format|
       format.html do
