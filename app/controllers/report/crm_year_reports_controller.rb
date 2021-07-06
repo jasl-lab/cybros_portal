@@ -10,6 +10,7 @@ class Report::CrmYearReportsController < Report::BaseController
     @all_month_names = policy_scope(Bi::CrmClientSum).all_month_names
     @month_name = params[:month_name] || @all_month_names.first
     current_month_begin = Date.parse(@month_name).beginning_of_month
+    current_month_end = Date.parse(@month_name).end_of_month
     last_year_begin = (Date.parse(@month_name) - 1.year).end_of_year.beginning_of_month
     @orgs_options = params[:orgs]
 
@@ -48,9 +49,9 @@ class Report::CrmYearReportsController < Report::BaseController
         ar_crm_client_sum = policy_scope(Bi::CrmClientSum)
           .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_a FROM CRM_SACONTRACT where savedate='#{current_month_begin}' AND businessltdcode in (#{str_orgs}) group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
           .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_last_b FROM CRM_SACONTRACT where savedate='#{last_year_begin}' AND businessltdcode in (#{str_orgs}) group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='#{current_month_begin}' AND businessltdcode in (#{str_orgs}) and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='#{current_month_begin}' AND businessltdcode in (#{str_orgs}) and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
-          .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='#{current_month_begin}' AND businessltdcode in (#{str_orgs}) and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='#{current_month_end}' AND businessltdcode in (#{str_orgs}) and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='#{current_month_end}' AND businessltdcode in (#{str_orgs}) and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
+          .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='#{current_month_end}' AND businessltdcode in (#{str_orgs}) and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
           .select('`CRM_CLIENT_SUM`.crmcode, `CRM_CLIENT_SUM`.cricrank, `CRM_CLIENT_SUM`.clientproperty, A.heji_a, B.heji_last_b, `CRM_CLIENT_SUM`.heji, `CRM_CLIENT_SUM`.heji_last, `CRM_CLIENT_SUM`.heji_per, `CRM_CLIENT_SUM`.topthreegroup, C.designvalue_c, D.constructionvalue_d, E.fullvalue_e')
         render json: Report::CrmYearReportDatatable.new(params,
           crm_client_sum: ar_crm_client_sum,
@@ -61,17 +62,20 @@ class Report::CrmYearReportsController < Report::BaseController
   end
 
   def export
-    end_of_month = Date.parse(params[:month_name]).end_of_month
-    detail_data = policy_scope(Bi::CrmClientSum)
-      .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_a FROM CRM_SACONTRACT where savedate='2021-05-31' group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
-      .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_last_b FROM CRM_SACONTRACT where savedate='2020-12-31' group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
-      .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
-      .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
-      .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='2021-05-31' and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
-      .select('`CRM_CLIENT_SUM`.crmcode, `CRM_CLIENT_SUM`.cricrank, `CRM_CLIENT_SUM`.clientproperty, A.heji_a, B.heji_last_b, `CRM_CLIENT_SUM`.heji, `CRM_CLIENT_SUM`.heji_last, `CRM_CLIENT_SUM`.heji_per, `CRM_CLIENT_SUM`.topthreegroup, C.designvalue_c, D.constructionvalue_d, E.fullvalue_e')
-      .where(savedate: end_of_month)
+    current_month_begin = Date.parse(params[:month_name]).beginning_of_month
+    current_month_end = Date.parse(params[:month_name]).end_of_month
+    last_year_begin = (Date.parse(params[:month_name]) - 1.year).end_of_year.beginning_of_month
 
-    render_csv_header "#{end_of_month.year}年#{end_of_month.month}月客户生产合同额及占比明细"
+    detail_data = policy_scope(Bi::CrmClientSum)
+      .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_a FROM CRM_SACONTRACT where savedate='#{current_month_begin}' group by crmcode) A ON CRM_CLIENT_SUM.crmcode=A.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(realamounttotal)  heji_last_b FROM CRM_SACONTRACT where savedate='#{last_year_begin}' group by crmcode) B ON CRM_CLIENT_SUM.crmcode=B.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(frontpart) designvalue_c FROM CRM_SACONTRACTPRICE where savedate='#{current_month_end}' and projectstage='前端' group by crmcode) C ON CRM_CLIENT_SUM.crmcode=C.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(rearpart)  constructionvalue_d FROM CRM_SACONTRACTPRICE where savedate='#{current_month_end}' and projectstage='后端' group by crmcode) D ON CRM_CLIENT_SUM.crmcode=D.crmcode")
+      .joins("LEFT JOIN (select crmcode, sum(parttotal) fullvalue_e FROM CRM_SACONTRACTPRICE where savedate='#{current_month_end}' and projectstage='全过程' group by crmcode) E ON CRM_CLIENT_SUM.crmcode=E.crmcode")
+      .select('`CRM_CLIENT_SUM`.crmcode, `CRM_CLIENT_SUM`.cricrank, `CRM_CLIENT_SUM`.clientproperty, A.heji_a, B.heji_last_b, `CRM_CLIENT_SUM`.heji, `CRM_CLIENT_SUM`.heji_last, `CRM_CLIENT_SUM`.heji_per, `CRM_CLIENT_SUM`.topthreegroup, C.designvalue_c, D.constructionvalue_d, E.fullvalue_e')
+      .where(savedate: current_month_end)
+
+    render_csv_header "#{current_month_end.year}年#{current_month_end.month}月客户生产合同额及占比明细"
     csv_res = CSV.generate do |csv|
       csv << [
         I18n.t('report.crm_year_reports.show.table.customer_group'),
@@ -118,7 +122,7 @@ class Report::CrmYearReportsController < Report::BaseController
         csv << values
       end
     end
-    send_data "\xEF\xBB\xBF#{csv_res}", filename: "#{end_of_month.year}年#{end_of_month.month}月客户生产合同额及占比明细.csv"
+    send_data "\xEF\xBB\xBF#{csv_res}", filename: "#{current_month_end.year}年#{current_month_end.month}月客户生产合同额及占比明细.csv"
   end
 
   def drill_down
