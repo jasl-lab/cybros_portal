@@ -55,17 +55,12 @@ zh-CN:
         drill_down_question: "分析知识库的回答"
         contracts_maps: "项目地图"
         contracts: "项目列表"
-        official_stamp_usage: "行政职能盖章申请"
       person:
         header: "个人首页"
         name_card: "名片"
         new_name_card: "新名片申请"
         name_card_white_title: "名片白名单"
         name_card_black_title: "名片黑名单"
-        copy_of_business_license: "公司营业执照"
-        proof_of_employment: "在职证明"
-        proof_of_income: "收入证明"
-        public_rental_housing: "公租房申请"
       report:
         header: "报告首页"
         tianzhen_logins: "天正软件登录情况"

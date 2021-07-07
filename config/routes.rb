@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   namespace :api do
     resource :name_card, only: %i[create]
     resource :group_expense_share_plan_approval, only: %i[create]
-    resource :official_seal_usage, only: %i[create]
     resource :received_sms_message, only: %i[create show]
 
     match 'me' => 'application#user_info', via: :options
@@ -61,31 +60,6 @@ Rails.application.routes.draw do
     end
     resources :name_card_black_titles, only: %i[index create]
     resources :name_card_white_titles, only: %i[index create]
-
-    resources :copy_of_business_licenses, except: %i[edit update] do
-      member do
-        get :view_attachment
-        patch :start_approve
-      end
-    end
-    resources :proof_of_employments, except: %i[edit update] do
-      member do
-        get :view_attachment
-        patch :start_approve
-      end
-    end
-    resources :proof_of_incomes, except: %i[edit update] do
-      member do
-        get :view_attachment
-        patch :start_approve
-      end
-    end
-    resources :public_rental_housings, except: %i[edit update] do
-      member do
-        get :view_attachment
-        patch :start_approve
-      end
-    end
   end
 
   namespace :operation_entry do

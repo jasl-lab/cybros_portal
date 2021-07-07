@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_07_054406) do
+ActiveRecord::Schema.define(version: 2021_07_07_081154) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -101,27 +101,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_054406) do
     t.string "end_operation"
     t.string "jwt_aud"
     t.index ["user_id"], name: "index_cad_sessions_on_user_id"
-  end
-
-  create_table "copy_of_business_license_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "employee_name"
-    t.string "clerk_code"
-    t.string "belong_company_name"
-    t.string "belong_department_name"
-    t.string "contract_belong_company"
-    t.string "stamp_to_place"
-    t.string "stamp_comment"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "begin_task_id"
-    t.boolean "backend_in_processing"
-    t.text "bpm_message"
-    t.string "belong_company_code"
-    t.string "belong_department_code"
-    t.string "contract_belong_company_code"
-    t.string "status"
-    t.index ["user_id"], name: "index_copy_of_business_license_applies_on_user_id"
   end
 
   create_table "cost_split_allocation_bases", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -323,27 +302,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_054406) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "official_stamp_usage_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "employee_name"
-    t.string "clerk_code"
-    t.string "belong_company_name"
-    t.string "belong_company_code"
-    t.string "belong_department_name"
-    t.string "belong_department_code"
-    t.string "application_class"
-    t.string "stamp_to_place"
-    t.string "stamp_comment"
-    t.string "begin_task_id"
-    t.string "backend_in_processing"
-    t.text "bpm_message"
-    t.string "status"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "application_subclasses", default: "--- []\n"
-    t.index ["user_id"], name: "index_official_stamp_usage_applies_on_user_id"
-  end
-
   create_table "part_time_special_access_codes", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "org_code"
@@ -396,69 +354,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_054406) do
     t.string "b_postname"
     t.string "nc_pk_post"
     t.index ["department_id"], name: "index_positions_on_department_id"
-  end
-
-  create_table "proof_of_employment_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "employee_name"
-    t.string "clerk_code"
-    t.string "belong_company_name"
-    t.string "belong_department_name"
-    t.string "contract_belong_company"
-    t.string "stamp_to_place"
-    t.string "stamp_comment"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "begin_task_id"
-    t.boolean "backend_in_processing"
-    t.text "bpm_message"
-    t.string "belong_company_code"
-    t.string "belong_department_code"
-    t.string "contract_belong_company_code"
-    t.string "status"
-    t.index ["user_id"], name: "index_proof_of_employment_applies_on_user_id"
-  end
-
-  create_table "proof_of_income_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "employee_name"
-    t.string "clerk_code"
-    t.string "belong_company_name"
-    t.string "belong_department_name"
-    t.string "contract_belong_company"
-    t.string "stamp_to_place"
-    t.string "stamp_comment"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "begin_task_id"
-    t.boolean "backend_in_processing"
-    t.text "bpm_message"
-    t.string "belong_company_code"
-    t.string "belong_department_code"
-    t.string "contract_belong_company_code"
-    t.string "status"
-    t.index ["user_id"], name: "index_proof_of_income_applies_on_user_id"
-  end
-
-  create_table "public_rental_housing_applies", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "employee_name"
-    t.string "clerk_code"
-    t.string "belong_company_name"
-    t.string "belong_department_name"
-    t.string "contract_belong_company"
-    t.string "stamp_to_place"
-    t.string "stamp_comment"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "begin_task_id"
-    t.boolean "backend_in_processing"
-    t.text "bpm_message"
-    t.string "belong_company_code"
-    t.string "belong_department_code"
-    t.string "contract_belong_company_code"
-    t.string "status"
-    t.index ["user_id"], name: "index_public_rental_housing_applies_on_user_id"
   end
 
   create_table "received_sms_messages", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -832,7 +727,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_054406) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "allowlisted_jwts", "users", on_delete: :cascade
   add_foreign_key "cad_operations", "users"
-  add_foreign_key "copy_of_business_license_applies", "users"
   add_foreign_key "cost_split_company_monthly_adjust_approve_details", "cost_split_company_monthly_adjusts"
   add_foreign_key "direct_question_answers", "direct_questions"
   add_foreign_key "direct_question_answers", "knowledges"
@@ -849,8 +743,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_054406) do
   add_foreign_key "part_time_split_access_codes", "users"
   add_foreign_key "position_users", "positions"
   add_foreign_key "position_users", "users"
-  add_foreign_key "proof_of_income_applies", "users"
-  add_foreign_key "public_rental_housing_applies", "users"
   add_foreign_key "report_view_histories", "users"
   add_foreign_key "split_cost_item_details", "split_cost_items"
   add_foreign_key "user_monthly_part_time_special_job_types", "position_users"

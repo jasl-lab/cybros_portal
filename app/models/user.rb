@@ -26,11 +26,6 @@ class User < ApplicationRecord
   has_many :position_users, dependent: :destroy
   has_many :positions, through: :position_users
 
-  has_many :copy_of_business_license_applies, class_name: 'Personal::CopyOfBusinessLicenseApply', dependent: :restrict_with_error
-  has_many :official_stamp_usage_applies, class_name: 'Company::OfficialStampUsageApply', dependent: :restrict_with_error
-  has_many :proof_of_employment_applies, class_name: 'Personal::ProofOfEmploymentApply', dependent: :restrict_with_error
-  has_many :proof_of_income_applies, class_name: 'Personal::ProofOfIncomeApply', dependent: :restrict_with_error
-  has_many :public_rental_housing_applies, class_name: 'Personal::PublicRentalHousingApply', dependent: :restrict_with_error
   has_many :name_card_applies, dependent: :restrict_with_error
   has_many :pending_questions, class_name: 'Company::PendingQuestion', dependent: :restrict_with_error
   has_many :owing_pending_questions, class_name: 'Company::PendingQuestion', foreign_key: :owner_id

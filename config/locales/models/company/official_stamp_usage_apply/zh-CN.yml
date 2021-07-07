@@ -1,9 +1,0 @@
----
-zh-CN:
-  activerecord:
-    errors:
-      models:
-        company/official_stamp_usage_apply:
-          attributes:
-            application_subclasses:
-              must_present: "至少需要选择一个盖章原因"

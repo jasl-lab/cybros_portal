@@ -21,15 +21,6 @@ namespace :company do
   resources :pending_questions, only: %i[index create destroy update]
   resources :direct_questions, only: %i[index create destroy]
   resource :drill_down_question, only: %i[show]
-  resources :official_stamp_usages, except: %i[edit update] do
-    member do
-      get :view_attachment
-      patch :start_approve
-    end
-    collection do
-      get :fill_application_subclasses
-    end
-  end
   resources :contracts, only: %i[index show] do
     resources :sales_contracts, only: %i[show]
   end
