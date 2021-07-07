@@ -49,7 +49,7 @@ class User < ApplicationRecord
   # Edit at URL /cost_split/set_part_time_person_costs
   has_many :user_monthly_part_time_split_rates, class_name: 'SplitCost::UserMonthlyPartTimeSplitRate'
 
-  has_many :market_entries, class_name: 'Market::UserSplitCostDetail'
+  has_many :market_entries, class_name: 'Market::MarketEntry'
 
   def self.details_mapping
     @_username_details_mapping ||= all.joins(department_users: :department)
