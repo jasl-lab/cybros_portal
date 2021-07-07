@@ -9,7 +9,7 @@ class Report::TianzhenLoginsController < Report::BaseController
     response = HTTP.cookies('bsAutoLogin' => 'BIT_TRUE',
       'bsPassword' => '',
       'bsSessionID' => Rails.application.credentials.tianzhen_admin_session_id!,
-      'bsUser' => Rails.application.credentials.yingjianke_admin_username!)
+      'bsUser' => Rails.application.credentials.tianzhen_admin_username!)
       .get(Rails.application.credentials.tianzhen_admin_web_url!)
     if response.code == 200
       html_doc = Nokogiri::HTML(response.body.to_s)

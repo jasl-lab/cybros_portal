@@ -50,12 +50,6 @@ namespace :report do
 
   resource :cost_allocation_summary_table, only: %i[show]
 
-  resources :yingjianke_logins, only: %i[index destroy] do
-    collection do
-      get :export
-    end
-  end
-
   resources :tianzhen_logins, only: %i[index]
   resources :cim_tools, only: %i[index] do
     collection do
