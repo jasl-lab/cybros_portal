@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_091713) do
+ActiveRecord::Schema.define(version: 2021_07_07_054406) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +63,14 @@ ActiveRecord::Schema.define(version: 2021_06_24_091713) do
     t.string "b_postcode"
     t.string "b_postname"
     t.integer "contract_map_access", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "borrow_workforces", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "project_item_code"
+    t.integer "approximate_cost"
+    t.text "additional_info"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -246,6 +254,16 @@ ActiveRecord::Schema.define(version: 2021_06_24_091713) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_manual_operation_access_codes_on_user_id"
+  end
+
+  create_table "market_entries", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "entryable_type"
+    t.bigint "entryable_id"
+    t.datetime "expire_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_market_entries_on_user_id"
   end
 
   create_table "monthly_salary_split_rules", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
@@ -567,6 +585,14 @@ ActiveRecord::Schema.define(version: 2021_06_24_091713) do
     t.string "from_dept_code"
   end
 
+  create_table "subcontract_tasks", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "project_item_code"
+    t.integer "approximate_cost"
+    t.text "subcontract_content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tian_zhen_login_counts", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.integer "login_count"
     t.datetime "created_at", precision: 6, null: false
@@ -814,6 +840,7 @@ ActiveRecord::Schema.define(version: 2021_06_24_091713) do
   add_foreign_key "knowledge_likes", "users"
   add_foreign_key "manual_hr_access_codes", "users"
   add_foreign_key "manual_operation_access_codes", "users"
+  add_foreign_key "market_entries", "users"
   add_foreign_key "monthly_salary_split_rules", "user_cost_types"
   add_foreign_key "monthly_salary_split_rules", "user_job_types"
   add_foreign_key "monthly_salary_split_rules", "user_salary_classifications"
