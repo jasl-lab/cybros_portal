@@ -115,6 +115,7 @@ module API
         end
 
         is_boutique = params[:is_boutique].presence && params[:is_boutique].strip
+        is_strategic = params[:is_strategic].presence && params[:is_strategic].strip
 
         business_type = params[:business_type].presence && params[:business_type].strip
         cur_business_types = if business_type.present?
@@ -185,6 +186,10 @@ module API
         if is_boutique.present?
           map_infos = map_infos.where('(isboutiqueproject IS NOT NULL AND isboutiqueproject > 0)') if is_boutique == '是'
           map_infos = map_infos.where('(isboutiqueproject IS NULL OR isboutiqueproject = 0)') if is_boutique == '否'
+        end
+        if is_strategic.present?
+          map_infos = map_infos.where('isstrategic = 1') if is_strategic == '是'
+          map_infos = map_infos.where('isstrategic != 1') if is_strategic == '否'
         end
         if keywords.present?
           map_infos = map_infos
