@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   draw :admin
   draw :company
+  draw :we_market
   draw :report
 
   namespace :person do

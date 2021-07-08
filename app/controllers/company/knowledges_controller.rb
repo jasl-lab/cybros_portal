@@ -10,11 +10,11 @@ class Company::KnowledgesController < ApplicationController
   after_action :verify_authorized
 
   def show
-    @hide_footer = true
+    @hide_we_market_footer = true
   end
 
   def index
-    @hide_footer = true
+    @hide_we_market_footer = true
     knowledges = policy_scope(Company::Knowledge.all)
     authorize knowledges
     @category_1_list = Company::Knowledge.distinct.pluck(:category_1)

@@ -1,0 +1,10 @@
+<footer class="weapp-footer-style fixed-bottom">
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+      <%= link_to '发布', we_market_posting_path, class: "nav-link pb-2 #{ controller_name == 'postings' ? 'active' : '' }", data: { 'turbolinks-action': :replace } %>
+    </li>
+    <li class="nav-item">
+      <%= link_to '个人中心', we_market_mine_path, class: "nav-link pb-2 #{ controller_name == 'mines' ? 'active' : '' }", data: { 'turbolinks-action': :replace } %>
+    </li>
+  </ul>
+</footer>

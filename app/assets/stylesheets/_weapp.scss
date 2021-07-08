@@ -1,0 +1,9 @@
+.weapp-footer-style {
+  border-top: 1px solid #dbdee0;
+
+  .nav-fill .nav-link.active {
+    margin-top: -1px;
+    border-top: 2px solid #36a9e1;
+    background-image: linear-gradient(to right, #0acffe 0%, #3F85FB 100%);
+  }
+}
