@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Company::KnowledgesController < ApplicationController
+  layout 'weapp_application'
   wechat_api
   before_action :authenticate_user!, only: :modal
   before_action :make_sure_wechat_user_login, only: %i[show index]
@@ -9,9 +10,11 @@ class Company::KnowledgesController < ApplicationController
   after_action :verify_authorized
 
   def show
+    @hide_footer = true
   end
 
   def index
+    @hide_footer = true
     knowledges = policy_scope(Company::Knowledge.all)
     authorize knowledges
     @category_1_list = Company::Knowledge.distinct.pluck(:category_1)
