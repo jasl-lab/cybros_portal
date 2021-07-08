@@ -43,13 +43,9 @@ class Report::LaborCostMonthlyAdjustsController < Report::BaseController
     month_name = params[:month_name]&.strip
     beginning_of_month = Date.parse(month_name).beginning_of_month
 
-    out_company_code = params[:out_company_code]
-    out_department_code = params[:out_department_code]
     out_position_code = params[:out_position_code]
     out_user_cost_type_id = params[:out_user_cost_type_id]
 
-    in_company_code = params[:in_company_code]
-    in_department_code = params[:in_department_code]
     in_position_code = params[:in_position_code]
     in_user_cost_type_id = params[:in_user_cost_type_id]
 
