@@ -91,15 +91,15 @@ module API
 
       def set_map_infos
         @is_commercial = policy(Bi::NewMapInfo).show?
-        province = params[:province].presence && params[:province].strip
-        city = params[:city].presence && params[:city].strip
+        province = params[:province]&.strip
+        city = params[:city]&.strip
         city = if city.present?
           city.split(',').uniq.join('|')
         else
           city
         end
-        client = params[:client].presence && params[:client].strip
-        trace_state = params[:trace_state].presence && params[:trace_state].strip
+        client = params[:client]&.strip
+        trace_state = params[:trace_state]&.strip
         trace_state = if @is_commercial && trace_state.blank?
           all_tracestates
         elsif @is_commercial && trace_state.present?
@@ -107,17 +107,17 @@ module API
         else
           '跟踪成功'
         end
-        year = params[:year].presence && params[:year].strip
+        year = params[:year]&.strip
         year = if year.blank?
           year
         else
           year.split(',')
         end
 
-        is_boutique = params[:is_boutique].presence && params[:is_boutique].strip
-        is_strategic = params[:is_strategic].presence && params[:is_strategic].strip
+        is_boutique = params[:is_boutique]&.strip
+        is_strategic = params[:is_strategic]&.strip
 
-        business_type = params[:business_type].presence && params[:business_type].strip
+        business_type = params[:business_type]&.strip
         cur_business_types = if business_type.present?
           all_business_types.select do |item|
             item[:value].is_a?(Array) ? item[:value].include?(business_type) : item[:value] === business_type
@@ -126,7 +126,7 @@ module API
           all_business_types
         end
 
-        project_type = params[:project_type].presence && params[:project_type].strip
+        project_type = params[:project_type]&.strip
         cur_project_types = if project_type.present?
           cur_business_types.collect { |item| item[:project_types] }.flatten.select do |item|
             item[:value].is_a?(Array) ? item[:value].include?(project_type) : item[:value] === project_type
@@ -135,7 +135,7 @@ module API
           cur_business_types.collect { |item| item[:project_types] }.flatten
         end
 
-        service_stage = params[:service_stage].presence && params[:service_stage].strip
+        service_stage = params[:service_stage]&.strip
         cur_service_stages = if service_stage.present?
           cur_project_types.collect { |item| item[:service_stages] }.flatten.select do |item|
             item[:value].is_a?(Array) ? item[:value].any? { |it| service_stage.split(',').include?(it) } : service_stage.split(',').include?(item[:value])
@@ -144,7 +144,7 @@ module API
           cur_project_types.collect { |item| item[:service_stages] }.flatten
         end
 
-        project_process = params[:project_process].presence && params[:project_process].strip
+        project_process = params[:project_process]&.strip
 
         big_stage = if project_process.present?
           all_project_processes.select { |item| item[:value] === project_process }.collect { |item| item[:big_stage] }.flatten.join('|')
@@ -154,10 +154,10 @@ module API
           ''
         end
 
-        company = params[:company].presence && params[:company].strip
-        department = params[:department].presence && params[:department].strip
-        scales = params[:scales].presence && params[:scales].strip
-        keywords = params[:keywords].presence && params[:keywords].strip
+        company = params[:company]&.strip
+        department = params[:department]&.strip
+        scales = params[:scales]&.strip
+        keywords = params[:keywords]&.strip
 
         map_infos = Bi::NewMapInfo.where.not(coordinate: nil)
         map_infos = map_infos.where('instr(coordinate, ?) > 0', ',')
