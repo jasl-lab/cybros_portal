@@ -5,7 +5,7 @@ class Company::KnowledgesController < ApplicationController
   before_action :authenticate_user!, only: :modal
   before_action :make_sure_wechat_user_login, only: %i[show index]
   before_action :set_knowledge, only: %i[modal show]
-  before_action :set_breadcrumbs, only: %i[index], if: -> { request.format.html? }
+  before_action :set_breadcrumbs, only: %i[index show], if: -> { request.format.html? }
   after_action :verify_authorized
 
   def show
@@ -26,9 +26,6 @@ class Company::KnowledgesController < ApplicationController
     knowledges = knowledges.where(category_1: params[:category_1]) if params[:category_1].present?
     knowledges = knowledges.where('question LIKE ?', "%#{params[:question]}%") if params[:question].present?
     @knowledges = knowledges.page(params[:page]).per(my_per_page)
-  end
-
-  def modal
   end
 
   private
